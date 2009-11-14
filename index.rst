@@ -3,8 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pydagogue's documentation!
-=====================================
+Welcome to Pydagogue
+====================
+
+Pydagogue is a collection of tutorials that I wrote for myself to
+understand how to use and think in Python.
 
 Contents:
 
@@ -13,6 +16,8 @@ Contents:
 
    decorating_for_dummies
    decorating_for_smart_people
+   introducing_unicode
+   python_unicode
 
 Indices and tables
 ==================

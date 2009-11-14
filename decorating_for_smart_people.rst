@@ -1,10 +1,10 @@
 .. _decorating-for-smart-people:
 
-(with thanks to Fernando Perez for setting me straight on this stuff - see http://mail.scipy.org/pipermail/ipython-dev/2009-September/005500.html)
-
 ==============================
  What is a decorator, really?
 ==============================
+
+(with thanks to Fernando Perez for setting me straight on this stuff - see http://mail.scipy.org/pipermail/ipython-dev/2009-September/005500.html)
 
 You may want to have a look at the Python docs:
 
