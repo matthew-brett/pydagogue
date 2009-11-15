@@ -104,6 +104,8 @@ decimal representation of octal 1D11A.  The difference between the two
 builds can mean some oddness in slicing strings... (as noted in
 http://www.python.org/dev/peps/pep-0261/).
 
+Recent discussion about UCS-2, UCS-4 and Python 3 here: http://mail.python.org/pipermail/python-dev/2008-July/080886.html
+
 Relevant python modules and commands
 ------------------------------------
 
