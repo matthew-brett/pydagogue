@@ -14,6 +14,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   foundation
    decorating_for_dummies
    decorating_for_smart_people
    introducing_unicode

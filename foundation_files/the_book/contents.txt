@@ -1,0 +1,6 @@
+Contents of The Book
+====================
+
+#. Chapter1 - how it all started
+#. Chapter2 - some stories about what happened next
+#. Chapter3 - things we did wrong and wish we hadn't
