@@ -90,6 +90,6 @@ doctest:
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in _build/doctest/output.txt."
 
-public_html: html
-	rsync -avH --delete _build/html/* $(WWW)/
-
+# special target to host the docs for now...
+gh-pages: html
+	./gh-pages.py

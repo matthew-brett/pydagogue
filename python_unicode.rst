@@ -7,14 +7,13 @@ See :ref:`introducing-unicode` for an introduction to Unicode.
 
 See also:
 
+* http://docs.python.org/howto/unicode.html
 * http://effbot.org/zone/unicode-objects.htm
-* http://www.jorendorff.com/articles/unicode/python.html
 * http://wiki.python.org/moin/Unicode
 
 Python supports unicode with unicode strings::
 
    s = u'Hello world'
-
 
 There are various ways of inputing characters you cannot type at your
 prompt.  The simplest is to give the unicode code point in octal::
@@ -50,11 +49,9 @@ http://docs.python.org/lib/standard-encodings.html
 
    raw_str = question.encode('utf-16')
 
-
 To get a unicode string from text that has been encoded::
 
    question = raw_str.decode('utf-8')
-
 
 Python internal encoding of unicode strings
 -------------------------------------------
@@ -104,7 +101,8 @@ decimal representation of octal 1D11A.  The difference between the two
 builds can mean some oddness in slicing strings... (as noted in
 http://www.python.org/dev/peps/pep-0261/).
 
-Recent discussion about UCS-2, UCS-4 and Python 3 here: http://mail.python.org/pipermail/python-dev/2008-July/080886.html
+Recent discussion about UCS-2, UCS-4 and Python 3 here:
+http://mail.python.org/pipermail/python-dev/2008-July/080886.html
 
 Relevant python modules and commands
 ------------------------------------
@@ -134,6 +132,6 @@ Builtins
 Exceptions:
 ===========
 
-* !UnicodeEncodeError
+* UnicodeEncodeError
 
 

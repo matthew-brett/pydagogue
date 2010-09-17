@@ -6,8 +6,8 @@
 Welcome to Pydagogue
 ====================
 
-Pydagogue is a collection of tutorials that I wrote for myself to
-understand how to use and think in Python.
+Pydagogue is a collection of tutorials that came to me while working on python
+things like nipy_. 
 
 Contents:
 
@@ -27,3 +27,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. _nipy: http://nipy.org

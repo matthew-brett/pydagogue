@@ -7,6 +7,9 @@ A collection of links and some very basic introduction.
 
 For some information on Unicode in Python, see :ref:`python-unicode`.
 
+For a good programmer's introduction see:
+http://www.joelonsoftware.com/articles/Unicode.html
+
 Unicode
 -------
 
