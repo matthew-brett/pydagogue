@@ -97,6 +97,10 @@ I now have::
     │       └── files
     │           ├── chapter1.txt
     │           └── contents.txt
+    ├── something_about_eve.txt
+    ├── chapter2.txt
+    ├── chapter1.txt
+    └── contents.txt
 
 
 As I work, I decide what I'm going to put into tonight's snapshot.  For example,
@@ -113,7 +117,6 @@ do something like (Unix again)::
     mkdir .ahole/year0-jan-02
     mkdir .ahole/year0-jan-02/files
     cp .ahole/staging_area/* .ahole/year0-jan-02/files 
-    rm .ahole/staging_area/*
 
 I end up with a directory that looks like this::
 
@@ -124,6 +127,10 @@ I end up with a directory that looks like this::
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
+    │   ├─── staging_area
+    │   │    ├── chapter2.txt
+    │   │    ├── chapter1.txt 
+    │   │    └── contents.txt
     │   └── year0-jan-01
     │       └── files
     │           ├── chapter1.txt
@@ -202,6 +209,10 @@ conversation, my directory looked like this::
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
+    │   ├─── staging_area
+    │   │    ├── chapter2.txt
+    │   │    ├── chapter1.txt 
+    │   │    └── contents.txt
     │   ├── year0-jan-02
     │   │   └── files
     │   │       ├── chapter2.txt
@@ -226,6 +237,10 @@ but now we've worked out the new way, it looks like this::
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
+    │   ├─── staging_area
+    │   │    ├── chapter2.txt
+    │   │    ├── chapter1.txt 
+    │   │    └── contents.txt
     │   ├── 7ef41f
     │   │   ├── info.txt
     │   │   └── files
@@ -259,6 +274,10 @@ Meanwhile, Eve's directory looks like this::
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
+    │   ├─── staging_area
+    │   │    ├── chapter2.txt
+    │   │    ├── chapter1.txt 
+    │   │    └── contents.txt
     │   ├── 7ef41f
     │   │   ├── info.txt
     │   │   └── files
@@ -299,10 +318,8 @@ So now, we have a new procedure for our commit.  In outline it looks like this
        # Make a new directory in ahole with the new unique name 
        commit_dir = '.ahole/' + new_id
        mkdir(commit_dir)
-       mkdir(commit_dir + '/files')
-       # Copy the files from the staging area to the new directory
-       # command example: 'cp .ahole/staging_area/* .ahole/7ef41f/files'
-       system_call('cp .ahole/staging_area/* ' + commit_dir + '/files')
+       # Copy the files from the staging area to the new snapshot directory
+       copytree('.ahole/staging_area', commit_dir + '/files')
        # Get previous (parent) commit id from .ahole/HEAD 
        head_id = file('.ahole/HEAD').read()
        # Make info.txt with parent set to HEAD
@@ -316,15 +333,17 @@ So now, we have a new procedure for our commit.  In outline it looks like this
        file('.ahole/HEAD', 'w').write(new_id)
 
 When we want to go back to an earlier state of the book, we can do a
-*checkout*, with something like:: 
+*checkout*, with something like [#checkout_imports]_:: 
 
    def ahole_checkout(commit_id):
-      commit_dir = '.ahole/' + commit_id
-      # copy .ahole/$commit_id/files into working tree
-      # command example: 'cp .ahole/7ef41f/files .'
-      system_call('cp ' + commit_dir + '/files/* .')
-      # make .ahole/HEAD contain commit_id
-      file('.ahole/HEAD', 'w').write(commit_id)
+       commit_dir = '.ahole/' + commit_id
+       # copy .ahole/$commit_id/files into working tree
+       copy_working_tree_from(commit_dir + '/files')
+       # make .ahole/HEAD contain commit_id
+       file('.ahole/HEAD', 'w').write(commit_id)
+       # copy commit snapshot into staging area
+       rmtree('.ahole/staging_area')
+       copytree(commit_dir + '/files', '.ahole/staging_area')
 
 So, when we run ``ahole_checkout('7ef41f`)`` we will get the copy of the working
 tree corresponging to ``7ef41f``, and ``.ahole/HEAD`` will just contain the
@@ -396,10 +415,8 @@ new commit id.  So, I need to modify my commit procedure slightly::
        # Make a new directory in ahole with the new unique name 
        commit_dir = '.ahole/' + new_id
        mkdir(commit_dir)
-       mkdir(commit_dir + '/files')
-       # Copy the files from the staging area to the new directory
-       # command example: 'cp .ahole/staging_area/* .ahole/7ef41f/files'
-       system_call('cp .ahole/staging_area/* ' + commit_dir + '/files')
+       # Copy the files from the staging area to the new snapshot directory
+       copytree('.ahole/staging_area', commit_dir + '/files')
        # Make info.txt with parent set to HEAD
        info_file = file(commit_dir + '/info.txt', 'w')
        info_file.write('committer = ' + committer + '\n')
@@ -443,8 +460,7 @@ get the current version with the normal checkout procedure::
 Finally, I'll have to set ``.ahole/HEAD`` to be ``ref: refs/heads/master``.  All
 good.
 
-Of course, I could automate this, by modifying my checkout procedure slightly
-[#add_listdir]_ ::
+Of course, I could automate this, by modifying my checkout procedure slightly::
 
    def ahole_checkout(commit_reference):
       # If this is a reference, dereference
@@ -463,8 +479,7 @@ Of course, I could automate this, by modifying my checkout procedure slightly
           commit_id = commit_reference
       commit_dir = '.ahole/' + commit_id
       # copy .ahole/$commit_id/files into working tree
-      # command example: 'cp .ahole/7ef41f/files .'
-      system_call('cp ' + commit_dir + '/files/* .')
+      copy_working_tree_from(commit_dir + '/files')
       # make ahole/HEAD point to commit id
       if head_reference:
           # Point HEAD at head reference
@@ -473,6 +488,9 @@ Of course, I could automate this, by modifying my checkout procedure slightly
           file('.ahole/refs/heads/' + commit_reference, 'w').write(commit_id)
       else:
           file('.ahole/HEAD', 'w').write(commit_id)
+      # copy commit snapshot into staging area
+      rmtree('.ahole/staging_area')
+      copytree(commit_dir + '/files', '.ahole/staging_area')
 
 What then, is the difference, between a *tag* - like our release - and the
 moving target like 'master'?  The 'tag' is a *static* reference - it does not
@@ -930,18 +948,39 @@ from that apple tree.
 
       from os import mkdir
       from datetime import date
-      import subprocess
-       
-      def system_call(cmd):
-          subprocess.call(cmd, shell=True)
- 
-    as well as some definition of ``make_unique_id()``.
+      from shutil import rmtree, copytree
 
-.. [#add_listdir] You'll notice we added the python ``listdir`` command, from::
+    We also need some definition of ``make_unique_id()``.
+
+.. [#checkout_imports] The checkout needs some new python definitions.  We need
+   some basic imports::
 
       from os import listdir
+      from os.path import isfile, isdir
+      from shutil import copytree, rmtree
 
-    .
+    We also need a very simple custom command for copying files into the working
+    tree, like this::
+
+      def copy_working_tree_from(src_dir):
+          # Delete everything in working tree except .ahole
+          from os import remove as remove_file
+          from shutil import copy as copy_file
+          for name in listdir('.'):
+              if name == '.ahole':
+                  pass
+              elif isfile(name):
+                  remove_file(name)
+              elif isdir(name):
+                  rmtree(name)
+          # Copy everything in src_dir to working tree
+          for name in listdir(src_dir):
+              from_name = src_dir + '/' + name
+              if isfile(from_name):
+                  copy(from_name, name)
+              elif isdir(from_name):
+                  copytree(from_name, name)
+ 
 
 .. [#need_hashlib] Now you need to add::
 
