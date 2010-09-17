@@ -318,32 +318,35 @@ So now, we have a new procedure for our commit.  In outline it looks like this
        # Make a new directory in ahole with the new unique name 
        commit_dir = '.ahole/' + new_id
        mkdir(commit_dir)
+       mkdir(commit_dir + '/files')
        # Copy the files from the staging area to the new snapshot directory
-       copytree('.ahole/staging_area', commit_dir + '/files')
+       copy_tree('.ahole/staging_area', commit_dir + '/files')
        # Get previous (parent) commit id from .ahole/HEAD 
        head_id = file('.ahole/HEAD').read()
        # Make info.txt with parent set to HEAD
+       info_str = 'committer = ' + committer + '\n'
+       info_str += 'message = ' + message + '\n'
+       info_str += 'date = ' + date.today() + '\n'
+       info_str += 'parent = ' + head_id + '\n'
        info_file = file(commit_dir + '/info.txt', 'w')
-       info_file.write('committer = ' + committer + '\n')
-       info_file.write('message = ' + message + '\n')
-       info_file.write('date = ' + date.today() + '\n')
-       info_file.write('parent = ' + head_id + '\n')
+       info_file.write(info_str)
        info_file.close()
        # Set .ahole/HEAD to contain new commit id
        file('.ahole/HEAD', 'w').write(new_id)
 
 When we want to go back to an earlier state of the book, we can do a
-*checkout*, with something like [#checkout_imports]_:: 
+*checkout*, with something like::
 
    def ahole_checkout(commit_id):
        commit_dir = '.ahole/' + commit_id
        # copy .ahole/$commit_id/files into working tree
-       copy_working_tree_from(commit_dir + '/files')
+       delete_tree('.')
+       copy_tree(commit_dir + '/files', '.')
        # make .ahole/HEAD contain commit_id
        file('.ahole/HEAD', 'w').write(commit_id)
        # copy commit snapshot into staging area
-       rmtree('.ahole/staging_area')
-       copytree(commit_dir + '/files', '.ahole/staging_area')
+       delete_tree('.ahole/staging_area')
+       copy_tree(commit_dir + '/files', '.ahole/staging_area')
 
 So, when we run ``ahole_checkout('7ef41f`)`` we will get the copy of the working
 tree corresponging to ``7ef41f``, and ``.ahole/HEAD`` will just contain the
@@ -415,14 +418,16 @@ new commit id.  So, I need to modify my commit procedure slightly::
        # Make a new directory in ahole with the new unique name 
        commit_dir = '.ahole/' + new_id
        mkdir(commit_dir)
+       mkdir(commit_dir + '/files')
        # Copy the files from the staging area to the new snapshot directory
-       copytree('.ahole/staging_area', commit_dir + '/files')
+       copy_tree('.ahole/staging_area', commit_dir + '/files')
        # Make info.txt with parent set to HEAD
+       info_str = 'committer = ' + committer + '\n'
+       info_str += 'message = ' + message + '\n'
+       info_str += 'date = ' + date.today() + '\n'
+       info_str += 'parent = ' + head_id + '\n'
        info_file = file(commit_dir + '/info.txt', 'w')
-       info_file.write('committer = ' + committer + '\n')
-       info_file.write('message = ' + message + '\n')
-       info_file.write('date = ' + date.today() + '\n')
-       info_file.write('parent = ' + head_id + '\n')
+       info_file.write(info_str)
        info_file.close()
        # Set the file that points to the current commit, to point to our commit
        # *** a little new, in that we might be writing to .ahole/HEAD, or
@@ -479,7 +484,8 @@ Of course, I could automate this, by modifying my checkout procedure slightly::
           commit_id = commit_reference
       commit_dir = '.ahole/' + commit_id
       # copy .ahole/$commit_id/files into working tree
-      copy_working_tree_from(commit_dir + '/files')
+      delete_tree('.')
+      copy_tree(commit_dir + '/files', '.')
       # make ahole/HEAD point to commit id
       if head_reference:
           # Point HEAD at head reference
@@ -489,8 +495,8 @@ Of course, I could automate this, by modifying my checkout procedure slightly::
       else:
           file('.ahole/HEAD', 'w').write(commit_id)
       # copy commit snapshot into staging area
-      rmtree('.ahole/staging_area')
-      copytree(commit_dir + '/files', '.ahole/staging_area')
+      delete_tree('.ahole/staging_area')
+      copy_tree(commit_dir + '/files', '.ahole/staging_area')
 
 What then, is the difference, between a *tag* - like our release - and the
 moving target like 'master'?  The 'tag' is a *static* reference - it does not
@@ -943,44 +949,41 @@ from that apple tree.
 .. [#ahole_git] ``ahole`` might seem a bit rude to you, but I was born in the UK, and,
      where I come from, 'ahole' is roughly as rude as 'git'. 
 
-.. [#commit_imports] In case you are interested, for the commit code to actually
-    run, you would need the prior python commands::
+.. [#commit_imports] In case you are interested, for the commit and checkout
+   code to actually run, you would need some python definitions.  First some
+   standard python imports::
 
-      from os import mkdir
       from datetime import date
-      from shutil import rmtree, copytree
+      from os import mkdir, listdir
 
-    We also need some definition of ``make_unique_id()``.
+   Then we need some simple custom commands for deleting our working tree, and
+   for copying files into the working tree::
 
-.. [#checkout_imports] The checkout needs some new python definitions.  We need
-   some basic imports::
-
-      from os import listdir
+      from os import remove
       from os.path import isfile, isdir
-      from shutil import copytree, rmtree
+      from shutil import copyfile, copytree, rmtree
 
-    We also need a very simple custom command for copying files into the working
-    tree, like this::
-
-      def copy_working_tree_from(src_dir):
-          # Delete everything in working tree except .ahole
-          from os import remove as remove_file
-          from shutil import copy as copy_file
-          for name in listdir('.'):
-              if name == '.ahole':
-                  pass
-              elif isfile(name):
-                  remove_file(name)
+      def delete_tree(path):
+          # Delete everything in path unless it's an '.ahole' directory
+          for name in listdir(path):
+              full_name = path + '/' + name
+              if isfile(name):
+                  remove(full_name)
               elif isdir(name):
-                  rmtree(name)
-          # Copy everything in src_dir to working tree
-          for name in listdir(src_dir):
-              from_name = src_dir + '/' + name
-              if isfile(from_name):
-                  copy(from_name, name)
-              elif isdir(from_name):
-                  copytree(from_name, name)
- 
+                  if name != '.ahole':
+                      rmtree(full_name)
+
+      def copy_tree(src_path, dst_path):
+          # Copy everything in src_path to dst_path
+          for name in listdir(src_path):
+              src_name = src_path + '/' + name
+              dst_name = dst_path + '/' + name
+              if isfile(src_name):
+                  copyfile(src_name, dst_name)
+              elif isdir(src_name):
+                  copytree(src_name, dst_name)
+
+   We also need some definition of ``make_unique_id()``.
 
 .. [#need_hashlib] Now you need to add::
 
