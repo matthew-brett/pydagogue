@@ -28,7 +28,7 @@ I start with some names.  I'm going to call this set of files that I'm working
 on, the *working tree*. Because I currently lack any shame about body issues, I
 will call my new versioning system ``ahole`` [#ahole_git]_ .
 
-I decide that what I need to do is store the state of The Book at the end of each
+I decide that I need to store the state of The Book at the end of each
 day.  To do this, I make a new directory in my working tree, called ``.ahole``.
 This directory will store The Book as it evolves into a world-wide best-seller.
 I will use the name *repository* for the contents of ``.ahole``. 
@@ -59,11 +59,11 @@ On the second day - staging and commits
 =======================================
 
 Today I do some more work on the book.   I start work on chapter 2, and, while
-I'm thinking about things, At the same time I find that I am writing some notes
-to myself about this character "Eve" that I have seen wandering around.  I save
-those notes in a file called ``something_about_eve.txt``.  When I get to the end
-of the day, I start thinking about storing my work.  At the moment, my directory
-looks like this::
+I'm thinking about things, I find that I am also writing some notes to myself
+about this character "Eve" that I have seen wandering around.  I save those
+notes in a file called ``something_about_eve.txt``.  When I get to the end of
+the day, I get ready to store my work.  At the moment, my directory looks like
+this::
 
     .
     ├── .ahole

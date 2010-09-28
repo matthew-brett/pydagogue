@@ -91,5 +91,5 @@ doctest:
 	      "results in _build/doctest/output.txt."
 
 # special target to host the docs for now...
-gh-pages: html
+gh-pages:
 	./gh-pages.py
