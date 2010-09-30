@@ -214,11 +214,13 @@ that these are all in one sequence, but in fact there are two sequences, mine,
 and Eves.  We need some other way to keep track of the sequence of commits, that
 will work even if two of us are working independently.</p>
 <p>In the end we decide that we are going to give the commits some unique identifer
-string instead of the date.   We&#8217;ll store the contents of the working tree in
-the same way, in the <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory, but we&#8217;ll add a new file to each
-commit, called <tt class="docutils literal"><span class="pre">info.txt</span></tt>, that will tell us who did the commit, and when, and,
-most importantly, what the previous commit was.  We&#8217;ll call the previous commit
-the <em>parent</em>.</p>
+string instead of the date.  We might have a problem in making sure that the
+unique identifier string is actually unique, but let&#8217;s assume we can solve that
+somehow.  We&#8217;ll store the contents of the working tree in the same way as we
+have done up till now, in the <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory, but we&#8217;ll add a new file
+to each commit, called <tt class="docutils literal"><span class="pre">info.txt</span></tt>, that will tell us who did the commit, and
+when, and, most importantly, what the previous commit was.  We&#8217;ll call the
+previous commit the <em>parent</em>.</p>
 <p>Eve was right to predict that I had made my own commit today.  I&#8217;ve been happily
 working on chapter 3.  So, before our conversation, my directory looked like
 this:</p>
@@ -648,10 +650,10 @@ so she adds some photos to her working tree:</p>
 are large files.  At the moment, every time we make a commit, we&#8217;re copying all
 the files into the commit <tt class="docutils literal"><span class="pre">files</span></tt> directory to make the snapshot.  With big
 files, this is going to lead to many identical copies and lots of wasted space.</p>
-<p>Eve realizes that what we need is to be able to do, is make the commit use
-<em>references</em> to files, rather than the files themselves.  That way, when the
-commit has files that have not changed, it can just point to the unchanged
-file, rather than carrying a wasteful copy of the file.</p>
+<p>Eve realizes that what we need is to do, is make the commit use <em>references</em> to
+files, rather than the files themselves.  That way, when the commit has files
+that have not changed, it can just point to the unchanged file, rather than
+carrying a wasteful copy of the file.</p>
 <p>If the commits just store references, we need a way to store the contents of the
 files, so they can be referenced.  Maybe we could store the files for our
 snapshots in a directory, and use some sort of unique filename so that the
@@ -688,9 +690,9 @@ chapter1_discussion_version1 chapter1_discussion.txt</pre>
 │   │   ├── chapter1_discussion_version1
 │   │   └── contents_version1</pre>
 </div>
-<p>I suppose you could think of the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory as a very simple
-form of database, where the keys are the filenames, and the file contents are
-the values.</p>
+<p>We could think of the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory as a very simple form of
+database, where the keys are the filenames, and the file contents are the
+values.</p>
 <p>We think about this for a while and realize that it&#8217;s going to be annoying
 trying to find unique names to use as filenames in <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>, because
 there will be many versions of many files.  For example <tt class="docutils literal"><span class="pre">chapter1_version2</span></tt>,
