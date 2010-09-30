@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python and unicode &mdash; pydagogue v0.2 documentation</title>
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue v0.2 documentation" href="index.html" />
+    <link rel="prev" title="Introducing Unicode" href="introducing_unicode.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introducing_unicode.html" title="Introducing Unicode"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="python-and-unicode">
+<span id="python-unicode"></span><h1>Python and unicode<a class="headerlink" href="#python-and-unicode" title="Permalink to this headline">¶</a></h1>
+<p>See <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><em>Introducing Unicode</em></a> for an introduction to Unicode.</p>
+<p>See also:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/howto/unicode.html">http://docs.python.org/howto/unicode.html</a></li>
+<li><a class="reference external" href="http://effbot.org/zone/unicode-objects.htm">http://effbot.org/zone/unicode-objects.htm</a></li>
+<li><a class="reference external" href="http://wiki.python.org/moin/Unicode">http://wiki.python.org/moin/Unicode</a></li>
+</ul>
+<p>Python supports unicode with unicode strings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="s">u&#39;Hello world&#39;</span>
+</pre></div>
+</div>
+<p>There are various ways of inputing characters you cannot type at your
+prompt.  The simplest is to give the unicode code point in octal:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">question</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\u00bf</span><span class="s">Habla espa</span><span class="se">\u00f1</span><span class="s">ol?&#39;</span>  <span class="c"># ¿Habla español?</span>
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">00bf</span></tt> is the code for the inverted question mark; see
+<a class="reference external" href="http://www.unicode.org/Public/UNIDATA/UnicodeData.txt">http://www.unicode.org/Public/UNIDATA/UnicodeData.txt</a>.  Use the
+<tt class="docutils literal"><span class="pre">\u0000</span></tt> format, i.e. <tt class="docutils literal"><span class="pre">\u</span></tt> followed by 4 octal digits.  For code
+points outside the 16 bit range (outside the BMP - see
+<a class="reference internal" href="introducing_unicode.html#introducing-unicode"><em>Introducing Unicode</em></a> - use capital U and eight octal digits, like
+this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">complicated</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\U0001D11A</span><span class="s"> is musical symbol 5 line staff&#39;</span>
+</pre></div>
+</div>
+<p>See below for some complications of using these 32 bit unicode
+characters in python though.</p>
+<p>You can also use the standard unicode name (see
+<a class="reference external" href="http://www.unicode.org/Public/UNIDATA/UnicodeData.txt">http://www.unicode.org/Public/UNIDATA/UnicodeData.txt</a> ):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">less_opaque</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\N{MUSICAL SYMBOL FIVE-LINE STAFF}</span><span class="s"> is more obviously a five line staff&#39;</span>
+</pre></div>
+</div>
+<p>To create an utf-8 encoded version of a string - for example to write to a text file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">question</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\u00bf</span><span class="s">Habla espa</span><span class="se">\u00f1</span><span class="s">ol?&#39;</span>  <span class="c"># ¿Habla español?</span>
+<span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly for UTF-16, or other encodings:
+<a class="reference external" href="http://docs.python.org/lib/standard-encodings.html">http://docs.python.org/lib/standard-encodings.html</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-16&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To get a unicode string from text that has been encoded:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">question</span> <span class="o">=</span> <span class="n">raw_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="python-internal-encoding-of-unicode-strings">
+<h2>Python internal encoding of unicode strings<a class="headerlink" href="#python-internal-encoding-of-unicode-strings" title="Permalink to this headline">¶</a></h2>
+<p>Python - as of version 2.2 - either stores its unicode strings in UCS-2
+or UCS-4 format.  See <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><em>Introducing Unicode</em></a> for definitions of
+UCS-2 and UCS-4.  Which one of these it uses is dictated by a compile
+time flag such as <tt class="docutils literal"><span class="pre">-enable-unicode=ucs2</span></tt>.</p>
+<p>To tell which format your python uses:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">ucs2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxunicode</span> <span class="o">==</span> <span class="mi">65535</span>
+</pre></div>
+</div>
+<p>If ucs2 is True, you have UCS2, otherwise you have UCS4.</p>
+<p>See also:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.python.org/dev/peps/pep-0100/">http://www.python.org/dev/peps/pep-0100/</a></li>
+<li><a class="reference external" href="http://www.python.org/dev/peps/pep-0261/">http://www.python.org/dev/peps/pep-0261/</a></li>
+</ul>
+</div>
+<div class="section" id="python-and-32-bit-unicode-code-points">
+<h2>Python and 32 bit unicode code points<a class="headerlink" href="#python-and-32-bit-unicode-code-points" title="Permalink to this headline">¶</a></h2>
+<p>If you have a UCS-2 build of python, and want to use a 32 bit code
+point, then some oddness occurs:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">complicated</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\U0001D11A</span><span class="s"> &#39;</span>
+<span class="k">print</span> <span class="nb">ord</span><span class="p">(</span><span class="n">complicated</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span> <span class="nb">ord</span><span class="p">(</span><span class="n">complicated</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>On a UCS-2 build the above gives you:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">55348</span>
+<span class="mi">56602</span>
+</pre></div>
+</div>
+<p>In this case, the 32 bit value has been represented by two 16 bit values - a <strong>surrogate pair</strong> - see <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><em>Introducing Unicode</em></a>.</p>
+<p>On a UCS-4 build you get:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">119066</span>
+<span class="mi">32</span>
+</pre></div>
+</div>
+<p>which might have been more what you were expecting - 119066 is the
+decimal representation of octal 1D11A.  The difference between the two
+builds can mean some oddness in slicing strings... (as noted in
+<a class="reference external" href="http://www.python.org/dev/peps/pep-0261/">http://www.python.org/dev/peps/pep-0261/</a>).</p>
+<p>Recent discussion about UCS-2, UCS-4 and Python 3 here:
+<a class="reference external" href="http://mail.python.org/pipermail/python-dev/2008-July/080886.html">http://mail.python.org/pipermail/python-dev/2008-July/080886.html</a></p>
+</div>
+<div class="section" id="relevant-python-modules-and-commands">
+<h2>Relevant python modules and commands<a class="headerlink" href="#relevant-python-modules-and-commands" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/lib/module-codecs.html">codecs</a></li>
+<li><a class="reference external" href="http://docs.python.org/lib/module-unicodedata.html">unicodedata</a></li>
+<li><a class="reference external" href="http://docs.python.org/lib/module-locale.html">locale</a> (locale.getdefaultlocale)</li>
+<li><a class="reference external" href="http://docs.python.org/lib/module-re.html">regular expressions</a> - (?u) flag, re.UNICODE</li>
+<li><a class="reference external" href="http://docs.python.org/lib/standard-encodings.html">standard encodings</a></li>
+<li>encodings - e.g. <tt class="docutils literal"><span class="pre">encodings.getaliases()</span></tt></li>
+</ul>
+</div>
+<div class="section" id="string-methods">
+<h1>String methods<a class="headerlink" href="#string-methods" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>encode</li>
+<li>decode</li>
+</ul>
+</div>
+<div class="section" id="builtins">
+<h1>Builtins<a class="headerlink" href="#builtins" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>unichr - unicode equivalent of <tt class="docutils literal"><span class="pre">chr</span></tt></li>
+<li>unicode - constructor for unicode strings</li>
+</ul>
+</div>
+<div class="section" id="exceptions">
+<h1>Exceptions:<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>UnicodeEncodeError</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python and unicode</a><ul>
+<li><a class="reference internal" href="#python-internal-encoding-of-unicode-strings">Python internal encoding of unicode strings</a></li>
+<li><a class="reference internal" href="#python-and-32-bit-unicode-code-points">Python and 32 bit unicode code points</a></li>
+<li><a class="reference internal" href="#relevant-python-modules-and-commands">Relevant python modules and commands</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+<li><a class="reference internal" href="#string-methods">String methods</a></li>
+<li><a class="reference internal" href="#builtins">Builtins</a></li>
+<li><a class="reference internal" href="#exceptions">Exceptions:</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introducing_unicode.html"
+                        title="previous chapter">Introducing Unicode</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/python_unicode.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="introducing_unicode.html" title="Introducing Unicode"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

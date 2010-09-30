@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What is a decorator? &mdash; pydagogue v0.2 documentation</title>
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue v0.2 documentation" href="index.html" />
+    <link rel="next" title="What is a decorator, really?" href="decorating_for_smart_people.html" />
+    <link rel="prev" title="Git foundations" href="foundation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="decorating_for_smart_people.html" title="What is a decorator, really?"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="foundation.html" title="Git foundations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-is-a-decorator">
+<span id="decorating-for-dummies"></span><h1>What is a decorator?<a class="headerlink" href="#what-is-a-decorator" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>A decorator is</dt>
+<dd>a function, that takes a function as input, and returns a
+function</dd>
+</dl>
+<p>What is a decorator again?</p>
+<dl class="docutils">
+<dt>A decorator is</dt>
+<dd>a function, that takes a function as input, and returns a
+function</dd>
+</dl>
+<p>Is that really what a decorator is?</p>
+<p>No, it isn&#8217;t (see <a class="reference internal" href="decorating_for_smart_people.html#decorating-for-smart-people"><em>What is a decorator, really?</em></a>) but it is almost
+always what a decorator is.  So, for now, let&#8217;s pretend.  Honestly, it
+will help.</p>
+<p>Here&#8217;s an example of a simple decorator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mydec</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Am preparing the function&#39;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">_decorating_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s">&#39;I am running the original function&#39;</span>
+<span class="gp">... </span>        <span class="n">val</span> <span class="o">=</span> <span class="n">original_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s">&#39;I am returning the value from the original function&#39;</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">val</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Done preparing, returning new function&#39;</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">_decorating_function</span>
+</pre></div>
+</div>
+<p>Note that <tt class="docutils literal"><span class="pre">mydec</span></tt> takes a function as input, and returns a
+function as output.</p>
+<p>Now, let&#8217;s say we have some function <tt class="docutils literal"><span class="pre">f1</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">20</span>
+</pre></div>
+</div>
+<p>We can decorate it with our decorator.  You&#8217;ll see the decoration
+happening in the output below.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+<span class="go">Am preparing the function</span>
+<span class="go">Done preparing, returning new function</span>
+</pre></div>
+</div>
+<p>Now, running the decorated function (<tt class="docutils literal"><span class="pre">f2</span></tt>) reveals the print
+statements we put in, in the new function, that the decorator returned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">I am running the original function</span>
+<span class="go">I am returning the value from the original function</span>
+<span class="go">20</span>
+</pre></div>
+</div>
+<p>This is all very ordinary Python.  But, as of Python 2.4, there is a
+special syntax for applying a decorator to a function being
+defined.  It uses the <tt class="docutils literal"><span class="pre">&#64;</span></tt> symbol.  We can use our decorator like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mydec</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">20</span>
+<span class="gp">...</span>
+<span class="go">Am preparing the function</span>
+<span class="go">Done preparing, returning new function</span>
+</pre></div>
+</div>
+<p>Running it shows our print statements again:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">I am running the original function</span>
+<span class="go">I am returning the value from the original function</span>
+<span class="go">40</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">&#64;</span></tt> is just a syntax addition, and does exactly the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">20</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f3</span><span class="p">)</span>
+<span class="go">Am preparing the function</span>
+<span class="go">Done preparing, returning new function</span>
+</pre></div>
+</div>
+<p>which gives exactly the same result as we saw above</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">I am running the original function</span>
+<span class="go">I am returning the value from the original function</span>
+<span class="go">40</span>
+</pre></div>
+</div>
+<p>Using decorators with the <tt class="docutils literal"><span class="pre">&#64;</span></tt> syntax can be more complicated.</p>
+<p>The &#8216;&#64;&#8217; syntax allows you to put in an <em>expression</em>  that returns a
+decorator.  Obviously, above, the expression <tt class="docutils literal"><span class="pre">'mydec'</span></tt> returns the
+decorating function <tt class="docutils literal"><span class="pre">mydec</span></tt>. But, you can also enter a more
+complicated expression that returns a decorator.  A decorator is:</p>
+<div class="highlight-python"><pre>a function, that takes a function as input, and returns a
+function</pre>
+</div>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dec_maker</span><span class="p">(</span><span class="n">scale_by</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c"># This function, returns a decorator</span>
+<span class="gp">... </span>    <span class="c"># A decorator is: a function, that takes a function as</span>
+<span class="gp">... </span>    <span class="c">#    input, and returns a function</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;About to make the decorator&#39;</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">actual_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s">&#39;Applying the actual decorator&#39;</span>
+<span class="gp">... </span>        <span class="k">def</span> <span class="nf">_decorated_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">print</span> <span class="s">&#39;Running decorated func&#39;</span>
+<span class="gp">... </span>            <span class="n">val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="gp">... </span>            <span class="k">print</span> <span class="s">&#39;Scaling original return value by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">scale_by</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="n">val</span> <span class="o">*</span> <span class="n">scale_by</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="n">_decorated_func</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">actual_decorator</span>
+</pre></div>
+</div>
+<p>Without the <tt class="docutils literal"><span class="pre">&#64;</span></tt> syntax, you could use <tt class="docutils literal"><span class="pre">dec_maker</span></tt> like this</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resulting_decorator</span> <span class="o">=</span> <span class="n">dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">About to make the decorator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span> <span class="o">=</span> <span class="n">resulting_decorator</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+<span class="go">Applying the actual decorator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">Running decorated func</span>
+<span class="go">Scaling original return value by 100</span>
+<span class="go">2000</span>
+</pre></div>
+</div>
+<p>The &#64; equivalent is this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">f4</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">10</span>
+<span class="gp">...</span>
+<span class="go">About to make the decorator</span>
+<span class="go">Applying the actual decorator</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">Running decorated func</span>
+<span class="go">Scaling original return value by 100</span>
+<span class="go">2000</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="foundation.html"
+                        title="previous chapter">Git foundations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decorating_for_smart_people.html"
+                        title="next chapter">What is a decorator, really?</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/decorating_for_dummies.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="decorating_for_smart_people.html" title="What is a decorator, really?"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="foundation.html" title="Git foundations"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

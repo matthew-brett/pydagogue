@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introducing Unicode &mdash; pydagogue v0.2 documentation</title>
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue v0.2 documentation" href="index.html" />
+    <link rel="next" title="Python and unicode" href="python_unicode.html" />
+    <link rel="prev" title="What is a decorator, really?" href="decorating_for_smart_people.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="python_unicode.html" title="Python and unicode"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="decorating_for_smart_people.html" title="What is a decorator, really?"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introducing-unicode">
+<span id="id1"></span><h1>Introducing Unicode<a class="headerlink" href="#introducing-unicode" title="Permalink to this headline">¶</a></h1>
+<p>A collection of links and some very basic introduction.</p>
+<p>For some information on Unicode in Python, see <a class="reference internal" href="python_unicode.html#python-unicode"><em>Python and unicode</em></a>.</p>
+<p>For a good programmer&#8217;s introduction see:
+<a class="reference external" href="http://www.joelonsoftware.com/articles/Unicode.html">http://www.joelonsoftware.com/articles/Unicode.html</a></p>
+<div class="section" id="unicode">
+<h2>Unicode<a class="headerlink" href="#unicode" title="Permalink to this headline">¶</a></h2>
+<p>Unicode is a convention that defines a unique number for a very very
+large number of possible characters in almost all known alphabets:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.unicode.org/standard/WhatIsUnicode.html">http://www.unicode.org/standard/WhatIsUnicode.html</a>.</li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Unicode">http://en.wikipedia.org/wiki/Unicode</a></li>
+</ul>
+<p>The number assigned to each character is referred to as the <strong>code
+point</strong>.  The <a class="reference external" href="http://www.unicode.org/">Unicode consortium</a> has the
+job of defining which code point corresponds to which character.  The
+correspondence of code points to characters is published in the Unicode
+Character Database - the latest version of which should be at
+<a class="reference external" href="http://www.unicode.org/Public/UNIDATA/">http://www.unicode.org/Public/UNIDATA/</a>.  To refer to a code point it is
+conventional to use octal - for example code point U+00E9 is the latin
+small letter e with an acute accent.</p>
+<p>The code points up to 128 (octal 7F) are identical to the ascii
+character codes; so for example <tt class="docutils literal"><span class="pre">U+0065</span></tt> is the latin letter e.</p>
+<p>Code points from 0 to 65535 (octal FFFF) represent characters in the
+Basic Multilingual Plane (BMP).  The BMP contains characters for almost
+all modern languages, including Chinese, as well as a large number of
+symbols.  Codes outside the BMP (octal 10000 and above) include some
+modern Chinese characters, various historical scripts and characters,
+and musical and mathematical symbols - see
+<a class="reference external" href="http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters">http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters</a>.</p>
+</div>
+<div class="section" id="encoding">
+<h2>Encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h2>
+<p>When these code points are represented on disk or in memory as a string,
+the string has an <strong>encoding</strong> - which specifies the relationship
+between the bytes in the string and the eventual resulting unicode code
+points.</p>
+<div class="section" id="fixed-width-encoding">
+<h3>Fixed width encoding<a class="headerlink" href="#fixed-width-encoding" title="Permalink to this headline">¶</a></h3>
+<p>Fixed width encodings are encodings with one value (16 or 32 bit) per
+unicode character.</p>
+<p>At the moment, the number range of the defined Unicode code points can
+be contained in the range of a 32 bit unsigned integer.  The simplest
+possible encoding for a string is therefore just to contain one 32 bit
+value for each character, where each 32 bit value is the code point for
+the character.  This encoding is referred to as Universal Character Set
+4 (UCS-4) or Unicode Transformation Format 32 (UTF-32):
+<a class="reference external" href="http://en.wikipedia.org/wiki/UTF-32/UCS-4">http://en.wikipedia.org/wiki/UTF-32/UCS-4</a></p>
+<p>Unicode characters above octal FFFF (and outside the BMP) are very rare,
+and so another simple way of representing almost all common unicode
+strings is to have one 16 bit value per character; this is UCS-2.
+Because it cannot encode all unicode strings, UCS-2 has become
+increasingly uncommon: <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2">http://en.wikipedia.org/wiki/UTF-16/UCS-2</a></p>
+</div>
+<div class="section" id="variable-width-encoding">
+<h3>Variable width encoding<a class="headerlink" href="#variable-width-encoding" title="Permalink to this headline">¶</a></h3>
+<p>Variable width encoding represents individual characters with different
+numbers of bytes. Thus a string representing a single code point with a
+variable width encoding could be 1 to 4 bytes long, depending on the
+code point it contained.</p>
+<p>A common encoding for unicode is UTF-8; this is standard with most Linux
+distributions and many multilingual web pages:
+<a class="reference external" href="http://en.wikipedia.org/wiki/UTF-8">http://en.wikipedia.org/wiki/UTF-8</a>.  A single unicode code point can be
+represented by up to four bytes.  Code points in the ascii range (0 to
+7F) only need one byte, so this format is very space efficient for most
+western text.</p>
+<p>UTF-16 uses one 16 bit value for characters in the BMP, but two 16 bit
+values for characters outside the BMP:
+<a class="reference external" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2">http://en.wikipedia.org/wiki/UTF-16/UCS-2</a>.  The two 16 bit values are
+referred to as a &#8216;surrogate pair&#8217; - see the <strong>surrogate pair</strong> entry in
+the Unicode glossary: <a class="reference external" href="http://www.unicode.org/glossary/#S">http://www.unicode.org/glossary/#S</a>.  UTF-16 is the
+standard encoding for modern versions of windows.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Introducing Unicode</a><ul>
+<li><a class="reference internal" href="#unicode">Unicode</a></li>
+<li><a class="reference internal" href="#encoding">Encoding</a><ul>
+<li><a class="reference internal" href="#fixed-width-encoding">Fixed width encoding</a></li>
+<li><a class="reference internal" href="#variable-width-encoding">Variable width encoding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="decorating_for_smart_people.html"
+                        title="previous chapter">What is a decorator, really?</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="python_unicode.html"
+                        title="next chapter">Python and unicode</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/introducing_unicode.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="python_unicode.html" title="Python and unicode"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="decorating_for_smart_people.html" title="What is a decorator, really?"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue v0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
