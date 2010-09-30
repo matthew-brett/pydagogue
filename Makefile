@@ -91,5 +91,5 @@ doctest:
 	      "results in _build/doctest/output.txt."
 
 # special target to host the docs for now...
-gh-pages:
-	./gh-pages.py
+gh-pages: html
+	git co gh-pages && cp -r _build/html/* . && git stage . && echo 'Commit when ready'
