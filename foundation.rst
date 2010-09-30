@@ -191,11 +191,13 @@ and Eves.  We need some other way to keep track of the sequence of commits, that
 will work even if two of us are working independently.
 
 In the end we decide that we are going to give the commits some unique identifer
-string instead of the date.   We'll store the contents of the working tree in
-the same way, in the ``files`` subdirectory, but we'll add a new file to each
-commit, called ``info.txt``, that will tell us who did the commit, and when, and,
-most importantly, what the previous commit was.  We'll call the previous commit
-the *parent*.
+string instead of the date.  We might have a problem in making sure that the
+unique identifier string is actually unique, but let's assume we can solve that
+somehow.  We'll store the contents of the working tree in the same way as we
+have done up till now, in the ``files`` subdirectory, but we'll add a new file
+to each commit, called ``info.txt``, that will tell us who did the commit, and
+when, and, most importantly, what the previous commit was.  We'll call the
+previous commit the *parent*.
 
 Eve was right to predict that I had made my own commit today.  I've been happily
 working on chapter 3.  So, before our conversation, my directory looked like
@@ -656,10 +658,10 @@ are large files.  At the moment, every time we make a commit, we're copying all
 the files into the commit ``files`` directory to make the snapshot.  With big
 files, this is going to lead to many identical copies and lots of wasted space. 
 
-Eve realizes that what we need is to be able to do, is make the commit use
-*references* to files, rather than the files themselves.  That way, when the
-commit has files that have not changed, it can just point to the unchanged
-file, rather than carrying a wasteful copy of the file.  
+Eve realizes that what we need is to do, is make the commit use *references* to
+files, rather than the files themselves.  That way, when the commit has files
+that have not changed, it can just point to the unchanged file, rather than
+carrying a wasteful copy of the file.  
 
 If the commits just store references, we need a way to store the contents of the
 files, so they can be referenced.  Maybe we could store the files for our
@@ -702,9 +704,9 @@ These references in the first column could match filenames in the
     │   │   ├── chapter1_discussion_version1
     │   │   └── contents_version1
 
-I suppose you could think of the ``.ahole/objects`` directory as a very simple
-form of database, where the keys are the filenames, and the file contents are
-the values.
+We could think of the ``.ahole/objects`` directory as a very simple form of
+database, where the keys are the filenames, and the file contents are the
+values.
 
 We think about this for a while and realize that it's going to be annoying
 trying to find unique names to use as filenames in ``.ahole/objects``, because
