@@ -1,0 +1,25 @@
+===========================
+pydagogue sphinx doc hosting
+===========================
+
+This branch is used to host builds of the pydagogue sphinx doc. The actual code
+is in the 'master' and related branches of this repo.
+
+How to build sphinx docs
+------------------------
+
+To make a new build, simply run
+::
+    $ make gh-pages
+
+or equivalently
+::
+    $ ./gh-pages.py
+
+This will create a new build of the docs tagged by 'git describe'. To
+make something tagged with 'current', simply do
+::
+    $ ./gh-pages.py current
+
+It may be a good idea to simply use 'current' for any builds of current
+development that haven't been tagged.
