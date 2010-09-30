@@ -91,7 +91,7 @@ I now have::
 
     ├── .ahole
     │   ├─── staging_area
-    │   │    ├── chapter1.txt 
+    │   │    ├── chapter1.txt
     │   │    └── contents.txt
     │   └── year0-jan-01
     │       └── files
@@ -142,7 +142,7 @@ I end up with a directory that looks like this::
 
 I decide that I'll use the name *commit* for each of the daily snapshot
 directories (``year0-jan-01`` and ``year0-jan-02``).  The action of adding files
-to the staging area, I will call *staging* files for the 'commit'.  I will use
+to the staging area, I will call *staging* files for the commit.  I will use
 the term *committing* for the action of making the snapshot directory, and
 copying the files from the staging area to the snapshot directory.
 
@@ -159,7 +159,7 @@ Eve checks out our book (reconstructs my working tree) with something like::
     cp .ahole/year0-jan-02/files/* .
 
 Now she's got the book files as I committed them last night.  She also copies
-the last commit files into the staging area, as I did:: 
+the last commit files into the staging area, as I did::
 
     ├── .ahole
     │   ├─── staging_area
@@ -167,21 +167,19 @@ the last commit files into the staging area, as I did::
     │   │    ├── chapter1.txt
     │   │    └── contents.txt
 
-She does some fine work on ``chapter1.txt``. Around the middle of the day, she
-thinks that chapter 1 is ready to back up, so she copies it to
-``.ahole/staging_area``. 
-
-and does a commit::
+She works hard on a new file ``chapter1_discussion.rst``. It's good to see she's
+enjoying the work.  As the afternoon turns to evening, she gets ready to save
+her work, so she copies ``chapter1_discussion.txt`` to ``.ahole/staging_area``.
+Now she is ready to do a commit::
 
     mkdir .ahole/year0-jan-03
     mkdir .ahole/year0-jan-03/files
-    cp -a .ahole/staging_area/* .ahole/year0-jan-03/files
+    cp .ahole/staging_area/* .ahole/year0-jan-03/files
 
-At least, that is what Eve was going to do, but Eve is smart, and she
-immediately realizes that there is a problem.  After she has done her commit,
-both of us will likely have a commit directory ``.ahole/year0-jan-03`` - but
-they will have different contents.   If she later wants to share work with me,
-that could get confusing.
+That is what Eve was going to do, but Eve is smart, and she immediately realizes
+that there is a problem.  After she has done her commit, both of us will likely
+have a commit directory ``.ahole/year0-jan-03`` - but they will have different
+contents.   If she later wants to share work with me, that could get confusing.
 
 The two of us are a little tired after all our work, and we meet for a beer.  We
 talk about it for a while.  At first we think we can just add the time to the
@@ -190,28 +188,31 @@ that's going to get messy too, because, if Eve does a commit on her computer,
 then I do a commit on mine, and she does another one on hers, the times will say
 that these are all in one sequence, but in fact there are two sequences, mine,
 and Eves.  We need some other way to keep track of the sequence of commits, that
-will work even if two of us are working independently.   
+will work even if two of us are working independently.
 
 In the end we decide that we are going to give the commits some unique identifer
 string instead of the date.   We'll store the contents of the working tree in
 the same way, in the ``files`` subdirectory, but we'll add a new file to each
 commit, called ``info.txt``, that will tell us who did the commit, and when, and,
 most importantly, what the previous commit was.  We'll call the previous commit
-the *parent*.  
+the *parent*.
 
-Eve was right to predict that I had made my own commit today.  So, before our
-conversation, my directory looked like this::
+Eve was right to predict that I had made my own commit today.  I've been happily
+working on chapter 3.  So, before our conversation, my directory looked like
+this::
 
     .
     ├── .ahole
     │   ├── year0-jan-03
     │   │   └── files
+    │   │       ├── chapter3.txt
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
     │   ├─── staging_area
+    │   │    ├── chapter3.txt
     │   │    ├── chapter2.txt
-    │   │    ├── chapter1.txt 
+    │   │    ├── chapter1.txt
     │   │    └── contents.txt
     │   ├── year0-jan-02
     │   │   └── files
@@ -223,6 +224,7 @@ conversation, my directory looked like this::
     │           ├── chapter1.txt
     │           └── contents.txt
     ├── something_about_eve.txt
+    ├── chapter3.txt
     ├── chapter2.txt
     ├── chapter1.txt
     └── contents.txt
@@ -234,12 +236,14 @@ but now we've worked out the new way, it looks like this::
     │   ├── 5d89f8
     │   │   ├── info.txt
     │   │   └── files
+    │   │       ├── chapter3.txt
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
     │   ├─── staging_area
+    │   │    ├── chapter3.txt
     │   │    ├── chapter2.txt
-    │   │    ├── chapter1.txt 
+    │   │    ├── chapter1.txt
     │   │    └── contents.txt
     │   ├── 7ef41f
     │   │   ├── info.txt
@@ -253,6 +257,7 @@ but now we've worked out the new way, it looks like this::
     │           ├── chapter1.txt
     │           └── contents.txt
     ├── something_about_eve.txt
+    ├── chapter3.txt
     ├── chapter2.txt
     ├── chapter1.txt
     └── contents.txt
@@ -271,12 +276,14 @@ Meanwhile, Eve's directory looks like this::
     │   ├── 0a01a0
     │   │   ├── info.txt
     │   │   └── files
+    │   │       ├── chapter1_discussion.txt
     │   │       ├── chapter2.txt
     │   │       ├── chapter1.txt
     │   │       └── contents.txt
     │   ├─── staging_area
+    │   │    ├── chapter1_discussion.txt
     │   │    ├── chapter2.txt
-    │   │    ├── chapter1.txt 
+    │   │    ├── chapter1.txt
     │   │    └── contents.txt
     │   ├── 7ef41f
     │   │   ├── info.txt
@@ -289,6 +296,7 @@ Meanwhile, Eve's directory looks like this::
     │       └── files
     │           ├── chapter1.txt
     │           └── contents.txt
+    ├── chapter1_discussion.txt
     ├── chapter2.txt
     ├── chapter1.txt
     └── contents.txt
@@ -323,11 +331,12 @@ So now, we have a new procedure for our commit.  In outline it looks like this
        copy_tree('.ahole/staging_area', commit_dir + '/files')
        # Get previous (parent) commit id from .ahole/HEAD 
        head_id = file('.ahole/HEAD').read()
-       # Make info.txt with parent set to HEAD
+       # Make info with parent set to HEAD
        info_str = 'committer = ' + committer + '\n'
        info_str += 'message = ' + message + '\n'
        info_str += 'date = ' + date.today() + '\n'
        info_str += 'parent = ' + head_id + '\n'
+       # Write info to info.txt file
        info_file = file(commit_dir + '/info.txt', 'w')
        info_file.write(info_str)
        info_file.close()
@@ -379,7 +388,7 @@ friends just yet, but still).  I want to be able to remember what version of the
 book I sent out.  I can make a *reference* to this commit.  I'll call this a
 *tag*.   I make a new directory in ``.ahole`` called ``refs``, and another
 directory in ``refs``, called ``tags``, and then, in
-``.ahole/refs/tags/release-0.1`` I just put '7ef41f' - a reference to the
+``.ahole/refs/tags/release-0.1`` I just put ``7ef41f`` - a reference to the
 release commit.   That way, if I ever need to go back to the version of the book
 I released, I just have to read the ``release-0.1`` file to find the commit, and
 then checkout that commit. 
@@ -426,6 +435,7 @@ new commit id.  So, I need to modify my commit procedure slightly::
        info_str += 'message = ' + message + '\n'
        info_str += 'date = ' + date.today() + '\n'
        info_str += 'parent = ' + head_id + '\n'
+       # Write info to info.txt file
        info_file = file(commit_dir + '/info.txt', 'w')
        info_file.write(info_str)
        info_file.close()
@@ -519,7 +529,7 @@ each other, we begin to realize that this *head* thing could be very useful.
 
 For example, what if one of my very small number of friends tells me that
 there's a serious conceptual error in the version of the book that I released -
-``release-0.1``?  What if I want to go back and fix it - that is - do another
+'release-0.1'.  What if I want to go back and fix it - that is - do another
 commit on top of the *released* book, instead of the version of the book that
 I'm currently working on?  I can just make a new *head*.  I'll do it like this::
 
@@ -552,7 +562,7 @@ the commit tree into the working tree, and set ``.ahole/HEAD`` to contain the
 text ``ref: refs/heads/my-new-branch``
 
 I've got my branches, but Eve will have her own branches, and this will help us
-know where each of us is working.  
+know where each of us is working.
 
 That's good, because Eve is now asking me if I can have a look at her changes,
 and whether I'll include them in my version of the book.  Unwisely I end up
@@ -636,7 +646,7 @@ so she adds some photos to her working tree::
     ├── images
     │   ├── adam_with_apple.jpg
     │   └── lion_with_lamb.jpg
-    ├── chapter3.txt
+    ├── chapter1_discussion.txt
     ├── chapter2.txt
     ├── chapter1.txt
     └── contents.txt
@@ -675,12 +685,12 @@ We could have some structure for the commits like this::
 where ``.ahole/5d89f8/file_list`` would be a list of references to files in the
 ``.ahole/objects`` directory, along with the filename that the contents has when
 reconstructed back into the snapshot.  For example, maybe ``file_list`` would
-look like this::
+have a series of (object reference, filename) pairs like this::
 
-    contents_version1 contents.txt 
-    chapter1_version1 chapter1.txt 
-    chapter2_version2 chapter2.txt 
-    chapter3_version1 chapter3.txt 
+    contents_version1            contents.txt
+    chapter1_version1            chapter1.txt
+    chapter2_version2            chapter3.txt
+    chapter1_discussion_version1 chapter1_discussion.txt
 
 These references in the first column could match filenames in the
 ``.ahole/objects`` directory::
@@ -689,7 +699,7 @@ These references in the first column could match filenames in the
     │   │   ├── chapter1_version1
     │   │   ├── chapter2_version2
     │   │   ├── chapter2_version2
-    │   │   ├── chapter3_version1
+    │   │   ├── chapter1_discussion_version1
     │   │   └── contents_version1
 
 I suppose you could think of the ``.ahole/objects`` directory as a very simple
@@ -716,12 +726,16 @@ filename (hash) that means it almost certainly contains the exact same contents.
 Eve recommends the 'SHA1' hashing algorithm, and I'm in no position to disgree
 with her.  Now we've got a unique string to use as a key for each file.  For
 example, we run the SHA1 algorithm over the current book files and we get
-these::
+these:
 
-    chapter1.txt 9e398c7cf8d56e960aa7769839cc0c38b8e12f11
-    chapter2.txt 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d
-    chapter3.txt 3c2e09cc43568f13444c075c84b047957f7995a5
-    contents.txt f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04
+========================  ========================================
+Filename                  SHA1 hash
+========================  ========================================
+chapter1.txt              9e398c7cf8d56e960aa7769839cc0c38b8e12f11
+chapter2.txt              65735b3705284cdf4a66c2e4812ca13cbaa7cd5d
+chapter1_discussion.txt   3c2e09cc43568f13444c075c84b047957f7995a5
+contents.txt              f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04
+========================  ========================================
 
 If we change the file at all, then the hash changes, and we have a new unique
 string and therefore we have a new unique filename with which to store the new
@@ -736,7 +750,7 @@ Now we have got a nice way of making the references that will go into
     │   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
     │   │   ├── 1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f (chapter2 version 1)
     │   │   ├── 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d (chapter2 version 2)
-    │   │   ├── 3c2e09cc43568f13444c075c84b047957f7995a5 (chapter3 version 1)
+    │   │   ├── 3c2e09cc43568f13444c075c84b047957f7995a5 (chapter1_discussion version 1)
     │   │   └── f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 (contents version 1)
 
 Next we create ``.ahole/5d89f8/file_list`` with one row per file in our
@@ -747,7 +761,7 @@ snapshot::
 
     9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt 
     65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt 
-    3c2e09cc43568f13444c075c84b047957f7995a5 file chapter3.txt 
+    3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt 
     f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt 
 
 Now, what about Eve's new working tree with the photos in it?  The photos are in
@@ -783,7 +797,7 @@ the root directory of our project, something like::
 
     9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
     65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
-    3c2e09cc43568f13444c075c84b047957f7995a5 file chapter3.txt
+    3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
     f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
     be242dba385bc0689be16454e959f4b64c87abce tree images      
 
@@ -838,7 +852,7 @@ done)::
 
     9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
     65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
-    3c2e09cc43568f13444c075c84b047957f7995a5 file chapter3.txt
+    3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
     f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
     be242dba385bc0689be16454e959f4b64c87abce tree images      
 
