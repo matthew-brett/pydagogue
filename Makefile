@@ -1,8 +1,6 @@
 # Makefile for Sphinx documentation
 #
 
-WWW=mb312@cirl.berkeley.edu:www/pydagogue
-
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
@@ -27,7 +25,7 @@ help:
 	@echo "  changes   to make an overview of all changed/added/deprecated items"
 	@echo "  linkcheck to check all external links for integrity"
 	@echo "  doctest   to run all doctests embedded in the documentation (if enabled)"
-	@echo "  public_html to make html pages and push up to my web space"
+	@echo "  gh-pages  to make html pages and push up to github pages"
 
 clean:
 	-rm -rf _build/*
@@ -90,6 +88,10 @@ doctest:
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in _build/doctest/output.txt."
 
-# special target to host the docs for now...
 gh-pages: html
-	git co gh-pages && cp -r _build/html/* . && git stage . && echo 'Commit when ready'
+	git co gh-pages
+	git rm -r .
+	git checkout HEAD -- .gitignore README
+	cp -r _build/html/* .
+	git stage .
+	@echo 'Commit and push when ready or git reset --hard && git checkout master to revert'
