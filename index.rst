@@ -7,7 +7,7 @@ Welcome to Pydagogue
 ====================
 
 Pydagogue is a collection of tutorials that came to me while working on python
-things like nipy_. 
+things like nipy_.
 
 Contents:
 
@@ -19,6 +19,7 @@ Contents:
    decorating_for_smart_people
    introducing_unicode
    python_unicode
+   develop_windows
 
 Indices and tables
 ==================
