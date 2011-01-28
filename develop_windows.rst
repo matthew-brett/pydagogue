@@ -9,9 +9,9 @@ semi-standard development environment for python_ packaging on windows.
 My system(s)
 ************
 
-* A standard XP installation currently running (My Computer -> Properties)
-  version 2002, service pack 3.
-* An XP running via Parallels_ on my Macbook Air
+* A standard XP installation booted directly into (My Computer -> Properties)
+  XP version 2002, service pack 3.
+* An XP running via Parallels_ on my Macbook Air with version 2002 SP3 also.
 
 ***********
 Basic setup
@@ -20,9 +20,11 @@ Basic setup
 * Install windows powershell_ . I find this a lot more convenient than the
   standard windows ``cmd`` shell; it has good command and filename completion,
   ``ls`` for directory listing, a less idiosyncratic ``cd``, and a scripting
-  language that is a lot less painful than ``cmd`` bat scripting. I believe
-  I've used version 1 and version 2 (``$Host.version``` is ``1 0 0 0`` on my
-  standard XP installation.
+  language that is a lot less painful than ``cmd`` bat scripting. I believe I've
+  used version 1 and version 2 (``$Host.version``` is ``1 0 0 0`` on my standard
+  XP installation. Don't forget to enable `quickedit mode
+  <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
+  paste.
 * Install msysgit_. In the installation, set ``git`` to be on the command path,
   but not the git bash utilities.  I set the repo to have LF endings, but the
   checked out files to have system endings. You'll see this setting offered in
@@ -52,11 +54,23 @@ Basic setup
   Restart powershell after doing this to pick up the ``GIT_SSH`` environment
   variable in particular.  We should now be able to do something like ``git
   clone git@github.com:my-name/my-repo.git`` without being asked our password
-  (pageant handles this).
-* Install editor.  I use vim_.  Actually, I used vim_ with command-t_, requiring
-  (at the moment) vim 7.2.  See below for more command-t_ goodness.
-* Install python_ - the current version.  I need this for the scripts installing the
-  personal configuration below.
+  (pageant handles this).  The first time you use this combination with a
+  particular host you may get an error like this::
+
+    The server's host key is not cached in the registry. You
+    have no guarantee that the server is the computer you
+    think it is.
+
+  If so, run *plink* manually to cache the key::
+
+    & 'C:\Program Files\PuTTY\plink.exe' git@github.com
+
+  and press ``y`` when asked.
+* Install editor.  I use vim_.  You may also want to install command-t - see
+  [#nasty-install]_.
+* Install python_ - the current version.  I need this for the scripts installing
+  the personal configuration below.  For convenience in running other things,
+  you might want to make sure python is on the path.
 * Set up personal configuration.  For me this is something like::
 
     cd c:\
@@ -71,25 +85,40 @@ Basic setup
     cd ..\myvim
     c:\Python26\python make.py vimfiles
 
-* (For my own vim comfort) Install command-t.  See the `command-t README`_.
-  Because of ruby incompatibility problems, we need to use vim_ 7.2.  Because
-  we're using this old version of vim, we also need python 2.4 installed (not
-  necessarily as default).  As of Jan 2011, we need ruby 1.8.7, and the ruby
-  devkit.  Set the install option to add ruby to the path when running the ruby
-  installer.  Unpack the devkit to ``c:\devkit``.  Start powershell and source
-  the devkit variables with ``c:\devkit\devkitvar.ps1``.  Then::
+  For using ssh inside the git bash shell, I like to add the keychain-like
+  script, by including this in my ``~/.bashrc`` file::
 
-    cd ~\vimfiles\bundle\command-t\ruby\command-t
-    ruby extconf.rb
-    make
+    # Source personal definitions
+    if [ -f "$HOME/.bash_keychain_lite" ]; then
+        . "$HOME/.bash_keychain_lite"
+    fi
+
+  where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
+  command above.
+
 
 .. _python: http://www.python.org
+.. _setuptools: http://pypi.python.org/pypi/setuptools
 .. _parallels: http://www.parallels.com
 .. _powershell: http://www.microsoft.com/powershell
-.. _mysysgit: http://code.google.com/p/msysgit
+.. _msysgit: http://code.google.com/p/msysgit
 .. _putty: http://www.chiark.greenend.org.uk/~sgtatham/putty
 .. _powershell environment variables: http://technet.microsoft.com/en-us/library/ff730964.aspx
 .. _example pypi: http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
 .. _vim: http://www.vim.org
 .. _command-t: https://wincent.com/products/command-t
 .. _command-t README: http://git.wincent.com/command-t.git/blob_plain/master:/README.txt
+
+.. rubric:: Footnotes
+
+.. [#nasty-install] command-t_ - as of January 2011, required vim 7.2.
+    See the `command-t README`_.  We need vim 7.2 because of ruby
+    incompatibility problems.  vim 7.2 uses python 2.4, so you might want that
+    installed (not necessarily as default).  We need ruby 1.8.7, and the ruby
+    devkit.  Set the install option to add ruby to the path when running the
+    ruby installer.  Unpack the devkit to ``c:\devkit``.  Start powershell and
+    source the devkit variables with ``c:\devkit\devkitvar.ps1``.  Then::
+
+        cd ~\vimfiles\bundle\command-t\ruby\command-t
+        ruby extconf.rb
+        make
