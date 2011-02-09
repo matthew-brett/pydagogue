@@ -20,6 +20,7 @@ Contents:
    introducing_unicode
    python_unicode
    develop_windows
+   develop_mac
 
 Indices and tables
 ==================

@@ -96,6 +96,8 @@ Basic setup
   where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
   command above.
 
+.. easy_install virtualenv
+   Download / install minw / msys developer system
 
 .. _python: http://www.python.org
 .. _setuptools: http://pypi.python.org/pypi/setuptools
