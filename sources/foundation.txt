@@ -167,7 +167,7 @@ the last commit files into the staging area, as I did::
     │   │    ├── chapter1.txt
     │   │    └── contents.txt
 
-She works hard on a new file ``chapter1_discussion.rst``. It's good to see she's
+She works hard on a new file ``chapter1_discussion.txt``. It's good to see she's
 enjoying the work.  As the afternoon turns to evening, she gets ready to save
 her work, so she copies ``chapter1_discussion.txt`` to ``.ahole/staging_area``.
 Now she is ready to do a commit::

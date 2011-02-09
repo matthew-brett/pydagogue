@@ -1,0 +1,236 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developing on windows &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="next" title="Developing on mac" href="develop_mac.html" />
+    <link rel="prev" title="Python and unicode" href="python_unicode.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="develop_mac.html" title="Developing on mac"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="python_unicode.html" title="Python and unicode"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developing-on-windows">
+<h1>Developing on windows<a class="headerlink" href="#developing-on-windows" title="Permalink to this headline">¶</a></h1>
+<p>This is a sketch of the steps that I (MB) went through setting up a
+semi-standard development environment for <a class="reference external" href="http://www.python.org">python</a> packaging on windows.</p>
+<div class="section" id="my-system-s">
+<h2>My system(s)<a class="headerlink" href="#my-system-s" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A standard XP installation booted directly into (My Computer -&gt; Properties)
+XP version 2002, service pack 3.</li>
+<li>An XP running via <a class="reference external" href="http://www.parallels.com">Parallels</a> on my Macbook Air with version 2002 SP3 also.</li>
+</ul>
+</div>
+<div class="section" id="basic-setup">
+<h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Install windows <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> . I find this a lot more convenient than the
+standard windows <tt class="docutils literal"><span class="pre">cmd</span></tt> shell; it has good command and filename completion,
+<tt class="docutils literal"><span class="pre">ls</span></tt> for directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting
+language that is a lot less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve
+used version 1 and version 2 (<tt class="docutils literal"><span class="pre">$Host.version`</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard
+XP installation. Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
+paste.</p>
+</li>
+<li><p class="first">Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <tt class="docutils literal"><span class="pre">git</span></tt> to be on the command path,
+but not the git bash utilities.  I set the repo to have LF endings, but the
+checked out files to have system endings. You&#8217;ll see this setting offered in
+the installation GUI - it sets <tt class="docutils literal"><span class="pre">core.autocrlf=input</span></tt> in your global git
+config.</p>
+</li>
+<li><p class="first">Install <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty">putty</a>.  Well, in fact, install all the putty utilities via the
+windows installer - including <em>plink</em> and <em>pageant</em>.  These are utilities we
+need for handling ssh authentication for git and other tools.</p>
+</li>
+<li><p class="first">Get necessary ssh keys via sftp (installed by Putty installer)</p>
+</li>
+<li><p class="first">Run <em>PUTTYgen</em> (installed by the Putty installer) to import the Unix ssh key
+into putty <tt class="docutils literal"><span class="pre">.ppk</span></tt> format.  Save <tt class="docutils literal"><span class="pre">.ppk</span></tt> in <tt class="docutils literal"><span class="pre">$HOME/.ssh</span></tt>.</p>
+</li>
+<li><p class="first">Start <em>pageant</em> (installed by putty installer).  Add <tt class="docutils literal"><span class="pre">.ppk</span></tt> key file.</p>
+</li>
+<li><p class="first">Check we can get authenticated e.g. into github with <tt class="docutils literal"><span class="pre">&quot;c:\Program</span>
+<span class="pre">files\Putty\plink</span> <span class="pre">git&#64;github.com&quot;</span></tt>.</p>
+</li>
+<li><p class="first">Set a couple of environment variables from powershell - see
+<a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <tt class="docutils literal"><span class="pre">$GIT_SSH</span></tt> to pick up
+<em>plink</em> as the ssh executable:</p>
+<div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("GIT_SSH", "C:\Program files\Putty\plink.exe", "User")</pre>
+</div>
+<p>Next we make sure that <tt class="docutils literal"><span class="pre">$HOME</span></tt> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
+appears to need it set correctly - see the <a class="reference external" href="http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg">example pypi</a> page for the
+assertion at least:</p>
+<div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("HOME", $env:USERPROFILE, "User")</pre>
+</div>
+<p>Restart powershell after doing this to pick up the <tt class="docutils literal"><span class="pre">GIT_SSH</span></tt> environment
+variable in particular.  We should now be able to do something like <tt class="docutils literal"><span class="pre">git</span>
+<span class="pre">clone</span> <span class="pre">git&#64;github.com:my-name/my-repo.git</span></tt> without being asked our password
+(pageant handles this).  The first time you use this combination with a
+particular host you may get an error like this:</p>
+<div class="highlight-python"><pre>The server's host key is not cached in the registry. You
+have no guarantee that the server is the computer you
+think it is.</pre>
+</div>
+<p>If so, run <em>plink</em> manually to cache the key:</p>
+<div class="highlight-python"><pre>&amp; 'C:\Program Files\PuTTY\plink.exe' git@github.com</pre>
+</div>
+<p>and press <tt class="docutils literal"><span class="pre">y</span></tt> when asked.</p>
+</li>
+<li><p class="first">Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.  You may also want to install command-t - see
+<a class="footnote-reference" href="#nasty-install" id="id1">[1]</a>.</p>
+</li>
+<li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
+the personal configuration below.  For convenience in running other things,
+you might want to make sure python is on the path.</p>
+</li>
+<li><p class="first">Set up personal configuration.  For me this is something like:</p>
+<div class="highlight-python"><pre>cd c:\
+mkdir code
+cd code
+mkdir dev_trees
+cd dev_trees
+git clone git@github.com:matthew-brett/myconfig.git
+git clone git@github.com:matthew-brett/myvim.git
+cd myconfig
+c:\Python26\python make.py dotfiles
+cd ..\myvim
+c:\Python26\python make.py vimfiles</pre>
+</div>
+<p>For using ssh inside the git bash shell, I like to add the keychain-like
+script, by including this in my <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file:</p>
+<div class="highlight-python"><pre># Source personal definitions
+if [ -f "$HOME/.bash_keychain_lite" ]; then
+    . "$HOME/.bash_keychain_lite"
+fi</pre>
+</div>
+<p>where the <tt class="docutils literal"><span class="pre">.bash_keychain_lite</span></tt> file arises from the <tt class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></tt>
+command above.</p>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="nasty-install" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first"><a class="reference external" href="https://wincent.com/products/command-t">command-t</a> - as of January 2011, required vim 7.2.
+See the <a class="reference external" href="http://git.wincent.com/command-t.git/blob_plain/master:/README.txt">command-t README</a>.  We need vim 7.2 because of ruby
+incompatibility problems.  vim 7.2 uses python 2.4, so you might want that
+installed (not necessarily as default).  We need ruby 1.8.7, and the ruby
+devkit.  Set the install option to add ruby to the path when running the
+ruby installer.  Unpack the devkit to <tt class="docutils literal"><span class="pre">c:\devkit</span></tt>.  Start powershell and
+source the devkit variables with <tt class="docutils literal"><span class="pre">c:\devkit\devkitvar.ps1</span></tt>.  Then:</p>
+<div class="last highlight-python"><pre>cd ~\vimfiles\bundle\command-t\ruby\command-t
+ruby extconf.rb
+make</pre>
+</div>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developing on windows</a><ul>
+<li><a class="reference internal" href="#my-system-s">My system(s)</a></li>
+<li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="python_unicode.html"
+                        title="previous chapter">Python and unicode</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="develop_mac.html"
+                        title="next chapter">Developing on mac</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/develop_windows.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="develop_mac.html" title="Developing on mac"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="python_unicode.html" title="Python and unicode"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>

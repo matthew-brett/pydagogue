@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developing on mac &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Developing on windows" href="develop_windows.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="develop_windows.html" title="Developing on windows"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developing-on-mac">
+<h1>Developing on mac<a class="headerlink" href="#developing-on-mac" title="Permalink to this headline">¶</a></h1>
+<p>Sketch of the steps to get up and running on a mac to make binary releases for
+python packages.  This is my personal setup.</p>
+<div class="section" id="my-systems">
+<h2>My systems<a class="headerlink" href="#my-systems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Macbook air first generation running Snow Leopard. <tt class="docutils literal"><span class="pre">uname</span> <span class="pre">-a</span></tt> gives <tt class="docutils literal"><span class="pre">Darwin</span>
+<span class="pre">Kernel</span> <span class="pre">Version</span> <span class="pre">10.6.0</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="basic-setup">
+<h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference external" href="http://developer.apple.com/TOOLS/xcode">Xcode</a>, obviously</p>
+</li>
+<li><p class="first"><a class="reference external" href="http://git-scm.com">git</a> - see the <a class="reference external" href="http://help.github.com/mac-git-installation">github osx installation</a></p>
+</li>
+<li><p class="first">editor.  I like <a class="reference external" href="http://www.vim.org">vim</a> - via <a class="reference external" href="https://github.com/b4winckler/macvim">macvim</a></p>
+</li>
+<li><p class="first">For every python version you want to support, download the &#8220;Mac installer disk
+image&#8221; <tt class="docutils literal"><span class="pre">dmg</span></tt> file via the links from the <a class="reference external" href="http://www.python.org/download/releases">Python.org releases</a>.  Run the
+installation.</p>
+</li>
+<li><p class="first">Check in your <tt class="docutils literal"><span class="pre">~/.bash_profile</span></tt> to see what version of python will reach
+your path first.  Adapt to taste.  Python.org installs go in directories like
+<tt class="docutils literal"><span class="pre">/Library/Frameworks/Python.framework/Versions/2.6</span></tt>. You need this directory
+with <tt class="docutils literal"><span class="pre">/bin</span></tt> appended on your path.</p>
+</li>
+<li><p class="first">For each version of python you want to support:</p>
+<blockquote>
+<div><ul class="simple">
+<li>install <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a></li>
+<li>install <a class="reference external" href="http://sourceforge.net/projects/numpy/files">numpy</a></li>
+<li>install <a class="reference external" href="http://sourceforge.net/projects/scipy/files">scipy</a></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Install personal setup:</p>
+<div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myconfig.git
+cd myconfig
+make dotfiles
+cd ..</pre>
+</div>
+<p>Then edit <tt class="docutils literal"><span class="pre">~/.bash_profile</span></tt> to add the commented lines at the top of your new
+<tt class="docutils literal"><span class="pre">~/.bash_personal</span></tt> file.  Then set up vim:</p>
+<div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myvim.git
+cd myvim
+make command-t
+make links</pre>
+</div>
+</li>
+<li><p class="first">For your favorite python version, install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a></p>
+</li>
+<li><p class="first">If you are using my config (above), you probably want my default environment
+cleanup for virtualenvs:</p>
+<div class="highlight-python"><pre>cd myconfig
+make virtualenvs</pre>
+</div>
+</li>
+<li><p class="first">Make some good virtualenvs, with commands like:</p>
+<div class="highlight-python"><pre>mkvirtualenv --distribute --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26</pre>
+</div>
+<p>If you have to do something really bare, consider the <tt class="docutils literal"><span class="pre">no-site-packages</span></tt>
+flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> command.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developing on mac</a><ul>
+<li><a class="reference internal" href="#my-systems">My systems</a></li>
+<li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="develop_windows.html"
+                        title="previous chapter">Developing on windows</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/develop_mac.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="develop_windows.html" title="Developing on windows"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>
