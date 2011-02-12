@@ -99,6 +99,34 @@ Basic setup
 .. easy_install virtualenv
    Download / install minw / msys developer system
 
+* Download and install the mingw_ windows compiler.  I used the
+  ``mingw-get-inst`` automated installation route.  Select the options giving
+  you c++, fortran, and the msys build environment.  I didn't directly add these
+  to the path, but made a script ``c:\Mingw\mingwvar.ps1``::
+
+    # convenience script to add mingw to path
+    echo "Adding mingw to PATH..."
+    $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+    $env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"
+
+  Then in powershell - ``source c:\Mingw\mingwvar.ps1`` to add the msys and
+  mingw tools to the path.
+
+* Using mingw, you might get this kind of error::
+
+    error: Setup script exited with error: Unable to find vcvarsall.bat
+
+  Of course you've already tried the standard solution to this, of the form::
+
+    python setup.py build --compiler=mingw32
+
+  If that doesn't work, you might have hit a `mingw distutils bug`_.  One
+  suggested fix is to make a ``distutils.cfg`` file in your Python distutils
+  directory (e.g.  ``C:\Python26\Lib\distutils``) with the following content::
+
+    [build]
+    compiler=mingw32
+
 .. _python: http://www.python.org
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 .. _parallels: http://www.parallels.com
@@ -110,6 +138,8 @@ Basic setup
 .. _vim: http://www.vim.org
 .. _command-t: https://wincent.com/products/command-t
 .. _command-t README: http://git.wincent.com/command-t.git/blob_plain/master:/README.txt
+.. _mingw: http://www.mingw.org/wiki/Getting_Started
+.. _mingw distutils bug: http://bugs.python.org/issue2698
 
 .. rubric:: Footnotes
 
