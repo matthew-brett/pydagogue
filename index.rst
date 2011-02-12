@@ -21,6 +21,7 @@ Contents:
    python_unicode
    develop_windows
    develop_mac
+   develop_linux
 
 Indices and tables
 ==================
