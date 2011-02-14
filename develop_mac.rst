@@ -85,32 +85,19 @@ Building windows release files with wine
 This trick comes to you courtesy of the numpy release managers - see the `numpy
 release howto`_.  The suggestion in that howto, as of February 2010 - was to use
 the `OSX wine builder`_ scripts. I've followed the instructions om the `Wine HQ
-OSX building`_ page, except that, before I ran the build, I install freetype_
-from macports_ thus::
-
-    sudo port install freetype +universal
-
-Then, after cloning the wine git repository as per the `Wine HQ OSX building`_
-page::
+OSX building`_ page for a minimal up to date build. After cloning the wine git
+repository as per the `Wine HQ OSX building`_ page::
 
     cd wine-git
     ./configure
 
-I confirmed that ``configure`` had found freetype_ with::
-
-    grep freetype config.status
-
-which gave me::
-
-    S["FREETYPEINCL"]="-I/opt/local/include/freetype2 -I/opt/local/include"
-    S["FREETYPELIBS"]="-L/opt/local/lib -lfreetype -lz"
-    S["ft_devel"]="freetype-config"
-    D["SONAME_LIBFREETYPE"]=" \"libfreetype.6.dylib\""
+I was compiling the code as of SHA1 hash
+``9e6de30f8feb8eb0a5fbbfd88f34c7358f7d6e6b``.
 
 Then the normal::
 
     make
-    make install
+    sudo make install
 
 ``make`` took over an hour on my Macbook Air.
 
