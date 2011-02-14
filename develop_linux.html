@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developing on linux &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Developing on mac" href="develop_mac.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="develop_mac.html" title="Developing on mac"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="developing-on-linux">
+<h1>Developing on linux<a class="headerlink" href="#developing-on-linux" title="Permalink to this headline">¶</a></h1>
+<p>Sketch of the steps to get up and running on linux to make binary releases for
+python packages.  This is my personal setup.</p>
+<div class="section" id="my-systems">
+<h2>My systems<a class="headerlink" href="#my-systems" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Many. Currently I&#8217;m working on an Ubuntu Lucid 64 bit system:</p>
+<div class="highlight-python"><pre>$ uname -a
+Linux angela 2.6.32-28-generic #55-Ubuntu SMP Mon Jan 10 23:42:43 UTC 2011 x86_64 GNU/Linux</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="basic-setup">
+<h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>sudo apt-get install git-core
+sudo apt-get install python-dev python-numpy python-scipy</pre>
+</div>
+<ul>
+<li><p class="first">Install personal setup:</p>
+<div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myconfig.git
+cd myconfig
+make dotfiles
+cd ..</pre>
+</div>
+<p>Then edit <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> to add the commented lines at the top of your new
+<tt class="docutils literal"><span class="pre">~/.bash_personal</span></tt> file.  Then set up vim:</p>
+<div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myvim.git
+cd myvim
+make command-t
+make links</pre>
+</div>
+</li>
+<li><p class="first">Install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a>:</p>
+<div class="highlight-python"><pre>sudo apt-get install python-virtualenv</pre>
+</div>
+<p>Then download <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a> and install thus (in the system, not to $HOME
+somewhere):</p>
+<div class="highlight-python"><pre>cd virtualenvwrapper
+sudo python setup.py install</pre>
+</div>
+<p>The obvious reason being that if you want to run virtualenvwrapper scripts,
+and you&#8217;re unsetting pointers to your local setup, then we&#8217;ll lose
+virtualenvwrapper and get errors.</p>
+</li>
+<li><p class="first">If you are using my config (above), you probably want my default environment
+cleanup for virtualenvs:</p>
+<div class="highlight-python"><pre>cd myconfig
+make virtualenvs</pre>
+</div>
+</li>
+<li><p class="first">Make some good virtualenvs, with commands like:</p>
+<div class="highlight-python"><pre>mkvirtualenv --distribute --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26</pre>
+</div>
+<p>If you have to do something really bare, consider the <tt class="docutils literal"><span class="pre">no-site-packages</span></tt>
+flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> command.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developing on linux</a><ul>
+<li><a class="reference internal" href="#my-systems">My systems</a></li>
+<li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="develop_mac.html"
+                        title="previous chapter">Developing on mac</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/develop_linux.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="develop_mac.html" title="Developing on mac"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>

@@ -26,6 +26,7 @@
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="next" title="Developing on linux" href="develop_linux.html" />
     <link rel="prev" title="Developing on windows" href="develop_windows.html" /> 
   </head>
   <body>
@@ -35,6 +36,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="develop_linux.html" title="Developing on linux"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="develop_windows.html" title="Developing on windows"
              accesskey="P">previous</a> |</li>
@@ -107,13 +111,64 @@ cleanup for virtualenvs:</p>
 make virtualenvs</pre>
 </div>
 </li>
+<li><p class="first">For packaging, download and unpack the source distribution for <a class="reference external" href="http://pypi.python.org/pypi/bdist_mpkg">bdist_mpkg</a>. I
+unpacked it into <tt class="docutils literal"><span class="pre">~/stable_trees/bdist_mpkg-0.4.4</span></tt>.</p>
+</li>
 <li><p class="first">Make some good virtualenvs, with commands like:</p>
-<div class="highlight-python"><pre>mkvirtualenv --distribute --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26</pre>
+<div class="highlight-python"><pre>mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.5/bin/python python25
+mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26
+mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.7/bin/python python27</pre>
 </div>
 <p>If you have to do something really bare, consider the <tt class="docutils literal"><span class="pre">no-site-packages</span></tt>
 flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> command.</p>
 </li>
+<li><p class="first">For each virtualenv you&#8217;re going to use (to taste):</p>
+<div class="highlight-python"><pre>workon python25
+easy_install ipython
+cd ~/stable_trees/bdist_mpkg-0.4.4
+python setup.py install</pre>
+</div>
+<p>Maybe also (this is for dipy installs):</p>
+<div class="highlight-python"><pre>easy_install nibabel
+easy_install cython</pre>
+</div>
+</li>
 </ul>
+</div>
+<div class="section" id="building-windows-release-files-with-wine">
+<h2>Building windows release files with wine<a class="headerlink" href="#building-windows-release-files-with-wine" title="Permalink to this headline">¶</a></h2>
+<p>This trick comes to you courtesy of the numpy release managers - see the <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_RELEASE.rst.txt">numpy
+release howto</a>.  The suggestion in that howto, as of February 2010 - was to use
+the <a class="reference external" href="http://code.google.com/p/osxwinebuilder/">OSX wine builder</a> scripts. I&#8217;ve followed the instructions om the <a class="reference external" href="http://wiki.winehq.org/MacOSX/Building">Wine HQ
+OSX building</a> page for a minimal up to date build. After cloning the wine git
+repository as per the <a class="reference external" href="http://wiki.winehq.org/MacOSX/Building">Wine HQ OSX building</a> page:</p>
+<div class="highlight-python"><pre>cd wine-git
+./configure</pre>
+</div>
+<p>I was compiling the code as of SHA1 hash
+<tt class="docutils literal"><span class="pre">9e6de30f8feb8eb0a5fbbfd88f34c7358f7d6e6b</span></tt>.</p>
+<p>Then the normal:</p>
+<div class="highlight-python"><pre>make
+sudo make install</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">make</span></tt> took over an hour on my Macbook Air.</p>
+<p>Thence, download the python windows binary <tt class="docutils literal"><span class="pre">msi</span></tt> installers and:</p>
+<div class="highlight-python"><pre>msiexec /i ~/Downloads/python-2.7.1.msi</pre>
+</div>
+<p>For each version of python.  Similarly numpy and scipy:</p>
+<div class="highlight-python"><pre>wine ~/Downloads/numpy-1.5.1-win32-superpack-python2.7.exe</pre>
+</div>
+<p>I put python 2.6 (my current favorite) on the path by:</p>
+<div class="highlight-python"><pre>wine regedit</pre>
+</div>
+<p>then adding string values for <tt class="docutils literal"><span class="pre">PATH</span></tt> in <tt class="docutils literal"><span class="pre">HKEY_CURRENT_USER/Environment</span></tt> - as
+suggested in the <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_RELEASE.rst.txt">numpy release howto</a>.</p>
+<p>Building python installers then can be:</p>
+<div class="highlight-python"><pre>wine cmd
+cd package_dir
+python setup.py bdist_egg</pre>
+</div>
+<p>or similar.</p>
 </div>
 </div>
 
@@ -128,6 +183,7 @@ flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></
 <li><a class="reference internal" href="#">Developing on mac</a><ul>
 <li><a class="reference internal" href="#my-systems">My systems</a></li>
 <li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+<li><a class="reference internal" href="#building-windows-release-files-with-wine">Building windows release files with wine</a></li>
 </ul>
 </li>
 </ul>
@@ -135,6 +191,9 @@ flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></
   <h4>Previous topic</h4>
   <p class="topless"><a href="develop_windows.html"
                         title="previous chapter">Developing on windows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="develop_linux.html"
+                        title="next chapter">Developing on linux</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="sources/develop_mac.txt"
@@ -163,6 +222,9 @@ flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="develop_linux.html" title="Developing on linux"
+             >next</a> |</li>
         <li class="right" >
           <a href="develop_windows.html" title="Developing on windows"
              >previous</a> |</li>

@@ -149,6 +149,34 @@ fi</pre>
 command above.</p>
 </li>
 </ul>
+<ul>
+<li><p class="first">Download and install the <a class="reference external" href="http://www.mingw.org/wiki/Getting_Started">mingw</a> windows compiler.  I used the
+<tt class="docutils literal"><span class="pre">mingw-get-inst</span></tt> automated installation route.  Select the options giving
+you c++, fortran, and the msys build environment.  I didn&#8217;t directly add these
+to the path, but made a script <tt class="docutils literal"><span class="pre">c:\Mingw\mingwvar.ps1</span></tt>:</p>
+<div class="highlight-python"><pre># convenience script to add mingw to path
+echo "Adding mingw to PATH..."
+$mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"</pre>
+</div>
+<p>Then in powershell - <tt class="docutils literal"><span class="pre">source</span> <span class="pre">c:\Mingw\mingwvar.ps1</span></tt> to add the msys and
+mingw tools to the path.</p>
+</li>
+<li><p class="first">Using mingw, you might get this kind of error:</p>
+<div class="highlight-python"><pre>error: Setup script exited with error: Unable to find vcvarsall.bat</pre>
+</div>
+<p>Of course you&#8217;ve already tried the standard solution to this, of the form:</p>
+<div class="highlight-python"><pre>python setup.py build --compiler=mingw32</pre>
+</div>
+<p>If that doesn&#8217;t work, you might have hit a <a class="reference external" href="http://bugs.python.org/issue2698">mingw distutils bug</a>.  One
+suggested fix is to make a <tt class="docutils literal"><span class="pre">distutils.cfg</span></tt> file in your Python distutils
+directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\distutils</span></tt>) with the following content:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">build</span><span class="p">]</span>
+<span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
+</pre></div>
+</div>
+</li>
+</ul>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="nasty-install" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
