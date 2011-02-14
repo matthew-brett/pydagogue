@@ -54,13 +54,88 @@ Basic setup
     cd myconfig
     make virtualenvs
 
+* For packaging, download and unpack the source distribution for bdist_mpkg_. I
+  unpacked it into ``~/stable_trees/bdist_mpkg-0.4.4``.
+
 * Make some good virtualenvs, with commands like::
 
-    mkvirtualenv --distribute --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26
+    mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.5/bin/python python25
+    mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26
+    mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.7/bin/python python27
 
   If you have to do something really bare, consider the ``no-site-packages``
   flag to the ``mkvirtualenv`` command.
 
+* For each virtualenv you're going to use (to taste)::
+
+    workon python25
+    easy_install ipython
+    cd ~/stable_trees/bdist_mpkg-0.4.4
+    python setup.py install
+
+  Maybe also (this is for dipy installs)::
+
+    easy_install nibabel
+    easy_install cython
+
+****************************************
+Building windows release files with wine
+****************************************
+
+This trick comes to you courtesy of the numpy release managers - see the `numpy
+release howto`_.  The suggestion in that howto, as of February 2010 - was to use
+the `OSX wine builder`_ scripts. I've followed the instructions om the `Wine HQ
+OSX building`_ page, except that, before I ran the build, I install freetype_
+from macports_ thus::
+
+    sudo port install freetype +universal
+
+Then, after cloning the wine git repository as per the `Wine HQ OSX building`_
+page::
+
+    cd wine-git
+    ./configure
+
+I confirmed that ``configure`` had found freetype_ with::
+
+    grep freetype config.status
+
+which gave me::
+
+    S["FREETYPEINCL"]="-I/opt/local/include/freetype2 -I/opt/local/include"
+    S["FREETYPELIBS"]="-L/opt/local/lib -lfreetype -lz"
+    S["ft_devel"]="freetype-config"
+    D["SONAME_LIBFREETYPE"]=" \"libfreetype.6.dylib\""
+
+Then the normal::
+
+    make
+    make install
+
+``make`` took over an hour on my Macbook Air.
+
+Thence, download the python windows binary ``msi`` installers and::
+
+    msiexec /i ~/Downloads/python-2.7.1.msi
+
+For each version of python.  Similarly numpy and scipy::
+
+    wine ~/Downloads/numpy-1.5.1-win32-superpack-python2.7.exe
+
+I put python 2.6 (my current favorite) on the path by::
+
+    wine regedit
+
+then adding string values for ``PATH`` in ``HKEY_CURRENT_USER/Environment`` - as
+suggested in the `numpy release howto`_.
+
+Building python installers then can be::
+
+    wine cmd
+    cd package_dir
+    python setup.py bdist_egg
+
+or similar.
 
 .. _git: http://git-scm.com
 .. _github osx installation: http://help.github.com/mac-git-installation
@@ -73,3 +148,9 @@ Basic setup
 .. _scipy: http://sourceforge.net/projects/scipy/files
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
 .. _virtualenvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper
+.. _bdist_mpkg: http://pypi.python.org/pypi/bdist_mpkg
+.. _numpy release howto: https://github.com/numpy/numpy/blob/master/doc/HOWTO_RELEASE.rst.txt
+.. _osx wine builder: http://code.google.com/p/osxwinebuilder/
+.. _wine hq osx building: http://wiki.winehq.org/MacOSX/Building
+.. _freetype: http://www.freetype.org
+.. _macports: http://www.macports.org
