@@ -96,8 +96,11 @@ Basic setup
   where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
   command above.
 
-.. easy_install virtualenv
-   Download / install minw / msys developer system
+.. _win-compile-tools:
+
+********************************
+Windows compiler and build tools
+********************************
 
 * Download and install the mingw_ windows compiler.  I used the
   ``mingw-get-inst`` automated installation route.  Select the options giving
