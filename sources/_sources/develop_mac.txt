@@ -84,45 +84,89 @@ Building windows release files with wine
 
 This trick comes to you courtesy of the numpy release managers - see the `numpy
 release howto`_.  The suggestion in that howto, as of February 2010 - was to use
-the `OSX wine builder`_ scripts. I've followed the instructions om the `Wine HQ
-OSX building`_ page for a minimal up to date build. After cloning the wine git
-repository as per the `Wine HQ OSX building`_ page::
+the `OSX wine builder`_ scripts. I'm using revision 107 of this script.
+Eventually I used this incantation::
 
-    cd wine-git
-    ./configure
+    ./osxwinebuild.sh --devel
 
-I was compiling the code as of SHA1 hash
-``9e6de30f8feb8eb0a5fbbfd88f34c7358f7d6e6b``.
+for something that more or less worked - as below.  With this option we get wine
+1.3.13.  Without the ``--devel`` option, we get wine 1.2.2 - this crashed for me
+when trying to build some extension modules.  I also tried following the
+instructions on the `Wine HQ OSX building`_ page for a minimal up to date build
+using git SHA1 commit hash ``9e6de30f8feb8eb0a5fbbfd88f34c7358f7d6e6b``.  This
+worked OK but I went back to the full ``osxwinebuild.sh --devel`` version
+because it was annoying to have bad fonts and font warnings from the bare build.
 
-Then the normal::
-
-    make
-    sudo make install
-
-``make`` took over an hour on my Macbook Air.
+After installing with ``osxwinebuild.sh``, source the suggested environment
+variables, and then maybe you'll have a working system ahead of you - as below.
 
 Thence, download the python windows binary ``msi`` installers and::
 
-    msiexec /i ~/Downloads/python-2.7.1.msi
+    msiexec /i python-2.7.1.msi
+    msiexec /i python-2.6.6.msi
+    msiexec /i python-2.5.4.msi
 
-For each version of python.  Similarly numpy and scipy::
+I then installed setuptools for each python::
 
-    wine ~/Downloads/numpy-1.5.1-win32-superpack-python2.7.exe
+    wine setuptools-0.6c11.win32-py2.7.exe
+    wine setuptools-0.6c11.win32-py2.6.exe
+    wine setuptools-0.6c11.win32-py2.5.exe
+
+Then the mingw_ tools::
+
+    wine mingw-get-inst-20110211.exe
+
+I selected to install the mingw_ development tools - these include the Msys_
+minimal development system.
+
+Similarly numpy and scipy for each version of python::
+
+    wine numpy-1.5.1-win32-superpack-python2.7.exe
+    wine numpy-1.5.1-win32-superpack-python2.6.exe
+    wine numpy-1.5.1-win32-superpack-python2.5.exe
+    wine scipy-0.9.0rc2-win32-superpack-python2.7.exe
+    wine scipy-0.8.0-win32-superpack-python2.6.exe
+    wine scipy-0.8.0-win32-superpack-python2.5.exe
+
+I used scipy 0.9.0rc2 because it was the closest to a released version that
+worked with python 2.7 at the time (Feb 2011).
 
 I put python 2.6 (my current favorite) on the path by::
 
     wine regedit
 
 then adding string values for ``PATH`` in ``HKEY_CURRENT_USER/Environment`` - as
-suggested in the `numpy release howto`_.
+suggested in the `numpy release howto`_.  Actually, I also added the mingw tools
+to the path, so my ``HKEY_CURRENT_USER/Enviromnment/PATH`` string value is::
 
-Building python installers then can be::
+    c:\Python26;C:\Python26\Scripts;C:\mingw\bin;C:\mingw\msys\1.0\bin
 
-    wine cmd
+I also set ``HKEY_CURRENT_USER/Enviromnment/HOME`` to ``C:\users\mb312`` (where
+``mb312`` is my username).
+
+Now, you may be as lucky as me, and this::
+
+    wineconsole bash
+
+gives you a perfectly reasonable bash shell operating in a windows-like
+environment.  It's a little bit flaky, but for example, I can build python
+installers with ``wineconsole bash`` followed by::
+
     cd package_dir
     python setup.py bdist_egg
 
-or similar.
+or similar.  You will probably also need to tell distutils to use the
+instructions at :ref:`win-compile-tools`.
+
+I was also using virtualenvs.  In wineconsole bash::
+
+    cd /c/
+    mkdir virtualenvs
+    cd virtualenvs
+    easy_install virtualenvs
+    virtualenv python27 --python=C:\\Python27\\python.exe
+
+and so on.
 
 .. _git: http://git-scm.com
 .. _github osx installation: http://help.github.com/mac-git-installation
@@ -141,3 +185,5 @@ or similar.
 .. _wine hq osx building: http://wiki.winehq.org/MacOSX/Building
 .. _freetype: http://www.freetype.org
 .. _macports: http://www.macports.org
+.. _mingw: http://www.mingw.org
+.. _msys: http://www.mingw.org/wiki/MSYS
