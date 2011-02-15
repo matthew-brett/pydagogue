@@ -92,17 +92,15 @@ Eventually I used this incantation::
 for something that more or less worked - as below.  With this option we get wine
 1.3.13.  Without the ``--devel`` option, we get wine 1.2.2 - this crashed for me
 when trying to build some extension modules.  I also tried following the
-instructions om the `Wine HQ OSX building`_ page for a minimal up to date build
+instructions on the `Wine HQ OSX building`_ page for a minimal up to date build
 using git SHA1 commit hash ``9e6de30f8feb8eb0a5fbbfd88f34c7358f7d6e6b``.  This
-worked OK but I went back to the full ``osxwinebuild.sh`` devel version because
-it was annoying to have bad fonts and font warnings from the bare build.
+worked OK but I went back to the full ``osxwinebuild.sh --devel`` version
+because it was annoying to have bad fonts and font warnings from the bare build.
 
 After installing with ``osxwinebuild.sh``, source the suggested environment
 variables, and then maybe you'll have a working system ahead of you - as below.
 
 Thence, download the python windows binary ``msi`` installers and::
-
-    msiexec /i ~/Downloads/python-2.7.1.msi
 
     msiexec /i python-2.7.1.msi
     msiexec /i python-2.6.6.msi
@@ -114,7 +112,7 @@ I then installed setuptools for each python::
     wine setuptools-0.6c11.win32-py2.6.exe
     wine setuptools-0.6c11.win32-py2.5.exe
 
-and the mingw_ tools::
+Then the mingw_ tools::
 
     wine mingw-get-inst-20110211.exe
 
@@ -160,7 +158,7 @@ installers with ``wineconsole bash`` followed by::
 or similar.  You will probably also need to tell distutils to use the
 instructions at :ref:`win-compile-tools`.
 
-I was also using virtualenvs.  In winconsole bash::
+I was also using virtualenvs.  In wineconsole bash::
 
     cd /c/
     mkdir virtualenvs
