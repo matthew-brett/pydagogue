@@ -77,21 +77,26 @@ cd ..</pre>
 <tt class="docutils literal"><span class="pre">~/.bash_personal</span></tt> file.  Then set up vim:</p>
 <div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myvim.git
 cd myvim
+sudo apt-get install ruby ruby-dev # for command-t
 make command-t
 make links</pre>
 </div>
 </li>
-<li><p class="first">Install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a>:</p>
-<div class="highlight-python"><pre>sudo apt-get install python-virtualenv</pre>
+</ul>
 </div>
-<p>Then download <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a> and install thus (in the system, not to $HOME
-somewhere):</p>
-<div class="highlight-python"><pre>cd virtualenvwrapper
-sudo python setup.py install</pre>
+<div class="section" id="setting-up-virtualenvs">
+<h2>Setting up virtualenvs<a class="headerlink" href="#setting-up-virtualenvs" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a>.  I did this with:</p>
+<div class="highlight-python"><pre>sudo apt-get install python-setuptools
+sudo easy_install virtualenvwrapper</pre>
 </div>
-<p>The obvious reason being that if you want to run virtualenvwrapper scripts,
-and you&#8217;re unsetting pointers to your local setup, then we&#8217;ll lose
-virtualenvwrapper and get errors.</p>
+<p>I did this because there is was an incompatibility with Maverick Python 2.7
+and Maverick <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> - see <a class="reference external" href="https://bitbucket.org/ianb/virtualenv/issue/63/now-python27-requires-_weakrefset">this bug report</a>.
+For Natty (next after Maverick), you can probably use:</p>
+<div class="highlight-python"><pre>sudo apt-get install virtualenvwrapper</pre>
+</div>
+<p>instead.</p>
 </li>
 <li><p class="first">If you are using my config (above), you probably want my default environment
 cleanup for virtualenvs:</p>
@@ -100,10 +105,46 @@ make virtualenvs</pre>
 </div>
 </li>
 <li><p class="first">Make some good virtualenvs, with commands like:</p>
-<div class="highlight-python"><pre>mkvirtualenv --distribute --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26</pre>
+<div class="highlight-python"><pre>mkvirtualenv python25 --python=python2.5</pre>
 </div>
 <p>If you have to do something really bare, consider the <tt class="docutils literal"><span class="pre">no-site-packages</span></tt>
 flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> command.</p>
+<p>You&#8217;ll probably want other versions of python for your virtualenvs.  This:</p>
+<div class="highlight-python"><pre>sudo apt-get install python2.7 python2.7-dev</pre>
+</div>
+<p>works on Ubuntu Maverick (10.10). You might want to use the <a class="reference external" href="https://launchpad.net/%7Efkrull/+archive/deadsnakes">old and new
+python versions</a> repository to get e.g python 2.5 on new Ubuntus:</p>
+<div class="highlight-python"><pre>sudo add-apt-repository ppa:fkrull/deadsnakes
+sudo apt-get update
+sudo apt-get install python2.5 python2.5-dev</pre>
+</div>
+<p>You may have to compile numpy and scipy from source for your non-system python
+versions:</p>
+<div class="highlight-python"><pre>sudo apt-get build-dep python-numpy
+mkdir code
+cd code
+git clone git://github.com/numpy/numpy.git
+cd numpy
+git co v1.5.1 # a tag
+sudo python2.5 setup.py install
+sudo rm -rf build
+sudo python2.7 setup.py install
+cd ..
+# This will soon become a real git repo rather than an svn mirror
+git clone --origin svn git://github.com/scipy/scipy-svn.git scipy
+cd scipy
+git co svn/tags/v0.9.0rc4 # a tag
+sudo python2.5 setup.py install
+sudo rm -rf build
+sudo python2.7 setup.py install</pre>
+</div>
+<p>For the remaining packages, we can use setuptools.  As per the instructions on
+<a href="#id1"><span class="problematic" id="id2">`new and old python versions`_</span></a></p>
+<div class="highlight-python"><pre>sudo apt-get install python-setuptools-deadsnakes</pre>
+</div>
+<p>then (e.g.):</p>
+<div class="highlight-python"><pre>sudo easy_install-2.5 nose</pre>
+</div>
 </li>
 </ul>
 </div>
@@ -120,6 +161,7 @@ flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></
 <li><a class="reference internal" href="#">Developing on linux</a><ul>
 <li><a class="reference internal" href="#my-systems">My systems</a></li>
 <li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+<li><a class="reference internal" href="#setting-up-virtualenvs">Setting up virtualenvs</a></li>
 </ul>
 </li>
 </ul>

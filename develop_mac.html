@@ -111,9 +111,6 @@ cleanup for virtualenvs:</p>
 make virtualenvs</pre>
 </div>
 </li>
-<li><p class="first">For packaging, download and unpack the source distribution for <a class="reference external" href="http://pypi.python.org/pypi/bdist_mpkg">bdist_mpkg</a>. I
-unpacked it into <tt class="docutils literal"><span class="pre">~/stable_trees/bdist_mpkg-0.4.4</span></tt>.</p>
-</li>
 <li><p class="first">Make some good virtualenvs, with commands like:</p>
 <div class="highlight-python"><pre>mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.5/bin/python python25
 mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26
@@ -124,14 +121,15 @@ flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></
 </li>
 <li><p class="first">For each virtualenv you&#8217;re going to use (to taste):</p>
 <div class="highlight-python"><pre>workon python25
-easy_install ipython
-cd ~/stable_trees/bdist_mpkg-0.4.4
-python setup.py install</pre>
+easy_install ipython</pre>
 </div>
-<p>Maybe also (this is for dipy installs):</p>
+<p>Maybe also (this is for dipy and nipy installs):</p>
 <div class="highlight-python"><pre>easy_install nibabel
 easy_install cython</pre>
 </div>
+</li>
+<li><p class="first">For packaging, download and unpack the source distribution for <a class="reference external" href="http://pypi.python.org/pypi/bdist_mpkg">bdist_mpkg</a>. I
+unpacked it into <tt class="docutils literal"><span class="pre">~/stable_trees/bdist_mpkg-0.4.4</span></tt>.</p>
 </li>
 </ul>
 </div>
