@@ -54,9 +54,6 @@ Basic setup
     cd myconfig
     make virtualenvs
 
-* For packaging, download and unpack the source distribution for bdist_mpkg_. I
-  unpacked it into ``~/stable_trees/bdist_mpkg-0.4.4``.
-
 * Make some good virtualenvs, with commands like::
 
     mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.5/bin/python python25
@@ -70,13 +67,15 @@ Basic setup
 
     workon python25
     easy_install ipython
-    cd ~/stable_trees/bdist_mpkg-0.4.4
-    python setup.py install
 
-  Maybe also (this is for dipy installs)::
+  Maybe also (this is for dipy and nipy installs)::
 
     easy_install nibabel
     easy_install cython
+
+* For packaging, download and unpack the source distribution for bdist_mpkg_. I
+  unpacked it into ``~/stable_trees/bdist_mpkg-0.4.4``.
+
 
 ****************************************
 Building windows release files with wine
