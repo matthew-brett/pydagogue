@@ -22,6 +22,7 @@ Contents:
    develop_windows
    develop_mac
    develop_linux
+   vim_mergetool
 
 Indices and tables
 ==================
