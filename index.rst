@@ -23,6 +23,7 @@ Contents:
    develop_mac
    develop_linux
    vim_mergetool
+   rebase_without_tears
 
 Indices and tables
 ==================
