@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rebase without tears &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Using vim as a mergetool in git" href="vim_mergetool.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="vim_mergetool.html" title="Using vim as a mergetool in git"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rebase-without-tears">
+<h1>Rebase without tears<a class="headerlink" href="#rebase-without-tears" title="Permalink to this headline">¶</a></h1>
+<p>Tears of frustration.</p>
+<div class="section" id="the-man-page">
+<h2>The man page<a class="headerlink" href="#the-man-page" title="Permalink to this headline">¶</a></h2>
+<p>I&#8217;m looking at the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man page now.  I guess I may not be alone in
+finding it hard to understand, and easy to forget.  I have twice or three times
+worked out how it worked, and then forgotten, and wished I had written something
+down to explain it to myself.  Here is that explanation.</p>
+</div>
+<div class="section" id="your-actual-rebase">
+<span id="actual-rebase"></span><h2>Your actual rebase<a class="headerlink" href="#your-actual-rebase" title="Permalink to this headline">¶</a></h2>
+<p>I like to think of rebase in its full form, because the full form helps to
+remind me of what it is doing.  Here&#8217;s the full form of most rebase commands
+<a class="footnote-reference" href="#to-root" id="id1">[1]</a>:</p>
+<div class="highlight-python"><pre>git rebase --onto &lt;graft-point&gt; &lt;starting-after&gt; &lt;ending-with&gt;</pre>
+</div>
+<p>I&#8217;m using different names from the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> manpage - see
+<a class="footnote-reference" href="#manpage-names" id="id2">[2]</a>.</p>
+<p>The shorter forms use defaults for things you don&#8217;t specify:</p>
+<ul class="simple">
+<li>If you don&#8217;t specify <tt class="docutils literal"><span class="pre">--onto</span></tt>, <tt class="docutils literal"><span class="pre">&lt;graft-point&gt;</span></tt> defaults to
+<tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span></tt></li>
+<li>If you don&#8217;t specify an <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> defaults to the
+current branch.</li>
+</ul>
+</div>
+<div class="section" id="which-branch-does-rebase-modify">
+<h2>Which branch does rebase modify?<a class="headerlink" href="#which-branch-does-rebase-modify" title="Permalink to this headline">¶</a></h2>
+<p>rebase modifies the <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> branch.  If you don&#8217;t specify
+<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> it will modify the default for <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, that is, the
+current branch.</p>
+</div>
+<div class="section" id="basic-example">
+<h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s go through the man page examples.  Here&#8217;s a history tree:</p>
+<div class="highlight-python"><pre>      A---B---C topic
+     /
+D---E---F---G master</pre>
+</div>
+<p>We want to take the novel contents of the <tt class="docutils literal"><span class="pre">topic</span></tt> branch (<tt class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></tt>) and
+regraft it so that it starts at the <tt class="docutils literal"><span class="pre">master</span></tt> branch, like this:</p>
+<div class="highlight-python"><pre>              A'--B'--C' topic
+             /
+D---E---F---G master</pre>
+</div>
+<p>Let&#8217;s do something to ease the explanation, and tag the divergence point <tt class="docutils literal"><span class="pre">E</span></tt>
+thus:</p>
+<div class="highlight-python"><pre>git tag divergence-point topic~3 # E</pre>
+</div>
+<p>Obviously that gives us:</p>
+<div class="highlight-python"><pre>     A---B---C topic
+    /
+    | F---G master
+    |/
+D---E  (tag) divergence-point</pre>
+</div>
+<p>Reading the <a class="reference internal" href="#actual-rebase"><em>Your actual rebase</em></a> command, we suspect the command we want is:</p>
+<div class="highlight-python"><pre>git rebase --onto master divergence-point topic</pre>
+</div>
+<p>And indeed, that does give us what we want.  However we had a to make a tag for
+the divergence point, and that was a bit annoying. Can we get away without that?</p>
+<p>Yes, because because the meaning of <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span> <span class="pre">&lt;ending-with&gt;</span></tt> above is to
+collect the commits that you are going to apply.  The commits that you apply are
+the commits shown by <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">&lt;starting-after&gt;..&lt;ending-with&gt;</span></tt>.  I took the
+liberty of making a repository to match the history above.  Here is the result
+of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span> <span class="pre">master..topic</span></tt>, before the rebase:</p>
+<div class="highlight-python"><pre>8de3e90 C
+9dcbae2 B
+cc3741a A</pre>
+</div>
+<p>And of course that is the same as <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span> <span class="pre">divergence-point..topic</span></tt>.
+So we could also do the rebase command with:</p>
+<div class="highlight-python"><pre>git rebase --onto master master topic</pre>
+</div>
+<p>And, in fact, if you don&#8217;t specify the <tt class="docutils literal"><span class="pre">--onto</span></tt> option, then rebase assumes
+you want to graft onto the <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span></tt> position, so you could also do:</p>
+<div class="highlight-python"><pre>git rebase master topic</pre>
+</div>
+<p>and in fact, if you don&#8217;t specify the <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> position, rebase assumes
+that you want <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> to be the state of the current branch, so you
+could also do:</p>
+<div class="highlight-python"><pre>git checkout topic # unless you are on ``topic`` already
+git rebase master</pre>
+</div>
+</div>
+<div class="section" id="other-examples">
+<h2>Other examples<a class="headerlink" href="#other-examples" title="Permalink to this headline">¶</a></h2>
+<p>Here is another example from the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man page.  We want to go from
+this:</p>
+<div class="highlight-python"><pre>o---o---o---o---o  master
+     \
+      o---o---o---o---o  next
+                       \
+                        o---o---o  topic</pre>
+</div>
+<p>to this:</p>
+<div class="highlight-python"><pre>o---o---o---o---o  master
+    |            \
+    |             o'--o'--o'  topic
+     \
+      o---o---o---o---o  next</pre>
+</div>
+<p>How?   Let&#8217;s check the <a class="reference internal" href="#actual-rebase"><em>Your actual rebase</em></a> command.  Maybe it is this:</p>
+<div class="highlight-python"><pre>git rebase --onto master next topic</pre>
+</div>
+<p>Yup, that&#8217;s it!  You understand rebase!</p>
+<p>Now we want to go from this:</p>
+<div class="highlight-python"><pre>                        H---I---J topicB
+                       /
+              E---F---G  topicA
+             /
+A---B---C---D  master</pre>
+</div>
+<p>to this:</p>
+<div class="highlight-python"><pre>             H'--I'--J'  topicB
+            /
+            | E---F---G  topicA
+            |/
+A---B---C---D  master</pre>
+</div>
+<p>We check the <a class="reference internal" href="#actual-rebase"><em>Your actual rebase</em></a> command.  Could it be this?:</p>
+<div class="highlight-python"><pre>git rebase --onto master topicA topicB</pre>
+</div>
+<p>Could it be anything else?  Congratulations, you are now a rebase master.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="to-root" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first">I&#8217;ve missed out the <tt class="docutils literal"><span class="pre">--interactive</span></tt> option, but that doesn&#8217;t
+change the logic.  There is one more substantial variation of the
+<a class="reference internal" href="#actual-rebase"><em>Your actual rebase</em></a> command, using <tt class="docutils literal"><span class="pre">--root</span></tt>.  This goes:</p>
+<div class="highlight-python"><pre>git rebase --onto &lt;graft-point&gt; --root   &lt;ending-with&gt;</pre>
+</div>
+<p>I&#8217;ve put a couple of extra spaces between <tt class="docutils literal"><span class="pre">--root</span></tt> and <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> to
+emphasise that <tt class="docutils literal"><span class="pre">--root</span></tt> is a flag, and <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> is an argument
+with the same meaning as for the normal rebase command.</p>
+<p>If you do <tt class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">&lt;ending-with&gt;</span></tt> and then <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt>, you&#8217;ll see all
+the commits down to and including the first (root) commit of that branch.
+The root commit is a commit without a parent.  The <tt class="docutils literal"><span class="pre">--root</span></tt> version of the
+rebase commands then takes all the commits, from the root commit up until
+<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, including the root commit, and grafts them onto
+<tt class="docutils literal"><span class="pre">&lt;graft-point&gt;</span></tt>.</p>
+<p>Let&#8217;s say you somehow have two detached histories in your repository:</p>
+<div class="highlight-python"><pre>A--B--C--D master
+
+X--Y--Z other-branch</pre>
+</div>
+<p>The root of <tt class="docutils literal"><span class="pre">master</span></tt> is A, and the root of <tt class="docutils literal"><span class="pre">other-branch</span></tt> is X.  To
+attach these histories you could do:</p>
+<div class="highlight-python"><pre>git rebase --onto master --root   other-branch</pre>
+</div>
+<p>resulting in:</p>
+<div class="highlight-python"><pre>A--B--C--D master
+          \
+           X'--Y'--Z' other-branch</pre>
+</div>
+<p>It would be annoying to have to do the same operation without the <tt class="docutils literal"><span class="pre">--root</span></tt>
+option, because you&#8217;d first have to find the root commit, apply the root
+commit, and then rebase the rest of the X-Y-Z history on top of that, rather
+like:</p>
+<div class="last highlight-python"><pre>git tag root-of-other-branch other-branch~2 # tags X commit
+git branch tmp-branch master # start rebase at master
+git checkout tmp-branch
+git cherry-pick root-of-other-branch # apply root commit
+git rebase --onto tmp-branch root-of-other-branch other-branch
+# You are now on the rebased other-branch
+git branch -D tmp-branch</pre>
+</div>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="manpage-names" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><p class="first">I&#8217;m using differnt names for the command options, compared
+to the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> manpage.  The manpage uses:</p>
+<ul class="last simple">
+<li><tt class="docutils literal"><span class="pre">&lt;newbase&gt;</span></tt> for my <tt class="docutils literal"><span class="pre">&lt;graft-point&gt;</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">&lt;upstream&gt;</span></tt> for my <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">&lt;branch&gt;</span></tt> for my <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt></li>
+</ul>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rebase without tears</a><ul>
+<li><a class="reference internal" href="#the-man-page">The man page</a></li>
+<li><a class="reference internal" href="#your-actual-rebase">Your actual rebase</a></li>
+<li><a class="reference internal" href="#which-branch-does-rebase-modify">Which branch does rebase modify?</a></li>
+<li><a class="reference internal" href="#basic-example">Basic example</a></li>
+<li><a class="reference internal" href="#other-examples">Other examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="vim_mergetool.html"
+                        title="previous chapter">Using vim as a mergetool in git</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/rebase_without_tears.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="vim_mergetool.html" title="Using vim as a mergetool in git"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>
