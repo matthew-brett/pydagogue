@@ -207,7 +207,7 @@ Could it be anything else?  Congratulations, you are now a rebase master.
        # You are now on the rebased other-branch
        git branch -D tmp-branch
 
-.. [#manpage-names] I'm using differnt names for the command options, compared
+.. [#manpage-names] I'm using different names for the command options, compared
    to the ``git-rebase`` manpage.  The manpage uses:
 
    * ``<newbase>`` for my ``<graft-point>``

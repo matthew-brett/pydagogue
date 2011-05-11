@@ -88,7 +88,10 @@ doctest:
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in _build/doctest/output.txt."
 
-gh-pages: html
+git-clean: clean
+	git clean -fxd
+
+gh-pages: git-clean html
 	git co gh-pages
 	git rm -r .
 	git checkout HEAD -- .gitignore README
