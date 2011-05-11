@@ -23,7 +23,7 @@ I like to think of rebase in its full form, because the full form helps to
 remind me of what it is doing.  Here's the full form of most rebase commands
 [#to-root]_::
 
-    git rebase --onto <graft-point> <starting-at> <ending-with>
+    git rebase --onto <graft-point> <starting-after> <ending-with>
 
 I'm using different names from the ``git-rebase`` manpage - see
 [#manpage-names]_.
@@ -31,7 +31,7 @@ I'm using different names from the ``git-rebase`` manpage - see
 The shorter forms use defaults for things you don't specify:
 
 * If you don't specify ``--onto``, ``<graft-point>`` defaults to
-  ``<starting-at>``
+  ``<starting-after>``
 * If you don't specify an ``<ending-with>``, ``<ending-with>`` defaults to the
   current branch.
 
@@ -63,9 +63,7 @@ regraft it so that it starts at the ``master`` branch, like this::
 Let's do something to ease the explanation, and tag the divergence point ``E``
 thus::
 
-    git checkout topic~3 # E
-    git tag divergence-point
-    git checkout topic
+    git tag divergence-point topic~3 # E
 
 Obviously that gives us::
 
@@ -82,9 +80,9 @@ Reading the :ref:`actual-rebase` command, we suspect the command we want is::
 And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?
 
-Yes, because because the meaning of ``<starting-at> <ending-with>`` above is to
+Yes, because because the meaning of ``<starting-after> <ending-with>`` above is to
 collect the commits that you are going to apply.  The commits that you apply are
-the commits shown by ``git log <starting-at>..<ending-with>``.  I took the
+the commits shown by ``git log <starting-after>..<ending-with>``.  I took the
 liberty of making a repository to match the history above.  Here is the result
 of ``git log --oneline master..topic``, before the rebase::
 
@@ -98,7 +96,7 @@ So we could also do the rebase command with::
     git rebase --onto master master topic
 
 And, in fact, if you don't specify the ``--onto`` option, then rebase assumes
-you want to graft onto the ``<starting-at>`` position, so you could also do::
+you want to graft onto the ``<starting-after>`` position, so you could also do::
 
     git rebase master topic
 
@@ -194,11 +192,24 @@ Could it be anything else?  Congratulations, you are now a rebase master.
 
        A--B--C--D master
                  \
-                  X--Y--Z other-branch
+                  X'--Y'--Z' other-branch
+
+   It would be annoying to have to do the same operation without the ``--root``
+   option, because you'd first have to find the root commit, apply the root
+   commit, and then rebase the rest of the X-Y-Z history on top of that, rather
+   like::
+
+       git tag root-of-other-branch other-branch~2 # tags X commit
+       git branch tmp-branch master # start rebase at master
+       git checkout tmp-branch
+       git cherry-pick root-of-other-branch # apply root commit
+       git rebase --onto tmp-branch root-of-other-branch other-branch
+       # You are now on the rebased other-branch
+       git branch -D tmp-branch
 
 .. [#manpage-names] I'm using differnt names for the command options, compared
    to the ``git-rebase`` manpage.  The manpage uses:
 
    * ``<newbase>`` for my ``<graft-point>``
-   * ``<upstream>`` for my ``<starting-at>``
+   * ``<upstream>`` for my ``<starting-after>``
    * ``<branch>`` for my ``<ending-with>``
