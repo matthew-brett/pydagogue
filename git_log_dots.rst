@@ -19,6 +19,15 @@ Let's say you asked for this::
 You will see a log of a series of commits. The commits will be all the commits
 reachable from ``end-branch`` that are not reachable from ``start-branch``.
 
+In fact, the two dot form of log is shorthand.  The ``git log`` line above is
+shorthand for::
+
+    git log ^start-branch end-branch
+
+``end-branch`` above means |emdash| "show me all commits that can be
+reached from ``end-branch``". ``^start-branch`` means |emdash| "excluding any
+commits that can be reached from ``start-branch``".
+
 A commit ``B`` is "reachable" from another commit ``A`` if you can make a line
 between ``A`` and ``B`` by drawing back from ``A`` to any of its parents, and so
 on, backwards from parents, in order to reach ``B``.  Also, you can always reach
