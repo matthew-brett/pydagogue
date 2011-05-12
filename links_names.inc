@@ -41,3 +41,6 @@
 
 .. Nipy and friends
 .. _nipy: http://nipy.org
+
+.. Substitutions
+.. |emdash| unicode:: U+02014
