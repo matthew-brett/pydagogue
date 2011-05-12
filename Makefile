@@ -89,6 +89,9 @@ doctest:
 	      "results in _build/doctest/output.txt."
 
 git-clean: clean
+	# The git repositories need hand deletion because they don't get cleaned up
+	# by git clean
+	- rm -rf gitting/history1 gitting/history2 gitting/root-example
 	git clean -fxd
 
 gh-pages: git-clean html

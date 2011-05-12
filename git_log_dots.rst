@@ -38,8 +38,8 @@ reachable from ``end-branch`` that are not reachable from ``start-branch``.
 .. sidebar:: What does "reachable" mean?
 
    A sequence of commits, :math:`v_0, v_1, ..., v_n`, forms a **path** between
-   :math:`v_0` and :math:`v_n` if and only if :math:`v_{i-1}` is the parent of :math:`v_i`.
-   for :math:`i=1` to :math:`i=n`.
+   :math:`v_0` and :math:`v_n` if and only if :math:`v_{i-1}` is the parent of :math:`v_i`
+   for all :math:`i` between 1 and :math:`n`.
 
    A commit, :math:`s`, is **reachable** by some commit, :math:`t`, if and only
    if there is a path from :math:`s` to :math:`t`.
@@ -49,6 +49,14 @@ reachable from ``end-branch`` that are not reachable from ``start-branch``.
 ..   from parents, in order to reach ``B``.  Also, you can always reach a commit
 ..   from itself (you can "reach" ``A`` from ``A`` and ``B`` from ``B``).
 
+In fact, the two dot form of log is shorthand.  The ``git log`` line above is
+shorthand for::
+
+    git log ^start-branch end-branch
+
+``end-branch`` above means |emdash| "show me all commits that can be
+reached from ``end-branch``". ``^start-branch`` means |emdash| "excluding any
+commits that can be reached from ``start-branch``".
 
 Obviously ``git log start-branch..end-branch`` cannot include the commit
 pointed to by ``start-branch`` because you can always reach ``start-branch``
@@ -62,10 +70,12 @@ Let's say we have this history::
                  |/
      A---B---C---D  master
 
-|emdash| so what would ``git log topicB..topicA`` show?  From ``topicA`` we can
-reach ``G, F, E, D, C, B, A``.  From ``topicB`` we can reach J, I, H, D, C, B,
-A.  So, the commits reachable from ``topicA`` not reachable from ``topicB`` are
-``G, F, E``.
+.. comment - || to restore vim formatting
+
+What would ``git log topicB..topicA`` show?  From ``topicA`` we can
+reach ``G, F, E, D, C, B, A``.  From ``topicB`` we can reach ``J, I, H, D, C, B,
+A``.  So, the commits reachable from ``topicA`` but not reachable from
+``topicB`` are ``G, F, E``.
 
 ***********************
 Logging with three dots

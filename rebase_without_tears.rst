@@ -34,7 +34,7 @@ remind me of what it is doing.  Here's the full form of most rebase commands
 
     git rebase --onto <graft-point> <starting-after> <ending-with>
 
-I'm using different names from the ``git-rebase`` manpage - see
+I'm using different names from the ``git-rebase`` man page - see
 [#manpage-names]_.
 
 The shorter forms use defaults for things you don't specify:
@@ -73,6 +73,8 @@ Obviously that gives us::
         | F---G master
         |/
     D---E  (tag) divergence-point
+
+.. comment - || to restore vim formatting
 
 Reading the :ref:`actual-rebase` command, we suspect the command we want is::
 
@@ -154,11 +156,14 @@ to this::
                  |/
      A---B---C---D  master
 
+.. comment - || to restore vim formatting
+
 We check the :ref:`actual-rebase` command.  Could it be this?::
 
     git rebase --onto master topicA topicB 
 
 Could it be anything else?  Congratulations, you are now a rebase master.
+
 
 .. _which-commits:
 
@@ -234,7 +239,7 @@ current branch.
        git branch -D tmp-branch
 
 .. [#manpage-names] I'm using different names for the command options, compared
-   to the ``git-rebase`` manpage.  The manpage uses:
+   to the ``git-rebase`` man page.  The man page uses:
 
    * ``<newbase>`` for my ``<graft-point>``
    * ``<upstream>`` for my ``<starting-after>``
