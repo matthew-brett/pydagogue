@@ -35,14 +35,6 @@ The shorter forms use defaults for things you don't specify:
 * If you don't specify an ``<ending-with>``, ``<ending-with>`` defaults to the
   current branch.
 
-********************************
-Which branch does rebase modify?
-********************************
-
-rebase modifies the ``<ending-with>`` branch.  If you don't specify
-``<ending-with>`` it will modify the default for ``<ending-with>``, that is, the
-current branch.
-
 *************
 Basic example
 *************
@@ -81,10 +73,11 @@ And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?
 
 Yes, because because the meaning of ``<starting-after> <ending-with>`` above is to
-collect the commits that you are going to apply.  The commits that you apply are
-the commits shown by ``git log <starting-after>..<ending-with>``.  I took the
-liberty of making a repository to match the history above.  Here is the result
-of ``git log --oneline master..topic``, before the rebase::
+collect the commits that you are going to apply.  See :ref:`which-commits` for
+an explanation.  In brief, the commits that you apply are the commits shown by
+``git log <starting-after>..<ending-with>``.  I took the liberty of making a
+repository to match the history above.  Here is the result of ``git log
+--oneline master..topic``, before the rebase::
 
     8de3e90 C
     9dcbae2 B
@@ -157,6 +150,39 @@ We check the :ref:`actual-rebase` command.  Could it be this?::
     git rebase --onto master topicA topicB
 
 Could it be anything else?  Congratulations, you are now a rebase master.
+
+.. _which-commits:
+
+********************************
+Which commits will rebase apply?
+********************************
+
+It will apply all the commits found by::
+
+    git log <starting-after>..<ending-with>
+
+The commits will be all the commits reachable from ``<ending-with>`` that are
+not reachable from ``<starting-after>``.
+
+What does "reachable" mean.  A commit ``B`` is "reachable" from another commit
+``A`` if you can go make a line by drawing from ``A`` back to any of its
+parents, and so on, backwards from parents, in order to reach ``B``.  Also, you can
+always reach a commit from itself (you can "reach" ``A`` from ``A`` and ``B``
+from ``B``).
+
+Obviously ``git log <starting-after>..<ending-with>`` cannot include the commit
+pointed to by ``<starting-after>`` because you can always reach
+``<starting-after>`` from itself.
+
+.. which-branch:
+
+********************************
+Which branch does rebase modify?
+********************************
+
+rebase modifies the ``<ending-with>`` branch.  If you don't specify
+``<ending-with>`` it will modify the default for ``<ending-with>``, that is, the
+current branch.
 
 .. rubric:: Footnotes
 
