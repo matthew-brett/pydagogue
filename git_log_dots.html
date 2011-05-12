@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
     <link rel="next" title="Two and three dots with diff" href="git_diff_dots.html" />
-    <link rel="prev" title="Rebase without tears" href="rebase_without_tears.html" /> 
+    <link rel="prev" title="Pain in the dots" href="pain_in_dots.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,7 +40,7 @@
           <a href="git_diff_dots.html" title="Two and three dots with diff"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="rebase_without_tears.html" title="Rebase without tears"
+          <a href="pain_in_dots.html" title="Pain in the dots"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
@@ -54,16 +54,6 @@
   <div class="section" id="two-and-three-dots-with-log">
 <span id="git-log-dots"></span><h1>Two and three dots with log<a class="headerlink" href="#two-and-three-dots-with-log" title="Permalink to this headline">¶</a></h1>
 <p>Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> - see <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a>.</p>
-<div class="section" id="logging-without-dots">
-<h2>Logging without dots<a class="headerlink" href="#logging-without-dots" title="Permalink to this headline">¶</a></h2>
-<p>Two dots is the default in <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt>.  That is, if you do:</p>
-<div class="highlight-python"><pre>git log master topic</pre>
-</div>
-<p>what you&#8217;ll get is the same as if you asked for:</p>
-<div class="highlight-python"><pre>git log master..topic</pre>
-</div>
-<p>So logging without dots is the same as <a class="reference internal" href="#git-log-two-dots"><em>Logging with two dots</em></a>.</p>
-</div>
 <div class="section" id="logging-with-two-dots">
 <span id="git-log-two-dots"></span><h2>Logging with two dots<a class="headerlink" href="#logging-with-two-dots" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s say you asked for this:</p>
@@ -71,6 +61,13 @@
 </div>
 <p>You will see a log of a series of commits. The commits will be all the commits
 reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> that are not reachable from <tt class="docutils literal"><span class="pre">start-branch</span></tt>.</p>
+<p>In fact, the two dot form of log is shorthand.  The <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> line above is
+shorthand for:</p>
+<div class="highlight-python"><pre>git log ^start-branch end-branch</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">end-branch</span></tt> above means — &#8220;show me all commits that can be
+reached from <tt class="docutils literal"><span class="pre">end-branch</span></tt>&#8221;. <tt class="docutils literal"><span class="pre">^start-branch</span></tt> means — &#8220;excluding any
+commits that can be reached from <tt class="docutils literal"><span class="pre">start-branch</span></tt>&#8221;.</p>
 <p>A commit <tt class="docutils literal"><span class="pre">B</span></tt> is &#8220;reachable&#8221; from another commit <tt class="docutils literal"><span class="pre">A</span></tt> if you can make a line
 between <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt> by drawing back from <tt class="docutils literal"><span class="pre">A</span></tt> to any of its parents, and so
 on, backwards from parents, in order to reach <tt class="docutils literal"><span class="pre">B</span></tt>.  Also, you can always reach
@@ -125,7 +122,6 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Two and three dots with log</a><ul>
-<li><a class="reference internal" href="#logging-without-dots">Logging without dots</a></li>
 <li><a class="reference internal" href="#logging-with-two-dots">Logging with two dots</a></li>
 <li><a class="reference internal" href="#logging-with-three-dots">Logging with three dots</a></li>
 </ul>
@@ -133,8 +129,8 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="rebase_without_tears.html"
-                        title="previous chapter">Rebase without tears</a></p>
+  <p class="topless"><a href="pain_in_dots.html"
+                        title="previous chapter">Pain in the dots</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="git_diff_dots.html"
                         title="next chapter">Two and three dots with diff</a></p>
@@ -170,7 +166,7 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
           <a href="git_diff_dots.html" title="Two and three dots with diff"
              >next</a> |</li>
         <li class="right" >
-          <a href="rebase_without_tears.html" title="Rebase without tears"
+          <a href="pain_in_dots.html" title="Pain in the dots"
              >previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>

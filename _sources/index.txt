@@ -24,6 +24,7 @@ Contents:
    develop_linux
    vim_mergetool
    rebase_without_tears
+   pain_in_dots
    git_log_dots
    git_diff_dots
 
