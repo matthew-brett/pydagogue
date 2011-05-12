@@ -62,10 +62,10 @@ examples later in this page.  See also the <a class="reference external" href="h
 </div>
 <div class="section" id="the-git-rebase-man-page">
 <h2>The git-rebase man page<a class="headerlink" href="#the-git-rebase-man-page" title="Permalink to this headline">¶</a></h2>
-<p>I&#8217;m looking at the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man page now.  I may not be alone in finding
-it hard to understand, and easy to forget.  I have twice or three times worked
-out how it worked, and then forgotten, and wished I had written something down
-to explain it to myself.  Here is that explanation.</p>
+<p>I&#8217;m looking at the <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html">git-rebase man page</a> now.  I may
+not be alone in finding it hard to understand, and easy to forget.  I have
+twice or three times worked out how it worked, and then forgotten, and wished I
+had written something down to explain it to myself.  Here is that explanation.</p>
 </div>
 <div class="section" id="your-actual-rebase">
 <span id="actual-rebase"></span><h2>Your actual rebase<a class="headerlink" href="#your-actual-rebase" title="Permalink to this headline">¶</a></h2>
@@ -83,6 +83,20 @@ remind me of what it is doing.  Here&#8217;s the full form of most rebase comman
 <li>If you don&#8217;t specify an <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> defaults to the
 current branch.</li>
 </ul>
+<div class="section" id="which-commits-will-rebase-apply">
+<span id="which-commits"></span><h3>Which commits will rebase apply?<a class="headerlink" href="#which-commits-will-rebase-apply" title="Permalink to this headline">¶</a></h3>
+<p>Rebase will apply all the commits found by:</p>
+<div class="highlight-python"><pre>git log &lt;starting-after&gt;..&lt;ending-with&gt;</pre>
+</div>
+<p>These are the commits that are reachable from <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> that are not
+reachable from <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span></tt>.  See <em class="xref std std-ref">git-log-two-dots</em>.</p>
+</div>
+<div class="section" id="which-branch-does-rebase-modify">
+<h3>Which branch does rebase modify?<a class="headerlink" href="#which-branch-does-rebase-modify" title="Permalink to this headline">¶</a></h3>
+<p>rebase modifies the <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> branch.  If you don&#8217;t specify
+<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> it will modify the default for <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, that is, the
+current branch.</p>
+</div>
 </div>
 <div class="section" id="basic-example">
 <h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
@@ -113,12 +127,12 @@ D---E  (tag) divergence-point</pre>
 </div>
 <p>And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?</p>
-<p>Yes, because because the meaning of <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span> <span class="pre">&lt;ending-with&gt;</span></tt> above is to
-collect the commits that you are going to apply.  See <a class="reference internal" href="#which-commits"><em>Which commits will rebase apply?</em></a> for
-an explanation.  In brief, the commits that you apply are the commits shown by
-<tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">&lt;starting-after&gt;..&lt;ending-with&gt;</span></tt>.  I took the liberty of making a
-repository to match the history above.  Here is the result of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span>
-<span class="pre">--oneline</span> <span class="pre">master..topic</span></tt>, before the rebase:</p>
+<p>Yes, because because the meaning of <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span> <span class="pre">&lt;ending-with&gt;</span></tt> above is
+to collect the commits that you are going to apply.  See <a class="reference internal" href="#which-commits"><em>Which commits will rebase apply?</em></a>
+for an explanation.  The commits wil be those shown by <cite>git log
+&lt;starting-after&gt;..&lt;ending-with&gt;`</cite>.  I took the liberty of making a repository to
+match the history above.  Here is the result of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span>
+<span class="pre">master..topic</span></tt>, before the rebase:</p>
 <div class="highlight-python"><pre>8de3e90 C
 9dcbae2 B
 cc3741a A</pre>
@@ -177,21 +191,6 @@ A---B---C---D  master</pre>
 <div class="highlight-python"><pre>git rebase --onto master topicA topicB</pre>
 </div>
 <p>Could it be anything else?  Congratulations, you are now a rebase master.</p>
-</div>
-<div class="section" id="which-commits-will-rebase-apply">
-<span id="which-commits"></span><h2>Which commits will rebase apply?<a class="headerlink" href="#which-commits-will-rebase-apply" title="Permalink to this headline">¶</a></h2>
-<p>It will apply all the commits found by:</p>
-<div class="highlight-python"><pre>git log &lt;starting-after&gt;..&lt;ending-with&gt;</pre>
-</div>
-<p>Which commits are these?  These are the commits that are reachable from
-<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> that are not reachable from <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span></tt>.  See
-<a class="reference internal" href="git_log_dots.html#git-log-two-dots"><em>Logging with two dots</em></a>.</p>
-</div>
-<div class="section" id="which-branch-does-rebase-modify">
-<h2>Which branch does rebase modify?<a class="headerlink" href="#which-branch-does-rebase-modify" title="Permalink to this headline">¶</a></h2>
-<p>rebase modifies the <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> branch.  If you don&#8217;t specify
-<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> it will modify the default for <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, that is, the
-current branch.</p>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="to-root" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -266,11 +265,13 @@ to the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man
 <li><a class="reference internal" href="#">Rebase without tears</a><ul>
 <li><a class="reference internal" href="#what-is-this-rebase-of-which-you-speak">What is this &#8220;rebase&#8221; of which you speak?</a></li>
 <li><a class="reference internal" href="#the-git-rebase-man-page">The git-rebase man page</a></li>
-<li><a class="reference internal" href="#your-actual-rebase">Your actual rebase</a></li>
-<li><a class="reference internal" href="#basic-example">Basic example</a></li>
-<li><a class="reference internal" href="#other-examples">Other examples</a></li>
+<li><a class="reference internal" href="#your-actual-rebase">Your actual rebase</a><ul>
 <li><a class="reference internal" href="#which-commits-will-rebase-apply">Which commits will rebase apply?</a></li>
 <li><a class="reference internal" href="#which-branch-does-rebase-modify">Which branch does rebase modify?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#basic-example">Basic example</a></li>
+<li><a class="reference internal" href="#other-examples">Other examples</a></li>
 </ul>
 </li>
 </ul>

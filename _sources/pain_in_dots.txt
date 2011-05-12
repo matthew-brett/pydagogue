@@ -11,4 +11,4 @@ See :ref:`git-log-dots` for the explanation of ``git log`` and dots.  See
 
 See `git log and git diff
 <http://genomewiki.ucsc.edu/index.php/Getting_Started_With_Git#Git_Diff_and_Git_Log>`_
-for a good explanation.
+for an alterative explanation.
