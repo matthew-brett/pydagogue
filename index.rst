@@ -24,6 +24,8 @@ Contents:
    develop_linux
    vim_mergetool
    rebase_without_tears
+   git_log_dots
+   git_diff_dots
 
 Indices and tables
 ==================
@@ -31,5 +33,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. _nipy: http://nipy.org

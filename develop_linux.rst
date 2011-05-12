@@ -103,7 +103,7 @@ Setting up virtualenvs
     sudo python2.7 setup.py install
 
   For the remaining packages, we can use setuptools.  As per the instructions on
-  `new and old python versions`_ ::
+  `old and new python versions`_ ::
 
     sudo apt-get install python-setuptools-deadsnakes
 
@@ -112,12 +112,3 @@ Setting up virtualenvs
     sudo easy_install-2.5 nose
 
 
-.. _git: http://git-scm.com
-.. _vim: http://www.vim.org
-.. _python.org releases: http://www.python.org/download/releases
-.. _distribute: http://pypi.python.org/pypi/distribute
-.. _numpy: http://sourceforge.net/projects/numpy/files
-.. _scipy: http://sourceforge.net/projects/scipy/files
-.. _virtualenv: http://pypi.python.org/pypi/virtualenv
-.. _virtualenvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper
-.. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
