@@ -16,7 +16,7 @@ examples later in this page.  See also the `Pro-Git chapter on rebasing
 The git-rebase man page
 ***********************
 
-I'm looking at the ``git-rebase`` man page
+I'm looking at the `git-rebase man page
 <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`_ now.  I may
 not be alone in finding it hard to understand, and easy to forget.  I have
 twice or three times worked out how it worked, and then forgotten, and wished I
@@ -43,6 +43,27 @@ The shorter forms use defaults for things you don't specify:
   ``<starting-after>``
 * If you don't specify an ``<ending-with>``, ``<ending-with>`` defaults to the
   current branch.
+
+.. _which-commits:
+
+Which commits will rebase apply?
+================================
+
+Rebase will apply all the commits found by::
+
+    git log <starting-after>..<ending-with>
+
+These are the commits that are reachable from ``<ending-with>`` that are not
+reachable from ``<starting-after>``.  See :ref:`git-log-two-dots`.
+
+.. which-branch:
+
+Which branch does rebase modify?
+================================
+
+rebase modifies the ``<ending-with>`` branch.  If you don't specify
+``<ending-with>`` it will modify the default for ``<ending-with>``, that is, the
+current branch.
 
 *************
 Basic example
@@ -83,12 +104,12 @@ Reading the :ref:`actual-rebase` command, we suspect the command we want is::
 And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?
 
-Yes, because because the meaning of ``<starting-after> <ending-with>`` above is to
-collect the commits that you are going to apply.  See :ref:`which-commits` for
-an explanation.  In brief, the commits that you apply are the commits shown by
-``git log <starting-after>..<ending-with>``.  I took the liberty of making a
-repository to match the history above.  Here is the result of ``git log
---oneline master..topic``, before the rebase::
+Yes, because because the meaning of ``<starting-after> <ending-with>`` above is
+to collect the commits that you are going to apply.  See :ref:`which-commits`
+for an explanation.  The commits wil be those shown by `git log
+<starting-after>..<ending-with>``.  I took the liberty of making a repository to
+match the history above.  Here is the result of ``git log --oneline
+master..topic``, before the rebase::
 
     8de3e90 C
     9dcbae2 B
@@ -164,30 +185,6 @@ We check the :ref:`actual-rebase` command.  Could it be this?::
 
 Could it be anything else?  Congratulations, you are now a rebase master.
 
-
-.. _which-commits:
-
-********************************
-Which commits will rebase apply?
-********************************
-
-It will apply all the commits found by::
-
-    git log <starting-after>..<ending-with>
-
-Which commits are these?  These are the commits that are reachable from
-``<ending-with>`` that are not reachable from ``<starting-after>``.  See
-:ref:`git-log-two-dots`.
-
-.. which-branch:
-
-********************************
-Which branch does rebase modify?
-********************************
-
-rebase modifies the ``<ending-with>`` branch.  If you don't specify
-``<ending-with>`` it will modify the default for ``<ending-with>``, that is, the
-current branch.
 
 .. rubric:: Footnotes
 
