@@ -16,10 +16,11 @@ examples later in this page.  See also the `Pro-Git chapter on rebasing
 The git-rebase man page
 ***********************
 
-I'm looking at the ``git-rebase`` man page now.  I may not be alone in finding
-it hard to understand, and easy to forget.  I have twice or three times worked
-out how it worked, and then forgotten, and wished I had written something down
-to explain it to myself.  Here is that explanation.
+I'm looking at the ``git-rebase`` man page
+<http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`_ now.  I may
+not be alone in finding it hard to understand, and easy to forget.  I have
+twice or three times worked out how it worked, and then forgotten, and wished I
+had written something down to explain it to myself.  Here is that explanation.
 
 .. _actual-rebase:
 
