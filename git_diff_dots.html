@@ -50,6 +50,18 @@
   <div class="section" id="two-and-three-dots-with-diff">
 <span id="git-diff-dots"></span><h1>Two and three dots with diff<a class="headerlink" href="#two-and-three-dots-with-diff" title="Permalink to this headline">¶</a></h1>
 <p>Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> - see <a class="reference internal" href="git_log_dots.html#git-log-dots"><em>Two and three dots with log</em></a>.</p>
+<div class="section" id="diff-without-dots">
+<h2>Diff without dots<a class="headerlink" href="#diff-without-dots" title="Permalink to this headline">¶</a></h2>
+<p>Two dots is the default in <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt>.  That is, if you do:</p>
+<div class="highlight-python"><pre>git diff master topic</pre>
+</div>
+<p>what you&#8217;ll get is the same as if you asked for:</p>
+<div class="highlight-python"><pre>git diff master..topic</pre>
+</div>
+<p>So <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> without dots is the same as <a class="reference internal" href="#git-diff-two-dots"><em>Diff with two dots</em></a>.</p>
+</div>
+<div class="section" id="diff-with-two-dots">
+<span id="git-diff-two-dots"></span><h2>Diff with two dots<a class="headerlink" href="#diff-with-two-dots" title="Permalink to this headline">¶</a></h2>
 <p>Imagine a series of commits A, B, C, D...  Imagine that there are two
 branches, <em>topic</em> and <em>master</em>.  You branched <em>topic</em> off <em>master</em> when
 <em>master</em> was at commit &#8216;E&#8217;.  The graph of the commits looks like this:</p>
@@ -60,12 +72,17 @@ D---E---F---G master</pre>
 <p>Then:</p>
 <div class="highlight-python"><pre>git diff master..topic</pre>
 </div>
-<p>will output the difference from G to C (i.e. with effects of F and G),
-while:</p>
+<p>will output the difference from G to C (i.e. with effects of F and G).</p>
+</div>
+<div class="section" id="diff-with-three-dots">
+<h2>Diff with three dots<a class="headerlink" href="#diff-with-three-dots" title="Permalink to this headline">¶</a></h2>
+<p>Using the three-dot form:</p>
 <div class="highlight-python"><pre>git diff master...topic</pre>
 </div>
-<p>would output just differences in the topic branch (i.e. only A, B, and
-C). <a class="footnote-reference" href="#thank-yarik" id="id1">[1]</a></p>
+<p>This shows the differences between <tt class="docutils literal"><span class="pre">master</span></tt> and <tt class="docutils literal"><span class="pre">topic</span></tt> <em>starting at the
+last common commit</em>.</p>
+<p>In this case therefore it would output just differences in the <tt class="docutils literal"><span class="pre">topic</span></tt> branch
+(i.e. only A, B, and C).  <a class="footnote-reference" href="#thank-yarik" id="id1">[1]</a></p>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="thank-yarik" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -74,6 +91,7 @@ C). <a class="footnote-reference" href="#thank-yarik" id="id1">[1]</a></p>
 </tbody>
 </table>
 </div>
+</div>
 
 
           </div>
@@ -81,6 +99,16 @@ C). <a class="footnote-reference" href="#thank-yarik" id="id1">[1]</a></p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Two and three dots with diff</a><ul>
+<li><a class="reference internal" href="#diff-without-dots">Diff without dots</a></li>
+<li><a class="reference internal" href="#diff-with-two-dots">Diff with two dots</a></li>
+<li><a class="reference internal" href="#diff-with-three-dots">Diff with three dots</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="git_log_dots.html"
                         title="previous chapter">Two and three dots with log</a></p>
