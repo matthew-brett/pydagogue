@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Pydagogue &mdash; pydagogue 0.2 documentation</title>
+    <title>Two and three dots with diff &mdash; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,7 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Two and three dots with log" href="git_log_dots.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,6 +35,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="git_log_dots.html" title="Two and three dots with log"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -43,10 +47,32 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="pydagogue">
-<h1>Pydagogue<a class="headerlink" href="#pydagogue" title="Permalink to this headline">¶</a></h1>
-<p>Being some tutorial notes about Python things</p>
-<p>I try to keep a build here: <a class="reference external" href="https://cirl.berkeley.edu/mb312/pydagogue">https://cirl.berkeley.edu/mb312/pydagogue</a></p>
+  <div class="section" id="two-and-three-dots-with-diff">
+<span id="git-diff-dots"></span><h1>Two and three dots with diff<a class="headerlink" href="#two-and-three-dots-with-diff" title="Permalink to this headline">¶</a></h1>
+<p>Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> - see <a class="reference internal" href="git_log_dots.html#git-log-dots"><em>Two and three dots with log</em></a>.</p>
+<p>Imagine a series of commits A, B, C, D...  Imagine that there are two
+branches, <em>topic</em> and <em>master</em>.  You branched <em>topic</em> off <em>master</em> when
+<em>master</em> was at commit &#8216;E&#8217;.  The graph of the commits looks like this:</p>
+<div class="highlight-python"><pre>      A---B---C topic
+     /
+D---E---F---G master</pre>
+</div>
+<p>Then:</p>
+<div class="highlight-python"><pre>git diff master..topic</pre>
+</div>
+<p>will output the difference from G to C (i.e. with effects of F and G),
+while:</p>
+<div class="highlight-python"><pre>git diff master...topic</pre>
+</div>
+<p>would output just differences in the topic branch (i.e. only A, B, and
+C). <a class="footnote-reference" href="#thank-yarik" id="id1">[1]</a></p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="thank-yarik" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Thanks to Yarik Halchenko for this explanation.</td></tr>
+</tbody>
+</table>
 </div>
 
 
@@ -55,9 +81,12 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="git_log_dots.html"
+                        title="previous chapter">Two and three dots with log</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/README.txt"
+    <li><a href="_sources/git_diff_dots.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -83,6 +112,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="git_log_dots.html" title="Two and three dots with log"
+             >previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>

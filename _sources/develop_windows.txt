@@ -130,18 +130,7 @@ Windows compiler and build tools
     [build]
     compiler=mingw32
 
-.. _python: http://www.python.org
-.. _setuptools: http://pypi.python.org/pypi/setuptools
-.. _parallels: http://www.parallels.com
-.. _powershell: http://www.microsoft.com/powershell
-.. _msysgit: http://code.google.com/p/msysgit
-.. _putty: http://www.chiark.greenend.org.uk/~sgtatham/putty
 .. _powershell environment variables: http://technet.microsoft.com/en-us/library/ff730964.aspx
-.. _example pypi: http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
-.. _vim: http://www.vim.org
-.. _command-t: https://wincent.com/products/command-t
-.. _command-t README: http://git.wincent.com/command-t.git/blob_plain/master:/README.txt
-.. _mingw: http://www.mingw.org/wiki/Getting_Started
 .. _mingw distutils bug: http://bugs.python.org/issue2698
 
 .. rubric:: Footnotes

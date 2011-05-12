@@ -10,8 +10,8 @@
     
     <title>Rebase without tears &mdash; pydagogue 0.2 documentation</title>
     
-    <link rel="stylesheet" href="static/default.css" type="text/css" />
-    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -22,10 +22,11 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="static/jquery.js"></script>
-    <script type="text/javascript" src="static/underscore.js"></script>
-    <script type="text/javascript" src="static/doctools.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="next" title="Two and three dots with log" href="git_log_dots.html" />
     <link rel="prev" title="Using vim as a mergetool in git" href="vim_mergetool.html" /> 
   </head>
   <body>
@@ -35,6 +36,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="git_log_dots.html" title="Two and three dots with log"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="vim_mergetool.html" title="Using vim as a mergetool in git"
              accesskey="P">previous</a> |</li>
@@ -49,13 +53,19 @@
             
   <div class="section" id="rebase-without-tears">
 <h1>Rebase without tears<a class="headerlink" href="#rebase-without-tears" title="Permalink to this headline">¶</a></h1>
-<p>Tears of frustration.</p>
-<div class="section" id="the-man-page">
-<h2>The man page<a class="headerlink" href="#the-man-page" title="Permalink to this headline">¶</a></h2>
-<p>I&#8217;m looking at the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man page now.  I guess I may not be alone in
-finding it hard to understand, and easy to forget.  I have twice or three times
-worked out how it worked, and then forgotten, and wished I had written something
-down to explain it to myself.  Here is that explanation.</p>
+<div class="section" id="what-is-this-rebase-of-which-you-speak">
+<h2>What is this &#8220;rebase&#8221; of which you speak?<a class="headerlink" href="#what-is-this-rebase-of-which-you-speak" title="Permalink to this headline">¶</a></h2>
+<p>Actually it&#8217;s a little difficult to explain.  It&#8217;s the process of taking a
+fragment of git change history, and rewriting that history as if it had begun at
+a different commit.  It&#8217;s easiest to explain by example, and there are some
+examples later in this page.  See also the <a class="reference external" href="http://progit.org/book/ch3-6.html">Pro-Git chapter on rebasing</a></p>
+</div>
+<div class="section" id="the-git-rebase-man-page">
+<h2>The git-rebase man page<a class="headerlink" href="#the-git-rebase-man-page" title="Permalink to this headline">¶</a></h2>
+<p>I&#8217;m looking at the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man page now.  I may not be alone in finding
+it hard to understand, and easy to forget.  I have twice or three times worked
+out how it worked, and then forgotten, and wished I had written something down
+to explain it to myself.  Here is that explanation.</p>
 </div>
 <div class="section" id="your-actual-rebase">
 <span id="actual-rebase"></span><h2>Your actual rebase<a class="headerlink" href="#your-actual-rebase" title="Permalink to this headline">¶</a></h2>
@@ -73,12 +83,6 @@ remind me of what it is doing.  Here&#8217;s the full form of most rebase comman
 <li>If you don&#8217;t specify an <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> defaults to the
 current branch.</li>
 </ul>
-</div>
-<div class="section" id="which-branch-does-rebase-modify">
-<h2>Which branch does rebase modify?<a class="headerlink" href="#which-branch-does-rebase-modify" title="Permalink to this headline">¶</a></h2>
-<p>rebase modifies the <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> branch.  If you don&#8217;t specify
-<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> it will modify the default for <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, that is, the
-current branch.</p>
 </div>
 <div class="section" id="basic-example">
 <h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
@@ -110,10 +114,11 @@ D---E  (tag) divergence-point</pre>
 <p>And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?</p>
 <p>Yes, because because the meaning of <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span> <span class="pre">&lt;ending-with&gt;</span></tt> above is to
-collect the commits that you are going to apply.  The commits that you apply are
-the commits shown by <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">&lt;starting-after&gt;..&lt;ending-with&gt;</span></tt>.  I took the
-liberty of making a repository to match the history above.  Here is the result
-of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span> <span class="pre">master..topic</span></tt>, before the rebase:</p>
+collect the commits that you are going to apply.  See <a class="reference internal" href="#which-commits"><em>Which commits will rebase apply?</em></a> for
+an explanation.  In brief, the commits that you apply are the commits shown by
+<tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">&lt;starting-after&gt;..&lt;ending-with&gt;</span></tt>.  I took the liberty of making a
+repository to match the history above.  Here is the result of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span>
+<span class="pre">--oneline</span> <span class="pre">master..topic</span></tt>, before the rebase:</p>
 <div class="highlight-python"><pre>8de3e90 C
 9dcbae2 B
 cc3741a A</pre>
@@ -172,6 +177,21 @@ A---B---C---D  master</pre>
 <div class="highlight-python"><pre>git rebase --onto master topicA topicB</pre>
 </div>
 <p>Could it be anything else?  Congratulations, you are now a rebase master.</p>
+</div>
+<div class="section" id="which-commits-will-rebase-apply">
+<span id="which-commits"></span><h2>Which commits will rebase apply?<a class="headerlink" href="#which-commits-will-rebase-apply" title="Permalink to this headline">¶</a></h2>
+<p>It will apply all the commits found by:</p>
+<div class="highlight-python"><pre>git log &lt;starting-after&gt;..&lt;ending-with&gt;</pre>
+</div>
+<p>Which commits are these?  These are the commits that are reachable from
+<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> that are not reachable from <tt class="docutils literal"><span class="pre">&lt;starting-after&gt;</span></tt>.  See
+<a class="reference internal" href="git_log_dots.html#git-log-two-dots"><em>Logging with two dots</em></a>.</p>
+</div>
+<div class="section" id="which-branch-does-rebase-modify">
+<h2>Which branch does rebase modify?<a class="headerlink" href="#which-branch-does-rebase-modify" title="Permalink to this headline">¶</a></h2>
+<p>rebase modifies the <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> branch.  If you don&#8217;t specify
+<tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt> it will modify the default for <tt class="docutils literal"><span class="pre">&lt;ending-with&gt;</span></tt>, that is, the
+current branch.</p>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="to-root" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -244,11 +264,13 @@ to the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Rebase without tears</a><ul>
-<li><a class="reference internal" href="#the-man-page">The man page</a></li>
+<li><a class="reference internal" href="#what-is-this-rebase-of-which-you-speak">What is this &#8220;rebase&#8221; of which you speak?</a></li>
+<li><a class="reference internal" href="#the-git-rebase-man-page">The git-rebase man page</a></li>
 <li><a class="reference internal" href="#your-actual-rebase">Your actual rebase</a></li>
-<li><a class="reference internal" href="#which-branch-does-rebase-modify">Which branch does rebase modify?</a></li>
 <li><a class="reference internal" href="#basic-example">Basic example</a></li>
 <li><a class="reference internal" href="#other-examples">Other examples</a></li>
+<li><a class="reference internal" href="#which-commits-will-rebase-apply">Which commits will rebase apply?</a></li>
+<li><a class="reference internal" href="#which-branch-does-rebase-modify">Which branch does rebase modify?</a></li>
 </ul>
 </li>
 </ul>
@@ -256,9 +278,12 @@ to the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man
   <h4>Previous topic</h4>
   <p class="topless"><a href="vim_mergetool.html"
                         title="previous chapter">Using vim as a mergetool in git</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="git_log_dots.html"
+                        title="next chapter">Two and three dots with log</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="sources/rebase_without_tears.txt"
+    <li><a href="_sources/rebase_without_tears.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -284,6 +309,9 @@ to the <tt class="docutils literal"><span class="pre">git-rebase</span></tt> man
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="git_log_dots.html" title="Two and three dots with log"
+             >next</a> |</li>
         <li class="right" >
           <a href="vim_mergetool.html" title="Using vim as a mergetool in git"
              >previous</a> |</li>

@@ -1009,7 +1009,3 @@ from that apple tree.
            return hashlib.sha1_hash(contents)
 
     .
-.. links
-.. _git: http://git-scm.com/
-.. _git parable: http://tom.preston-werner.com/2009/05/19/the-git-parable.html
-.. _python: http://www.python.org

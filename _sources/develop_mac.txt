@@ -167,22 +167,7 @@ I was also using virtualenvs.  In wineconsole bash::
 
 and so on.
 
-.. _git: http://git-scm.com
-.. _github osx installation: http://help.github.com/mac-git-installation
-.. _xcode: http://developer.apple.com/TOOLS/xcode
-.. _vim: http://www.vim.org
-.. _macvim: https://github.com/b4winckler/macvim
-.. _python.org releases: http://www.python.org/download/releases
-.. _distribute: http://pypi.python.org/pypi/distribute
-.. _numpy: http://sourceforge.net/projects/numpy/files
-.. _scipy: http://sourceforge.net/projects/scipy/files
-.. _virtualenv: http://pypi.python.org/pypi/virtualenv
-.. _virtualenvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper
-.. _bdist_mpkg: http://pypi.python.org/pypi/bdist_mpkg
 .. _numpy release howto: https://github.com/numpy/numpy/blob/master/doc/HOWTO_RELEASE.rst.txt
 .. _osx wine builder: http://code.google.com/p/osxwinebuilder/
 .. _wine hq osx building: http://wiki.winehq.org/MacOSX/Building
 .. _freetype: http://www.freetype.org
-.. _macports: http://www.macports.org
-.. _mingw: http://www.mingw.org
-.. _msys: http://www.mingw.org/wiki/MSYS
