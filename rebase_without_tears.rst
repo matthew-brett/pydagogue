@@ -147,7 +147,7 @@ to this::
 
 We check the :ref:`actual-rebase` command.  Could it be this?::
 
-    git rebase --onto master topicA topicB
+    git rebase --onto master topicA topicB 
 
 Could it be anything else?  Congratulations, you are now a rebase master.
 
@@ -166,13 +166,25 @@ not reachable from ``<starting-after>``.
 
 What does "reachable" mean.  A commit ``B`` is "reachable" from another commit
 ``A`` if you can go make a line by drawing from ``A`` back to any of its
-parents, and so on, backwards from parents, in order to reach ``B``.  Also, you can
-always reach a commit from itself (you can "reach" ``A`` from ``A`` and ``B``
-from ``B``).
+parents, and so on, backwards from parents, in order to reach ``B``.  Also, you
+can always reach a commit from itself (you can "reach" ``A`` from ``A`` and
+``B`` from ``B``).
 
 Obviously ``git log <starting-after>..<ending-with>`` cannot include the commit
 pointed to by ``<starting-after>`` because you can always reach
 ``<starting-after>`` from itself.
+
+Let's say we have this history::
+
+                  H--I--J  topicB
+                 /
+                 | E---F---G  topicA
+                 |/
+     A---B---C---D  master
+
+What would ``git log topicB..topicA`` show?  From ``topicA`` we can reach ``G,
+F, G, D, C, B, A``.  From ``topicB`` we can reach J, I, H, D, C, B, A.  So, the
+commits reachable from ``topicA`` not reachable from ``topicB`` are ``G, F, E``.
 
 .. which-branch:
 
