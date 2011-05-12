@@ -2,16 +2,24 @@
 Rebase without tears
 ####################
 
-Tears of frustration.
+*****************************************
+What is this "rebase" of which you speak?
+*****************************************
 
-************
-The man page
-************
+Actually it's a little difficult to explain.  It's the process of taking a
+fragment of git change history, and rewriting that history as if it had begun at
+a different commit.  It's easiest to explain by example, and there are some
+examples later in this page.  See also the `Pro-Git chapter on rebasing
+<http://progit.org/book/ch3-6.html>`_
 
-I'm looking at the ``git-rebase`` man page now.  I guess I may not be alone in
-finding it hard to understand, and easy to forget.  I have twice or three times
-worked out how it worked, and then forgotten, and wished I had written something
-down to explain it to myself.  Here is that explanation.
+***********************
+The git-rebase man page
+***********************
+
+I'm looking at the ``git-rebase`` man page now.  I may not be alone in finding
+it hard to understand, and easy to forget.  I have twice or three times worked
+out how it worked, and then forgotten, and wished I had written something down
+to explain it to myself.  Here is that explanation.
 
 .. _actual-rebase:
 
@@ -147,7 +155,7 @@ to this::
 
 We check the :ref:`actual-rebase` command.  Could it be this?::
 
-    git rebase --onto master topicA topicB
+    git rebase --onto master topicA topicB 
 
 Could it be anything else?  Congratulations, you are now a rebase master.
 
@@ -161,18 +169,9 @@ It will apply all the commits found by::
 
     git log <starting-after>..<ending-with>
 
-The commits will be all the commits reachable from ``<ending-with>`` that are
-not reachable from ``<starting-after>``.
-
-What does "reachable" mean.  A commit ``B`` is "reachable" from another commit
-``A`` if you can go make a line by drawing from ``A`` back to any of its
-parents, and so on, backwards from parents, in order to reach ``B``.  Also, you can
-always reach a commit from itself (you can "reach" ``A`` from ``A`` and ``B``
-from ``B``).
-
-Obviously ``git log <starting-after>..<ending-with>`` cannot include the commit
-pointed to by ``<starting-after>`` because you can always reach
-``<starting-after>`` from itself.
+Which commits are these?  These are the commits that are reachable from
+``<ending-with>`` that are not reachable from ``<starting-after>``.  See
+:ref:`git-log-two-dots`.
 
 .. which-branch:
 

@@ -35,6 +35,22 @@ make_commit F
 make_commit G
 cd ..
 
+# History 2
+make_repo history2
+make_commit A
+make_commit B
+make_commit C
+make_commit D
+git co -b topicA
+make_commit E
+make_commit F
+make_commit G
+git co -b topicB master
+make_commit H
+make_commit I
+make_commit J
+cd ..
+
 # Root example
 make_repo root-example
 make_commit A
