@@ -94,7 +94,7 @@ git-clean: clean
 gh-pages: git-clean html
 	git co gh-pages
 	git rm -r .
-	git checkout HEAD -- .gitignore README
+	git checkout HEAD -- .gitignore README .nojekyll
 	cp -r _build/html/* .
 	git stage .
 	@echo 'Commit and push when ready or git reset --hard && git checkout master to revert'
