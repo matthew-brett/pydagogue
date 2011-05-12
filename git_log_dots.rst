@@ -33,11 +33,10 @@ Let's say you asked for this::
 You will see a log of a series of commits. The commits will be all the commits
 reachable from ``end-branch`` that are not reachable from ``start-branch``.
 
-What does "reachable" mean.  A commit ``B`` is "reachable" from another commit
-``A`` if you can go make a line by drawing from ``A`` back to any of its
-parents, and so on, backwards from parents, in order to reach ``B``.  Also, you
-can always reach a commit from itself (you can "reach" ``A`` from ``A`` and
-``B`` from ``B``).
+A commit ``B`` is "reachable" from another commit ``A`` if you can make a line
+between ``A`` and ``B`` by drawing back from ``A`` to any of its parents, and so
+on, backwards from parents, in order to reach ``B``.  Also, you can always reach
+a commit from itself (you can "reach" ``A`` from ``A`` and ``B`` from ``B``).
 
 Obviously ``git log start-branch..end-branch`` cannot include the commit
 pointed to by ``start-branch`` because you can always reach ``start-branch``
@@ -51,33 +50,35 @@ Let's say we have this history::
                  |/
      A---B---C---D  master
 
-|emdash| so what would ``git log topicB..topicA`` show?  From ``topicA`` we can
-reach ``G, F, E, D, C, B, A``.  From ``topicB`` we can reach J, I, H, D, C, B,
-A.  So, the commits reachable from ``topicA`` not reachable from ``topicB`` are
-``G, F, E``.
+.. comment - || to restore vim formatting
+
+What would ``git log topicB..topicA`` show?  From ``topicA`` we can
+reach ``G, F, E, D, C, B, A``.  From ``topicB`` we can reach ``J, I, H, D, C, B,
+A``.  So, the commits reachable from ``topicA`` but not reachable from
+``topicB`` are ``G, F, E``.
 
 ***********************
 Logging with three dots
 ***********************
 
-You asked for this::
+Now you ask for this::
 
     git log start-branch...end-branch
 
-Now there are three dots between ``start-branch`` and ``end-branch``.  This
-finds all commits that are reachable from ``start-branch``, OR that are
-reachable from ``end-branch`` BUT that are NOT reachable from both
-``start-branch`` AND ``end-branch``.  Put another way, if :math:`S` is the set
-of all commits that can be reached from ``start-branch`` and :math:`E` is the
-set of all commits that can be reached from ``end-branch`` then the commits
-returned from the three dot version of log are:
+There are three dots between ``start-branch`` and ``end-branch``.  This three
+dot version of the command finds all commits that are reachable from
+``start-branch``, OR that are reachable from ``end-branch`` BUT that are NOT
+reachable from both ``start-branch`` AND ``end-branch``.  Put another way, if
+:math:`S` is the set of all commits that can be reached from ``start-branch``
+and :math:`E` is the set of all commits that can be reached from ``end-branch``
+then the commits returned from the three dot version of log are:
 
 .. math::
 
     (S \cup E) \setminus (S \cap E)
 
-where :math:`X \setminus Y` denotes the set of members of :math:`X` that are not
-in set :math:`Y`.
+(:math:`X \setminus Y` denotes the set of members of :math:`X` that are not
+in set :math:`Y`).
 
 By example, from the history above, let's think about what would we get from::
 
