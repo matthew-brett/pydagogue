@@ -7,7 +7,7 @@ Install git for Windows
 ***********************
 
 * Get a copy of the msysgit_ ``.exe`` installer
-* Double click to install 'git' on your machine
+* Double click to install git_ on your machine
 * Accept all the defaults
 
 *****************
@@ -79,9 +79,9 @@ Now we have a git database in our folder, we need to add our file.
 Speak with your own voice
 =========================
 
-Each commit has someone who did the commit - the "committer".  So you can get
-all the blame, and all the credit, you can identify yourself to git so it can
-see who's doing the work (or doing the damage).
+Each commit has someone who wrote the contents of the commit - the "author".  So
+you can get all the blame, and all the credit, you can identify yourself to git.
+That way git can see who's doing the work (or doing the damage).
 
 * Right click in "my idea", choose "Git Gui".
 * Click on the "Repository" menu and select "Visualize master's history":
@@ -113,7 +113,7 @@ Now you have your changes backed up into your repository, but you will probably
 want to back up the repository somewhere.
 
 Let's pretend to back the repository up to a shared drive (but in fact we'll
-back up to the ``C:\`` drive.
+back up to the ``C:\`` drive).
 
 * Right click in the ``my_idea`` folder, chose "Git Gui"
 * Choose menu "Remote", "Add":
@@ -123,12 +123,12 @@ back up to the ``C:\`` drive.
 * Give a name for your backup (no spaces) and a path to write the backup to.
   I like to add ``.git`` to the folder name for the backup, because this will be
   a backup with only the repository (the ``.git`` subfolder, but not the
-  ``.txt`` files:
-* Select 'Initialize repository and push', then 'Add'
+  ``.txt`` files):
+* Select "Initialize repository and push", then click "Add".
 
   .. image:: images/remote_add_dialog.png
 
-* If you get "Success" then your files have been backup up this other folder.
+* If you get "Success" then your files have been backed up to this other folder.
 
 ****************************
 Working from another machine
@@ -136,23 +136,24 @@ Working from another machine
 
 Now you can work from any computer and send changes back to the backup copy.
 
-We can pretend to do this by making a new copy as if it was from (say) your
+We can pretend to do this by making a new copy as if it was on (say) your
 laptop.  But in fact we'll create the folder in the ``C:\`` drive again.
 
 * Right click on the ``C:\`` drive, choose 'Git Gui':
 
   .. image:: images/git_gui_main.png
 
-* Select 'Clone existing repository'.  For the 'Source location', browse to the
+* Select "Clone existing repository".  For the 'Source location', browse to the
   backup that you just made. Type ``C:\laptop_working`` for the target directory.  Choose
   "full copy" from the options (for safety).  Click on "Clone".
 
   .. image:: images/clone_dialog.png
 
-* You now have a "laptop_working" folder that is a clone of the "my_backup" repository, and
-  that also has the same data as the "my_idea" folder:
-* Let's make some changes on the laptop.  Go to the ``laptop_working`` folder.  Make a
-  new file ``idea_on_laptop.txt`` and type some text in it. Save.
+* You now have a ``c:\laptop_working`` folder that is a clone of the "my_backup"
+  repository, and that also has the same data as the ``c:\my_idea`` folder.
+* Let's make some changes on the laptop.  Go to the ``c:\laptop_working``
+  folder.  Make a new file ``idea_on_laptop.txt`` and type some text in it.
+  Save.
 * Right click, "Git Commit Tool", stage the ``idea_on_laptop.txt`` file, add a
   commit message and click "Commit".
 
@@ -179,7 +180,7 @@ Getting changes from a common backup
 ************************************
 
 Let's pretend that we've gone back to our original computer and we want the
-changes.
+changes that we pushed from the laptop.
 
 * Go back to the ``my_idea`` folder.  Notice you don't have the
   ``idea_on_laptop`` file yet.
