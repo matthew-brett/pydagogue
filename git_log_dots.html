@@ -55,7 +55,8 @@
 <span id="git-log-dots"></span><h1>Two and three dots with log<a class="headerlink" href="#two-and-three-dots-with-log" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> - see <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a>.</p>
+<p class="last">Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> - see <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a> and
+<a class="reference internal" href="pain_in_dots.html#pain-in-dots"><em>Pain in the dots</em></a></p>
 </div>
 <div class="section" id="logging-with-two-dots">
 <span id="git-log-two-dots"></span><h2>Logging with two dots<a class="headerlink" href="#logging-with-two-dots" title="Permalink to this headline">¶</a></h2>
@@ -109,10 +110,17 @@ reach <tt class="docutils literal"><span class="pre">G,</span> <span class="pre"
 <p>There are three dots between <tt class="docutils literal"><span class="pre">start-branch</span></tt> and <tt class="docutils literal"><span class="pre">end-branch</span></tt>.  This three
 dot version of the command finds all commits that are reachable from
 <tt class="docutils literal"><span class="pre">start-branch</span></tt>, OR that are reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> BUT that are NOT
-reachable from both <tt class="docutils literal"><span class="pre">start-branch</span></tt> AND <tt class="docutils literal"><span class="pre">end-branch</span></tt>.  Put another way, if
-<img class="math" src="_images/math/ad28c83c99a8fd0dd2e2e594c9d02ee532765a0a.png" alt="S"/> is the set of all commits that can be reached from <tt class="docutils literal"><span class="pre">start-branch</span></tt>
-and <img class="math" src="_images/math/fa2fa899f0afb05d6837885523503a2d4df434f9.png" alt="E"/> is the set of all commits that can be reached from <tt class="docutils literal"><span class="pre">end-branch</span></tt>
-then the commits returned from the three dot version of log are:</p>
+reachable from both <tt class="docutils literal"><span class="pre">start-branch</span></tt> AND <tt class="docutils literal"><span class="pre">end-branch</span></tt>.</p>
+<p>Put another way, you will see all commits reachable from <tt class="docutils literal"><span class="pre">start-branch</span></tt> AND
+all commits reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> BUT excluding any commits reachable
+from any common ancestor.  As the <tt class="docutils literal"><span class="pre">gitrevisions</span></tt> man page puts it, the three
+dots command above is equivalent to:</p>
+<div class="highlight-python"><pre>git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)</pre>
+</div>
+<p>Put another way, if <img class="math" src="_images/math/ad28c83c99a8fd0dd2e2e594c9d02ee532765a0a.png" alt="S"/> is the set of all commits that can be reached from
+<tt class="docutils literal"><span class="pre">start-branch</span></tt> and <img class="math" src="_images/math/fa2fa899f0afb05d6837885523503a2d4df434f9.png" alt="E"/> is the set of all commits that can be reached
+from <tt class="docutils literal"><span class="pre">end-branch</span></tt> then the commits returned from the three dot version of log
+are:</p>
 <div class="math">
 <p><img src="_images/math/a634f2e68bd7bb060f3720cf139bd7016b258fb5.png" alt="(S \cup E) \setminus (S \cap E)"/></p>
 </div><p>(<img class="math" src="_images/math/5321955cd9ff25c317edbb2fb25dd1e0f9a6781a.png" alt="X \setminus Y"/> denotes the set of members of <img class="math" src="_images/math/6a47ca0fe7cb276abc022af6ac88ddae1a9d6894.png" alt="X"/> that are not

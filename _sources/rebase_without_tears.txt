@@ -2,25 +2,25 @@
 Rebase without tears
 ####################
 
-*****************************************
-What is this "rebase" of which you speak?
-*****************************************
-
-Actually it's a little difficult to explain.  It's the process of taking a
-fragment of git change history, and rewriting that history as if it had begun at
-a different commit.  It's easiest to explain by example, and there are some
-examples later in this page.  See also the `Pro-Git chapter on rebasing
-<http://progit.org/book/ch3-6.html>`_
-
-***********************
-The git-rebase man page
-***********************
+*********************
+Why I wrote this page
+*********************
 
 I'm looking at the `git-rebase man page
 <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`_ now.  I may
 not be alone in finding it hard to understand, and easy to forget.  I have
 twice or three times worked out how it worked, and then forgotten, and wished I
 had written something down to explain it to myself.  Here is that explanation.
+
+*****************************************
+What is this "rebase" of which you speak?
+*****************************************
+
+Actually it's a little difficult to explain.  Rebasing is the process of taking
+a fragment of git change history, and rewriting that history as if it had begun
+at a different commit.  It's easiest to explain by example, and there are some
+examples later in this page.  See also the `Pro-Git chapter on rebasing
+<http://progit.org/book/ch3-6.html>`_
 
 .. _actual-rebase:
 
@@ -32,7 +32,7 @@ I like to think of rebase in its full form, because the full form helps to
 remind me of what it is doing.  Here's the full form of most rebase commands
 [#to-root]_::
 
-    git rebase --onto <graft-point> <starting-after> <ending-with>
+    git rebase --onto <graft-point> <exclude-from> <include-from>
 
 I'm using different names from the ``git-rebase`` man page - see
 [#manpage-names]_.
@@ -40,8 +40,8 @@ I'm using different names from the ``git-rebase`` man page - see
 The shorter forms use defaults for things you don't specify:
 
 * If you don't specify ``--onto``, ``<graft-point>`` defaults to
-  ``<starting-after>``
-* If you don't specify an ``<ending-with>``, ``<ending-with>`` defaults to the
+  ``<exclude-from>``
+* If you don't specify an ``<include-from>``, ``<include-from>`` defaults to the
   current branch.
 
 .. _which-commits:
@@ -51,19 +51,21 @@ Which commits will rebase apply?
 
 Rebase will apply all the commits found by::
 
-    git log <starting-after>..<ending-with>
+    git log <exclude-from>..<include-from>
 
-These are the commits that are reachable from ``<ending-with>`` that are not
-reachable from ``<starting-after>``.  See :ref:`git-log-two-dots`.
+These are the commits that are reachable from ``<include-from>`` that are not
+reachable from ``<exclude-from>``.  See :ref:`git-log-two-dots`.
 
-.. which-branch:
+.. _which-branch:
 
 Which branch does rebase modify?
 ================================
 
-rebase modifies the ``<ending-with>`` branch.  If you don't specify
-``<ending-with>`` it will modify the default for ``<ending-with>``, that is, the
+rebase modifies the ``<include-from>`` branch.  If you don't specify
+``<include-from>`` it will modify the default for ``<include-from>``, that is, the
 current branch.
+
+.. _basic-example:
 
 *************
 Basic example
@@ -104,10 +106,10 @@ Reading the :ref:`actual-rebase` command, we suspect the command we want is::
 And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?
 
-Yes, because because the meaning of ``<starting-after> <ending-with>`` above is
+Yes, because because the meaning of ``<exclude-from> <include-from>`` above is
 to collect the commits that you are going to apply.  See :ref:`which-commits`
-for an explanation.  The commits wil be those shown by `git log
-<starting-after>..<ending-with>``.  I took the liberty of making a repository to
+for an explanation.  The commits wil be those shown by ``git log
+<exclude-from>..<include-from>``.  I took the liberty of making a repository to
 match the history above.  Here is the result of ``git log --oneline
 master..topic``, before the rebase::
 
@@ -121,12 +123,12 @@ So we could also do the rebase command with::
     git rebase --onto master master topic
 
 And, in fact, if you don't specify the ``--onto`` option, then rebase assumes
-you want to graft onto the ``<starting-after>`` position, so you could also do::
+you want to graft onto the ``<exclude-from>`` position, so you could also do::
 
     git rebase master topic
 
-and in fact, if you don't specify the ``<ending-with>`` position, rebase assumes
-that you want ``<ending-with>`` to be the state of the current branch, so you
+and in fact, if you don't specify the ``<include-from>`` position, rebase assumes
+that you want ``<include-from>`` to be the state of the current branch, so you
 could also do::
 
     git checkout topic # unless you are on ``topic`` already
@@ -186,23 +188,74 @@ We check the :ref:`actual-rebase` command.  Could it be this?::
 Could it be anything else?  Congratulations, you are now a rebase master.
 
 
+******
+Safety
+******
+
+Summary: **always make a new branch before doing a rebase**
+
+You'll see from :ref:`which-branch` that when you a rebase you will change the
+branch you are rebasing.  As you remember from the :ref:`basic-example`, if you
+do::
+
+    git rebase --onto master master topic
+
+on this history graph::
+
+          A---B---C topic
+         /
+    D---E---F---G master
+
+then you'll get this::
+
+                  A'--B'--C' topic
+                 /
+    D---E---F---G master
+
+If you only have branches ``master`` and ``topic`` then you have just orphaned
+commits ``A, B, C`` which will in due course get cleaned out of your repository.
+You might want to keep track of where you were before.  You might want to do
+that in case you made a mistake and need to retrace your steps.  The easiest way
+to do this, is to make a copy of the branch before doing the rebase, like this::
+
+    git branch topic-rebased topic
+    git rebase --onto master master topic-rebased
+
+or, if you are already on ``topic`` and you want to use the shorthand form of
+rebase::
+
+    git branch topic-rebased topic
+    git checkout topic-rebased
+    git rebase master
+
+Now you have left ``topic`` to be a branch that records where you were before::
+
+                  A'--B'--C' topic-rebased
+                 /
+    D---E---F---G master
+         \
+          A---B---C topic
+
+If you forget to make a new branch before rebase, and you do need to go back,
+then you can use ``git reflog``.
+
 .. rubric:: Footnotes
 
 .. [#to-root]  I've missed out the ``--interactive`` option, but that doesn't
    change the logic.  There is one more substantial variation of the
    :ref:`actual-rebase` command, using ``--root``.  This goes::
 
-        git rebase --onto <graft-point> --root   <ending-with>
+        git rebase --onto <graft-point> --root   <include-from>
 
-   I've put a couple of extra spaces between ``--root`` and ``<ending-with>`` to
-   emphasise that ``--root`` is a flag, and ``<ending-with>`` is an argument
+   I've put a couple of extra spaces between ``--root`` and ``<include-from>`` to
+   emphasise that ``--root`` is a flag, and ``<include-from>`` is an argument
    with the same meaning as for the normal rebase command.
 
-   If you do ``git checkout <ending-with>`` and then ``git log``, you'll see all
+   If you do ``git checkout <include-from>`` and then ``git log``, you'll see all
    the commits down to and including the first (root) commit of that branch.
    The root commit is a commit without a parent.  The ``--root`` version of the
    rebase commands then takes all the commits, from the root commit up until
-   ``<ending-with>``, including the root commit, and grafts them onto
+   ``<include-from>``, including the root commit, and grafts them onto
    ``<graft-point>``.
 
    Let's say you somehow have two detached histories in your repository::
@@ -239,5 +292,5 @@ Could it be anything else?  Congratulations, you are now a rebase master.
    to the ``git-rebase`` man page.  The man page uses:
 
    * ``<newbase>`` for my ``<graft-point>``
-   * ``<upstream>`` for my ``<starting-after>``
-   * ``<branch>`` for my ``<ending-with>``
+   * ``<upstream>`` for my ``<exclude-from>``
+   * ``<branch>`` for my ``<include-from>``

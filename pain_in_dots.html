@@ -52,13 +52,49 @@
           <div class="body">
             
   <div class="section" id="pain-in-the-dots">
-<h1>Pain in the dots<a class="headerlink" href="#pain-in-the-dots" title="Permalink to this headline">¶</a></h1>
+<span id="pain-in-dots"></span><h1>Pain in the dots<a class="headerlink" href="#pain-in-the-dots" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://git-scm.com">git</a> uses a two and three dot notation for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt>.</p>
 <p>Unfortunately they mean different, and nearly opposite things, in the two cases.</p>
 <p>See <a class="reference internal" href="git_log_dots.html#git-log-dots"><em>Two and three dots with log</em></a> for the explanation of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> and dots.  See
 <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a> for the <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> explanation.</p>
 <p>See <a class="reference external" href="http://genomewiki.ucsc.edu/index.php/Getting_Started_With_Git#Git_Diff_and_Git_Log">git log and git diff</a>
 for an alterative explanation.</p>
+<div class="section" id="the-dot-difference">
+<h2>The dot difference<a class="headerlink" href="#the-dot-difference" title="Permalink to this headline">¶</a></h2>
+<p>This is a summary.  You need the pages above to get the full picture.</p>
+<p>Imagine this history:</p>
+<div class="highlight-python"><pre>      A---B---C topic
+     /
+D---E---F---G master</pre>
+</div>
+<p>Obviously <tt class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></tt> is the stuff unique to <tt class="docutils literal"><span class="pre">topic</span></tt>, and <tt class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></tt> is the
+stuff unique to <tt class="docutils literal"><span class="pre">master</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">log</span></tt> and two dots gives you the stuff unique to the second named branch.
+So:</p>
+<div class="highlight-python"><pre>git log master..topic</pre>
+</div>
+<p>will show you a log of commits <tt class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">log</span></tt> and three dots shows you the stuff unique to the second named branch AND
+the stuff unique to the first named branch, so:</p>
+<div class="highlight-python"><pre>git log master...topic</pre>
+</div>
+<p>shows you <tt class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">diff</span></tt> on the other hand, means something different.  So <tt class="docutils literal"><span class="pre">diff</span></tt> and two
+dots:</p>
+<div class="highlight-python"><pre>git diff master..topic</pre>
+</div>
+<p>shows you all stuff that differs between the state as of <tt class="docutils literal"><span class="pre">master</span></tt> and the
+state as of <tt class="docutils literal"><span class="pre">topic</span></tt>.  It will show you the difference between the effect of
+<tt class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></tt> and the effect of <tt class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></tt>.  You can think of this as being the
+difference between the stuff unique to <tt class="docutils literal"><span class="pre">topic</span></tt> and the stuff unique to
+<tt class="docutils literal"><span class="pre">master</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">diff</span></tt> and three dots:</p>
+<div class="highlight-python"><pre>git diff master...topic</pre>
+</div>
+<p>shows you the stuff that differs between <tt class="docutils literal"><span class="pre">topic</span></tt> and the last common ancestor
+of (<tt class="docutils literal"><span class="pre">topic</span></tt>, <tt class="docutils literal"><span class="pre">master</span></tt>). In this example that ancestor is commit <tt class="docutils literal"><span class="pre">E</span></tt>.  Thus
+three dots for diff is the difference caused by the stuff unique to <tt class="docutils literal"><span class="pre">topic</span></tt>.</p>
+</div>
 </div>
 
 
@@ -67,6 +103,14 @@ for an alterative explanation.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Pain in the dots</a><ul>
+<li><a class="reference internal" href="#the-dot-difference">The dot difference</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="rebase_without_tears.html"
                         title="previous chapter">Rebase without tears</a></p>
