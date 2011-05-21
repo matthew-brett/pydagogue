@@ -4,7 +4,10 @@
 Two and three dots with diff
 ############################
 
-Remember it's different for ``git log`` - see :ref:`git-log-dots`.
+.. note::
+
+   Remember it's different for ``git log`` - see :ref:`git-log-dots` and
+   :ref:`pain-in-dots`
 
 *****************
 Diff without dots

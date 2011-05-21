@@ -4,9 +4,10 @@
 Two and three dots with log
 ###########################
 
-.. note:: 
+.. note::
 
-   Remember it's different for ``git diff`` - see :ref:`git-diff-dots`.
+   Remember it's different for ``git diff`` - see :ref:`git-diff-dots` and
+   :ref:`pain-in-dots`
 
 .. _git-log-two-dots:
 
@@ -76,10 +77,19 @@ Now you ask for this::
 There are three dots between ``start-branch`` and ``end-branch``.  This three
 dot version of the command finds all commits that are reachable from
 ``start-branch``, OR that are reachable from ``end-branch`` BUT that are NOT
-reachable from both ``start-branch`` AND ``end-branch``.  Put another way, if
-:math:`S` is the set of all commits that can be reached from ``start-branch``
-and :math:`E` is the set of all commits that can be reached from ``end-branch``
-then the commits returned from the three dot version of log are:
+reachable from both ``start-branch`` AND ``end-branch``.
+
+Put another way, you will see all commits reachable from ``start-branch`` AND
+all commits reachable from ``end-branch`` BUT excluding any commits reachable
+from any common ancestor.  As the ``gitrevisions`` man page puts it, the three
+dots command above is equivalent to::
+
+    git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)
+
+Put another way, if :math:`S` is the set of all commits that can be reached from
+``start-branch`` and :math:`E` is the set of all commits that can be reached
+from ``end-branch`` then the commits returned from the three dot version of log
+are:
 
 .. math::
 
