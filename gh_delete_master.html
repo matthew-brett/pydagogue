@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Deleting your master branch &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Getting started with git gui on Windows" href="git_gui_windows.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="git_gui_windows.html" title="Getting started with git gui on Windows"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="deleting-your-master-branch">
+<h1>Deleting your master branch<a class="headerlink" href="#deleting-your-master-branch" title="Permalink to this headline">¶</a></h1>
+<p>You&#8217;ve forked some project on github.</p>
+<p>You clone your fork.</p>
+<p>Now you&#8217;ve got a <tt class="docutils literal"><span class="pre">master</span></tt> branch.  It&#8217;s the <tt class="docutils literal"><span class="pre">master</span></tt> branch of your fork.</p>
+<p>It can be tempting to do work in the master branch and ask for a pull request.</p>
+<p>That is best avoided because:</p>
+<ul class="simple">
+<li>It&#8217;s natural to carry on working in your <tt class="docutils literal"><span class="pre">master</span></tt> and that will pollute your
+pull request with other commits</li>
+<li><tt class="docutils literal"><span class="pre">master</span></tt> is not a descriptive name for a set of changes.  It&#8217;s easier for
+the person reviewing your code to have something like <tt class="docutils literal"><span class="pre">fix-for-issue-12</span></tt>.</li>
+<li>You may well also have a tracking branch pointing to the main upstream repo.
+You might call that something like <tt class="docutils literal"><span class="pre">upstream-master</span></tt>.  It&#8217;s easy to lose
+concentration and forget you are on <tt class="docutils literal"><span class="pre">upstream-master</span></tt> instead of your
+<tt class="docutils literal"><span class="pre">master</span></tt>, and nasty errors can result.</li>
+</ul>
+<p>To avoid this, I delete the <tt class="docutils literal"><span class="pre">master</span></tt> branch from my forked copy.  However, to
+make that work, you have to tell <a class="reference external" href="http://github.com">github</a> not to monitor your <tt class="docutils literal"><span class="pre">master</span></tt> branch.</p>
+<div class="section" id="how-to-delete-master">
+<h2>How to delete master<a class="headerlink" href="#how-to-delete-master" title="Permalink to this headline">¶</a></h2>
+<p>First you delete <tt class="docutils literal"><span class="pre">master</span></tt> in your local clone. To do this we first make a new
+branch called <tt class="docutils literal"><span class="pre">placeholder</span></tt> or similar, and delete <tt class="docutils literal"><span class="pre">master</span></tt> from there:</p>
+<div class="highlight-python"><pre>git branch placeholder
+git checkout placeholder
+git branch -D master</pre>
+</div>
+<p>All good so far.  We next want to delete the branch on github.  However, if we
+do this the naive way:</p>
+<div class="highlight-python"><pre>git push origin :master</pre>
+</div>
+<p>we just get an error like this:</p>
+<div class="highlight-python"><pre>remote: error: refusing to delete the current branch: refs/heads/master
+To git@github.com:matthew-brett/datarray.git
+! [remote rejected] master (deletion of the current branch prohibited)
+error: failed to push some refs to 'git@github.com:matthew-brett/datarray.git'</pre>
+</div>
+<p>That is because github is looking at the <tt class="docutils literal"><span class="pre">master</span></tt> branch to provide the web
+content when you browse that repository.  So we first have to make github look
+at our <tt class="docutils literal"><span class="pre">placeholder</span></tt> branch instead, then delete <tt class="docutils literal"><span class="pre">master</span></tt>.</p>
+<p>First push up the <tt class="docutils literal"><span class="pre">placeholder</span></tt> branch:</p>
+<div class="highlight-python"><pre>git checkout placeholder # if not on placeholder already
+git push origin placeholder</pre>
+</div>
+<p>Then set <tt class="docutils literal"><span class="pre">placeholder</span></tt> to be the github default branch.  Go to the main github
+page for your forked repository, and click on the &#8220;Admin&#8221; button.</p>
+<p>There&#8217;s a &#8220;Default branch&#8221; dropdown list near the top of the screen.  From
+there, select <tt class="docutils literal"><span class="pre">placeholder</span></tt>.  On the interface I&#8217;m looking at, a green tick
+appears above the dropdown list.  Now you can do (from the command line):</p>
+<div class="highlight-python"><pre>git push origin :master</pre>
+</div>
+<p>and - no master branch...</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Deleting your master branch</a><ul>
+<li><a class="reference internal" href="#how-to-delete-master">How to delete master</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="git_gui_windows.html"
+                        title="previous chapter">Getting started with git gui on Windows</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/gh_delete_master.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="git_gui_windows.html" title="Getting started with git gui on Windows"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>
