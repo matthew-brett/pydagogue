@@ -1009,3 +1009,5 @@ from that apple tree.
            return hashlib.sha1_hash(contents)
 
     .
+
+.. include:: links_names.inc

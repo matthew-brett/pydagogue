@@ -66,3 +66,5 @@ appears above the dropdown list.  Now you can do (from the command line)::
     git push origin :master
 
 and - no master branch...
+
+.. include:: links_names.inc

@@ -229,4 +229,4 @@ This system is powerful, very useful and sometimes confusing.  Consult an
 expert if you get confused.  It is fairly difficult to lose data if you ask an
 expert after you have made a mistake or got confused.
 
-.. _msysgit: http://code.google.com/p/msysgit
+.. include:: links_names.inc

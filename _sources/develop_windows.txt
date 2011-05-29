@@ -146,3 +146,5 @@ Windows compiler and build tools
         cd ~\vimfiles\bundle\command-t\ruby\command-t
         ruby extconf.rb
         make
+
+.. include:: links_names.inc

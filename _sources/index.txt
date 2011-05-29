@@ -29,6 +29,7 @@ Contents:
    git_diff_dots
    git_gui_windows
    gh_delete_master
+   gitwash_build
 
 Indices and tables
 ==================
@@ -36,3 +37,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. include:: links_names.inc
