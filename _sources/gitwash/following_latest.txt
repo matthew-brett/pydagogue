@@ -18,7 +18,7 @@ Get the local copy of the code
 
 From the command line::
 
-   git clone git://github.com/gitwash/gitwash.git
+   git clone git://github.com/matthew-brett/gitwash.git
 
 You now have a copy of the code tree in the new ``gitwash`` directory.
 

@@ -62,7 +62,7 @@
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><pre>git clone git@github.com:your-user-name/gitwash.git
 cd gitwash
-git remote add upstream git://github.com/gitwash/gitwash.git</pre>
+git remote add upstream git://github.com/matthew-brett/gitwash.git</pre>
 </div>
 </div>
 <div class="section" id="in-detail">
@@ -83,7 +83,7 @@ remotes/origin/master</pre>
 that you also have a <tt class="docutils literal"><span class="pre">remote</span></tt> connection to <tt class="docutils literal"><span class="pre">origin/master</span></tt>.
 What remote repository is <tt class="docutils literal"><span class="pre">remote/origin</span></tt>? Try <tt class="docutils literal"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></tt> to
 see the URLs for the remote.  They will point to your github fork.</p>
-<p>Now you want to connect to the upstream <a class="reference external" href="http://github.com/gitwash/gitwash">gitwash github</a> repository, so
+<p>Now you want to connect to the upstream <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash github</a> repository, so
 you can merge in changes from trunk.</p>
 </li>
 </ol>
@@ -91,18 +91,18 @@ you can merge in changes from trunk.</p>
 <div class="section" id="linking-your-repository-to-the-upstream-repo">
 <span id="linking-to-upstream"></span><h3>Linking your repository to the upstream repo<a class="headerlink" href="#linking-your-repository-to-the-upstream-repo" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><pre>cd gitwash
-git remote add upstream git://github.com/gitwash/gitwash.git</pre>
+git remote add upstream git://github.com/matthew-brett/gitwash.git</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">upstream</span></tt> here is just the arbitrary name we&#8217;re using to refer to the
-main <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> repository at <a class="reference external" href="http://github.com/gitwash/gitwash">gitwash github</a>.</p>
+main <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> repository at <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash github</a>.</p>
 <p>Note that we&#8217;ve used <tt class="docutils literal"><span class="pre">git://</span></tt> for the URL rather than <tt class="docutils literal"><span class="pre">git&#64;</span></tt>.  The
 <tt class="docutils literal"><span class="pre">git://</span></tt> URL is read only.  This means we that we can&#8217;t accidentally
 (or deliberately) write to the upstream repo, and we are only going to
 use it to merge into our own code.</p>
 <p>Just for your own satisfaction, show yourself that you now have a new
 &#8216;remote&#8217;, with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span> <span class="pre">show</span></tt>, giving you something like:</p>
-<div class="highlight-python"><pre>upstream     git://github.com/gitwash/gitwash.git (fetch)
-upstream     git://github.com/gitwash/gitwash.git (push)
+<div class="highlight-python"><pre>upstream     git://github.com/matthew-brett/gitwash.git (fetch)
+upstream     git://github.com/matthew-brett/gitwash.git (push)
 origin       git@github.com:your-user-name/gitwash.git (fetch)
 origin       git@github.com:your-user-name/gitwash.git (push)</pre>
 </div>

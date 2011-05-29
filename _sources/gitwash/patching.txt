@@ -29,7 +29,7 @@ Overview
    git config --global user.email you@yourdomain.example.com
    git config --global user.name "Your Name Comes Here"
    # get the repository if you don't have it
-   git clone git://github.com/gitwash/gitwash.git
+   git clone git://github.com/matthew-brett/gitwash.git
    # make a branch for your patching
    cd gitwash
    git branch the-fix-im-thinking-of
@@ -59,7 +59,7 @@ In detail
 #. If you don't already have one, clone a copy of the
    gitwash_ repository::
 
-      git clone git://github.com/gitwash/gitwash.git
+      git clone git://github.com/matthew-brett/gitwash.git
       cd gitwash
 
 #. Make a 'feature branch'.  This will be where you work on
