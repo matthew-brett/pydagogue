@@ -171,3 +171,5 @@ and so on.
 .. _osx wine builder: http://code.google.com/p/osxwinebuilder/
 .. _wine hq osx building: http://wiki.winehq.org/MacOSX/Building
 .. _freetype: http://www.freetype.org
+
+.. include:: links_names.inc

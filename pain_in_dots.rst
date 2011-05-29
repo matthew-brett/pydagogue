@@ -62,3 +62,5 @@ difference between the stuff unique to ``topic`` and the stuff unique to
 shows you the stuff that differs between ``topic`` and the last common ancestor
 of (``topic``, ``master``). In this example that ancestor is commit ``E``.  Thus
 three dots for diff is the difference caused by the stuff unique to ``topic``.
+
+.. include:: links_names.inc

@@ -112,3 +112,4 @@ Setting up virtualenvs
     sudo easy_install-2.5 nose
 
 
+.. include:: links_names.inc

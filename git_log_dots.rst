@@ -106,3 +106,5 @@ From ``topicA`` we can reach this set of commits |emdash| ``G, F, E, D, C, B,
 A``.  From ``topicB`` we can reach ``J, I, H, D, C, B, A``.  That means that we
 can reach ``D, C, B, A`` from both of ``topicA`` AND ``topicB``.  So the
 returned commits would be ``G, F, E, J, I, H``.
+
+.. include:: links_names.inc

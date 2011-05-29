@@ -42,6 +42,7 @@
 
 .. Nipy and friends
 .. _nipy: http://nipy.org
+.. _gitwash: http://github.com/matthew-brett/gitwash
 
 .. Substitutions
 .. |emdash| unicode:: U+02014

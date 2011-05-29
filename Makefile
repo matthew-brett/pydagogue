@@ -88,6 +88,11 @@ doctest:
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in _build/doctest/output.txt."
 
+gitwash-update:
+	python tools/gitwash_dumper.py . gitwash \
+	    --project-url=http://github.com/matthew-brett/gitwash \
+	    --project-ml-url=http://mail.scipy.org/mailman/listinfo/nipy-devel
+
 git-clean: clean
 	# The git repositories need hand deletion because they don't get cleaned up
 	# by git clean
