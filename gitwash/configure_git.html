@@ -156,6 +156,35 @@ like this:</p>
 <div class="highlight-python"><pre>git config --global merge.log true</pre>
 </div>
 </div>
+<div class="section" id="fancy-log-output">
+<h3>Fancy log output<a class="headerlink" href="#fancy-log-output" title="Permalink to this headline">¶</a></h3>
+<p>This is a very nice alias to get a fancy log output; it should go in the
+<tt class="docutils literal"><span class="pre">alias</span></tt> section of your <tt class="docutils literal"><span class="pre">.gitconfig</span></tt> file:</p>
+<div class="highlight-python"><pre>lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset' --abbrev-commit --date=relative</pre>
+</div>
+<p>You use the alias with:</p>
+<div class="highlight-python"><pre>git lg</pre>
+</div>
+<p>and it gives graph / text output something like this (but with color!):</p>
+<div class="highlight-python"><pre>* 6d8e1ee - (HEAD, origin/my-fancy-feature, my-fancy-feature) NF - a fancy file (45 minutes ago) [Matthew Brett]
+*   d304a73 - (origin/placeholder, placeholder) Merge pull request #48 from hhuuggoo/master (2 weeks ago) [Jonathan Terhorst]
+|\
+| * 4aff2a8 - fixed bug 35, and added a test in test_bugfixes (2 weeks ago) [Hugo]
+|/
+* a7ff2e5 - Added notes on discussion/proposal made during Data Array Summit. (2 weeks ago) [Corran Webster]
+* 68f6752 - Initial implimentation of AxisIndexer - uses 'index_by' which needs to be changed to a call on an Axes object - this is all very sketchy right now. (2 weeks ago) [Corr
+*   376adbd - Merge pull request #46 from terhorst/master (2 weeks ago) [Jonathan Terhorst]
+|\
+| * b605216 - updated joshu example to current api (3 weeks ago) [Jonathan Terhorst]
+| * 2e991e8 - add testing for outer ufunc (3 weeks ago) [Jonathan Terhorst]
+| * 7beda5a - prevent axis from throwing an exception if testing equality with non-axis object (3 weeks ago) [Jonathan Terhorst]
+| * 65af65e - convert unit testing code to assertions (3 weeks ago) [Jonathan Terhorst]
+| *   956fbab - Merge remote-tracking branch 'upstream/master' (3 weeks ago) [Jonathan Terhorst]
+| |\
+| |/</pre>
+</div>
+<p>Thanks to Yury V. Zaytsev for posting it.</p>
+</div>
 </div>
 </div>
 
@@ -174,6 +203,7 @@ like this:</p>
 <li><a class="reference internal" href="#aliases">Aliases</a></li>
 <li><a class="reference internal" href="#editor">Editor</a></li>
 <li><a class="reference internal" href="#merging">Merging</a></li>
+<li><a class="reference internal" href="#fancy-log-output">Fancy log output</a></li>
 </ul>
 </li>
 </ul>
