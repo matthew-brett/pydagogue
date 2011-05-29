@@ -13,7 +13,7 @@ Overview
 
    git clone git@github.com:your-user-name/gitwash.git
    cd gitwash
-   git remote add upstream git://github.com/gitwash/gitwash.git
+   git remote add upstream git://github.com/matthew-brett/gitwash.git
 
 In detail
 =========
@@ -46,7 +46,7 @@ Linking your repository to the upstream repo
 ::
 
    cd gitwash
-   git remote add upstream git://github.com/gitwash/gitwash.git
+   git remote add upstream git://github.com/matthew-brett/gitwash.git
 
 ``upstream`` here is just the arbitrary name we're using to refer to the
 main gitwash_ repository at `gitwash github`_.
@@ -59,8 +59,8 @@ use it to merge into our own code.
 Just for your own satisfaction, show yourself that you now have a new
 'remote', with ``git remote -v show``, giving you something like::
 
-   upstream	git://github.com/gitwash/gitwash.git (fetch)
-   upstream	git://github.com/gitwash/gitwash.git (push)
+   upstream	git://github.com/matthew-brett/gitwash.git (fetch)
+   upstream	git://github.com/matthew-brett/gitwash.git (push)
    origin	git@github.com:your-user-name/gitwash.git (fetch)
    origin	git@github.com:your-user-name/gitwash.git (push)
 

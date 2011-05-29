@@ -90,6 +90,7 @@ doctest:
 
 gitwash-update:
 	python tools/gitwash_dumper.py . gitwash \
+	    --github-user=matthew-brett \
 	    --project-url=http://github.com/matthew-brett/gitwash \
 	    --project-ml-url=http://mail.scipy.org/mailman/listinfo/nipy-devel
 
