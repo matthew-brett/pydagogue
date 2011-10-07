@@ -103,7 +103,7 @@ the significand can only be <img class="math" src="_images/math/dd8947103eef4bf1
 <p>It devotes 23 bits to the significand.  From the argument above, by assuming a
 first digit of 1, this gives it an effective 24 bits of storage for the
 significand.  The significand can thus be from <img class="math" src="_images/math/3e3e80aa2084dcbf7d73fcca88861e3830beb8fc.png" alt="1.0"/> (binary) to 1.(23 ones) in
-binary, which is, in decimal, a range of <img class="math" src="_images/math/41c544263a265ff15498ee45f7392c5f86c6d151.png" alt="2"/> to <img class="math" src="_images/math/497cd92a37387f92ab639757496ec9978010579e.png" alt="(2^{24}-1) * 2^{-23}"/>.  In sympy:</p>
+binary, which is, in decimal, a range of <img class="math" src="_images/math/dce34f4dfb2406144304ad0d6106c5382ddd1446.png" alt="1"/> to <img class="math" src="_images/math/497cd92a37387f92ab639757496ec9978010579e.png" alt="(2^{24}-1) * 2^{-23}"/>.  In sympy:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">two</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_32</span> <span class="o">=</span> <span class="mi">23</span>

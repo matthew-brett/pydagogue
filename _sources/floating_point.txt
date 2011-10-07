@@ -85,7 +85,7 @@ As we expect, this format devotes one bit to the sign.
 It devotes 23 bits to the significand.  From the argument above, by assuming a
 first digit of 1, this gives it an effective 24 bits of storage for the
 significand.  The significand can thus be from $1.0$ (binary) to 1.(23 ones) in
-binary, which is, in decimal, a range of $2$ to $(2^{24}-1) * 2^{-23}$.  In sympy:
+binary, which is, in decimal, a range of $1$ to $(2^{24}-1) * 2^{-23}$.  In sympy:
 
     >>> from sympy import Integer, Float
     >>> two = Integer(2)
