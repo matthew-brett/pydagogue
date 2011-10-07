@@ -30,6 +30,7 @@ Contents:
    git_gui_windows
    gh_delete_master
    gitwash_build
+   floating_point
 
 Indices and tables
 ==================

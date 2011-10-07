@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Points on floats &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="git resources" href="gitwash/git_resources.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gitwash/git_resources.html" title="git resources"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="points-on-floats">
+<span id="floating-point"></span><h1>Points on floats<a class="headerlink" href="#points-on-floats" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="thanks">
+<h2>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h2>
+<p>This page comes largely from the <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">wikipedia floating point</a> article.</p>
+<p>I read <a class="reference external" href="http://docs.sun.com/source/806-3568/ncg_goldberg.html">What every computer scientist should know about floating point</a> at some
+- er - point.</p>
+</div>
+<div class="section" id="starting-to-float">
+<h2>Starting to float<a class="headerlink" href="#starting-to-float" title="Permalink to this headline">¶</a></h2>
+<p>This is a floating point number:</p>
+<p><img class="math" src="_images/math/a39802bafc275eea42beff72bea73447ab1a2bcf.png" alt="-123.45"/></p>
+<p>We can also write this as:</p>
+<p><img class="math" src="_images/math/7910529012082dfb4b4c0c6dceffd2134a2f6d0a.png" alt="-1.2345 * 10^2"/></p>
+<p>Well, actually, we can write it like this:</p>
+<p><img class="math" src="_images/math/75687161a910adf0167f1375d821865483a917c0.png" alt="-1 * 1.2345 * 10^2"/></p>
+<p>Let <img class="math" src="_images/math/174fadd07fd54c9afe288e96558c92e0c1da733a.png" alt="n"/> (the <em>sign</em>) be a variable that is <img class="math" src="_images/math/dce34f4dfb2406144304ad0d6106c5382ddd1446.png" alt="1"/> if the sign of the number is
+positive, and <img class="math" src="_images/math/bae5aba07d37ff6ff813107e76260fb31ad5794e.png" alt="-1"/> if the number is negative.  Here <img class="math" src="_images/math/56584f0779cf04f3f0d66161f78cb2175bd832c3.png" alt="n = -1"/>.</p>
+<p>Let <img class="math" src="_images/math/f37bba504894945c07a32f5496d74299a37aa51c.png" alt="s"/> (the <em>significand</em>) be a number - here <img class="math" src="_images/math/02dde2ab6f17602f71572e17bfc24320eb6d428b.png" alt="1.2345"/>, with the floating point
+assumed to be after the first digit.  The significand is sometimes called the
+<em>mantissa</em>.</p>
+<p>Let <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> (the <em>exponent</em>) be the power of 10 to apply.  Here <img class="math" src="_images/math/cdec9cd913f93fae04d3ffd8cb3923863449fbed.png" alt="e = 2"/>. We now write:</p>
+<p><img class="math" src="_images/math/3c6a904e09fc366ae1b49826b107b7d91012adc8.png" alt="n * s * 10^e"/></p>
+<p>We&#8217;re all used to thinking of the <img class="math" src="_images/math/41c544263a265ff15498ee45f7392c5f86c6d151.png" alt="2"/> in <img class="math" src="_images/math/db61fd75a1a8bb6fa2b202b6b73daf9b4c9838d0.png" alt="10^2"/> as being the number of places to
+shift the decimal point to the right.  That is, we take the decimal point of the
+significand and shift it two to the right to get the number we mean.</p>
+</div>
+<div class="section" id="your-actual-floats">
+<h2>Your actual floats<a class="headerlink" href="#your-actual-floats" title="Permalink to this headline">¶</a></h2>
+<p>Actually, floating point numbers are almost invariably stored in IEEE 754 binary
+(base 2) format.  So far we&#8217;ve been looking at decimal (base 10) format numbers.</p>
+<p>Obviously we can store the <em>sign</em> in one binary bit.</p>
+<p>We store the <em>significand</em> as a binary number, again with an implied floating
+point position.  So:</p>
+<p><img class="math" src="_images/math/dd8947103eef4bf1bdd05314762d33e9913e6840.png" alt="1.1"/></p>
+<p>where <img class="math" src="_images/math/dd8947103eef4bf1bdd05314762d33e9913e6840.png" alt="1.1"/> (binary) equals <img class="math" src="_images/math/c6878713578626763c38433b3f4c8c2205ad0c15.png" alt="11"/> (binary) * <img class="math" src="_images/math/5258497e262985b06b3eeac0023aeff24d37cb07.png" alt="2^{-1}"/> (decimal) which equals
+(decimal) <img class="math" src="_images/math/9f7c0c7dfafc48da66f90769b0ecd2ef11e73c14.png" alt="3/2"/>.</p>
+<p>Of course <img class="math" src="_images/math/c6878713578626763c38433b3f4c8c2205ad0c15.png" alt="11"/> (binary) = <img class="math" src="_images/math/6352505d3372f59c9317234d02b2328bad8abceb.png" alt="2^2-1"/>, and in general, the maximum number that can
+be stored for <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> binary digits without a floating point is <img class="math" src="_images/math/924560a8ec9d957b7044e489afa44d620cf94ad8.png" alt="2^p-1"/>.</p>
+<p>It looks like we&#8217;d need two bits of storage to store <img class="math" src="_images/math/c6878713578626763c38433b3f4c8c2205ad0c15.png" alt="11"/> (binary).  But no,
+because, unlike the decimal case, we know that the first binary digit in the
+significand is 1.  Why?  In general (for decimal or binary) the first digit
+cannot be 0, because we can always represent a number beginning with 0 by
+subtracting from the exponent and shifting the significand digits left until the
+first digit is not zero. For decimal, if the first digit is not 0, it could be
+1-9, but for binary, it can only be 1. So, for binary, we can infer the first
+<img class="math" src="_images/math/dce34f4dfb2406144304ad0d6106c5382ddd1446.png" alt="1"/> and we only need one bit of storage to store <img class="math" src="_images/math/dd8947103eef4bf1bdd05314762d33e9913e6840.png" alt="1.1"/>.  Of course that means
+the significand can only be <img class="math" src="_images/math/dd8947103eef4bf1bdd05314762d33e9913e6840.png" alt="1.1"/> or <img class="math" src="_images/math/3e3e80aa2084dcbf7d73fcca88861e3830beb8fc.png" alt="1.0"/> in this case.</p>
+</div>
+<div class="section" id="ieee-32-bit-binary-float">
+<h2>IEEE 32-bit binary float.<a class="headerlink" href="#ieee-32-bit-binary-float" title="Permalink to this headline">¶</a></h2>
+<p>This is a common floating point format, often called a single-precision float.</p>
+<p>As we expect, this format devotes one bit to the sign.</p>
+<p>It devotes 23 bits to the significand.  From the argument above, by assuming a
+first digit of 1, this gives it an effective 24 bits of storage for the
+significand.  The significand can thus be from <img class="math" src="_images/math/3e3e80aa2084dcbf7d73fcca88861e3830beb8fc.png" alt="1.0"/> (binary) to 1.(23 ones) in
+binary, which is, in decimal, a range of <img class="math" src="_images/math/41c544263a265ff15498ee45f7392c5f86c6d151.png" alt="2"/> to <img class="math" src="_images/math/497cd92a37387f92ab639757496ec9978010579e.png" alt="(2^{24}-1) * 2^{-23}"/>.  In sympy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">two</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_32</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_32</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="n">s_bits_32</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s_bits_32</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_32</span>
+<span class="go">16777215/8388608</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_s_32</span><span class="p">)</span>
+<span class="go">1.99999988079071</span>
+</pre></div>
+</div>
+<p>With 1 bit for the sign, and 23 bits for the sigificand, there are 8 bits
+remaining for the exponent.</p>
+<p>The exponent is not stored as a standard signed integer.  An exponent of all 0s
+indicates a zero number or a <em>subnormal</em> number <a class="footnote-reference" href="#except-subnormal" id="id1">[1]</a>.  An
+exponent of all 1s indicates an infinity or not-a-number value.  If we treat the
+8 bits of the exponent as an unsigned number (call it <img class="math" src="_images/math/9ad99798ec4c38e165cf517cb9e02b1c9e824103.png" alt="u"/>) then the actual
+exponent is given by:</p>
+<p><img class="math" src="_images/math/379ff3f12ff1e9cae55869b5e6395b54a069f471.png" alt="e = u - b"/></p>
+<p>where <img class="math" src="_images/math/8136a7ef6a03334a7246df9097e5bcc31ba33fd2.png" alt="b"/> is the <em>bias</em> - and the bias for 32 bit IEEE floats, is <img class="math" src="_images/math/5aff9f43a5b6838a7ae07cb73c81ce4ac4304f5d.png" alt="127"/>.  With 8
+bits, <img class="math" src="_images/math/9ad99798ec4c38e165cf517cb9e02b1c9e824103.png" alt="u"/> could be 0 to 255, but both 0 and 255 are reserved (0 for zeros and
+subnormals; 255 for non-finite, as above).  Thus the effective range of <img class="math" src="_images/math/9ad99798ec4c38e165cf517cb9e02b1c9e824103.png" alt="u"/> is
+1-254, and the effective range of <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is -126 to 127.</p>
+<p>What&#8217;s the largest positive 32 bit IEEE float?  Easy:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_32</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_bias_32</span> <span class="o">=</span> <span class="mi">127</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_32</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="n">e_bits_32</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e_bias_32</span> <span class="o">-</span> <span class="mi">1</span> <span class="c"># -1 for all-ones reserved</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_32</span>
+<span class="go">127</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_float32</span> <span class="o">=</span> <span class="n">biggest_s_32</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">biggest_e_32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_float32</span>
+<span class="go">340282346638528859811704183484516925440</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_float32</span><span class="p">)</span>
+<span class="go">3.40282346638529e+38</span>
+</pre></div>
+</div>
+<p>The most negative value? Just the same number with -1 sign (sign bit is 1).</p>
+<p>And the smallest value? <a class="footnote-reference" href="#except-subnormal" id="id2">[1]</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_32</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_bias_32</span> <span class="o">+</span> <span class="mi">1</span> <span class="c"># +1 for zeros reserved</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_32</span>
+<span class="go">-126</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_s_32</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_float32</span> <span class="o">=</span> <span class="n">smallest_s_32</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">most_neg_e_32</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_float32</span>
+<span class="go">1/85070591730234615865843651857942052864</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">smallest_float32</span><span class="p">)</span>
+<span class="go">1.17549435082229e-38</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ieee-64-bit-binary-float">
+<h2>IEEE 64-bit binary float.<a class="headerlink" href="#ieee-64-bit-binary-float" title="Permalink to this headline">¶</a></h2>
+<p>This is the other common floating point format, often called a double-precision
+float.</p>
+<p>It uses:</p>
+<ul class="simple">
+<li>1 bit for the sign</li>
+<li>52 bits for the significand</li>
+<li>11 bits for the exponent</li>
+</ul>
+<p>and the exponent <em>bias</em> is 1023 (<a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">wikipedia floating point</a>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_64</span> <span class="o">=</span> <span class="mi">52</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_64</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="n">s_bits_64</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">s_bits_64</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_s_64</span>
+<span class="go">9007199254740991/4503599627370496</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_s_64</span><span class="p">)</span>
+<span class="go">2.00000000000000</span>
+</pre></div>
+</div>
+<p>Well - it&#8217;s not quite 2.0 - but within the limits of the printing precision.</p>
+<p>Largest 64-bit float:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_64</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e_bias_64</span> <span class="o">=</span> <span class="mi">1023</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_64</span> <span class="o">=</span> <span class="p">(</span><span class="n">two</span><span class="o">**</span><span class="n">e_bits_64</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e_bias_64</span> <span class="o">-</span> <span class="mi">1</span> <span class="c"># -1 for all-ones reserved</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_e_64</span>
+<span class="go">1023</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggest_float64</span> <span class="o">=</span> <span class="n">biggest_s_64</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">biggest_e_64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">biggest_float64</span><span class="p">)</span>
+<span class="go">1.79769313486232e+308</span>
+</pre></div>
+</div>
+<p>Smallest <a class="footnote-reference" href="#except-subnormal" id="id3">[1]</a>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_64</span> <span class="o">=</span> <span class="o">-</span><span class="n">e_bias_64</span> <span class="o">+</span> <span class="mi">1</span> <span class="c"># +1 for zeros reserved</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">most_neg_e_64</span>
+<span class="go">-1022</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_s_64</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">smallest_float64</span> <span class="o">=</span> <span class="n">smallest_s_64</span> <span class="o">*</span> <span class="n">two</span><span class="o">**</span><span class="n">most_neg_e_64</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Float</span><span class="p">(</span><span class="n">smallest_float64</span><span class="p">)</span>
+<span class="go">2.22507385850720e-308</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="floating-point-and-integers">
+<h2>Floating point and integers<a class="headerlink" href="#floating-point-and-integers" title="Permalink to this headline">¶</a></h2>
+<p>Consider the significand in an IEEE 32 bit floating point number.</p>
+<p>Neglect for a moment, the assumed floating point after the first digit.  The
+significand has 24 binary digits (including the assumed first digit).  That is,
+neglecting the floating point, it can represent the integers from 1 (<img class="math" src="_images/math/20e7f8535d854f50bb4928d57b1ba445fd8a88f0.png" alt="2^1-1"/>) to
+16777215 (<img class="math" src="_images/math/e847a2a1840b6aaf0cbd3023cd258f3d90485c65.png" alt="2^{24}-1"/>).  Now let&#8217;s take into account the floating point.  In
+order to store 1, the exponent can just be 0, no problem.  In order to store
+<img class="math" src="_images/math/e847a2a1840b6aaf0cbd3023cd258f3d90485c65.png" alt="2^{24}-1"/>, the exponent has to be 23 to push the floating point 23 digits to
+the right. As we know, the IEEE expoonent can range between -126 and 127, so 23
+is also OK.</p>
+<p>Now set the significand to 1.0 and the exponent to be 24. This is <img class="math" src="_images/math/d059d99c5ee59dd96e5dc75c08d1a903a6d7cfc7.png" alt="1 * 2^{24}"/> -
+or 16777216.  But the next number, 16777217, we can&#8217;t store exactly, because
+this is <img class="math" src="_images/math/8a94b634ec6b1b8f1361099c1fd1ce48cf650096.png" alt="2^{24}+1"/>, and we&#8217;ve run out of digits to store the extra 1.</p>
+<p>All this means that the IEEE 32 bit binary format can store all integers
+-16777216 to 16777216 (<img class="math" src="_images/math/d2aa6ddb978e5cb99ec2da4b906d7f420d70b1d7.png" alt="\pm 2^{24}"/>) exactly.</p>
+<p>By the same argument, the IEEE 64 bit binary format can exactly store all
+integers between <img class="math" src="_images/math/d6b413b92f817a91fdd2e4b1d8c0d08e5f5726a8.png" alt="\pm 2^{54}"/>.</p>
+</div>
+<div class="section" id="bit-patterns">
+<h2>Bit patterns<a class="headerlink" href="#bit-patterns" title="Permalink to this headline">¶</a></h2>
+<p>You don&#8217;t believe me?  Let&#8217;s predict the bit pattern for storing the number
+16777216 in IEEE 32 bit floating point.  We established that this has 1.0 for
+the significand, and the value 24 for the exponent.</p>
+<p>The <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">wikipedia floating point</a> page tells us that the IEEE standard has a 32
+bit binary float stored as the sign bit, followed by 8 exponent bits, followed
+by the 23 significand bits, with the most significant bits first.</p>
+<p>So we have:</p>
+<ul class="simple">
+<li>0 for the sign bit</li>
+<li>the exponent part <img class="math" src="_images/math/cc7b488b3e885a0e0117535a9d63641b77591357.png" alt="u = e + b"/> = 24 + 127 = 151</li>
+<li>0 for the significand (implicit 1.0)</li>
+</ul>
+<p>The binary representation of 151 is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">151</span><span class="p">)</span>
+<span class="go">&#39;10010111&#39;</span>
+</pre></div>
+</div>
+<p>We get the memory from our float represented as an unsigned 32 bit integer:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">float32_mem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="mi">16777216</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and show it as binary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">float32_mem</span><span class="p">)</span>
+<span class="go">&#39;1001011100000000000000000000000&#39;</span>
+</pre></div>
+</div>
+<p>How about -16777215?  It should be 1 for the sign, 23 for the exponent (<img class="math" src="_images/math/1c24e16b808233ce98c5e56a32f38059f4bddadf.png" alt="u = 23 +
+127"/> = 50), and all ones for the significand:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
+<span class="go">&#39;10010110&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="o">-</span><span class="mi">16777215</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">))</span>
+<span class="go">&#39;11001011011111111111111111111111&#39;</span>
+</pre></div>
+</div>
+<table class="docutils footnote" frame="void" id="except-subnormal" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>, <a class="fn-backref" href="#id3">3</a>)</em> Subnormal numbers (<a class="reference external" href="http://en.wikipedia.org/wiki/Denormal_number">wikipedia subnormal numbers</a>) are
+numbers smaller than those you can store with the simple significand and
+exponent mechanisms this page describes.  Thus, for a 32 bit float, the
+smallest <em>normal</em> number is around 1.17549435082229e-38.  The IEEE standard
+contains a trick for storing smaller numbers than this, by using an exponent
+of 0 - see the wikipedia page for details.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Points on floats</a><ul>
+<li><a class="reference internal" href="#thanks">Thanks</a></li>
+<li><a class="reference internal" href="#starting-to-float">Starting to float</a></li>
+<li><a class="reference internal" href="#your-actual-floats">Your actual floats</a></li>
+<li><a class="reference internal" href="#ieee-32-bit-binary-float">IEEE 32-bit binary float.</a></li>
+<li><a class="reference internal" href="#ieee-64-bit-binary-float">IEEE 64-bit binary float.</a></li>
+<li><a class="reference internal" href="#floating-point-and-integers">Floating point and integers</a></li>
+<li><a class="reference internal" href="#bit-patterns">Bit patterns</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gitwash/git_resources.html"
+                        title="previous chapter">git resources</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/floating_point.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gitwash/git_resources.html" title="git resources"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>
