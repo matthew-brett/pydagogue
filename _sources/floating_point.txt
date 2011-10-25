@@ -202,8 +202,8 @@ is also OK.
 Now set the significand to 1.0 and the exponent to be 24. This is $1 * 2^{24}$ -
 or 16777216. By setting the exponent to one greater than the number of
 significand digits, we have pushed the floating point one digit past the end of
-the significand, and got an extra implied 0 ("1." followed by 23 zeros, followed
-by an implied 0).
+the significand, and got an extra implied 0 (1 followed by 23 zeros, followed
+by an implied 0, followed by the floating point).
 
 The smallest possible increase we can make to this number is to replace the
 final 0 in the significand with a 1.  But, because we've pushed the floating
