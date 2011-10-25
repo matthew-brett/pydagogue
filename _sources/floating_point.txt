@@ -216,7 +216,7 @@ All this means that the IEEE 32 bit binary format can store all integers
 -16777216 to 16777216 ($\pm 2^{24}$) exactly.
 
 By the same argument, the IEEE 64 bit binary format can exactly store all
-integers between $\pm 2^{54}$.
+integers between $\pm 2^{53}$.
 
 ************
 Bit patterns
