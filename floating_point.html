@@ -204,11 +204,19 @@ neglecting the floating point, it can represent the integers from 1 (<img class=
 16777215 (<img class="math" src="_images/math/e847a2a1840b6aaf0cbd3023cd258f3d90485c65.png" alt="2^{24}-1"/>).  Now let&#8217;s take into account the floating point.  In
 order to store 1, the exponent can just be 0, no problem.  In order to store
 <img class="math" src="_images/math/e847a2a1840b6aaf0cbd3023cd258f3d90485c65.png" alt="2^{24}-1"/>, the exponent has to be 23 to push the floating point 23 digits to
-the right. As we know, the IEEE expoonent can range between -126 and 127, so 23
+the right. As we know, the IEEE exponent can range between -126 and 127, so 23
 is also OK.</p>
 <p>Now set the significand to 1.0 and the exponent to be 24. This is <img class="math" src="_images/math/d059d99c5ee59dd96e5dc75c08d1a903a6d7cfc7.png" alt="1 * 2^{24}"/> -
-or 16777216.  But the next number, 16777217, we can&#8217;t store exactly, because
-this is <img class="math" src="_images/math/8a94b634ec6b1b8f1361099c1fd1ce48cf650096.png" alt="2^{24}+1"/>, and we&#8217;ve run out of digits to store the extra 1.</p>
+or 16777216. By setting the exponent to one greater than the number of
+significand digits, we have pushed the floating point one digit past the end of
+the significand, and got an extra implied 0 (&#8220;1.&#8221; followed by 23 zeros, followed
+by an implied 0).</p>
+<p>The smallest possible increase we can make to this number is to replace the
+final 0 in the significand with a 1.  But, because we&#8217;ve pushed the floating
+point one position past the end of the significand, the final 1 in our
+significand does not increase the resulting number by 1, but by 2.  So the next
+largest number after 2**24, is 2**24 + 2.  We can&#8217;t store 2**24+1 in an IEEE 32
+bit float.</p>
 <p>All this means that the IEEE 32 bit binary format can store all integers
 -16777216 to 16777216 (<img class="math" src="_images/math/d2aa6ddb978e5cb99ec2da4b906d7f420d70b1d7.png" alt="\pm 2^{24}"/>) exactly.</p>
 <p>By the same argument, the IEEE 64 bit binary format can exactly store all
