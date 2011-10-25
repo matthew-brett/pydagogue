@@ -196,12 +196,21 @@ neglecting the floating point, it can represent the integers from 1 ($2^1-1$) to
 16777215 ($2^{24}-1$).  Now let's take into account the floating point.  In
 order to store 1, the exponent can just be 0, no problem.  In order to store
 $2^{24}-1$, the exponent has to be 23 to push the floating point 23 digits to
-the right. As we know, the IEEE expoonent can range between -126 and 127, so 23
+the right. As we know, the IEEE exponent can range between -126 and 127, so 23
 is also OK.
 
 Now set the significand to 1.0 and the exponent to be 24. This is $1 * 2^{24}$ -
-or 16777216.  But the next number, 16777217, we can't store exactly, because
-this is $2^{24}+1$, and we've run out of digits to store the extra 1.
+or 16777216. By setting the exponent to one greater than the number of
+significand digits, we have pushed the floating point one digit past the end of
+the significand, and got an extra implied 0 ("1." followed by 23 zeros, followed
+by an implied 0).
+
+The smallest possible increase we can make to this number is to replace the
+final 0 in the significand with a 1.  But, because we've pushed the floating
+point one position past the end of the significand, the final 1 in our
+significand does not increase the resulting number by 1, but by 2.  So the next
+largest number after 2**24, is 2**24 + 2.  We can't store 2**24+1 in an IEEE 32
+bit float.
 
 All this means that the IEEE 32 bit binary format can store all integers
 -16777216 to 16777216 ($\pm 2^{24}$) exactly.
