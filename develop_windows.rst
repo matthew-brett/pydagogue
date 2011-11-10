@@ -105,14 +105,14 @@ Windows compiler and build tools
 * Download and install the mingw_ windows compiler.  I used the
   ``mingw-get-inst`` automated installation route.  Select the options giving
   you c++, fortran, and the msys build environment.  I didn't directly add these
-  to the path, but made a script ``c:\Mingw\mingwvar.ps1``::
+  to the path, but made a script ``c:\Mingw\mingwvars.ps1``::
 
     # convenience script to add mingw to path
     echo "Adding mingw to PATH..."
     $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
     $env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"
 
-  Then in powershell - ``source c:\Mingw\mingwvar.ps1`` to add the msys and
+  Then in powershell - ``. c:\Mingw\mingwvars.ps1`` to add the msys and
   mingw tools to the path.
 
 * Using mingw, you might get this kind of error::
