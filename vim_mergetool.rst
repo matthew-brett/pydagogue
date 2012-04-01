@@ -23,11 +23,11 @@ Quoting from ``git mergetool --help``:
 
     When git mergetool is invoked with this tool (either through the -t or
     --tool option or the merge.tool configuration variable) the configured
-    command line will be invoked with $BASE set to the name of a temporary file
-    containing the common base for the merge, if available; $LOCAL set to the
+    command line will be invoked with \$BASE set to the name of a temporary file
+    containing the common base for the merge, if available; \$LOCAL set to the
     name of a temporary file containing the contents of the file on the current
-    branch; $REMOTE set to the name of a temporary file containing the contents
-    of the file to be merged, and $MERGED set to the name of the file to which
+    branch; \$REMOTE set to the name of a temporary file containing the contents
+    of the file to be merged, and \$MERGED set to the name of the file to which
     the merge tool should write the result of the merge resolution.
 
 Interpreting the text above in the context of ``git rebase --help`` - the
