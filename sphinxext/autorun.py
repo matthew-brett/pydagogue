@@ -43,6 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import os
 from subprocess import Popen,PIPE
+import re
 
 from docutils import nodes
 from sphinx.util.compat import Directive
@@ -74,17 +75,34 @@ class AutoRun(object):
         cls.config.update(app.builder.config.autorun_languages)
 
 
+def subst_vars(in_str, vars):
+    """ Do jinja-like variable substitution """
+    out_str = in_str
+    for key, value in vars.items():
+        out_str = re.sub('{{ ' + key + ' }}', value, out_str)
+    return out_str
+
+
 class RunBlock(Directive):
     has_content = True
     required_arguments = 0
     optional_arguments = 1
     final_argument_whitespace = True
+    env_vars_name = 'runblock_vars'
     default_cwd = '/'
     option_spec = {
         'linenos': flag,
         'hide': flag,
         'cwd': unchanged,
     }
+
+    def _get_env_vars(self):
+        env = self.state.document.settings.env
+        return getattr(env, self.env_vars_name, {})
+
+    def _set_env_vars(self, env_vars):
+        env = self.state.document.settings.env
+        return setattr(env, self.env_vars_name, env_vars)
 
     def run(self):
         env = self.state.document.settings.env
@@ -104,17 +122,18 @@ class RunBlock(Directive):
         prefix_chars = config.get(language+'_prefix_chars', 0)
         show_source = config.get(language+'_show_source', True)
         prompt_prefix = config.get(language+'_prompt_prefix', '')
-
         # Build the code text
         _, cwd = env.relfn2path(self.options.get('cwd', self.default_cwd))
         proc = Popen(args,bufsize=1,stdin=PIPE,stdout=PIPE,stderr=PIPE,
                      cwd=cwd)
+        # Remove prefix
         codelines = (line[prefix_chars:] for line in self.content)
-        code = u'\n'.join(codelines).encode(input_encoding)
-
+        # Make executable code
+        exe_code = u'\n'.join(codelines).encode(input_encoding)
+        # Do env substitution
+        exe_code = subst_vars(exe_code, self._get_env_vars())
         # Run the code
-        stdout, stderr = proc.communicate(code)
-
+        stdout, stderr = proc.communicate(exe_code)
         # Process output
         if stdout:
             out = ''.join(stdout).decode(output_encoding)
@@ -122,17 +141,17 @@ class RunBlock(Directive):
             out = ''.join(stderr).decode(output_encoding)
         else:
             out = ''
-
         # Get the original code with prefixes
         if show_source:
             code = prompt_prefix + (u'\n' + prompt_prefix).join(self.content)
         else:
             code = ''
-        code_out = u'\n'.join((code,out))
-
+        code_out = u'\n'.join((code, out))
+        # Do env substitution
+        code_out = subst_vars(code_out, self._get_env_vars())
+        # Make nodes
         if 'hide' in self.options:
             return [nodes.comment(code_out, code_out)]
-
         literal = nodes.literal_block(code_out, code_out)
         literal['language'] = language
         literal['linenos'] = 'linenos' in self.options
