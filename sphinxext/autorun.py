@@ -89,6 +89,8 @@ class RunBlock(Directive):
     optional_arguments = 1
     final_argument_whitespace = True
     env_vars_name = 'runblock_vars'
+    exe_pre = ''
+    exe_post = ''
     default_cwd = '/'
     option_spec = {
         'linenos': flag,
@@ -130,6 +132,8 @@ class RunBlock(Directive):
         codelines = (line[prefix_chars:] for line in self.content)
         # Make executable code
         exe_code = u'\n'.join(codelines).encode(input_encoding)
+        # Prepost, postpend extra code lines
+        exe_code = self.exe_pre + exe_code + self.exe_post
         # Do env substitution
         exe_code = subst_vars(exe_code, self._get_env_vars())
         # Run the code
