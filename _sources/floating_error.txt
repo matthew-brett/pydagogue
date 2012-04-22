@@ -120,9 +120,10 @@ $ulp(e, p) = \beta^{e-(p-1)}$.  Let $m$ be the largest digit in base $\beta$;
 thus $m = \beta - 1$.  For example $m = 9$ in base 10 ($\beta = 10$). The values
 of $x$ between $1.0 \times \beta^e$ and $m.mmm... \times \beta^e$ all have the
 same value for 1 ULP = $\beta^{e-(p-1)}$. The *relative* rounding error will be
-greater for smaller $x$ with the same exponent.  Let $a = ulp(e, p)$. When $x =
-1.0 \times \beta^e + a$, the relative rounding error is $0.5 \times \beta^{e-(1-p)}
-/ (\beta^e + a) \approx 0.5 \times \beta^{e-(1-p)} / \beta^e = 0.5 \times
+greater for smaller $x$ with the same exponent.  Let $a = 0.5 \times ulp(e, p)$.
+When $x = 1.0 \times \beta^e + a$, the relative rounding error is $0.5 \times
+\beta^{e-(1-p)} / (\beta^e + a)$.  Because $a$ is very small compared to
+$\beta^e$, this gives $\approx 0.5 \times \beta^{e-(1-p)} / \beta^e = 0.5 \times
 \beta^{p-1}$.  For $x = m.mm... \times \beta^e$, then $x \approx \beta^{e+1}$
 and the largest relative error near this $x$ is $\approx 0.5 \times
 \beta^{e-(p-1)} / (\beta^{e+1} - a) \approx 0.5 \times \beta^{e-(p-1)} /
