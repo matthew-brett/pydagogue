@@ -47,9 +47,11 @@
 <h1>Floating point error<a class="headerlink" href="#floating-point-error" title="Permalink to this headline">¶</a></h1>
 <p>This page maybe follows from <a class="reference internal" href="floating_point.html#floating-point"><em>Points on floats</em></a></p>
 <p>I ran into trouble trying to understand floating point error. After reading
-<a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">Wikipedia floating point</a>, <a class="reference external" href="http://docs.sun.com/source/806-3568/ncg_goldberg.html">Wikipedia machine epsilon</a> and <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What every
+<a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">Wikipedia floating point</a>, <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon">Wikipedia machine epsilon</a> and <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What every
 computer scientist should know about floating point</a>, I felt the need of some
 more explanation, and so here it is.</p>
+<div class="section" id="units-at-the-last-place">
+<h2>Units at the last place<a class="headerlink" href="#units-at-the-last-place" title="Permalink to this headline">¶</a></h2>
 <p>Taking the notation from <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">Every computer scientist</a>; let&#8217;s imagine we have a
 floating point number that has base 10 and 3 significand digits, say <img class="math" src="_images/math/b6155920b79773056a3f679f4d547ca67cb34c42.png" alt="3.14
 \times 10^1"/>.  Because we only have 3 digits, the next largest number that we
@@ -86,18 +88,36 @@ using an infinite significand:</p>
 </div><p>Again, <em>normalized</em> means that <img class="math" src="_images/math/75a8c4fc1d424d5565f16d8a5ef83854af7fb886.png" alt="d_1 \ne 0"/>.  The ULP value for a real value <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/>
 in some some finite floating point format is still <img class="math" src="_images/math/92159ea6eda5aae991ef8f4b8d39ba3c97709483.png" alt="ulp(e, p)"/> where <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the
 number of significand digits as above.</p>
+</div>
+<div class="section" id="absolute-error">
+<h2>Absolute error<a class="headerlink" href="#absolute-error" title="Permalink to this headline">¶</a></h2>
 <p>The IEEE standard for floating point specifies that the result of any floating
 point operation should be correct to within the rounding error of the resulting
 number.  That is, it specifies that the maximum rounding error for an individual
-operation (add, multiply, subtract, divide) should be 0.5 ULP.  If <img class="math" src="_images/math/92974f10538c62061de47f47e7af2be3053ffc9c.png" alt="fl(x)"/> is
-the number closest to <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> that our floating point format can represent, and <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/>
-is the exponent of <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> in normalized infinite floating point, and <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the
-significand digits in our finite floating point format, then:</p>
+operation (add, multiply, subtract, divide) should be 0.5 ULP.</p>
+<p>In practice it&#8217;s now very hard indeed to find a machine that does not implement
+this rule for floating point operations; all current x86, PPC, ARM chips and
+associated compilers do.</p>
+<p>Imagine we have two finite floating point numbers <img class="math" src="_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> and <img class="math" src="_images/math/b55ca7a0aa88ab7d58f4fc035317fdac39b17861.png" alt="r"/> and we combine
+them using one of the operators {+, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /} in a perfect world at infinite
+precision:</p>
+<div class="math">
+<p><img src="_images/math/a963ff84f5fdb7b26d1eb98bfceacd258be55fa2.png" alt="x = q \circ r"/></p>
+</div><p>where <img class="math" src="_images/math/7f3b4ea3b8abe9ced6095c7d75f207a1127ee843.png" alt="\circ"/> is one of the operators {+, -, <a href="#id3"><span class="problematic" id="id4">*</span></a>, /}. Let&#8217;s call the actual finite
+precision number returned from this calculation <img class="math" src="_images/math/92974f10538c62061de47f47e7af2be3053ffc9c.png" alt="fl(x)"/>.  The IEEE standard
+specifies that <img class="math" src="_images/math/92974f10538c62061de47f47e7af2be3053ffc9c.png" alt="fl(x)"/> should be the closest number to <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> that can be
+represented in the finite precision format.</p>
+<p>Let <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> be the exponent of <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> in normalized infinite floating point, and we
+remember that <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the number of significand digits in our finite floating
+point format. The IEEE rule then becomes:</p>
 <div class="math">
 <p><img src="_images/math/b6d8998dcb5f01ce7a34aada3f56f01d4ab10ddf.png" alt="\left| fl(x) - x \right| \le 0.5 \times ulp(e, p)
 
 \left| fl(x) - x \right| \le 0.5 \times \beta^{e-(p-1)}"/></p>
-</div><p>The <em>relative error</em> is the rounding error divided by the infinite precision real
+</div></div>
+<div class="section" id="relative-error">
+<h2>Relative error<a class="headerlink" href="#relative-error" title="Permalink to this headline">¶</a></h2>
+<p>The <em>relative error</em> is the rounding error divided by the infinite precision real
 number <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/>:</p>
 <div class="math">
 <p><img src="_images/math/69b2ba8ed34c833b7588bba77bc16c1a11738cf2.png" alt="\left| \frac{fl(x) - x}{x} \right| \le \frac{0.5 \times \beta^{e-(p-1)}}{x}"/></p>
@@ -110,12 +130,26 @@ greater for smaller <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b
 1.0 \times \beta^e + a"/>, the relative rounding error is <img class="math" src="_images/math/f955a2a69c6d14f874ff101c717342ab3c627b21.png" alt="0.5 \times \beta^{e-(1-p)}
 / (\beta^e + a) \approx 0.5 \times \beta^{e-(1-p)} / \beta^e = 0.5 \times
 \beta^{p-1}"/>.  For <img class="math" src="_images/math/ea3e34ac55514a29e22ffc4468ea3cc58ba00f30.png" alt="x = m.mm... \times \beta^e"/>, then <img class="math" src="_images/math/dce1a69a40a795c92a5dab05d496f461806f6600.png" alt="x \approx \beta^{e+1}"/>
-and the relative error <img class="math" src="_images/math/d000d3b0c3e52a21d7f37fe59e5123dd74ee5e3b.png" alt="\approx 0.5 \times \beta^{e-(p-1)} / (\beta^{e+1} + a) \approx
-0.5 \times \beta^{e-(p-1)} / \beta^{e+1} = 0.5 \times \beta^{-p}"/>.  Therefore the
-<em>maximum</em> relative error for a <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> with any exponent <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is <img class="math" src="_images/math/cd844cf528d8010b87e633c1a7f185004b3d5d04.png" alt="\approx 0.5 \times
-\beta^{1-p}"/>.</p>
-<p>Now note that <img class="math" src="_images/math/365ba8e0098f6f40a4740207591ae32357741f09.png" alt="\beta^{1-p}"/> is the ULP for 1; that is <img class="math" src="_images/math/615ccf5c23b5c80091562de3b42e92e6e2af7e9e.png" alt="1.0 \times \beta^{e-(p-1)}"/>
-where <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is 0.</p>
+and the largest relative error near this <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> is <img class="math" src="_images/math/66380721741133a7eb6486eeca8d36abc8ee12e1.png" alt="\approx 0.5 \times
+\beta^{e-(p-1)} / (\beta^{e+1} - a) \approx 0.5 \times \beta^{e-(p-1)} /
+\beta^{e+1} = 0.5 \times \beta^{-p}"/>.  Therefore the <em>maximum</em> relative error
+for a <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> with any exponent <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is <img class="math" src="_images/math/5c9e4071a27feb0b71ddc502997f8260e3464faf.png" alt="\approx 0.5 \times \beta^{1-p}"/>.</p>
+</div>
+<div class="section" id="machine-epsilon">
+<h2>Machine epsilon<a class="headerlink" href="#machine-epsilon" title="Permalink to this headline">¶</a></h2>
+<p>Now note that <img class="math" src="_images/math/365ba8e0098f6f40a4740207591ae32357741f09.png" alt="\beta^{1-p}"/> is the ULP for 1; that is <img class="math" src="_images/math/fad52ac540c6fabba9d8f3b19ca803ab358cd8e6.png" alt="1.0 \times
+\beta^{e-(p-1)}"/> where <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is 0.  Some people refer to this value as <em>machine
+epsilon</em>, others use that term for <img class="math" src="_images/math/933d05aef19b0b4586a7fc585e38bd9191fc1829.png" alt="0.5 \times \beta^{1-p}"/> - see <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon#Variant_definitions">variant
+definitions</a>.  MATLAB and Octave return <img class="math" src="_images/math/365ba8e0098f6f40a4740207591ae32357741f09.png" alt="\beta^{1-p}"/> from their <tt class="docutils literal"><span class="pre">eps()</span></tt>
+function. <a class="reference external" href="http://numpy.scipy.org">numpy</a> uses the same convention in its <tt class="docutils literal"><span class="pre">np.finfo</span></tt> function.  For
+example, the standard <tt class="docutils literal"><span class="pre">float32</span></tt> single precision type in numpy has <img class="math" src="_images/math/1b4a9d9c0fd3fb9eb4caced0b4c9ec4fb5cb46b8.png" alt="\beta = 2;
+p=24"/>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">==</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">24</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -124,6 +158,17 @@ where <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Floating point error</a><ul>
+<li><a class="reference internal" href="#units-at-the-last-place">Units at the last place</a></li>
+<li><a class="reference internal" href="#absolute-error">Absolute error</a></li>
+<li><a class="reference internal" href="#relative-error">Relative error</a></li>
+<li><a class="reference internal" href="#machine-epsilon">Machine epsilon</a></li>
+</ul>
+</li>
+</ul>
+
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/floating_error.txt"
