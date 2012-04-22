@@ -156,13 +156,13 @@ command above.</p>
 <li><p class="first">Download and install the <a class="reference external" href="http://www.mingw.org/wiki/Getting_Started">mingw</a> windows compiler.  I used the
 <tt class="docutils literal"><span class="pre">mingw-get-inst</span></tt> automated installation route.  Select the options giving
 you c++, fortran, and the msys build environment.  I didn&#8217;t directly add these
-to the path, but made a script <tt class="docutils literal"><span class="pre">c:\Mingw\mingwvar.ps1</span></tt>:</p>
+to the path, but made a script <tt class="docutils literal"><span class="pre">c:\Mingw\mingwvars.ps1</span></tt>:</p>
 <div class="highlight-python"><pre># convenience script to add mingw to path
 echo "Adding mingw to PATH..."
 `mingw = [System.IO.Path]::GetDirectoryName(:math:`MyInvocation.MyCommand.Definition)
 `env:path = ":math:`mingw\bin;`mingw\msys\1.0\bin;$env:path"</pre>
 </div>
-<p>Then in powershell - <tt class="docutils literal"><span class="pre">source</span> <span class="pre">c:\Mingw\mingwvar.ps1</span></tt> to add the msys and
+<p>Then in powershell - <tt class="docutils literal"><span class="pre">.</span> <span class="pre">c:\Mingw\mingwvars.ps1</span></tt> to add the msys and
 mingw tools to the path.</p>
 </li>
 <li><p class="first">Using mingw, you might get this kind of error:</p>

@@ -117,7 +117,7 @@ git branch my-new-feature upstream/master
 git checkout my-new-feature</pre>
 </div>
 <p>Generally, you will want to keep your feature branches on your public <a class="reference external" href="http://github.com">github</a>
-fork of <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a>.  To do this, you <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git push</a> this new branch up to your
+fork of <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a>.  To do this, you <a class="reference external" href="http://schacon.github.com/git/git-push.html">git push</a> this new branch up to your
 github repo.  Generally (if you followed the instructions in these pages, and by
 default), git will have a link to your github repo, called <tt class="docutils literal"><span class="pre">origin</span></tt>.  You push
 up to your own repo on github with:</p>
@@ -145,7 +145,7 @@ git push</pre>
 <ol class="arabic">
 <li><p class="first">Make some changes</p>
 </li>
-<li><p class="first">See which files have changed with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></tt> (see <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-status.html">git status</a>).
+<li><p class="first">See which files have changed with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></tt> (see <a class="reference external" href="http://schacon.github.com/git/git-status.html">git status</a>).
 You&#8217;ll see a listing like this one:</p>
 <div class="highlight-python"><pre># On branch ny-new-feature
 # Changed but not updated:
@@ -161,21 +161,21 @@ You&#8217;ll see a listing like this one:</p>
 no changes added to commit (use "git add" and/or "git commit -a")</pre>
 </div>
 </li>
-<li><p class="first">Check what the actual changes are with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> (<a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-diff.html">git diff</a>).</p>
+<li><p class="first">Check what the actual changes are with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> (<a class="reference external" href="http://schacon.github.com/git/git-diff.html">git diff</a>).</p>
 </li>
 <li><p class="first">Add any new files to version control <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">new_file_name</span></tt> (see
-<a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-add.html">git add</a>).</p>
+<a class="reference external" href="http://schacon.github.com/git/git-add.html">git add</a>).</p>
 </li>
 <li><p class="first">To commit all modified files into the local copy of your repo,, do
 <tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-am</span> <span class="pre">'A</span> <span class="pre">commit</span> <span class="pre">message'</span></tt>.  Note the <tt class="docutils literal"><span class="pre">-am</span></tt> options to
 <tt class="docutils literal"><span class="pre">commit</span></tt>. The <tt class="docutils literal"><span class="pre">m</span></tt> flag just signals that you&#8217;re going to type a
 message on the command line.  The <tt class="docutils literal"><span class="pre">a</span></tt> flag — you can just take on
 faith — or see <a class="reference external" href="http://www.gitready.com/beginner/2009/01/18/the-staging-area.html">why the -a flag?</a> — and the helpful use-case
-description in the <a class="reference external" href="http://tomayko.com/writings/the-thing-about-git">tangled working copy problem</a>. The <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html">git commit</a> manual
+description in the <a class="reference external" href="http://tomayko.com/writings/the-thing-about-git">tangled working copy problem</a>. The <a class="reference external" href="http://schacon.github.com/git/git-commit.html">git commit</a> manual
 page might also be useful.</p>
 </li>
 <li><p class="first">To push the changes up to your forked repo on github, do a <tt class="docutils literal"><span class="pre">git</span>
-<span class="pre">push</span></tt> (see <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git push</a>).</p>
+<span class="pre">push</span></tt> (see <a class="reference external" href="http://schacon.github.com/git/git-push.html">git push</a>).</p>
 </li>
 </ol>
 </div>
@@ -301,9 +301,9 @@ command can be written more succinctly as:</p>
 <p>If it doesn&#8217;t look good you may need to have a look at
 <a class="reference internal" href="#recovering-from-mess-up"><em>Recovering from mess-ups</em></a>.</p>
 <p>If you have made changes to files that have also changed in trunk, this may
-generate merge conflicts that you need to resolve - see the <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html">git rebase</a> man
+generate merge conflicts that you need to resolve - see the <a class="reference external" href="http://schacon.github.com/git/git-rebase.html">git rebase</a> man
 page for some instructions at the end of the &#8220;Description&#8221; section. There is
-some related help on merging in the git user manual - see <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/user-manual.html#resolving-a-merge">resolving a merge</a>.</p>
+some related help on merging in the git user manual - see <a class="reference external" href="http://schacon.github.com/git/user-manual.html#resolving-a-merge">resolving a merge</a>.</p>
 </div>
 <div class="section" id="recovering-from-mess-ups">
 <span id="recovering-from-mess-up"></span><h3>Recovering from mess-ups<a class="headerlink" href="#recovering-from-mess-ups" title="Permalink to this headline">¶</a></h3>
@@ -335,7 +335,7 @@ git reset --hard cool-feature@{2}</pre>
 <p class="first admonition-title">Note</p>
 <p class="last">Do this only for your own feature branches.</p>
 </div>
-<p>There&#8217;s an embarrassing typo in a commit you made? Or perhaps the you
+<p>There&#8217;s an embarassing typo in a commit you made? Or perhaps the you
 made several false starts you would like the posterity not to see.</p>
 <p>This can be done via <em>interactive rebasing</em>.</p>
 <p>Suppose that the commit history looks like this:</p>
