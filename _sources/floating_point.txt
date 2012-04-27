@@ -13,6 +13,8 @@ This page comes largely from the `wikipedia floating point`_ article.
 I read `What every computer scientist should know about floating point`_ at some
 - er - point.
 
+I wrote another page on :ref:`floating_error`.
+
 *****************
 Starting to float
 *****************

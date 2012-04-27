@@ -25,7 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Points on floats" href="floating_point.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,6 +35,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="floating_point.html" title="Points on floats"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -44,7 +48,7 @@
           <div class="body">
             
   <div class="section" id="floating-point-error">
-<h1>Floating point error<a class="headerlink" href="#floating-point-error" title="Permalink to this headline">¶</a></h1>
+<span id="floating-error"></span><h1>Floating point error<a class="headerlink" href="#floating-point-error" title="Permalink to this headline">¶</a></h1>
 <p>This page maybe follows from <a class="reference internal" href="floating_point.html#floating-point"><em>Points on floats</em></a></p>
 <p>I ran into trouble trying to understand floating point error. After reading
 <a class="reference external" href="http://en.wikipedia.org/wiki/Floating_point">Wikipedia floating point</a>, <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon">Wikipedia machine epsilon</a> and <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What every
@@ -53,12 +57,12 @@ more explanation, and so here it is.</p>
 <div class="section" id="units-at-the-last-place">
 <h2>Units at the last place<a class="headerlink" href="#units-at-the-last-place" title="Permalink to this headline">¶</a></h2>
 <p>Taking the notation from <a class="reference external" href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">Every computer scientist</a>; let&#8217;s imagine we have a
-floating point number that has base 10 and 3 significand digits, say <img class="math" src="_images/math/b6155920b79773056a3f679f4d547ca67cb34c42.png" alt="3.14
-\times 10^1"/>.  Because we only have 3 digits, the next largest number that we
-can represent is obviously <img class="math" src="_images/math/5d50336b301b984d0cd45c5f8db4041cbc7ebec5.png" alt="3.15 \times 10^1"/>.  This number differs from <img class="math" src="_images/math/b6155920b79773056a3f679f4d547ca67cb34c42.png" alt="3.14
-\times 10^1"/> by one unit in the last place (ULP).  Any real number <img class="math" src="_images/math/b13f21416d84e13708696f34dea81026cda583c9.png" alt="z"/> that is
-between <img class="math" src="_images/math/7331fbd593c6d2253376ceee452def7a1d5bd113.png" alt="3.14 \times 10^1"/> and <img class="math" src="_images/math/5d50336b301b984d0cd45c5f8db4041cbc7ebec5.png" alt="3.15 \times 10^1"/> can at best be represented
-with one of these two numbers.  Let&#8217;s say <img class="math" src="_images/math/b13f21416d84e13708696f34dea81026cda583c9.png" alt="z"/> is actually <img class="math" src="_images/math/f2ca003a7da0de4994b4733e203b74ff52d42553.png" alt="\pi"/>; now
+floating point number that has base 10 and 3 digits in the significand, say
+<img class="math" src="_images/math/7331fbd593c6d2253376ceee452def7a1d5bd113.png" alt="3.14 \times 10^1"/>.  Because we only have 3 digits, the nearest larger number
+that we can represent is obviously <img class="math" src="_images/math/5d50336b301b984d0cd45c5f8db4041cbc7ebec5.png" alt="3.15 \times 10^1"/>.  This number differs from
+<img class="math" src="_images/math/7331fbd593c6d2253376ceee452def7a1d5bd113.png" alt="3.14 \times 10^1"/> by one unit in the last place (ULP).  Any real number <img class="math" src="_images/math/b13f21416d84e13708696f34dea81026cda583c9.png" alt="z"/>
+that is between <img class="math" src="_images/math/7331fbd593c6d2253376ceee452def7a1d5bd113.png" alt="3.14 \times 10^1"/> and <img class="math" src="_images/math/5d50336b301b984d0cd45c5f8db4041cbc7ebec5.png" alt="3.15 \times 10^1"/> can at best be
+represented with one of these two numbers.  Let&#8217;s say <img class="math" src="_images/math/b13f21416d84e13708696f34dea81026cda583c9.png" alt="z"/> is actually <img class="math" src="_images/math/f2ca003a7da0de4994b4733e203b74ff52d42553.png" alt="\pi"/>; now
 <img class="math" src="_images/math/0c191d73a489ad1771a8f8435c3c8df85b50c9f7.png" alt="3.1415926..."/> is best represented in our numbers as <img class="math" src="_images/math/7331fbd593c6d2253376ceee452def7a1d5bd113.png" alt="3.14 \times 10^1"/>, and the
 rounding error is <img class="math" src="_images/math/29d1f5ddd63b1ee755590df0bf13fff288cdeecf.png" alt="\pi - 3.14 \times 10^1 = 0.0015926..."/>  In the worst case, we
 could have some real number <img class="math" src="_images/math/94409dba4b85581e46a0fd245d57dc82f60baada.png" alt="3.145 \times 10^1"/> that will have rounding error
@@ -68,8 +72,8 @@ representable numbers; in that case the rounding error is 0.5 ULP.</p>
 <p>We can generalize to floating point numbers of form:</p>
 <div class="math">
 <p><img src="_images/math/c5a2347f9fdcc9ebf3ba25497d0b4fdb79763d31.png" alt="d_1.d_2...d_p \times \beta^e"/></p>
-</div><p>Where <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the number of significand digits, <img class="math" src="_images/math/fdb63b9e51abe6bbb16acfb5d7b773ddbb5bf4a8.png" alt="\beta"/> is the <em>base</em> (10 in our
-example), and <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is the exponent.</p>
+</div><p>Where <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the number of digits in the significand, <img class="math" src="_images/math/fdb63b9e51abe6bbb16acfb5d7b773ddbb5bf4a8.png" alt="\beta"/> is the <em>base</em> (10
+in our example), and <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is the exponent.</p>
 <p>The number is <em>normalized</em> if <img class="math" src="_images/math/44612d9d6ec37da7f4edd0f205d65cdac5954dc0.png" alt="d_1"/> is not zero.</p>
 <p>1 ULP corresponds to:</p>
 <div class="math">
@@ -87,7 +91,7 @@ using an infinite significand:</p>
 <p><img src="_images/math/2b1701a8f6b13706245f288224d2f18f8ced04bc.png" alt="d_1.d_2... \times \beta^e"/></p>
 </div><p>Again, <em>normalized</em> means that <img class="math" src="_images/math/75a8c4fc1d424d5565f16d8a5ef83854af7fb886.png" alt="d_1 \ne 0"/>.  The ULP value for a real value <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/>
 in some some finite floating point format is still <img class="math" src="_images/math/92159ea6eda5aae991ef8f4b8d39ba3c97709483.png" alt="ulp(e, p)"/> where <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the
-number of significand digits as above.</p>
+number of digits in the significand as above.</p>
 </div>
 <div class="section" id="absolute-error">
 <h2>Absolute error<a class="headerlink" href="#absolute-error" title="Permalink to this headline">¶</a></h2>
@@ -96,8 +100,7 @@ point operation should be correct to within the rounding error of the resulting
 number.  That is, it specifies that the maximum rounding error for an individual
 operation (add, multiply, subtract, divide) should be 0.5 ULP.</p>
 <p>In practice it&#8217;s now very hard indeed to find a machine that does not implement
-this rule for floating point operations; all current x86, PPC, ARM chips and
-associated compilers do.</p>
+this rule for floating point operations.</p>
 <p>Imagine we have two finite floating point numbers <img class="math" src="_images/math/0615acc3725de21025457e7d6f7694dab8e2f758.png" alt="q"/> and <img class="math" src="_images/math/b55ca7a0aa88ab7d58f4fc035317fdac39b17861.png" alt="r"/> and we combine
 them using one of the operators {+, -, <a href="#id1"><span class="problematic" id="id2">*</span></a>, /} in a perfect world at infinite
 precision:</p>
@@ -108,8 +111,8 @@ precision number returned from this calculation <img class="math" src="_images/m
 specifies that <img class="math" src="_images/math/92974f10538c62061de47f47e7af2be3053ffc9c.png" alt="fl(x)"/> should be the closest number to <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> that can be
 represented in the finite precision format.</p>
 <p>Let <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> be the exponent of <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> in normalized infinite floating point, and we
-remember that <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the number of significand digits in our finite floating
-point format. The IEEE rule then becomes:</p>
+remember that <img class="math" src="_images/math/36f73fc1312ee0349b3f3a0f3bd9eb5504339011.png" alt="p"/> is the number of digits in the significand in our finite
+floating point format. The IEEE rule then becomes:</p>
 <div class="math">
 <p><img src="_images/math/b6d8998dcb5f01ce7a34aada3f56f01d4ab10ddf.png" alt="\left| fl(x) - x \right| \le 0.5 \times ulp(e, p)
 
@@ -117,8 +120,8 @@ point format. The IEEE rule then becomes:</p>
 </div></div>
 <div class="section" id="relative-error">
 <h2>Relative error<a class="headerlink" href="#relative-error" title="Permalink to this headline">¶</a></h2>
-<p>The <em>relative error</em> is the rounding error divided by the infinite precision real
-number <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/>:</p>
+<p>The <em>relative error</em> is the rounding error divided by the infinite precision
+real number <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/>:</p>
 <div class="math">
 <p><img src="_images/math/69b2ba8ed34c833b7588bba77bc16c1a11738cf2.png" alt="\left| \frac{fl(x) - x}{x} \right| \le \frac{0.5 \times \beta^{e-(p-1)}}{x}"/></p>
 </div><p>However, any value for <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> that has some exponent <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> has the same value for
@@ -126,16 +129,39 @@ number <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a
 thus <img class="math" src="_images/math/45fe7ed1094b450863753f42160fc6b0e6ea0021.png" alt="m = \beta - 1"/>.  For example <img class="math" src="_images/math/f37f8057998e41a8430606028f7ab118854d188d.png" alt="m = 9"/> in base 10 (<img class="math" src="_images/math/2c3b380def1ce4b692b59b2671964707fd5ff866.png" alt="\beta = 10"/>). The values
 of <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> between <img class="math" src="_images/math/87a979469f18b219d29d8188e30bb23de81ac586.png" alt="1.0 \times \beta^e"/> and <img class="math" src="_images/math/6817cb91ce66a2c0af3bb1ef8e269f29edd2075a.png" alt="m.mmm... \times \beta^e"/> all have the
 same value for 1 ULP = <img class="math" src="_images/math/ff52b5df8363870295fb16a65e7d03364417b9db.png" alt="\beta^{e-(p-1)}"/>. The <em>relative</em> rounding error will be
-greater for smaller <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> with the same exponent.  Let <img class="math" src="_images/math/19adec34c275d6e76a06058fc9dee341094c4178.png" alt="a = 0.5 \times ulp(e, p)"/>.
-When <img class="math" src="_images/math/8e709eb6c0f7087bcfbca88990fdeb6183759ec8.png" alt="x = 1.0 \times \beta^e + a"/>, the relative rounding error is <img class="math" src="_images/math/4e7417e4084a39a9ac25706368fc1478c7315673.png" alt="0.5 \times
-\beta^{e-(1-p)} / (\beta^e + a)"/>.  Because <img class="math" src="_images/math/c7d457e388298246adb06c587bccd419ea67f7e8.png" alt="a"/> is very small compared to
-<img class="math" src="_images/math/b46029363d944be2b024c3095d97900ccb2331e9.png" alt="\beta^e"/>, this gives <img class="math" src="_images/math/3c6b70d6556e15a720ecdfdede096dd425aa4b28.png" alt="\approx 0.5 \times \beta^{e-(1-p)} / \beta^e = 0.5 \times
-\beta^{p-1}"/>.  For <img class="math" src="_images/math/ea3e34ac55514a29e22ffc4468ea3cc58ba00f30.png" alt="x = m.mm... \times \beta^e"/>, then <img class="math" src="_images/math/dce1a69a40a795c92a5dab05d496f461806f6600.png" alt="x \approx \beta^{e+1}"/>
-and the largest relative error near this <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> is <img class="math" src="_images/math/66380721741133a7eb6486eeca8d36abc8ee12e1.png" alt="\approx 0.5 \times
-\beta^{e-(p-1)} / (\beta^{e+1} - a) \approx 0.5 \times \beta^{e-(p-1)} /
-\beta^{e+1} = 0.5 \times \beta^{-p}"/>.  Therefore the <em>maximum</em> relative error
-for a <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> with any exponent <img class="math" src="_images/math/a3a59bb1293ee3f6dec19de4019a7178874219ae.png" alt="e"/> is <img class="math" src="_images/math/5c9e4071a27feb0b71ddc502997f8260e3464faf.png" alt="\approx 0.5 \times \beta^{1-p}"/>.</p>
-</div>
+greater for smaller <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> with the same exponent.  Let:</p>
+<div class="math">
+<p><img src="_images/math/ec8a9906b6badd764cf3335a43d902f319c5018e.png" alt="a = 0.5 \times ulp(e, p).
+
+a = 0.5 \times \beta^{e-(1-p)}"/></p>
+</div><p>Make <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> the smallest value with this exponent that has a large rounding error:</p>
+<div class="math">
+<p><img src="_images/math/ed124b56882434e36afdd0a338ccbf095e240d8a.png" alt="x = 1.0 \times \beta^e + a"/></p>
+</div><p>The relative rounding error <img class="math" src="_images/math/eaf4418fbe935c15a606516d8f55dc380cd8e822.png" alt="\epsilon"/> is:</p>
+<div class="math">
+<p><img src="_images/math/387ce43e8935170c47a3fffbe1305ab57f3ef4aa.png" alt="\epsilon = \frac{a}{\beta^e + a}"/></p>
+</div><p>Because <img class="math" src="_images/math/c7d457e388298246adb06c587bccd419ea67f7e8.png" alt="a"/> is very small compared to <img class="math" src="_images/math/b46029363d944be2b024c3095d97900ccb2331e9.png" alt="\beta^e"/>:</p>
+<div class="math">
+<p><img src="_images/math/33d3f753f515b4fde67dae77ad743b3e43c05a6d.png" alt="\epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^e}
+
+\epsilon \approx 0.5 \times \beta^{1-p}"/></p>
+</div><p>Now make <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> the largest value with this exponent and that has a large rounding
+error:</p>
+<div class="math">
+<p><img src="_images/math/b5c7694d84f2341d97ab8756ae29a86c50b62e4b.png" alt="x = m.mm... \times \beta^e
+
+x \approx 1.0 \times \beta^{e+1}"/></p>
+</div><p>then:</p>
+<div class="math">
+<p><img src="_images/math/4c3fa9d9a9a265c906c680e189e6c3fd02ec1012.png" alt="\epsilon \approx \frac{a}{\beta^{e+1} + a}
+
+\epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^{e+1}}
+
+\epsilon \approx 0.5 \times \beta^{-p}"/></p>
+</div><p>Thus the relative error for any <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5e6.png" alt="x"/> (regardless of exponent) is bounded:</p>
+<div class="math">
+<p><img src="_images/math/556b6e21daf2f162d6ed3defe35d2c05300ef1a1.png" alt="\epsilon \le 0.5 \times \beta^{1-p}"/></p>
+</div></div>
 <div class="section" id="machine-epsilon">
 <h2>Machine epsilon<a class="headerlink" href="#machine-epsilon" title="Permalink to this headline">¶</a></h2>
 <p>Now note that <img class="math" src="_images/math/365ba8e0098f6f40a4740207591ae32357741f09.png" alt="\beta^{1-p}"/> is the ULP for 1; that is <img class="math" src="_images/math/fad52ac540c6fabba9d8f3b19ca803ab358cd8e6.png" alt="1.0 \times
@@ -143,13 +169,17 @@ for a <img class="math" src="_images/math/26eeb5258ca5099acf8fe96b2a1049c48c89a5
 epsilon</em>, others use that term for <img class="math" src="_images/math/933d05aef19b0b4586a7fc585e38bd9191fc1829.png" alt="0.5 \times \beta^{1-p}"/> - see <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon#Variant_definitions">variant
 definitions</a>.  MATLAB and Octave return <img class="math" src="_images/math/365ba8e0098f6f40a4740207591ae32357741f09.png" alt="\beta^{1-p}"/> from their <tt class="docutils literal"><span class="pre">eps()</span></tt>
 function. <a class="reference external" href="http://numpy.scipy.org">numpy</a> uses the same convention in its <tt class="docutils literal"><span class="pre">np.finfo</span></tt> function.  For
-example, the standard <tt class="docutils literal"><span class="pre">float32</span></tt> single precision type in numpy has <img class="math" src="_images/math/1b4a9d9c0fd3fb9eb4caced0b4c9ec4fb5cb46b8.png" alt="\beta = 2;
-p=24"/>:</p>
+example, the standard <tt class="docutils literal"><span class="pre">float64</span></tt> double precision type in numpy has <img class="math" src="_images/math/e836759a27bfee0f69ee0239bcd319d59bb32eeb.png" alt="\beta = 2;
+p=53"/>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">==</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">24</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">==</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">53</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="thanks-to">
+<h2>Thanks to<a class="headerlink" href="#thanks-to" title="Permalink to this headline">¶</a></h2>
+<p>Stefan van der Walt for several useful suggestions and corrections.</p>
 </div>
 </div>
 
@@ -166,10 +196,14 @@ p=24"/>:</p>
 <li><a class="reference internal" href="#absolute-error">Absolute error</a></li>
 <li><a class="reference internal" href="#relative-error">Relative error</a></li>
 <li><a class="reference internal" href="#machine-epsilon">Machine epsilon</a></li>
+<li><a class="reference internal" href="#thanks-to">Thanks to</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="floating_point.html"
+                        title="previous chapter">Points on floats</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/floating_error.txt"
@@ -198,6 +232,9 @@ p=24"/>:</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="floating_point.html" title="Points on floats"
+             >previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>

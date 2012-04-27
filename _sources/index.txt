@@ -31,6 +31,7 @@ Contents:
    gh_delete_master
    gitwash_build
    floating_point
+   floating_error
 
 Indices and tables
 ==================
