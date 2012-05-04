@@ -21,7 +21,7 @@ Basic setup
   standard windows ``cmd`` shell; it has good command and filename completion,
   ``ls`` for directory listing, a less idiosyncratic ``cd``, and a scripting
   language that is a lot less painful than ``cmd`` bat scripting. I believe I've
-  used version 1 and version 2 (``$Host.version``` is ``1 0 0 0`` on my standard
+ 2 used version 1 and version 2 (``\$Host.version``` is ``1 0 0 0`` on my standard
   XP installation. Don't forget to enable `quickedit mode
   <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
   paste.
@@ -35,21 +35,21 @@ Basic setup
   need for handling ssh authentication for git and other tools.
 * Get necessary ssh keys via sftp (installed by Putty installer)
 * Run *PUTTYgen* (installed by the Putty installer) to import the Unix ssh key
-  into putty ``.ppk`` format.  Save ``.ppk`` in ``$HOME/.ssh``.
+  into putty ``.ppk`` format.  Save ``.ppk`` in ``\$HOME/.ssh``.
 * Start *pageant* (installed by putty installer).  Add ``.ppk`` key file.
 * Check we can get authenticated e.g. into github with ``"c:\Program
   files\Putty\plink git@github.com"``.
 * Set a couple of environment variables from powershell - see
-  `powershell environment variables`_.  First set ``$GIT_SSH`` to pick up
+  `powershell environment variables`_.  First set ``\$GIT_SSH`` to pick up
   *plink* as the ssh executable::
 
     [Environment]::SetEnvironmentVariable("GIT_SSH", "C:\Program files\Putty\plink.exe", "User")
 
-  Next we make sure that ``$HOME`` is set for safety.  For example, setuptools_
+  Next we make sure that ``\$HOME`` is set for safety.  For example, setuptools_
   appears to need it set correctly - see the `example pypi`_ page for the
   assertion at least::
 
-    [Environment]::SetEnvironmentVariable("HOME", $env:USERPROFILE, "User")
+    [Environment]::SetEnvironmentVariable("HOME", \$env:USERPROFILE, "User")
 
   Restart powershell after doing this to pick up the ``GIT_SSH`` environment
   variable in particular.  We should now be able to do something like ``git
@@ -89,8 +89,8 @@ Basic setup
   script, by including this in my ``~/.bashrc`` file::
 
     # Source personal definitions
-    if [ -f "$HOME/.bash_keychain_lite" ]; then
-        . "$HOME/.bash_keychain_lite"
+    if [ -f "\$HOME/.bash_keychain_lite" ]; then
+        . "\$HOME/.bash_keychain_lite"
     fi
 
   where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
@@ -109,8 +109,8 @@ Windows compiler and build tools
 
     # convenience script to add mingw to path
     echo "Adding mingw to PATH..."
-    $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-    $env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"
+    \$mingw = [System.IO.Path]::GetDirectoryName(\$MyInvocation.MyCommand.Definition)
+    \$env:path = "\$mingw\bin;\$mingw\msys\1.0\bin;\$env:path"
 
   Then in powershell - ``. c:\Mingw\mingwvars.ps1`` to add the msys and
   mingw tools to the path.
