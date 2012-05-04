@@ -1,3 +1,5 @@
+.. Don't forget to escape $ when not using math
+
 #####################
 Developing on windows
 #####################
@@ -135,12 +137,11 @@ Other programs
   vim`_
 * Install python_ - the current version.  I need this for the scripts installing
   the personal configuration below.  For convenience in running other things,
-  you might want to make sure python is on the path.  From the powershell
   command line you could do something like::
 
-    $my_path = [Environment]::GetEnvironmentVariable("PATH","User")
-    $my_path += "C:\Python27;C:\Python27\Scripts"
-    [Environment]::SetEnvironmentVariable("PATH", $my_path, "User")
+    \$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+    \$my_path += "C:\Python27;C:\Python27\Scripts"
+    [Environment]::SetEnvironmentVariable("PATH", \$my_path, "User")
 
 * Set up personal configuration.  For me this is::
 
