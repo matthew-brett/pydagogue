@@ -61,6 +61,7 @@ semi-standard development environment for <a class="reference external" href="ht
 <li>A standard XP installation booted directly into (My Computer -&gt; Properties)
 XP version 2002, service pack 3.</li>
 <li>An XP running via <a class="reference external" href="http://www.parallels.com">Parallels</a> on my Macbook Air with version 2002 SP3 also.</li>
+<li>Windows 7 installed on a MacBook Air.</li>
 </ul>
 </div>
 <div class="section" id="basic-setup">
@@ -70,7 +71,7 @@ XP version 2002, service pack 3.</li>
 standard windows <tt class="docutils literal"><span class="pre">cmd</span></tt> shell; it has good command and filename completion,
 <tt class="docutils literal"><span class="pre">ls</span></tt> for directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting
 language that is a lot less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve
-used version 1 and version 2 (<tt class="docutils literal"><span class="pre">:math:`Host.version`</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard
+used version 1 and version 2. <tt class="docutils literal"><span class="pre">\`Host.version</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard
 XP installation. Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
 paste.</p>
 </li>
@@ -87,7 +88,7 @@ need for handling ssh authentication for git and other tools.</p>
 <li><p class="first">Get necessary ssh keys via sftp (installed by Putty installer)</p>
 </li>
 <li><p class="first">Run <em>PUTTYgen</em> (installed by the Putty installer) to import the Unix ssh key
-into putty <tt class="docutils literal"><span class="pre">.ppk</span></tt> format.  Save <tt class="docutils literal"><span class="pre">.ppk</span></tt> in <tt class="docutils literal"><span class="pre">`HOME/.ssh</span></tt>.</p>
+into putty <tt class="docutils literal"><span class="pre">.ppk</span></tt> format.  Save <tt class="docutils literal"><span class="pre">.ppk</span></tt> in <tt class="docutils literal"><span class="pre">$HOME/.ssh</span></tt>.</p>
 </li>
 <li><p class="first">Start <em>pageant</em> (installed by putty installer).  Add <tt class="docutils literal"><span class="pre">.ppk</span></tt> key file.</p>
 </li>
@@ -95,14 +96,14 @@ into putty <tt class="docutils literal"><span class="pre">.ppk</span></tt> forma
 <span class="pre">files\Putty\plink</span> <span class="pre">git&#64;github.com&quot;</span></tt>.</p>
 </li>
 <li><p class="first">Set a couple of environment variables from powershell - see
-<a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <tt class="docutils literal"><span class="pre">:math:`GIT_SSH</span></tt> to pick up
+<a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <tt class="docutils literal"><span class="pre">$GIT_SSH</span></tt> to pick up
 <em>plink</em> as the ssh executable:</p>
 <div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("GIT_SSH", "C:\Program files\Putty\plink.exe", "User")</pre>
 </div>
-<p>Next we make sure that <tt class="docutils literal"><span class="pre">`HOME</span></tt> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
+<p>Next we make sure that <tt class="docutils literal"><span class="pre">$HOME</span></tt> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
 appears to need it set correctly - see the <a class="reference external" href="http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg">example pypi</a> page for the
 assertion at least:</p>
-<div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("HOME", :math:`env:USERPROFILE, "User")</pre>
+<div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("HOME", $env:USERPROFILE, "User")</pre>
 </div>
 <p>Restart powershell after doing this to pick up the <tt class="docutils literal"><span class="pre">GIT_SSH</span></tt> environment
 variable in particular.  We should now be able to do something like <tt class="docutils literal"><span class="pre">git</span>
@@ -118,14 +119,18 @@ think it is.</pre>
 </div>
 <p>and press <tt class="docutils literal"><span class="pre">y</span></tt> when asked.</p>
 </li>
-<li><p class="first">Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.  You may also want to install command-t - see
-<a class="footnote-reference" href="#nasty-install" id="id1">[1]</a>.</p>
+<li><p class="first">Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.</p>
 </li>
 <li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
 the personal configuration below.  For convenience in running other things,
-you might want to make sure python is on the path.</p>
+you might want to make sure python is on the path.  From the powershell
+command line you could do something like:</p>
+<div class="highlight-python"><pre>$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+$my_path += "C:\Python27;C:\Python27\Scripts"
+[Environment]::SetEnvironmentVariable("PATH", $my_path, "User")</pre>
+</div>
 </li>
-<li><p class="first">Set up personal configuration.  For me this is something like:</p>
+<li><p class="first">Set up personal configuration.  For me this is:</p>
 <div class="highlight-python"><pre>cd c:\
 mkdir code
 cd code
@@ -141,8 +146,8 @@ c:\Python26\python make.py vimfiles</pre>
 <p>For using ssh inside the git bash shell, I like to add the keychain-like
 script, by including this in my <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file:</p>
 <div class="highlight-python"><pre># Source personal definitions
-if [ -f "`HOME/.bash_keychain_lite" ]; then
-    . ":math:`HOME/.bash_keychain_lite"
+if [ -f "$HOME/.bash_keychain_lite" ]; then
+    . "$HOME/.bash_keychain_lite"
 fi</pre>
 </div>
 <p>where the <tt class="docutils literal"><span class="pre">.bash_keychain_lite</span></tt> file arises from the <tt class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></tt>
@@ -159,8 +164,8 @@ you c++, fortran, and the msys build environment.  I didn&#8217;t directly add t
 to the path, but made a script <tt class="docutils literal"><span class="pre">c:\Mingw\mingwvars.ps1</span></tt>:</p>
 <div class="highlight-python"><pre># convenience script to add mingw to path
 echo "Adding mingw to PATH..."
-`mingw = [System.IO.Path]::GetDirectoryName(:math:`MyInvocation.MyCommand.Definition)
-`env:path = ":math:`mingw\bin;`mingw\msys\1.0\bin;$env:path"</pre>
+$mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
+$env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"</pre>
 </div>
 <p>Then in powershell - <tt class="docutils literal"><span class="pre">.</span> <span class="pre">c:\Mingw\mingwvars.ps1</span></tt> to add the msys and
 mingw tools to the path.</p>
@@ -181,23 +186,6 @@ directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\
 </li>
 </ul>
 <p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="nasty-install" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first"><a class="reference external" href="https://wincent.com/products/command-t">command-t</a> - as of January 2011, required vim 7.2.
-See the <a class="reference external" href="http://git.wincent.com/command-t.git/blob_plain/master:/README.txt">command-t README</a>.  We need vim 7.2 because of ruby
-incompatibility problems.  vim 7.2 uses python 2.4, so you might want that
-installed (not necessarily as default).  We need ruby 1.8.7, and the ruby
-devkit.  Set the install option to add ruby to the path when running the
-ruby installer.  Unpack the devkit to <tt class="docutils literal"><span class="pre">c:\devkit</span></tt>.  Start powershell and
-source the devkit variables with <tt class="docutils literal"><span class="pre">c:\devkit\devkitvar.ps1</span></tt>.  Then:</p>
-<div class="last highlight-python"><pre>cd ~\vimfiles\bundle\command-t\ruby\command-t
-ruby extconf.rb
-make</pre>
-</div>
-</td></tr>
-</tbody>
-</table>
 </div>
 </div>
 

@@ -1,3 +1,5 @@
+.. Don't forget to escape $ when not using math
+
 #####################
 Developing on windows
 #####################
@@ -12,6 +14,7 @@ My system(s)
 * A standard XP installation booted directly into (My Computer -> Properties)
   XP version 2002, service pack 3.
 * An XP running via Parallels_ on my Macbook Air with version 2002 SP3 also.
+* Windows 7 installed on a MacBook Air.
 
 ***********
 Basic setup
@@ -21,7 +24,7 @@ Basic setup
   standard windows ``cmd`` shell; it has good command and filename completion,
   ``ls`` for directory listing, a less idiosyncratic ``cd``, and a scripting
   language that is a lot less painful than ``cmd`` bat scripting. I believe I've
-  used version 1 and version 2 (``$Host.version``` is ``1 0 0 0`` on my standard
+  used version 1 and version 2. ``\$Host.version`` is ``1 0 0 0`` on my standard
   XP installation. Don't forget to enable `quickedit mode
   <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
   paste.
@@ -35,21 +38,21 @@ Basic setup
   need for handling ssh authentication for git and other tools.
 * Get necessary ssh keys via sftp (installed by Putty installer)
 * Run *PUTTYgen* (installed by the Putty installer) to import the Unix ssh key
-  into putty ``.ppk`` format.  Save ``.ppk`` in ``$HOME/.ssh``.
+  into putty ``.ppk`` format.  Save ``.ppk`` in ``\$HOME/.ssh``.
 * Start *pageant* (installed by putty installer).  Add ``.ppk`` key file.
 * Check we can get authenticated e.g. into github with ``"c:\Program
   files\Putty\plink git@github.com"``.
 * Set a couple of environment variables from powershell - see
-  `powershell environment variables`_.  First set ``$GIT_SSH`` to pick up
+  `powershell environment variables`_.  First set ``\$GIT_SSH`` to pick up
   *plink* as the ssh executable::
 
     [Environment]::SetEnvironmentVariable("GIT_SSH", "C:\Program files\Putty\plink.exe", "User")
 
-  Next we make sure that ``$HOME`` is set for safety.  For example, setuptools_
+  Next we make sure that ``\$HOME`` is set for safety.  For example, setuptools_
   appears to need it set correctly - see the `example pypi`_ page for the
   assertion at least::
 
-    [Environment]::SetEnvironmentVariable("HOME", $env:USERPROFILE, "User")
+    [Environment]::SetEnvironmentVariable("HOME", \$env:USERPROFILE, "User")
 
   Restart powershell after doing this to pick up the ``GIT_SSH`` environment
   variable in particular.  We should now be able to do something like ``git
@@ -66,12 +69,17 @@ Basic setup
     & 'C:\Program Files\PuTTY\plink.exe' git@github.com
 
   and press ``y`` when asked.
-* Install editor.  I use vim_.  You may also want to install command-t - see
-  [#nasty-install]_.
+* Install editor.  I use vim_.
 * Install python_ - the current version.  I need this for the scripts installing
   the personal configuration below.  For convenience in running other things,
-  you might want to make sure python is on the path.
-* Set up personal configuration.  For me this is something like::
+  you might want to make sure python is on the path.  From the powershell
+  command line you could do something like::
+
+    \$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+    \$my_path += "C:\Python27;C:\Python27\Scripts"
+    [Environment]::SetEnvironmentVariable("PATH", \$my_path, "User")
+
+* Set up personal configuration.  For me this is::
 
     cd c:\
     mkdir code
@@ -89,8 +97,8 @@ Basic setup
   script, by including this in my ``~/.bashrc`` file::
 
     # Source personal definitions
-    if [ -f "$HOME/.bash_keychain_lite" ]; then
-        . "$HOME/.bash_keychain_lite"
+    if [ -f "\$HOME/.bash_keychain_lite" ]; then
+        . "\$HOME/.bash_keychain_lite"
     fi
 
   where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
@@ -109,8 +117,8 @@ Windows compiler and build tools
 
     # convenience script to add mingw to path
     echo "Adding mingw to PATH..."
-    $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-    $env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"
+    \$mingw = [System.IO.Path]::GetDirectoryName(\$MyInvocation.MyCommand.Definition)
+    \$env:path = "\$mingw\bin;\$mingw\msys\1.0\bin;\$env:path"
 
   Then in powershell - ``. c:\Mingw\mingwvars.ps1`` to add the msys and
   mingw tools to the path.
@@ -134,17 +142,5 @@ Windows compiler and build tools
 .. _mingw distutils bug: http://bugs.python.org/issue2698
 
 .. rubric:: Footnotes
-
-.. [#nasty-install] command-t_ - as of January 2011, required vim 7.2.
-    See the `command-t README`_.  We need vim 7.2 because of ruby
-    incompatibility problems.  vim 7.2 uses python 2.4, so you might want that
-    installed (not necessarily as default).  We need ruby 1.8.7, and the ruby
-    devkit.  Set the install option to add ruby to the path when running the
-    ruby installer.  Unpack the devkit to ``c:\devkit``.  Start powershell and
-    source the devkit variables with ``c:\devkit\devkitvar.ps1``.  Then::
-
-        cd ~\vimfiles\bundle\command-t\ruby\command-t
-        ruby extconf.rb
-        make
 
 .. include:: links_names.inc
