@@ -12,6 +12,7 @@ My system(s)
 * A standard XP installation booted directly into (My Computer -> Properties)
   XP version 2002, service pack 3.
 * An XP running via Parallels_ on my Macbook Air with version 2002 SP3 also.
+* Windows 7 installed on a MacBook Air.
 
 ***********
 Basic setup
@@ -21,7 +22,7 @@ Basic setup
   standard windows ``cmd`` shell; it has good command and filename completion,
   ``ls`` for directory listing, a less idiosyncratic ``cd``, and a scripting
   language that is a lot less painful than ``cmd`` bat scripting. I believe I've
- 2 used version 1 and version 2 (``\$Host.version``` is ``1 0 0 0`` on my standard
+  used version 1 and version 2. ``\$Host.version`` is ``1 0 0 0`` on my standard
   XP installation. Don't forget to enable `quickedit mode
   <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
   paste.
@@ -66,12 +67,17 @@ Basic setup
     & 'C:\Program Files\PuTTY\plink.exe' git@github.com
 
   and press ``y`` when asked.
-* Install editor.  I use vim_.  You may also want to install command-t - see
-  [#nasty-install]_.
+* Install editor.  I use vim_.
 * Install python_ - the current version.  I need this for the scripts installing
   the personal configuration below.  For convenience in running other things,
-  you might want to make sure python is on the path.
-* Set up personal configuration.  For me this is something like::
+  you might want to make sure python is on the path.  From the powershell
+  command line you could do something like::
+
+    $my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+    $my_path += "C:\Python27;C:\Python27\Scripts"
+    [Environment]::SetEnvironmentVariable("PATH", $my_path, "User")
+
+* Set up personal configuration.  For me this is::
 
     cd c:\
     mkdir code
@@ -134,17 +140,5 @@ Windows compiler and build tools
 .. _mingw distutils bug: http://bugs.python.org/issue2698
 
 .. rubric:: Footnotes
-
-.. [#nasty-install] command-t_ - as of January 2011, required vim 7.2.
-    See the `command-t README`_.  We need vim 7.2 because of ruby
-    incompatibility problems.  vim 7.2 uses python 2.4, so you might want that
-    installed (not necessarily as default).  We need ruby 1.8.7, and the ruby
-    devkit.  Set the install option to add ruby to the path when running the
-    ruby installer.  Unpack the devkit to ``c:\devkit``.  Start powershell and
-    source the devkit variables with ``c:\devkit\devkitvar.ps1``.  Then::
-
-        cd ~\vimfiles\bundle\command-t\ruby\command-t
-        ruby extconf.rb
-        make
 
 .. include:: links_names.inc
