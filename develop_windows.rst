@@ -12,7 +12,8 @@ My system(s)
 * A standard XP installation booted directly into (My Computer -> Properties)
   XP version 2002, service pack 3.
 * An XP running via Parallels_ on my Macbook Air with version 2002 SP3 also.
-* Windows 7 installed on a MacBook Air.
+* Windows 7 professional 64 bit installed on a first generation MacBook Air.
+  Currently on SP1.
 
 ***********
 Basic setup
@@ -31,15 +32,33 @@ Basic setup
   checked out files to have system endings. You'll see this setting offered in
   the installation GUI - it sets ``core.autocrlf=input`` in your global git
   config.
+
+*********
+SSH setup
+*********
+
+msysgit has ssh, but for various reasons I wanted to be able to use powershell
+with git.  In order to do this I need to get git SSH authentication working via
+the windows tools:
+
 * Install putty_.  Well, in fact, install all the putty utilities via the
   windows installer - including *plink* and *pageant*.  These are utilities we
   need for handling ssh authentication for git and other tools.
-* Get necessary ssh keys via sftp (installed by Putty installer)
-* Run *PUTTYgen* (installed by the Putty installer) to import the Unix ssh key
-  into putty ``.ppk`` format.  Save ``.ppk`` in ``\$HOME/.ssh``.
+* You might consider putting the Putty directory on the path. Something like::
+
+    \$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+    \$my_path += ";C:\Program files (x86)\Putty" # (x86) on my windows 7 system
+    [Environment]::SetEnvironmentVariable("PATH", \$my_path, "User")
+
+* I have ssh keys I use on unix and mac.  I got the necessary ssh keys via sftp
+  (installed by Putty installer). These went into ``\$HOME/.ssh``. I then ran
+  *PUTTYgen* (installed by the Putty installer) to import the Unix ssh key into
+  putty ``.ppk`` format.  Save ``.ppk`` in ``\$HOME/.ssh``.
 * Start *pageant* (installed by putty installer).  Add ``.ppk`` key file.
-* Check we can get authenticated e.g. into github with ``"c:\Program
-  files\Putty\plink git@github.com"``.
+* If you've got the putty utilities on the path, check you can get authenticated
+  e.g. into github with ``plink git@github.com``.  If you don't have putty etc
+  on the path, you'll need the full path to plink, as in: ``"c:\Program files
+  (x86)\Putty\plink git@github.com"``.
 * Set a couple of environment variables from powershell - see
   `powershell environment variables`_.  First set ``\$GIT_SSH`` to pick up
   *plink* as the ssh executable::
@@ -64,10 +83,52 @@ Basic setup
 
   If so, run *plink* manually to cache the key::
 
-    & 'C:\Program Files\PuTTY\plink.exe' git@github.com
+    & 'C:\Program Files (x86)\PuTTY\plink.exe' git@github.com
 
   and press ``y`` when asked.
-* Install editor.  I use vim_.
+* I run pageant at startup.  I first set up a desktop shortcut with the
+  following command::
+
+    "C:\Program Files (x86)\PuTTY\pageant.exe" c:\Users\mb312\.ssh\id_dsa.ppk
+
+  I move this shortcut into my startup folder to start at login.  On windows 7
+  my startup folder is::
+
+    C:\Users\mb312\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+  where ``mb312`` is my username.
+* For using ssh inside the msysgit bash shell, I like to add the keychain-like
+  script, by including this in my ``~/.bashrc`` file::
+
+    # Source personal definitions
+    if [ -f "\$HOME/.bash_keychain_lite" ]; then
+        . "\$HOME/.bash_keychain_lite"
+    fi
+
+  where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
+  command above.
+
+Miscellaneous
+=============
+
+* I liked mkdesktop_ for multiple desktops on windows 7.  I don't know what
+  versions of windows it works on.
+* I got used to the mac keyboard way of using the command key for things like
+  making new tabs in the browser (command-t), copy, paste (command-c, command-v)
+  and so on. I can't replicate all of this on windows, but as a first pass, I
+  installed sharpkeys_, and remapped the windows (command) key to appear to be
+  the left control key.  I don't use the windows key much, but I can still use
+  the right one if I need it.  I also used *sharpkeys* to turn off Caps Lock,
+  because I find it annoying, especially when I hit it accidentally using vim_.
+* I depend heavily on knowing which branch I am on when using git.  This is the
+  what the ``git-completion`` bash routines do; posh-git_ does the equivalent
+  for powershell.
+
+Other programs
+==============
+
+* Install editor.  I use vim_.  With a 64 bit python (below), I needed a `64 bit
+  vim`_
 * Install python_ - the current version.  I need this for the scripts installing
   the personal configuration below.  For convenience in running other things,
   you might want to make sure python is on the path.  From the powershell
@@ -87,20 +148,15 @@ Basic setup
     git clone git@github.com:matthew-brett/myconfig.git
     git clone git@github.com:matthew-brett/myvim.git
     cd myconfig
-    c:\Python26\python make.py dotfiles
+    python make.py dotfiles
     cd ..\myvim
-    c:\Python26\python make.py vimfiles
+    python make.py vimfiles
 
-  For using ssh inside the git bash shell, I like to add the keychain-like
-  script, by including this in my ``~/.bashrc`` file::
+* I am trying out virtualenvwrapper-powershell_ . Install with the standard
+  ``python setup.py install``.  You then need ``import-module
+  virtualenvwrapper`` from the powershell prompt.  Maybe it goes better in a
+  `powershell profile`_.
 
-    # Source personal definitions
-    if [ -f "\$HOME/.bash_keychain_lite" ]; then
-        . "\$HOME/.bash_keychain_lite"
-    fi
-
-  where the ``.bash_keychain_lite`` file arises from the ``make.py dotfiles``
-  command above.
 
 .. _win-compile-tools:
 
@@ -138,6 +194,12 @@ Windows compiler and build tools
 
 .. _powershell environment variables: http://technet.microsoft.com/en-us/library/ff730964.aspx
 .. _mingw distutils bug: http://bugs.python.org/issue2698
+.. _64 bit vim: http://code.google.com/p/vim-win3264/wiki/Win64Binaries
+.. _mdesktop: http://code.google.com/p/mdesktop/
+.. _sharpkeys: http://www.randyrants.com/sharpkeys/
+.. _posh-git: https://github.com/dahlbyk/posh-git
+.. _virtualenvwrapper-powershell: https://bitbucket.org/guillermooo/virtualenvwrapper-powershell
+.. _powershell profile: http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx
 
 .. rubric:: Footnotes
 
