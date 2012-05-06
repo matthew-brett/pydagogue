@@ -61,39 +61,54 @@ semi-standard development environment for <a class="reference external" href="ht
 <li>A standard XP installation booted directly into (My Computer -&gt; Properties)
 XP version 2002, service pack 3.</li>
 <li>An XP running via <a class="reference external" href="http://www.parallels.com">Parallels</a> on my Macbook Air with version 2002 SP3 also.</li>
-<li>Windows 7 installed on a MacBook Air.</li>
+<li>Windows 7 professional 64 bit installed on a first generation MacBook Air.
+Currently on SP1.</li>
 </ul>
 </div>
 <div class="section" id="basic-setup">
 <h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p class="first">Install windows <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> . I find this a lot more convenient than the
+<ul class="simple">
+<li>Install windows <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> . I find this a lot more convenient than the
 standard windows <tt class="docutils literal"><span class="pre">cmd</span></tt> shell; it has good command and filename completion,
 <tt class="docutils literal"><span class="pre">ls</span></tt> for directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting
 language that is a lot less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve
 used version 1 and version 2. <tt class="docutils literal"><span class="pre">\`Host.version</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard
 XP installation. Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
-paste.</p>
-</li>
-<li><p class="first">Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <tt class="docutils literal"><span class="pre">git</span></tt> to be on the command path,
+paste.</li>
+<li>Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <tt class="docutils literal"><span class="pre">git</span></tt> to be on the command path,
 but not the git bash utilities.  I set the repo to have LF endings, but the
 checked out files to have system endings. You&#8217;ll see this setting offered in
 the installation GUI - it sets <tt class="docutils literal"><span class="pre">core.autocrlf=input</span></tt> in your global git
-config.</p>
-</li>
+config.</li>
+</ul>
+</div>
+<div class="section" id="ssh-setup">
+<h2>SSH setup<a class="headerlink" href="#ssh-setup" title="Permalink to this headline">¶</a></h2>
+<p>msysgit has ssh, but for various reasons I wanted to be able to use powershell
+with git.  In order to do this I need to get git SSH authentication working via
+the windows tools:</p>
+<ul>
 <li><p class="first">Install <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty">putty</a>.  Well, in fact, install all the putty utilities via the
 windows installer - including <em>plink</em> and <em>pageant</em>.  These are utilities we
 need for handling ssh authentication for git and other tools.</p>
 </li>
-<li><p class="first">Get necessary ssh keys via sftp (installed by Putty installer)</p>
+<li><p class="first">You might consider putting the Putty directory on the path. Something like:</p>
+<div class="highlight-python"><pre>$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+$my_path += ";C:\Program files (x86)\Putty" # (x86) on my windows 7 system
+[Environment]::SetEnvironmentVariable("PATH", $my_path, "User")</pre>
+</div>
 </li>
-<li><p class="first">Run <em>PUTTYgen</em> (installed by the Putty installer) to import the Unix ssh key
-into putty <tt class="docutils literal"><span class="pre">.ppk</span></tt> format.  Save <tt class="docutils literal"><span class="pre">.ppk</span></tt> in <tt class="docutils literal"><span class="pre">$HOME/.ssh</span></tt>.</p>
+<li><p class="first">I have ssh keys I use on unix and mac.  I got the necessary ssh keys via sftp
+(installed by Putty installer). These went into <tt class="docutils literal"><span class="pre">$HOME/.ssh</span></tt>. I then ran
+<em>PUTTYgen</em> (installed by the Putty installer) to import the Unix ssh key into
+putty <tt class="docutils literal"><span class="pre">.ppk</span></tt> format.  Save <tt class="docutils literal"><span class="pre">.ppk</span></tt> in <tt class="docutils literal"><span class="pre">$HOME/.ssh</span></tt>.</p>
 </li>
 <li><p class="first">Start <em>pageant</em> (installed by putty installer).  Add <tt class="docutils literal"><span class="pre">.ppk</span></tt> key file.</p>
 </li>
-<li><p class="first">Check we can get authenticated e.g. into github with <tt class="docutils literal"><span class="pre">&quot;c:\Program</span>
-<span class="pre">files\Putty\plink</span> <span class="pre">git&#64;github.com&quot;</span></tt>.</p>
+<li><p class="first">If you&#8217;ve got the putty utilities on the path, check you can get authenticated
+e.g. into github with <tt class="docutils literal"><span class="pre">plink</span> <span class="pre">git&#64;github.com</span></tt>.  If you don&#8217;t have putty etc
+on the path, you&#8217;ll need the full path to plink, as in: <tt class="docutils literal"><span class="pre">&quot;c:\Program</span> <span class="pre">files</span>
+<span class="pre">(x86)\Putty\plink</span> <span class="pre">git&#64;github.com&quot;</span></tt>.</p>
 </li>
 <li><p class="first">Set a couple of environment variables from powershell - see
 <a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <tt class="docutils literal"><span class="pre">$GIT_SSH</span></tt> to pick up
@@ -115,15 +130,60 @@ have no guarantee that the server is the computer you
 think it is.</pre>
 </div>
 <p>If so, run <em>plink</em> manually to cache the key:</p>
-<div class="highlight-python"><pre>&amp; 'C:\Program Files\PuTTY\plink.exe' git@github.com</pre>
+<div class="highlight-python"><pre>&amp; 'C:\Program Files (x86)\PuTTY\plink.exe' git@github.com</pre>
 </div>
 <p>and press <tt class="docutils literal"><span class="pre">y</span></tt> when asked.</p>
 </li>
-<li><p class="first">Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.</p>
+<li><p class="first">I run pageant at startup.  I first set up a desktop shortcut with the
+following command:</p>
+<div class="highlight-python"><pre>"C:\Program Files (x86)\PuTTY\pageant.exe" c:\Users\mb312\.ssh\id_dsa.ppk</pre>
+</div>
+<p>I move this shortcut into my startup folder to start at login.  On windows 7
+my startup folder is:</p>
+<div class="highlight-python"><pre>C:\Users\mb312\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</pre>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">mb312</span></tt> is my username.</p>
+</li>
+<li><p class="first">For using ssh inside the msysgit bash shell, I like to add the keychain-like
+script, by including this in my <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file:</p>
+<div class="highlight-python"><pre># Source personal definitions
+if [ -f "$HOME/.bash_keychain_lite" ]; then
+    . "$HOME/.bash_keychain_lite"
+fi</pre>
+</div>
+<p>where the <tt class="docutils literal"><span class="pre">.bash_keychain_lite</span></tt> file arises from the <tt class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></tt>
+command above.</p>
+</li>
+</ul>
+<div class="section" id="miscellaneous">
+<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>I liked <a class="reference external" href="http://code.google.com/p/mdesktop/">mdesktop</a> for multiple desktops on windows 7.  I don&#8217;t know what
+versions of windows it works on.</li>
+<li>I got used to the mac keyboard way of using the command key for things like
+making new tabs in the browser (command-t), copy, paste (command-c, command-v)
+and so on. I can&#8217;t replicate all of this on windows, but as a first pass, I
+installed <a class="reference external" href="http://www.randyrants.com/sharpkeys/">sharpkeys</a>, and remapped the windows (command) key to appear to be
+the left control key.  I don&#8217;t use the windows key much, but I can still use
+the right one if I need it.  I also used <em>sharpkeys</em> to turn off Caps Lock,
+because I find it annoying, especially when I hit it accidentally using <a class="reference external" href="http://www.vim.org">vim</a>.</li>
+<li>On the same line, I&#8217;m used to command-tab for switching programs on the mac.
+I got this effect via a <a class="reference external" href="http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows">lifehacker post</a>.  As I had already mapped the
+control key to the command key, I just needed <tt class="docutils literal"><span class="pre">LCtrl</span> <span class="pre">&amp;</span> <span class="pre">Tab::AltTab</span></tt> in an
+<a class="reference external" href="http://www.autohotkey.com">autohotkey</a> script.  Putting into my startup folder loaded in at login.</li>
+<li>I depend heavily on knowing which branch I am on when using git.  This is the
+what the <tt class="docutils literal"><span class="pre">git-completion</span></tt> bash routines do; <a class="reference external" href="https://github.com/dahlbyk/posh-git">posh-git</a> does the equivalent
+for powershell.</li>
+</ul>
+</div>
+<div class="section" id="other-programs">
+<h3>Other programs<a class="headerlink" href="#other-programs" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.  With a 64 bit python (below), I needed a <a class="reference external" href="http://code.google.com/p/vim-win3264/wiki/Win64Binaries">64 bit
+vim</a></p>
 </li>
 <li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
 the personal configuration below.  For convenience in running other things,
-you might want to make sure python is on the path.  From the powershell
 command line you could do something like:</p>
 <div class="highlight-python"><pre>$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
 $my_path += "C:\Python27;C:\Python27\Scripts"
@@ -139,21 +199,22 @@ cd dev_trees
 git clone git@github.com:matthew-brett/myconfig.git
 git clone git@github.com:matthew-brett/myvim.git
 cd myconfig
-c:\Python26\python make.py dotfiles
+python make.py dotfiles
 cd ..\myvim
-c:\Python26\python make.py vimfiles</pre>
+python make.py vimfiles</pre>
 </div>
-<p>For using ssh inside the git bash shell, I like to add the keychain-like
-script, by including this in my <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file:</p>
-<div class="highlight-python"><pre># Source personal definitions
-if [ -f "$HOME/.bash_keychain_lite" ]; then
-    . "$HOME/.bash_keychain_lite"
-fi</pre>
-</div>
-<p>where the <tt class="docutils literal"><span class="pre">.bash_keychain_lite</span></tt> file arises from the <tt class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></tt>
-command above.</p>
+</li>
+<li><p class="first">I am trying out <a class="reference external" href="https://bitbucket.org/guillermooo/virtualenvwrapper-powershell">virtualenvwrapper-powershell</a> . Install with the standard
+<tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt>.  You then need <tt class="docutils literal"><span class="pre">import-module</span>
+<span class="pre">virtualenvwrapper</span></tt> from the powershell prompt.  Maybe it goes better in a
+<a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx">powershell profile</a>.</p>
+</li>
+<li><p class="first">As for any other environment, the <a class="reference external" href="https://github.com/flavioamieiro/nose-ipdb">nose-ipdb</a> ipython debugger for <a class="reference external" href="http://readthedocs.org/docs/nose/en/latest">nose</a> makes
+debugging easier for nose tests.  Easiest route is <tt class="docutils literal"><span class="pre">easy_install</span>
+<span class="pre">ipdbplugin</span></tt>.</p>
 </li>
 </ul>
+</div>
 </div>
 <div class="section" id="windows-compiler-and-build-tools">
 <span id="win-compile-tools"></span><h2>Windows compiler and build tools<a class="headerlink" href="#windows-compiler-and-build-tools" title="Permalink to this headline">¶</a></h2>
@@ -185,7 +246,6 @@ directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\
 </div>
 </li>
 </ul>
-<p class="rubric">Footnotes</p>
 </div>
 </div>
 
@@ -200,6 +260,11 @@ directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\
 <li><a class="reference internal" href="#">Developing on windows</a><ul>
 <li><a class="reference internal" href="#my-system-s">My system(s)</a></li>
 <li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
+<li><a class="reference internal" href="#ssh-setup">SSH setup</a><ul>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li><a class="reference internal" href="#other-programs">Other programs</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#windows-compiler-and-build-tools">Windows compiler and build tools</a></li>
 </ul>
 </li>
