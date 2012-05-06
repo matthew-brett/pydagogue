@@ -125,7 +125,8 @@ Miscellaneous
 * On the same line, I'm used to command-tab for switching programs on the mac.
   I got this effect via a `lifehacker post`_.  As I had already mapped the
   control key to the command key, I just needed ``LCtrl & Tab::AltTab`` in an
-  autohotkey_ script.  Putting into my startup folder loaded in at login.
+  autohotkey_ script.  Putting the ``remap.ahk`` script file into my startup
+  folder caused it to be loaded at login.
 * I depend heavily on knowing which branch I am on when using git.  This is the
   what the ``git-completion`` bash routines do; posh-git_ does the equivalent
   for powershell.
@@ -136,7 +137,7 @@ Other programs
 * Install editor.  I use vim_.  With a 64 bit python (below), I needed a `64 bit
   vim`_
 * Install python_ - the current version.  I need this for the scripts installing
-  the personal configuration below.  For convenience in running other things,
+  the personal configuration below.  For the convenience of using python at the
   command line you could do something like::
 
     \$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
