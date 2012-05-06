@@ -170,7 +170,8 @@ because I find it annoying, especially when I hit it accidentally using <a class
 <li>On the same line, I&#8217;m used to command-tab for switching programs on the mac.
 I got this effect via a <a class="reference external" href="http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows">lifehacker post</a>.  As I had already mapped the
 control key to the command key, I just needed <tt class="docutils literal"><span class="pre">LCtrl</span> <span class="pre">&amp;</span> <span class="pre">Tab::AltTab</span></tt> in an
-<a class="reference external" href="http://www.autohotkey.com">autohotkey</a> script.  Putting into my startup folder loaded in at login.</li>
+<a class="reference external" href="http://www.autohotkey.com">autohotkey</a> script.  Putting the <tt class="docutils literal"><span class="pre">remap.ahk</span></tt> script file into my startup
+folder caused it to be loaded at login.</li>
 <li>I depend heavily on knowing which branch I am on when using git.  This is the
 what the <tt class="docutils literal"><span class="pre">git-completion</span></tt> bash routines do; <a class="reference external" href="https://github.com/dahlbyk/posh-git">posh-git</a> does the equivalent
 for powershell.</li>
@@ -183,7 +184,7 @@ for powershell.</li>
 vim</a></p>
 </li>
 <li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
-the personal configuration below.  For convenience in running other things,
+the personal configuration below.  For the convenience of using python at the
 command line you could do something like:</p>
 <div class="highlight-python"><pre>$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
 $my_path += "C:\Python27;C:\Python27\Scripts"
