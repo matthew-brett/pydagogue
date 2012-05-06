@@ -16,6 +16,8 @@
 .. _numpy: http://sourceforge.net/projects/numpy/files
 .. _scipy: http://sourceforge.net/projects/scipy/files
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
+.. _nose: http://readthedocs.org/docs/nose/en/latest
+.. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv

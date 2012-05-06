@@ -111,7 +111,7 @@ the windows tools:
 Miscellaneous
 =============
 
-* I liked mkdesktop_ for multiple desktops on windows 7.  I don't know what
+* I liked mdesktop_ for multiple desktops on windows 7.  I don't know what
   versions of windows it works on.
 * I got used to the mac keyboard way of using the command key for things like
   making new tabs in the browser (command-t), copy, paste (command-c, command-v)
@@ -120,6 +120,10 @@ Miscellaneous
   the left control key.  I don't use the windows key much, but I can still use
   the right one if I need it.  I also used *sharpkeys* to turn off Caps Lock,
   because I find it annoying, especially when I hit it accidentally using vim_.
+* On the same line, I'm used to command-tab for switching programs on the mac.
+  I got this effect via a `lifehacker post`_.  As I had already mapped the
+  control key to the command key, I just needed ``LCtrl & Tab::AltTab`` in an
+  autohotkey_ script.  Putting into my startup folder loaded in at login.
 * I depend heavily on knowing which branch I am on when using git.  This is the
   what the ``git-completion`` bash routines do; posh-git_ does the equivalent
   for powershell.
@@ -156,7 +160,9 @@ Other programs
   ``python setup.py install``.  You then need ``import-module
   virtualenvwrapper`` from the powershell prompt.  Maybe it goes better in a
   `powershell profile`_.
-
+* As for any other environment, the nose-ipdb_ ipython debugger for nose_ makes
+  debugging easier for nose tests.  Easiest route is ``easy_install
+  ipdbplugin``.
 
 .. _win-compile-tools:
 
@@ -200,7 +206,7 @@ Windows compiler and build tools
 .. _posh-git: https://github.com/dahlbyk/posh-git
 .. _virtualenvwrapper-powershell: https://bitbucket.org/guillermooo/virtualenvwrapper-powershell
 .. _powershell profile: http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx
-
-.. rubric:: Footnotes
+.. _lifehacker post: http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows
+.. _autohotkey: http://www.autohotkey.com
 
 .. include:: links_names.inc
