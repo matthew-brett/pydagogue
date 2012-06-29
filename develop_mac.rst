@@ -32,19 +32,20 @@ Basic setup
     * install numpy_
     * install scipy_
 
-* Install personal setup::
+* Install personal setup.  This is what that looks like for me (I store my set
+  up on github to make it easier to move between computers):
 
     git clone git@github.com:matthew-brett/myconfig.git
     cd myconfig
     make dotfiles
     cd ..
 
-  Then edit ``~/.bash_profile`` to add the commented lines at the top of your new
-  ``~/.bash_personal`` file.  Then set up vim::
+  I then edit ``~/.bash_profile`` to add the commented lines at the top of your new
+  ``~/.bash_personal`` file.  Finally I set up my configuration of ``vim``:
 
     git clone git@github.com:matthew-brett/myvim.git
     cd myvim
-    make command-t
+    make
     make links
 
 * For your favorite python version, install virtualenv_, and virtualenvwrapper_
@@ -73,9 +74,9 @@ Basic setup
     easy_install nibabel
     easy_install cython
 
-* For packaging, download and unpack the source distribution for bdist_mpkg_. I
-  unpacked it into ``~/stable_trees/bdist_mpkg-0.4.4``.
-
+* For packaging, download and unpack the source distribution for bdist_mpkg_.
+  It looks as though the main package has gone cold, but Ralf Gommers `cloned
+  bdist_mpkg <https://github.com/rgommers/bdist_mpkg>`_ on github.
 
 ****************************************
 Building windows release files with wine
