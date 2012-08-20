@@ -83,20 +83,25 @@ In practice it's now very hard indeed to find a machine that does not implement
 this rule for floating point operations.
 
 Imagine we have two finite floating point numbers $q$ and $r$ and we combine
-them using one of the operators {+, -, *, /} in a perfect world at infinite
+them using one of the operators {``+, -, *, /``} in a perfect world at infinite
 precision:
 
 .. math::
 
     x = q \circ r
 
-where $\circ$ is one of the operators {+, -, *, /}. Let's call the actual finite
-precision number returned from this calculation $fl(x)$.  The IEEE standard
-specifies that $fl(x)$ should be the closest number to $x$ that can be
+where $\circ$ is one of the operators {``+, -, *, /``}. Let's call the actual
+finite precision number returned from this calculation $fl(x)$.  The IEEE
+standard specifies that $fl(x)$ should be the closest number to $x$ that can be
 represented in the finite precision format.
 
-Let $e$ be the exponent of $x$ in normalized infinite floating point, and we
-remember that $p$ is the number of digits in the significand in our finite
+Let $e$ be the integer exponent of $x$ in normalized infinite floating point. If
+we want to get $e$ for a particular number $x$ then we want
+``flr(logB(abs(x)))`` where ``logB`` is log to whatever base we are using (10 in
+our example), and ``flr(y)`` gives us the largest integer ``i``, such that ``i
+<= y``. So, $flr(1.9) == 1, flr(-1.1) == -2$.
+
+We remember that $p$ is the number of digits in the significand in our finite
 floating point format. The IEEE rule then becomes:
 
 .. math::
