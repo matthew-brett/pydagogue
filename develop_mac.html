@@ -89,19 +89,22 @@ with <tt class="docutils literal"><span class="pre">/bin</span></tt> appended on
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Install personal setup:</p>
-<div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myconfig.git
+<li><p class="first">Install personal setup.  This is what that looks like for me (I store my set
+up on github to make it easier to move between computers):</p>
+<blockquote>
+<div><p>git clone <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:matthew-brett/myconfig.git
 cd myconfig
 make dotfiles
-cd ..</pre>
-</div>
-<p>Then edit <tt class="docutils literal"><span class="pre">~/.bash_profile</span></tt> to add the commented lines at the top of your new
-<tt class="docutils literal"><span class="pre">~/.bash_personal</span></tt> file.  Then set up vim:</p>
-<div class="highlight-python"><pre>git clone git@github.com:matthew-brett/myvim.git
+cd ..</p>
+</div></blockquote>
+<p>I then edit <tt class="docutils literal"><span class="pre">~/.bash_profile</span></tt> to add the commented lines at the top of your new
+<tt class="docutils literal"><span class="pre">~/.bash_personal</span></tt> file.  Finally I set up my configuration of <tt class="docutils literal"><span class="pre">vim</span></tt>:</p>
+<blockquote>
+<div><p>git clone <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:matthew-brett/myvim.git
 cd myvim
-make command-t
-make links</pre>
-</div>
+make
+make links</p>
+</div></blockquote>
 </li>
 <li><p class="first">For your favorite python version, install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a></p>
 </li>
@@ -128,8 +131,9 @@ easy_install ipython</pre>
 easy_install cython</pre>
 </div>
 </li>
-<li><p class="first">For packaging, download and unpack the source distribution for <a class="reference external" href="http://pypi.python.org/pypi/bdist_mpkg">bdist_mpkg</a>. I
-unpacked it into <tt class="docutils literal"><span class="pre">~/stable_trees/bdist_mpkg-0.4.4</span></tt>.</p>
+<li><p class="first">For packaging, download and unpack the source distribution for <a class="reference external" href="http://pypi.python.org/pypi/bdist_mpkg">bdist_mpkg</a>.
+It looks as though the main package has gone cold, but Ralf Gommers <a class="reference external" href="https://github.com/rgommers/bdist_mpkg">cloned
+bdist_mpkg</a> on github.</p>
 </li>
 </ul>
 </div>
@@ -237,7 +241,7 @@ virtualenv python27 --python=C:\\Python27\\python.exe</pre>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -268,7 +272,7 @@ virtualenv python27 --python=C:\\Python27\\python.exe</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
