@@ -159,21 +159,25 @@ error:
 
 .. math::
 
-    x = m.mm... \times \beta^e
+    x = m.mm... \times \beta^e - a
 
-    x \approx 1.0 \times \beta^{e+1}
+    x \approx 1.0 \times \beta^{e+1} - a
 
 then:
 
 .. math::
 
-    \epsilon \approx \frac{a}{\beta^{e+1} + a}
+    \epsilon \approx \frac{a}{\beta^{e+1} - a}
 
     \epsilon \approx \frac{0.5 \times \beta^{e-(p-1)}}{\beta^{e+1}}
 
     \epsilon \approx 0.5 \times \beta^{-p}
 
-Thus the relative error for any $x$ (regardless of exponent) is bounded:
+So, the *maximum* relative error for $x$ varies (depending on the value of $x$)
+between $\approx 0.5 \times \beta^{-p}$ and $\approx 0.5 \times \beta^{1-p}$.
+
+Therefore the relative error for any $x$ (regardless of exponent) is bounded by
+the larger of these two maxima:
 
 .. math::
 
