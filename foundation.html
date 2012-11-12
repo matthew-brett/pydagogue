@@ -53,7 +53,7 @@
             
   <div class="section" id="git-foundations">
 <span id="git-foundation"></span><h1>Git foundations<a class="headerlink" href="#git-foundations" title="Permalink to this headline">¶</a></h1>
-<p>&#8220;Foundations&#8221; is a little joke on a religous theme; our page borrows heavily
+<p>&#8220;Foundations&#8221; is a little joke on a religious theme; our page borrows heavily
 from the <a class="reference external" href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">git parable</a> - so - why not a foundation myth?</p>
 <div class="section" id="on-the-first-day-the-repository-and-the-working-tree">
 <h2>On the first day - the repository and the working tree<a class="headerlink" href="#on-the-first-day-the-repository-and-the-working-tree" title="Permalink to this headline">¶</a></h2>
@@ -216,14 +216,14 @@ then I do a commit on mine, and she does another one on hers, the times will say
 that these are all in one sequence, but in fact there are two sequences, mine,
 and Eves.  We need some other way to keep track of the sequence of commits, that
 will work even if two of us are working independently.</p>
-<p>In the end we decide that we are going to give the commits some unique identifer
-string instead of the date.  We might have a problem in making sure that the
-unique identifier string is actually unique, but let&#8217;s assume we can solve that
-somehow.  We&#8217;ll store the contents of the working tree in the same way as we
-have done up till now, in the <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory, but we&#8217;ll add a new file
-to each commit, called <tt class="docutils literal"><span class="pre">info.txt</span></tt>, that will tell us who did the commit, and
-when, and, most importantly, what the previous commit was.  We&#8217;ll call the
-previous commit the <em>parent</em>.</p>
+<p>In the end we decide that we are going to give the commits some unique
+identifier string instead of the date.  We might have a problem in making sure
+that the unique identifier string is actually unique, but let&#8217;s assume we can
+solve that somehow.  We&#8217;ll store the contents of the working tree in the same
+way as we have done up till now, in the <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory, but we&#8217;ll add a
+new file to each commit, called <tt class="docutils literal"><span class="pre">info.txt</span></tt>, that will tell us who did the
+commit, and when, and, most importantly, what the previous commit was.  We&#8217;ll
+call the previous commit the <em>parent</em>.</p>
 <p>Eve was right to predict that I had made my own commit today.  I&#8217;ve been happily
 working on chapter 3.  So, before our conversation, my directory looked like
 this:</p>
@@ -467,7 +467,7 @@ I run my commit procedure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_commit</span><span class="p">(</span><span class="s">&#39;Adam&#39;</span><span class="p">,</span> <span class="s">&#39;Night follows day&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The commit prodedure has made a new commit &#8216;dfbeda&#8217;; <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> continues
+<p>The commit procedure has made a new commit &#8216;dfbeda&#8217;; <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> continues
 to have text <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></tt>, but now <tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt>
 contains <tt class="docutils literal"><span class="pre">dfbeda</span></tt>.  In this way, we keep track of which commit we are on, by
 constantly updating &#8216;master&#8217;.</p>
@@ -653,7 +653,7 @@ so she adds some photos to her working tree:</p>
 are large files.  At the moment, every time we make a commit, we&#8217;re copying all
 the files into the commit <tt class="docutils literal"><span class="pre">files</span></tt> directory to make the snapshot.  With big
 files, this is going to lead to many identical copies and lots of wasted space.</p>
-<p>Eve realizes that what we need is to do, is make the commit use <em>references</em> to
+<p>Eve realizes that what we need to do, is to make the commit use <em>references</em> to
 files, rather than the files themselves.  That way, when the commit has files
 that have not changed, it can just point to the unchanged file, rather than
 carrying a wasteful copy of the file.</p>
@@ -681,15 +681,17 @@ reconstructed back into the snapshot.  For example, maybe <tt class="docutils li
 have a series of (object reference, filename) pairs like this:</p>
 <div class="highlight-python"><pre>contents_version1            contents.txt
 chapter1_version1            chapter1.txt
-chapter2_version2            chapter3.txt
+chapter2_version2            chapter2.txt
+chapter3_version1            chapter3.txt
 chapter1_discussion_version1 chapter1_discussion.txt</pre>
 </div>
 <p>These references in the first column could match filenames in the
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
 <div class="highlight-python"><pre>│   ├── objects
 │   │   ├── chapter1_version1
+│   │   ├── chapter2_version1
 │   │   ├── chapter2_version2
-│   │   ├── chapter2_version2
+│   │   ├── chapter3_version1
 │   │   ├── chapter1_discussion_version1
 │   │   └── contents_version1</pre>
 </div>
@@ -711,10 +713,9 @@ hashing algorithms can take a stream of bytes such as the contents of a file,
 and create a string that is near-enough unique to that stream of bytes. That&#8217;s
 really good, because it means that, if Eve and I have an object with the same
 filename (hash) that means it almost certainly contains the exact same contents.</p>
-<p>Eve recommends the &#8216;SHA1&#8217; hashing algorithm, and I&#8217;m in no position to disgree
+<p>Eve recommends the &#8216;SHA1&#8217; hashing algorithm, and I&#8217;m in no position to disagree
 with her.  Now we&#8217;ve got a unique string to use as a key for each file.  For
-example, we run the SHA1 algorithm over the current book files and we get
-these:</p>
+example, we run the SHA1 algorithm over the current book files and we get these:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="38%" />
@@ -908,9 +909,9 @@ previous <tt class="docutils literal"><span class="pre">ahole_commit</span></tt>
 lots of files between the branches, and the common ancestor?  No more.  Now we
 are using the hash file references, all we need to do, is look at the tree
 listing.  If the tree listing has the same entry (filename and hash) that means
-that the file is indentical between the two trees, and we don&#8217;t have to load the
-contents to check.   That makes it very fast to do comparisons between trees
-that haven&#8217;t changed much.</p>
+that the file is identical between the two trees, and we don&#8217;t have to load the
+contents to check. That makes it very fast to do comparisons between trees that
+haven&#8217;t changed much.</p>
 <p>Eve was right of course.  Now, if we make a new commit, when one file is
 changed, all we store is the contents of the file that has changed and a new
 tree listing with the updated hash for the changed file.  That makes the storage
@@ -921,7 +922,7 @@ for lots and lots of similar trees very efficient.</p>
 <h2>On the seventh day - there was git<a class="headerlink" href="#on-the-seventh-day-there-was-git" title="Permalink to this headline">¶</a></h2>
 <p>The seventh day is for resting.   You are all done now, and the hard stuff is
 over.  In a state of deep inner peace, you can think about all that you&#8217;ve
-discovered in ahole:</p>
+discovered in <em>ahole</em>:</p>
 <ul class="simple">
 <li>A commit refers to a snapshot of the complete set of files for your project</li>
 <li>The staging area (index) defines what will change between your upcoming commit
