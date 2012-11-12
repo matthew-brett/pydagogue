@@ -4,7 +4,7 @@
 Git foundations
 ===============
 
-"Foundations" is a little joke on a religous theme; our page borrows heavily
+"Foundations" is a little joke on a religious theme; our page borrows heavily
 from the `git parable`_ - so - why not a foundation myth?
 
 On the first day - the repository and the working tree
@@ -190,14 +190,14 @@ that these are all in one sequence, but in fact there are two sequences, mine,
 and Eves.  We need some other way to keep track of the sequence of commits, that
 will work even if two of us are working independently.
 
-In the end we decide that we are going to give the commits some unique identifer
-string instead of the date.  We might have a problem in making sure that the
-unique identifier string is actually unique, but let's assume we can solve that
-somehow.  We'll store the contents of the working tree in the same way as we
-have done up till now, in the ``files`` subdirectory, but we'll add a new file
-to each commit, called ``info.txt``, that will tell us who did the commit, and
-when, and, most importantly, what the previous commit was.  We'll call the
-previous commit the *parent*.
+In the end we decide that we are going to give the commits some unique
+identifier string instead of the date.  We might have a problem in making sure
+that the unique identifier string is actually unique, but let's assume we can
+solve that somehow.  We'll store the contents of the working tree in the same
+way as we have done up till now, in the ``files`` subdirectory, but we'll add a
+new file to each commit, called ``info.txt``, that will tell us who did the
+commit, and when, and, most importantly, what the previous commit was.  We'll
+call the previous commit the *parent*.
 
 Eve was right to predict that I had made my own commit today.  I've been happily
 working on chapter 3.  So, before our conversation, my directory looked like
@@ -453,7 +453,7 @@ I run my commit procedure::
 
    ahole_commit('Adam', 'Night follows day')
 
-The commit prodedure has made a new commit 'dfbeda'; ``.ahole/HEAD`` continues
+The commit procedure has made a new commit 'dfbeda'; ``.ahole/HEAD`` continues
 to have text ``ref: refs/heads/master``, but now ``.ahole/refs/heads/master``
 contains ``dfbeda``.  In this way, we keep track of which commit we are on, by
 constantly updating 'master'.
@@ -618,13 +618,13 @@ I go back to my own 'master' - which turns out to be
 (``.ahole/refs/heads/master``) - 'dfbeda'::
 
     ahole_checkout('master')
-   
+
 This will change ``.ahole/HEAD`` to be ``ref: refs/heads/master`` - and I will
 have just got the working tree from ``.ahole/dfbeda/files``.  Then I take
 ``eves_diff`` and apply it to my current working tree.  If there were any
 conflicts, I resolve them, but in my world, there are no conflicts.  I have a
 feeling there may be some later.   That apple pie is making me feel a little
-funny.  
+funny.
 
 Finally, I make a new commit, with a new unique ID - say '80cc85', with the
 merged working tree.  But, there's a trick: here the new commit '80cc85' - has
@@ -658,10 +658,10 @@ are large files.  At the moment, every time we make a commit, we're copying all
 the files into the commit ``files`` directory to make the snapshot.  With big
 files, this is going to lead to many identical copies and lots of wasted space. 
 
-Eve realizes that what we need is to do, is make the commit use *references* to
+Eve realizes that what we need to do, is to make the commit use *references* to
 files, rather than the files themselves.  That way, when the commit has files
 that have not changed, it can just point to the unchanged file, rather than
-carrying a wasteful copy of the file.  
+carrying a wasteful copy of the file.
 
 If the commits just store references, we need a way to store the contents of the
 files, so they can be referenced.  Maybe we could store the files for our
@@ -682,8 +682,8 @@ We could have some structure for the commits like this::
     │   ├── 5d89f8
     │   │   ├── info.txt
     │   │   └── file_list
-    
-    
+
+
 where ``.ahole/5d89f8/file_list`` would be a list of references to files in the
 ``.ahole/objects`` directory, along with the filename that the contents has when
 reconstructed back into the snapshot.  For example, maybe ``file_list`` would
@@ -691,7 +691,8 @@ have a series of (object reference, filename) pairs like this::
 
     contents_version1            contents.txt
     chapter1_version1            chapter1.txt
-    chapter2_version2            chapter3.txt
+    chapter2_version2            chapter2.txt
+    chapter3_version1            chapter3.txt
     chapter1_discussion_version1 chapter1_discussion.txt
 
 These references in the first column could match filenames in the
@@ -699,8 +700,9 @@ These references in the first column could match filenames in the
 
     │   ├── objects
     │   │   ├── chapter1_version1
+    │   │   ├── chapter2_version1
     │   │   ├── chapter2_version2
-    │   │   ├── chapter2_version2
+    │   │   ├── chapter3_version1
     │   │   ├── chapter1_discussion_version1
     │   │   └── contents_version1
 
@@ -714,7 +716,7 @@ there will be many versions of many files.  For example ``chapter1_version2``,
 ``chapter1_version3`` and so on is clearly not going to work, because when Eve
 and I work independently, at some point we're both going to have something like
 a ``chapter1_version3`` in our respective ``.ahole/objects`` directories, but
-they will be different, and that will be confusing. 
+they will be different, and that will be confusing.
 
 At this stage, Eve reveals that she has some training in computer science.  Of
 course I have no idea what that is, or who did the training, but she's in too
@@ -725,10 +727,9 @@ and create a string that is near-enough unique to that stream of bytes. That's
 really good, because it means that, if Eve and I have an object with the same
 filename (hash) that means it almost certainly contains the exact same contents.
 
-Eve recommends the 'SHA1' hashing algorithm, and I'm in no position to disgree
+Eve recommends the 'SHA1' hashing algorithm, and I'm in no position to disagree
 with her.  Now we've got a unique string to use as a key for each file.  For
-example, we run the SHA1 algorithm over the current book files and we get
-these:
+example, we run the SHA1 algorithm over the current book files and we get these:
 
 ========================  ========================================
 Filename                  SHA1 hash
@@ -920,9 +921,9 @@ How about doing a merge?  Remember that, in the bad old days, we had to compare
 lots of files between the branches, and the common ancestor?  No more.  Now we
 are using the hash file references, all we need to do, is look at the tree
 listing.  If the tree listing has the same entry (filename and hash) that means
-that the file is indentical between the two trees, and we don't have to load the
-contents to check.   That makes it very fast to do comparisons between trees
-that haven't changed much.
+that the file is identical between the two trees, and we don't have to load the
+contents to check. That makes it very fast to do comparisons between trees that
+haven't changed much.
 
 Eve was right of course.  Now, if we make a new commit, when one file is
 changed, all we store is the contents of the file that has changed and a new
@@ -936,7 +937,7 @@ On the seventh day - there was git
 
 The seventh day is for resting.   You are all done now, and the hard stuff is
 over.  In a state of deep inner peace, you can think about all that you've
-discovered in ahole:
+discovered in *ahole*:
 
 * A commit refers to a snapshot of the complete set of files for your project
 * The staging area (index) defines what will change between your upcoming commit
