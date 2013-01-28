@@ -11,6 +11,7 @@
 .. Python and common libraries
 .. _python: http://www.python.org
 .. _python.org releases: http://www.python.org/download/releases
+.. _distutils: http://docs.python.org/2/library/distutils.html
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 .. _distribute: http://pypi.python.org/pypi/distribute
 .. _numpy: http://sourceforge.net/projects/numpy/files
