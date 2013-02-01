@@ -14,6 +14,7 @@
 .. _distutils: http://docs.python.org/2/library/distutils.html
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 .. _distribute: http://pypi.python.org/pypi/distribute
+.. _pip: http://pypi.python.org/pypi/pip
 .. _numpy: http://sourceforge.net/projects/numpy/files
 .. _scipy: http://sourceforge.net/projects/scipy/files
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
@@ -26,6 +27,7 @@
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 
 .. Pypi and packaging
+.. _pypi: http://pypi.python.org
 .. _example pypi: http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
 
 .. Mac development
