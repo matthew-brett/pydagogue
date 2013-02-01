@@ -8,6 +8,11 @@ setuptools_ and pip_ install scripts on Unix and Windows.
 The repository at http://github.com/matthew-brett/myscripter has some worked
 running examples of script installation in different situations.
 
+.. note::
+
+    The code on this page is copyright me, Matthew Brett 2013. I hereby release
+    it into the public domain.
+
 ****************
 The main problem
 ****************
