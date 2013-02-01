@@ -49,5 +49,8 @@
 .. _nipy: http://nipy.org
 .. _gitwash: http://github.com/matthew-brett/gitwash
 
+.. Licenses
+.. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
+
 .. Substitutions
 .. |emdash| unicode:: U+02014
