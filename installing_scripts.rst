@@ -262,6 +262,9 @@ script wrappers when you install the package.  That is, you hook into the
 distutils install phase, identify the scripts that have been installed by the
 normal distutils means, and write out Windows script wrappers for each file.
 
+Overriding the default distutils install phase
+==============================================
+
 The way to hook into the distutils install is to subclass the distutils install
 command like this::
 
@@ -288,37 +291,22 @@ This gets run during ``install`` obviously::
     running install
     running build
     running build_scripts
-    creating build
-    creating build/scripts-2.6
-    copying and adjusting bin/myscript -> build/scripts-2.6
+    ...
     changing mode of build/scripts-2.6/myscript from 644 to 755
     running install_scripts
     copying build/scripts-2.6/myscript -> /Users/mb312/dev_trees/myscripter/venv/bin
     changing mode of /Users/mb312/dev_trees/myscripter/venv/bin/myscript to 755
     Doing something in install
-    running install_egg_info
-    Writing /Users/mb312/dev_trees/myscripter/venv/lib/python2.6/site-packages/myscripter-1.0-py2.6.egg-info
+    ...
 
-Less obviously, it gets run making a binary egg::
+Less obviously, it gets run making a binary installer such as an egg::
 
     $ python setupegg.py bdist_egg
     running bdist_egg
     running egg_info
-    creating myscripter.egg-info
-    writing myscripter.egg-info/PKG-INFO
-    writing top-level names to myscripter.egg-info/top_level.txt
-    writing dependency_links to myscripter.egg-info/dependency_links.txt
-    writing manifest file 'myscripter.egg-info/SOURCES.txt'
-    reading manifest file 'myscripter.egg-info/SOURCES.txt'
-    writing manifest file 'myscripter.egg-info/SOURCES.txt'
-    installing library code to build/bdist.macosx-10.5-i386/egg
+    ...
     running install_lib
-    warning: install_lib: 'build/lib' does not exist -- no Python modules to install
-    creating build
-    creating build/bdist.macosx-10.5-i386
-    creating build/bdist.macosx-10.5-i386/egg
-    creating build/bdist.macosx-10.5-i386/egg/EGG-INFO
-    installing scripts to build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts
+    ...
     running install_scripts
     running build_scripts
     creating build/scripts-2.6
@@ -328,14 +316,10 @@ Less obviously, it gets run making a binary egg::
     copying build/scripts-2.6/myscript -> build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts
     changing mode of build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts/myscript to 755
     Doing something in install
-    copying myscripter.egg-info/PKG-INFO -> build/bdist.macosx-10.5-i386/egg/EGG-INFO
-    copying myscripter.egg-info/SOURCES.txt -> build/bdist.macosx-10.5-i386/egg/EGG-INFO
-    copying myscripter.egg-info/dependency_links.txt -> build/bdist.macosx-10.5-i386/egg/EGG-INFO
-    copying myscripter.egg-info/top_level.txt -> build/bdist.macosx-10.5-i386/egg/EGG-INFO
-    zip_safe flag not set; analyzing archive contents...
-    creating dist
-    creating 'dist/myscripter-1.0-py2.6.egg' and adding 'build/bdist.macosx-10.5-i386/egg' to it
-    removing 'build/bdist.macosx-10.5-i386/egg' (and everything under it)
+    ...
+
+Different ways the installer can be run
+=======================================
 
 To get some general mechanism working, it's good to review all the possible ways
 that your script could get installed on Windows or Unix.  These are:
@@ -352,6 +336,9 @@ Let's consider the binary ``egg`` install.  Here you've made a binary egg using
 place.  Someone then downloads it, and installs with the equivalent of
 ``easy_install my_package_version.egg``.
 
+How to know the install-time python for a binary installer?
+===========================================================
+
 If we hook into the distutils install phase (not the ``easy_install`` phase),
 this is run *when we build the binary egg*.  That means, that the only python we
 know about, during the distutils install phase, is the python with which we
@@ -365,6 +352,10 @@ script being set correctly by the ``easy_install`` phase.
 That means that, in order for our distutils install trick to work, we need to
 make a windows wrapper like the ``cli.exe`` wrapper from setuptools, that can
 analyze the shebang line of the installed script and call python from that.
+
+A fairly simple Windows bat file solution
+=========================================
+
 Luckily that is not very hard using some simple windows batch programing.  Here
 then is a ``setup.py`` that works with simple script files, and writes out a
 Windows wrapper to analyze the script file shebang line::
