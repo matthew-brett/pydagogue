@@ -28,6 +28,7 @@ Contents:
    git_log_dots
    git_diff_dots
    git_gui_windows
+   installing_scripts
    gh_delete_master
    gitwash_build
    floating_point

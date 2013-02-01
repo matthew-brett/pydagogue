@@ -25,7 +25,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="next" title="Deleting your master branch" href="gh_delete_master.html" />
+    <link rel="prev" title="Getting started with git gui on Windows" href="git_gui_windows.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,6 +36,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gh_delete_master.html" title="Deleting your master branch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="git_gui_windows.html" title="Getting started with git gui on Windows"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,6 +57,11 @@
 <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a> and <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> install scripts on Unix and Windows.</p>
 <p>The repository at <a class="reference external" href="http://github.com/matthew-brett/myscripter">http://github.com/matthew-brett/myscripter</a> has some worked
 running examples of script installation in different situations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The code on this page is copyright me, Matthew Brett 2013. I hereby release
+it into the public domain.</p>
+</div>
 <div class="section" id="the-main-problem">
 <h2>The main problem<a class="headerlink" href="#the-main-problem" title="Permalink to this headline">¶</a></h2>
 <p>As we will see, the main problem is that the standard python installation
@@ -61,7 +74,7 @@ in Unix might look like this:</p>
 <p>This is called the <a class="reference external" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>
 line, from &#8220;hash-bang&#8221; - referring to the hash (#) and exclamation (!)
 characters. The shebang line tells Unix : &#8220;Run the rest of this script via the
-interpreter <tt class="docutils literal"><span class="pre">/usr/local/bin/python</span></tt>.</p>
+interpreter <tt class="docutils literal"><span class="pre">/usr/local/bin/python</span></tt>&#8221;.</p>
 <p>When you install python scripts with a certain python interpreter,
 say <tt class="docutils literal"><span class="pre">/usr/local/bin/python2.6</span></tt>, distutils changes this line in the installed
 script, to:</p>
@@ -125,7 +138,7 @@ operable program or batch file.</pre>
 </div>
 <p>We could make the script executable on Windows by adding a <tt class="docutils literal"><span class="pre">.py</span></tt> extension.
 This will associate the file with the <em>default</em> system python, not the Python
-doing the installation, which is what we want:</p>
+doing the installation; it is the python doing the installation that we want:</p>
 <div class="highlight-python"><pre>(venv) C:\repos\myscripter&gt;copy venv\Scripts\myscript venv\Scripts\myscript.py
         1 file(s) copied.
 
@@ -211,8 +224,9 @@ code for a script into a file <tt class="docutils literal"><span class="pre">mys
 </div>
 <p>Notice we import setuptools at the top.  This modifies (monkey-patches)
 disutils, imported below that.  We now depend on setuptools at install time to
-write the console script stuff.  Now we run an install into a virtualenv
-(Unix again):</p>
+write the console script stuff and at run time in finding the installed scripts
+via <tt class="docutils literal"><span class="pre">pkg_resources</span></tt> (see above and below).  We run an install into a
+virtualenv (Unix again):</p>
 <div class="highlight-python"><pre>virtualenv venv
 . venv/bin/activate
 python setup.py install</pre>
@@ -257,7 +271,7 @@ the contents of <tt class="docutils literal"><span class="pre">my_console_script
 </div>
 <p>This is the same (bar the shebang line) as the Unix script.  The new thing is
 the <tt class="docutils literal"><span class="pre">my_console_script.exe</span></tt> file.  This is a verbatim copy of a compiled
-windows binary file called <tt class="docutils literal"><span class="pre">cli.exe</span></tt> from the setuptools distribution (see
+windows binary file called <tt class="docutils literal"><span class="pre">cli.exe</span></tt> from the setuptools distribution - see
 <a class="reference external" href="http://svn.python.org/projects/sandbox/branches/setuptools-0.6/setuptools/tests/win_script_wrapper.txt">Python wrappers for Windows</a>.
 This <tt class="docutils literal"><span class="pre">exe</span></tt> binary detects its own name (in this case
 <tt class="docutils literal"><span class="pre">my_console_script.exe</span></tt>) and looks for a file <tt class="docutils literal"><span class="pre">&lt;my-name&gt;-script.py</span></tt>
@@ -273,12 +287,69 @@ because of the <tt class="docutils literal"><span class="pre">from</span> <span 
 (<tt class="docutils literal"><span class="pre">pkg_resources</span></tt> is from setuptools).  Personally, I find the
 <tt class="docutils literal"><span class="pre">console_script</span></tt> mechanism more obscure than having script files.</p>
 </div>
-<div class="section" id="making-windows-script-wrappers-via-the-distutils-install-phase">
-<h2>Making Windows script wrappers via the distutils install phase<a class="headerlink" href="#making-windows-script-wrappers-via-the-distutils-install-phase" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="making-windows-script-wrappers-via-the-distutils-install-scripts-phase">
+<h2>Making Windows script wrappers via the distutils install-scripts phase<a class="headerlink" href="#making-windows-script-wrappers-via-the-distutils-install-scripts-phase" title="Permalink to this headline">¶</a></h2>
 <p>An alternative to using setuptools entry points, is to create your own windows
 script wrappers when you install the package.  That is, you hook into the
-distutils install phase, identify the scripts that have been installed by the
-normal distutils means, and write out Windows script wrappers for each file.</p>
+distutils install-scripts phase, identify the scripts that have been installed
+by the normal distutils means, and write out Windows script wrappers for each
+file.</p>
+<div class="section" id="overriding-the-default-distutils-install-scripts-phase">
+<h3>Overriding the default distutils install-scripts phase<a class="headerlink" href="#overriding-the-default-distutils-install-scripts-phase" title="Permalink to this headline">¶</a></h3>
+<p>The way to hook into the distutils install is to subclass the distutils
+<tt class="docutils literal"><span class="pre">install_scripts</span></tt> command like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.command.install_scripts</span> <span class="kn">import</span> <span class="n">install_scripts</span>
+
+<span class="k">class</span> <span class="nc">my_install_scripts</span><span class="p">(</span><span class="n">install_scripts</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">install_scripts</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Doing something in install&quot;</span><span class="p">)</span>
+
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;myscripter&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s">&#39;1.0&#39;</span><span class="p">,</span>
+    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s">&#39;bin&#39;</span><span class="p">,</span> <span class="s">&#39;myscript&#39;</span><span class="p">)],</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;install_scripts&#39;</span><span class="p">:</span> <span class="n">my_install_scripts</span><span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>This gets run during <tt class="docutils literal"><span class="pre">install</span></tt> obviously:</p>
+<div class="highlight-python"><pre>$ python setup.py install
+running install
+running build
+running build_scripts
+...
+changing mode of build/scripts-2.6/myscript from 644 to 755
+running install_scripts
+copying build/scripts-2.6/myscript -&gt; /Users/mb312/dev_trees/myscripter/venv/bin
+changing mode of /Users/mb312/dev_trees/myscripter/venv/bin/myscript to 755
+Doing something in install
+...</pre>
+</div>
+<p>Less obviously, it gets run making a binary installer such as an egg:</p>
+<div class="highlight-python"><pre>$ python setupegg.py bdist_egg
+running bdist_egg
+running egg_info
+...
+running install_lib
+...
+running install_scripts
+running build_scripts
+creating build/scripts-2.6
+copying and adjusting bin/myscript -&gt; build/scripts-2.6
+changing mode of build/scripts-2.6/myscript from 644 to 755
+creating build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts
+copying build/scripts-2.6/myscript -&gt; build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts
+changing mode of build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts/myscript to 755
+Doing something in install
+...</pre>
+</div>
+</div>
+<div class="section" id="different-ways-the-installer-can-be-run">
+<h3>Different ways the installer can be run<a class="headerlink" href="#different-ways-the-installer-can-be-run" title="Permalink to this headline">¶</a></h3>
 <p>To get some general mechanism working, it&#8217;s good to review all the possible ways
 that your script could get installed on Windows or Unix.  These are:</p>
 <ul class="simple">
@@ -293,19 +364,26 @@ an <tt class="docutils literal"><span class="pre">egg</span></tt> binary file (a
 <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_egg</span></tt>.  You upload this to <a class="reference external" href="http://pypi.python.org">pypi</a> or some other good
 place.  Someone then downloads it, and installs with the equivalent of
 <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">my_package_version.egg</span></tt>.</p>
-<p>If we hook into the distutils install phase (not the <tt class="docutils literal"><span class="pre">easy_install</span></tt> phase),
-this is run <em>when we build the binary egg</em>.  That means, that the only python we
-know about, during the distutils install phase, is the python with which we
-build the egg.  However, the python called within <tt class="docutils literal"><span class="pre">easy_install</span></tt> on the user&#8217;s
-computer, may well be at a different path, or be in a virtualenv.  So we can&#8217;t
-know, at the distutils install phase, what the eventual python path will be.
-There is no way of making a post-install hook for the <tt class="docutils literal"><span class="pre">easy_install</span></tt> phase on
-the egg file in particular.  However, we can rely on the shebang line of the
-script being set correctly by the <tt class="docutils literal"><span class="pre">easy_install</span></tt> phase.</p>
+</div>
+<div class="section" id="how-to-know-the-install-time-python-for-a-binary-installer">
+<h3>How to know the install-time python for a binary installer?<a class="headerlink" href="#how-to-know-the-install-time-python-for-a-binary-installer" title="Permalink to this headline">¶</a></h3>
+<p>If we hook into the distutils install-scripts phase (not the <tt class="docutils literal"><span class="pre">easy_install</span></tt>
+phase), we saw above that this is run <em>when we build the binary egg</em>.  That
+means, that the only python we know about, during the distutils install-scripts
+phase, is the python with which we build the egg.  However, the python called
+within <tt class="docutils literal"><span class="pre">easy_install</span></tt> on the user&#8217;s computer, may well be at a different path,
+or in a virtualenv.  So we can&#8217;t know, at the distutils install phase, what
+the eventual python path will be.  There is <a class="reference external" href="http://stackoverflow.com/questions/250038/how-can-i-add-post-install-scripts-to-easy-install-setuptools-distutils">no way</a>
+of making a post-install hook for the <tt class="docutils literal"><span class="pre">easy_install</span></tt> phase on the egg file in
+particular.  However, we can rely on the shebang line of the script being set
+correctly by the <tt class="docutils literal"><span class="pre">easy_install</span></tt> phase.</p>
 <p>That means that, in order for our distutils install trick to work, we need to
 make a windows wrapper like the <tt class="docutils literal"><span class="pre">cli.exe</span></tt> wrapper from setuptools, that can
-analyze the shebang line of the installed script and call python from that.
-Luckily that is not very hard using some simple windows batch programing.  Here
+analyze the shebang line of the installed script and call python from that.</p>
+</div>
+<div class="section" id="a-fairly-simple-windows-bat-file-solution">
+<h3>A fairly simple Windows bat file solution<a class="headerlink" href="#a-fairly-simple-windows-bat-file-solution" title="Permalink to this headline">¶</a></h3>
+<p>Luckily that is not very hard using some simple windows batch programing.  Here
 then is a <tt class="docutils literal"><span class="pre">setup.py</span></tt> that works with simple script files, and writes out a
 Windows wrapper to analyze the script file shebang line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">with_statement</span>
@@ -369,6 +447,7 @@ full example.  This seems to work for all of the installation methods above,
 without requiring setuptools.</p>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -383,11 +462,23 @@ without requiring setuptools.</p>
 <li><a class="reference internal" href="#the-problem-by-example">The problem by example</a></li>
 <li><a class="reference internal" href="#setuptools-scripts-in-eggs">setuptools - scripts in eggs</a></li>
 <li><a class="reference internal" href="#setuptools-and-console-script-entry-points">Setuptools and console_script entry_points</a></li>
-<li><a class="reference internal" href="#making-windows-script-wrappers-via-the-distutils-install-phase">Making Windows script wrappers via the distutils install phase</a></li>
+<li><a class="reference internal" href="#making-windows-script-wrappers-via-the-distutils-install-scripts-phase">Making Windows script wrappers via the distutils install-scripts phase</a><ul>
+<li><a class="reference internal" href="#overriding-the-default-distutils-install-scripts-phase">Overriding the default distutils install-scripts phase</a></li>
+<li><a class="reference internal" href="#different-ways-the-installer-can-be-run">Different ways the installer can be run</a></li>
+<li><a class="reference internal" href="#how-to-know-the-install-time-python-for-a-binary-installer">How to know the install-time python for a binary installer?</a></li>
+<li><a class="reference internal" href="#a-fairly-simple-windows-bat-file-solution">A fairly simple Windows bat file solution</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="git_gui_windows.html"
+                        title="previous chapter">Getting started with git gui on Windows</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="gh_delete_master.html"
+                        title="next chapter">Deleting your master branch</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/installing_scripts.txt"
@@ -416,6 +507,12 @@ without requiring setuptools.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="gh_delete_master.html" title="Deleting your master branch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="git_gui_windows.html" title="Getting started with git gui on Windows"
+             >previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
