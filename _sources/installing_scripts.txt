@@ -11,7 +11,7 @@ running examples of script installation in different situations.
 .. note::
 
     The code on this page is copyright me, Matthew Brett 2013. I hereby release
-    it into the public domain.
+    it under the `CC0 license`_
 
 ****************
 The main problem
