@@ -345,9 +345,11 @@ know about, during the distutils install phase, is the python with which we
 build the egg.  However, the python called within ``easy_install`` on the user's
 computer, may well be at a different path, or be in a virtualenv.  So we can't
 know, at the distutils install phase, what the eventual python path will be.
-There is no way of making a post-install hook for the ``easy_install`` phase on
-the egg file in particular.  However, we can rely on the shebang line of the
-script being set correctly by the ``easy_install`` phase.
+There is `no way
+<http://stackoverflow.com/questions/250038/how-can-i-add-post-install-scripts-to-easy-install-setuptools-distutils>`_
+of making a post-install hook for the ``easy_install`` phase on the egg file in
+particular.  However, we can rely on the shebang line of the script being set
+correctly by the ``easy_install`` phase.
 
 That means that, in order for our distutils install trick to work, we need to
 make a windows wrapper like the ``cli.exe`` wrapper from setuptools, that can
