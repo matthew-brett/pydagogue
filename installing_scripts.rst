@@ -22,7 +22,7 @@ in Unix might look like this::
 This is called the `shebang <http://en.wikipedia.org/wiki/Shebang_(Unix)>`_
 line, from "hash-bang" - referring to the hash (#) and exclamation (!)
 characters. The shebang line tells Unix : "Run the rest of this script via the
-interpreter ``/usr/local/bin/python``.
+interpreter ``/usr/local/bin/python``".
 
 When you install python scripts with a certain python interpreter,
 say ``/usr/local/bin/python2.6``, distutils changes this line in the installed
@@ -95,7 +95,7 @@ time, the shebang is useless, because::
 
 We could make the script executable on Windows by adding a ``.py`` extension.
 This will associate the file with the *default* system python, not the Python
-doing the installation, which is what we want::
+doing the installation; it is the python doing the installation that we want::
 
     (venv) C:\repos\myscripter>copy venv\Scripts\myscript venv\Scripts\myscript.py
             1 file(s) copied.
@@ -186,8 +186,9 @@ Then we modify our ``setup.py``::
 
 Notice we import setuptools at the top.  This modifies (monkey-patches)
 disutils, imported below that.  We now depend on setuptools at install time to
-write the console script stuff.  Now we run an install into a virtualenv
-(Unix again)::
+write the console script stuff and at run time in finding the installed scripts
+via ``pkg_resources`` (see above and below).  We run an install into a
+virtualenv (Unix again)::
 
     virtualenv venv
     . venv/bin/activate
@@ -195,7 +196,7 @@ write the console script stuff.  Now we run an install into a virtualenv
 
 Our console script got installed::
 
-    (venv)$ my_console_script
+    (venv)\$ my_console_script
     Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
 
 The actual ``venv/bin/my_console_script`` file is just a wrapper for setuptools::
@@ -235,7 +236,7 @@ the contents of ``my_console_script-script.py``::
 
 This is the same (bar the shebang line) as the Unix script.  The new thing is
 the ``my_console_script.exe`` file.  This is a verbatim copy of a compiled
-windows binary file called ``cli.exe`` from the setuptools distribution (see
+windows binary file called ``cli.exe`` from the setuptools distribution - see
 `Python wrappers for Windows
 <http://svn.python.org/projects/sandbox/branches/setuptools-0.6/setuptools/tests/win_script_wrapper.txt>`_.
 This ``exe`` binary detects its own name (in this case
@@ -253,20 +254,21 @@ because of the ``from pkg_resources ...`` line in the script file
 (``pkg_resources`` is from setuptools).  Personally, I find the
 ``console_script`` mechanism more obscure than having script files.
 
-**************************************************************
-Making Windows script wrappers via the distutils install phase
-**************************************************************
+**********************************************************************
+Making Windows script wrappers via the distutils install-scripts phase
+**********************************************************************
 
 An alternative to using setuptools entry points, is to create your own windows
 script wrappers when you install the package.  That is, you hook into the
-distutils install phase, identify the scripts that have been installed by the
-normal distutils means, and write out Windows script wrappers for each file.
+distutils install-scripts phase, identify the scripts that have been installed
+by the normal distutils means, and write out Windows script wrappers for each
+file.
 
-Overriding the default distutils install phase
-==============================================
+Overriding the default distutils install-scripts phase
+======================================================
 
-The way to hook into the distutils install is to subclass the distutils install
-command like this::
+The way to hook into the distutils install is to subclass the distutils
+``install_scripts`` command like this::
 
     from os.path import join as pjoin
     from distutils.core import setup
@@ -287,7 +289,7 @@ command like this::
 
 This gets run during ``install`` obviously::
 
-    $ python setup.py install
+    \$ python setup.py install
     running install
     running build
     running build_scripts
@@ -301,7 +303,7 @@ This gets run during ``install`` obviously::
 
 Less obviously, it gets run making a binary installer such as an egg::
 
-    $ python setupegg.py bdist_egg
+    \$ python setupegg.py bdist_egg
     running bdist_egg
     running egg_info
     ...
@@ -339,13 +341,13 @@ place.  Someone then downloads it, and installs with the equivalent of
 How to know the install-time python for a binary installer?
 ===========================================================
 
-If we hook into the distutils install phase (not the ``easy_install`` phase),
-this is run *when we build the binary egg*.  That means, that the only python we
-know about, during the distutils install phase, is the python with which we
-build the egg.  However, the python called within ``easy_install`` on the user's
-computer, may well be at a different path, or be in a virtualenv.  So we can't
-know, at the distutils install phase, what the eventual python path will be.
-There is `no way
+If we hook into the distutils install-scripts phase (not the ``easy_install``
+phase), we saw above that this is run *when we build the binary egg*.  That
+means, that the only python we know about, during the distutils install-scripts
+phase, is the python with which we build the egg.  However, the python called
+within ``easy_install`` on the user's computer, may well be at a different path,
+or in a virtualenv.  So we can't know, at the distutils install phase, what
+the eventual python path will be.  There is `no way
 <http://stackoverflow.com/questions/250038/how-can-i-add-post-install-scripts-to-easy-install-setuptools-distutils>`_
 of making a post-install hook for the ``easy_install`` phase on the egg file in
 particular.  However, we can rely on the shebang line of the script being set
