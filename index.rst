@@ -33,6 +33,7 @@ Contents:
    gitwash_build
    floating_point
    floating_error
+   bare_metal_waf
 
 Indices and tables
 ==================
