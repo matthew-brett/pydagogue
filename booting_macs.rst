@@ -4,10 +4,10 @@ Booting Macs
 
 I've tried to install Linux on maybe 4 or 5 Mac machines.  It was very tiring
 and difficult to get the machines to boot.  One problem that came back each time
-was that I did spend enough energy trying to understand the boot process.
+was that I did not spend enough energy trying to understand the boot process.
 
 This is a tutorial to remind myself of the stuff I did understand, and collect
-links to stuff that was useful for explanation.
+links to useful information.
 
 ***************
 Naming of parts
@@ -67,22 +67,22 @@ format.  Most EFI boot systems only read GPT partition tables, but some also
 read MBR tables.  Some BIOS booting systems use GPT tables because of their
 technical advantages.
 
-*******************
-The EFI / UEFI boot
-*******************
+****************************
+The standard EFI / UEFI boot
+****************************
 
-1. There is a boot manager in firmware (*not* on disk)
+#. There is a boot manager in firmware (*not* on disk)
 
-    * firmware must also be able to read partition tables and FAT file systems.
+   * firmware must also be able to read partition tables and FAT file systems.
 
-1. The firmware boot manager reads an `EFI system partition`_ - a partition on
-   disk with a particular partition code. It uses the FAT file system.
-1. The boot manager can load *EFI executable programs* from the EFI system
+#. The firmware boot manager reads an `EFI system partition`_ - a partition on
+   disk with a particular `partition ID`_ code. It uses the FAT file system.
+#. The boot manager can load *EFI executable programs* from the EFI system
    partition.  EFI executable programs are programs that can run with no
    operating system support, using only EFI firmware service calls. These
    programs are frequently boot loaders (see above) but can also be other useful
    programs like diagnostic utilities.
-1. The choice of possible EFI executable programs can be explicit or implicit,
+#. The choice of possible EFI executable programs can be explicit or implicit,
    controlled by a defined variable ``BootOrder`` stored in `Non-volatile RAM`_
    (NVRAM):
 
@@ -90,18 +90,19 @@ The EFI / UEFI boot
      The ``BootOrder`` variable contains a list of further EFI NVRAM variables,
      each defining the EFI executable program to run and any parameters to pass
      to that program. Each EFI variable pointed to by ``BootOrder`` corresponds
-     to a choice the user should see then the boot manager starts.  The boot
+     to a choice the user should see when the boot manager starts.  The boot
      manager then runs the chosen program with the given options.
 
    * If ``BootOrder`` is not defined, then the boot options are implicit, in
      that the boot manager should search all the disks on the system for a
      runnable EFI executable. The boot manager searches EFI system partitions on
-     fixed disks, and the first partition for removable disks.  In either case,
-     the boot manager looks for files with names of form:
+     fixed disks, and assumes there is only one partition for removable disks.
+     In either case, the boot manager looks for files with names of form:
      ``\EFI\BOOT\BOOT{machine type short-name}.EFI``, where ``{machine type
-     short-name}`` can be one of ``IA32`` (32-bit Intel), ``X64`` (64-bit),
-     ``IA64`` (Itanium) ``ARM``, ``AA64`` (ARM 32 and 64 bit). For example
-     ``\EFI\BOOT\BOOTX64.EFI`` 64 bit standard Intel architecture.
+     short-name}`` matches the CPU architecture. The short name can be one of
+     ``IA32`` (32-bit Intel), ``X64`` (64-bit), ``IA64`` (Itanium) ``ARM``,
+     ``AA64`` (ARM 32 and 64 bit). For example ``\EFI\BOOT\BOOTX64.EFI`` matches
+     the 64 bit standard Intel architecture.
 
 **********
 EFI on Mac
@@ -112,16 +113,40 @@ The boot process on the Mac is highly non-standard for EFI (see
 <http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/efi-boot-process.html>`_
 and `rEFIt myths and facts <http://refit.sourceforge.net/myths>`_).
 
+Specializations in Apple EFI
+============================
+
+Apple does not boot straight into a standard EFI boot sequence, but instead
+loads its own non-standard boot manager.
+
 The Apple EPI firmware understands HFS+ (the standard Apple disk format) as well
 as the standard required FAT file format.
 
-The process is as follows:
+Apple can also enable BIOS-compatibility mode when booting.  BIOS compatibility
+mode makes BIOS system calls available to the booting operating system to
+emulate booting in a standard BIOS firmware setup.  The BIOS emulation comes
+from a compatibility support module (CSM) - see `EFI and Ubuntu`_ and `Intel CSM
+docs`_.
 
-1. On boot, an Apple boot loader starts.
-1. The Apple boot loader uses the results of previous ``bless`` commands to
+I can't see the conditions that enable BIOS emulation from the docs in front of
+me.  The `bless manpage online`_ lists a flag ``--legacy`` that appears to
+activate BIOS emulation in subsequent boot. Quoting from `EFI and Ubuntu`_:
+
+    As far as I can tell, BIOS emulation mode only works when a hybrid MBR is present on the hard disk or when a BIOS-bootable optical disk is inserted in the optical drive. 
+
+See `hybrid MBR`_ for more detail.  In brief, there is a hack to a GUID
+partition table that can make the GPT also appear to be an MBR.  The Apple
+"Bootcamp" utilities make this hybrid-MBR when making a partition to install
+Windows XP, but you can also do this with Rod Smith's `GPT fdisk`_ (``gdisk``)
+
+The boot process
+================
+
+#. On boot, an Apple boot manager starts.
+#. The Apple boot manager uses the results of previous ``bless`` commands to
    select how to boot. The ``bless`` commands may have pointed to:
 
-   * A file containing an ``.EFI`` file to execute
+   * A file containing an ``.efi`` file to execute
    * A folder containing a file ``boot.efi`` file to execute
    * A partition from which to boot (in the ``efi-boot-device`` NVRAM variable)
 
@@ -129,13 +154,8 @@ The process is as follows:
    writes the location of the boot efi file into the HFS+ volume header, so that
    the location of the boot file persists if the disk is moved to another
    machine or the NVRAM gets cleared (see ``man bless`` or the `bless manpage
-   online
-   <https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html>`_.
-
-1. The ``bless`` utility can also specify whether to use BIOS compatibility
-   mode when booting.  This mode emulates a BIOS so an OS that expects a BIOS
-   can run correctly.  This mode may also get selected when booting off a disk
-   with a so-called hybrid-MBR - see http://www.rodsbooks.com/ubuntu-efi
+   online`_).
+#. Somehow the BIOS compatibility mode can get activated.  See above.
 
 The EFI system partition on Mac
 ===============================
@@ -143,7 +163,7 @@ The EFI system partition on Mac
 The Mac does indeed have an EFI partition, but it doesn't use it for booting. On
 my laptop::
 
-    $ diskutil list
+    \$ diskutil list
 
     /dev/disk0
     #:                       TYPE NAME                    SIZE       IDENTIFIER
@@ -156,20 +176,21 @@ We can mount the EFI partition, but it hasn't got any defined BOOTable EFI
 programs.  (Please be careful, you can mess up your system by writing into the
 EFI partition)::
 
-    $ diskutil mount /dev/disk0s1
+    \$ diskutil mount /dev/disk0s1
 
     Volume EFI on /dev/disk0s1 mounted
 
-    ls /Volumes/EFI/EFI/
+    \$ ls /Volumes/EFI/EFI/
 
     APPLE
 
-Be careful to unmount the filesystem to avoid accidental damage::
+Unmount the file system to avoid accidental damage::
 
-    $ diskutil unmount /Volumes/EFI
+    \$ diskutil unmount /Volumes/EFI
 
     Volume EFI on disk0s1 unmounted
 
+.. _GRUB: http://www.gnu.org/software/grub
 .. _BIOS: http://en.wikipedia.org/wiki/BIOS
 .. _UEFI: http://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface
 .. _Intel EFI / UEFI: http://www.intel.com/content/www/us/en/architecture-and-technology/unified-extensible-firmware-interface/efi-homepage-general-technology.html
@@ -182,3 +203,10 @@ Be careful to unmount the filesystem to avoid accidental damage::
 .. _Master Boot Record: http://en.wikipedia.org/wiki/Master_boot_record
 .. _Non-volatile RAM: http://en.wikipedia.org/wiki/Non-volatile_random-access_memory
 .. _UEFI 2.4 spec: http://www.uefi.org/specifications
+.. _EFI and Ubuntu: http://www.rodsbooks.com/ubuntu-efi
+.. _Intel CSM docs: http://www.intel.com/content/www/us/en/architecture-and-technology/unified-extensible-firmware-interface/efi-compatibility-support-module-specification-v097.html
+.. _bless manpage online:
+   https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html
+.. _hybrid MBR: http://www.rodsbooks.com/gdisk/hybrid.html
+.. _GPT fdisk: http://www.rodsbooks.com/gdisk/index.html
+.. _Partition ID: http://en.wikipedia.org/wiki/Partition_type
