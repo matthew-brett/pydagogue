@@ -86,9 +86,9 @@ Let's pretend our project creates a file called ``foo`` and then copies it to
 
     def build(build_ctx):
         # Touch foo
-        build_ctx(rule='${TOUCH} ${TGT}', target='foo')
+        build_ctx(rule='\${TOUCH} \${TGT}', target='foo')
         # Copy foo to bar
-        build_ctx(rule='${CP} ${SRC} ${TGT}', source='foo', target='bar')
+        build_ctx(rule='\${CP} \${SRC} \${TGT}', source='foo', target='bar')
 
 We run the checks with ``./waf configure``, and the build with ``./waf build``.
 
@@ -163,7 +163,7 @@ specialized Context object. We can show that for the the ``options`` command.
 
 gives::
 
-    $ waf options
+    \$ waf options
     <waflib.Options.OptionsContext object at 0x1011b53d0>
 
 Let's make each of the commands print their context instance::
@@ -187,13 +187,13 @@ Let's make each of the commands print their context instance::
 
 Executing 'options' again::
 
-    $ waf options
+    \$ waf options
     In: options with <waflib.Options.OptionsContext object at 0x1011b55d0>
 
 We can execute all these command in order by concatenating them at the command
 line to show they each get an instance of their own specialized Context::
 
-    $ waf options configure distclean clean build install uninstall dist list step
+    \$ waf options configure distclean clean build install uninstall dist list step
     In: options with <waflib.Options.OptionsContext object at 0x1011b6750>
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -248,14 +248,14 @@ This happens before your own ``configure`` command gets executed, and even if
 there is no ``configure`` command defined.  For example, if wscript is an empty
 file::
 
-    $ waf configure
+    \$ waf configure
     <waflib.Options.OptionsContext object at 0x1011b53d0>
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
     No function configure defined in /Users/mb312/dev_trees/myproject/wscript
 
 The default configure machinery has set the default 'source' (*top*) directory
-and the 'build' (*out*) directory.  *top* is the (by default) the directory
+and the 'build' (*out*) directory.  *top* is (by default) the directory
 containing the wscript file, and *out* is (by default) a subdirectory of *top*
 called ``build``.  You can customize these directories if you want, for example
 by using the ``top`` and ``out`` global variables at the top of the wscript.
@@ -274,7 +274,7 @@ Where is the waf code?
 
 See "Local waflib folders" in the waf book.
 
-The most way to use waf is to download the ``waf`` binary to your source code
+The usual way to use waf is to download the ``waf`` binary to your source code
 tree, maybe checking the binary into your source control.
 
 In this case, executing the ``./waf`` binary will automatically unpack the waf
@@ -282,16 +282,16 @@ code from within the binary to a specially named folder in the same directory as
 the binary, with a name beginning with ``.waf-``. For example, after I have run
 ``./waf configure`` in the test project folder I get::
 
-    $ ls -A1
+    \$ ls -A1
     .lock-waf_darwin_build
     .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc
     build
     waf
     wscript
 
-The ``waflib`` code is in this special ``.waf-*`` directory:
+The ``waflib`` code is in this special ``.waf-*`` directory::
 
-    $ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
+    \$ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
     waflib
 
 As the waf book explains, it's also possible to run waf with ``waflib`` as a
@@ -301,7 +301,7 @@ High level API for creating tasks
 =================================
 
 Usually we create tasks using a high-level API called *task generators*.  You
-already saw these in first wscript towards the top of this page. The task
+already saw these in our first wscript towards the top of this page. The task
 generator creates the task instances for us::
 
     # the whole wscript
@@ -309,9 +309,9 @@ generator creates the task instances for us::
         pass
 
     def build(build_ctx):
-        build_ctx(rule='touch ${TGT}', target='foo')
+        build_ctx(rule='touch \${TGT}', target='foo')
 
-See :ref:`variable-substitution` below for more on the ``${TGT}`` string
+See :ref:`variable-substitution` below for more on the ``\${TGT}`` string
 substitution form.
 
 The ``rule`` is a system command that we can run, and the ``target`` in this
@@ -323,7 +323,7 @@ clearing the outputs of any previous waf run.
 
 So::
 
-    $ waf distclean configure build
+    \$ waf distclean configure build
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
     'configure' finished successfully (0.003s)
@@ -346,7 +346,7 @@ book::
         pass
 
     def build(build_ctx):
-        tg = build_ctx(rule='touch ${TGT}', target='foo')
+        tg = build_ctx(rule='touch \${TGT}', target='foo')
         # This will show that ``tg`` is a ``task_gen`` instance
         print('Type of tg is:', type(tg))
         # ``tg.tasks`` is empty because the generator has not run yet
@@ -359,7 +359,7 @@ book::
 
 so::
 
-    $ waf distclean configure build
+    \$ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject 
     Setting out to                           : /Users/mb312/dev_trees/myproject/build 
@@ -386,9 +386,10 @@ The files or directories may or may not exist at the time you create the node.
 The waf book has a chapter devoted to "Node objects".
 
 Two node objects get automatically created and attached to the 'Context' of
-every command - 'path' and 'root'.  Here we use a custom command which receives
-an instance of the base ``Context`` class.  All command contexts will have these
-node objects::
+every command - 'path' and 'root'.  Here we use a custom command ``mycommand``.
+Because it's a custom command (not one of the defined waf commands above), the
+command  receives an instance of the base ``Context`` class.  All command
+contexts will have these node objects::
 
     # the whole wscript
     from __future__ import print_function
@@ -399,7 +400,7 @@ node objects::
 
 giving::
 
-    $ waf mycommand
+    \$ waf mycommand
     <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
     <class 'waflib.Node.Nod3'> /
     'mycommand' finished successfully (0.000s)
@@ -419,7 +420,7 @@ Node objects contain various useful methods::
 
 gives::
 
-    $ waf mycommand
+    \$ waf mycommand
     ['abspath', 'ant_glob', 'ant_iter', 'bld_base', 'bld_dir', 'bldpath',
     'cache_abspath', 'cache_isdir', 'cache_sig', 'change_ext', 'children',
     'chmod', 'ctx', 'delete', 'evict', 'find_dir', 'find_node',
@@ -442,7 +443,7 @@ node as a string::
 
 for output::
 
-    $ waf mycommand
+    \$ waf mycommand
     /Users/mb312/dev_trees/myproject
     'mycommand' finished successfully (0.000s)
 
@@ -482,7 +483,7 @@ a node if the file exists.
 Another place where lazy node creation is relevant is interpreting the
 ``children`` attribute of a directory node. ``children`` is a dictionary giving
 nodes corresponding to the contents of a directory. For efficiency, waf doesn't
-alaways read the filesystem to fill this structure, so you may need to create
+always read the filesystem to fill this structure, so you may need to create
 nodes manually if they have not been read from the filesystem already::
 
     # the whole wscript
@@ -498,7 +499,7 @@ nodes manually if they have not been read from the filesystem already::
 
 This gives::
 
-    $ waf mycommand
+    \$ waf mycommand
     root node children {'Users': /Users}
     ls of root directory ['.dbfseventsd', '.DS_Store', '.file', '.fseventsd',
     '.hotfiles.btree', '.Spotlight-V100', '.Trashes', '.vol', 'Applications',
@@ -530,25 +531,25 @@ the build context contains two extra nodes, ``bldnode`` and ``srcnode``::
         pass
 
     def build(build_ctx):
-        print(type(build_ctx.path), repr(build_ctx.path))
-        print(type(build_ctx.root), repr(build_ctx.root))
-        print(type(build_ctx.srcnode), repr(build_ctx.srcnode))
-        print(type(build_ctx.bldnode), repr(build_ctx.bldnode))
+        print('build_ctx.path', type(build_ctx.path), repr(build_ctx.path))
+        print('build_ctx.root', type(build_ctx.root), repr(build_ctx.root))
+        print('build_ctx.srcnode', type(build_ctx.srcnode), repr(build_ctx.srcnode))
+        print('build_ctx.bldnode', type(build_ctx.bldnode), repr(build_ctx.bldnode))
 
 so::
 
-    $ waf distclean configure build
-    'distclean' finished successfully (0.003s)
-    Setting top to                           : /Users/mb312/dev_trees/myproject
-    Setting out to                           : /Users/mb312/dev_trees/myproject/build
-    'configure' finished successfully (0.003s)
+    \$ waf distclean configure build
+    'distclean' finished successfully (0.001s)
+    Setting top to                           : /Users/mb312/dev_trees/myproject 
+    Setting out to                           : /Users/mb312/dev_trees/myproject/build 
+    'configure' finished successfully (0.009s)
     Waf: Entering directory `/Users/mb312/dev_trees/myproject/build'
-    <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
-    <class 'waflib.Node.Nod3'> /
-    <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
-    <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject/build
+    build_ctx.path <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
+    build_ctx.root <class 'waflib.Node.Nod3'> /
+    build_ctx.srcnode <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
+    build_ctx.bldnode <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject/build
     Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build'
-    'build' finished successfully (0.005s)
+    'build' finished successfully (0.003s)
 
 The source node path may differ from the 'path' if you've customized the *top*
 or *out* directories::
@@ -563,10 +564,10 @@ or *out* directories::
         pass
 
     def build(build_ctx):
-        print(type(build_ctx.path), repr(build_ctx.path))
-        print(type(build_ctx.root), repr(build_ctx.root))
-        print(type(build_ctx.srcnode), repr(build_ctx.srcnode))
-        print(type(build_ctx.bldnode), repr(build_ctx.bldnode))
+        print('build_ctx.path', type(build_ctx.path), repr(build_ctx.path))
+        print('build_ctx.root', type(build_ctx.root), repr(build_ctx.root))
+        print('build_ctx.srcnode', type(build_ctx.srcnode), repr(build_ctx.srcnode))
+        print('build_ctx.bldnode', type(build_ctx.bldnode), repr(build_ctx.bldnode))
 
 We need to create the ``tmp2`` directory in the project directory in order for
 this not to raise an error::
@@ -575,19 +576,19 @@ this not to raise an error::
 
 then::
 
-    $ waf distclean configure build
-    'distclean' finished successfully (0.002s)
+    \$ waf distclean configure build
+    'distclean' finished successfully (0.000s)
     Setting top to                           : /Users/mb312/dev_trees/myproject/tmp2
     Setting out to                           : /Users/mb312/dev_trees/myproject/tmp2/build2
     Are you certain that you do not want to set top="." ?
-    'configure' finished successfully (0.004s)
+    'configure' finished successfully (0.002s)
     Waf: Entering directory `/Users/mb312/dev_trees/myproject/tmp2/build2'
-    <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
-    <class 'waflib.Node.Nod3'> /
-    <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject/tmp2
-    <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject/tmp2/build2
+    build_ctx.path <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
+    build_ctx.root <class 'waflib.Node.Nod3'> /
+    build_ctx.srcnode <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject/tmp2
+    build_ctx.bldnode <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject/tmp2/build2
     Waf: Leaving directory `/Users/mb312/dev_trees/myproject/tmp2/build2'
-    'build' finished successfully (0.025s)
+    'build' finished successfully (0.010s)
 
 Iff you have a build context ``bldnode``, you can get the source node with
 ``get_src``; if you have the build context ``srcnode`` you can get the build
@@ -608,7 +609,7 @@ node with ``get_bld``::
 
 Output::
 
-    $ waf distclean configure build
+    \$ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject/tmp2 
     Setting out to                           : /Users/mb312/dev_trees/myproject/tmp2/build2 
@@ -626,26 +627,32 @@ Careful with these methods - if you call them on nodes other than ``bldnode`` or
 Where's my node - build or source?
 ----------------------------------
 
-During the build, we may want to create nodes that might refer to the source
-tree or to the build tree.  For example you could imagine a command
+During the build, we may want to create nodes that might refer to the build
+tree *or* to the source tree.  For example you could imagine a command
 ``my_find_node_build_source(path)`` which would look for ``path`` in the
-source tree, then in the build tree.  There are a couple of node methods that
-look both in the source tree and the build tree.  These both only work for build
+build tree, then in the source tree.  There are a couple of node methods that
+look both in the build tree and the source tree.  These both only work for build
 contexts:
 
-* ``.find_resource(path)``: first look for an existing node in the build node
-  tree, return if found.  Then look for ``path`` in the source filesystem,
-  create a node and return if found.  Otherwise return None.
+* ``.find_resource(path)``:
+
+  #. look for an existing file node in the build node tree. Return that node if
+     it exists.
+  #. look for corresponding file path in the source tree, make a node for the
+     path and return it if the path exists.
+  #. Otherwise return None
+
+  The routine also returns None if ``path`` is a directory.
+
 * ``.find_or_declare(path)``:
 
-  1. look for an existing node in the build node tree. Return that node if it
+  #. look for an existing node in the build node tree. Return that node if it
      exists.
-  2. look for corresponding path in the source filesystem, make a node for the
-     path and return it if the path exists.
-  3. Make a new node in the build node tree for this path and return that node.
+  #. look for corresponding path in the source tree, make a node for the path
+     and return it if the path exists.
+  #. Make a new node in the build node tree for this path and return that node.
 
-  In each case, if the file corresponding to the node does not already exist,
-  create the path to that file if the path does not yet exist on the filesystem.
+  ``find_or_declare`` will return a node for a directory.
 
 Low-level API for tasks
 =======================
@@ -665,13 +672,13 @@ low-level interface::
 
     def build(build_ctx):
         # create empty 'foo' file
-        build_ctx(rule='touch ${TGT}', target='foo')
+        build_ctx(rule='touch \${TGT}', target='foo')
         # copy 'foo' to 'bar'
-        build_ctx(rule='cp ${SRC} ${TGT}', source='foo', target='bar')
+        build_ctx(rule='cp \${SRC} \${TGT}', source='foo', target='bar')
 
 Thence::
 
-    $ waf distclean configure build
+    \$ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -717,7 +724,7 @@ The low level interface defines the tasks and dependencies directly::
 
 giving output::
 
-    $ waf distclean configure build
+    \$ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -741,10 +748,10 @@ instead of the ``run`` method.  waf translates the ``run_str`` attribute to a
     def build(build_ctx):
         # Declare the tasks
         class TouchFile(Task):
-            run_str = 'touch ${TGT}'
+            run_str = 'touch \${TGT}'
 
         class CopyFile(Task):
-            run_str = 'cp ${SRC} ${TGT}'
+            run_str = 'cp \${SRC} \${TGT}'
 
         # Instantiate tasks
         touch_task = TouchFile(env=build_ctx.env)
@@ -772,9 +779,9 @@ this also becomes the ``run_str`` of the task.
 As you can see from the examples above, the run_str has some extra rules of
 variable substitution.
 
-For example, ``${SRC}`` and ``${TGT}`` get substituted for the ``source`` and
+For example, ``\${SRC}`` and ``\${TGT}`` get substituted for the ``source`` and
 ``target`` filenames.  Other variable names that work in this mode
-(``${VARIABLE_NAME}``) are any attribute of ``build_ctx.env``.
+(``\${VARIABLE_NAME}``) are any attribute of ``build_ctx.env``.
 
 See *Scriptlet expressions* in the waf book for more substitutions. Here I've
 copied from the book::
@@ -792,21 +799,21 @@ For example::
         conf_ctx.env.MYVAR = 'my variable'
 
     def build(build_ctx):
-        build_ctx(rule='echo ${MYVAR}', always=True)
-        build_ctx(rule='echo ${bld.bldnode.abspath()}', always=True)
-        build_ctx(rule='echo ${bld.srcnode.abspath()}', always=True)
+        build_ctx(rule='echo \${MYVAR}', always=True)
+        build_ctx(rule='echo \${bld.bldnode.abspath()}', always=True)
+        build_ctx(rule='echo \${bld.srcnode.abspath()}', always=True)
 
 gives::
 
-    $ waf configure build
+    \$ waf configure build
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
     'configure' finished successfully (0.003s)
     Waf: Entering directory `/Users/mb312/dev_trees/myproject/build'
-    [2/3] echo ${MYVAR}:
-    [2/3] echo ${bld.bldnode.abspath()}:
+    [2/3] echo \${MYVAR}:
+    [2/3] echo \${bld.bldnode.abspath()}:
     my variable
-    [3/3] echo ${bld.srcnode.abspath()}:
+    [3/3] echo \${bld.srcnode.abspath()}:
     /Users/mb312/dev_trees/myproject/build
     /Users/mb312/dev_trees/myproject
     Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build'
