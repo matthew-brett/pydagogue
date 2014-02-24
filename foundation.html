@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -62,9 +60,10 @@ from the <a class="reference external" href="http://tom.preston-werner.com/2009/
 am working on is a modest history and explanation of everything, with
 provisional title &#8220;The Book&#8221;.  It has a table of contents <tt class="docutils literal"><span class="pre">contents.txt</span></tt> and a
 single book chapter:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>As I start to write, I begin to think I should keep track of my changes.  I need
 some sort of version control system.  How hard can it be?</p>
@@ -79,21 +78,23 @@ I will use the name <em>repository</em> for the contents of <tt class="docutils 
 save it in my new <tt class="docutils literal"><span class="pre">.ahole</span></tt> repository.  In fact, what I will do is, make a new
 subdirectory in <tt class="docutils literal"><span class="pre">.ahole</span></tt> named for today&#8217;s date, then store a copy of the book
 files in there.  On unix, that might look like this:</p>
-<div class="highlight-python"><pre>mkdir .ahole/year0-jan-01
+<div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-01
 mkdir .ahole/year0-jan-01/files
-cp * .ahole/year0-jan-01/files</pre>
+cp * .ahole/year0-jan-01/files
+</pre></div>
 </div>
 <p>So I&#8217;ve still got the contents of The Book in the working tree, but now, in the
 repository, I have a copy of the files that is a snapshot of The Book as of
 today:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   └── year0-jan-01
 │       └── files
 │           ├── chapter1.txt
 │           └── contents.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 </div>
 <div class="section" id="on-the-second-day-staging-and-commits">
@@ -104,7 +105,7 @@ about this character &#8220;Eve&#8221; that I have seen wandering around.  I sav
 notes in a file called <tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt>.  When I get to the end of
 the day, I get ready to store my work.  At the moment, my directory looks like
 this:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   └── year0-jan-01
 │       └── files
@@ -113,7 +114,8 @@ this:</p>
 ├── something_about_eve.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>For some reason I can&#8217;t put my finger on, I don&#8217;t want to put
 <tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt> into the repository at the moment.  In fact, in
@@ -123,10 +125,11 @@ a directory in <tt class="docutils literal"><span class="pre">.ahole</span></tt>
 beginning of the day, I copy the previous backed-up version of my files from the
 repository, into <tt class="docutils literal"><span class="pre">staging_area</span></tt>. These files are now ready for storing in the
 next snapshot:</p>
-<div class="highlight-python"><pre>cp .ahole/year0-jan-01/* .ahole/staging_area</pre>
+<div class="highlight-python"><div class="highlight"><pre>cp .ahole/year0-jan-01/* .ahole/staging_area
+</pre></div>
 </div>
 <p>I now have:</p>
-<div class="highlight-python"><pre>├── .ahole
+<div class="highlight-python"><div class="highlight"><pre>├── .ahole
 │   ├─── staging_area
 │   │    ├── chapter1.txt
 │   │    └── contents.txt
@@ -137,7 +140,8 @@ next snapshot:</p>
 ├── something_about_eve.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>As I work, I decide what I&#8217;m going to put into tonight&#8217;s snapshot.  For example,
 maybe I changed <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt> and I think it&#8217;s ready to back up. I copy my
@@ -148,12 +152,13 @@ file (copy it to the staging area).  I&#8217;m not going to stage
 <p>Now I&#8217;ve done that, all the stuff I want to store in the backup is ready.  I
 just need to put it into its own backup snapshot directory.   To do that, I just
 do something like (Unix again):</p>
-<div class="highlight-python"><pre>mkdir .ahole/year0-jan-02
+<div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-02
 mkdir .ahole/year0-jan-02/files
-cp .ahole/staging_area/* .ahole/year0-jan-02/files</pre>
+cp .ahole/staging_area/* .ahole/year0-jan-02/files
+</pre></div>
 </div>
 <p>I end up with a directory that looks like this:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   ├── year0-jan-02
 │   │   └── files
@@ -171,7 +176,8 @@ cp .ahole/staging_area/* .ahole/year0-jan-02/files</pre>
 ├── something_about_eve.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>I decide that I&#8217;ll use the name <em>commit</em> for each of the daily snapshot
 directories (<tt class="docutils literal"><span class="pre">year0-jan-01</span></tt> and <tt class="docutils literal"><span class="pre">year0-jan-02</span></tt>).  The action of adding files
@@ -186,23 +192,26 @@ wants to help out.  Of course Eve has her own computer, and I send her my
 <tt class="docutils literal"><span class="pre">.ahole</span></tt> directory.  I thank myself for my wisdom in not adding
 <tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt> to the repository.</p>
 <p>Eve checks out our book (reconstructs my working tree) with something like:</p>
-<div class="highlight-python"><pre>cp .ahole/year0-jan-02/files/* .</pre>
+<div class="highlight-python"><div class="highlight"><pre>cp .ahole/year0-jan-02/files/* .
+</pre></div>
 </div>
 <p>Now she&#8217;s got the book files as I committed them last night.  She also copies
 the last commit files into the staging area, as I did:</p>
-<div class="highlight-python"><pre>├── .ahole
+<div class="highlight-python"><div class="highlight"><pre>├── .ahole
 │   ├─── staging_area
 │   │    ├── chapter2.txt
 │   │    ├── chapter1.txt
-│   │    └── contents.txt</pre>
+│   │    └── contents.txt
+</pre></div>
 </div>
 <p>She works hard on a new file <tt class="docutils literal"><span class="pre">chapter1_discussion.txt</span></tt>. It&#8217;s good to see she&#8217;s
 enjoying the work.  As the afternoon turns to evening, she gets ready to save
 her work, so she copies <tt class="docutils literal"><span class="pre">chapter1_discussion.txt</span></tt> to <tt class="docutils literal"><span class="pre">.ahole/staging_area</span></tt>.
 Now she is ready to do a commit:</p>
-<div class="highlight-python"><pre>mkdir .ahole/year0-jan-03
+<div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-03
 mkdir .ahole/year0-jan-03/files
-cp .ahole/staging_area/* .ahole/year0-jan-03/files</pre>
+cp .ahole/staging_area/* .ahole/year0-jan-03/files
+</pre></div>
 </div>
 <p>That is what Eve was going to do, but Eve is smart, and she immediately realizes
 that there is a problem.  After she has done her commit, both of us will likely
@@ -227,7 +236,7 @@ call the previous commit the <em>parent</em>.</p>
 <p>Eve was right to predict that I had made my own commit today.  I&#8217;ve been happily
 working on chapter 3.  So, before our conversation, my directory looked like
 this:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   ├── year0-jan-03
 │   │   └── files
@@ -253,10 +262,11 @@ this:</p>
 ├── chapter3.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>but now we&#8217;ve worked out the new way, it looks like this:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   ├── 5d89f8
 │   │   ├── info.txt
@@ -285,16 +295,18 @@ this:</p>
 ├── chapter3.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>and <tt class="docutils literal"><span class="pre">.ahole/5d89f8/info.txt</span></tt> looks like this:</p>
-<div class="highlight-python"><pre>committer = Adam
+<div class="highlight-python"><div class="highlight"><pre>committer = Adam
 message = Third day
 date = year0-jan-03
-parent = 7ef41f</pre>
+parent = 7ef41f
+</pre></div>
 </div>
 <p>Meanwhile, Eve&#8217;s directory looks like this:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   ├── 0a01a0
 │   │   ├── info.txt
@@ -322,13 +334,15 @@ parent = 7ef41f</pre>
 ├── chapter1_discussion.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>and Eve&#8217;s <tt class="docutils literal"><span class="pre">.ahole/0a01a0/info.txt</span></tt> looks like this:</p>
-<div class="highlight-python"><pre>committer = Eve
+<div class="highlight-python"><div class="highlight"><pre>committer = Eve
 message = Eve day 3
 date = year0-jan-03
-parent = 7ef41f</pre>
+parent = 7ef41f
+</pre></div>
 </div>
 <p>After a little thought, Eve and I realize that, when we make our new commit, we
 are going to have to know what the current commit is, so we can use that as the
@@ -638,7 +652,7 @@ and won&#8217;t need to apply it again.</p>
 right yet.</p>
 <p>As she&#8217;s thinking, she decides to make a couple of illustrations for The Book,
 so she adds some photos to her working tree:</p>
-<div class="highlight-python"><pre>.
+<div class="highlight-python"><div class="highlight"><pre>.
 ├── .ahole
 │   ...
 ├── images
@@ -647,7 +661,8 @@ so she adds some photos to her working tree:</p>
 ├── chapter1_discussion.txt
 ├── chapter2.txt
 ├── chapter1.txt
-└── contents.txt</pre>
+└── contents.txt
+</pre></div>
 </div>
 <p>As soon as she does this, she realizes what&#8217;s wrong with <tt class="docutils literal"><span class="pre">ahole</span></tt>.  The photos
 are large files.  At the moment, every time we make a commit, we&#8217;re copying all
@@ -670,30 +685,33 @@ Then we could store the commits as something like a table, where the entries
 would tell us how to get the matching files from the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>
 directory.</p>
 <p>We could have some structure for the commits like this:</p>
-<div class="highlight-python"><pre>├── .ahole
+<div class="highlight-python"><div class="highlight"><pre>├── .ahole
 │   ├── 5d89f8
 │   │   ├── info.txt
-│   │   └── file_list</pre>
+│   │   └── file_list
+</pre></div>
 </div>
 <p>where <tt class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></tt> would be a list of references to files in the
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory, along with the filename that the contents has when
 reconstructed back into the snapshot.  For example, maybe <tt class="docutils literal"><span class="pre">file_list</span></tt> would
 have a series of (object reference, filename) pairs like this:</p>
-<div class="highlight-python"><pre>contents_version1            contents.txt
+<div class="highlight-python"><div class="highlight"><pre>contents_version1            contents.txt
 chapter1_version1            chapter1.txt
 chapter2_version2            chapter2.txt
 chapter3_version1            chapter3.txt
-chapter1_discussion_version1 chapter1_discussion.txt</pre>
+chapter1_discussion_version1 chapter1_discussion.txt
+</pre></div>
 </div>
 <p>These references in the first column could match filenames in the
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
-<div class="highlight-python"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── chapter1_version1
 │   │   ├── chapter2_version1
 │   │   ├── chapter2_version2
 │   │   ├── chapter3_version1
 │   │   ├── chapter1_discussion_version1
-│   │   └── contents_version1</pre>
+│   │   └── contents_version1
+</pre></div>
 </div>
 <p>We could think of the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory as a very simple form of
 database, where the keys are the filenames, and the file contents are the
@@ -748,22 +766,24 @@ had a hash of &#8216;1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f&#8217;.</p>
 <p>Now we have got a nice way of making the references that will go into
 <tt class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></tt>.  First we store the file versions in our
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory, using their hash values as filenames:</p>
-<div class="highlight-python"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
 │   │   ├── 1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f (chapter2 version 1)
 │   │   ├── 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d (chapter2 version 2)
 │   │   ├── 3c2e09cc43568f13444c075c84b047957f7995a5 (chapter1_discussion version 1)
-│   │   └── f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 (contents version 1)</pre>
+│   │   └── f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 (contents version 1)
+</pre></div>
 </div>
 <p>Next we create <tt class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></tt> with one row per file in our
 directory.  Each row contains first - the hash value (and therefore filename in
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>) which allows me to get the file contents, then the type of
 thing this is - here a file - and lastly, the filename as it was in the
 snapshot:</p>
-<div class="highlight-python"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
+<div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
 3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
-f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt</pre>
+f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
+</pre></div>
 </div>
 <p>Now, what about Eve&#8217;s new working tree with the photos in it?  The photos are in
 the <tt class="docutils literal"><span class="pre">images</span></tt> subdirectory, and we don&#8217;t have a way of storing subdirectories
@@ -773,55 +793,62 @@ per row, where each row contains the hash reference for the file contents, the
 type of thing it is (tree or file), and the filename as it was in the snapshot.
 So, for Eve&#8217;s new commit, we&#8217;d first store the contents of the two photo files
 in the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
-<div class="highlight-python"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
 │   │   ├── e8b23357995db47e70906d4c7a08114c0c0ba376 (lion_with_lamb.jpg)
-│   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)</pre>
+│   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
+</pre></div>
 </div>
 <p>etc.  Then we make a new <em>tree</em> file called - say - &#8216;images_listing&#8217; like this:</p>
-<div class="highlight-python"><pre>82e6792faa893070dcd6fe3e614b6f147be1a0a9 file adam_with_apple.jpg
-e8b23357995db47e70906d4c7a08114c0c0ba376 file lion_with_lamb.jpg</pre>
+<div class="highlight-python"><div class="highlight"><pre>82e6792faa893070dcd6fe3e614b6f147be1a0a9 file adam_with_apple.jpg
+e8b23357995db47e70906d4c7a08114c0c0ba376 file lion_with_lamb.jpg
+</pre></div>
 </div>
 <p>and we make a hash for that tree file too, and put that into
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>:</p>
-<div class="highlight-python"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
 │   │   ├── e8b23357995db47e70906d4c7a08114c0c0ba376 (lion_with_lamb.jpg)
-│   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)</pre>
+│   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
+</pre></div>
 </div>
 <p>etc.  Now maybe our whole commit listing can include files and directories for
 the root directory of our project, something like:</p>
-<div class="highlight-python"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
+<div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
 3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
 f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
-be242dba385bc0689be16454e959f4b64c87abce tree images</pre>
+be242dba385bc0689be16454e959f4b64c87abce tree images
+</pre></div>
 </div>
 <p>Oh - but wait - that&#8217;s just a tree listing too, let&#8217;s make a hash for that, and
 put it into the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
-<div class="highlight-python"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── e52dc9dbe358c549df65307652ff2709322812b3 (root listing)
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
-│   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)</pre>
+│   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
+</pre></div>
 </div>
 <p>Right - so now our whole commit boils down to our <tt class="docutils literal"><span class="pre">info.txt</span></tt> file, and the
 hash for the root tree (the one starting &#8216;e52dc&#8217; above). We can get rid of the
 old <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory in the commit, and add the hash for the root tree
 instead - something like:</p>
-<div class="highlight-python"><pre>committer = Eve
+<div class="highlight-python"><div class="highlight"><pre>committer = Eve
 message = Adding funny pictures
 date = year0-jan-06
 root_tree = e52dc9dbe358c549df65307652ff2709322812b3
-parent = 0a01a0</pre>
+parent = 0a01a0
+</pre></div>
 </div>
 <p>Now we can solve the annoying problem of finding an unique commit id for each
 commit.   We just make a hash for the <tt class="docutils literal"><span class="pre">info.txt</span></tt> file, and put that into the
 <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory too, as a <em>commit</em> file:</p>
-<div class="highlight-python"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── 7e0cda8c145b300b519ed28998a31f801b6d626f (latest commit)
 │   │   ├── e52dc9dbe358c549df65307652ff2709322812b3 (root listing)
-│   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)</pre>
+│   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
+</pre></div>
 </div>
 <p>The unique id for the commit is the hash for its contents. In this case the
 commit id is &#8216;7e0cda8c145b300b519ed28998a31f801b6d626f&#8217;.  Don&#8217;t forget that the
@@ -841,11 +868,12 @@ single file containing the root tree listing of the snapshot.  Let&#8217;s call 
 file <tt class="docutils literal"><span class="pre">.ahole/index</span></tt>.  Now Eve has done her new commit, that file can just be
 the root directory listing of the previous commit (the commit we have just
 done):</p>
-<div class="highlight-python"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
+<div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
 3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
 f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
-be242dba385bc0689be16454e959f4b64c87abce tree images</pre>
+be242dba385bc0689be16454e959f4b64c87abce tree images
+</pre></div>
 </div>
 <p>When Eve makes an edit to <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt>, instead of copying the file to the
 <tt class="docutils literal"><span class="pre">staging_area</span></tt> directory, she makes a hash for the new <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt>
@@ -1074,7 +1102,7 @@ for copying files into the working tree:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

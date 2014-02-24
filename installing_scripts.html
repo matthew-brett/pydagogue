@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -108,10 +106,11 @@ trivial <tt class="docutils literal"><span class="pre">setup.py</span></tt>:</p>
 </div>
 <p>Note the shebang line pointing to <tt class="docutils literal"><span class="pre">/usr/local/bin/python</span></tt>.</p>
 <p>Install into a <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>:</p>
-<div class="highlight-python"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
 . venv/bin/activate # on Unix
 python setup.py install
-deactivate</pre>
+deactivate
+</pre></div>
 </div>
 <p>The contents of <tt class="docutils literal"><span class="pre">./venv/bin/myscript</span></tt> are (in my case):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
@@ -129,21 +128,23 @@ equivalent steps:</p>
 </div>
 <p>Again, disutils has modified the Python path in the shebang line.  But this
 time, the shebang is useless, because:</p>
-<div class="highlight-python"><pre>(venv) C:\repos\myscripter&gt;myscript
-'myscript' is not recognized as an internal or external command,
+<div class="highlight-python"><div class="highlight"><pre>(venv) C:\repos\myscripter&gt;myscript
+&#39;myscript&#39; is not recognized as an internal or external command,
 operable program or batch file.
 (venv) C:\repos\myscripter&gt;venv\Scripts\myscript
-'venv\Scripts\myscript' is not recognized as an internal or external command,
-operable program or batch file.</pre>
+&#39;venv\Scripts\myscript&#39; is not recognized as an internal or external command,
+operable program or batch file.
+</pre></div>
 </div>
 <p>We could make the script executable on Windows by adding a <tt class="docutils literal"><span class="pre">.py</span></tt> extension.
 This will associate the file with the <em>default</em> system python, not the Python
 doing the installation; it is the python doing the installation that we want:</p>
-<div class="highlight-python"><pre>(venv) C:\repos\myscripter&gt;copy venv\Scripts\myscript venv\Scripts\myscript.py
+<div class="highlight-python"><div class="highlight"><pre>(venv) C:\repos\myscripter&gt;copy venv\Scripts\myscript venv\Scripts\myscript.py
         1 file(s) copied.
 
 (venv) C:\repos\myscripter&gt;venv\Scripts\myscript.py
-Python starts at C:\Python26</pre>
+Python starts at C:\Python26
+</pre></div>
 </div>
 <p>This could be very confusing, because scripts installed in virtualenv, or by
 another python (such as Python3) will nevertheless run via the default system
@@ -158,10 +159,11 @@ meaning <a class="reference external" href="http://pypi.python.org/pypi/pip">pip
 <tt class="docutils literal"><span class="pre">distutils</span></tt>, modifying the shebang line, but nothing else of interest in
 solving our Windows problems.  We can run the same code as above through
 setuptools:</p>
-<div class="highlight-python"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
 . venv/bin/activate # on Unix
 python setupegg.py install
-deactivate</pre>
+deactivate
+</pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">setupegg.py</span></tt> just imports setuptools and runs our original <tt class="docutils literal"><span class="pre">setup.py</span></tt> script:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">setuptools</span>
@@ -227,13 +229,15 @@ disutils, imported below that.  We now depend on setuptools at install time to
 write the console script stuff and at run time in finding the installed scripts
 via <tt class="docutils literal"><span class="pre">pkg_resources</span></tt> (see above and below).  We run an install into a
 virtualenv (Unix again):</p>
-<div class="highlight-python"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
 . venv/bin/activate
-python setup.py install</pre>
+python setup.py install
+</pre></div>
 </div>
 <p>Our console script got installed:</p>
-<div class="highlight-python"><pre>(venv)$ my_console_script
-Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..</pre>
+<div class="highlight-python"><div class="highlight"><pre>(venv)$ my_console_script
+Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
+</pre></div>
 </div>
 <p>The actual <tt class="docutils literal"><span class="pre">venv/bin/my_console_script</span></tt> file is just a wrapper for setuptools:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
@@ -249,11 +253,12 @@ Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..</pre>
 </div>
 <p>So far it just seems confusing for no gain.  But, on Windows, we do get an
 executable script:</p>
-<div class="highlight-python"><pre>C:\repos\myscripter&gt;virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre>C:\repos\myscripter&gt;virtualenv venv
 C:\repos\myscripter&gt;venv\Scripts\activate
 (venv) C:\repos\myscripter&gt;python setup.py install
 (venv) C:\repos\myscripter&gt;my_console_script
-Console python starts at C:\repos\myscripter\venv</pre>
+Console python starts at C:\repos\myscripter\venv
+</pre></div>
 </div>
 <p>How did this happen? The installation put two files in <tt class="docutils literal"><span class="pre">venv\Scripts</span></tt>, which
 are <tt class="docutils literal"><span class="pre">my_console_script.exe</span></tt> and <tt class="docutils literal"><span class="pre">my_console_script-script.py</span></tt>. We recognize
@@ -317,7 +322,7 @@ file.</p>
 </pre></div>
 </div>
 <p>This gets run during <tt class="docutils literal"><span class="pre">install</span></tt> obviously:</p>
-<div class="highlight-python"><pre>$ python setup.py install
+<div class="highlight-python"><div class="highlight"><pre>$ python setup.py install
 running install
 running build
 running build_scripts
@@ -327,10 +332,11 @@ running install_scripts
 copying build/scripts-2.6/myscript -&gt; /Users/mb312/dev_trees/myscripter/venv/bin
 changing mode of /Users/mb312/dev_trees/myscripter/venv/bin/myscript to 755
 Doing something in install
-...</pre>
+...
+</pre></div>
 </div>
 <p>Less obviously, it gets run making a binary installer such as an egg:</p>
-<div class="highlight-python"><pre>$ python setupegg.py bdist_egg
+<div class="highlight-python"><div class="highlight"><pre>$ python setupegg.py bdist_egg
 running bdist_egg
 running egg_info
 ...
@@ -345,7 +351,8 @@ creating build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts
 copying build/scripts-2.6/myscript -&gt; build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts
 changing mode of build/bdist.macosx-10.5-i386/egg/EGG-INFO/scripts/myscript to 755
 Doing something in install
-...</pre>
+...
+</pre></div>
 </div>
 </div>
 <div class="section" id="different-ways-the-installer-can-be-run">
@@ -518,7 +525,7 @@ without requiring setuptools.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

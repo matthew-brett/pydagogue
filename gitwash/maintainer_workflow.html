@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -65,8 +63,9 @@ in <a class="reference internal" href="development_workflow.html#development-wor
 access to the upstream repo.  Being a maintainer, you&#8217;ve got read-write access.</p>
 <p>It&#8217;s good to have your upstream remote have a scary name, to remind you that
 it&#8217;s a read-write remote:</p>
-<div class="highlight-python"><pre>git remote add upstream-rw git@github.com:matthew-brett/gitwash.git
-git fetch upstream-rw</pre>
+<div class="highlight-python"><div class="highlight"><pre>git remote add upstream-rw git@github.com:matthew-brett/gitwash.git
+git fetch upstream-rw
+</pre></div>
 </div>
 <div class="section" id="integrating-changes">
 <h2>Integrating changes<a class="headerlink" href="#integrating-changes" title="Permalink to this headline">¶</a></h2>
@@ -74,20 +73,22 @@ git fetch upstream-rw</pre>
 (<tt class="docutils literal"><span class="pre">upstream-rw/master</span></tt>).</p>
 <p>The changes are in some branch that you are currently on.  For example, you are
 looking at someone&#8217;s changes like this:</p>
-<div class="highlight-python"><pre>git remote add someone git://github.com/someone/gitwash.git
+<div class="highlight-python"><div class="highlight"><pre>git remote add someone git://github.com/someone/gitwash.git
 git fetch someone
 git branch cool-feature --track someone/cool-feature
-git checkout cool-feature</pre>
+git checkout cool-feature
+</pre></div>
 </div>
 <p>So now you are on the branch with the changes to be incorporated upstream.  The
 rest of this section assumes you are on this branch.</p>
 <div class="section" id="a-few-commits">
 <h3>A few commits<a class="headerlink" href="#a-few-commits" title="Permalink to this headline">¶</a></h3>
 <p>If there are only a few commits, consider rebasing to upstream:</p>
-<div class="highlight-python"><pre># Fetch upstream changes
+<div class="highlight-python"><div class="highlight"><pre># Fetch upstream changes
 git fetch upstream-rw
 # rebase
-git rebase upstream-rw/master</pre>
+git rebase upstream-rw/master
+</pre></div>
 </div>
 <p>Remember that, if you do a rebase, and push that, you&#8217;ll have to close any
 github pull requests manually, because github will not be able to detect the
@@ -96,8 +97,9 @@ changes have already been merged.</p>
 <div class="section" id="a-long-series-of-commits">
 <h3>A long series of commits<a class="headerlink" href="#a-long-series-of-commits" title="Permalink to this headline">¶</a></h3>
 <p>If there are a longer series of related commits, consider a merge instead:</p>
-<div class="highlight-python"><pre>git fetch upstream-rw
-git merge --no-ff upstream-rw/master</pre>
+<div class="highlight-python"><div class="highlight"><pre>git fetch upstream-rw
+git merge --no-ff upstream-rw/master
+</pre></div>
 </div>
 <p>The merge will be detected by github, and should close any related pull requests
 automatically.</p>
@@ -110,8 +112,9 @@ on top of trunk.</p>
 <h3>Check the history<a class="headerlink" href="#check-the-history" title="Permalink to this headline">¶</a></h3>
 <p>Now, in either case, you should check that the history is sensible and you have
 the right commits:</p>
-<div class="highlight-python"><pre>git log --oneline --graph
-git log -p upstream-rw/master..</pre>
+<div class="highlight-python"><div class="highlight"><pre>git log --oneline --graph
+git log -p upstream-rw/master..
+</pre></div>
 </div>
 <p>The first line above just shows the history in a compact way, with a text
 representation of the history graph. The second line shows the log of commits
@@ -122,7 +125,8 @@ The <tt class="docutils literal"><span class="pre">-p</span></tt> option shows t
 </div>
 <div class="section" id="push-to-trunk">
 <h3>Push to trunk<a class="headerlink" href="#push-to-trunk" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><pre>git push upstream-rw my-new-feature:master</pre>
+<div class="highlight-python"><div class="highlight"><pre>git push upstream-rw my-new-feature:master
+</pre></div>
 </div>
 <p>This pushes the <tt class="docutils literal"><span class="pre">my-new-feature</span></tt> branch in this repository to the <tt class="docutils literal"><span class="pre">master</span></tt>
 branch in the <tt class="docutils literal"><span class="pre">upstream-rw</span></tt> repository.</p>
@@ -198,7 +202,7 @@ branch in the <tt class="docutils literal"><span class="pre">upstream-rw</span><
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

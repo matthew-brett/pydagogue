@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Booting Macs &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Bare metal WAF" href="bare_metal_waf.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bare_metal_waf.html" title="Bare metal WAF"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="booting-macs">
+<h1>Booting Macs<a class="headerlink" href="#booting-macs" title="Permalink to this headline">¶</a></h1>
+<p>I&#8217;ve tried to install Linux on maybe 4 or 5 Mac machines.  It was very tiring
+and difficult to get the machines to boot.  One problem that came back each time
+was that I did not spend enough energy trying to understand the boot process.</p>
+<p>This is a tutorial to remind myself of the stuff I did understand, and collect
+links to useful information.</p>
+<div class="section" id="naming-of-parts">
+<h2>Naming of parts<a class="headerlink" href="#naming-of-parts" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Boot manager</dt>
+<dd>See <a class="reference external" href="http://www.rodsbooks.com/refind">rEFInd</a> page for background.  A <em>boot manager</em> is a program that allows
+you to choose which of several programs to start when you boot the machine.
+Distinguish this from the <em>boot loader</em>.</dd>
+<dt>Boot loader</dt>
+<dd>This is the software that, after booting, loads a program into memory that
+can start an operating system. <a class="reference external" href="http://www.gnu.org/software/grub">GRUB</a> is one example of software that
+provides both a <em>boot manager</em> and a <em>boot loader</em>.</dd>
+<dt>EFI</dt>
+<dd>The extensible firmware interface.  First released as a specification by
+Intel, then revised by a group of vendors and released as UEFI.  EFI often
+in fact refers to UEFI. See <a class="reference external" href="http://www.intel.com/content/www/us/en/architecture-and-technology/unified-extensible-firmware-interface/efi-homepage-general-technology.html">Intel EFI / UEFI</a>.  EFI and UEFI replace the
+old <a class="reference external" href="http://en.wikipedia.org/wiki/BIOS">BIOS</a> firmware standard. EFI specs have versions beginning 1.x - for
+example, the last Intel-only EFI spec was 1.10 (2005).</dd>
+<dt>UEFI</dt>
+<dd>Unified extensible firmware interface - see <a class="reference external" href="http://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface">UEFI</a>.  Designed and released by
+the <a class="reference external" href="http://en.wikipedia.org/wiki/Unified_EFI_Forum">Unified EFI forum</a>. UEFI specs have release numbers of form 2.x.
+Release 2.1 was in January 2007, release 2.4 was in July 2013.  Apple has a
+representative on the unified EFI forum.</dd>
+</dl>
+<p>As for the <a class="reference external" href="http://www.rodsbooks.com/refind">rEFInd</a> pages, I&#8217;ll use EFI to refer to both of EFI and UEFI unless
+there&#8217;s some reason to distinguish the two, in which case I&#8217;ll make that clear.</p>
+</div>
+<div class="section" id="efi-vs-bios">
+<h2>EFI vs BIOS<a class="headerlink" href="#efi-vs-bios" title="Permalink to this headline">¶</a></h2>
+<p>The EFI / UEFI system <em>replaces</em> the <a class="reference external" href="http://en.wikipedia.org/wiki/BIOS">BIOS</a> firmware standard.
+Software that expects access the BIOS system calls will get upset and stop
+working when trying to run on top of EFI and vice-versa.  This comes up for us
+Mac owners because older operating systems such as Windows XP need a BIOS to
+work against, and therefore there are some hoops to jump through getting XP to
+boot on an EFI system like the Mac.</p>
+<p>Like the BIOS system, the EFI system provides:</p>
+<ul class="simple">
+<li>Boot services: services that operate only when the system is booting</li>
+<li>Runtime services: services that the OS can use to query hardware and so on
+while the OS is running.</li>
+</ul>
+</div>
+<div class="section" id="efi-and-guid-partition-table-disks">
+<h2>EFI and GUID partition table disks<a class="headerlink" href="#efi-and-guid-partition-table-disks" title="Permalink to this headline">¶</a></h2>
+<p>The EFI specifications include the specifications for the <a class="reference external" href="http://en.wikipedia.org/wiki/GUID_Partition_Table">GUID Partition
+table</a> format. The GPT format is a way of laying out the partition table on a
+disk.  It is an alternative to the older <a class="reference external" href="http://en.wikipedia.org/wiki/Master_boot_record">Master Boot Record</a> partition table
+format.  Most EFI boot systems only read GPT partition tables, but some also
+read MBR tables.  Some BIOS booting systems use GPT tables because of their
+technical advantages.</p>
+</div>
+<div class="section" id="the-standard-efi-uefi-boot">
+<h2>The standard EFI / UEFI boot<a class="headerlink" href="#the-standard-efi-uefi-boot" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>There is a boot manager in firmware (<em>not</em> on disk)<ul>
+<li>firmware must also be able to read partition tables and FAT file systems.</li>
+</ul>
+</li>
+<li>The firmware boot manager reads an <a class="reference external" href="http://en.wikipedia.org/wiki/EFI_System_partition">EFI system partition</a> - a partition on
+disk with a particular <a class="reference external" href="http://en.wikipedia.org/wiki/Partition_type">partition ID</a> code. It uses the FAT file system.</li>
+<li>The boot manager can load <em>EFI executable programs</em> from the EFI system
+partition.  EFI executable programs are programs that can run with no
+operating system support, using only EFI firmware service calls. These
+programs are frequently boot loaders (see above) but can also be other useful
+programs like diagnostic utilities.</li>
+<li>The choice of possible EFI executable programs can be explicit or implicit,
+controlled by a defined variable <tt class="docutils literal"><span class="pre">BootOrder</span></tt> stored in <a class="reference external" href="http://en.wikipedia.org/wiki/Non-volatile_random-access_memory">Non-volatile RAM</a>
+(NVRAM):<ul>
+<li>If the <tt class="docutils literal"><span class="pre">BootOrder</span></tt> variable is defined, the boot options are explicit.
+The <tt class="docutils literal"><span class="pre">BootOrder</span></tt> variable contains a list of further EFI NVRAM variables,
+each defining the EFI executable program to run and any parameters to pass
+to that program. Each EFI variable pointed to by <tt class="docutils literal"><span class="pre">BootOrder</span></tt> corresponds
+to a choice the user should see when the boot manager starts.  The boot
+manager then runs the chosen program with the given options.</li>
+<li>If <tt class="docutils literal"><span class="pre">BootOrder</span></tt> is not defined, then the boot options are implicit, in
+that the boot manager should search all the disks on the system for a
+runnable EFI executable. The boot manager searches EFI system partitions on
+fixed disks, and assumes there is only one partition for removable disks.
+In either case, the boot manager looks for files with names of form:
+<tt class="docutils literal"><span class="pre">\EFI\BOOT\BOOT{machine</span> <span class="pre">type</span> <span class="pre">short-name}.EFI</span></tt>, where <tt class="docutils literal"><span class="pre">{machine</span> <span class="pre">type</span>
+<span class="pre">short-name}</span></tt> matches the CPU architecture. The short name can be one of
+<tt class="docutils literal"><span class="pre">IA32</span></tt> (32-bit Intel), <tt class="docutils literal"><span class="pre">X64</span></tt> (64-bit), <tt class="docutils literal"><span class="pre">IA64</span></tt> (Itanium) <tt class="docutils literal"><span class="pre">ARM</span></tt>,
+<tt class="docutils literal"><span class="pre">AA64</span></tt> (ARM 32 and 64 bit). For example <tt class="docutils literal"><span class="pre">\EFI\BOOT\BOOTX64.EFI</span></tt> matches
+the 64 bit standard Intel architecture.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="efi-on-mac">
+<h2>EFI on Mac<a class="headerlink" href="#efi-on-mac" title="Permalink to this headline">¶</a></h2>
+<p>The boot process on the Mac is highly non-standard for EFI (see
+<a class="reference external" href="http://homepage.ntlworld.com/jonathan.deboynepollard/FGA/efi-boot-process.html">efi-boot-process</a>
+and <a class="reference external" href="http://refit.sourceforge.net/myths">rEFIt myths and facts</a>).</p>
+<div class="section" id="specializations-in-apple-efi">
+<h3>Specializations in Apple EFI<a class="headerlink" href="#specializations-in-apple-efi" title="Permalink to this headline">¶</a></h3>
+<p>Apple does not boot straight into a standard EFI boot sequence, but instead
+loads its own non-standard boot manager.</p>
+<p>The Apple EPI firmware understands HFS+ (the standard Apple disk format) as well
+as the standard required FAT file format.</p>
+<p>Apple can also enable BIOS-compatibility mode when booting.  BIOS compatibility
+mode makes BIOS system calls available to the booting operating system to
+emulate booting in a standard BIOS firmware setup.  The BIOS emulation comes
+from a compatibility support module (CSM) - see <a class="reference external" href="http://www.rodsbooks.com/ubuntu-efi">EFI and Ubuntu</a> and <a class="reference external" href="http://www.intel.com/content/www/us/en/architecture-and-technology/unified-extensible-firmware-interface/efi-compatibility-support-module-specification-v097.html">Intel CSM
+docs</a>.</p>
+<p>I can&#8217;t see the conditions that enable BIOS emulation from the docs in front of
+me.  The <a class="reference external" href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html">bless manpage online</a> lists a flag <tt class="docutils literal"><span class="pre">--legacy</span></tt> that appears to
+activate BIOS emulation in subsequent boot. Quoting from <a class="reference external" href="http://www.rodsbooks.com/ubuntu-efi">EFI and Ubuntu</a>:</p>
+<blockquote>
+<div>As far as I can tell, BIOS emulation mode only works when a hybrid MBR is present on the hard disk or when a BIOS-bootable optical disk is inserted in the optical drive.</div></blockquote>
+<p>See <a class="reference external" href="http://www.rodsbooks.com/gdisk/hybrid.html">hybrid MBR</a> for more detail.  In brief, there is a hack to a GUID
+partition table that can make the GPT also appear to be an MBR.  The Apple
+&#8220;Bootcamp&#8221; utilities make this hybrid-MBR when making a partition to install
+Windows XP, but you can also do this with Rod Smith&#8217;s <a class="reference external" href="http://www.rodsbooks.com/gdisk/index.html">GPT fdisk</a> (<tt class="docutils literal"><span class="pre">gdisk</span></tt>)</p>
+</div>
+<div class="section" id="the-boot-process">
+<h3>The boot process<a class="headerlink" href="#the-boot-process" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">On boot, an Apple boot manager starts.</p>
+</li>
+<li><p class="first">The Apple boot manager uses the results of previous <tt class="docutils literal"><span class="pre">bless</span></tt> commands to
+select how to boot. The <tt class="docutils literal"><span class="pre">bless</span></tt> commands may have pointed to:</p>
+<ul class="simple">
+<li>A file containing an <tt class="docutils literal"><span class="pre">.efi</span></tt> file to execute</li>
+<li>A folder containing a file <tt class="docutils literal"><span class="pre">boot.efi</span></tt> file to execute</li>
+<li>A partition from which to boot (in the <tt class="docutils literal"><span class="pre">efi-boot-device</span></tt> NVRAM variable)</li>
+</ul>
+<p><tt class="docutils literal"><span class="pre">bless</span></tt> sets necessary NVRAM variables.  In certain modes, <tt class="docutils literal"><span class="pre">bless</span></tt> also
+writes the location of the boot efi file into the HFS+ volume header, so that
+the location of the boot file persists if the disk is moved to another
+machine or the NVRAM gets cleared (see <tt class="docutils literal"><span class="pre">man</span> <span class="pre">bless</span></tt> or the <a class="reference external" href="https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man8/bless.8.html">bless manpage
+online</a>).</p>
+</li>
+<li><p class="first">Somehow the BIOS compatibility mode can get activated.  See above.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="the-efi-system-partition-on-mac">
+<h3>The EFI system partition on Mac<a class="headerlink" href="#the-efi-system-partition-on-mac" title="Permalink to this headline">¶</a></h3>
+<p>The Mac does indeed have an EFI partition, but it doesn&#8217;t use it for booting. On
+my laptop:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ diskutil list
+
+/dev/disk0
+#:                       TYPE NAME                    SIZE       IDENTIFIER
+0:      GUID_partition_scheme                        *121.3 GB   disk0
+1:                        EFI EFI                     209.7 MB   disk0s1
+2:                  Apple_HFS Macintosh HD            120.5 GB   disk0s2
+3:                 Apple_Boot Recovery HD             650.0 MB   disk0s3
+</pre></div>
+</div>
+<p>We can mount the EFI partition, but it hasn&#8217;t got any defined BOOTable EFI
+programs.  (Please be careful, you can mess up your system by writing into the
+EFI partition):</p>
+<div class="highlight-python"><div class="highlight"><pre>$ diskutil mount /dev/disk0s1
+
+Volume EFI on /dev/disk0s1 mounted
+
+$ ls /Volumes/EFI/EFI/
+
+APPLE
+</pre></div>
+</div>
+<p>Unmount the file system to avoid accidental damage:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ diskutil unmount /Volumes/EFI
+
+Volume EFI on disk0s1 unmounted
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Booting Macs</a><ul>
+<li><a class="reference internal" href="#naming-of-parts">Naming of parts</a></li>
+<li><a class="reference internal" href="#efi-vs-bios">EFI vs BIOS</a></li>
+<li><a class="reference internal" href="#efi-and-guid-partition-table-disks">EFI and GUID partition table disks</a></li>
+<li><a class="reference internal" href="#the-standard-efi-uefi-boot">The standard EFI / UEFI boot</a></li>
+<li><a class="reference internal" href="#efi-on-mac">EFI on Mac</a><ul>
+<li><a class="reference internal" href="#specializations-in-apple-efi">Specializations in Apple EFI</a></li>
+<li><a class="reference internal" href="#the-boot-process">The boot process</a></li>
+<li><a class="reference internal" href="#the-efi-system-partition-on-mac">The EFI system partition on Mac</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bare_metal_waf.html"
+                        title="previous chapter">Bare metal WAF</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/booting_macs.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="bare_metal_waf.html" title="Bare metal WAF"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

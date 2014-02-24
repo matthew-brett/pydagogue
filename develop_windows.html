@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -93,9 +91,10 @@ windows installer - including <em>plink</em> and <em>pageant</em>.  These are ut
 need for handling ssh authentication for git and other tools.</p>
 </li>
 <li><p class="first">You might consider putting the Putty directory on the path. Something like:</p>
-<div class="highlight-python"><pre>$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
-$my_path += ";C:\Program files (x86)\Putty" # (x86) on my windows 7 system
-[Environment]::SetEnvironmentVariable("PATH", $my_path, "User")</pre>
+<div class="highlight-python"><div class="highlight"><pre>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+$my_path += &quot;;C:\Program files (x86)\Putty&quot; # (x86) on my windows 7 system
+[Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
+</pre></div>
 </div>
 </li>
 <li><p class="first">I have ssh keys I use on unix and mac.  I got the necessary ssh keys via sftp
@@ -113,43 +112,50 @@ on the path, you&#8217;ll need the full path to plink, as in: <tt class="docutil
 <li><p class="first">Set a couple of environment variables from powershell - see
 <a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <tt class="docutils literal"><span class="pre">$GIT_SSH</span></tt> to pick up
 <em>plink</em> as the ssh executable:</p>
-<div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("GIT_SSH", "C:\Program files\Putty\plink.exe", "User")</pre>
+<div class="highlight-python"><div class="highlight"><pre>[Environment]::SetEnvironmentVariable(&quot;GIT_SSH&quot;, &quot;C:\Program files\Putty\plink.exe&quot;, &quot;User&quot;)
+</pre></div>
 </div>
 <p>Next we make sure that <tt class="docutils literal"><span class="pre">$HOME</span></tt> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
 appears to need it set correctly - see the <a class="reference external" href="http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg">example pypi</a> page for the
 assertion at least:</p>
-<div class="highlight-python"><pre>[Environment]::SetEnvironmentVariable("HOME", $env:USERPROFILE, "User")</pre>
+<div class="highlight-python"><div class="highlight"><pre>[Environment]::SetEnvironmentVariable(&quot;HOME&quot;, $env:USERPROFILE, &quot;User&quot;)
+</pre></div>
 </div>
 <p>Restart powershell after doing this to pick up the <tt class="docutils literal"><span class="pre">GIT_SSH</span></tt> environment
 variable in particular.  We should now be able to do something like <tt class="docutils literal"><span class="pre">git</span>
 <span class="pre">clone</span> <span class="pre">git&#64;github.com:my-name/my-repo.git</span></tt> without being asked our password
 (pageant handles this).  The first time you use this combination with a
 particular host you may get an error like this:</p>
-<div class="highlight-python"><pre>The server's host key is not cached in the registry. You
+<div class="highlight-python"><div class="highlight"><pre>The server&#39;s host key is not cached in the registry. You
 have no guarantee that the server is the computer you
-think it is.</pre>
+think it is.
+</pre></div>
 </div>
 <p>If so, run <em>plink</em> manually to cache the key:</p>
-<div class="highlight-python"><pre>&amp; 'C:\Program Files (x86)\PuTTY\plink.exe' git@github.com</pre>
+<div class="highlight-python"><div class="highlight"><pre>&amp; &#39;C:\Program Files (x86)\PuTTY\plink.exe&#39; git@github.com
+</pre></div>
 </div>
 <p>and press <tt class="docutils literal"><span class="pre">y</span></tt> when asked.</p>
 </li>
 <li><p class="first">I run pageant at startup.  I first set up a desktop shortcut with the
 following command:</p>
-<div class="highlight-python"><pre>"C:\Program Files (x86)\PuTTY\pageant.exe" c:\Users\mb312\.ssh\id_dsa.ppk</pre>
+<div class="highlight-python"><div class="highlight"><pre>&quot;C:\Program Files (x86)\PuTTY\pageant.exe&quot; c:\Users\mb312\.ssh\id_dsa.ppk
+</pre></div>
 </div>
 <p>I move this shortcut into my startup folder to start at login.  On windows 7
 my startup folder is:</p>
-<div class="highlight-python"><pre>C:\Users\mb312\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</pre>
+<div class="highlight-python"><div class="highlight"><pre>C:\Users\mb312\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+</pre></div>
 </div>
 <p>where <tt class="docutils literal"><span class="pre">mb312</span></tt> is my username.</p>
 </li>
 <li><p class="first">For using ssh inside the msysgit bash shell, I like to add the keychain-like
 script, by including this in my <tt class="docutils literal"><span class="pre">~/.bashrc</span></tt> file:</p>
-<div class="highlight-python"><pre># Source personal definitions
-if [ -f "$HOME/.bash_keychain_lite" ]; then
-    . "$HOME/.bash_keychain_lite"
-fi</pre>
+<div class="highlight-python"><div class="highlight"><pre># Source personal definitions
+if [ -f &quot;$HOME/.bash_keychain_lite&quot; ]; then
+    . &quot;$HOME/.bash_keychain_lite&quot;
+fi
+</pre></div>
 </div>
 <p>where the <tt class="docutils literal"><span class="pre">.bash_keychain_lite</span></tt> file arises from the <tt class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></tt>
 command above.</p>
@@ -186,13 +192,14 @@ vim</a></p>
 <li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
 the personal configuration below.  For the convenience of using python at the
 command line you could do something like:</p>
-<div class="highlight-python"><pre>$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
-$my_path += "C:\Python27;C:\Python27\Scripts"
-[Environment]::SetEnvironmentVariable("PATH", $my_path, "User")</pre>
+<div class="highlight-python"><div class="highlight"><pre>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+$my_path += &quot;C:\Python27;C:\Python27\Scripts&quot;
+[Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
+</pre></div>
 </div>
 </li>
 <li><p class="first">Set up personal configuration.  For me this is:</p>
-<div class="highlight-python"><pre>cd c:\
+<div class="highlight-python"><div class="highlight"><pre>cd c:\
 mkdir code
 cd code
 mkdir dev_trees
@@ -202,7 +209,8 @@ git clone git@github.com:matthew-brett/myvim.git
 cd myconfig
 python make.py dotfiles
 cd ..\myvim
-python make.py vimfiles</pre>
+python make.py vimfiles
+</pre></div>
 </div>
 </li>
 <li><p class="first">I am trying out <a class="reference external" href="https://bitbucket.org/guillermooo/virtualenvwrapper-powershell">virtualenvwrapper-powershell</a> . Install with the standard
@@ -224,19 +232,22 @@ debugging easier for nose tests.  Easiest route is <tt class="docutils literal">
 <tt class="docutils literal"><span class="pre">mingw-get-inst</span></tt> automated installation route.  Select the options giving
 you c++, fortran, and the msys build environment.  I didn&#8217;t directly add these
 to the path, but made a script <tt class="docutils literal"><span class="pre">c:\Mingw\mingwvars.ps1</span></tt>:</p>
-<div class="highlight-python"><pre># convenience script to add mingw to path
-echo "Adding mingw to PATH..."
+<div class="highlight-python"><div class="highlight"><pre># convenience script to add mingw to path
+echo &quot;Adding mingw to PATH...&quot;
 $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-$env:path = "$mingw\bin;$mingw\msys\1.0\bin;$env:path"</pre>
+$env:path = &quot;$mingw\bin;$mingw\msys\1.0\bin;$env:path&quot;
+</pre></div>
 </div>
 <p>Then in powershell - <tt class="docutils literal"><span class="pre">.</span> <span class="pre">c:\Mingw\mingwvars.ps1</span></tt> to add the msys and
 mingw tools to the path.</p>
 </li>
 <li><p class="first">Using mingw, you might get this kind of error:</p>
-<div class="highlight-python"><pre>error: Setup script exited with error: Unable to find vcvarsall.bat</pre>
+<div class="highlight-python"><div class="highlight"><pre>error: Setup script exited with error: Unable to find vcvarsall.bat
+</pre></div>
 </div>
 <p>Of course you&#8217;ve already tried the standard solution to this, of the form:</p>
-<div class="highlight-python"><pre>python setup.py build --compiler=mingw32</pre>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py build --compiler=mingw32
+</pre></div>
 </div>
 <p>If that doesn&#8217;t work, you might have hit a <a class="reference external" href="http://bugs.python.org/issue2698">mingw distutils bug</a>.  One
 suggested fix is to make a <tt class="docutils literal"><span class="pre">distutils.cfg</span></tt> file in your Python distutils
@@ -247,6 +258,18 @@ directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\
 </div>
 </li>
 </ul>
+</div>
+<div class="section" id="swig">
+<h2>SWIG<a class="headerlink" href="#swig" title="Permalink to this headline">¶</a></h2>
+<p>Download the swig version for windows, <tt class="docutils literal"><span class="pre">swigwin</span></tt>, from <a class="reference external" href="http://www.swig.org/download.html">swig downloads</a>,
+unpack into, say, <tt class="docutils literal"><span class="pre">C:\</span></tt>, then:</p>
+<div class="highlight-python"><div class="highlight"><pre>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+$my_path += &quot;;C:\swigwin-2.0.10&quot;
+[Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
+[Environment]::SetEnvironmentVariable(&quot;PYTHON_INCLUDE&quot;, &quot;C:\Python27\include&quot;, &quot;User&quot;)
+[Environment]::SetEnvironmentVariable(&quot;PYTHON_LIB&quot;, &quot;C:\Python27\libs\python27.lib&quot;, &quot;User&quot;)
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -267,6 +290,7 @@ directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\
 </ul>
 </li>
 <li><a class="reference internal" href="#windows-compiler-and-build-tools">Windows compiler and build tools</a></li>
+<li><a class="reference internal" href="#swig">SWIG</a></li>
 </ul>
 </li>
 </ul>
@@ -316,7 +340,7 @@ directory (e.g.  <tt class="docutils literal"><span class="pre">C:\Python26\Lib\
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

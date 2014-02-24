@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -90,6 +88,7 @@ things like <a class="reference external" href="http://nipy.org">nipy</a>.</p>
 <li class="toctree-l2"><a class="reference internal" href="develop_windows.html#basic-setup">Basic setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="develop_windows.html#ssh-setup">SSH setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="develop_windows.html#windows-compiler-and-build-tools">Windows compiler and build tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop_windows.html#swig">SWIG</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="develop_mac.html">Developing on mac</a><ul>
@@ -173,6 +172,23 @@ things like <a class="reference external" href="http://nipy.org">nipy</a>.</p>
 <li class="toctree-l2"><a class="reference internal" href="floating_error.html#thanks-to">Thanks to</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="bare_metal_waf.html">Bare metal WAF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bare_metal_waf.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bare_metal_waf.html#a-taster">A taster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bare_metal_waf.html#waf-commands">waf commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bare_metal_waf.html#how-the-build-gets-built">How the build gets built</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bare_metal_waf.html#run-str-variable-substitution">run_str Variable substitution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bare_metal_waf.html#ipython-debugging-in-waf">IPython debugging in waf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="booting_macs.html">Booting Macs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="booting_macs.html#naming-of-parts">Naming of parts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="booting_macs.html#efi-vs-bios">EFI vs BIOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="booting_macs.html#efi-and-guid-partition-table-disks">EFI and GUID partition table disks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="booting_macs.html#the-standard-efi-uefi-boot">The standard EFI / UEFI boot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="booting_macs.html#efi-on-mac">EFI on Mac</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -193,9 +209,7 @@ things like <a class="reference external" href="http://nipy.org">nipy</a>.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to Pydagogue</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Welcome to Pydagogue</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
@@ -238,7 +252,7 @@ things like <a class="reference external" href="http://nipy.org">nipy</a>.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

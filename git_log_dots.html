@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -15,7 +13,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -61,13 +59,15 @@
 <div class="section" id="logging-with-two-dots">
 <span id="git-log-two-dots"></span><h2>Logging with two dots<a class="headerlink" href="#logging-with-two-dots" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s say you asked for this:</p>
-<div class="highlight-python"><pre>git log start-branch..end-branch</pre>
+<div class="highlight-python"><div class="highlight"><pre>git log start-branch..end-branch
+</pre></div>
 </div>
 <p>You will see a log of a series of commits. The commits will be all the commits
 reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> that are not reachable from <tt class="docutils literal"><span class="pre">start-branch</span></tt>.</p>
 <p>In fact, the two dot form of log is shorthand.  The <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> line above is
 shorthand for:</p>
-<div class="highlight-python"><pre>git log ^start-branch end-branch</pre>
+<div class="highlight-python"><div class="highlight"><pre>git log ^start-branch end-branch
+</pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">end-branch</span></tt> above means — &#8220;show me all commits that can be
 reached from <tt class="docutils literal"><span class="pre">end-branch</span></tt>&#8221;. <tt class="docutils literal"><span class="pre">^start-branch</span></tt> means — &#8220;excluding any
@@ -75,15 +75,15 @@ commits that can be reached from <tt class="docutils literal"><span class="pre">
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>What does &#8220;reachable&#8221; mean?</p>
-<p>A commit, <img class="math" src="_images/math/f37bba504894945c07a32f5496d74299a37aa51c.png" alt="s"/>, can be <strong>reached</strong> from some commit, <img class="math" src="_images/math/e0d2bf360290fd61d1c1557e763f2622363b3d35.png" alt="t"/>, if and
-only if there is a path from <img class="math" src="_images/math/f37bba504894945c07a32f5496d74299a37aa51c.png" alt="s"/> to <img class="math" src="_images/math/e0d2bf360290fd61d1c1557e763f2622363b3d35.png" alt="t"/> along the ancestry graph
+<p>A commit, <img class="math" src="_images/math/6859317dd1b439cef34131bcd4bafee8393444e0.png" alt="s"/>, can be <strong>reached</strong> from some commit, <img class="math" src="_images/math/ef9270877405055756d345facd044e4ab297f858.png" alt="t"/>, if and
+only if there is a path from <img class="math" src="_images/math/6859317dd1b439cef34131bcd4bafee8393444e0.png" alt="s"/> to <img class="math" src="_images/math/ef9270877405055756d345facd044e4ab297f858.png" alt="t"/> along the ancestry graph
 of the commits.</p>
 <p>The ancestry graph is the directed acyclic graph of the history, where the
 nodes are the commits and the edges are directed backwards from nodes to
 their parents.</p>
-<p class="last">Put more formally, a sequence of commits, <img class="math" src="_images/math/2146714416324eb523f2dbf6f63a2a09e4df1e7e.png" alt="v_0, v_1, ..., v_n"/>, forms
-a <strong>path</strong> between <img class="math" src="_images/math/a03736fe3d54aefeb282b0bd55d83d70178e1d8d.png" alt="v_0"/> and <img class="math" src="_images/math/e967fada3170ecae135227d4b5d2703e0417349e.png" alt="v_n"/> if and only if
-<img class="math" src="_images/math/c0de6791251419989ddcb2a8ba2a4432f3d8dd9c.png" alt="v_{i-1}"/> is the parent of <img class="math" src="_images/math/85ffd98b4eaea58a8db38fd0047e3a1d7c5661a0.png" alt="v_i"/> for <img class="math" src="_images/math/50ed4b89a6aeb4814026a2be01bde8bd7d264b71.png" alt="i=1"/> to <img class="math" src="_images/math/801b4b6c57a1e85c609e277fa66555060aacd29f.png" alt="i=n"/>.
+<p class="last">Put more formally, a sequence of commits, <img class="math" src="_images/math/7c5aee5074e641585ef7f78a3abba1e628c5ab61.png" alt="v_0, v_1, ..., v_n"/>, forms
+a <strong>path</strong> between <img class="math" src="_images/math/86b9d0c0fb1047cba5bea0154ea1965aabc6053a.png" alt="v_0"/> and <img class="math" src="_images/math/2e5644e20233e1bf2c4c26d2b4b95697973de369.png" alt="v_n"/> if and only if
+<img class="math" src="_images/math/e38e5b16c7e7e837350964a4ea55b1492324fd1e.png" alt="v_{i-1}"/> is the parent of <img class="math" src="_images/math/91ee790671e6a647c8afc69baa2118effd0dac9d.png" alt="v_i"/> for <img class="math" src="_images/math/b402192fbf01e493ec772593d4b1eb55ed30f051.png" alt="i=1"/> to <img class="math" src="_images/math/304f829b949042ef7c83f25e505935b6e6b959a2.png" alt="i=n"/>.
 A commit is also reachable from itself, so a commit sequence of length 1 is
 defined as forming a path.</p>
 </div>
@@ -91,11 +91,12 @@ defined as forming a path.</p>
 pointed to by <tt class="docutils literal"><span class="pre">start-branch</span></tt> because you can always reach <tt class="docutils literal"><span class="pre">start-branch</span></tt>
 from itself.</p>
 <p>Let&#8217;s say we have this history:</p>
-<div class="highlight-python"><pre>             H--I--J  topicB
+<div class="highlight-python"><div class="highlight"><pre>             H--I--J  topicB
             /
             | E---F---G  topicA
             |/
-A---B---C---D  master</pre>
+A---B---C---D  master
+</pre></div>
 </div>
 <p>What would <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">topicB..topicA</span></tt> show?  From <tt class="docutils literal"><span class="pre">topicA</span></tt> we can
 reach <tt class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt>.  From <tt class="docutils literal"><span class="pre">topicB</span></tt> we can reach <tt class="docutils literal"><span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>
@@ -105,7 +106,8 @@ reach <tt class="docutils literal"><span class="pre">G,</span> <span class="pre"
 <div class="section" id="logging-with-three-dots">
 <h2>Logging with three dots<a class="headerlink" href="#logging-with-three-dots" title="Permalink to this headline">¶</a></h2>
 <p>Now you ask for this:</p>
-<div class="highlight-python"><pre>git log start-branch...end-branch</pre>
+<div class="highlight-python"><div class="highlight"><pre>git log start-branch...end-branch
+</pre></div>
 </div>
 <p>There are three dots between <tt class="docutils literal"><span class="pre">start-branch</span></tt> and <tt class="docutils literal"><span class="pre">end-branch</span></tt>.  This three
 dot version of the command finds all commits that are reachable from
@@ -115,18 +117,20 @@ reachable from both <tt class="docutils literal"><span class="pre">start-branch<
 all commits reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> BUT excluding any commits reachable
 from any common ancestor.  As the <tt class="docutils literal"><span class="pre">gitrevisions</span></tt> man page puts it, the three
 dots command above is equivalent to:</p>
-<div class="highlight-python"><pre>git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)</pre>
+<div class="highlight-python"><div class="highlight"><pre>git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)
+</pre></div>
 </div>
-<p>Put another way, if <img class="math" src="_images/math/ad28c83c99a8fd0dd2e2e594c9d02ee532765a0a.png" alt="S"/> is the set of all commits that can be reached from
-<tt class="docutils literal"><span class="pre">start-branch</span></tt> and <img class="math" src="_images/math/fa2fa899f0afb05d6837885523503a2d4df434f9.png" alt="E"/> is the set of all commits that can be reached
+<p>Put another way, if <img class="math" src="_images/math/11a85f3c69ae6702cb1d99d3de451913b8f84c04.png" alt="S"/> is the set of all commits that can be reached from
+<tt class="docutils literal"><span class="pre">start-branch</span></tt> and <img class="math" src="_images/math/cfd13a0f26eb7ef0093319a7669da7dd3771dbac.png" alt="E"/> is the set of all commits that can be reached
 from <tt class="docutils literal"><span class="pre">end-branch</span></tt> then the commits returned from the three dot version of log
 are:</p>
 <div class="math">
-<p><img src="_images/math/a634f2e68bd7bb060f3720cf139bd7016b258fb5.png" alt="(S \cup E) \setminus (S \cap E)"/></p>
-</div><p>(<img class="math" src="_images/math/5321955cd9ff25c317edbb2fb25dd1e0f9a6781a.png" alt="X \setminus Y"/> denotes the set of members of <img class="math" src="_images/math/6a47ca0fe7cb276abc022af6ac88ddae1a9d6894.png" alt="X"/> that are not
-in set <img class="math" src="_images/math/ce58e4af225c93d08606c26554caaa5ae32edeba.png" alt="Y"/>).</p>
+<p><img src="_images/math/b07cdd0251db83dc617206395d1b7390b3f05dbc.png" alt="(S \cup E) \setminus (S \cap E)"/></p>
+</div><p>(<img class="math" src="_images/math/9144ce9a94b0782a02202eb08e3eb0ff362d3cf8.png" alt="X \setminus Y"/> denotes the set of members of <img class="math" src="_images/math/f026aecf11ec7f6141ab863f260d395f94b10f51.png" alt="X"/> that are not
+in set <img class="math" src="_images/math/b018f9153661cd702305aecc28713fd9705e7cb3.png" alt="Y"/>).</p>
 <p>By example, from the history above, let&#8217;s think about what would we get from:</p>
-<div class="highlight-python"><pre>git log topicB...topicA</pre>
+<div class="highlight-python"><div class="highlight"><pre>git log topicB...topicA
+</pre></div>
 </div>
 <p>From <tt class="docutils literal"><span class="pre">topicA</span></tt> we can reach this set of commits — <tt class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>
 <span class="pre">A</span></tt>.  From <tt class="docutils literal"><span class="pre">topicB</span></tt> we can reach <tt class="docutils literal"><span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt>.  That means that we
@@ -195,7 +199,7 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

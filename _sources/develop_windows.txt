@@ -200,6 +200,20 @@ Windows compiler and build tools
     [build]
     compiler=mingw32
 
+****
+SWIG
+****
+
+Download the swig version for windows, ``swigwin``, from `swig downloads`_,
+unpack into, say, ``C:\``, then::
+
+    \$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
+    \$my_path += ";C:\swigwin-2.0.10"
+    [Environment]::SetEnvironmentVariable("PATH", \$my_path, "User")
+    [Environment]::SetEnvironmentVariable("PYTHON_INCLUDE", "C:\Python27\include", "User")
+    [Environment]::SetEnvironmentVariable("PYTHON_LIB", "C:\Python27\libs\python27.lib", "User")
+
+
 .. _powershell environment variables: http://technet.microsoft.com/en-us/library/ff730964.aspx
 .. _mingw distutils bug: http://bugs.python.org/issue2698
 .. _64 bit vim: http://code.google.com/p/vim-win3264/wiki/Win64Binaries
@@ -210,5 +224,6 @@ Windows compiler and build tools
 .. _powershell profile: http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx
 .. _lifehacker post: http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows
 .. _autohotkey: http://www.autohotkey.com
+.. _swig downloads: http://www.swig.org/download.html
 
 .. include:: links_names.inc
