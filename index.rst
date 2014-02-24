@@ -34,6 +34,7 @@ Contents:
    floating_point
    floating_error
    bare_metal_waf
+   booting_macs
 
 Indices and tables
 ==================
