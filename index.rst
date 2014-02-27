@@ -35,6 +35,7 @@ Contents:
    floating_error
    bare_metal_waf
    booting_macs
+   mac_runtime_link
 
 Indices and tables
 ==================
