@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Runtime linking on Mac &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Booting Macs" href="booting_macs.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="booting_macs.html" title="Booting Macs"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="runtime-linking-on-mac">
+<h1>Runtime linking on Mac<a class="headerlink" href="#runtime-linking-on-mac" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="some-files-for-testing">
+<h2>Some files for testing<a class="headerlink" href="#some-files-for-testing" title="Permalink to this headline">¶</a></h2>
+<p>With thanks to <a class="reference external" href="https://dev.lsstcorp.org/trac/wiki/LinkingDarwin">https://dev.lsstcorp.org/trac/wiki/LinkingDarwin</a></p>
+<p>Create files <tt class="docutils literal"><span class="pre">a.cc</span></tt> through <tt class="docutils literal"><span class="pre">d.cc</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir $HOME/dyldtest
+cd $HOME/dyldtest
+
+cat &lt;&lt; EOF &gt; a.cc
+#include &lt;iostream&gt;
+void a() { std::cout &lt;&lt; &quot;a()&quot; &lt;&lt; std::endl; }
+EOF
+
+cat &gt; b.cc &lt;&lt; EOF
+#include &lt;iostream&gt;
+void a();
+void b() { std::cout &lt;&lt; &quot;b()&quot; &lt;&lt; std::endl; a(); }
+EOF
+
+cat &gt; c.cc &lt;&lt; EOF
+#include &lt;iostream&gt;
+void b();
+void c() { std::cout &lt;&lt; &quot;c()&quot; &lt;&lt; std::endl; b(); }
+EOF
+
+cat &gt; d.cc &lt;&lt; EOF
+void c();
+int main(int, char**) { c(); return 0; }
+EOF
+</pre></div>
+</div>
+<p>Compile them to object files:</p>
+<div class="highlight-python"><div class="highlight"><pre>clang++ -c a.cc b.cc c.cc d.cc
+</pre></div>
+</div>
+<p>Create libraries from a.o and b.o:</p>
+<div class="highlight-python"><div class="highlight"><pre>clang++ -o liba.dylib -dynamiclib a.o
+clang++ -o libb.dylib -dynamiclib b.o -L. -la
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-otool-l-to-show-linked-library-locations">
+<h2>Using <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> to show linked library locations<a class="headerlink" href="#using-otool-l-to-show-linked-library-locations" title="Permalink to this headline">¶</a></h2>
+<p>Notice the <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> output for these libraries:</p>
+<div class="highlight-python"><div class="highlight"><pre>liba.dylib:
+    liba.dylib (compatibility version 0.0.0, current version 0.0.0)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 120.0.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)
+
+libb.dylib:
+    libb.dylib (compatibility version 0.0.0, current version 0.0.0)
+    liba.dylib (compatibility version 0.0.0, current version 0.0.0)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 120.0.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)
+</pre></div>
+</div>
+<p>Link another library against these libraries:</p>
+<div class="highlight-python"><div class="highlight"><pre>clang++ -o libc.dylib -dynamiclib c.o -L. -lb -la
+clang++ -o test-lib d.o -L. -lc
+export DYLD_PRINT_LIBRARIES=y
+./test-lib
+unset DYLD_PRINT_LIBRARIES
+</pre></div>
+</div>
+<p>This gives, among other output:</p>
+<div class="highlight-python"><div class="highlight"><pre>dyld: loaded: /Users/mb312/dyldtest/./test-lib
+dyld: loaded: libc.dylib
+dyld: loaded: /usr/lib/libc++.1.dylib
+dyld: loaded: /usr/lib/libSystem.B.dylib
+dyld: loaded: libb.dylib
+dyld: loaded: liba.dylib
+dyld: loaded: /usr/lib/libc++abi.dylib
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> on <tt class="docutils literal"><span class="pre">libc.dylib</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>libc.dylib:
+    libc.dylib (compatibility version 0.0.0, current version 0.0.0)
+    libb.dylib (compatibility version 0.0.0, current version 0.0.0)
+    liba.dylib (compatibility version 0.0.0, current version 0.0.0)
+    /usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 120.0.0)
+    /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1197.1.1)
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-install-name">
+<h2>The <tt class="docutils literal"><span class="pre">install_name</span></tt><a class="headerlink" href="#the-install-name" title="Permalink to this headline">¶</a></h2>
+<p>So &#8211; the <tt class="docutils literal"><span class="pre">install_name</span></tt> is two things:</p>
+<ol class="arabic simple">
+<li>The name / location that a library <em>provides</em> to something that links against
+it. This is also the install name <tt class="docutils literal"><span class="pre">id</span></tt> (see man page for
+<tt class="docutils literal"><span class="pre">install_name_tool</span></tt>).  The <tt class="docutils literal"><span class="pre">install_name</span></tt> <tt class="docutils literal"><span class="pre">id</span></tt> in a library you are
+linking to only matters at link time</li>
+<li>The name that the linking application uses to say where it should find a
+library.  The <tt class="docutils literal"><span class="pre">install_name</span></tt> values stored in your linking application or
+library matter at run time - because they tell the application or library
+where to find the library.</li>
+</ol>
+</div>
+<div class="section" id="install-names-and-static-absolute-or-relative-paths">
+<h2>Install names and static absolute or relative paths<a class="headerlink" href="#install-names-and-static-absolute-or-relative-paths" title="Permalink to this headline">¶</a></h2>
+<p>So far we&#8217;ve used library paths that are relative paths - in fact they are
+relative to the current directory from which we are executing our commands.</p>
+<p>We can try moving our library:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir a
+mv liba.dylib a
+</pre></div>
+</div>
+<p>Of course now our application fails:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+dyld: Library not loaded: liba.dylib
+Referenced from: /Users/mb312/dyldtest/libc.dylib
+Reason: image not found
+Trace/BPT trap: 5
+</pre></div>
+</div>
+<p>From the <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> output above, we have to change the <tt class="docutils literal"><span class="pre">install_name</span></tt> in
+<tt class="docutils literal"><span class="pre">libb.dylib</span></tt>, and <tt class="docutils literal"><span class="pre">libc.dylib</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change liba.dylib a/liba.dylib libb.dylib
+install_name_tool -change liba.dylib a/liba.dylib libc.dylib
+</pre></div>
+</div>
+<p>Then, sure enough, <tt class="docutils literal"><span class="pre">test-lib</span></tt> works again:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+c()
+b()
+a()
+</pre></div>
+</div>
+<p>Now move the other libraries to a new directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir libs
+mv libb.dylib libc.dylib libs
+</pre></div>
+</div>
+<p>Obviously we first have to tell <tt class="docutils literal"><span class="pre">test-lib</span></tt> where <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> went:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libc.dylib libs/libc.dylib test-lib
+</pre></div>
+</div>
+<p>But - oh dear - now <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> is confused:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+dyld: Library not loaded: libb.dylib
+Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
+Reason: image not found
+Trace/BPT trap: 5
+</pre></div>
+</div>
+<p>So we need to tell <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> where <tt class="docutils literal"><span class="pre">libb.dylib</span></tt> is:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libb.dylib libs/libb.dylib libs/libc.dylib
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">test-lib</span></tt> then runs OK.</p>
+</div>
+<div class="section" id="loader-path">
+<h2>&#64;loader_path<a class="headerlink" href="#loader-path" title="Permalink to this headline">¶</a></h2>
+<p>At the moment all our <tt class="docutils literal"><span class="pre">install_name</span></tt> values are relative to the current
+directory. That&#8217;s not satisfying because it means if we run our command from
+anywhere but the current directory, the paths will be wrong.  <tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt>
+is one way to fix this.  Here we tell <tt class="docutils literal"><span class="pre">test-lib</span></tt> that it should look for
+<tt class="docutils literal"><span class="pre">libc.dylib</span></tt> in the <tt class="docutils literal"><span class="pre">lib</span></tt> directory relative to itself:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libs/libc.dylib @loader_path/libs/libc.dylib test-lib
+</pre></div>
+</div>
+<p>Note the use of <tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt>.  This will be the directory containing the loading
+application or library - in our case the directory containing <tt class="docutils literal"><span class="pre">test-lib</span></tt>. We
+can do the same trick to tell <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> where to find <tt class="docutils literal"><span class="pre">libb.dylib</span></tt>,
+relative to itself:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change libs/libb.dylib @loader_path/libb.dylib libs/libc.dylib
+</pre></div>
+</div>
+<p>Note <tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt> again.  See <a href="#id1"><span class="problematic" id="id2">`_rpath etc`_</span></a> and <a class="reference external" href="https://www.mikeash.com/pyblog/friday-qa-2009-11-06-linking-and-install-names.html">linking and install
+names</a> for more explanation. In this case <tt class="docutils literal"><span class="pre">&#64;load_path</span></tt> will be the path of
+<tt class="docutils literal"><span class="pre">libc.dylib</span></tt> - the library doing the loading of <tt class="docutils literal"><span class="pre">libb.dylib</span></tt>.  Now all&#8217;s
+good:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./test-lib
+c()
+b()
+a()
+</pre></div>
+</div>
+<p>We wanted to make it possible to call our executable from any directory, so we
+try that:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir nice-place
+cd nice-place
+../test-lib
+</pre></div>
+</div>
+<p>This gives:</p>
+<div class="highlight-python"><div class="highlight"><pre>dyld: Library not loaded: a/liba.dylib
+Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
+Reason: image not found
+Trace/BPT trap: 5
+</pre></div>
+</div>
+<p>Why?  Because <tt class="docutils literal"><span class="pre">libc.dylib</span></tt> is still looking for <tt class="docutils literal"><span class="pre">liba.dylib</span></tt> at
+<tt class="docutils literal"><span class="pre">a/liba.dylib</span></tt> &#8211; <em>starting at the current working directory</em>. How to fix?  Of
+course:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change a/liba.dylib @loader_path/../a/liba.dylib \
+    ../libs/libc.dylib
+install_name_tool -change a/liba.dylib @loader_path/../a/liba.dylib \
+    ../libs/libb.dylib
+</pre></div>
+</div>
+</div>
+<div class="section" id="rpath">
+<h2>&#64;rpath<a class="headerlink" href="#rpath" title="Permalink to this headline">¶</a></h2>
+<p>Another option is to use <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> &#8211; see <a class="reference external" href="https://wincent.com/wiki/&#64;executable_path,_&#64;load_path_and_&#64;rpath">rpath etc</a>:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -change @loader_path/../a/liba.dylib @rpath/liba.dylib \
+    ../libs/libc.dylib
+install_name_tool -change @loader_path/../a/liba.dylib @rpath/liba.dylib \
+    ../libs/libb.dylib
+</pre></div>
+</div>
+<p>This won&#8217;t work yet because we haven&#8217;t told anything what <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> is:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ../test-lib
+dyld: Library not loaded: @rpath/liba.dylib
+Referenced from: /Users/mb312/dyldtest/libs/libc.dylib
+Reason: image not found
+Trace/BPT trap: 5
+</pre></div>
+</div>
+<p>We can set <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> in our executable:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_name_tool -add_rpath @loader_path/a ../test-lib
+</pre></div>
+</div>
+<p>That works.  Or in the libraries doing the loading:</p>
+<div class="highlight-python"><div class="highlight"><pre># delete rpath we just set in executable
+install_name_tool -delete_rpath @loader_path/a ../test-lib
+# put into the library instead
+install_name_tool -add_rpath @loader_path/../a ../libs/libc.dylib
+</pre></div>
+</div>
+<p>All good again.</p>
+<p>One advantage of <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> is that you can put several different search paths
+into the the library or executable <tt class="docutils literal"><span class="pre">&#64;rpath</span></tt>.  For example, you could set the
+<tt class="docutils literal"><span class="pre">&#64;rpath</span></tt> so that the library or executable looks for its libraries in a
+relative path and also an absolute system path.</p>
+</div>
+<div class="section" id="loader-path-and-rpath-make-code-relocatable">
+<h2>&#64;loader_path and &#64;rpath make code relocatable<a class="headerlink" href="#loader-path-and-rpath-make-code-relocatable" title="Permalink to this headline">¶</a></h2>
+<p>Now notice this entire stack is relocatable (and has been since we started using
+<tt class="docutils literal"><span class="pre">&#64;loader_path</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd
+cp -r dyldtest dyldtest2
+./dyldtest2/test-lib
+</pre></div>
+</div>
+<p>All is still good.  You are ready for great things related to OSX run-time
+loading.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Runtime linking on Mac</a><ul>
+<li><a class="reference internal" href="#some-files-for-testing">Some files for testing</a></li>
+<li><a class="reference internal" href="#using-otool-l-to-show-linked-library-locations">Using <tt class="docutils literal"><span class="pre">otool</span> <span class="pre">-L</span></tt> to show linked library locations</a></li>
+<li><a class="reference internal" href="#the-install-name">The <tt class="docutils literal"><span class="pre">install_name</span></tt></a></li>
+<li><a class="reference internal" href="#install-names-and-static-absolute-or-relative-paths">Install names and static absolute or relative paths</a></li>
+<li><a class="reference internal" href="#loader-path">&#64;loader_path</a></li>
+<li><a class="reference internal" href="#rpath">&#64;rpath</a></li>
+<li><a class="reference internal" href="#loader-path-and-rpath-make-code-relocatable">&#64;loader_path and &#64;rpath make code relocatable</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="booting_macs.html"
+                        title="previous chapter">Booting Macs</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mac_runtime_link.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="booting_macs.html" title="Booting Macs"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>
