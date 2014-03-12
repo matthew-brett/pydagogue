@@ -1,70 +1,133 @@
 .. check with make doctest
 
-###################################
-The honest coder's guide to ``git``
-###################################
+####################################
+The curious coder's guide to ``git``
+####################################
+
+*****************
+git - love - hate
+*****************
+
+I've used git now for a long time.  I think it's a true masterpiece of design, I
+use it all day every day and I just can't imagine what it would be like not to
+use it. So, no question, I *love* git.
+
+As y'all may know, `Linus Torvalds wrote git from scratch
+<http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git>`_.  He loves
+it too.  `Here is Linus talking about git
+<http://www.youtube.com/watch?v=MShbP3OpASA#t=2288>`_ in a question and answer
+session:
+
+    Actually I'm proud of git. I want to say this. The fact that I had to write
+    git was accidental, but Linux, the design came from a great mind, and that
+    great mind was not mine. I mean you have to give credit for the design of
+    Linux to Kernighan and Ritchie and Thompson. I mean there's a reason I like
+    Unix and I wanted to redo it. I do want to say that git is a design that is
+    mine and unique, and I'm proud of the fact that I can damn well also do good
+    design from scratch.
+
+But - some people hate git.  Really *hate* it. They find it confusing and error
+prone and it makes them angry.  Why are there such different views?
+
+I think the reason some people hate git, is because they don't yet understand
+it.  I reason I can say this without being patronizing is because I went through
+something similar myself.
+
+When I first started using git, I found it uncomfortable.  I could see it was
+very powerful, but I sometimes got lost and stuck and had to Google for a set of
+magic commands to get me out of trouble.  I once accidentally made a huge mess
+of our project's main repository by running a command I didn't understand. Git
+often made me feel stupid.  It felt like a prototype racecar with a badly
+designed dashboard that was just about to blow an engine or a tire and take me
+off the road.
+
+Then, one day, I read the `git parable`_.  The git parable is a little story
+about a developer trying to work out how to make a version control system.  It
+gradually builds up from copying whole directories of files to something very
+much like git.  I didn't understand it all right away, but as soon as I read this
+page, the light-bulb went on - I got git.  I suddenly started to feel
+comfortable.  I knew for sure I could work out why git worked the way it did.  I
+could see that it must be possible how to do complicated and powerful things,
+and I could work out how to do them.
+
+Reading the git parable took me about 45 minutes, but those 45 minutes changed
+me from an unhappy git user to the man you see before you today, someone who
+uses git often every day, but, happily, knowing that I have the right tool for
+the job.
+
+So, my experience tells me that to use git - yes *use* git - you need to spend
+that 45 minutes to *understand* git.  You don't believe me, or you think that
+I'm a strange kind of person not like you who probably likes writing their own
+operating systems. Not so - the insight I'm describing comes up over and over.
+From `understanding git conceptually
+<http://www.sbf5.com/~cduan/technical/git>`_:
+
+    When I first started using Git, I read plenty of tutorials, as well as the
+    user manual. Though I picked up the basic usage patterns and commands, I
+    never felt like I grasped what was going on “under the hood,” so to speak.
+    Frequently this resulted in cryptic error messages, caused by my random
+    guessing at the right command to use at a given time. These difficulties
+    worsened as I began to need more advanced (and less well documented)
+    features.
+
+    When I first started using Git, I read plenty of tutorials, as well as the
+    user manual. Though I picked up the basic usage patterns and commands, I
+    never felt like I grasped what was going on “under the hood,” so to speak.
+    Frequently this resulted in cryptic error messages, caused by my random
+    guessing at the right command to use at a given time. These difficulties
+    worsened as I began to need more advanced (and less well documented)
+    features.
+
+Here's a quote from the `pro git book <http://git-scm.com/book>`_ by Scott Chacon.
+The git book is a standard reference that is hosted on the main git website.
+
+    Chapter 9: Git Internals
+
+    You may have skipped to this chapter from a previous chapter, or you may
+    have gotten here after reading the rest of the book — in either case, this
+    is where you’ll go over the inner workings and implementation of Git. I
+    found that learning this information was fundamentally important to
+    understanding how useful and powerful Git is, but others have argued to me
+    that it can be confusing and unnecessarily complex for beginners. Thus, I’ve
+    made this discussion the last chapter in the book so you could read it early
+    or later in your learning process. I leave it up to you to decide.
+
+So - have no truck with people who try and tell you that you can just use git
+and that you don't need the `deep shit
+<http://rogerdudler.github.io/git-guide>`_.  You *do* need the deep shit, but
+the deep shit isn't that deep, and it will take you an hour of your time to get
+it.  And then I'm betting that you'll see that the alchemist has succeeded at
+last, and the shit finally turned into gold.
+
+So - please - invest an hour of your life to understand this stuff.
+Concentrate, go slowly, make sure you get it. In return for an hour of your
+life, you will get many happy years of use from git, both beautiful, and useful.
+
+*****************************************************
+The one thing about git you really need to understand
+*****************************************************
 
 ``git`` is not really a "Version Control System". It is better described
 as a "Content Management System", that turns out to be really good for
 version control.
 
-What should a "content manager" do?
+I'll say that again.  Git is a content management system.  Or - to quote from
+the `root page of the git manual <http://git-scm.com/docs/git.html>`_: "git -
+the stupid content tracker".
 
-We'll try and design our own, and then see what ``git`` has to say.
+**************************************
+So git is a content manager - so what?
+**************************************
 
-The general idea of this presentation comes from the `git
-parable <http://tom.preston-werner.com/2009/05/19/the-git-parable.html>`__.
-The `git
-foundations <http://matthew-brett.github.com/pydagogue/foundation.html>`__
-page extends the same idea.
+To understand why git does what it does, we first need to think about what a
+content manager should do, and why we would want one.
 
-********************
-Cryptographic hashes
-********************
+As in the `git parable`_ - we'll try and design our own, and then see what
+``git`` has to say.
 
-Later on, I'm going to ask you to solve a very difficult problem.
-
-Here's some background that might help.
-
-I'm going to describe "Crytographic hashes". It won't be obvious why
-that's a good idea for a little while.
-
-See : `Wikipedia on hash
-functions <http://en.wikipedia.org/wiki/Cryptographic_hash_function>`__.
-
-A *hash* is the result of running a *hash function* over a block of
-data. The hash is a fixed length string that is the *signature* of that
-exact block of data. Let's run this in Python:
-
-.. doctest::
-
-    >>> import hashlib
-    >>> sha1_hash_function = hashlib.sha1
-    >>> message = "git is a rude word in UK English"
-    >>> hash_value = sha1_hash_function(message).hexdigest()
-    >>> hash_value
-    'fec41478c4f497c1d90fd28610f4272c78a6867e'
-
-Not too exciting so far. However, the rather magical nature of this
-string is not yet apparent. Here's the trick:
-
-**There is no practical way for you to find another ``message`` that
-will give the same ``hash_value``**
-
-The ``hash_value`` then is (nearly) completely unique to that set of
-bytes.
-
-For example, a tiny change in the string makes the hash completely
-different. Here I've just added a full stop at the end:
-
-.. doctest::
-    >>> sha1_hash_function("git is a rude word in UK English.").hexdigest()
-    '9e87add001f13aa79ed7b42a5effbfc60aa8584e'
-
-So, if you give me some data, and I calculate the hash value, and it
-comes out as "fec41478c4f497c1d90fd28610f4272c78a6867e", then I can be
-very sure that the data you gave me was exactly the string "git is a
-rude word in UK English".
+(To go through this a little more slowly, and with more jokes, you might also
+try my  `git foundations
+<http://matthew-brett.github.com/pydagogue/foundation.html>`__ page).
 
 *******************
 The story so far...
@@ -79,100 +142,44 @@ In this directory, you have the paper draft ``nobel_prize.txt``, the
 analysis script ``very_clever_analysis.py``, and a figure for the paper
 ``stunning_figure.png``.
 
-.. code:: python
+You can get this ground-breaking paper by downloading and unzipping
+:download:`nobel_prize_files.zip`.
 
-    # Make the directory for the paper and change into the directory
-    from os import chdir, getcwd, mkdir, listdir
-    from os.path import split as psplit, abspath, isdir
-    import shutil
-    # If we are in the nobel_prize directory already, get out
-    current_path = abspath(getcwd())
-    if current_path.endswith('nobel_prize'):
-        chdir('..') # Change down a directory
-    # If the directory exists, nuke it
-    if isdir('nobel_prize'):
-        shutil.rmtree('nobel_prize')
-    # Make the new directory, and change to it
-    mkdir('nobel_prize')
-    chdir('nobel_prize')
-    # Check we are there
-    print(getcwd())
-    # The directory should be empty at this point
-    assert listdir('.') == []
+.. cleanup
 
-.. parsed-literal::
+.. runblock::
+    :hide:
 
-    /Users/mb312/dev_trees/pna-notebooks/nobel_prize
+    rm -rf nobel_prize
 
+.. runblock:: bash
 
-.. code:: python
+    unzip -o nobel_prize_files.zip
 
-    %%file nobel_prize.txt
-    The brain is just a set of random numbers
-    =========================================
-    
-    We have discovered that the brain is a set of random numbers.
-    
-    We have charts and graphs to back us up.
+Here's what we get in our ``nobel_prize`` directory:
 
+.. runblock::
 
-.. parsed-literal::
-
-    Writing nobel_prize.txt
-
-
-.. code:: python
-
-    %%file very_clever_analysis.py
-    # The brain analysis script
-    import numpy as np
-    
-    # Make brain data
-    brain_size = (128, 128)
-    random_data = np.random.normal(size=brain_size)
-
-
-.. parsed-literal::
-
-    Writing very_clever_analysis.py
-
-
-.. code:: python
-
-    # Get the figure from storage
-    !cp ../images/stunning_figure.png .
-.. code:: python
-
-    import os
-    os.listdir('.')
-
-
-
-.. parsed-literal::
-
-    ['nobel_prize.txt', 'stunning_figure.png', 'very_clever_analysis.py']
-
-
+    ls nobel_prize
 
 The dog ate my results
-~~~~~~~~~~~~~~~~~~~~~~
+======================
 
 You've been working on this paper for a while.
 
-About 2 weeks ago, you were very excited with the results. You ran the
-script, made the figure, and went to your advisor, Josephine. She was
-excited too. The figure looks good! You get ready to publish in Science.
+About 2 weeks ago, you were very excited with the results. You ran the script,
+made the figure, and went to your advisor, Josephine. She was excited too. The
+figure looks good! You get ready to publish in Science.
 
-Today you finished cleaning up for the Science paper, and reran the
-analysis, and it doesn't look that good anymore. You go to see
-Josephine. She says "It used to look better than that". That's what you
-think too. But:
+Today you finished cleaning up for the Science paper, and reran the analysis,
+and it doesn't look that good anymore. You go to see Josephine. She says "It
+used to look better than that". That's what you think too. But:
 
--  **Did it really look better before?**
--  If it did, **why does it look different now?**
+* **Did it really look better before?**
+* If it did, **why does it look different now?**
 
 Deja vu all over again
-~~~~~~~~~~~~~~~~~~~~~~
+======================
 
 Given you are so clever and you have worked out the brain, it's really
 easy for you to leap in your time machine, and go back two weeks to
@@ -181,7 +188,7 @@ start again.
 What are you going to do differently this time?
 
 Make regular snapshots
-~~~~~~~~~~~~~~~~~~~~~~
+======================
 
 You decide to make your own content management system called
 ``fancy_backups``.
@@ -196,113 +203,35 @@ somewhere safe.
 
 You make a directory to store the snapshots called ``.fancy_backups``:
 
-.. code:: python
+.. runblock:: bash
 
-    !mkdir .fancy_backups
+    cd nobel_prize
+
+.. runblock:: bash
+    :cwd: nobel_prize
+
+    mkdir .fancy_backups
+
 Then you make a directory for the first backup:
 
-.. code:: python
+.. runblock:: bash
+    :cwd: nobel_prize
 
-    !mkdir .fancy_backups/1
-    !mkdir .fancy_backups/1/files
+    mkdir .fancy_backups/1
+    mkdir .fancy_backups/1/files
+
 And you copy the files there:
 
-.. code:: python
+.. runblock:: bash
+    :cwd: nobel_prize
 
-    !cp * .fancy_backups/1/files
-Some utility code to show directory listings
+    cp * .fancy_backups/1/files
 
-.. code:: python
-
-    """ A little utility to display the structure of directory trees
-    
-    Don't worry about the detail here, you'll see below what it does.
-    The code is not complicated, but it's not relevant to the main points on git.
-    
-    Inspired by:
-    
-    http://lorenzod8n.wordpress.com/2007/12/13/creating-a-tree-utility-in-python-part-2/
-    
-    with thanks.
-    
-    This version is my own copyright (Matthew Brett) released under 2-clause BSD
-    """
-    from os import getcwd, listdir
-    from os.path import isdir, join as pjoin
-    
-    # Unicode constants for constructing the tree trunk and branches
-    ALONG = u'\u2500'
-    DOWN = u'\u2502'
-    DOWN_RIGHT = u'\u251c'
-    ELBOW_RIGHT = u'\u2514'
-    BLUE = u'\033[94m'
-    ENDC = u'\033[0m'
-    DOWN_RIGHT_ALONG = DOWN_RIGHT + ALONG * 2 + u" "
-    ELBOW_RIGHT_ALONG = ELBOW_RIGHT + ALONG * 2 + u" "
-    CONTINUE_INDENT = DOWN + u' ' * 3
-    FINISH_INDENT = u' ' * 4
-    
-    
-    def print_tree(root_path=None, indent_str=u''):
-        """ Print tree structure starting from `root_path`
-    
-        Parameters
-        ----------
-        root_path : None or str, optional
-            path from which to print directory tree structure.  If None, use current
-            directory.
-        indent_str : str, optional
-            prefix to print for every entry in the tree.  Usually '', and then set
-            by recursion into the function when printing subdirectories.
-    
-        Returns
-        -------
-        None
-        """
-        if root_path is None:
-            root_path = getcwd()
-        # ensure return of unicode paths from listdir
-        root_path = unicode(root_path)
-        paths = sorted(listdir(root_path))
-        if len(paths) == 0:
-            return
-        for path in paths[:-1]:
-            print_path(root_path, path, indent_str, False)
-        print_path(root_path, paths[-1], indent_str, True)
-    
-    
-    def print_path(root_path, path, indent_str, last_entry=False):
-        """ Print individual `path` (file or directory name) from `root_path`
-    
-        Parameters
-        ----------
-        root_path : str
-            path containing `path`
-        path : str
-            file name or directory name
-        indent_str : str
-            string to prefix to entry for this `path`
-        last_entry : bool, optional
-            Whether this is the last entry in a list of paths.
-    
-        Returns
-        -------
-        None
-        """
-        full_path = pjoin(root_path, path)
-        have_dir = isdir(full_path)
-        leader = ELBOW_RIGHT_ALONG if last_entry else DOWN_RIGHT_ALONG
-        path_colored = BLUE + path + ENDC if have_dir else path
-        print(indent_str + leader + path_colored)
-        if have_dir:
-            new_indent = FINISH_INDENT if last_entry else CONTINUE_INDENT
-            print_tree(full_path, indent_str + new_indent)
 Reminding yourself of what you did
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==================================
 
-For good measure, you put a file in the snapshot directory to remind you
-when you did the snapshot, and who did it, and what was new for this
-snapshot
+For good measure, you put a file in the snapshot directory to remind you when
+you did the snapshot, and who did it, and what was new for this snapshot
 
 .. code:: python
 
@@ -318,23 +247,10 @@ snapshot
 
 Now you have these files in the ``nobel_prize`` directory:
 
-.. code:: python
+.. runblock:: bash
+    :cwd: nobel_prize
 
-    print_tree()
-
-.. parsed-literal::
-
-    ├── [94m.fancy_backups[0m
-    │   └── [94m1[0m
-    │       ├── [94mfiles[0m
-    │       │   ├── nobel_prize.txt
-    │       │   ├── stunning_figure.png
-    │       │   └── very_clever_analysis.py
-    │       └── info.txt
-    ├── nobel_prize.txt
-    ├── stunning_figure.png
-    └── very_clever_analysis.py
-
+    tree
 
 Every time you do some work on the files, you back them up in the same
 way. After a few days:
@@ -363,17 +279,13 @@ way. After a few days:
     !mkdir .fancy_backups/3
     !mkdir .fancy_backups/3/files
     !cp * .fancy_backups/3/files
+
 .. code:: python
 
     %%file .fancy_backups/3/info.txt
     Date: April 2 2012, 11.20
     Author: I. M. Awesome
     Notes: Now seeing things clearly
-
-.. parsed-literal::
-
-    Writing .fancy_backups/3/info.txt
-
 
 .. code:: python
 
@@ -411,6 +323,7 @@ way. After a few days:
     !cp -r .fancy_backups/3 .fancy_backups/4
     !cp -r .fancy_backups/3 .fancy_backups/5
     !cp -r .fancy_backups/3 .fancy_backups/6
+
 You keep doing this, until again the day comes to talk to Josephine. You
 now have 5 backups.
 
@@ -430,7 +343,7 @@ You look in ``.fancy_backups/4/info.txt`` and it says:
     Date: April 8 2012, 01.40
     Author: I. M. Awesome
     Notes: I always get the best ideas after I have been drinking.
-        
+
 
 Aha. Then you go find the problem in
 ``fancy_backups/4/very_clever_analysis.py``.
@@ -442,7 +355,7 @@ You make a new snapshot ``.fancy_backups/6``.
 Back on track for a scientific breakthrough
 
 Terminology breakout
-~~~~~~~~~~~~~~~~~~~~
+====================
 
 Here are some
 `terms <https://www.kernel.org/pub/software/scm/git/docs/gitglossary.html>`__.
@@ -459,7 +372,7 @@ Here are some
 We'll use these terms to get used to them.
 
 Breaking up work into chunks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+============================
 
 You did some edits to the paper ``nobel_prize.txt`` to edit the
 introduction.
@@ -480,7 +393,7 @@ You want to make two commits from your changes:
 How can I do that?
 
 The staging area
-~~~~~~~~~~~~~~~~
+================
 
 We adapt the workflow. Each time we start work, after a commit, we copy
 the last commit to directory ``.fancy_backups/staging_area``. That will
@@ -504,6 +417,7 @@ directory). Then you get ready for the next commit with:
 .. code:: python
 
     !cp nobel_prize.txt .fancy_backups/staging_area
+
 The staging area now contains all the files for the upcoming commit
 (snapshot).
 
@@ -514,6 +428,7 @@ You make the commit with:
     !mkdir .fancy_backups/7
     !mkdir .fancy_backups/7/files
     !cp .fancy_backups/staging_area/* .fancy_backups/7/files
+
 .. code:: python
 
     %%file .fancy_backups/7/info.txt
@@ -532,6 +447,7 @@ script.
 .. code:: python
 
     !cp very_clever_analysis.py .fancy_backups/staging_area
+
 The commit is now *staged* and ready to be saved.
 
 .. code:: python
@@ -540,6 +456,7 @@ The commit is now *staged* and ready to be saved.
     !mkdir .fancy_backups/8
     !mkdir .fancy_backups/8/files
     !cp .fancy_backups/staging_area/* .fancy_backups/8/files
+
 .. code:: python
 
     %%file .fancy_backups/8/info.txt
@@ -615,7 +532,7 @@ Here is what we have in our ``.fancy_backups`` directory:
 
 
 Now the very difficult problem
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==============================
 
 Let's say that the figure ``stunning_figure.png`` is large.
 
@@ -623,21 +540,70 @@ Let's say it changes only once across our 8 commits, at commit 5.
 
 What should we do to save disk space for ``.fancy_backups``?
 
+********************
+Cryptographic hashes
+********************
+
+Later on, I'm going to ask you to solve a very difficult problem.
+
+Here's some background that might help.
+
+I'm going to describe "Crytographic hashes". It won't be obvious why
+that's a good idea for a little while.
+
+See : `Wikipedia on hash
+functions <http://en.wikipedia.org/wiki/Cryptographic_hash_function>`__.
+
+A *hash* is the result of running a *hash function* over a block of
+data. The hash is a fixed length string that is the *signature* of that
+exact block of data. Let's run this in Python:
+
+.. doctest::
+
+    >>> import hashlib
+    >>> sha1_hash_function = hashlib.sha1
+    >>> message = "git is a rude word in UK English"
+    >>> hash_value = sha1_hash_function(message).hexdigest()
+    >>> hash_value
+    'fec41478c4f497c1d90fd28610f4272c78a6867e'
+
+Not too exciting so far. However, the rather magical nature of this
+string is not yet apparent. Here's the trick:
+
+**There is no practical way for you to find another ``message`` that
+will give the same ``hash_value``**
+
+The ``hash_value`` then is (nearly) completely unique to that set of
+bytes.
+
+For example, a tiny change in the string makes the hash completely
+different. Here I've just added a full stop at the end:
+
+.. doctest::
+    >>> sha1_hash_function("git is a rude word in UK English.").hexdigest()
+    '9e87add001f13aa79ed7b42a5effbfc60aa8584e'
+
+So, if you give me some data, and I calculate the hash value, and it
+comes out as "fec41478c4f497c1d90fd28610f4272c78a6867e", then I can be
+very sure that the data you gave me was exactly the string "git is a
+rude word in UK English".
+
 Exercise - your strategy
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 
 Split into pairs.
 
 In five minutes, we'll share ideas.
 
 My crazy idea - use hash values as file names
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=============================================
 
 Make a new directory:
 
 .. code:: python
 
     !mkdir .fancy_backups/objects
+
 Calculate the hash value for the figure:
 
 .. code:: python
@@ -648,7 +614,6 @@ Calculate the hash value for the figure:
     # Calculate the hash value
     figure_hash = hashlib.sha1(figure_data).hexdigest()
     figure_hash
-
 
 
 .. parsed-literal::
@@ -662,6 +627,7 @@ Save the figure with the hash value as the file name:
 .. code:: python
 
     !cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/$figure_hash
+
 Do the same for the other two files in the first commit.
 
 .. code:: python
@@ -680,12 +646,14 @@ Do the same for the other two files in the first commit.
         else:
             open(hash_fname, 'wb').write(binary_data)
         return hash_value
+
 .. code:: python
 
     paper_hash = copy_to_hash('.fancy_backups/1/files/nobel_prize.txt')
     script_hash = copy_to_hash('.fancy_backups/1/files/very_clever_analysis.py')
+
 Making the directory listing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+============================
 
 Here are the hashes for all files:
 
@@ -731,7 +699,7 @@ making a *text directory listing* or *tree* listing:
 
 
 The next commit - saves space!
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==============================
 
 .. code:: python
 
@@ -771,7 +739,7 @@ Only the ``nobel_prize.txt`` has changed. So:
 
 
 An even more crazy idea - hash the tree
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=======================================
 
 I guess we can store the tree for the first commit according to its
 hash:
@@ -801,12 +769,10 @@ And we can do the same for the second commit:
 
     'd45095659d1ea567b90aaf923e265bf41cbb126f'
 
-
-
 Now - would I get the same hash if I had had a different figure?
 
 Even more crazy idea - make the whole commit into a text file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=============================================================
 
 How about this?
 
@@ -841,7 +807,7 @@ And now I can hash the commit!
 Would the commit hash value change if the figure changed?
 
 So crazy it's actually git
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+==========================
 
 Now look in ``.fancy_backups/objects``:
 
@@ -875,10 +841,10 @@ commit*:
     Tree: 63d466086dd359c0b34d21e04b812781c7153b23
 
 Linking the commits
-~~~~~~~~~~~~~~~~~~~
+===================
 
 Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``
-?
+-----------------------------------------------------------------------
 
 The reason for our commit names "1","2", "3" was so we know that commit
 "2" comes after commit "1" and before commit "3". Now our commits have
@@ -904,12 +870,13 @@ commit into the current commit:
 .. code:: python
 
     commit2_hash = copy_to_hash('.fancy_backups/temporary_file')
+
 Now we have the order of the commits from the links between them.
 
 And now you are already a git master.
 
 Gitting going (sorry)
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 **Note**: Much of the rest of this presentation comes from Fernando
 Perez' excellent git tutorial in his `reproducible software
@@ -923,6 +890,7 @@ the commit information.
 
     !git config --global user.name "Matthew Brett"
     !git config --global user.email "matthew.brett@gmail.com"
+
 git often needs to call up a text editor. Choose the editor you like
 here:
 
@@ -930,14 +898,16 @@ here:
 
     # Put here your preferred editor. 
     !git config --global core.editor gedit
+
 We also turn on the use of color, which is very helpful in making the
 output of git easier to read
 
 .. code:: python
 
     !git config --global color.ui "auto"
+
 Getting help
-~~~~~~~~~~~~
+============
 
 .. code:: python
 
@@ -980,7 +950,7 @@ Getting help
 Try ``git help add`` for an example.
 
 Initializing the repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+===========================
 
 Let's make this ``nobel_prize`` directory be version controlled with
 git.
@@ -991,6 +961,7 @@ git.
     !cp .fancy_backups/1/files/* .
     # Then delete .fancy_backups - we're done with those guys
     !rm -rf .fancy_backups
+
 .. code:: python
 
     !ls -a
@@ -1007,7 +978,6 @@ git.
 .. parsed-literal::
 
     Initialized empty Git repository in /Users/mb312/dev_trees/pna-notebooks/nobel_prize/.git/
-
 
 Just what we were expecting; a *repository* directory called ``.git``
 
@@ -1035,11 +1005,12 @@ The ``objects`` directory looks familiar. What's in there?
 Nothing. That makes sense.
 
 git add - put stuff into the staging area
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=========================================
 
 .. code:: python
 
     !git add nobel_prize.txt
+
 .. code:: python
 
     print_tree('.git/objects')
@@ -1057,7 +1028,7 @@ Doing ``git add nobel_prize.txt`` has added a file to the
 hash.
 
 git add and the staging area
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+============================
 
 We expect that ``git add`` added the file to the *staging area*. Have we
 got any evidence of that?
@@ -1085,7 +1056,7 @@ got any evidence of that?
 
 
 Reading real git objects
-~~~~~~~~~~~~~~~~~~~~~~~~
+========================
 
 Git objects are nearly as simple as the objects we were writing in
 ``.fancy_backups``.
@@ -1109,6 +1080,7 @@ but this shows just how simple these objects are.
         """
         compressed_contents = open(filename, 'rb').read()
         return zlib.decompress(compressed_contents)
+
 .. code:: python
 
     filename = '.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553'
@@ -1130,12 +1102,13 @@ It's just the contents of the file, with some cruft at the start
 (``blob 189``).
 
 Staging the other files
-~~~~~~~~~~~~~~~~~~~~~~~
+=======================
 
 .. code:: python
 
     !git add stunning_figure.png
     !git add very_clever_analysis.py
+
 .. code:: python
 
     !git status
@@ -1187,7 +1160,7 @@ Staging the other files
 
 
 git commit - making the snapshot
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+================================
 
 .. code:: python
 
@@ -1260,7 +1233,7 @@ of the file hashes. Git will read this in a more friendly form for us:
 
 
 git log - what are the commits so far?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+======================================
 
 .. code:: python
 
@@ -1291,7 +1264,7 @@ git log - what are the commits so far?
 Why are these two outputs the same?
 
 git branch - which branch are we on?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================
 
 We haven't covered branches yet. Branches are bookmarks. They label the
 commit we are on at the moment, and they track the commits as we do new
@@ -1337,7 +1310,7 @@ automatically when you do your first commit.
 
 
 git diff - what has changed?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+============================
 
 Let's do a little bit more work... Again, in practice you'll be editing
 the files by hand, here we do it via shell commands for the sake of
@@ -1346,6 +1319,7 @@ automation (and therefore the reproducibility of this tutorial!)
 .. code:: python
 
     !echo "\nThe charts are very impressive\n" >> nobel_prize.txt
+
 And now we can ask git what is different:
 
 .. code:: python
@@ -1368,7 +1342,7 @@ And now we can ask git what is different:
 
 
 You need to ``git add`` a file to put it into the staging area
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==============================================================
 
 Remember that git only commits stuff that has been added to the staging
 area.
@@ -1411,7 +1385,7 @@ because nothing has been staged:
 
 
 The cycle of git virtue: work, commit, work, commit, ...
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+========================================================
 
 .. code:: python
 
@@ -1468,7 +1442,7 @@ Remember branches?
 
 
 git log revisited
-~~~~~~~~~~~~~~~~~
+=================
 
 First, let's see what the log shows us now:
 
@@ -1511,7 +1485,7 @@ First, let's see what the log shows us now:
 
 
 Making log output more pithy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+============================
 
 Sometimes it's handy to see a very summarized version of the log:
 
@@ -1544,7 +1518,7 @@ and see this compact log:
 
 
 ``git mv`` and ``rm``: moving and removing files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+================================================
 
 While ``git add`` is used to add files to the list git tracks, we must
 also tell it if we want their names to change or for it to stop tracking
@@ -1595,14 +1569,14 @@ recorded anywhere.
 And ``git rm`` works in a similar fashion.
 
 Exercise
-~~~~~~~~
+========
 
 Add a new file ``file2.txt``, commit it, make some changes to it, commit
 them again, and then remove it (and don't forget to commit this last
 step!).
 
 Local user, branching
-~~~~~~~~~~~~~~~~~~~~~
+=====================
 
 What is a branch? Simply a *label for the 'current' commit in a sequence
 of ongoing commits*:
@@ -1711,6 +1685,7 @@ the experimental branch into ``master``.
 .. code:: python
 
     !git branch experiment
+
 What just happened? We made a branch, which is a pointer to this same
 commit:
 
@@ -1746,7 +1721,7 @@ How do we start working on this branch ``experiment`` rather than
 ``master``?
 
 git checkout - set the current branch, set the working tree from a commit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=========================================================================
 
 Up until now we have been on the ``master`` branch. When we make a
 commit, the ``master`` branch pointer (``.git/refs/heads/master``) moves
@@ -1832,7 +1807,7 @@ The ``experiment`` branch has now moved:
 
 
 git checkout again - reseting the working tree
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==============================================
 
 If ``somewhere`` is a branch name, then ``git checkout somewhere``
 selects ``somewhere`` as the current branch. It also resets the working
@@ -1931,7 +1906,7 @@ Now let's do the merge
 
 
 An important aside: conflict management
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=======================================
 
 While git is very good at merging, if two different branches modify the
 same file in the same location, it simply can't decide which change
@@ -1976,7 +1951,7 @@ file:
 
 
 More configuration for fuller output
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====================================
 
 This line tells git how to show conflicts in text files.
 
@@ -1994,6 +1969,7 @@ This setting asks git to show:
 .. code:: python
 
     !git config merge.conflictstyle diff3
+
 So now let's see what happens if we try to merge the ``trouble`` branch
 into ``master``:
 
@@ -2098,7 +2074,7 @@ Let's then make our new commit:
 
 
 Other useful commands
----------------------
+=====================
 
 -  `show <http://www.kernel.org/pub/software/scm/git/docs/git-show.html>`__
 
@@ -2109,10 +2085,10 @@ Other useful commands
 -  `tag <http://www.kernel.org/pub/software/scm/git/docs/git-tag.html>`__
 
 Git resources
--------------
+=============
 
 Introductory materials
-~~~~~~~~~~~~~~~~~~~~~~
+======================
 
 There are lots of good tutorials and introductions for Git, which you
 can easily find yourself; this is just a short list of things I've found
@@ -2158,7 +2134,7 @@ Cheat sheets
     in PDF format that can be printed for frequent reference.
 
 Beyond the basics
-~~~~~~~~~~~~~~~~~
+=================
 
 As you've seen, this tutorial makes the bold assumption that you'll be
 able to understand how git works by seeing how it is *built*. These two
@@ -2186,16 +2162,14 @@ Git's model is almost an inevitable outcome of the proposed constraints:
     and easier to use. It is available on modern linux distros, and
     since it is based on Qt, it should run on OSX and Windows.
 
-`Git
-Magic <http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html>`__
+`Git Magic <http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html>`_ :
     Another book-size guide that has useful snippets.
 
 The `learning center <http://learn.github.com>`__ at Github
     Guides on a number of topics, some specific to github hosting but
     much of it of general value.
 
-A `port <http://cworth.org/hgbook-git/tour>`__ of the Hg book's
-beginning
+A `port <http://cworth.org/hgbook-git/tour>`__ of the Hg book's beginning
     The `Mercurial book <http://hgbook.red-bean.com>`__ has a reputation
     for clarity, so Carl Worth decided to
     `port <http://cworth.org/hgbook-git/tour>`__ its introductory
@@ -2203,13 +2177,11 @@ beginning
     good measure because of how similar the underlying models of Hg and
     Git ultimately are.
 
-`Intermediate
-tips <http://andyjeffries.co.uk/articles/25-tips-for-intermediate-git-users>`__
-    A set of tips that contains some very valuable nuggets, once you're
-    past the basics.
+`Intermediate tips <http://andyjeffries.co.uk/articles/25-tips-for-intermediate-git-users>`_: A set
+    of tips that contains some very valuable nuggets, once you're past the basics.
 
 For SVN users
-~~~~~~~~~~~~~
+=============
 
 If you want a bit more background on why the model of version control
 used by Git and Mercurial (known as distributed version control) is such
@@ -2227,10 +2199,10 @@ Git of a specific idiom, the `Git - SVN Crash
 Course <http://git-scm.org/course/svn.html>`__ can be handy.
 
 A few useful tips for common tasks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==================================
 
 Better shell support
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 Adding git branch info to your bash prompt and tab completion for git
 commands and branches is extremely useful. I suggest you at least copy:
@@ -2256,7 +2228,7 @@ See the comments in both of those files for lots of extra functionality
 they offer.
 
 Embedding Git information in LaTeX documents
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------
 
 (Sent by `Yaroslav Halchenko <http://www.onerussian.com>`__)
 
@@ -2283,10 +2255,13 @@ The corresponding ``paper.pdf`` depends on ``revision.tex`` and includes
 the line ``\input{revision}`` to load up the actual revision mark.
 
 git export
-^^^^^^^^^^
+----------
 
 Git doesn't have a native export command, but this works just fine:
 
 ::
 
     git archive --prefix=fperez.org/  master | gzip > ~/tmp/source.tgz
+
+
+.. include:: links_names.inc
