@@ -21,12 +21,13 @@ My system(s)
 Basic setup
 ***********
 
-* Install windows powershell_ . I find this a lot more convenient than the
-  standard windows ``cmd`` shell; it has good command and filename completion,
-  ``ls`` for directory listing, a less idiosyncratic ``cd``, and a scripting
-  language that is a lot less painful than ``cmd`` bat scripting. I believe I've
-  used version 1 and version 2. ``\$Host.version`` is ``1 0 0 0`` on my standard
-  XP installation. Don't forget to enable `quickedit mode
+* If you have Windows XP, install windows powershell_ (it is standard for
+  Windows 7). I find powershell a lot more convenient than the standard windows
+  ``cmd`` shell; it has good command and filename completion, ``ls`` for
+  directory listing, a less idiosyncratic ``cd``, and a scripting language that
+  is a lot less painful than ``cmd`` bat scripting. I believe I've used version
+  1 and version 2. ``\$Host.version`` is ``1 0 0 0`` on my standard XP
+  installation. Don't forget to enable `quickedit mode
   <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
   paste.
 * Install msysgit_. In the installation, set ``git`` to be on the command path,
@@ -141,7 +142,7 @@ Other programs
   command line you could do something like::
 
     \$my_path = [Environment]::GetEnvironmentVariable("PATH","User")
-    \$my_path += "C:\Python27;C:\Python27\Scripts"
+    \$my_path += ";C:\Python27;C:\Python27\Scripts"
     [Environment]::SetEnvironmentVariable("PATH", \$my_path, "User")
 
 * Set up personal configuration.  For me this is::
@@ -223,7 +224,7 @@ unpack into, say, ``C:\``, then::
 .. _virtualenvwrapper-powershell: https://bitbucket.org/guillermooo/virtualenvwrapper-powershell
 .. _powershell profile: http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx
 .. _lifehacker post: http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows
-.. _autohotkey: http://www.autohotkey.com
+.. _autohotkey: http://ahkscript.org/
 .. _swig downloads: http://www.swig.org/download.html
 
 .. include:: links_names.inc
