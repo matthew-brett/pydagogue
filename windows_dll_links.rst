@@ -24,10 +24,8 @@ Exploring where to put Windows DLLs for load-time or run-time discovery.
 
     However, be aware that using SetDllDirectory effectively disables safe DLL
     search mode while the specified directory is in the search path and it is
-    not thread safe. However, be aware that using SetDllDirectory effectively
-    disables safe DLL search mode while the specified directory is in the search
-    path and it is not thread safe.  If possible, it is best to use
-    AddDllDirectory to modify a default process search path.
+    not thread safe.  If possible, it is best to use AddDllDirectory to modify a
+    default process search path.
 
 * Microsoft documentation on `AddDllDirectory
   <http://msdn.microsoft.com/en-us/library/windows/desktop/hh310513.aspx>`_
