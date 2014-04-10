@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
     <link rel="next" title="Floating point error" href="floating_error.html" />
     <link rel="prev" title="git resources" href="gitwash/git_resources.html" /> 
@@ -61,19 +62,19 @@
 <div class="section" id="starting-to-float">
 <h2>Starting to float<a class="headerlink" href="#starting-to-float" title="Permalink to this headline">¶</a></h2>
 <p>This is a floating point number:</p>
-<p><img class="math" src="_images/math/e21ecccd8436462e59c3c75c4c52fb22146b245f.png" alt="-123.45"/></p>
+<p><span class="math">\(-123.45\)</span></p>
 <p>We can also write this as:</p>
-<p><img class="math" src="_images/math/0affbd682c18011be932f64d869716571013b914.png" alt="-1.2345 * 10^2"/></p>
+<p><span class="math">\(-1.2345 * 10^2\)</span></p>
 <p>Well, actually, we can write it like this:</p>
-<p><img class="math" src="_images/math/e999a84705bf52b9e1c9a411ec6d771f9f9001ab.png" alt="-1 * 1.2345 * 10^2"/></p>
-<p>Let <img class="math" src="_images/math/413f8a8e40062a9090d9d50b88bc7b551b314c26.png" alt="n"/> (the <em>sign</em>) be a variable that is <img class="math" src="_images/math/123e375e88da91240024aaf085abee194c4a2d06.png" alt="1"/> if the sign of the number is
-positive, and <img class="math" src="_images/math/80d842c5b7aabdb4c23f00d2074915d876e294f2.png" alt="-1"/> if the number is negative.  Here <img class="math" src="_images/math/8af1cd822fea13dfc74f8eea90cc9a7efb9a139a.png" alt="n = -1"/>.</p>
-<p>Let <img class="math" src="_images/math/6859317dd1b439cef34131bcd4bafee8393444e0.png" alt="s"/> (the <em>significand</em>) be a number - here <img class="math" src="_images/math/696f7bddaa375b2369f1666cae26d948c39ef271.png" alt="1.2345"/>, with the floating point
+<p><span class="math">\(-1 * 1.2345 * 10^2\)</span></p>
+<p>Let <span class="math">\(n\)</span> (the <em>sign</em>) be a variable that is <span class="math">\(1\)</span> if the sign of the number is
+positive, and <span class="math">\(-1\)</span> if the number is negative.  Here <span class="math">\(n = -1\)</span>.</p>
+<p>Let <span class="math">\(s\)</span> (the <em>significand</em>) be a number - here <span class="math">\(1.2345\)</span>, with the floating point
 assumed to be after the first digit.  The significand is sometimes called the
 <em>mantissa</em>.</p>
-<p>Let <img class="math" src="_images/math/630e3a780577ea7921e81ee2ac5237dd1802ec8d.png" alt="e"/> (the <em>exponent</em>) be the power of 10 to apply.  Here <img class="math" src="_images/math/17e515cbec40e9d2b4274dd3e4e674dfc0097248.png" alt="e = 2"/>. We now write:</p>
-<p><img class="math" src="_images/math/edaeb767cda419e63afd4b46fdf32acea202b03d.png" alt="n * s * 10^e"/></p>
-<p>We&#8217;re all used to thinking of the <img class="math" src="_images/math/15c663954a3e059d1f876bc8a4621de376038c96.png" alt="2"/> in <img class="math" src="_images/math/843e5e8038c58d19bcc8355cb526806d54e7c794.png" alt="10^2"/> as being the number of places to
+<p>Let <span class="math">\(e\)</span> (the <em>exponent</em>) be the power of 10 to apply.  Here <span class="math">\(e = 2\)</span>. We now write:</p>
+<p><span class="math">\(n * s * 10^e\)</span></p>
+<p>We&#8217;re all used to thinking of the <span class="math">\(2\)</span> in <span class="math">\(10^2\)</span> as being the number of places to
 shift the decimal point to the right.  That is, we take the decimal point of the
 significand and shift it two to the right to get the number we mean.</p>
 </div>
@@ -84,20 +85,20 @@ significand and shift it two to the right to get the number we mean.</p>
 <p>Obviously we can store the <em>sign</em> in one binary bit.</p>
 <p>We store the <em>significand</em> as a binary number, again with an implied floating
 point position.  So:</p>
-<p><img class="math" src="_images/math/246eb6803d58bd04ff04b6fdb22fd259b9b458bb.png" alt="1.1"/></p>
-<p>where <img class="math" src="_images/math/246eb6803d58bd04ff04b6fdb22fd259b9b458bb.png" alt="1.1"/> (binary) equals <img class="math" src="_images/math/37d6147c60f7096c0d6102f0b4d9f0b222015d18.png" alt="11"/> (binary) * <img class="math" src="_images/math/487c484732613dca27e8d0dba5cb92be198afc95.png" alt="2^{-1}"/> (decimal) which equals
-(decimal) <img class="math" src="_images/math/fb26b45e6a6e8ee35476c7194a5a574fd3ed64cb.png" alt="3/2"/>.</p>
-<p>Of course <img class="math" src="_images/math/37d6147c60f7096c0d6102f0b4d9f0b222015d18.png" alt="11"/> (binary) = <img class="math" src="_images/math/cbb1cac37cb91c063f901ae265d517124d9b33e8.png" alt="2^2-1"/>, and in general, the maximum number that can
-be stored for <img class="math" src="_images/math/3eca8557203e86160952e1c0f735f7417f3285b1.png" alt="p"/> binary digits without a floating point is <img class="math" src="_images/math/e64c2c44232a1267bf6a60af91626b5771878372.png" alt="2^p-1"/>.</p>
-<p>It looks like we&#8217;d need two bits of storage to store <img class="math" src="_images/math/37d6147c60f7096c0d6102f0b4d9f0b222015d18.png" alt="11"/> (binary).  But no,
+<p><span class="math">\(1.1\)</span></p>
+<p>where <span class="math">\(1.1\)</span> (binary) equals <span class="math">\(11\)</span> (binary) * <span class="math">\(2^{-1}\)</span> (decimal) which equals
+(decimal) <span class="math">\(3/2\)</span>.</p>
+<p>Of course <span class="math">\(11\)</span> (binary) = <span class="math">\(2^2-1\)</span>, and in general, the maximum number that can
+be stored for <span class="math">\(p\)</span> binary digits without a floating point is <span class="math">\(2^p-1\)</span>.</p>
+<p>It looks like we&#8217;d need two bits of storage to store <span class="math">\(11\)</span> (binary).  But no,
 because, unlike the decimal case, we know that the first binary digit in the
 significand is 1.  Why?  In general (for decimal or binary) the first digit
 cannot be 0, because we can always represent a number beginning with 0 by
 subtracting from the exponent and shifting the significand digits left until the
 first digit is not zero. For decimal, if the first digit is not 0, it could be
 1-9, but for binary, it can only be 1. So, for binary, we can infer the first
-<img class="math" src="_images/math/123e375e88da91240024aaf085abee194c4a2d06.png" alt="1"/> and we only need one bit of storage to store <img class="math" src="_images/math/246eb6803d58bd04ff04b6fdb22fd259b9b458bb.png" alt="1.1"/>.  Of course that means
-the significand can only be <img class="math" src="_images/math/246eb6803d58bd04ff04b6fdb22fd259b9b458bb.png" alt="1.1"/> or <img class="math" src="_images/math/211a99c5aa02b4e5df77e2fc5421048166195e6e.png" alt="1.0"/> in this case.</p>
+<span class="math">\(1\)</span> and we only need one bit of storage to store <span class="math">\(1.1\)</span>.  Of course that means
+the significand can only be <span class="math">\(1.1\)</span> or <span class="math">\(1.0\)</span> in this case.</p>
 </div>
 <div class="section" id="ieee-32-bit-binary-float">
 <h2>IEEE 32-bit binary float.<a class="headerlink" href="#ieee-32-bit-binary-float" title="Permalink to this headline">¶</a></h2>
@@ -105,8 +106,8 @@ the significand can only be <img class="math" src="_images/math/246eb6803d58bd04
 <p>As we expect, this format devotes one bit to the sign.</p>
 <p>It devotes 23 bits to the significand.  From the argument above, by assuming a
 first digit of 1, this gives it an effective 24 bits of storage for the
-significand.  The significand can thus be from <img class="math" src="_images/math/211a99c5aa02b4e5df77e2fc5421048166195e6e.png" alt="1.0"/> (binary) to 1.(23 ones) in
-binary, which is, in decimal, a range of <img class="math" src="_images/math/123e375e88da91240024aaf085abee194c4a2d06.png" alt="1"/> to <img class="math" src="_images/math/3b3331565b4691cd8c485114632e2681ed4a0396.png" alt="(2^{24}-1) * 2^{-23}"/>.  In sympy:</p>
+significand.  The significand can thus be from <span class="math">\(1.0\)</span> (binary) to 1.(23 ones) in
+binary, which is, in decimal, a range of <span class="math">\(1\)</span> to <span class="math">\((2^{24}-1) * 2^{-23}\)</span>.  In sympy:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">two</span> <span class="o">=</span> <span class="n">Integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s_bits_32</span> <span class="o">=</span> <span class="mi">23</span>
@@ -122,13 +123,13 @@ remaining for the exponent.</p>
 <p>The exponent is not stored as a standard signed integer.  An exponent of all 0s
 indicates a zero number or a <em>subnormal</em> number <a class="footnote-reference" href="#except-subnormal" id="id1">[1]</a>.  An
 exponent of all 1s indicates an infinity or not-a-number value.  If we treat the
-8 bits of the exponent as an unsigned number (call it <img class="math" src="_images/math/e5fc41b391867da81606413e3389c7efc73abaf0.png" alt="u"/>) then the actual
+8 bits of the exponent as an unsigned number (call it <span class="math">\(u\)</span>) then the actual
 exponent is given by:</p>
-<p><img class="math" src="_images/math/5adf15911f40ec34f8591be4531c3c967b9cf361.png" alt="e = u - b"/></p>
-<p>where <img class="math" src="_images/math/5e87bf41a96deddf6cb485ff530f153f2590e9cc.png" alt="b"/> is the <em>bias</em> - and the bias for 32 bit IEEE floats, is <img class="math" src="_images/math/76d32763383bef9ee75c2f6ae294df4d5acb3d5a.png" alt="127"/>.  With 8
-bits, <img class="math" src="_images/math/e5fc41b391867da81606413e3389c7efc73abaf0.png" alt="u"/> could be 0 to 255, but both 0 and 255 are reserved (0 for zeros and
-subnormals; 255 for non-finite, as above).  Thus the effective range of <img class="math" src="_images/math/e5fc41b391867da81606413e3389c7efc73abaf0.png" alt="u"/> is
-1-254, and the effective range of <img class="math" src="_images/math/630e3a780577ea7921e81ee2ac5237dd1802ec8d.png" alt="e"/> is -126 to 127.</p>
+<p><span class="math">\(e = u - b\)</span></p>
+<p>where <span class="math">\(b\)</span> is the <em>bias</em> - and the bias for 32 bit IEEE floats, is <span class="math">\(127\)</span>.  With 8
+bits, <span class="math">\(u\)</span> could be 0 to 255, but both 0 and 255 are reserved (0 for zeros and
+subnormals; 255 for non-finite, as above).  Thus the effective range of <span class="math">\(u\)</span> is
+1-254, and the effective range of <span class="math">\(e\)</span> is -126 to 127.</p>
 <p>What&#8217;s the largest positive 32 bit IEEE float?  Easy:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">e_bits_32</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e_bias_32</span> <span class="o">=</span> <span class="mi">127</span>
@@ -203,13 +204,13 @@ float.</p>
 <p>Consider the significand in an IEEE 32 bit floating point number.</p>
 <p>Neglect for a moment, the assumed floating point after the first digit.  The
 significand has 24 binary digits (including the assumed first digit).  That is,
-neglecting the floating point, it can represent the integers from 1 (<img class="math" src="_images/math/ee642bb334fba8ce375ce97a1389e5ca7903f35b.png" alt="2^1-1"/>) to
-16777215 (<img class="math" src="_images/math/40ca4dc02ce02e9909eb0b2aa7f1d929de18e2b1.png" alt="2^{24}-1"/>).  Now let&#8217;s take into account the floating point.  In
+neglecting the floating point, it can represent the integers from 1 (<span class="math">\(2^1-1\)</span>) to
+16777215 (<span class="math">\(2^{24}-1\)</span>).  Now let&#8217;s take into account the floating point.  In
 order to store 1, the exponent can just be 0, no problem.  In order to store
-<img class="math" src="_images/math/40ca4dc02ce02e9909eb0b2aa7f1d929de18e2b1.png" alt="2^{24}-1"/>, the exponent has to be 23 to push the floating point 23 digits to
+<span class="math">\(2^{24}-1\)</span>, the exponent has to be 23 to push the floating point 23 digits to
 the right. As we know, the IEEE exponent can range between -126 and 127, so 23
 is also OK.</p>
-<p>Now set the significand to 1.0 and the exponent to be 24. This is <img class="math" src="_images/math/b4d8a0161cbf2630615a8d1816ee3d1f24f9f5a8.png" alt="1 * 2^{24}"/> -
+<p>Now set the significand to 1.0 and the exponent to be 24. This is <span class="math">\(1 * 2^{24}\)</span> -
 or 16777216. By setting the exponent to one greater than the number of
 significand digits, we have pushed the floating point one digit past the end of
 the significand, and got an extra implied 0 (1 followed by 23 zeros, followed
@@ -221,9 +222,9 @@ significand does not increase the resulting number by 1, but by 2.  So the next
 largest number after 2**24, is 2**24 + 2.  We can&#8217;t store 2**24+1 in an IEEE 32
 bit float.</p>
 <p>All this means that the IEEE 32 bit binary format can store all integers
--16777216 to 16777216 (<img class="math" src="_images/math/e3b4d019f3bff99f0c7e7e8bc1542e4d7fb97211.png" alt="\pm 2^{24}"/>) exactly.</p>
+-16777216 to 16777216 (<span class="math">\(\pm 2^{24}\)</span>) exactly.</p>
 <p>By the same argument, the IEEE 64 bit binary format can exactly store all
-integers between <img class="math" src="_images/math/3181ac5b4dc89efdf2141e1b0bdf145e1dd7bd3a.png" alt="\pm 2^{53}"/>.</p>
+integers between <span class="math">\(\pm 2^{53}\)</span>.</p>
 </div>
 <div class="section" id="bit-patterns">
 <h2>Bit patterns<a class="headerlink" href="#bit-patterns" title="Permalink to this headline">¶</a></h2>
@@ -236,7 +237,7 @@ by the 23 significand bits, with the most significant bits first.</p>
 <p>So we have:</p>
 <ul class="simple">
 <li>0 for the sign bit</li>
-<li>the exponent part <img class="math" src="_images/math/32bf3745b2264fe9288a6c73b7eece8a2cc118f3.png" alt="u = e + b"/> = 24 + 127 = 151</li>
+<li>the exponent part <span class="math">\(u = e + b\)</span> = 24 + 127 = 151</li>
 <li>0 for the significand (implicit 1.0)</li>
 </ul>
 <p>The binary representation of 151 is:</p>
@@ -254,8 +255,8 @@ by the 23 significand bits, with the most significant bits first.</p>
 <span class="go">&#39;1001011100000000000000000000000&#39;</span>
 </pre></div>
 </div>
-<p>How about -16777215?  It should be 1 for the sign, 23 for the exponent (<img class="math" src="_images/math/f1c253ede938145df9670b0074783edfaeb13395.png" alt="u = 23 +
-127"/> = 50), and all ones for the significand:</p>
+<p>How about -16777215?  It should be 1 for the sign, 23 for the exponent (<span class="math">\(u = 23 +
+127\)</span> = 50), and all ones for the significand:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span>
 <span class="go">&#39;10010110&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">binary_repr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="o">-</span><span class="mi">16777215</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">))</span>
@@ -341,7 +342,7 @@ of 0 - see the wikipedia page for details.</td></tr>
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

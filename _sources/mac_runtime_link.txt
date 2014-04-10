@@ -180,7 +180,7 @@ relative to itself::
 
     install_name_tool -change libs/libb.dylib @loader_path/libb.dylib libs/libc.dylib
 
-Note ``@loader_path`` again.  See `_rpath etc`_ and `linking and install
+Note ``@loader_path`` again.  See `rpath etc`_ and `linking and install
 names`_ for more explanation. In this case ``@load_path`` will be the path of
 ``libc.dylib`` - the library doing the loading of ``libb.dylib``.  Now all's
 good::

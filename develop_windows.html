@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
     <link rel="next" title="Developing on mac" href="develop_mac.html" />
     <link rel="prev" title="Python and unicode" href="python_unicode.html" /> 
@@ -66,12 +67,13 @@ Currently on SP1.</li>
 <div class="section" id="basic-setup">
 <h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Install windows <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> . I find this a lot more convenient than the
-standard windows <tt class="docutils literal"><span class="pre">cmd</span></tt> shell; it has good command and filename completion,
-<tt class="docutils literal"><span class="pre">ls</span></tt> for directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting
-language that is a lot less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve
-used version 1 and version 2. <tt class="docutils literal"><span class="pre">\`Host.version</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard
-XP installation. Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
+<li>If you have Windows XP, install windows <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> (it is standard for
+Windows 7). I find powershell a lot more convenient than the standard windows
+<tt class="docutils literal"><span class="pre">cmd</span></tt> shell; it has good command and filename completion, <tt class="docutils literal"><span class="pre">ls</span></tt> for
+directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting language that
+is a lot less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve used version
+1 and version 2. <tt class="docutils literal"><span class="pre">\`Host.version</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard XP
+installation. Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
 paste.</li>
 <li>Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <tt class="docutils literal"><span class="pre">git</span></tt> to be on the command path,
 but not the git bash utilities.  I set the repo to have LF endings, but the
@@ -176,7 +178,7 @@ because I find it annoying, especially when I hit it accidentally using <a class
 <li>On the same line, I&#8217;m used to command-tab for switching programs on the mac.
 I got this effect via a <a class="reference external" href="http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows">lifehacker post</a>.  As I had already mapped the
 control key to the command key, I just needed <tt class="docutils literal"><span class="pre">LCtrl</span> <span class="pre">&amp;</span> <span class="pre">Tab::AltTab</span></tt> in an
-<a class="reference external" href="http://www.autohotkey.com">autohotkey</a> script.  Putting the <tt class="docutils literal"><span class="pre">remap.ahk</span></tt> script file into my startup
+<a class="reference external" href="http://ahkscript.org/">autohotkey</a> script.  Putting the <tt class="docutils literal"><span class="pre">remap.ahk</span></tt> script file into my startup
 folder caused it to be loaded at login.</li>
 <li>I depend heavily on knowing which branch I am on when using git.  This is the
 what the <tt class="docutils literal"><span class="pre">git-completion</span></tt> bash routines do; <a class="reference external" href="https://github.com/dahlbyk/posh-git">posh-git</a> does the equivalent
@@ -193,7 +195,7 @@ vim</a></p>
 the personal configuration below.  For the convenience of using python at the
 command line you could do something like:</p>
 <div class="highlight-python"><div class="highlight"><pre>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
-$my_path += &quot;C:\Python27;C:\Python27\Scripts&quot;
+$my_path += &quot;;C:\Python27;C:\Python27\Scripts&quot;
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 </pre></div>
 </div>
@@ -340,7 +342,7 @@ $my_path += &quot;;C:\swigwin-2.0.10&quot;
     </div>
     <div class="footer">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
