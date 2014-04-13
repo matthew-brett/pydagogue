@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Windows extensions with Python &mdash; pydagogue 0.2 documentation</title>
+    <title>Using Microsoft Visual C with Python &mdash; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,7 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="prev" title="Runtime linking on Mac" href="mac_runtime_link.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,6 +34,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mac_runtime_link.html" title="Runtime linking on Mac"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -42,8 +46,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="windows-extensions-with-python">
-<h1>Windows extensions with Python<a class="headerlink" href="#windows-extensions-with-python" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="using-microsoft-visual-c-with-python">
+<h1>Using Microsoft Visual C with Python<a class="headerlink" href="#using-microsoft-visual-c-with-python" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="visual-studio-compiler-versions">
 <h2>Visual studio compiler versions<a class="headerlink" href="#visual-studio-compiler-versions" title="Permalink to this headline">¶</a></h2>
 <p>Here is a list of Visual Studio / Visual C++ version numbers, the value of the
@@ -161,23 +165,25 @@ release.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="installing-visual-studio-express-free-edition">
-<h2>Installing Visual Studio Express (free edition)<a class="headerlink" href="#installing-visual-studio-express-free-edition" title="Permalink to this headline">¶</a></h2>
-<p>You&#8217;ll need the Visual Studio Express package (2008==9.0, 2010==10.0).</p>
-<p>For 64 bit compilation, you&#8217;ll also need the matching SDK.</p>
-<p>See: <a class="reference external" href="https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows">https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows</a></p>
+<div class="section" id="installing-free-versions-of-microsoft-visual-c-c">
+<h2>Installing free versions of Microsoft Visual C / C++<a class="headerlink" href="#installing-free-versions-of-microsoft-visual-c-c" title="Permalink to this headline">¶</a></h2>
+<p>If you are only compiling for 32 bit, you can use the Visual Studio Express
+package (2008==9.0, 2010==10.0).</p>
+<p>For 64 bit compilation, you&#8217;ll need the matching SDK, and you don&#8217;t need Visual
+Studio Express - see:
+<a class="reference external" href="https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows">https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows</a></p>
+<p>Here are some useful links:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.visualstudio.com/downloads/download-visual-studio-vs">VS downloads</a></li>
 <li><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=2680">VS 2010 SDK</a></li>
 <li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx">How to configure VS 10.0 for 64 bit</a></li>
 <li><a class="reference external" href="http://go.microsoft.com/?linkid=7729279">VS 2008 download</a></li>
-<li>Some <a class="reference external" href="http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64">good instructions</a>
+<li>Some <a class="reference external" href="http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64">relevant instructions from a MATLAB user</a>
 for getting the VS 2008 SDK set up (the default downloads will refuse to install onto the VS express).</li>
 <li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx">How to configure VS 9.0 for 64 bit</a></li>
 </ul>
-<p>Virtual clone drive <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">http://www.slysoft.com/en/virtual-clonedrive.html</a></p>
-<p><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=7873">http://www.microsoft.com/en-us/download/details.aspx?id=7873</a></p>
-<p>How to configure VS 9.0 for 64 bit: <a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx">http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx</a></p>
+<p>It&#8217;s useful to be able to mount the downloaded ISO images directly for
+installation.  I had good success with <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">Virtual clone drive</a>.</p>
 </div>
 </div>
 
@@ -189,17 +195,20 @@ for getting the VS 2008 SDK set up (the default downloads will refuse to install
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Windows extensions with Python</a><ul>
+<li><a class="reference internal" href="#">Using Microsoft Visual C with Python</a><ul>
 <li><a class="reference internal" href="#visual-studio-compiler-versions">Visual studio compiler versions</a></li>
 <li><a class="reference internal" href="#visual-studio-versions-used-to-compile-distributed-python-binaries">Visual Studio versions used to compile distributed Python binaries</a></li>
-<li><a class="reference internal" href="#installing-visual-studio-express-free-edition">Installing Visual Studio Express (free edition)</a></li>
+<li><a class="reference internal" href="#installing-free-versions-of-microsoft-visual-c-c">Installing free versions of Microsoft Visual C / C++</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mac_runtime_link.html"
+                        title="previous chapter">Runtime linking on Mac</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/windows_extensions.txt"
+    <li><a href="_sources/python_msvc.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -225,6 +234,9 @@ for getting the VS 2008 SDK set up (the default downloads will refuse to install
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="mac_runtime_link.html" title="Runtime linking on Mac"
+             >previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>

@@ -36,6 +36,7 @@ Contents:
    bare_metal_waf
    booting_macs
    mac_runtime_link
+   python_msvc
 
 Indices and tables
 ==================
