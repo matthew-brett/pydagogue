@@ -1,6 +1,6 @@
-##############################
-Windows extensions with Python
-##############################
+####################################
+Using Microsoft Visual C with Python
+####################################
 
 *******************************
 Visual studio compiler versions
@@ -59,9 +59,9 @@ Python version VC++ version
 3.4.0          10.0
 ============== ============
 
-***********************************************
-Installing Visual Studio Express (free edition)
-***********************************************
+****************************************************
+Installing free versions of Microsoft Visual C / C++
+****************************************************
 
 If you are only compiling for 32 bit, you can use the Visual Studio Express
 package (2008==9.0, 2010==10.0).
@@ -83,5 +83,5 @@ Here are some useful links:
 * `How to configure VS 9.0 for 64 bit <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx>`_
 
 It's useful to be able to mount the downloaded ISO images directly for
-installation.  I had good success with Virtual clone drive 
-http://www.slysoft.com/en/virtual-clonedrive.html
+installation.  I had good success with `Virtual clone drive
+<http://www.slysoft.com/en/virtual-clonedrive.html>`_.
