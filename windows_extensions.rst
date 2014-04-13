@@ -63,27 +63,25 @@ Python version VC++ version
 Installing Visual Studio Express (free edition)
 ***********************************************
 
-You'll need the Visual Studio Express package (2008==9.0, 2010==10.0).
+If you are only compiling for 32 bit, you can use the Visual Studio Express
+package (2008==9.0, 2010==10.0).
 
-For 64 bit compilation, you'll also need the matching SDK.
+For 64 bit compilation, you'll need the matching SDK, and you don't need Visual
+Studio Express - see:
+https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows
 
-See: https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows
+Here are some useful links:
 
 * `VS downloads <http://www.visualstudio.com/downloads/download-visual-studio-vs>`_
 * `VS 2010 SDK <http://www.microsoft.com/en-us/download/details.aspx?id=2680>`_
 * `How to configure VS 10.0 for 64 bit
   <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx>`_
 * `VS 2008 download <http://go.microsoft.com/?linkid=7729279>`_
-* Some `good instructions
+* Some `relevant instructions from a MATLAB user
   <http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64>`_
   for getting the VS 2008 SDK set up (the default downloads will refuse to install onto the VS express).
 * `How to configure VS 9.0 for 64 bit <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx>`_
 
-Virtual clone drive http://www.slysoft.com/en/virtual-clonedrive.html
-
-http://www.microsoft.com/en-us/download/details.aspx?id=7873
-
-How to configure VS 9.0 for 64 bit: http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx
-
-
-
+It's useful to be able to mount the downloaded ISO images directly for
+installation.  I had good success with Virtual clone drive 
+http://www.slysoft.com/en/virtual-clonedrive.html
