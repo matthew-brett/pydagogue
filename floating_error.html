@@ -77,11 +77,23 @@ representable numbers; in that case the rounding error is 0.5 ULP.</p>
 \[d_1.d_2...d_p \times \beta^e\]</div>
 <p>Where <span class="math">\(p\)</span> is the number of digits in the significand, <span class="math">\(\beta\)</span> is the <em>base</em> (10
 in our example), and <span class="math">\(e\)</span> is the exponent.</p>
-<p>The number is <em>normalized</em> if <span class="math">\(d_1\)</span> is not zero.</p>
 <p>1 ULP corresponds to:</p>
 <div class="math">
 \[0.00...1 \times \beta^e\]</div>
 <p>where there are <span class="math">\(p-1\)</span> zeros in the significand. This is also:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Normalized representation in floating point</p>
+<p>Short version: The floating point representation of a number is <em>normalized</em>
+if <span class="math">\(d_1\)</span> is not zero.</p>
+<p class="last">Long version: consider the number 1.00 represented in the <span class="math">\(p = 3, \beta=10\)</span>
+system that we started with.  We can represent this number as <span class="math">\(1.00 \times
+10^0\)</span> or <span class="math">\(0.10 \times 10^1\)</span> or <span class="math">\(0.01 \times 10^2\)</span>.  The <em>normalized</em>
+representation is the representation with a non-zero first digit - <span class="math">\(1.00
+\times 10^0\)</span> in this case. There is only one normalized representation of a
+number in a particular floating point representation, so a normalized
+representation is unique.</p>
+</div>
 <div class="math">
 \[1.0 \times \beta^{e-(p-1)}\]</div>
 <p>Note that any normalized floating point number with exponent <span class="math">\(e\)</span> has the same
@@ -113,11 +125,39 @@ precision:</p>
 finite precision number returned from this calculation <span class="math">\(fl(x)\)</span>.  The IEEE
 standard specifies that <span class="math">\(fl(x)\)</span> should be the closest number to <span class="math">\(x\)</span> that can be
 represented in the finite precision format.</p>
-<p>Let <span class="math">\(e\)</span> be the integer exponent of <span class="math">\(x\)</span> in normalized infinite floating point. If
-we want to get <span class="math">\(e\)</span> for a particular number <span class="math">\(x\)</span> then we want
-<tt class="docutils literal"><span class="pre">flr(logB(abs(x)))</span></tt> where <tt class="docutils literal"><span class="pre">logB</span></tt> is log to whatever base we are using (10 in
-our example), and <tt class="docutils literal"><span class="pre">flr(y)</span></tt> gives us the largest integer <tt class="docutils literal"><span class="pre">i</span></tt>, such that <tt class="docutils literal"><span class="pre">i</span>
-<span class="pre">&lt;=</span> <span class="pre">y</span></tt>. So, <span class="math">\(flr(1.9) == 1, flr(-1.1) == -2\)</span>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>What is the floating point exponent for any given real number?</p>
+<p>So far we&#8217;ve assumed that we know the representation of our floating point
+number in terms of significand and exponent.</p>
+<p>But – what if we have a some infinite precision number <span class="math">\(x\)</span> and we want to
+know how to represent it in floating point?</p>
+<p>A simple algorithm might be to get the exponent by an algorithm like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">logB</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+<span class="n">exponent</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where <span class="math">\(abs(y)\)</span> gives the absolute value of <span class="math">\(y\)</span>, <span class="math">\(logB(y)\)</span> is the log to base
+<span class="math">\(\beta\)</span>, and <span class="math">\(floor(y)\)</span> gives the most positive integer <span class="math">\(i\)</span>, such that <span class="math">\(i &lt;=
+y\)</span> <a class="footnote-reference" href="#floor" id="id1">[1]</a>.</p>
+<p>We can then get the mantissa part with <span class="math">\(round(x / \beta^{e2}, p-1)\)</span>, where
+<span class="math">\(round(y, z)\)</span> rounds the number <span class="math">\(y\)</span> to <span class="math">\(z\)</span> digits after the decimal point.</p>
+<p>Worked example in Python with our original system of <span class="math">\(p = 3, \beta = 10\)</span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="nb">abs</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="nb">round</span>
+<span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1234</span> <span class="c"># a number with greater precision than format allows</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mi">3</span> <span class="c"># number of digits in mantissa</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c"># 0.1234</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">log10</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span> <span class="c"># -0.9086848403027772</span>
+<span class="n">exponent</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span> <span class="c"># -1</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="n">e2</span><span class="p">)</span> <span class="c"># -1.234</span>
+<span class="n">mantissa</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c"># -1.23</span>
+</pre></div>
+</div>
+<p>giving <span class="math">\(-1.23 \times 10^{-1}\)</span> as the floating point representation.</p>
+<p class="last">For full accuracy, the algorithm has to be a little more sophisticated than
+this, but this is a reasonable first pass <a class="footnote-reference" href="#fancy-rounding" id="id2">[2]</a>.</p>
+</div>
 <p>We remember that <span class="math">\(p\)</span> is the number of digits in the significand in our finite
 floating point format. The IEEE rule then becomes:</p>
 <div class="math">
@@ -166,7 +206,7 @@ the larger of these two maxima:</p>
 \beta^{e-(p-1)}\)</span> where <span class="math">\(e\)</span> is 0.  Some people refer to this value as <em>machine
 epsilon</em>, others use that term for <span class="math">\(0.5 \times \beta^{1-p}\)</span> - see <a class="reference external" href="http://en.wikipedia.org/wiki/Machine_epsilon#Variant_definitions">variant
 definitions</a>.  MATLAB and Octave return <span class="math">\(\beta^{1-p}\)</span> from their <tt class="docutils literal"><span class="pre">eps()</span></tt>
-function. <a class="reference external" href="http://numpy.scipy.org">numpy</a> uses the same convention in its <tt class="docutils literal"><span class="pre">np.finfo</span></tt> function.  For
+function. <a class="reference external" href="http://sourceforge.net/projects/numpy/files">numpy</a> uses the same convention in its <tt class="docutils literal"><span class="pre">np.finfo</span></tt> function.  For
 example, the standard <tt class="docutils literal"><span class="pre">float64</span></tt> double precision type in numpy has <span class="math">\(\beta = 2;
 p=53\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -178,6 +218,25 @@ p=53\)</span>:</p>
 <div class="section" id="thanks-to">
 <h2>Thanks to<a class="headerlink" href="#thanks-to" title="Permalink to this headline">¶</a></h2>
 <p>Stefan van der Walt for several useful suggestions and corrections.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="floor" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>See <a class="reference external" href="http://en.wikipedia.org/wiki/Floor_and_ceiling_functions">Wikipedia floor / ceiling functions</a>. The floor function here
+(and in C and Python and the Wikipedia page) returns the integer closest to
+positive infinity.  For example, <span class="math">\(floor(1.9) == 1, floor(-1.1) == -2\)</span>.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="fancy-rounding" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>To find the exact closest floating point representation of
+a given number, we have to take into account that large values with exponent <span class="math">\(e\)</span>
+may in fact be closer to <span class="math">\(1 \times \beta^{e+1}\)</span>. For example, with <span class="math">\(p=3,
+\beta=10\)</span>, the infinite precision value <span class="math">\(9.996\)</span> is closer to <span class="math">\(1.00 \times 10^1\)</span>
+than <span class="math">\(9.99 \times 10^0\)</span>, even though <tt class="docutils literal"><span class="pre">floor(log10(9.996))</span> <span class="pre">==</span> <span class="pre">0</span></tt>.</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
