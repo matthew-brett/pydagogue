@@ -38,8 +38,6 @@ We can generalize to floating point numbers of form:
 Where $p$ is the number of digits in the significand, $\beta$ is the *base* (10
 in our example), and $e$ is the exponent.
 
-The number is *normalized* if $d_1$ is not zero.
-
 1 ULP corresponds to:
 
 .. math::
@@ -47,6 +45,19 @@ The number is *normalized* if $d_1$ is not zero.
     0.00...1 \times \beta^e
 
 where there are $p-1$ zeros in the significand. This is also:
+
+.. note:: Normalized representation in floating point
+
+    Short version: The floating point representation of a number is *normalized*
+    if $d_1$ is not zero.
+
+    Long version: consider the number 1.00 represented in the $p = 3, \beta=10$
+    system that we started with.  We can represent this number as $1.00 \times
+    10^0$ or $0.10 \times 10^1$ or $0.01 \times 10^2$.  The *normalized*
+    representation is the representation with a non-zero first digit - $1.00
+    \times 10^0$ in this case. There is only one normalized representation of a
+    number in a particular floating point representation, so a normalized
+    representation is unique.
 
 .. math::
 
@@ -95,11 +106,42 @@ finite precision number returned from this calculation $fl(x)$.  The IEEE
 standard specifies that $fl(x)$ should be the closest number to $x$ that can be
 represented in the finite precision format.
 
-Let $e$ be the integer exponent of $x$ in normalized infinite floating point. If
-we want to get $e$ for a particular number $x$ then we want
-``flr(logB(abs(x)))`` where ``logB`` is log to whatever base we are using (10 in
-our example), and ``flr(y)`` gives us the largest integer ``i``, such that ``i
-<= y``. So, $flr(1.9) == 1, flr(-1.1) == -2$.
+.. note:: What is the floating point exponent for any given real number?
+
+    So far we've assumed that we know the representation of our floating point
+    number in terms of significand and exponent.
+
+    But |--| what if we have a some infinite precision number $x$ and we want to
+    know how to represent it in floating point?
+
+    A simple algorithm might be to get the exponent by an algorithm like this::
+
+        x1 = abs(x)
+        e1 = logB(x1)
+        exponent = floor(e1)
+
+    Where $abs(y)$ gives the absolute value of $y$, $logB(y)$ is the log to base
+    $\beta$, and $floor(y)$ gives the most positive integer $i$, such that $i <=
+    y$ [#floor]_.
+
+    We can then get the mantissa part with $round(x / \beta^{e2}, p-1)$, where
+    $round(y, z)$ rounds the number $y$ to $z$ digits after the decimal point.
+
+    Worked example in Python with our original system of $p = 3, \beta = 10$::
+
+        from math import abs, log10, floor, round
+        x = -0.1234 # a number with greater precision than format allows
+        p = 3 # number of digits in mantissa
+        x1 = abs(x) # 0.1234
+        e1 = log10(x1) # -0.9086848403027772
+        exponent = floor(e1) # -1
+        m1 = x / (10 ** e2) # -1.234
+        mantissa = round(m1, p-1) # -1.23
+
+    giving $-1.23 \times 10^{-1}$ as the floating point representation.
+
+    For full accuracy, the algorithm has to be a little more sophisticated than
+    this, but this is a reasonable first pass [#fancy-rounding]_.
 
 We remember that $p$ is the number of digits in the significand in our finite
 floating point format. The IEEE rule then becomes:
@@ -205,10 +247,24 @@ Thanks to
 
 Stefan van der Walt for several useful suggestions and corrections.
 
+.. rubric:: Footnotes
+
+.. [#floor] See `Wikipedia floor / ceiling functions`_. The floor function here
+   (and in C and Python and the Wikipedia page) returns the integer closest to
+   positive infinity.  For example, $floor(1.9) == 1, floor(-1.1) == -2$.
+
+.. [#fancy-rounding] To find the exact closest floating point representation of
+   a given number, we have to take into account that large values with exponent $e$
+   may in fact be closer to $1 \times \beta^{e+1}$. For example, with $p=3,
+   \beta=10$, the infinite precision value $9.996$ is closer to $1.00 \times 10^1$
+   than $9.99 \times 10^0$, even though ``floor(log10(9.996)) == 0``.
+
 .. _Wikipedia machine epsilon: http://en.wikipedia.org/wiki/Machine_epsilon
 .. _Wikipedia floating point: http://en.wikipedia.org/wiki/Floating_point
+.. _Wikipedia floor / ceiling functions: http://en.wikipedia.org/wiki/Floor_and_ceiling_functions
 .. _variant definitions: http://en.wikipedia.org/wiki/Machine_epsilon#Variant_definitions
 .. _What every computer scientist should know about floating point:
       http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
 .. _Every computer scientist: http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-.. _numpy: http://numpy.scipy.org
+
+.. include:: links_names.inc
