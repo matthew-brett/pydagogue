@@ -114,20 +114,35 @@ the windows tools:
 Miscellaneous
 =============
 
-* I liked mdesktop_ for multiple desktops on windows 7.  I don't know what
-  versions of windows it works on.
 * I got used to the mac keyboard way of using the command key for things like
   making new tabs in the browser (command-t), copy, paste (command-c, command-v)
   and so on. I can't replicate all of this on windows, but as a first pass, I
-  installed sharpkeys_, and remapped the windows (command) key to appear to be
-  the left control key.  I don't use the windows key much, but I can still use
-  the right one if I need it.  I also used *sharpkeys* to turn off Caps Lock,
-  because I find it annoying, especially when I hit it accidentally using vim_.
-* On the same line, I'm used to command-tab for switching programs on the mac.
-  I got this effect via a `lifehacker post`_.  As I had already mapped the
-  control key to the command key, I just needed ``LCtrl & Tab::AltTab`` in an
-  autohotkey_ script.  Putting the ``remap.ahk`` script file into my startup
-  folder caused it to be loaded at login.
+  use an autohotkey_ script.  Putting this ``remap.ahk`` script file into my
+  Windows start menu startup folder caused it to be loaded at login::
+
+    ; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
+    ; See also : http://www.autohotkey.com/docs/Hotkeys.htm
+    ; # usually means Windows key.
+    #SingleInstance force ; but sometimes # introduces a command
+    #r::Send ^r ;reload
+    #z::Send ^z ; undo
+    #y::Send ^y ; redo
+    #f::Send ^f ; find inside apps
+    #g::Send ^g ; repeat find inside apps
+    #c::Send ^c ; copy
+    #x::Send ^x ; cut
+    #v::Send ^v ; paste
+    #a::Send ^a ; select all
+    #t::Send ^t ; new tab in browser (IE, Safari, Firefox, etc)
+    #s::Send ^s ; save inside apps
+    LWin & Tab::AltTab ; the motherlode, alt-tab!
+
+    #Up::Send {PgUp} ; PgUp
+    #Down::Send {PgDn} ; PgDown
+    #Left::Send {home} ; Home
+    #Right::Send {end} ; End
+    #LButton::^LButton
+
 * I depend heavily on knowing which branch I am on when using git.  This is the
   what the ``git-completion`` bash routines do; posh-git_ does the equivalent
   for powershell.

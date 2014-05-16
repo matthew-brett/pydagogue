@@ -165,24 +165,41 @@ command above.</p>
 </ul>
 <div class="section" id="miscellaneous">
 <h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>I liked <a class="reference external" href="http://code.google.com/p/mdesktop/">mdesktop</a> for multiple desktops on windows 7.  I don&#8217;t know what
-versions of windows it works on.</li>
-<li>I got used to the mac keyboard way of using the command key for things like
+<ul>
+<li><p class="first">I got used to the mac keyboard way of using the command key for things like
 making new tabs in the browser (command-t), copy, paste (command-c, command-v)
 and so on. I can&#8217;t replicate all of this on windows, but as a first pass, I
-installed <a class="reference external" href="http://www.randyrants.com/sharpkeys/">sharpkeys</a>, and remapped the windows (command) key to appear to be
-the left control key.  I don&#8217;t use the windows key much, but I can still use
-the right one if I need it.  I also used <em>sharpkeys</em> to turn off Caps Lock,
-because I find it annoying, especially when I hit it accidentally using <a class="reference external" href="http://www.vim.org">vim</a>.</li>
-<li>On the same line, I&#8217;m used to command-tab for switching programs on the mac.
-I got this effect via a <a class="reference external" href="http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows">lifehacker post</a>.  As I had already mapped the
-control key to the command key, I just needed <tt class="docutils literal"><span class="pre">LCtrl</span> <span class="pre">&amp;</span> <span class="pre">Tab::AltTab</span></tt> in an
-<a class="reference external" href="http://ahkscript.org/">autohotkey</a> script.  Putting the <tt class="docutils literal"><span class="pre">remap.ahk</span></tt> script file into my startup
-folder caused it to be loaded at login.</li>
-<li>I depend heavily on knowing which branch I am on when using git.  This is the
+use an <a class="reference external" href="http://ahkscript.org/">autohotkey</a> script.  Putting this <tt class="docutils literal"><span class="pre">remap.ahk</span></tt> script file into my
+Windows start menu startup folder caused it to be loaded at login:</p>
+<div class="highlight-python"><div class="highlight"><pre>; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
+; See also : http://www.autohotkey.com/docs/Hotkeys.htm
+; # usually means Windows key.
+#SingleInstance force ; but sometimes # introduces a command
+#r::Send ^r ;reload
+#z::Send ^z ; undo
+#y::Send ^y ; redo
+#f::Send ^f ; find inside apps
+#g::Send ^g ; repeat find inside apps
+#c::Send ^c ; copy
+#x::Send ^x ; cut
+#v::Send ^v ; paste
+#a::Send ^a ; select all
+#t::Send ^t ; new tab in browser (IE, Safari, Firefox, etc)
+#s::Send ^s ; save inside apps
+LWin &amp; Tab::AltTab ; the motherlode, alt-tab!
+
+#Up::Send {PgUp} ; PgUp
+#Down::Send {PgDn} ; PgDown
+#Left::Send {home} ; Home
+#Right::Send {end} ; End
+#LButton::^LButton
+</pre></div>
+</div>
+</li>
+<li><p class="first">I depend heavily on knowing which branch I am on when using git.  This is the
 what the <tt class="docutils literal"><span class="pre">git-completion</span></tt> bash routines do; <a class="reference external" href="https://github.com/dahlbyk/posh-git">posh-git</a> does the equivalent
-for powershell.</li>
+for powershell.</p>
+</li>
 </ul>
 </div>
 <div class="section" id="other-programs">
