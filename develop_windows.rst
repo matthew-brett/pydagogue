@@ -11,23 +11,24 @@ semi-standard development environment for python_ packaging on windows.
 My system(s)
 ************
 
-* A standard XP installation booted directly into (My Computer -> Properties)
-  XP version 2002, service pack 3.
-* An XP running via Parallels_ on my Macbook Air with version 2002 SP3 also.
-* Windows 7 professional 64 bit installed on a first generation MacBook Air.
-  Currently on SP1.
+I've got several Windows 7 instances running mainly as buildbot machines, a
+Windows 8 machine kindly donated by Chris Holdgraf of the UC Berkeley Knight
+lab, and some virtual machines, also running Windows 7.  I used to have some XP
+machines, but UC Berkeley doesn't allow them on the network any more.
 
 ***********
 Basic setup
 ***********
 
-* If you have Windows XP, install windows powershell_ (it is standard for
-  Windows 7). I find powershell a lot more convenient than the standard windows
-  ``cmd`` shell; it has good command and filename completion, ``ls`` for
-  directory listing, a less idiosyncratic ``cd``, and a scripting language that
-  is a lot less painful than ``cmd`` bat scripting. I believe I've used version
-  1 and version 2. ``\$Host.version`` is ``1 0 0 0`` on my standard XP
-  installation. Don't forget to enable `quickedit mode
+* Shell: in the old days, we had to use the awful Windows ``cmd`` shell. It's still
+  useful sometimes, but the newer powershell_ is vastly better.  It comes
+  installed with Windows 7 and later.  If you are using Vista or XP (really?),
+  you will have to install it (see links from powershell_ page.  Windows 7).
+  Unlike ``cmd``, Powershell has good command and filename completion, ``ls``
+  for directory listing, a less idiosyncratic ``cd``, and a scripting language
+  that is less painful than ``cmd`` bat scripting. I believe I've used version 1
+  and version 2.  ``\$Host.version`` was ``1 0 0 0`` on my old XP installation.
+  Don't forget to enable `quickedit mode
   <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
   paste.
 * Install msysgit_. In the installation, set ``git`` to be on the command path,
