@@ -23,14 +23,13 @@ Basic setup
 * Shell: in the old days, we had to use the awful Windows ``cmd`` shell. It's still
   useful sometimes, but the newer powershell_ is vastly better.  It comes
   installed with Windows 7 and later.  If you are using Vista or XP (really?),
-  you will have to install it (see links from powershell_ page.  Windows 7).
-  Unlike ``cmd``, Powershell has good command and filename completion, ``ls``
-  for directory listing, a less idiosyncratic ``cd``, and a scripting language
-  that is less painful than ``cmd`` bat scripting. I believe I've used version 1
-  and version 2.  ``\$Host.version`` was ``1 0 0 0`` on my old XP installation.
-  Don't forget to enable `quickedit mode
-  <http://support.microsoft.com/kb/282301>`_ for much nicer right click copy and
-  paste.
+  you will have to install it (see links from powershell_ page).  Compared to
+  ``cmd``, Powershell has better command and filename completion, ``ls`` for
+  directory listing, a less idiosyncratic ``cd``, and a less painful scripting
+  language. I believe I've used version 1 and version 2.  ``\$Host.version`` at
+  the powershell prompt gave me ``1 0 0 0`` on my old XP installation.  Don't
+  forget to enable `quickedit mode <http://support.microsoft.com/kb/282301>`_
+  for much nicer right-click copy and paste.
 * Install msysgit_. In the installation, set ``git`` to be on the command path,
   but not the git bash utilities.  I set the repo to have LF endings, but the
   checked out files to have system endings. You'll see this setting offered in
