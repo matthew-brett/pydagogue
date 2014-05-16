@@ -56,24 +56,23 @@
 semi-standard development environment for <a class="reference external" href="http://www.python.org">python</a> packaging on windows.</p>
 <div class="section" id="my-system-s">
 <h2>My system(s)<a class="headerlink" href="#my-system-s" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>A standard XP installation booted directly into (My Computer -&gt; Properties)
-XP version 2002, service pack 3.</li>
-<li>An XP running via <a class="reference external" href="http://www.parallels.com">Parallels</a> on my Macbook Air with version 2002 SP3 also.</li>
-<li>Windows 7 professional 64 bit installed on a first generation MacBook Air.
-Currently on SP1.</li>
-</ul>
+<p>I&#8217;ve got several Windows 7 instances running mainly as buildbot machines, a
+Windows 8 machine kindly donated by Chris Holdgraf of the UC Berkeley Knight
+lab, and some virtual machines, also running Windows 7.  I used to have some XP
+machines, but UC Berkeley doesn&#8217;t allow them on the network any more.</p>
 </div>
 <div class="section" id="basic-setup">
 <h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>If you have Windows XP, install windows <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> (it is standard for
-Windows 7). I find powershell a lot more convenient than the standard windows
-<tt class="docutils literal"><span class="pre">cmd</span></tt> shell; it has good command and filename completion, <tt class="docutils literal"><span class="pre">ls</span></tt> for
-directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting language that
-is a lot less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve used version
-1 and version 2. <tt class="docutils literal"><span class="pre">\`Host.version</span></tt> is <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my standard XP
-installation. Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
+<li>Shell: in the old days, we had to use the awful Windows <tt class="docutils literal"><span class="pre">cmd</span></tt> shell. It&#8217;s still
+useful sometimes, but the newer <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> is vastly better.  It comes
+installed with Windows 7 and later.  If you are using Vista or XP (really?),
+you will have to install it (see links from <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> page.  Windows 7).
+Unlike <tt class="docutils literal"><span class="pre">cmd</span></tt>, Powershell has good command and filename completion, <tt class="docutils literal"><span class="pre">ls</span></tt>
+for directory listing, a less idiosyncratic <tt class="docutils literal"><span class="pre">cd</span></tt>, and a scripting language
+that is less painful than <tt class="docutils literal"><span class="pre">cmd</span></tt> bat scripting. I believe I&#8217;ve used version 1
+and version 2.  <tt class="docutils literal"><span class="pre">\`Host.version</span></tt> was <tt class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></tt> on my old XP installation.
+Don&#8217;t forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a> for much nicer right click copy and
 paste.</li>
 <li>Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <tt class="docutils literal"><span class="pre">git</span></tt> to be on the command path,
 but not the git bash utilities.  I set the repo to have LF endings, but the
