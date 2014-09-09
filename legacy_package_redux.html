@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>OSX legacy packaging redux &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="next" title="Using Microsoft Visual C with Python" href="python_msvc.html" />
+    <link rel="prev" title="Runtime linking on Mac" href="mac_runtime_link.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mac_runtime_link.html" title="Runtime linking on Mac"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="osx-legacy-packaging-redux">
+<h1>OSX legacy packaging redux<a class="headerlink" href="#osx-legacy-packaging-redux" title="Permalink to this headline">¶</a></h1>
+<p>This is a summary of the now-outdated information on OSX installers in the
+<a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>.</p>
+<p>This redux might help reading the original document, because I found the
+original hard to digest.</p>
+</div>
+<div class="section" id="it-s-legacy-and-somewhat-out-of-date">
+<h1>It&#8217;s legacy, and somewhat out of date<a class="headerlink" href="#it-s-legacy-and-somewhat-out-of-date" title="Permalink to this headline">¶</a></h1>
+<p>The information from the legacy document still applies, but there now appear
+to be:</p>
+<ul class="simple">
+<li>component flat packages (built by <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> utility) (see <a class="reference external" href="http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html">flat package
+format</a>, <a href="#id7"><span class="problematic" id="id8">`unpacking flat packages`_</span></a> and the <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> man page).  These
+appear to be supported from OSX 10.5.</li>
+<li>product archives (built by the <tt class="docutils literal"><span class="pre">productbuild</span></tt> utility).  These may be the
+same as <em>distribution</em> packages here.</li>
+<li><tt class="docutils literal"><span class="pre">pkgbuild</span></tt> utility for building flat component packages.</li>
+<li><tt class="docutils literal"><span class="pre">productbuild</span></tt> utility for building distribution packages.</li>
+</ul>
+<div class="section" id="manual-and-managed-installs">
+<h2>Manual and managed installs<a class="headerlink" href="#manual-and-managed-installs" title="Permalink to this headline">¶</a></h2>
+<p>The software delivery guide distinguishes between:</p>
+<dl class="docutils">
+<dt>Manual installs</dt>
+<dd>You provide a single directory or file that the user drags to their hard
+disk.  This is a typical install for an OSX &#8220;<em>.app&#8221; bundle, where the user
+drags the &#8220;</em>.app&#8221; folder to <tt class="docutils literal"><span class="pre">/Applications</span></tt></dd>
+<dt>Managed installs</dt>
+<dd>Installs via a <tt class="docutils literal"><span class="pre">.pkg</span></tt> or <tt class="docutils literal"><span class="pre">.mpkg</span></tt> installer.  The install is &#8220;managed&#8221;
+because the installer automates the task of checking for dependencies,
+getting Administrator authentication from the user, and moving files to
+different parts of the file system.</dd>
+</dl>
+<p>The rest of this document is about <em>managed installs</em>.</p>
+</div>
+<div class="section" id="component-and-multi-component-packages">
+<h2>Component and multi-component packages<a class="headerlink" href="#component-and-multi-component-packages" title="Permalink to this headline">¶</a></h2>
+<p>There are two categories of installers, <em>single component</em> installers and
+<em>multi-component</em> installers.  A single component installer can only have one
+component, but the multi-component installers can contain more than one
+component.</p>
+<p>I will use <em>installer</em> and <em>package</em> to mean the same thing in this document.
+Both single and multi-component packages can be used as installers.</p>
+<p>There is only one type of single-component installer &#8211; the <em>component
+package</em>.</p>
+<p>There are two types of multi-component installers; <em>metapackages</em> and
+<em>distribution packages</em> (see below).</p>
+<p>Therefore there are three types of installers / packages:</p>
+<ul class="simple">
+<li>component package (single component)</li>
+<li>metapackage (multi-component, older format)</li>
+<li>distribution package (multi-component, newer format)</li>
+</ul>
+<div class="section" id="component-package">
+<h3>Component package<a class="headerlink" href="#component-package" title="Permalink to this headline">¶</a></h3>
+<p>The Apple term for a package / installer for a single component is a
+<em>component package</em>.  Component packages can be used as units for building
+multi-component packages.</p>
+<p>A component package carries information and data for installing one particular
+component.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">.pkg</span></tt> file extension</li>
+<li>Stored on disk as a directory</li>
+<li>Usually contains a <em>payload</em> - directories and files to be installed at one
+particular location on disk.</li>
+</ul>
+</div>
+<div class="section" id="multi-component-packages">
+<h3>Multi-component packages<a class="headerlink" href="#multi-component-packages" title="Permalink to this headline">¶</a></h3>
+<p>There are two types of multi-component packages, the <em>metapackage</em> and the
+(newer) <em>distribution package</em>.</p>
+<div class="section" id="metapackage">
+<h4>Metapackage<a class="headerlink" href="#metapackage" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">.mpkg</span></tt> extension</li>
+<li>Stored on disk as a directory</li>
+<li>Runs on OSX 10.2 or later</li>
+</ul>
+</div>
+<div class="section" id="distribution-package">
+<h4>Distribution package<a class="headerlink" href="#distribution-package" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">.pkg</span></tt> extension</li>
+<li>Stored as single file</li>
+<li>Runs on OSX 10.4 or later</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="information-in-all-package-types">
+<h2>Information in all package types<a class="headerlink" href="#information-in-all-package-types" title="Permalink to this headline">¶</a></h2>
+<p>Apple distinguishes four types of information any package can contain:</p>
+<ul class="simple">
+<li>Product information : e.g. description, readme, license</li>
+<li>Package information : e.g. package identifier, package version</li>
+<li>Installation properties : e.g. system requirements, whether the installer
+requires Administrator permissions</li>
+<li>Install operations : one of pre-flight, pre-install, pre-upgrade,
+post-install, post-upgrade, post-flight (see <a class="reference internal" href="#install-operations"><em>Install operations</em></a>).</li>
+</ul>
+</div>
+<div class="section" id="steps-in-an-install">
+<span id="install-steps"></span><h2>Steps in an install<a class="headerlink" href="#steps-in-an-install" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Requirements check : the installer checks if the system and target
+installation volumes meet any requirements for the install</li>
+<li>Preinstall : installer runs pre-flight and pre-install / pre-upgrade
+operations; these may cancel the install.</li>
+<li>Install / payload drop: installer copies payload(s) to target volume</li>
+<li>Save receipt : &#8220;Installer copies the component package file (with its
+payload stripped) to the <tt class="docutils literal"><span class="pre">/Library/Receipts</span></tt> directory in the installation
+volume.&#8221; (<a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>).</li>
+<li>Postinstall : installer runs post-install / post-upgrade and post-flight
+operations.</li>
+</ul>
+</div>
+<div class="section" id="install-operations">
+<span id="id1"></span><h2>Install operations<a class="headerlink" href="#install-operations" title="Permalink to this headline">¶</a></h2>
+<p>Install operations are operations run during the <em>steps</em> of an install, that
+can customize the behavior of the installer.</p>
+<p>I&#8217;ll also call these <em>pre / post operations</em>.</p>
+<p>The operations are run in the following order (see <em class="xref std std-ref">_install-steps</em>).</p>
+<ul class="simple">
+<li>Pre-flight : operation run after requirements check step
+Implemented by <cite>preflight</cite> executable. Return value other than 0 cancels the
+install.</li>
+<li>Pre-install : operation run for a system on which there is no pre-existing
+receipt (see &#8220;Save receipt&#8221; step above). Implemented by <cite>preinstall</cite>
+executable.  Return value other than 0 cancels the install.</li>
+<li>Pre-upgrade : operation run for a system on which there is a pre-existing
+receipt (see &#8220;Save receipt&#8221; step above). Implemented by <cite>preupgrade</cite>
+executable. Return value other than 0 cancels the install.</li>
+</ul>
+<p>There follows the <em>install / payload drop</em> step (above), then:</p>
+<ul class="simple">
+<li>Post-install : operation run for a system on which there is a pre-existing
+receipt. Implemented by <cite>postinstall</cite> executable.</li>
+<li>Post-upgrade : operation run after payload drop, for a system on which there
+is no pre-existing receipt. Implemented by <cite>postupgrade</cite> executable script.</li>
+<li>Post-flight : Implemented by <cite>postflight</cite> executable.</li>
+</ul>
+<p>All these operations are optional.</p>
+<p>The executables can be scripts or binaries, but must have their executable bit
+set.</p>
+<p>See &#8220;Specifying install operations&#8221; in the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>.</p>
+</div>
+<div class="section" id="how-the-package-types-implement-the-install">
+<h2>How the package types implement the install<a class="headerlink" href="#how-the-package-types-implement-the-install" title="Permalink to this headline">¶</a></h2>
+<p>Component packages, metapackages and distribution packages differ in their
+behaior when isntalling. They differ in the way they implement requirement
+checks and which operation executables they run.</p>
+<div class="section" id="component-packages">
+<h3>Component packages<a class="headerlink" href="#component-packages" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="requirements-check">
+<h4>Requirements check<a class="headerlink" href="#requirements-check" title="Permalink to this headline">¶</a></h4>
+<p>A component package can have none or more of the following executables:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">InstallationCheck</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">VolumeCheck</span></tt></li>
+</ul>
+<p>These scripts implement requirement checking for the &#8220;requirements check&#8221; step
+(<a class="reference internal" href="#install-steps"><em>Steps in an install</em></a>).</p>
+<p>If <tt class="docutils literal"><span class="pre">InstallationCheck</span></tt> is present, it should return 0 if the system is
+suitable for the install. If not, it should return another number, where the
+number identifies a message to display (see the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy
+guide</a> for details).</p>
+<p>If <tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> is present, it should return 0 for any volume that is
+suitable for the install.  If a particular volume is not suitable, it should
+return another number, where the number identifies a message to display (see
+the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a> for details).  The installer will run
+<tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> on each available volume at install-time.</p>
+<p>An install using a component package also runs these (optional) operations /
+executables:</p>
+</div>
+<div class="section" id="pre-post-operations">
+<h4>pre / post operations<a class="headerlink" href="#pre-post-operations" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">preflight</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> (depending on whether a receipt is present)</li>
+<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> (depending on whether a receipt is present)</li>
+<li><tt class="docutils literal"><span class="pre">postflight</span></tt></li>
+</ul>
+</div>
+</div>
+<div class="section" id="metapackages">
+<h3>Metapackages<a class="headerlink" href="#metapackages" title="Permalink to this headline">¶</a></h3>
+<p>A metapackage can contain:</p>
+<ul class="simple">
+<li>component packages</li>
+<li>metapackages</li>
+</ul>
+<p>Call the containing metapackage the <em>top metapackage</em>.</p>
+<div class="section" id="id2">
+<h4>Requirements check<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">InstallationCheck</span></tt> for each component package.</li>
+<li><tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> for each component package and each available volume.</li>
+</ul>
+<p>The metapackage cannot implement its own installation or volume requirement
+checking, and only uses the checks of the component packages.</p>
+</div>
+<div class="section" id="id3">
+<h4>Pre-post operations<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">preflight</span></tt> for top metapackage</li>
+<li><tt class="docutils literal"><span class="pre">preflight</span></tt> for each component package</li>
+<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for top metapackage</li>
+<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for each component package</li>
+<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for each component package</li>
+<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for top metapackage</li>
+<li><tt class="docutils literal"><span class="pre">postflight</span></tt> for top metapackage</li>
+<li><tt class="docutils literal"><span class="pre">postflight</span></tt> for each component package</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Distribution package<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Distribution packages can only contain component packages, not metapackages or
+other distribution packages.</p>
+<div class="section" id="id5">
+<h4>Requirements check<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>Distribution packages implement their requirement checks with javascript code
+embedded in an XML <a href="#id9"><span class="problematic" id="id10">`distribution definition file`_</span></a>.  This file can contain
+javascript code for checking whether the system is suitable for the install
+(the <em>Installation Check script</em>) and code for checking whether a volume is
+suitable for install (the <em>Volume Check script</em>).  The requirements check
+process is therefore:</p>
+<ul class="simple">
+<li>Run Installation Check javascript.</li>
+<li>Run Volume Check javascript on every volume.</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h4>Pre-post operations<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">preflight</span></tt> for each component package</li>
+<li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for each component package</li>
+<li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for each component package</li>
+<li><tt class="docutils literal"><span class="pre">postflight</span></tt> for each component package</li>
+</ul>
+<p>The distribution package cannot itself specify pre-post operations with
+scripts (they will be ignored if present).</p>
+<p><a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">OSX legacy packaging redux</a></li>
+<li><a class="reference internal" href="#it-s-legacy-and-somewhat-out-of-date">It&#8217;s legacy, and somewhat out of date</a><ul>
+<li><a class="reference internal" href="#manual-and-managed-installs">Manual and managed installs</a></li>
+<li><a class="reference internal" href="#component-and-multi-component-packages">Component and multi-component packages</a><ul>
+<li><a class="reference internal" href="#component-package">Component package</a></li>
+<li><a class="reference internal" href="#multi-component-packages">Multi-component packages</a><ul>
+<li><a class="reference internal" href="#metapackage">Metapackage</a></li>
+<li><a class="reference internal" href="#distribution-package">Distribution package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#information-in-all-package-types">Information in all package types</a></li>
+<li><a class="reference internal" href="#steps-in-an-install">Steps in an install</a></li>
+<li><a class="reference internal" href="#install-operations">Install operations</a></li>
+<li><a class="reference internal" href="#how-the-package-types-implement-the-install">How the package types implement the install</a><ul>
+<li><a class="reference internal" href="#component-packages">Component packages</a><ul>
+<li><a class="reference internal" href="#requirements-check">Requirements check</a></li>
+<li><a class="reference internal" href="#pre-post-operations">pre / post operations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metapackages">Metapackages</a><ul>
+<li><a class="reference internal" href="#id2">Requirements check</a></li>
+<li><a class="reference internal" href="#id3">Pre-post operations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">Distribution package</a><ul>
+<li><a class="reference internal" href="#id5">Requirements check</a></li>
+<li><a class="reference internal" href="#id6">Pre-post operations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mac_runtime_link.html"
+                        title="previous chapter">Runtime linking on Mac</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="python_msvc.html"
+                        title="next chapter">Using Microsoft Visual C with Python</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/legacy_package_redux.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mac_runtime_link.html" title="Runtime linking on Mac"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

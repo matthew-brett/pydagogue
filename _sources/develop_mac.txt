@@ -5,6 +5,10 @@ Developing on mac
 Sketch of the steps to get up and running on a mac to make binary releases for
 python packages.  This is my personal setup.
 
+Here's a remarkably helpful short page on distinctive things about doing system
+and development work with Mac OSX binaries :
+http://www.tribler.org/trac/wiki/MacBinaries
+
 **********
 My systems
 **********
