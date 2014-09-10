@@ -52,32 +52,52 @@
             
   <div class="section" id="osx-legacy-packaging-redux">
 <h1>OSX legacy packaging redux<a class="headerlink" href="#osx-legacy-packaging-redux" title="Permalink to this headline">¶</a></h1>
-<p>This is a summary of the now-outdated information on OSX installers in the
-<a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>.</p>
+<p>This is a summary of the information on older (buundle-type) OSX installers in
+the <a class="reference external" href="https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html">software delivery legacy guide</a>.</p>
 <p>This redux might help reading the original document, because I found the
 original hard to digest.</p>
-</div>
-<div class="section" id="it-s-legacy-and-somewhat-out-of-date">
-<h1>It&#8217;s legacy, and somewhat out of date<a class="headerlink" href="#it-s-legacy-and-somewhat-out-of-date" title="Permalink to this headline">¶</a></h1>
-<p>The information from the legacy document still applies, but there now appear
-to be:</p>
+<div class="section" id="packaging-has-changed-from-bundles-to-flat-packages">
+<h2>Packaging has changed from bundles to flat packages<a class="headerlink" href="#packaging-has-changed-from-bundles-to-flat-packages" title="Permalink to this headline">¶</a></h2>
+<p>The world the legacy guide describes is for standard packaging up to and
+including OSX 10.4.</p>
+<p>In this world, all installation packages were <em>bundles</em>.  To quote from the
+glossary of the legacy guide:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>bundle</dt>
+<dd>A structured directory hierarchy that stores files in a way that
+facilitates their retrieval.</dd>
+</dl>
+</div></blockquote>
+<p>This means all installation package types before OSX 10.5 are directories with
+a particular structure.  These are the package types described in the legacy
+guide, and this document.  Newer OSX will still install from these packages.</p>
+<p>In the new world (OSX 10.5 and above), the standard package formats are
+<em>flat</em>, meaning that the packages are archived up into single file <tt class="docutils literal"><span class="pre">xar</span></tt>
+archives.  There are two types of packages in this new world of flat:</p>
 <ul class="simple">
-<li>component flat packages (built by <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> utility) (see <a class="reference external" href="http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html">flat package
-format</a>, <a href="#id7"><span class="problematic" id="id8">`unpacking flat packages`_</span></a> and the <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> man page).  These
-appear to be supported from OSX 10.5.</li>
-<li>product archives (built by the <tt class="docutils literal"><span class="pre">productbuild</span></tt> utility).  These may be the
-same as <em>distribution</em> packages here.</li>
-<li><tt class="docutils literal"><span class="pre">pkgbuild</span></tt> utility for building flat component packages.</li>
-<li><tt class="docutils literal"><span class="pre">productbuild</span></tt> utility for building distribution packages.</li>
+<li>flat <em>component packages</em> (built by <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> utility) (see <a class="reference external" href="http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html">flat package
+format</a>, <a class="reference external" href="http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html">unpacking flat packages</a> and the <tt class="docutils literal"><span class="pre">pkgbuild</span></tt> man page).</li>
+<li>flat <em>product archives</em> (built by the <tt class="docutils literal"><span class="pre">productbuild</span></tt> utility) (see the
+<tt class="docutils literal"><span class="pre">productbuild</span></tt> man page).  These contain component packages, but can
+customize the install experience with a XML  <a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">Distribution definition file</a>
+called <tt class="docutils literal"><span class="pre">Distribution</span></tt>. The <tt class="docutils literal"><span class="pre">Distribution</span></tt> file may contain javascript
+code for checking installation requirements and customizing install options.</li>
 </ul>
+<p>This flatter world is well covered by the <a class="reference external" href="http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html">MacTech flat package article</a>. The
+arcticle also gives a good summary of the older package formats described here
+(but see <a class="reference internal" href="#hybrid-package"><em>Hybrid package</em></a> for one source of confusion).</p>
+<p>Now we forget about flat packages and go back to the world where all installer
+packages are bundles.</p>
+</div>
 <div class="section" id="manual-and-managed-installs">
 <h2>Manual and managed installs<a class="headerlink" href="#manual-and-managed-installs" title="Permalink to this headline">¶</a></h2>
 <p>The software delivery guide distinguishes between:</p>
 <dl class="docutils">
 <dt>Manual installs</dt>
 <dd>You provide a single directory or file that the user drags to their hard
-disk.  This is a typical install for an OSX &#8220;<em>.app&#8221; bundle, where the user
-drags the &#8220;</em>.app&#8221; folder to <tt class="docutils literal"><span class="pre">/Applications</span></tt></dd>
+disk.  This is a typical install for an OSX <tt class="docutils literal"><span class="pre">*.app</span></tt> bundle, where the user
+drags the <tt class="docutils literal"><span class="pre">*.app</span></tt> folder (bundle) to <tt class="docutils literal"><span class="pre">/Applications</span></tt></dd>
 <dt>Managed installs</dt>
 <dd>Installs via a <tt class="docutils literal"><span class="pre">.pkg</span></tt> or <tt class="docutils literal"><span class="pre">.mpkg</span></tt> installer.  The install is &#8220;managed&#8221;
 because the installer automates the task of checking for dependencies,
@@ -107,16 +127,22 @@ package</em>.</p>
 <div class="section" id="component-package">
 <h3>Component package<a class="headerlink" href="#component-package" title="Permalink to this headline">¶</a></h3>
 <p>The Apple term for a package / installer for a single component is a
-<em>component package</em>.  Component packages can be used as units for building
-multi-component packages.</p>
+<em>component package</em>.  Component packages can be used as installers, or as
+units for building multi-component packages.</p>
 <p>A component package carries information and data for installing one particular
-component.</p>
+component. A component package:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">.pkg</span></tt> file extension</li>
-<li>Stored on disk as a directory</li>
-<li>Usually contains a <em>payload</em> - directories and files to be installed at one
-particular location on disk.</li>
+<li>has a <tt class="docutils literal"><span class="pre">.pkg</span></tt> directory extension for the package bundle;</li>
+<li>installs on any version of OSX;</li>
+<li>usually contains a <em>payload</em> - directories and files to be installed at one
+particular location on disk;</li>
+<li>has a bundle structure where the  <tt class="docutils literal"><span class="pre">.pkg</span></tt> directory contains a top-level
+<tt class="docutils literal"><span class="pre">Contents</span></tt> directory, which in turn contains files <tt class="docutils literal"><span class="pre">Archive.bom</span></tt>,
+<tt class="docutils literal"><span class="pre">Archive.pax.gz</span></tt>, <tt class="docutils literal"><span class="pre">Info.plist</span></tt>, <tt class="docutils literal"><span class="pre">PkgInfo</span></tt>, and directory
+<tt class="docutils literal"><span class="pre">Resources</span></tt>.</li>
 </ul>
+<p>This is one <tt class="docutils literal"><span class="pre">.pkg</span></tt> compoenent bundle from the Python.org installer:</p>
+<img alt="_images/python_unix_tools.png" id="python-unix-tools-image" src="_images/python_unix_tools.png" />
 </div>
 <div class="section" id="multi-component-packages">
 <h3>Multi-component packages<a class="headerlink" href="#multi-component-packages" title="Permalink to this headline">¶</a></h3>
@@ -124,19 +150,46 @@ particular location on disk.</li>
 (newer) <em>distribution package</em>.</p>
 <div class="section" id="metapackage">
 <h4>Metapackage<a class="headerlink" href="#metapackage" title="Permalink to this headline">¶</a></h4>
+<p>A metapackage:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">.mpkg</span></tt> extension</li>
-<li>Stored on disk as a directory</li>
-<li>Runs on OSX 10.2 or later</li>
+<li>has a <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory extension for the package bundle;</li>
+<li>installs on OSX 10.2 or later;</li>
+<li>has a bundle structure where the <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory contains a top-level
+<tt class="docutils literal"><span class="pre">Contents</span></tt> directory, which in turn contains files <tt class="docutils literal"><span class="pre">Info.plist</span></tt>,
+<tt class="docutils literal"><span class="pre">PkgInfo</span></tt>, and directories <tt class="docutils literal"><span class="pre">Resources</span></tt>, <tt class="docutils literal"><span class="pre">Packages</span></tt>.</li>
 </ul>
+<p>Here&#8217;s is the <tt class="docutils literal"><span class="pre">.mpkg</span></tt> bundle for the Python.org installer:</p>
+<img alt="_images/python_mpkg.png" src="_images/python_mpkg.png" />
+<p>Each of the listed <tt class="docutils literal"><span class="pre">.pkg</span></tt> component packages is also a bundle.  In fact the
+<a class="reference internal" href="#python-unix-tools-image"><em>example component bundle contents</em></a> is the
+contents of <tt class="docutils literal"><span class="pre">PythonUnixTools-2.7.pkg</span></tt> from the Python.org <tt class="docutils literal"><span class="pre">.mpkg</span></tt> bundle
+here.</p>
 </div>
 <div class="section" id="distribution-package">
 <h4>Distribution package<a class="headerlink" href="#distribution-package" title="Permalink to this headline">¶</a></h4>
+<p>A distribution package:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">.pkg</span></tt> extension</li>
-<li>Stored as single file</li>
-<li>Runs on OSX 10.4 or later</li>
+<li>has a <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory extension for the package bundle;</li>
+<li>installs on OSX 10.4 or later;</li>
+<li>can customize install messages and options using XML elements and javascript
+code in the <tt class="docutils literal"><span class="pre">distribution.dist</span></tt> file.</li>
+<li>has a bundle structure where the <tt class="docutils literal"><span class="pre">.mpkg</span></tt> directory contains a top-level
+<tt class="docutils literal"><span class="pre">Contents</span></tt> directory, which in turn contains file <tt class="docutils literal"><span class="pre">description.dist</span></tt>,
+and directories <tt class="docutils literal"><span class="pre">Resources</span></tt>, <tt class="docutils literal"><span class="pre">Packages</span></tt>.</li>
 </ul>
+<p>This is the contents of a distribution package I had lying around on my hard
+drive:</p>
+<img alt="_images/nosleep_mpkg.png" src="_images/nosleep_mpkg.png" />
+</div>
+<div class="section" id="hybrid-package">
+<span id="id1"></span><h4>Hybrid package<a class="headerlink" href="#hybrid-package" title="Permalink to this headline">¶</a></h4>
+<p>Confusingly, it is also possible to make a package that is <em>both</em> a
+metapackage <em>and</em> a distribution package.  These packages have the contents of
+a metapackage, but with the extra <tt class="docutils literal"><span class="pre">distribution.dist</span></tt> file.  The installer
+runs as a metapackage on OSX &lt; 10.4, and as a distribution pacakge for OSX &gt;=
+10.4.  For example, this is why the metapackage and distribution package
+directory listings shown in the <a class="reference external" href="http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html">MacTech flat package article</a> have the same
+files.</p>
 </div>
 </div>
 </div>
@@ -168,21 +221,20 @@ operations.</li>
 </ul>
 </div>
 <div class="section" id="install-operations">
-<span id="id1"></span><h2>Install operations<a class="headerlink" href="#install-operations" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Install operations<a class="headerlink" href="#install-operations" title="Permalink to this headline">¶</a></h2>
 <p>Install operations are operations run during the <em>steps</em> of an install, that
 can customize the behavior of the installer.</p>
 <p>I&#8217;ll also call these <em>pre / post operations</em>.</p>
-<p>The operations are run in the following order (see <em class="xref std std-ref">_install-steps</em>).</p>
+<p>The operations are run in the following order (see <a class="reference internal" href="#install-steps"><em>Steps in an install</em></a>).</p>
 <ul class="simple">
-<li>Pre-flight : operation run after requirements check step
-Implemented by <cite>preflight</cite> executable. Return value other than 0 cancels the
-install.</li>
+<li>Pre-flight : operation run after requirements check step.  Implemented by
+<cite>preflight</cite> executable. Return value other than 0 cancels the install.</li>
 <li>Pre-install : operation run for a system on which there is no pre-existing
 receipt (see &#8220;Save receipt&#8221; step above). Implemented by <cite>preinstall</cite>
 executable.  Return value other than 0 cancels the install.</li>
 <li>Pre-upgrade : operation run for a system on which there is a pre-existing
-receipt (see &#8220;Save receipt&#8221; step above). Implemented by <cite>preupgrade</cite>
-executable. Return value other than 0 cancels the install.</li>
+receipt. Implemented by <cite>preupgrade</cite> executable. Return value other than 0
+cancels the install.</li>
 </ul>
 <p>There follows the <em>install / payload drop</em> step (above), then:</p>
 <ul class="simple">
@@ -202,8 +254,8 @@ set.</p>
 <p>Component packages, metapackages and distribution packages differ in their
 behaior when isntalling. They differ in the way they implement requirement
 checks and which operation executables they run.</p>
-<div class="section" id="component-packages">
-<h3>Component packages<a class="headerlink" href="#component-packages" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Component package<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="requirements-check">
 <h4>Requirements check<a class="headerlink" href="#requirements-check" title="Permalink to this headline">¶</a></h4>
 <p>A component package can have none or more of the following executables:</p>
@@ -235,16 +287,16 @@ executables:</p>
 </ul>
 </div>
 </div>
-<div class="section" id="metapackages">
-<h3>Metapackages<a class="headerlink" href="#metapackages" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Metapackage<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>A metapackage can contain:</p>
 <ul class="simple">
 <li>component packages</li>
 <li>metapackages</li>
 </ul>
-<p>Call the containing metapackage the <em>top metapackage</em>.</p>
-<div class="section" id="id2">
-<h4>Requirements check<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>I will call the containing metapackage the &#8220;top metapackage&#8221;.</p>
+<div class="section" id="id5">
+<h4>Requirements check<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">InstallationCheck</span></tt> for each component package.</li>
 <li><tt class="docutils literal"><span class="pre">VolumeCheck</span></tt> for each component package and each available volume.</li>
@@ -252,8 +304,8 @@ executables:</p>
 <p>The metapackage cannot implement its own installation or volume requirement
 checking, and only uses the checks of the component packages.</p>
 </div>
-<div class="section" id="id3">
-<h4>Pre-post operations<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id6">
+<h4>Pre-post operations<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">preflight</span></tt> for top metapackage</li>
 <li><tt class="docutils literal"><span class="pre">preflight</span></tt> for each component package</li>
@@ -266,14 +318,14 @@ checking, and only uses the checks of the component packages.</p>
 </ul>
 </div>
 </div>
-<div class="section" id="id4">
-<h3>Distribution package<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3>Distribution package<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>Distribution packages can only contain component packages, not metapackages or
 other distribution packages.</p>
-<div class="section" id="id5">
-<h4>Requirements check<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h4>Requirements check<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>Distribution packages implement their requirement checks with javascript code
-embedded in an XML <a href="#id9"><span class="problematic" id="id10">`distribution definition file`_</span></a>.  This file can contain
+embedded in an XML file called <tt class="docutils literal"><span class="pre">distribution.dist</span></tt>.  This file can contain
 javascript code for checking whether the system is suitable for the install
 (the <em>Installation Check script</em>) and code for checking whether a volume is
 suitable for install (the <em>Volume Check script</em>).  The requirements check
@@ -283,17 +335,16 @@ process is therefore:</p>
 <li>Run Volume Check javascript on every volume.</li>
 </ul>
 </div>
-<div class="section" id="id6">
-<h4>Pre-post operations<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>Pre-post operations<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">preflight</span></tt> for each component package</li>
 <li><tt class="docutils literal"><span class="pre">preinstall</span></tt> or <tt class="docutils literal"><span class="pre">preupgrade</span></tt> for each component package</li>
 <li><tt class="docutils literal"><span class="pre">postinstall</span></tt> or <tt class="docutils literal"><span class="pre">postupgrade</span></tt> for each component package</li>
 <li><tt class="docutils literal"><span class="pre">postflight</span></tt> for each component package</li>
 </ul>
-<p>The distribution package cannot itself specify pre-post operations with
-scripts (they will be ignored if present).</p>
-<p><a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1">https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1</a></p>
+<p>Unlike the metapackage, the distribution package cannot itself specify
+pre-post operations with scripts (they will be ignored if present).</p>
 </div>
 </div>
 </div>
@@ -307,14 +358,15 @@ scripts (they will be ignored if present).</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">OSX legacy packaging redux</a></li>
-<li><a class="reference internal" href="#it-s-legacy-and-somewhat-out-of-date">It&#8217;s legacy, and somewhat out of date</a><ul>
+<li><a class="reference internal" href="#">OSX legacy packaging redux</a><ul>
+<li><a class="reference internal" href="#packaging-has-changed-from-bundles-to-flat-packages">Packaging has changed from bundles to flat packages</a></li>
 <li><a class="reference internal" href="#manual-and-managed-installs">Manual and managed installs</a></li>
 <li><a class="reference internal" href="#component-and-multi-component-packages">Component and multi-component packages</a><ul>
 <li><a class="reference internal" href="#component-package">Component package</a></li>
 <li><a class="reference internal" href="#multi-component-packages">Multi-component packages</a><ul>
 <li><a class="reference internal" href="#metapackage">Metapackage</a></li>
 <li><a class="reference internal" href="#distribution-package">Distribution package</a></li>
+<li><a class="reference internal" href="#hybrid-package">Hybrid package</a></li>
 </ul>
 </li>
 </ul>
@@ -323,19 +375,19 @@ scripts (they will be ignored if present).</p>
 <li><a class="reference internal" href="#steps-in-an-install">Steps in an install</a></li>
 <li><a class="reference internal" href="#install-operations">Install operations</a></li>
 <li><a class="reference internal" href="#how-the-package-types-implement-the-install">How the package types implement the install</a><ul>
-<li><a class="reference internal" href="#component-packages">Component packages</a><ul>
+<li><a class="reference internal" href="#id3">Component package</a><ul>
 <li><a class="reference internal" href="#requirements-check">Requirements check</a></li>
 <li><a class="reference internal" href="#pre-post-operations">pre / post operations</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#metapackages">Metapackages</a><ul>
-<li><a class="reference internal" href="#id2">Requirements check</a></li>
-<li><a class="reference internal" href="#id3">Pre-post operations</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id4">Distribution package</a><ul>
+<li><a class="reference internal" href="#id4">Metapackage</a><ul>
 <li><a class="reference internal" href="#id5">Requirements check</a></li>
 <li><a class="reference internal" href="#id6">Pre-post operations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">Distribution package</a><ul>
+<li><a class="reference internal" href="#id8">Requirements check</a></li>
+<li><a class="reference internal" href="#id9">Pre-post operations</a></li>
 </ul>
 </li>
 </ul>

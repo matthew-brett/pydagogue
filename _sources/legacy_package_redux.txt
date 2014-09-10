@@ -2,26 +2,48 @@
 OSX legacy packaging redux
 ##########################
 
-This is a summary of the now-outdated information on OSX installers in the
-`software delivery legacy guide`_.
+This is a summary of the information on older (buundle-type) OSX installers in
+the `software delivery legacy guide`_.
 
 This redux might help reading the original document, because I found the
 original hard to digest.
 
-#####################################
-It's legacy, and somewhat out of date
-#####################################
+***************************************************
+Packaging has changed from bundles to flat packages
+***************************************************
 
-The information from the legacy document still applies, but there now appear
-to be:
+The world the legacy guide describes is for standard packaging up to and
+including OSX 10.4.
 
-* component flat packages (built by ``pkgbuild`` utility) (see `flat package
-  format`_, `unpacking flat packages`_ and the ``pkgbuild`` man page).  These
-  appear to be supported from OSX 10.5.
-* product archives (built by the ``productbuild`` utility).  These may be the
-  same as *distribution* packages here.
-* ``pkgbuild`` utility for building flat component packages.
-* ``productbuild`` utility for building distribution packages.
+In this world, all installation packages were *bundles*.  To quote from the
+glossary of the legacy guide:
+
+    bundle
+        A structured directory hierarchy that stores files in a way that
+        facilitates their retrieval.
+
+This means all installation package types before OSX 10.5 are directories with
+a particular structure.  These are the package types described in the legacy
+guide, and this document.  Newer OSX will still install from these packages.
+
+In the new world (OSX 10.5 and above), the standard package formats are
+*flat*, meaning that the packages are archived up into single file ``xar``
+archives.  There are two types of packages in this new world of flat:
+
+* flat *component packages* (built by ``pkgbuild`` utility) (see `flat package
+  format`_, `unpacking flat packages`_ and the ``pkgbuild`` man page).
+* flat *product archives* (built by the ``productbuild`` utility) (see the
+  ``productbuild`` man page).  These contain component packages, but can
+  customize the install experience with a XML  `Distribution definition file`_
+  called ``Distribution``. The ``Distribution`` file may contain javascript
+  code for checking installation requirements and customizing install options.
+
+This flatter world is well covered by the `MacTech flat package article`_. The
+arcticle also gives a good summary of the older package formats described here
+(but see :ref:`hybrid-package` for one source of confusion).
+
+Now we forget about flat packages and go back to the world where all installer
+packages are bundles.
 
 ***************************
 Manual and managed installs
@@ -31,8 +53,8 @@ The software delivery guide distinguishes between:
 
 Manual installs
   You provide a single directory or file that the user drags to their hard
-  disk.  This is a typical install for an OSX "*.app" bundle, where the user
-  drags the "*.app" folder to ``/Applications``
+  disk.  This is a typical install for an OSX ``*.app`` bundle, where the user
+  drags the ``*.app`` folder (bundle) to ``/Applications``
 
 Managed installs
   Installs via a ``.pkg`` or ``.mpkg`` installer.  The install is "managed"
@@ -70,16 +92,26 @@ Component package
 =================
 
 The Apple term for a package / installer for a single component is a
-*component package*.  Component packages can be used as units for building
-multi-component packages.
+*component package*.  Component packages can be used as installers, or as
+units for building multi-component packages.
 
 A component package carries information and data for installing one particular
-component.
+component. A component package:
 
-* ``.pkg`` file extension
-* Stored on disk as a directory
-* Usually contains a *payload* - directories and files to be installed at one
-  particular location on disk.
+* has a ``.pkg`` directory extension for the package bundle;
+* installs on any version of OSX;
+* usually contains a *payload* - directories and files to be installed at one
+  particular location on disk;
+* has a bundle structure where the  ``.pkg`` directory contains a top-level
+  ``Contents`` directory, which in turn contains files ``Archive.bom``,
+  ``Archive.pax.gz``, ``Info.plist``, ``PkgInfo``, and directory
+  ``Resources``.
+
+This is one ``.pkg`` compoenent bundle from the Python.org installer:
+
+.. _python-unix-tools-image:
+
+.. image:: images/python_unix_tools.png
 
 Multi-component packages
 ========================
@@ -90,16 +122,53 @@ There are two types of multi-component packages, the *metapackage* and the
 Metapackage
 -----------
 
-* ``.mpkg`` extension
-* Stored on disk as a directory
-* Runs on OSX 10.2 or later
+A metapackage:
+
+* has a ``.mpkg`` directory extension for the package bundle;
+* installs on OSX 10.2 or later;
+* has a bundle structure where the ``.mpkg`` directory contains a top-level
+  ``Contents`` directory, which in turn contains files ``Info.plist``,
+  ``PkgInfo``, and directories ``Resources``, ``Packages``.
+
+Here's is the ``.mpkg`` bundle for the Python.org installer:
+
+.. image:: images/python_mpkg.png
+
+Each of the listed ``.pkg`` component packages is also a bundle.  In fact the
+:ref:`example component bundle contents <python-unix-tools-image>` is the
+contents of ``PythonUnixTools-2.7.pkg`` from the Python.org ``.mpkg`` bundle
+here.
 
 Distribution package
 --------------------
 
-* ``.pkg`` extension
-* Stored as single file
-* Runs on OSX 10.4 or later
+A distribution package:
+
+* has a ``.mpkg`` directory extension for the package bundle;
+* installs on OSX 10.4 or later;
+* can customize install messages and options using XML elements and javascript
+  code in the ``distribution.dist`` file.
+* has a bundle structure where the ``.mpkg`` directory contains a top-level
+  ``Contents`` directory, which in turn contains file ``description.dist``,
+  and directories ``Resources``, ``Packages``.
+
+This is the contents of a distribution package I had lying around on my hard
+drive:
+
+.. image:: images/nosleep_mpkg.png
+
+.. _hybrid-package:
+
+Hybrid package
+--------------
+
+Confusingly, it is also possible to make a package that is *both* a
+metapackage *and* a distribution package.  These packages have the contents of
+a metapackage, but with the extra ``distribution.dist`` file.  The installer
+runs as a metapackage on OSX < 10.4, and as a distribution pacakge for OSX >=
+10.4.  For example, this is why the metapackage and distribution package
+directory listings shown in the `MacTech flat package article`_ have the same
+files.
 
 ********************************
 Information in all package types
@@ -142,17 +211,16 @@ can customize the behavior of the installer.
 
 I'll also call these *pre / post operations*.
 
-The operations are run in the following order (see :ref:`_install-steps`).
+The operations are run in the following order (see :ref:`install-steps`).
 
-* Pre-flight : operation run after requirements check step
-  Implemented by `preflight` executable. Return value other than 0 cancels the
-  install.
+* Pre-flight : operation run after requirements check step.  Implemented by
+  `preflight` executable. Return value other than 0 cancels the install.
 * Pre-install : operation run for a system on which there is no pre-existing
   receipt (see "Save receipt" step above). Implemented by `preinstall`
   executable.  Return value other than 0 cancels the install.
 * Pre-upgrade : operation run for a system on which there is a pre-existing
-  receipt (see "Save receipt" step above). Implemented by `preupgrade`
-  executable. Return value other than 0 cancels the install.
+  receipt. Implemented by `preupgrade` executable. Return value other than 0
+  cancels the install.
 
 There follows the *install / payload drop* step (above), then:
 
@@ -177,8 +245,8 @@ Component packages, metapackages and distribution packages differ in their
 behaior when isntalling. They differ in the way they implement requirement
 checks and which operation executables they run.
 
-Component packages
-==================
+Component package
+=================
 
 Requirements check
 ------------------
@@ -210,20 +278,18 @@ pre / post operations
 
 * ``preflight``
 * ``preinstall`` or ``preupgrade`` (depending on whether a receipt is present)
-
-
 * ``postinstall`` or ``postupgrade`` (depending on whether a receipt is present)
 * ``postflight``
 
-Metapackages
-============
+Metapackage
+===========
 
 A metapackage can contain:
 
 * component packages
 * metapackages
 
-Call the containing metapackage the *top metapackage*.
+I will call the containing metapackage the "top metapackage".
 
 Requirements check
 ------------------
@@ -256,7 +322,7 @@ Requirements check
 ------------------
 
 Distribution packages implement their requirement checks with javascript code
-embedded in an XML `distribution definition file`_.  This file can contain
+embedded in an XML file called ``distribution.dist``.  This file can contain
 javascript code for checking whether the system is suitable for the install
 (the *Installation Check script*) and code for checking whether a volume is
 suitable for install (the *Volume Check script*).  The requirements check
@@ -273,15 +339,15 @@ Pre-post operations
 * ``postinstall`` or ``postupgrade`` for each component package
 * ``postflight`` for each component package
 
-The distribution package cannot itself specify pre-post operations with
-scripts (they will be ignored if present).
+Unlike the metapackage, the distribution package cannot itself specify
+pre-post operations with scripts (they will be ignored if present).
 
 .. _flat package format: http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html
-
-.. _unpacking flat packges:
+.. _unpacking flat packages:
    http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html
-
-.. _software delivery legacy guide: https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html
-
-.. _distribution definition files:
-https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1
+.. _mactech flat package article:
+    http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html
+.. _software delivery legacy guide:
+    https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html
+.. _distribution definition file:
+    https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1
