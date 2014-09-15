@@ -101,7 +101,8 @@ last, and the shit finally turned into gold.
 
 So - please - invest an hour of your life to understand this stuff.
 Concentrate, go slowly, make sure you get it. In return for an hour of your
-life, you will get many happy years of use from git, both beautiful, and useful.
+life, you will get many happy years for which git will appear in its true
+form, both beautiful and useful.
 
 *****************************************************
 The one thing about git you really need to understand
