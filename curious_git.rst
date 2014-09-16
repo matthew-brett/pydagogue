@@ -8,47 +8,47 @@ The curious coder's guide to ``git``
 git - love - hate
 *****************
 
-I've used git now for a long time.  I think it's a true masterpiece of design, I
-use it all day every day and I just can't imagine what it would be like not to
-use it. So, no question, I *love* git.
+I've used git now for a long time.  I think it's a true masterpiece of design,
+I use it all day every day and I just can't imagine what it would be like not
+to use it. So, no question, I *love* git.
 
 As y'all may know, `Linus Torvalds wrote git from scratch
-<http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git>`_.  He loves
-it too.  `Here is Linus talking about git
+<http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git>`_.  He
+loves it too.  `Here is Linus talking about git
 <http://www.youtube.com/watch?v=MShbP3OpASA#t=2288>`_ in a question and answer
 session:
 
-    Actually I'm proud of git. I want to say this. The fact that I had to write
-    git was accidental, but Linux, the design came from a great mind, and that
-    great mind was not mine. I mean you have to give credit for the design of
-    Linux to Kernighan and Ritchie and Thompson. I mean there's a reason I like
-    Unix and I wanted to redo it. I do want to say that git is a design that is
-    mine and unique, and I'm proud of the fact that I can damn well also do good
-    design from scratch.
+    Actually I'm proud of git. I want to say this. The fact that I had to
+    write git was accidental, but Linux, the design came from a great mind,
+    and that great mind was not mine. I mean you have to give credit for the
+    design of Linux to Kernighan and Ritchie and Thompson. I mean there's a
+    reason I like Unix and I wanted to redo it. I do want to say that git is a
+    design that is mine and unique, and I'm proud of the fact that I can damn
+    well also do good design from scratch.
 
-But - some people hate git.  Really *hate* it. They find it confusing and error
-prone and it makes them angry.  Why are there such different views?
+But - some people hate git.  Really *hate* it. They find it confusing and
+error prone and it makes them angry.  Why are there such different views?
 
 I think the reason some people hate git, is because they don't yet understand
-it.  I reason I can say this without being patronizing is because I went through
-something similar myself.
+it.  I reason I can say this without being patronizing is because I went
+through something similar myself.
 
 When I first started using git, I found it uncomfortable.  I could see it was
-very powerful, but I sometimes got lost and stuck and had to Google for a set of
-magic commands to get me out of trouble.  I once accidentally made a huge mess
-of our project's main repository by running a command I didn't understand. Git
-often made me feel stupid.  It felt like a prototype racecar with a badly
-designed dashboard that was just about to blow an engine or a tire and take me
-off the road.
+very powerful, but I sometimes got lost and stuck and had to Google for a set
+of magic commands to get me out of trouble.  I once accidentally made a huge
+mess of our project's main repository by running a command I didn't
+understand. Git often made me feel stupid.  It felt like a prototype racecar
+with a badly designed dashboard that was just about to blow an engine or a
+tire and take me off the road.
 
 Then, one day, I read the `git parable`_.  The git parable is a little story
 about a developer trying to work out how to make a version control system.  It
 gradually builds up from copying whole directories of files to something very
-much like git.  I didn't understand it all right away, but as soon as I read this
-page, the light-bulb went on - I got git.  I suddenly started to feel
-comfortable.  I knew for sure I could work out why git worked the way it did.  I
-could see that it must be possible how to do complicated and powerful things,
-and I could work out how to do them.
+much like git.  I didn't understand it all right away, but as soon as I read
+this page, the light-bulb went on - I got git.  I suddenly started to feel
+comfortable.  I knew for sure I could work out why git worked the way it did.
+I could see that it must be possible how to do complicated and powerful
+things, and I could work out how to do them.
 
 Reading the git parable took me about 45 minutes, but those 45 minutes changed
 me from an unhappy git user to the man you see before you today, someone who
@@ -88,9 +88,10 @@ The git book is a standard reference that is hosted on the main git website.
     is where you’ll go over the inner workings and implementation of Git. I
     found that learning this information was fundamentally important to
     understanding how useful and powerful Git is, but others have argued to me
-    that it can be confusing and unnecessarily complex for beginners. Thus, I’ve
-    made this discussion the last chapter in the book so you could read it early
-    or later in your learning process. I leave it up to you to decide.
+    that it can be confusing and unnecessarily complex for beginners. Thus,
+    I’ve made this discussion the last chapter in the book so you could read
+    it early or later in your learning process. I leave it up to you to
+    decide.
 
 So - have no truck with people who try and tell you that you can just use git
 and that you don't need the `deep shit
@@ -130,6 +131,10 @@ As in the `git parable`_ - we'll try and design our own, and then see what
 try my  `git foundations
 <http://matthew-brett.github.com/pydagogue/foundation.html>`__ page).
 
+While we are designing our own content management system, we will do a lot of
+stuff longhand, to show how things work.  When we get to git, we will find it
+these tasks for us.
+
 *******************
 The story so far...
 *******************
@@ -139,18 +144,17 @@ explain the brain using random numbers. You've got the draft paper, and
 the analysis script and a figure for the paper. These are all in a
 directory modestly named ``nobel_prize``.
 
-In this directory, you have the paper draft ``nobel_prize.txt``, the
+In this directory, you have the paper draft ``nobel_prize_paper.txt``, the
 analysis script ``very_clever_analysis.py``, and a figure for the paper
 ``stunning_figure.png``.
 
 You can get this ground-breaking paper by downloading and unzipping
 :download:`nobel_prize_files.zip`.
 
-.. cleanup
-
 .. runblock::
     :hide:
 
+    # clean up old files from previous doc run
     rm -rf nobel_prize
 
 .. runblock:: bash
@@ -208,23 +212,20 @@ You make a directory to store the snapshots called ``.fancy_backups``:
 
     cd nobel_prize
 
-.. runblock:: bash
-    :cwd: nobel_prize
+.. prizerun::
 
     mkdir .fancy_backups
 
 Then you make a directory for the first backup:
 
-.. runblock:: bash
-    :cwd: nobel_prize
+.. prizerun::
 
     mkdir .fancy_backups/1
     mkdir .fancy_backups/1/files
 
 And you copy the files there:
 
-.. runblock:: bash
-    :cwd: nobel_prize
+.. prizerun::
 
     cp * .fancy_backups/1/files
 
@@ -232,101 +233,78 @@ Reminding yourself of what you did
 ==================================
 
 For good measure, you put a file in the snapshot directory to remind you when
-you did the snapshot, and who did it, and what was new for this snapshot
+you did the snapshot, and who did it, and what was new for this snapshot. Call
+this file ``info.txt``.  So, we write something like this:
 
-.. code:: python
+.. prizewrite::
 
-    %%file .fancy_backups/1/info.txt
+    # file: .fancy_backups/1/info.txt
     Date: April 1 2012, 14.30
     Author: I. M. Awesome
     Notes: First backup of my amazing idea
 
-.. parsed-literal::
-
-    Writing .fancy_backups/1/info.txt
-
-
 Now you have these files in the ``nobel_prize`` directory:
 
-.. runblock:: bash
-    :cwd: nobel_prize
+.. prizerun::
 
-    tree
+    tree -a
 
 Every time you do some work on the files, you back them up in the same
 way. After a few days:
 
-.. code:: python
+.. prizerun::
 
-    !echo "The charts are very impressive\n" >> nobel_prize.txt
-    !mkdir .fancy_backups/2
-    !mkdir .fancy_backups/2/files
-    !cp * .fancy_backups/2/files
-.. code:: python
+    # Append some text to nobel_prize_paper.txt
+    echo "The charts are very impressive" >> nobel_prize_paper.txt
+    # Make a new snapshot
+    mkdir .fancy_backups/2
+    mkdir .fancy_backups/2/files
+    cp * .fancy_backups/2/files
 
-    %%file .fancy_backups/2/info.txt
+We make a new ``info.txt`` file describing what is new in this snapshot:
+
+.. prizewrite::
+
+    # file: .fancy_backups/2/info.txt
     Date: April 1 2012, 18.03
     Author: I. M. Awesome
     Notes: Fruit of enormous thought
 
-.. parsed-literal::
+The next day we write a little more on our paper:
 
-    Writing .fancy_backups/2/info.txt
+.. prizerun::
 
+    # Append some more text to nobel_prize_paper.txt
+    echo "The graphs are also compelling" >> nobel_prize_paper.txt
+    # Make another shapshot
+    mkdir .fancy_backups/3
+    mkdir .fancy_backups/3/files
+    cp * .fancy_backups/3/files
 
-.. code:: python
+We add a description of these changes:
 
-    !echo "The graphs are also compelling\n" >> nobel_prize.txt
-    !mkdir .fancy_backups/3
-    !mkdir .fancy_backups/3/files
-    !cp * .fancy_backups/3/files
+.. prizewrite::
 
-.. code:: python
-
-    %%file .fancy_backups/3/info.txt
+    # file: .fancy_backups/3/info.txt
     Date: April 2 2012, 11.20
     Author: I. M. Awesome
     Notes: Now seeing things clearly
 
-.. code:: python
+After three days of work we have three snapshots in our backup directory:
 
-    print_tree()
+.. prizerun::
 
-.. parsed-literal::
+    tree -a
 
-    ├── [94m.fancy_backups[0m
-    │   ├── [94m1[0m
-    │   │   ├── [94mfiles[0m
-    │   │   │   ├── nobel_prize.txt
-    │   │   │   ├── stunning_figure.png
-    │   │   │   └── very_clever_analysis.py
-    │   │   └── info.txt
-    │   ├── [94m2[0m
-    │   │   ├── [94mfiles[0m
-    │   │   │   ├── nobel_prize.txt
-    │   │   │   ├── stunning_figure.png
-    │   │   │   └── very_clever_analysis.py
-    │   │   └── info.txt
-    │   └── [94m3[0m
-    │       ├── [94mfiles[0m
-    │       │   ├── nobel_prize.txt
-    │       │   ├── stunning_figure.png
-    │       │   └── very_clever_analysis.py
-    │       └── info.txt
-    ├── nobel_prize.txt
-    ├── stunning_figure.png
-    └── very_clever_analysis.py
+You keep doing this for another couple of days, until again the time comes to
+talk to Josephine. By now you have 5 snapshots.
 
-
-.. code:: python
+.. prizerun::
+    :hide:
 
     # Now we just cheat, and copy the commits
-    !cp -r .fancy_backups/3 .fancy_backups/4
-    !cp -r .fancy_backups/3 .fancy_backups/5
-    !cp -r .fancy_backups/3 .fancy_backups/6
-
-You keep doing this, until again the day comes to talk to Josephine. You
-now have 5 backups.
+    cp -r .fancy_backups/3 .fancy_backups/4
+    cp -r .fancy_backups/3 .fancy_backups/5
 
 The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.
@@ -337,14 +315,11 @@ does look different.
 You go through all the ``.fancy_backups`` directories in order. It turns
 out that the figure changes in ``.fancy_backups/4``.
 
-You look in ``.fancy_backups/4/info.txt`` and it says:
+You look in ``.fancy_backups/4/info.txt`` and it says::
 
-::
-
-    Date: April 8 2012, 01.40
+    Date: April 4 2012, 01.40
     Author: I. M. Awesome
     Notes: I always get the best ideas after I have been drinking.
-
 
 Aha. Then you go find the problem in
 ``fancy_backups/4/very_clever_analysis.py``.
@@ -352,6 +327,12 @@ Aha. Then you go find the problem in
 You fix ``very_clever_analysis.py``.
 
 You make a new snapshot ``.fancy_backups/6``.
+
+.. prizerun::
+    :hide:
+
+    # Cheat again
+    cp -r .fancy_backups/3 .fancy_backups/6
 
 Back on track for a scientific breakthrough
 
@@ -361,21 +342,25 @@ Terminology breakout
 Here are some
 `terms <https://www.kernel.org/pub/software/scm/git/docs/gitglossary.html>`__.
 
--  Working tree: the files you are working on in the current directory
-   (``nobel_prize``). The files ``very_clever_analysis.py``,
-   ``nobel_prize.txt``, ``stunning_figure.png`` are the files in your
-   working tree
--  Repository: the directory containing information about the history of
-   the files. Your directory ``.fancy_snapshot`` is the repository.
--  Commit: a completed snapshot. For example, ``.fancy_backups/1``
-   contains one commit.
+Working tree
+    The files you are working on in the current directory (``nobel_prize``).
+    The files ``very_clever_analysis.py``, ``nobel_prize_paper.txt``,
+    ``stunning_figure.png`` are the files in your working tree.
+
+Repository
+    The directory containing information about the history of the files. Your
+    directory ``.fancy_snapshot`` is the repository.
+
+Commit
+    A completed snapshot. For example, ``.fancy_backups/1`` contains one
+    commit.
 
 We'll use these terms to get used to them.
 
 Breaking up work into chunks
 ============================
 
-You did some edits to the paper ``nobel_prize.txt`` to edit the
+You did some edits to the paper ``nobel_prize_paper.txt`` to edit the
 introduction.
 
 You also had a good idea for the analysis, and did some edits to
@@ -386,151 +371,90 @@ bits of extra work, with their own comments in the ``info.txt``.
 
 You want to make two commits from your changes:
 
-1. a commit containing the changes to ``nobel_prize.txt``, with comment
-   "Changes to introduction"
-2. a commit containing the changes to ``very_clever_analysis.py`` with
-   comment "Crazy new analysis"
+1. a commit containing the changes to ``nobel_prize_paper.txt``, with comment
+   "Changes to introduction";
+2. Another commit containing the changes to ``very_clever_analysis.py``
+   with comment "Crazy new analysis"
 
 How can I do that?
 
 The staging area
 ================
 
-We adapt the workflow. Each time we start work, after a commit, we copy
-the last commit to directory ``.fancy_backups/staging_area``. That will
-the default contents of our next commit.
+You adapt the workflow. Each time you do a commit, you copy the contents of
+the commit to directory ``.fancy_backups/staging_area``. That will be the
+default contents of your next commit.
 
-.. code:: python
+.. prizerun::
 
-    !mkdir .fancy_backups/staging_area
-    !cp .fancy_backups/6/files/* .fancy_backups/staging_area
-    !ls .fancy_backups/staging_area
+    mkdir .fancy_backups/staging_area
+    cp .fancy_backups/6/files/* .fancy_backups/staging_area
+    ls .fancy_backups/staging_area
 
-.. parsed-literal::
-
-    nobel_prize.txt         stunning_figure.png     very_clever_analysis.py
-
-
-Now, you do your edits to ``nobel_prize.txt``, and
+Now, you do your edits to ``nobel_prize_paper.txt``, and
 ``very_clever_analysis.py`` in your *working tree* (the ``nobel_prize``
-directory). Then you get ready for the next commit with:
+directory). You want to make a new commit containing the changes to the paper
+but not the changes to the script.  You get ready for the next commit with:
 
-.. code:: python
+.. prizerun::
 
-    !cp nobel_prize.txt .fancy_backups/staging_area
+    cp nobel_prize_paper.txt .fancy_backups/staging_area
 
 The staging area now contains all the files for the upcoming commit
-(snapshot).
+(snapshot). The upcoming commit only has the changes in the paper.
 
-You make the commit with:
+You make the commit by making the usual directories, and copying the contents
+of the staging area into the commit ``files`` directory:
 
-.. code:: python
+.. prizerun::
 
-    !mkdir .fancy_backups/7
-    !mkdir .fancy_backups/7/files
-    !cp .fancy_backups/staging_area/* .fancy_backups/7/files
+    # Make commit directories
+    mkdir .fancy_backups/7
+    mkdir .fancy_backups/7/files
+    # Copy contents of staging area into commit directory
+    cp .fancy_backups/staging_area/* .fancy_backups/7/files
 
-.. code:: python
+with message:
 
-    %%file .fancy_backups/7/info.txt
+.. prizewrite::
+
+    # file: .fancy_backups/7/info.txt
     Date: April 10 2012, 14.30
     Author: I. M. Awesome
     Notes: Changes to introduction
 
-.. parsed-literal::
+After we have done the commit this way, by coping the staging area to the
+commit ``files`` directory, the staging area is identical to the contents of
+the commit.  Now you are ready for the next commit, that adds the changes to
+the analysis script.
 
-    Writing .fancy_backups/7/info.txt
+.. prizerun::
 
-
-Now you are ready for the next commit, with the changes to the analysis
-script.
-
-.. code:: python
-
-    !cp very_clever_analysis.py .fancy_backups/staging_area
+    cp very_clever_analysis.py .fancy_backups/staging_area
 
 The commit is now *staged* and ready to be saved.
 
-.. code:: python
+.. prizerun::
 
     # Our commit procedure; same as last time with "8" instead of "7"
-    !mkdir .fancy_backups/8
-    !mkdir .fancy_backups/8/files
-    !cp .fancy_backups/staging_area/* .fancy_backups/8/files
+    mkdir .fancy_backups/8
+    mkdir .fancy_backups/8/files
+    cp .fancy_backups/staging_area/* .fancy_backups/8/files
 
-.. code:: python
+The message is:
 
-    %%file .fancy_backups/8/info.txt
+.. prizewrite::
+
+    # file: .fancy_backups/8/info.txt
     Date: April 10 2012, 14.35
     Author: I. M. Awesome
     Notes: Crazy new analysis
 
-.. parsed-literal::
+Here is what you have in your ``.fancy_backups`` directory:
 
-    Writing .fancy_backups/8/info.txt
+.. prizerun::
 
-
-Here is what we have in our ``.fancy_backups`` directory:
-
-.. code:: python
-
-    print_tree('.fancy_backups')
-
-.. parsed-literal::
-
-    ├── [94m1[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m2[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m3[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m4[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m5[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m6[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m7[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    ├── [94m8[0m
-    │   ├── [94mfiles[0m
-    │   │   ├── nobel_prize.txt
-    │   │   ├── stunning_figure.png
-    │   │   └── very_clever_analysis.py
-    │   └── info.txt
-    └── [94mstaging_area[0m
-        ├── nobel_prize.txt
-        ├── stunning_figure.png
-        └── very_clever_analysis.py
-
+    tree -a .fancy_backups
 
 Now the very difficult problem
 ==============================
@@ -541,269 +465,237 @@ Let's say it changes only once across our 8 commits, at commit 5.
 
 What should we do to save disk space for ``.fancy_backups``?
 
-********************
-Cryptographic hashes
-********************
+************************************
+Cryptographic hashes might be useful
+************************************
 
-Later on, I'm going to ask you to solve a very difficult problem.
-
-Here's some background that might help.
-
-I'm going to describe "Crytographic hashes". It won't be obvious why
-that's a good idea for a little while.
+This section describes "Crytographic hashes". These are the key to an
+excellent way to store our snapshots.  Later we will see that they are central
+to the way that git works.
 
 See : `Wikipedia on hash
 functions <http://en.wikipedia.org/wiki/Cryptographic_hash_function>`__.
 
 A *hash* is the result of running a *hash function* over a block of
 data. The hash is a fixed length string that is the *signature* of that
-exact block of data. Let's run this in Python:
+exact block of data.  One common hash function is called SHA1.  Let's run this
+via the command line:
 
-.. doctest::
+.. runblock::
 
-    >>> import hashlib
-    >>> sha1_hash_function = hashlib.sha1
-    >>> message = "git is a rude word in UK English"
-    >>> hash_value = sha1_hash_function(message).hexdigest()
-    >>> hash_value
-    'fec41478c4f497c1d90fd28610f4272c78a6867e'
+    # Make a file with a single line of text
+    echo "git is a rude word in UK English" > git_is_rude
+    # Show the SHA1 hash
+    shasum git_is_rude
 
-Not too exciting so far. However, the rather magical nature of this
-string is not yet apparent. Here's the trick:
+Not too exciting so far. However, the rather magical nature of this string is
+not yet apparent. This SHA1 hash is a *cryptographic* hash because
 
-**There is no practical way for you to find another ``message`` that
-will give the same ``hash_value``**
+* the hash value is (almost) unique to this exact file contents, and
+* it is (almost) impossible to find some other file contents with the same
+  hash
 
-The ``hash_value`` then is (nearly) completely unique to that set of
-bytes.
+In other words, there is no practical way for you to find another file with
+different contents that will give the same hash.
 
-For example, a tiny change in the string makes the hash completely
-different. Here I've just added a full stop at the end:
+For example, a tiny change in the string makes the hash completely different.
+Here I've just added a full stop at the end:
 
-.. doctest::
-    >>> sha1_hash_function("git is a rude word in UK English.").hexdigest()
-    '9e87add001f13aa79ed7b42a5effbfc60aa8584e'
+.. runblock::
 
-So, if you give me some data, and I calculate the hash value, and it
-comes out as "fec41478c4f497c1d90fd28610f4272c78a6867e", then I can be
-very sure that the data you gave me was exactly the string "git is a
-rude word in UK English".
+    echo "git is a rude word in UK English." > git_is_rude_stop
+    shasum git_is_rude_stop
 
-Exercise - your strategy
-========================
+So, if you give me some data, and I calculate the SHA1 hash value, and it
+comes out as ``30ad6c360a692c1fe66335bb00d00e0528346be5``, then I can be very
+sure that the data you gave me was exactly the ASCII string "git is a rude
+word in UK English".
 
-Split into pairs.
-
-In five minutes, we'll share ideas.
-
-My crazy idea - use hash values as file names
-=============================================
+A crazy idea - use hash values as file names
+============================================
 
 Make a new directory:
 
-.. code:: python
+.. prizerun::
 
-    !mkdir .fancy_backups/objects
+    mkdir .fancy_backups/objects
 
 Calculate the hash value for the figure:
 
-.. code:: python
+.. prizerun::
 
-    import hashlib
-    # read the bytes for the figure into a string
-    figure_data = open('.fancy_backups/1/files/stunning_figure.png', 'rb').read()
-    # Calculate the hash value
-    figure_hash = hashlib.sha1(figure_data).hexdigest()
-    figure_hash
-
-
-.. parsed-literal::
-
-    'aff88ecead2c7166770969a54dc855c8b91be864'
-
-
+    shasum .fancy_backups/1/files/stunning_figure.png
 
 Save the figure with the hash value as the file name:
 
-.. code:: python
+.. prizerun::
 
-    !cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/$figure_hash
+    cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
 
 Do the same for the other two files in the first commit.
 
-.. code:: python
+.. prizerun::
 
-    import os
-    
-    def copy_to_hash(fname):
-        # Read the data
-        binary_data = open(fname, 'rb').read()
-        # Find the hash
-        hash_value = hashlib.sha1(binary_data).hexdigest()
-        # Save with the hash filename
-        hash_fname = '.fancy_backups/objects/' + hash_value
-        if os.path.isfile(hash_fname):
-            print "We already have a hash file for " + fname
-        else:
-            open(hash_fname, 'wb').write(binary_data)
-        return hash_value
+    shasum .fancy_backups/1/files/nobel_prize_paper.txt
+    shasum .fancy_backups/1/files/very_clever_analysis.py
 
-.. code:: python
+.. prizerun::
 
-    paper_hash = copy_to_hash('.fancy_backups/1/files/nobel_prize.txt')
-    script_hash = copy_to_hash('.fancy_backups/1/files/very_clever_analysis.py')
+    cp .fancy_backups/1/files/nobel_prize_paper.txt .fancy_backups/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
+    cp .fancy_backups/1/files/very_clever_analysis.py .fancy_backups/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+
+We now have three new files in ``.fancy_backups/objects``, one corresponding
+to each unique file *contents* we have hashed:
+
+.. prizerun::
+
+    tree -a .fancy_backups/objects
 
 Making the directory listing
 ============================
 
-Here are the hashes for all files:
+The snapshot has three files.  We can think of the file has having *content*
+(the bytes contained in the file) and a *filename*.  We have already stored
+the contents in the object directory, but with a different filename, from the
+hash of the contents.  To record the filenames, we need to make a directory
+listing.
 
-.. code:: python
+To do this, we can point the snapshot to the hash filename versions of the
+files by making a *text directory listing* or *tree* listing:
 
-    print 'Hash for stunning_figure.png:', figure_hash
-    print 'Hash for nobel_prize:', paper_hash
-    print 'Hash for very_clever_analysis.py:', script_hash
+.. prizewrite::
 
-.. parsed-literal::
-
-    Hash for stunning_figure.png: aff88ecead2c7166770969a54dc855c8b91be864
-    Hash for nobel_prize: 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-    Hash for very_clever_analysis.py: e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-
-.. code:: python
-
-    print_tree('.fancy_backups/objects')
-
-.. parsed-literal::
-
-    ├── 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-    ├── aff88ecead2c7166770969a54dc855c8b91be864
-    └── e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-
-Now point the snapshot to the hash filename versions of the files by
-making a *text directory listing* or *tree* listing:
-
-.. code:: python
-
-    %%file .fancy_backups/1/directory_list
+    # file: .fancy_backups/1/directory_list
     Filename                Hash value
     ========                ==========
+    nobel_prize_paper.txt   3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
     stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
-    nobel_prize.txt         3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
     very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-.. parsed-literal::
-
-    Writing .fancy_backups/1/directory_list
-
 
 The next commit - saves space!
 ==============================
 
-.. code:: python
+Now we work on the files from the second commit. These are the files in
+``.fancy_backups/2/files``.
 
-    # Nothing to for unchanged figure - already have hash value file
-    figure_hash = copy_to_hash('.fancy_backups/2/files/stunning_figure.png')
-    # Makes a new copy
-    paper_hash = copy_to_hash('.fancy_backups/2/files/nobel_prize.txt')
-    # Nothing to for unchanged script - already have hash value file
-    script_hash = copy_to_hash('.fancy_backups/2/files/very_clever_analysis.py')
-    print 'Hash for stunning_figure.png:', figure_hash
-    print 'Hash for nobel_prize:', paper_hash
-    print 'Hash for very_clever_analysis.py:', script_hash
+Remember that we only changed ``nobel_prize_paper.txt`` in this commit.
 
-.. parsed-literal::
+Do we need to copy ``nobel_prize_papar.txt`` or ``stunning_figure.png`` to the
+objects directory again?
 
-    We already have a hash file for .fancy_backups/2/files/stunning_figure.png
-    We already have a hash file for .fancy_backups/2/files/very_clever_analysis.py
-    Hash for stunning_figure.png: aff88ecead2c7166770969a54dc855c8b91be864
-    Hash for nobel_prize: bc330d8886bb1b36a49d8e7ebb07d3443190b0e6
-    Hash for very_clever_analysis.py: e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+No - because they have not changed.  Because they have not changed, their hash
+values have not changed.  Because their hash values have not changed, and
+because the hash values are unique to the contents, we already have the files
+we need in the ``objects`` directory.
 
+Specifically, because ``.fancy_backups/2/stunning_figure.png`` is the same as
+``.fancy_backups/1/stunning_figure.png`` we know that the hash is the same,
+and the hash is the one we've already calculated,
+``aff88ecead2c7166770969a54dc855c8b91be864``.  We already have a file
+``.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864``, and we
+know, because the hash values are unique, that this file must contain the
+exact contents of ``.fancy_backups/1/stunning_figure.png``, which is also the
+exact contents of ``.fancy_backups/2/stunning_figure.png``.
 
-Only the ``nobel_prize.txt`` has changed. So:
+So in general, if we do a hash on a file, and then we find a filename the same
+as this hash in the objects directory, we already have that exact contents
+backed up, and we don't need to do a copy.
 
-.. code:: python
+Here are the hashes for the files in commit 2:
 
-    %%file .fancy_backups/2/directory_list
+.. prizerun::
+
+    shasum .fancy_backups/2/files/nobel_prize_paper.txt
+    shasum .fancy_backups/2/files/stunning_figure.png
+    shasum .fancy_backups/2/files/very_clever_analysis.py
+
+We already have files ``aff88ecead2c7166770969a54dc855c8b91be864`` and
+``e7f3ca9157fd7088b6a927a618e18d4bc4712fb6`` in ``.fancy_backups/objects``, so
+the only file we need to copy is ``nobel_prize_paper.txt``:
+
+.. prizerun::
+
+    cp .fancy_backups/2/files/nobel_prize_paper.txt .fancy_backups/objects/90aa1015732676bf63d2d950714a1f11196875fc
+
+Here then is our directory listing for commit 2:
+
+.. prizewrite::
+
+    # file: .fancy_backups/2/directory_list
     Filename                Hash value
     ========                ==========
+    nobel_prize_paper.txt   90aa1015732676bf63d2d950714a1f11196875fc
     stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
-    nobel_prize.txt         bc330d8886bb1b36a49d8e7ebb07d3443190b0e6
     very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 
-.. parsed-literal::
+An even more crazy idea - hash the directory list
+=================================================
 
-    Writing .fancy_backups/2/directory_list
+The directory listing is just a text file.  We can store the directory listing
+as we store the other files, by writing an object file with the file hash:
 
+.. prizerun::
 
-An even more crazy idea - hash the tree
-=======================================
+    shasum .fancy_backups/1/directory_list
 
-I guess we can store the tree for the first commit according to its
-hash:
+.. prizerun::
 
-.. code:: python
-
-    tree_hash = copy_to_hash('.fancy_backups/1/directory_list')
-    tree_hash
-
-
-
-.. parsed-literal::
-
-    '63d466086dd359c0b34d21e04b812781c7153b23'
-
-
+    cp .fancy_backups/1/directory_list .fancy_backups/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 
 And we can do the same for the second commit:
 
-.. code:: python
+.. prizerun::
 
-    copy_to_hash('.fancy_backups/2/directory_list')
+    shasum .fancy_backups/2/directory_list
 
+.. prizerun::
 
+    cp .fancy_backups/2/directory_list .fancy_backups/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 
-.. parsed-literal::
-
-    'd45095659d1ea567b90aaf923e265bf41cbb126f'
-
-Now - would I get the same hash if I had had a different figure?
+Now - would I get the same hash for the directory listing if I had had a
+different figure?
 
 Even more crazy idea - make the whole commit into a text file
 =============================================================
 
-How about this?
+We've seen that we can make a directory listing that is unique for the whole
+contents of the snapshot files (file contents and file names).  Therefore the
+*hash* of the directory listing is also unique for the contents of the
+snapshot files.  So, we can make a *commit file* that is the ``info.txt`` file
+above, but now with the hash of the directory listing included.  Including the
+directory listing means that this *commit file* is now also unique to the
+contents of the snapshot.  The commit file for the first commit might look
+something like this:
 
-.. code:: python
+.. prizewrite::
 
-    %%file .fancy_backups/1/commit
+    # file: .fancy_backups/1/commit
     Date: April 1 2012, 14.30
     Author: I. M. Awesome
     Notes: First backup of my amazing idea
-    Tree: 63d466086dd359c0b34d21e04b812781c7153b23
+    Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 
-.. parsed-literal::
+The commit file for the second commit might look like this:
 
-    Writing .fancy_backups/1/commit
+.. prizewrite::
 
+    # file: .fancy_backups/2/commit
+    Date: April 1 2012, 18.03
+    Author: I. M. Awesome
+    Notes: Fruit of enormous thought
+    Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 
-And now I can hash the commit!
+The commit is now just a text file, and I can hash this too:
 
-.. code:: python
+.. prizerun::
 
-    commit_hash = copy_to_hash('.fancy_backups/1/commit')
-    commit_hash
+    shasum .fancy_backups/1/commit
+    shasum .fancy_backups/2/commit
 
+.. prizerun::
 
-
-.. parsed-literal::
-
-    'f473e51a38d40772722205c92dddd4bdfd941ef8'
-
-
+    cp .fancy_backups/1/commit .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
+    cp .fancy_backups/2/commit .fancy_backups/objects/d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba
 
 Would the commit hash value change if the figure changed?
 
@@ -812,34 +704,13 @@ So crazy it's actually git
 
 Now look in ``.fancy_backups/objects``:
 
-.. code:: python
+.. prizerun::
 
-    ls .fancy_backups/objects
+    tree -a .fancy_backups/objects
 
-.. parsed-literal::
-
-    3af8809ecb9c6dec33fc7e5ad330e384663f5a0d  bc330d8886bb1b36a49d8e7ebb07d3443190b0e6  f473e51a38d40772722205c92dddd4bdfd941ef8
-    63d466086dd359c0b34d21e04b812781c7153b23  d45095659d1ea567b90aaf923e265bf41cbb126f
-    aff88ecead2c7166770969a54dc855c8b91be864  e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-
-That's 3 file copies for the files from the first commit, 1 file copy
-from the second commit, 2 directory listings (for first and second
-commit) and one commit listing (for the first commit) = 7 hash objects.
-
-We know that the file beginning 'f473e51' *completely defines the first
-commit*:
-
-.. code:: python
-
-    !cat .fancy_backups/objects/f473e51a38d40772722205c92dddd4bdfd941ef8
-
-.. parsed-literal::
-
-    Date: April 1 2012, 14.30
-    Author: I. M. Awesome
-    Notes: First backup of my amazing idea
-    Tree: 63d466086dd359c0b34d21e04b812781c7153b23
+That's 3 file copies for the files from the first commit, 1 file copy from the
+second commit, 2 directory listings (for first and second commit) and two
+commit listings (for the first and second commit) = 8 hash objects.
 
 Linking the commits
 ===================
@@ -847,32 +718,31 @@ Linking the commits
 Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``
 -----------------------------------------------------------------------
 
-The reason for our commit names "1","2", "3" was so we know that commit
-"2" comes after commit "1" and before commit "3". Now our commits have
-arbitrary hashes, we can't tell the order from the name.
+The reason for our commit names "1","2", "3" was so we know that commit "2"
+comes after commit "1" and before commit "3". Now our commits have filenames
+with arbitrary hashes, we can't tell the order from the name.
+
+However, the commit hash does uniquely identify the commit.  For example, we
+know that the file beginning '012ad9f' *completely defines the first commit*:
+
+.. prizerun::
+
+    cat .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
 
 We can specify the order by adding the commit hash of the previous
-commit into the current commit:
+(parent) commit into the current commit:
 
-.. code:: python
+.. prizewrite::
 
-    %%file .fancy_backups/temporary_file
+    # file: .fancy_backups/2/info.txt
     Date: April 1 2012, 18.03
     Author: I. M. Awesome
     Notes: Fruit of enormous thought
-    Tree: d45095659d1ea567b90aaf923e265bf41cbb126f
-    Parent: 63dab6e48ed2e9111624a3b5391bdf784c040b86
+    Tree: 1dca3837b1076cdcfb02e86018377725e5d0e86e
+    Parent: 012ad9f6c3a715516514e8821a71d891c4211f8f
 
-.. parsed-literal::
-
-    Writing .fancy_backups/temporary_file
-
-
-.. code:: python
-
-    commit2_hash = copy_to_hash('.fancy_backups/temporary_file')
-
-Now we have the order of the commits from the links between them.
+Now we have the order of the commits from the links between them, where the
+links are given by the hash value in the ``Parent`` field.
 
 And now you are already a git master.
 
@@ -887,144 +757,81 @@ for sharing.
 We need to tell git about us before we start. This stuff will go into
 the commit information.
 
-.. code:: python
+.. prizerun::
 
-    !git config --global user.name "Matthew Brett"
-    !git config --global user.email "matthew.brett@gmail.com"
+    git config --global user.name "Matthew Brett"
+    git config --global user.email "matthew.brett@gmail.com"
 
-git often needs to call up a text editor. Choose the editor you like
-here:
+git often needs to call up a text editor. Choose the editor you like here::
 
-.. code:: python
-
-    # Put here your preferred editor. 
-    !git config --global core.editor gedit
+    # Put here your preferred editor
+    git config --global core.editor gedit
 
 We also turn on the use of color, which is very helpful in making the
-output of git easier to read
+output of git easier to read::
 
-.. code:: python
-
-    !git config --global color.ui "auto"
+    git config --global color.ui "auto"
 
 Getting help
 ============
 
-.. code:: python
+.. prizerun::
 
-    !git
-
-.. parsed-literal::
-
-    usage: git [--version] [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-               [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
-               [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-               [-c name=value] [--help]
-               <command> [<args>]
-    
-    The most commonly used git commands are:
-       add        Add file contents to the index
-       bisect     Find by binary search the change that introduced a bug
-       branch     List, create, or delete branches
-       checkout   Checkout a branch or paths to the working tree
-       clone      Clone a repository into a new directory
-       commit     Record changes to the repository
-       diff       Show changes between commits, commit and working tree, etc
-       fetch      Download objects and refs from another repository
-       grep       Print lines matching a pattern
-       init       Create an empty git repository or reinitialize an existing one
-       log        Show commit logs
-       merge      Join two or more development histories together
-       mv         Move or rename a file, a directory, or a symlink
-       pull       Fetch from and merge with another repository or a local branch
-       push       Update remote refs along with associated objects
-       rebase     Forward-port local commits to the updated upstream head
-       reset      Reset current HEAD to the specified state
-       rm         Remove files from the working tree and from the index
-       show       Show various types of objects
-       status     Show the working tree status
-       tag        Create, list, delete or verify a tag object signed with GPG
-    
-    See 'git help <command>' for more information on a specific command.
-
+    git
 
 Try ``git help add`` for an example.
 
 Initializing the repository
 ===========================
 
-Let's make this ``nobel_prize`` directory be version controlled with
-git.
+We first set this ``nobel_prize`` directory be version controlled with
+git.  We start with the original files for the paper:
 
-.. code:: python
+.. prizerun::
+    :hide:
 
-    # First pull the contents of the first commit from .fancy_backups
-    !cp .fancy_backups/1/files/* .
-    # Then delete .fancy_backups - we're done with those guys
-    !rm -rf .fancy_backups
+    # Delete the current contents of 'nobel_prize'
+    rm -rf .
+    rm -rf .fancy_backups
 
-.. code:: python
+.. runblock::
 
-    !ls -a
+    unzip -o nobel_prize_files.zip
+    cd nobel_prize
 
-.. parsed-literal::
+Create git repository:
 
-    [34m.[m[m                       [34m..[m[m                      nobel_prize.txt         stunning_figure.png     very_clever_analysis.py
+.. prizerun::
 
+    git init
 
-.. code:: python
+What happened when we did ``git init``? Just what we were expecting; a
+*repository* directory called ``.git``
 
-    !git init
+.. prizerun::
 
-.. parsed-literal::
-
-    Initialized empty Git repository in /Users/mb312/dev_trees/pna-notebooks/nobel_prize/.git/
-
-Just what we were expecting; a *repository* directory called ``.git``
-
-.. code:: python
-
-    !ls .git
-
-.. parsed-literal::
-
-    HEAD        [34mbranches[m[m    config      [31mdescription[m[m [34mhooks[m[m       [34minfo[m[m        [34mobjects[m[m     [34mrefs[m[m
-
+    ls .git
 
 The ``objects`` directory looks familiar. What's in there?
 
-.. code:: python
+.. prizerun::
 
-    print_tree('.git/objects')
+    tree .git/objects
 
-.. parsed-literal::
-
-    ├── [94minfo[0m
-    └── [94mpack[0m
-
-
-Nothing. That makes sense.
+Nothing but a couple of empty directories. That makes sense.
 
 git add - put stuff into the staging area
 =========================================
 
-.. code:: python
+.. prizerun::
 
-    !git add nobel_prize.txt
+    git add nobel_prize_paper.txt
 
-.. code:: python
+.. prizerun::
 
-    print_tree('.git/objects')
+    tree .git/objects
 
-.. parsed-literal::
-
-    ├── [94md9[0m
-    │   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-    ├── [94minfo[0m
-    └── [94mpack[0m
-
-
-Doing ``git add nobel_prize.txt`` has added a file to the
+Doing ``git add nobel_prize_paper.txt`` has added a file to the
 ``.git/objects`` directory. That filename looks suspiciously like a
 hash.
 
@@ -1034,27 +841,9 @@ git add and the staging area
 We expect that ``git add`` added the file to the *staging area*. Have we
 got any evidence of that?
 
-.. code:: python
+.. prizerun::
 
-    !git status
-
-.. parsed-literal::
-
-    # On branch master
-    #
-    # Initial commit
-    #
-    # Changes to be committed:
-    #   (use "git rm --cached <file>..." to unstage)
-    #
-    #	[32mnew file:   nobel_prize.txt[m
-    #
-    # Untracked files:
-    #   (use "git add <file>..." to include in what will be committed)
-    #
-    #	[31mstunning_figure.png[m
-    #	[31mvery_clever_analysis.py[m
-
+    git status
 
 Reading real git objects
 ========================
@@ -1065,118 +854,57 @@ Git objects are nearly as simple as the objects we were writing in
 The main difference is that, to save space, they are compressed, in fact
 using a library called ``zlib``.
 
-Here's a routine that gives us the raw contents of stuff in the
-``.git/objects`` directory. There are neater commands in git to do this,
-but this shows just how simple these objects are.
+These objects are so simple that it's very easy to write small code snippets
+to read them - see :doc:`reading_git_objects`.
 
-.. code:: python
+Git will also show the contents of objects with ``git show``.
 
-    import zlib # A compression / decompression library
-    
-    def read_git_object(filename):
-        """ Read an object in the ``.git/objects`` directory
-    
-        Yes, it's this simple - in this case.  But git reserves the right to use
-        more complicated storage formats to save space when your repository is larger
-        """
-        compressed_contents = open(filename, 'rb').read()
-        return zlib.decompress(compressed_contents)
+When we did ``git add nobel_prize_paper.txt``, we got a new file in
+``.git/objects``, with filename ``d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.
+The filename is in fact a hash, where the first two digits form the directory
+name (``d9``) and the rest of the filename is the rest of the hash digits
+[#git-object-dir]_.
 
-.. code:: python
+Here's the contents of the object:
 
-    filename = '.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553'
-    new_object_data = read_git_object(filename)
-    print new_object_data
+.. prizerun::
 
-.. parsed-literal::
+    git show d92d079af6a7f276cc8d63dcf2549c03e7deb553
 
-    blob 189 The brain is just a set of random numbers
-    =========================================
-    
-    We have discovered that the brain is a set of random numbers.
-    
-    We have charts and graphs to back us up.
-    
+Just as we expected, it is the current contents of the
+``nobel_prize_paper.txt``.
 
+In fact we only need to give git enough hash digits for git to uniquely
+identify the object.  7 digits if often enough, as in:
 
-It's just the contents of the file, with some cruft at the start
-(``blob 189``).
+.. prizerun::
+
+    git show d92d079
 
 Staging the other files
 =======================
 
-.. code:: python
+.. prizerun::
 
-    !git add stunning_figure.png
-    !git add very_clever_analysis.py
+    git add stunning_figure.png
+    git add very_clever_analysis.py
+    git status
 
-.. code:: python
+We have now staged all three of our files.  We have three objects in
+``.git/objects``:
 
-    !git status
+.. prizerun::
 
-.. parsed-literal::
-
-    # On branch master
-    #
-    # Initial commit
-    #
-    # Changes to be committed:
-    #   (use "git rm --cached <file>..." to unstage)
-    #
-    #	[32mnew file:   nobel_prize.txt[m
-    #	[32mnew file:   stunning_figure.png[m
-    #	[32mnew file:   very_clever_analysis.py[m
-    #
-
-
-.. code:: python
-
-    print_tree('.git/objects')
-
-.. parsed-literal::
-
-    ├── [94m8a[0m
-    │   └── dc8bf371d669242ea998f78f9916867cc6203c
-    ├── [94m9f[0m
-    │   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
-    ├── [94md9[0m
-    │   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-    ├── [94minfo[0m
-    └── [94mpack[0m
-
-
-.. code:: python
-
-    print read_git_object('.git/objects/8a/dc8bf371d669242ea998f78f9916867cc6203c')
-
-.. parsed-literal::
-
-    blob 138 # The brain analysis script
-    import numpy as np
-    
-    # Make brain data
-    brain_size = (128, 128)
-    random_data = np.random.normal(size=brain_size)
-    
-
+    tree .git/objects
 
 git commit - making the snapshot
 ================================
 
-.. code:: python
+.. prizerun::
 
-    !git commit -m "First backup of my amazing idea"
+    git commit -m "First backup of my amazing idea"
 
-.. parsed-literal::
-
-    [master (root-commit) 1d7415e] First backup of my amazing idea
-     3 files changed, 12 insertions(+)
-     create mode 100644 nobel_prize.txt
-     create mode 100644 stunning_figure.png
-     create mode 100644 very_clever_analysis.py
-
-
-In the commit above, we used the -m flag to specify a message at the
+In the line above, we used the ``-m`` flag to specify a message at the
 command line. If we don't do that, git will open the editor we specified
 in our configuration above and require that we enter a message. By
 default, git refuses to record changes that don't have a message to go
@@ -1184,83 +912,41 @@ along with them (though you can obviously 'cheat' by using an empty or
 meaningless string: git only tries to facilitate best practices, it's
 not your nanny).
 
-We are now expecting to have a .git object for the directory tree, and
-for the commit.
+We are now expecting to have two new ``.git/object`` files, for the directory
+tree, and for the commit.
 
-.. code:: python
+.. prizerun::
 
-    print_tree('.git/objects')
+    tree .git/objects
 
-.. parsed-literal::
+Here's ``git show`` for the tree (directory listing):
 
-    ├── [94m1d[0m
-    │   └── 7415e14ef0d556a97630997644307942f7f703
-    ├── [94m1e[0m
-    │   └── 322f4e782df4dfe963eda96517886f4e39a454
-    ├── [94m8a[0m
-    │   └── dc8bf371d669242ea998f78f9916867cc6203c
-    ├── [94m9f[0m
-    │   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
-    ├── [94md9[0m
-    │   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-    ├── [94minfo[0m
-    └── [94mpack[0m
+.. prizerun::
 
+    git show e129806
 
-Here's the tree:
+We can get a little more detail from the directory listing with ``git
+ls-tree``:
 
-.. code:: python
+.. prizerun::
 
-    print read_git_object('.git/objects/1e/322f4e782df4dfe963eda96517886f4e39a454')
+    git ls-tree e129806
 
-.. parsed-literal::
-
-    tree 141 100644 nobel_prize.txt �-����v̍c��T��޵S100644 stunning_figure.png ��1)��{��-�Q���
-    }100644 very_clever_analysis.py �܋�q�i$.������|� <
-
-
-These are in fact the file permissions, the filenames, and a binary form
-of the file hashes. Git will read this in a more friendly form for us:
-
-.. code:: python
-
-    !git ls-tree 1e322f4
-
-.. parsed-literal::
-
-    100644 blob d92d079af6a7f276cc8d63dcf2549c03e7deb553	nobel_prize.txt
-    100644 blob 9ffc311b29f0c87bf502b92df951d90ef88c1c7d	stunning_figure.png
-    100644 blob 8adc8bf371d669242ea998f78f9916867cc6203c	very_clever_analysis.py
-
+These are in fact the file permissions, the type of file (another directory,
+or a file), the file hashes, and the file names.
 
 git log - what are the commits so far?
 ======================================
 
-.. code:: python
+.. prizerun::
 
-    !git log
+    git log
 
-.. parsed-literal::
+I can also ask to the parents of each commit in the log:
 
-    [33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
-    Author: Matthew Brett <matthew.brett@gmail.com>
-    Date:   Thu May 2 22:04:55 2013 -0700
-    
-        First backup of my amazing idea
+.. prizerun::
 
-
-.. code:: python
-
-    !git log --parents
-
-.. parsed-literal::
-
-    [33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
-    Author: Matthew Brett <matthew.brett@gmail.com>
-    Date:   Thu May 2 22:04:55 2013 -0700
-    
-        First backup of my amazing idea
-
+    git log --parents
 
 Why are these two outputs the same?
 
@@ -1274,41 +960,28 @@ ones.
 The default branch for git is called ``master``. Git creates it
 automatically when you do your first commit.
 
-.. code:: python
+.. prizerun::
 
-    !git branch
+    git branch
 
-.. parsed-literal::
+Asking for more verbose detail shows us that the branch is pointing to a
+particular commit (where the commit is given by a hash):
 
-    * [32mmaster[m
+.. prizerun::
 
+    git branch -v
 
-.. code:: python
+A branch is just a bookmark - a name that points to a commit.  In fact, git
+stores branches as tiny text files, where the filename is the name of the
+branch, and the contents is the hash of the commit that it points to:
 
-    !git branch -v
+.. prizerun::
 
-.. parsed-literal::
+    ls .git/refs/heads
 
-    * [32mmaster[m 1d7415e First backup of my amazing idea
+.. prizerun::
 
-
-.. code:: python
-
-    !ls .git/refs/heads
-
-.. parsed-literal::
-
-    master
-
-
-.. code:: python
-
-    !cat .git/refs/heads/master
-
-.. parsed-literal::
-
-    1d7415e14ef0d556a97630997644307942f7f703
-
+    cat .git/refs/heads/master
 
 git diff - what has changed?
 ============================
@@ -1317,30 +990,15 @@ Let's do a little bit more work... Again, in practice you'll be editing
 the files by hand, here we do it via shell commands for the sake of
 automation (and therefore the reproducibility of this tutorial!)
 
-.. code:: python
+.. prizerun::
 
-    !echo "\nThe charts are very impressive\n" >> nobel_prize.txt
+    echo "The charts are very impressive" >> nobel_prize_paper.txt
 
 And now we can ask git what is different:
 
-.. code:: python
+.. prizerun::
 
-    !git diff
-
-.. parsed-literal::
-
-    [1mdiff --git a/nobel_prize.txt b/nobel_prize.txt[m
-    [1mindex d92d079..47b7547 100644[m
-    [1m--- a/nobel_prize.txt[m
-    [1m+++ b/nobel_prize.txt[m
-    [36m@@ -4,3 +4,6 @@[m [mThe brain is just a set of random numbers[m
-     We have discovered that the brain is a set of random numbers.[m
-     [m
-     We have charts and graphs to back us up.[m
-    [32m+[m
-    [32m+[m[32mThe charts are very impressive[m
-    [41m+[m
-
+    git diff
 
 You need to ``git add`` a file to put it into the staging area
 ==============================================================
@@ -1350,173 +1008,96 @@ area.
 
 At the moment we have changes that have not been staged:
 
-.. code:: python
+.. prizerun::
 
-    !git status
-
-.. parsed-literal::
-
-    # On branch master
-    # Changes not staged for commit:
-    #   (use "git add <file>..." to update what will be committed)
-    #   (use "git checkout -- <file>..." to discard changes in working directory)
-    #
-    #	[31mmodified:   nobel_prize.txt[m
-    #
-    no changes added to commit (use "git add" and/or "git commit -a")
-
+    git status
 
 If we try and do a commit, git will tell us there is nothing to commit,
 because nothing has been staged:
 
-.. code:: python
+.. prizerun::
 
-    !git commit
+    git commit
 
-.. parsed-literal::
+Git distinguishes three types of files
+======================================
 
-    # On branch master
-    # Changes not staged for commit:
-    #   (use "git add <file>..." to update what will be committed)
-    #   (use "git checkout -- <file>..." to discard changes in working directory)
-    #
-    #	[31mmodified:   nobel_prize.txt[m
-    #
-    no changes added to commit (use "git add" and/or "git commit -a")
+Files can be:
 
+* unknown to git ("untracked")
+* known to git but modified from the version in the last commit
+* known to git and unmodified
 
 The cycle of git virtue: work, commit, work, commit, ...
 ========================================================
 
-.. code:: python
+We've done some work in the working tree, and we check what changes there are
+that we might want to commit:
 
-    !git status
+.. prizerun::
 
-.. parsed-literal::
+    git status
 
-    # On branch master
-    # Changes not staged for commit:
-    #   (use "git add <file>..." to update what will be committed)
-    #   (use "git checkout -- <file>..." to discard changes in working directory)
-    #
-    #	[31mmodified:   nobel_prize.txt[m
-    #
-    no changes added to commit (use "git add" and/or "git commit -a")
+We add the changes for one edited file to the staging area:
 
+.. prizerun::
 
-.. code:: python
+    git add nobel_prize_paper.txt
 
-    !git add nobel_prize.txt
-.. code:: python
+We check that git is planning to add the changes to the paper to the next
+commit:
 
-    !git status
+.. prizerun::
 
-.. parsed-literal::
+    git status
 
-    # On branch master
-    # Changes to be committed:
-    #   (use "git reset HEAD <file>..." to unstage)
-    #
-    #	[32mmodified:   nobel_prize.txt[m
-    #
+We do the commit:
 
+.. prizerun::
 
-.. code:: python
+    git commit -m "Fruit of enormous thought"
 
-    !git commit -m "Fruit of enormous thought"
+Remember branches?  Git has now moved the "master" branch bookmark up to the
+new commit:
 
-.. parsed-literal::
+.. prizerun::
 
-    [master ceda705] Fruit of enormous thought
-     1 file changed, 3 insertions(+)
+    git log
 
+.. prizerun::
 
-Remember branches?
+    cat .git/refs/heads/master
 
-.. code:: python
+git log and parents
+===================
 
-    !cat .git/refs/heads/master
+The first commit is the parent of the first:
 
-.. parsed-literal::
+.. prizerun::
 
-    ceda7056aba330314aa219f7facbb00eb1a03248
-
-
-git log revisited
-=================
-
-First, let's see what the log shows us now:
-
-.. code:: python
-
-    !git log
-
-.. parsed-literal::
-
-    [33mcommit ceda7056aba330314aa219f7facbb00eb1a03248[m
-    Author: Matthew Brett <matthew.brett@gmail.com>
-    Date:   Thu May 2 22:04:59 2013 -0700
-    
-        Fruit of enormous thought
-    
-    [33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
-    Author: Matthew Brett <matthew.brett@gmail.com>
-    Date:   Thu May 2 22:04:55 2013 -0700
-    
-        First backup of my amazing idea
-
-
-.. code:: python
-
-    !git log --parents
-
-.. parsed-literal::
-
-    [33mcommit ceda7056aba330314aa219f7facbb00eb1a03248 1d7415e14ef0d556a97630997644307942f7f703[m
-    Author: Matthew Brett <matthew.brett@gmail.com>
-    Date:   Thu May 2 22:04:59 2013 -0700
-    
-        Fruit of enormous thought
-    
-    [33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
-    Author: Matthew Brett <matthew.brett@gmail.com>
-    Date:   Thu May 2 22:04:55 2013 -0700
-    
-        First backup of my amazing idea
-
+    git log --parents
 
 Making log output more pithy
 ============================
 
-Sometimes it's handy to see a very summarized version of the log:
+It is very often useful to see a summarized version of the log.  Here is a
+useful version of the git log command:
 
-.. code:: python
+.. prizerun::
 
-    !git log --oneline --topo-order --graph
-
-.. parsed-literal::
-
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
+    git log --oneline --topo-order --graph
 
 Git supports *aliases:* new names given to command combinations. Let's
 make this handy shortlog an alias, so we only have to type ``git slog``
-and see this compact log:
+to get this compact log:
 
-.. code:: python
+.. prizerun::
 
     # We create our alias (this saves it in git's permanent configuration file):
-    !git config --global alias.slog "log --oneline --topo-order --graph"
-    
+    git config --global alias.slog "log --oneline --topo-order --graph"
+
     # And now we can use it
-    !git slog
-
-.. parsed-literal::
-
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
+    git slog
 
 ``git mv`` and ``rm``: moving and removing files
 ================================================
@@ -1526,46 +1107,22 @@ also tell it if we want their names to change or for it to stop tracking
 them. In familiar Unix fashion, the ``mv`` and ``rm`` git commands do
 precisely this:
 
-.. code:: python
+.. prizerun::
 
-    !git mv very_clever_analysis.py slightly_dodgy_analysis.py
-    !git status
-
-.. parsed-literal::
-
-    # On branch master
-    # Changes to be committed:
-    #   (use "git reset HEAD <file>..." to unstage)
-    #
-    #	[32mrenamed:    very_clever_analysis.py -> slightly_dodgy_analysis.py[m
-    #
-
+    git mv very_clever_analysis.py slightly_dodgy_analysis.py
+    git status
 
 Note that these changes must be committed too, to become permanent! In
 git's world, until something has been committed, it isn't permanently
 recorded anywhere.
 
-.. code:: python
+.. prizerun::
 
-    !git commit -m "I like this new name better"
+    git commit -m "I like this new name better"
 
-.. parsed-literal::
+.. prizerun::
 
-    [master 01df2e1] I like this new name better
-     1 file changed, 0 insertions(+), 0 deletions(-)
-     rename very_clever_analysis.py => slightly_dodgy_analysis.py (100%)
-
-
-.. code:: python
-
-    !git slog
-
-.. parsed-literal::
-
-    * [33m01df2e1[m I like this new name better
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
+    git slog
 
 And ``git rm`` works in a similar fashion.
 
@@ -1603,32 +1160,17 @@ currently active branch since it's what HEAD points to:
 
    -->
 
-.. code:: python
+.. prizerun::
 
-    !cat .git/HEAD
+    cat .git/HEAD
 
-.. parsed-literal::
+.. prizerun::
 
-    ref: refs/heads/master
+    cat .git/refs/heads/master
 
+.. prizerun::
 
-.. code:: python
-
-    !cat .git/refs/heads/master
-
-.. parsed-literal::
-
-    01df2e1271fe12e0586f3a3876a567c684d6ce9b
-
-
-.. code:: python
-
-    !git branch -v
-
-.. parsed-literal::
-
-    * [32mmaster[m 01df2e1 I like this new name better
-
+    git branch -v
 
 Once new commits are made on a branch, HEAD and the branch label move
 with the new commits:
@@ -1666,57 +1208,34 @@ unified line of development:
 Let's now illustrate all of this with a concrete example. Let's get our
 bearings first:
 
-.. code:: python
+.. prizerun::
 
-    !git status
-    !ls
-
-.. parsed-literal::
-
-    # On branch master
-    nothing to commit (working directory clean)
-    nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
-
+    git status
+    ls
 
 We are now going to try two different routes of development: on the
 ``master`` branch we will add one file and on the ``experiment`` branch,
 which we will create, we will add a different one. We will then merge
 the experimental branch into ``master``.
 
-.. code:: python
+.. prizerun::
 
-    !git branch experiment
+    git branch experiment
 
 What just happened? We made a branch, which is a pointer to this same
 commit:
 
-.. code:: python
+.. prizerun::
 
-    !ls .git/refs/heads
+    ls .git/refs/heads
 
-.. parsed-literal::
+.. prizerun::
 
-    experiment master
+    git branch -v
 
+.. prizerun::
 
-.. code:: python
-
-    !git branch -v
-
-.. parsed-literal::
-
-      experiment[m 01df2e1 I like this new name better
-    * [32mmaster    [m 01df2e1 I like this new name better
-
-
-.. code:: python
-
-    !cat .git/refs/heads/experiment
-
-.. parsed-literal::
-
-    01df2e1271fe12e0586f3a3876a567c684d6ce9b
-
+    cat .git/refs/heads/experiment
 
 How do we start working on this branch ``experiment`` rather than
 ``master``?
@@ -1730,35 +1249,19 @@ up to track our most recent commit.
 
 ``git checkout`` can switch us to using another branch:
 
-.. code:: python
+.. prizerun::
 
-    !git checkout experiment
-
-.. parsed-literal::
-
-    Switched to branch 'experiment'
-
+    git checkout experiment
 
 What just happened?
 
-.. code:: python
+.. prizerun::
 
-    !git branch -v
+    git branch -v
 
-.. parsed-literal::
+.. prizerun::
 
-    * [32mexperiment[m 01df2e1 I like this new name better
-      master    [m 01df2e1 I like this new name better
-
-
-.. code:: python
-
-    !cat .git/HEAD
-
-.. parsed-literal::
-
-    ref: refs/heads/experiment
-
+    cat .git/HEAD
 
 As we'll see later, ``git checkout somebranch`` also sets the contents
 of the working tree to match the commit contents for ``somebranch``. In
@@ -1767,45 +1270,24 @@ the same, so we don't change the working tree at all.
 
 Now let's do some changes on our ``experiment`` branch:
 
-.. code:: python
+.. prizerun::
 
-    !echo "Some crazy idea" > experiment.txt
-    !git add experiment.txt
-    !git commit -m "Trying something new"
-    !git slog
-
-.. parsed-literal::
-
-    [experiment b83cd47] Trying something new
-     1 file changed, 1 insertion(+)
-     create mode 100644 experiment.txt
-    * [33mb83cd47[m Trying something new
-    * [33m01df2e1[m I like this new name better
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
+    echo "Some crazy idea" > experiment.txt
+    git add experiment.txt
+    git commit -m "Trying something new"
+    git slog
 
 Notice we have a new file called ``experiment.txt`` in this branch:
 
-.. code:: python
+.. prizerun::
 
-    !ls
-
-.. parsed-literal::
-
-    experiment.txt             nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
-
+    ls
 
 The ``experiment`` branch has now moved:
 
-.. code:: python
+.. prizerun::
 
-    !cat .git/refs/heads/experiment
-
-.. parsed-literal::
-
-    b83cd47540cb7dbd7d16292d8a35417f031716f9
-
+    cat .git/refs/heads/experiment
 
 git checkout again - reseting the working tree
 ==============================================
@@ -1814,97 +1296,44 @@ If ``somewhere`` is a branch name, then ``git checkout somewhere``
 selects ``somewhere`` as the current branch. It also resets the working
 tree to match the working tree for that commit.
 
-.. code:: python
+.. prizerun::
 
-    !git checkout master
-    !cat .git/HEAD
-
-.. parsed-literal::
-
-    Switched to branch 'master'
-    ref: refs/heads/master
-
+    git checkout master
+    cat .git/HEAD
 
 We're back to the working tree as of the ``master`` branch;
 ``experiment.txt`` has gone now.
 
-.. code:: python
+.. prizerun::
 
-    !ls
-
-.. parsed-literal::
-
-    nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
-
+    ls
 
 Meanwhile we do some more work on master:
 
-.. code:: python
+.. prizerun::
 
-    !git slog
+    git slog
 
-.. parsed-literal::
+.. prizerun::
 
-    * [33m01df2e1[m I like this new name better
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
+    echo "All the while, more work goes on in master..." >> nobel_prize_paper.txt
+    git add nobel_prize_paper.txt
+    git commit -m "The mainline keeps moving"
+    git slog
 
+.. prizerun::
 
-.. code:: python
-
-    !echo "All the while, more work goes on in master..." >> nobel_prize.txt
-    !git add nobel_prize.txt
-    !git commit -m "The mainline keeps moving"
-    !git slog
-
-.. parsed-literal::
-
-    [master 5c436d0] The mainline keeps moving
-     1 file changed, 1 insertion(+)
-    * [33m5c436d0[m The mainline keeps moving
-    * [33m01df2e1[m I like this new name better
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
-
-.. code:: python
-
-    !ls
-
-.. parsed-literal::
-
-    nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
-
+    ls
 
 Now let's do the merge
 
-.. code:: python
+.. prizerun::
 
-    !git merge experiment -m "Merge in the experiment"
+    git merge experiment -m "Merge in the experiment"
 
-.. parsed-literal::
+.. prizerun::
 
-    Merge made by the 'recursive' strategy.
-     experiment.txt | 1 [32m+[m
-     1 file changed, 1 insertion(+)
-     create mode 100644 experiment.txt
-
-
-.. code:: python
-
-    !git slog
-
-.. parsed-literal::
-
-    *   [33mb444163[m Merge in the experiment
-    [31m|[m[32m\[m  
-    [31m|[m * [33mb83cd47[m Trying something new
-    * [32m|[m [33m5c436d0[m The mainline keeps moving
-    [32m|[m[32m/[m  
-    * [33m01df2e1[m I like this new name better
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
+    git slog
 
 An important aside: conflict management
 =======================================
@@ -1919,37 +1348,23 @@ that works by intentionally creating a conflict.
 We start by creating a branch and making a change to our experiment
 file:
 
-.. code:: python
+.. prizerun::
 
-    !git branch trouble
-    !git checkout trouble
-    !echo "This is going to be a problem..." >> experiment.txt
-    !git add experiment.txt
-    !git commit -m"Changes in the trouble branch"
-
-.. parsed-literal::
-
-    Switched to branch 'trouble'
-    [trouble 6921250] Changes in the trouble branch
-     1 file changed, 1 insertion(+)
-
+    git branch trouble
+    git checkout trouble
+    echo "This is going to be a problem..." >> experiment.txt
+    git add experiment.txt
+    git commit -m"Changes in the trouble branch"
 
 And now we go back to the master branch, where we change the *same*
 file:
 
-.. code:: python
+.. prizerun::
 
-    !git checkout master
-    !echo "More work on the master branch..." >> experiment.txt
-    !git add experiment.txt
-    !git commit -m"Mainline work"
-
-.. parsed-literal::
-
-    Switched to branch 'master'
-    [master 1ebca55] Mainline work
-     1 file changed, 1 insertion(+)
-
+    git checkout master
+    echo "More work on the master branch..." >> experiment.txt
+    git add experiment.txt
+    git commit -m"Mainline work"
 
 More configuration for fuller output
 ====================================
@@ -1967,40 +1382,22 @@ This setting asks git to show:
 -  The new file contents from the commit tree that you are merging
    *from*
 
-.. code:: python
+.. prizerun::
 
-    !git config merge.conflictstyle diff3
+    git config merge.conflictstyle diff3
 
 So now let's see what happens if we try to merge the ``trouble`` branch
 into ``master``:
 
-.. code:: python
+.. prizerun::
 
-    !git merge trouble -m "Unlikely this one will work"
-
-.. parsed-literal::
-
-    Auto-merging experiment.txt
-    CONFLICT (content): Merge conflict in experiment.txt
-    Automatic merge failed; fix conflicts and then commit the result.
-
+    git merge trouble -m "Unlikely this one will work"
 
 Let's see what git has put into our file:
 
-.. code:: python
+.. prizerun::
 
-    !cat experiment.txt
-
-.. parsed-literal::
-
-    Some crazy idea
-    <<<<<<< HEAD
-    More work on the master branch...
-    ||||||| merged common ancestors
-    =======
-    This is going to be a problem...
-    >>>>>>> trouble
-
+    cat experiment.txt
 
 Read this as:
 
@@ -2015,64 +1412,27 @@ changes to keep, and make a new commit that records our decision.
 
 I'll do the edits by writing the file I want directly in this case:
 
-.. code:: python
+.. prizewrite::
 
-    %%file experiment.txt
+    # file: experiment.txt
     Some crazy idea
     More work on the master branch...
     This is going to be a problem...
 
-.. parsed-literal::
-
-    Overwriting experiment.txt
-
-
 I've now made the edits. I decided that both pieces of text were useful,
 but integrated them with some changes:
 
-.. code:: python
+.. prizerun::
 
-    !git status
-
-.. parsed-literal::
-
-    # On branch master
-    # You have unmerged paths.
-    #   (fix conflicts and run "git commit")
-    #
-    # Unmerged paths:
-    #   (use "git add <file>..." to mark resolution)
-    #
-    #	[31mboth modified:      experiment.txt[m
-    #
-    no changes added to commit (use "git add" and/or "git commit -a")
-
+    git status
 
 Let's then make our new commit:
 
-.. code:: python
+.. prizerun::
 
-    !git add experiment.txt
-    !git commit -m "Completed merge of trouble, fixing conflicts along the way"
-    !git slog
-
-.. parsed-literal::
-
-    [master 51fd6ff] Completed merge of trouble, fixing conflicts along the way
-    *   [33m51fd6ff[m Completed merge of trouble, fixing conflicts along the way
-    [31m|[m[32m\[m  
-    [31m|[m * [33m6921250[m Changes in the trouble branch
-    * [32m|[m [33m1ebca55[m Mainline work
-    [32m|[m[32m/[m  
-    *   [33mb444163[m Merge in the experiment
-    [33m|[m[34m\[m  
-    [33m|[m * [33mb83cd47[m Trying something new
-    * [34m|[m [33m5c436d0[m The mainline keeps moving
-    [34m|[m[34m/[m  
-    * [33m01df2e1[m I like this new name better
-    * [33mceda705[m Fruit of enormous thought
-    * [33m1d7415e[m First backup of my amazing idea
-
+    git add experiment.txt
+    git commit -m "Completed merge of trouble, fixing conflicts along the way"
+    git slog
 
 Other useful commands
 =====================
@@ -2264,5 +1624,18 @@ Git doesn't have a native export command, but this works just fine:
 
     git archive --prefix=fperez.org/  master | gzip > ~/tmp/source.tgz
 
+.. rubric:: Footnotes
+
+.. [#git-object-dir] When git stores a file in the ``.git/objects`` directory,
+   it does a hash for the file, takes the first two digits of the hash to make
+   a directory, and then stores a file with a filename from the remaining hash
+   digits.  For example, when adding a file with hash
+   ``d92d079af6a7f276cc8d63dcf2549c03e7deb553`` git will create
+   ``.git/objects/d9`` directory if it doesn't exist, and stores the file
+   contents as ``.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.  It
+   does this so that the number of files in any one directory stay in a
+   reasonable range.  If git had to store every file, directory listing and
+   commit in one flat directory, it would soon have a very large number of
+   files.
 
 .. include:: links_names.inc

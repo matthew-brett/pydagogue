@@ -26,6 +26,8 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.doctest',
               'sphinx.ext.mathjax',
               'autorun',
+              'writefile',
+              'prizefiles',
               'math_dollar']
 
 # Add any paths that contain templates here, relative to this directory.

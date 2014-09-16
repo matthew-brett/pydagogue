@@ -54,6 +54,7 @@ class RunBlockError(SphinxError):
     pass
     # category = 'runblock error'
 
+
 class AutoRun(object):
     here = os.path.abspath(__file__)
     pycon = os.path.join(os.path.dirname(here), 'pycon.py')
@@ -78,6 +79,7 @@ class RunBlock(Directive):
     required_arguments = 0
     optional_arguments = 1
     final_argument_whitespace = True
+    default_cwd = '/'
     option_spec = {
         'linenos': flag,
         'hide': flag,
@@ -91,7 +93,6 @@ class RunBlock(Directive):
             language = self.arguments[0]
         except IndexError:
             language = 'bash'
-        print 'opts', self.options
 
         if language not in config:
             raise RunBlockError('Unknown language %s' % language)
@@ -105,7 +106,7 @@ class RunBlock(Directive):
         prompt_prefix = config.get(language+'_prompt_prefix', '')
 
         # Build the code text
-        _, cwd = env.relfn2path(self.options.get('cwd', '/'))
+        _, cwd = env.relfn2path(self.options.get('cwd', self.default_cwd))
         proc = Popen(args,bufsize=1,stdin=PIPE,stdout=PIPE,stderr=PIPE,
                      cwd=cwd)
         codelines = (line[prefix_chars:] for line in self.content)
