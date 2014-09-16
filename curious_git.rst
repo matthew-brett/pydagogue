@@ -835,9 +835,6 @@ Doing ``git add nobel_prize_paper.txt`` has added a file to the
 ``.git/objects`` directory. That filename looks suspiciously like a
 hash.
 
-git add and the staging area
-============================
-
 We expect that ``git add`` added the file to the *staging area*. Have we
 got any evidence of that?
 
@@ -845,8 +842,8 @@ got any evidence of that?
 
     git status
 
-Reading real git objects
-========================
+Looking at real git objects
+===========================
 
 Git objects are nearly as simple as the objects we were writing in
 ``.fancy_backups``.
@@ -1057,6 +1054,9 @@ We do the commit:
 
     git commit -m "Fruit of enormous thought"
 
+Git updates the current branch with the latest commit
+=====================================================
+
 Remember branches?  Git has now moved the "master" branch bookmark up to the
 new commit:
 
@@ -1066,10 +1066,11 @@ new commit:
 
 .. prizerun::
 
-    cat .git/refs/heads/master
+    git branch -v
 
-git log and parents
-===================
+.. prizerun::
+
+    cat .git/refs/heads/master
 
 The first commit is the parent of the first:
 
@@ -1077,8 +1078,8 @@ The first commit is the parent of the first:
 
     git log --parents
 
-Making log output more pithy
-============================
+A nicer log command using ``git config``
+========================================
 
 It is very often useful to see a summarized version of the log.  Here is a
 useful version of the git log command:
