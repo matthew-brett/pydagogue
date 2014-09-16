@@ -46,40 +46,40 @@
 <h1>The curious coder&#8217;s guide to <tt class="docutils literal"><span class="pre">git</span></tt><a class="headerlink" href="#the-curious-coder-s-guide-to-git" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="git-love-hate">
 <h2>git - love - hate<a class="headerlink" href="#git-love-hate" title="Permalink to this headline">¶</a></h2>
-<p>I&#8217;ve used git now for a long time.  I think it&#8217;s a true masterpiece of design, I
-use it all day every day and I just can&#8217;t imagine what it would be like not to
-use it. So, no question, I <em>love</em> git.</p>
-<p>As y&#8217;all may know, <a class="reference external" href="http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git">Linus Torvalds wrote git from scratch</a>.  He loves
-it too.  <a class="reference external" href="http://www.youtube.com/watch?v=MShbP3OpASA#t=2288">Here is Linus talking about git</a> in a question and answer
+<p>I&#8217;ve used git now for a long time.  I think it&#8217;s a true masterpiece of design,
+I use it all day every day and I just can&#8217;t imagine what it would be like not
+to use it. So, no question, I <em>love</em> git.</p>
+<p>As y&#8217;all may know, <a class="reference external" href="http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git">Linus Torvalds wrote git from scratch</a>.  He
+loves it too.  <a class="reference external" href="http://www.youtube.com/watch?v=MShbP3OpASA#t=2288">Here is Linus talking about git</a> in a question and answer
 session:</p>
 <blockquote>
-<div>Actually I&#8217;m proud of git. I want to say this. The fact that I had to write
-git was accidental, but Linux, the design came from a great mind, and that
-great mind was not mine. I mean you have to give credit for the design of
-Linux to Kernighan and Ritchie and Thompson. I mean there&#8217;s a reason I like
-Unix and I wanted to redo it. I do want to say that git is a design that is
-mine and unique, and I&#8217;m proud of the fact that I can damn well also do good
-design from scratch.</div></blockquote>
-<p>But - some people hate git.  Really <em>hate</em> it. They find it confusing and error
-prone and it makes them angry.  Why are there such different views?</p>
+<div>Actually I&#8217;m proud of git. I want to say this. The fact that I had to
+write git was accidental, but Linux, the design came from a great mind,
+and that great mind was not mine. I mean you have to give credit for the
+design of Linux to Kernighan and Ritchie and Thompson. I mean there&#8217;s a
+reason I like Unix and I wanted to redo it. I do want to say that git is a
+design that is mine and unique, and I&#8217;m proud of the fact that I can damn
+well also do good design from scratch.</div></blockquote>
+<p>But - some people hate git.  Really <em>hate</em> it. They find it confusing and
+error prone and it makes them angry.  Why are there such different views?</p>
 <p>I think the reason some people hate git, is because they don&#8217;t yet understand
-it.  I reason I can say this without being patronizing is because I went through
-something similar myself.</p>
+it.  I reason I can say this without being patronizing is because I went
+through something similar myself.</p>
 <p>When I first started using git, I found it uncomfortable.  I could see it was
-very powerful, but I sometimes got lost and stuck and had to Google for a set of
-magic commands to get me out of trouble.  I once accidentally made a huge mess
-of our project&#8217;s main repository by running a command I didn&#8217;t understand. Git
-often made me feel stupid.  It felt like a prototype racecar with a badly
-designed dashboard that was just about to blow an engine or a tire and take me
-off the road.</p>
+very powerful, but I sometimes got lost and stuck and had to Google for a set
+of magic commands to get me out of trouble.  I once accidentally made a huge
+mess of our project&#8217;s main repository by running a command I didn&#8217;t
+understand. Git often made me feel stupid.  It felt like a prototype racecar
+with a badly designed dashboard that was just about to blow an engine or a
+tire and take me off the road.</p>
 <p>Then, one day, I read the <a class="reference external" href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">git parable</a>.  The git parable is a little story
 about a developer trying to work out how to make a version control system.  It
 gradually builds up from copying whole directories of files to something very
-much like git.  I didn&#8217;t understand it all right away, but as soon as I read this
-page, the light-bulb went on - I got git.  I suddenly started to feel
-comfortable.  I knew for sure I could work out why git worked the way it did.  I
-could see that it must be possible how to do complicated and powerful things,
-and I could work out how to do them.</p>
+much like git.  I didn&#8217;t understand it all right away, but as soon as I read
+this page, the light-bulb went on - I got git.  I suddenly started to feel
+comfortable.  I knew for sure I could work out why git worked the way it did.
+I could see that it must be possible how to do complicated and powerful
+things, and I could work out how to do them.</p>
 <p>Reading the git parable took me about 45 minutes, but those 45 minutes changed
 me from an unhappy git user to the man you see before you today, someone who
 uses git often every day, but, happily, knowing that I have the right tool for
@@ -114,9 +114,10 @@ have gotten here after reading the rest of the book — in either case, this
 is where you’ll go over the inner workings and implementation of Git. I
 found that learning this information was fundamentally important to
 understanding how useful and powerful Git is, but others have argued to me
-that it can be confusing and unnecessarily complex for beginners. Thus, I’ve
-made this discussion the last chapter in the book so you could read it early
-or later in your learning process. I leave it up to you to decide.</p>
+that it can be confusing and unnecessarily complex for beginners. Thus,
+I’ve made this discussion the last chapter in the book so you could read
+it early or later in your learning process. I leave it up to you to
+decide.</p>
 </div></blockquote>
 <p>So - have no truck with people who try and tell you that you can just use git
 and that you don&#8217;t need the <a class="reference external" href="http://rogerdudler.github.io/git-guide">deep shit</a>.  You <em>do</em> need the deep shit, but
@@ -125,7 +126,8 @@ it.  And then I&#8217;m betting that you&#8217;ll see that the alchemist has suc
 last, and the shit finally turned into gold.</p>
 <p>So - please - invest an hour of your life to understand this stuff.
 Concentrate, go slowly, make sure you get it. In return for an hour of your
-life, you will get many happy years of use from git, both beautiful, and useful.</p>
+life, you will get many happy years for which git will appear in its true
+form, both beautiful and useful.</p>
 </div>
 <div class="section" id="the-one-thing-about-git-you-really-need-to-understand">
 <h2>The one thing about git you really need to understand<a class="headerlink" href="#the-one-thing-about-git-you-really-need-to-understand" title="Permalink to this headline">¶</a></h2>
@@ -144,6 +146,9 @@ content manager should do, and why we would want one.</p>
 <tt class="docutils literal"><span class="pre">git</span></tt> has to say.</p>
 <p>(To go through this a little more slowly, and with more jokes, you might also
 try my  <a class="reference external" href="http://matthew-brett.github.com/pydagogue/foundation.html">git foundations</a> page).</p>
+<p>While we are designing our own content management system, we will do a lot of
+stuff longhand, to show how things work.  When we get to git, we will find it
+these tasks for us.</p>
 </div>
 <div class="section" id="the-story-so-far">
 <h2>The story so far...<a class="headerlink" href="#the-story-so-far" title="Permalink to this headline">¶</a></h2>
@@ -151,7 +156,7 @@ try my  <a class="reference external" href="http://matthew-brett.github.com/pyda
 explain the brain using random numbers. You&#8217;ve got the draft paper, and
 the analysis script and a figure for the paper. These are all in a
 directory modestly named <tt class="docutils literal"><span class="pre">nobel_prize</span></tt>.</p>
-<p>In this directory, you have the paper draft <tt class="docutils literal"><span class="pre">nobel_prize.txt</span></tt>, the
+<p>In this directory, you have the paper draft <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>, the
 analysis script <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>, and a figure for the paper
 <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt>.</p>
 <p>You can get this ground-breaking paper by downloading and unzipping
@@ -221,90 +226,95 @@ somewhere safe.</p>
 <div class="section" id="reminding-yourself-of-what-you-did">
 <h3>Reminding yourself of what you did<a class="headerlink" href="#reminding-yourself-of-what-you-did" title="Permalink to this headline">¶</a></h3>
 <p>For good measure, you put a file in the snapshot directory to remind you when
-you did the snapshot, and who did it, and what was new for this snapshot</p>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/1/info.txt
+you did the snapshot, and who did it, and what was new for this snapshot. Call
+this file <tt class="docutils literal"><span class="pre">info.txt</span></tt>.  So, we write something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/1/info.txt
 Date: April 1 2012, 14.30
 Author: I. M. Awesome
 Notes: First backup of my amazing idea
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">info</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
 <p>Now you have these files in the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a
 .
+├── .fancy_backups
+│   └── 1
+│       ├── files
+│       │   ├── nobel_prize_paper.txt
+│       │   ├── stunning_figure.png
+│       │   └── very_clever_analysis.py
+│       └── info.txt
 ├── nobel_prize_paper.txt
 ├── stunning_figure.png
 └── very_clever_analysis.py
 
-0 directories, 3 files
+3 directories, 7 files
 </pre></div>
 </div>
 <p>Every time you do some work on the files, you back them up in the same
 way. After a few days:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!echo &quot;The charts are very impressive\n&quot; &gt;&gt; nobel_prize.txt
-!mkdir .fancy_backups/2
-!mkdir .fancy_backups/2/files
-!cp * .fancy_backups/2/files
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Append some text to nobel_prize_paper.txt</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;The charts are very impressive&quot;</span> &gt;&gt; nobel_prize_paper.txt
+<span class="nv">$ </span><span class="c"># Make a new snapshot</span>
+<span class="nv">$ </span>mkdir .fancy_backups/2
+<span class="nv">$ </span>mkdir .fancy_backups/2/files
+<span class="nv">$ </span>cp * .fancy_backups/2/files
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/2/info.txt
+<p>We make a new <tt class="docutils literal"><span class="pre">info.txt</span></tt> file describing what is new in this snapshot:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/2/info.txt
 Date: April 1 2012, 18.03
 Author: I. M. Awesome
 Notes: Fruit of enormous thought
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">info</span><span class="o">.</span><span class="n">txt</span>
+<p>The next day we write a little more on our paper:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Append some more text to nobel_prize_paper.txt</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;The graphs are also compelling&quot;</span> &gt;&gt; nobel_prize_paper.txt
+<span class="nv">$ </span><span class="c"># Make another shapshot</span>
+<span class="nv">$ </span>mkdir .fancy_backups/3
+<span class="nv">$ </span>mkdir .fancy_backups/3/files
+<span class="nv">$ </span>cp * .fancy_backups/3/files
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!echo &quot;The graphs are also compelling\n&quot; &gt;&gt; nobel_prize.txt
-!mkdir .fancy_backups/3
-!mkdir .fancy_backups/3/files
-!cp * .fancy_backups/3/files
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/3/info.txt
+<p>We add a description of these changes:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/3/info.txt
 Date: April 2 2012, 11.20
 Author: I. M. Awesome
 Notes: Now seeing things clearly
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>├── [94m.fancy_backups[0m
-│   ├── [94m1[0m
-│   │   ├── [94mfiles[0m
-│   │   │   ├── nobel_prize.txt
-│   │   │   ├── stunning_figure.png
-│   │   │   └── very_clever_analysis.py
-│   │   └── info.txt
-│   ├── [94m2[0m
-│   │   ├── [94mfiles[0m
-│   │   │   ├── nobel_prize.txt
-│   │   │   ├── stunning_figure.png
-│   │   │   └── very_clever_analysis.py
-│   │   └── info.txt
-│   └── [94m3[0m
-│       ├── [94mfiles[0m
-│       │   ├── nobel_prize.txt
-│       │   ├── stunning_figure.png
-│       │   └── very_clever_analysis.py
-│       └── info.txt
-├── nobel_prize.txt
+<p>After three days of work we have three snapshots in our backup directory:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a
+.
+├── .fancy_backups
+│   ├── 1
+│   │   ├── files
+│   │   │   ├── nobel_prize_paper.txt
+│   │   │   ├── stunning_figure.png
+│   │   │   └── very_clever_analysis.py
+│   │   └── info.txt
+│   ├── 2
+│   │   ├── files
+│   │   │   ├── nobel_prize_paper.txt
+│   │   │   ├── stunning_figure.png
+│   │   │   └── very_clever_analysis.py
+│   │   └── info.txt
+│   └── 3
+│       ├── files
+│       │   ├── nobel_prize_paper.txt
+│       │   ├── stunning_figure.png
+│       │   └── very_clever_analysis.py
+│       └── info.txt
+├── nobel_prize_paper.txt
 ├── stunning_figure.png
 └── very_clever_analysis.py
+
+7 directories, 15 files
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre># Now we just cheat, and copy the commits
-!cp -r .fancy_backups/3 .fancy_backups/4
-!cp -r .fancy_backups/3 .fancy_backups/5
-!cp -r .fancy_backups/3 .fancy_backups/6
-</pre></div>
-</div>
-<p>You keep doing this, until again the day comes to talk to Josephine. You
-now have 5 backups.</p>
+<p>You keep doing this for another couple of days, until again the time comes to
+talk to Josephine. By now you have 5 snapshots.</p>
 <p>The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.</p>
 <p>You go back and look at <tt class="docutils literal"><span class="pre">.fancy_backups/1/stunning_figure.png</span></tt>. It
@@ -312,7 +322,7 @@ does look different.</p>
 <p>You go through all the <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt> directories in order. It turns
 out that the figure changes in <tt class="docutils literal"><span class="pre">.fancy_backups/4</span></tt>.</p>
 <p>You look in <tt class="docutils literal"><span class="pre">.fancy_backups/4/info.txt</span></tt> and it says:</p>
-<div class="highlight-python"><div class="highlight"><pre>Date: April 8 2012, 01.40
+<div class="highlight-python"><div class="highlight"><pre>Date: April 4 2012, 01.40
 Author: I. M. Awesome
 Notes: I always get the best ideas after I have been drinking.
 </pre></div>
@@ -327,21 +337,23 @@ Notes: I always get the best ideas after I have been drinking.
 <h3>Terminology breakout<a class="headerlink" href="#terminology-breakout" title="Permalink to this headline">¶</a></h3>
 <p>Here are some
 <a class="reference external" href="https://www.kernel.org/pub/software/scm/git/docs/gitglossary.html">terms</a>.</p>
-<ul class="simple">
-<li>Working tree: the files you are working on in the current directory
-(<tt class="docutils literal"><span class="pre">nobel_prize</span></tt>). The files <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>,
-<tt class="docutils literal"><span class="pre">nobel_prize.txt</span></tt>, <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> are the files in your
-working tree</li>
-<li>Repository: the directory containing information about the history of
-the files. Your directory <tt class="docutils literal"><span class="pre">.fancy_snapshot</span></tt> is the repository.</li>
-<li>Commit: a completed snapshot. For example, <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt>
-contains one commit.</li>
-</ul>
+<dl class="docutils">
+<dt>Working tree</dt>
+<dd>The files you are working on in the current directory (<tt class="docutils literal"><span class="pre">nobel_prize</span></tt>).
+The files <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>, <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>,
+<tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> are the files in your working tree.</dd>
+<dt>Repository</dt>
+<dd>The directory containing information about the history of the files. Your
+directory <tt class="docutils literal"><span class="pre">.fancy_snapshot</span></tt> is the repository.</dd>
+<dt>Commit</dt>
+<dd>A completed snapshot. For example, <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt> contains one
+commit.</dd>
+</dl>
 <p>We&#8217;ll use these terms to get used to them.</p>
 </div>
 <div class="section" id="breaking-up-work-into-chunks">
 <h3>Breaking up work into chunks<a class="headerlink" href="#breaking-up-work-into-chunks" title="Permalink to this headline">¶</a></h3>
-<p>You did some edits to the paper <tt class="docutils literal"><span class="pre">nobel_prize.txt</span></tt> to edit the
+<p>You did some edits to the paper <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt> to edit the
 introduction.</p>
 <p>You also had a good idea for the analysis, and did some edits to
 <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>.</p>
@@ -349,126 +361,129 @@ introduction.</p>
 bits of extra work, with their own comments in the <tt class="docutils literal"><span class="pre">info.txt</span></tt>.</p>
 <p>You want to make two commits from your changes:</p>
 <ol class="arabic simple">
-<li>a commit containing the changes to <tt class="docutils literal"><span class="pre">nobel_prize.txt</span></tt>, with comment
-&#8220;Changes to introduction&#8221;</li>
-<li>a commit containing the changes to <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> with
-comment &#8220;Crazy new analysis&#8221;</li>
+<li>a commit containing the changes to <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>, with comment
+&#8220;Changes to introduction&#8221;;</li>
+<li>Another commit containing the changes to <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>
+with comment &#8220;Crazy new analysis&#8221;</li>
 </ol>
 <p>How can I do that?</p>
 </div>
 <div class="section" id="the-staging-area">
 <h3>The staging area<a class="headerlink" href="#the-staging-area" title="Permalink to this headline">¶</a></h3>
-<p>We adapt the workflow. Each time we start work, after a commit, we copy
-the last commit to directory <tt class="docutils literal"><span class="pre">.fancy_backups/staging_area</span></tt>. That will
-the default contents of our next commit.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!mkdir .fancy_backups/staging_area
-!cp .fancy_backups/6/files/* .fancy_backups/staging_area
-!ls .fancy_backups/staging_area
+<p>You adapt the workflow. Each time you do a commit, you copy the contents of
+the commit to directory <tt class="docutils literal"><span class="pre">.fancy_backups/staging_area</span></tt>. That will be the
+default contents of your next commit.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir .fancy_backups/staging_area
+<span class="nv">$ </span>cp .fancy_backups/6/files/* .fancy_backups/staging_area
+<span class="nv">$ </span>ls .fancy_backups/staging_area
+nobel_prize_paper.txt
+stunning_figure.png
+very_clever_analysis.py
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>nobel_prize.txt         stunning_figure.png     very_clever_analysis.py
-</pre></div>
-</div>
-<p>Now, you do your edits to <tt class="docutils literal"><span class="pre">nobel_prize.txt</span></tt>, and
+<p>Now, you do your edits to <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>, and
 <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> in your <em>working tree</em> (the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt>
-directory). Then you get ready for the next commit with:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cp nobel_prize.txt .fancy_backups/staging_area
+directory). You want to make a new commit containing the changes to the paper
+but not the changes to the script.  You get ready for the next commit with:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp nobel_prize_paper.txt .fancy_backups/staging_area
 </pre></div>
 </div>
 <p>The staging area now contains all the files for the upcoming commit
-(snapshot).</p>
-<p>You make the commit with:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!mkdir .fancy_backups/7
-!mkdir .fancy_backups/7/files
-!cp .fancy_backups/staging_area/* .fancy_backups/7/files
+(snapshot). The upcoming commit only has the changes in the paper.</p>
+<p>You make the commit by making the usual directories, and copying the contents
+of the staging area into the commit <tt class="docutils literal"><span class="pre">files</span></tt> directory:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Make commit directories</span>
+<span class="nv">$ </span>mkdir .fancy_backups/7
+<span class="nv">$ </span>mkdir .fancy_backups/7/files
+<span class="nv">$ </span><span class="c"># Copy contents of staging area into commit directory</span>
+<span class="nv">$ </span>cp .fancy_backups/staging_area/* .fancy_backups/7/files
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/7/info.txt
+<p>with message:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/7/info.txt
 Date: April 10 2012, 14.30
 Author: I. M. Awesome
 Notes: Changes to introduction
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">7</span><span class="o">/</span><span class="n">info</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
-<p>Now you are ready for the next commit, with the changes to the analysis
-script.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cp very_clever_analysis.py .fancy_backups/staging_area
+<p>After we have done the commit this way, by coping the staging area to the
+commit <tt class="docutils literal"><span class="pre">files</span></tt> directory, the staging area is identical to the contents of
+the commit.  Now you are ready for the next commit, that adds the changes to
+the analysis script.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp very_clever_analysis.py .fancy_backups/staging_area
 </pre></div>
 </div>
 <p>The commit is now <em>staged</em> and ready to be saved.</p>
-<div class="code python highlight-python"><div class="highlight"><pre># Our commit procedure; same as last time with &quot;8&quot; instead of &quot;7&quot;
-!mkdir .fancy_backups/8
-!mkdir .fancy_backups/8/files
-!cp .fancy_backups/staging_area/* .fancy_backups/8/files
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Our commit procedure; same as last time with &quot;8&quot; instead of &quot;7&quot;</span>
+<span class="nv">$ </span>mkdir .fancy_backups/8
+<span class="nv">$ </span>mkdir .fancy_backups/8/files
+<span class="nv">$ </span>cp .fancy_backups/staging_area/* .fancy_backups/8/files
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/8/info.txt
+<p>The message is:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/8/info.txt
 Date: April 10 2012, 14.35
 Author: I. M. Awesome
 Notes: Crazy new analysis
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="n">info</span><span class="o">.</span><span class="n">txt</span>
-</pre></div>
-</div>
-<p>Here is what we have in our <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt> directory:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">(</span><span class="s">&#39;.fancy_backups&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>├── [94m1[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m2[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m3[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m4[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m5[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m6[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m7[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-├── [94m8[0m
-│   ├── [94mfiles[0m
-│   │   ├── nobel_prize.txt
-│   │   ├── stunning_figure.png
-│   │   └── very_clever_analysis.py
-│   └── info.txt
-└── [94mstaging_area[0m
-    ├── nobel_prize.txt
+<p>Here is what you have in your <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt> directory:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a .fancy_backups
+.fancy_backups
+├── 1
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 2
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 3
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 4
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 5
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 6
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 7
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+├── 8
+│   ├── files
+│   │   ├── nobel_prize_paper.txt
+│   │   ├── stunning_figure.png
+│   │   └── very_clever_analysis.py
+│   └── info.txt
+└── staging_area
+    ├── nobel_prize_paper.txt
     ├── stunning_figure.png
     └── very_clever_analysis.py
+
+17 directories, 35 files
 </pre></div>
 </div>
 </div>
@@ -479,196 +494,203 @@ Notes: Crazy new analysis
 <p>What should we do to save disk space for <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt>?</p>
 </div>
 </div>
-<div class="section" id="cryptographic-hashes">
-<h2>Cryptographic hashes<a class="headerlink" href="#cryptographic-hashes" title="Permalink to this headline">¶</a></h2>
-<p>Later on, I&#8217;m going to ask you to solve a very difficult problem.</p>
-<p>Here&#8217;s some background that might help.</p>
-<p>I&#8217;m going to describe &#8220;Crytographic hashes&#8221;. It won&#8217;t be obvious why
-that&#8217;s a good idea for a little while.</p>
+<div class="section" id="cryptographic-hashes-might-be-useful">
+<h2>Cryptographic hashes might be useful<a class="headerlink" href="#cryptographic-hashes-might-be-useful" title="Permalink to this headline">¶</a></h2>
+<p>This section describes &#8220;Crytographic hashes&#8221;. These are the key to an
+excellent way to store our snapshots.  Later we will see that they are central
+to the way that git works.</p>
 <p>See : <a class="reference external" href="http://en.wikipedia.org/wiki/Cryptographic_hash_function">Wikipedia on hash
 functions</a>.</p>
 <p>A <em>hash</em> is the result of running a <em>hash function</em> over a block of
 data. The hash is a fixed length string that is the <em>signature</em> of that
-exact block of data. Let&#8217;s run this in Python:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sha1_hash_function</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;git is a rude word in UK English&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hash_value</span> <span class="o">=</span> <span class="n">sha1_hash_function</span><span class="p">(</span><span class="n">message</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">hash_value</span>
-<span class="go">&#39;fec41478c4f497c1d90fd28610f4272c78a6867e&#39;</span>
+exact block of data.  One common hash function is called SHA1.  Let&#8217;s run this
+via the command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Make a file with a single line of text</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;git is a rude word in UK English&quot;</span> &gt; git_is_rude
+<span class="nv">$ </span><span class="c"># Show the SHA1 hash</span>
+<span class="nv">$ </span>shasum git_is_rude
+30ad6c360a692c1fe66335bb00d00e0528346be5  git_is_rude
 </pre></div>
 </div>
-<p>Not too exciting so far. However, the rather magical nature of this
-string is not yet apparent. Here&#8217;s the trick:</p>
-<p><strong>There is no practical way for you to find another ``message`` that
-will give the same ``hash_value``</strong></p>
-<p>The <tt class="docutils literal"><span class="pre">hash_value</span></tt> then is (nearly) completely unique to that set of
-bytes.</p>
-<p>For example, a tiny change in the string makes the hash completely
-different. Here I&#8217;ve just added a full stop at the end:</p>
-<div class="highlight-python"><div class="highlight"><pre>
+<p>Not too exciting so far. However, the rather magical nature of this string is
+not yet apparent. This SHA1 hash is a <em>cryptographic</em> hash because</p>
+<ul class="simple">
+<li>the hash value is (almost) unique to this exact file contents, and</li>
+<li>it is (almost) impossible to find some other file contents with the same
+hash</li>
+</ul>
+<p>In other words, there is no practical way for you to find another file with
+different contents that will give the same hash.</p>
+<p>For example, a tiny change in the string makes the hash completely different.
+Here I&#8217;ve just added a full stop at the end:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;git is a rude word in UK English.&quot;</span> &gt; git_is_rude_stop
+<span class="nv">$ </span>shasum git_is_rude_stop
+23d97b00299c250b43049be67c97cf2e5ffc2428  git_is_rude_stop
 </pre></div>
 </div>
-<p>So, if you give me some data, and I calculate the hash value, and it
-comes out as &#8220;fec41478c4f497c1d90fd28610f4272c78a6867e&#8221;, then I can be
-very sure that the data you gave me was exactly the string &#8220;git is a
-rude word in UK English&#8221;.</p>
-<div class="section" id="exercise-your-strategy">
-<h3>Exercise - your strategy<a class="headerlink" href="#exercise-your-strategy" title="Permalink to this headline">¶</a></h3>
-<p>Split into pairs.</p>
-<p>In five minutes, we&#8217;ll share ideas.</p>
-</div>
-<div class="section" id="my-crazy-idea-use-hash-values-as-file-names">
-<h3>My crazy idea - use hash values as file names<a class="headerlink" href="#my-crazy-idea-use-hash-values-as-file-names" title="Permalink to this headline">¶</a></h3>
+<p>So, if you give me some data, and I calculate the SHA1 hash value, and it
+comes out as <tt class="docutils literal"><span class="pre">30ad6c360a692c1fe66335bb00d00e0528346be5</span></tt>, then I can be very
+sure that the data you gave me was exactly the ASCII string &#8220;git is a rude
+word in UK English&#8221;.</p>
+<div class="section" id="a-crazy-idea-use-hash-values-as-file-names">
+<h3>A crazy idea - use hash values as file names<a class="headerlink" href="#a-crazy-idea-use-hash-values-as-file-names" title="Permalink to this headline">¶</a></h3>
 <p>Make a new directory:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!mkdir .fancy_backups/objects
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir .fancy_backups/objects
 </pre></div>
 </div>
 <p>Calculate the hash value for the figure:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="c"># read the bytes for the figure into a string</span>
-<span class="n">figure_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;.fancy_backups/1/files/stunning_figure.png&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="c"># Calculate the hash value</span>
-<span class="n">figure_hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">figure_data</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-<span class="n">figure_hash</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&#39;aff88ecead2c7166770969a54dc855c8b91be864&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>shasum .fancy_backups/1/files/stunning_figure.png
+aff88ecead2c7166770969a54dc855c8b91be864  .fancy_backups/1/files/stunning_figure.png
 </pre></div>
 </div>
 <p>Save the figure with the hash value as the file name:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/:math:`figure_hash
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
 </pre></div>
 </div>
 <p>Do the same for the other two files in the first commit.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="k">def</span> <span class="nf">copy_to_hash</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="c"># Read the data</span>
-    <span class="n">binary_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="c"># Find the hash</span>
-    <span class="n">hash_value</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">binary_data</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
-    <span class="c"># Save with the hash filename</span>
-    <span class="n">hash_fname</span> <span class="o">=</span> <span class="s">&#39;.fancy_backups/objects/&#39;</span> <span class="o">+</span> <span class="n">hash_value</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">hash_fname</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&quot;We already have a hash file for &quot;</span> <span class="o">+</span> <span class="n">fname</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">open</span><span class="p">(</span><span class="n">hash_fname</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">binary_data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">hash_value</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>shasum .fancy_backups/1/files/nobel_prize_paper.txt
+<span class="nv">$ </span>shasum .fancy_backups/1/files/very_clever_analysis.py
+3af8809ecb9c6dec33fc7e5ad330e384663f5a0d  .fancy_backups/1/files/nobel_prize_paper.txt
+e7f3ca9157fd7088b6a927a618e18d4bc4712fb6  .fancy_backups/1/files/very_clever_analysis.py
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">paper_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/1/files/nobel_prize.txt&#39;</span><span class="p">)</span>
-<span class="n">script_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/1/files/very_clever_analysis.py&#39;</span><span class="p">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp .fancy_backups/1/files/nobel_prize_paper.txt .fancy_backups/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
+<span class="nv">$ </span>cp .fancy_backups/1/files/very_clever_analysis.py .fancy_backups/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+</pre></div>
+</div>
+<p>We now have three new files in <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>, one corresponding
+to each unique file <em>contents</em> we have hashed:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a .fancy_backups/objects
+.fancy_backups/objects
+├── 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
+├── aff88ecead2c7166770969a54dc855c8b91be864
+└── e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+
+0 directories, 3 files
 </pre></div>
 </div>
 </div>
 <div class="section" id="making-the-directory-listing">
 <h3>Making the directory listing<a class="headerlink" href="#making-the-directory-listing" title="Permalink to this headline">¶</a></h3>
-<p>Here are the hashes for all files:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Hash for stunning_figure.png:&#39;</span><span class="p">,</span> <span class="n">figure_hash</span>
-<span class="k">print</span> <span class="s">&#39;Hash for nobel_prize:&#39;</span><span class="p">,</span> <span class="n">paper_hash</span>
-<span class="k">print</span> <span class="s">&#39;Hash for very_clever_analysis.py:&#39;</span><span class="p">,</span> <span class="n">script_hash</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Hash for stunning_figure.png: aff88ecead2c7166770969a54dc855c8b91be864
-Hash for nobel_prize: 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-Hash for very_clever_analysis.py: e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">(</span><span class="s">&#39;.fancy_backups/objects&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>├── 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-├── aff88ecead2c7166770969a54dc855c8b91be864
-└── e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-</pre></div>
-</div>
-<p>Now point the snapshot to the hash filename versions of the files by
-making a <em>text directory listing</em> or <em>tree</em> listing:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/1/directory_list
+<p>The snapshot has three files.  We can think of the file has having <em>content</em>
+(the bytes contained in the file) and a <em>filename</em>.  We have already stored
+the contents in the object directory, but with a different filename, from the
+hash of the contents.  To record the filenames, we need to make a directory
+listing.</p>
+<p>To do this, we can point the snapshot to the hash filename versions of the
+files by making a <em>text directory listing</em> or <em>tree</em> listing:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/1/directory_list
 Filename                Hash value
 ========                ==========
+nobel_prize_paper.txt   3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
 stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
-nobel_prize.txt         3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
 very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">directory_list</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="the-next-commit-saves-space">
 <h3>The next commit - saves space!<a class="headerlink" href="#the-next-commit-saves-space" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="c"># Nothing to for unchanged figure - already have hash value file</span>
-<span class="n">figure_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/2/files/stunning_figure.png&#39;</span><span class="p">)</span>
-<span class="c"># Makes a new copy</span>
-<span class="n">paper_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/2/files/nobel_prize.txt&#39;</span><span class="p">)</span>
-<span class="c"># Nothing to for unchanged script - already have hash value file</span>
-<span class="n">script_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/2/files/very_clever_analysis.py&#39;</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&#39;Hash for stunning_figure.png:&#39;</span><span class="p">,</span> <span class="n">figure_hash</span>
-<span class="k">print</span> <span class="s">&#39;Hash for nobel_prize:&#39;</span><span class="p">,</span> <span class="n">paper_hash</span>
-<span class="k">print</span> <span class="s">&#39;Hash for very_clever_analysis.py:&#39;</span><span class="p">,</span> <span class="n">script_hash</span>
+<p>Now we work on the files from the second commit. These are the files in
+<tt class="docutils literal"><span class="pre">.fancy_backups/2/files</span></tt>.</p>
+<p>Remember that we only changed <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt> in this commit.</p>
+<p>Do we need to copy <tt class="docutils literal"><span class="pre">nobel_prize_papar.txt</span></tt> or <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> to the
+objects directory again?</p>
+<p>No - because they have not changed.  Because they have not changed, their hash
+values have not changed.  Because their hash values have not changed, and
+because the hash values are unique to the contents, we already have the files
+we need in the <tt class="docutils literal"><span class="pre">objects</span></tt> directory.</p>
+<p>Specifically, because <tt class="docutils literal"><span class="pre">.fancy_backups/2/stunning_figure.png</span></tt> is the same as
+<tt class="docutils literal"><span class="pre">.fancy_backups/1/stunning_figure.png</span></tt> we know that the hash is the same,
+and the hash is the one we&#8217;ve already calculated,
+<tt class="docutils literal"><span class="pre">aff88ecead2c7166770969a54dc855c8b91be864</span></tt>.  We already have a file
+<tt class="docutils literal"><span class="pre">.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864</span></tt>, and we
+know, because the hash values are unique, that this file must contain the
+exact contents of <tt class="docutils literal"><span class="pre">.fancy_backups/1/stunning_figure.png</span></tt>, which is also the
+exact contents of <tt class="docutils literal"><span class="pre">.fancy_backups/2/stunning_figure.png</span></tt>.</p>
+<p>So in general, if we do a hash on a file, and then we find a filename the same
+as this hash in the objects directory, we already have that exact contents
+backed up, and we don&#8217;t need to do a copy.</p>
+<p>Here are the hashes for the files in commit 2:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>shasum .fancy_backups/2/files/nobel_prize_paper.txt
+<span class="nv">$ </span>shasum .fancy_backups/2/files/stunning_figure.png
+<span class="nv">$ </span>shasum .fancy_backups/2/files/very_clever_analysis.py
+90aa1015732676bf63d2d950714a1f11196875fc  .fancy_backups/2/files/nobel_prize_paper.txt
+aff88ecead2c7166770969a54dc855c8b91be864  .fancy_backups/2/files/stunning_figure.png
+e7f3ca9157fd7088b6a927a618e18d4bc4712fb6  .fancy_backups/2/files/very_clever_analysis.py
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>We already have a hash file for .fancy_backups/2/files/stunning_figure.png
-We already have a hash file for .fancy_backups/2/files/very_clever_analysis.py
-Hash for stunning_figure.png: aff88ecead2c7166770969a54dc855c8b91be864
-Hash for nobel_prize: bc330d8886bb1b36a49d8e7ebb07d3443190b0e6
-Hash for very_clever_analysis.py: e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+<p>We already have files <tt class="docutils literal"><span class="pre">aff88ecead2c7166770969a54dc855c8b91be864</span></tt> and
+<tt class="docutils literal"><span class="pre">e7f3ca9157fd7088b6a927a618e18d4bc4712fb6</span></tt> in <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>, so
+the only file we need to copy is <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp .fancy_backups/2/files/nobel_prize_paper.txt .fancy_backups/objects/90aa1015732676bf63d2d950714a1f11196875fc
 </pre></div>
 </div>
-<p>Only the <tt class="docutils literal"><span class="pre">nobel_prize.txt</span></tt> has changed. So:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/2/directory_list
+<p>Here then is our directory listing for commit 2:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/2/directory_list
 Filename                Hash value
 ========                ==========
+nobel_prize_paper.txt   90aa1015732676bf63d2d950714a1f11196875fc
 stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
-nobel_prize.txt         bc330d8886bb1b36a49d8e7ebb07d3443190b0e6
 very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">directory_list</span>
+</div>
+<div class="section" id="an-even-more-crazy-idea-hash-the-directory-list">
+<h3>An even more crazy idea - hash the directory list<a class="headerlink" href="#an-even-more-crazy-idea-hash-the-directory-list" title="Permalink to this headline">¶</a></h3>
+<p>The directory listing is just a text file.  We can store the directory listing
+as we store the other files, by writing an object file with the file hash:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>shasum .fancy_backups/1/directory_list
+b7c9cd682e7d4bf28b82e76fb2276608f49e16d5  .fancy_backups/1/directory_list
 </pre></div>
 </div>
-</div>
-<div class="section" id="an-even-more-crazy-idea-hash-the-tree">
-<h3>An even more crazy idea - hash the tree<a class="headerlink" href="#an-even-more-crazy-idea-hash-the-tree" title="Permalink to this headline">¶</a></h3>
-<p>I guess we can store the tree for the first commit according to its
-hash:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tree_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/1/directory_list&#39;</span><span class="p">)</span>
-<span class="n">tree_hash</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&#39;63d466086dd359c0b34d21e04b812781c7153b23&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp .fancy_backups/1/directory_list .fancy_backups/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 </pre></div>
 </div>
 <p>And we can do the same for the second commit:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/2/directory_list&#39;</span><span class="p">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>shasum .fancy_backups/2/directory_list
+4f379c649a596d2f9cc2cf5b91f4a67a3101b65e  .fancy_backups/2/directory_list
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&#39;d45095659d1ea567b90aaf923e265bf41cbb126f&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp .fancy_backups/2/directory_list .fancy_backups/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 </pre></div>
 </div>
-<p>Now - would I get the same hash if I had had a different figure?</p>
+<p>Now - would I get the same hash for the directory listing if I had had a
+different figure?</p>
 </div>
 <div class="section" id="even-more-crazy-idea-make-the-whole-commit-into-a-text-file">
 <h3>Even more crazy idea - make the whole commit into a text file<a class="headerlink" href="#even-more-crazy-idea-make-the-whole-commit-into-a-text-file" title="Permalink to this headline">¶</a></h3>
-<p>How about this?</p>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/1/commit
+<p>We&#8217;ve seen that we can make a directory listing that is unique for the whole
+contents of the snapshot files (file contents and file names).  Therefore the
+<em>hash</em> of the directory listing is also unique for the contents of the
+snapshot files.  So, we can make a <em>commit file</em> that is the <tt class="docutils literal"><span class="pre">info.txt</span></tt> file
+above, but now with the hash of the directory listing included.  Including the
+directory listing means that this <em>commit file</em> is now also unique to the
+contents of the snapshot.  The commit file for the first commit might look
+something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/1/commit
 Date: April 1 2012, 14.30
 Author: I. M. Awesome
 Notes: First backup of my amazing idea
-Tree: 63d466086dd359c0b34d21e04b812781c7153b23
+Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">commit</span>
+<p>The commit file for the second commit might look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/2/commit
+Date: April 1 2012, 18.03
+Author: I. M. Awesome
+Notes: Fruit of enormous thought
+Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 </pre></div>
 </div>
-<p>And now I can hash the commit!</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">commit_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/1/commit&#39;</span><span class="p">)</span>
-<span class="n">commit_hash</span>
+<p>The commit is now just a text file, and I can hash this too:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>shasum .fancy_backups/1/commit
+<span class="nv">$ </span>shasum .fancy_backups/2/commit
+012ad9f6c3a715516514e8821a71d891c4211f8f  .fancy_backups/1/commit
+d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba  .fancy_backups/2/commit
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="s">&#39;f473e51a38d40772722205c92dddd4bdfd941ef8&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cp .fancy_backups/1/commit .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
+<span class="nv">$ </span>cp .fancy_backups/2/commit .fancy_backups/objects/d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba
 </pre></div>
 </div>
 <p>Would the commit hash value change if the figure changed?</p>
@@ -676,53 +698,52 @@ Tree: 63d466086dd359c0b34d21e04b812781c7153b23
 <div class="section" id="so-crazy-it-s-actually-git">
 <h3>So crazy it&#8217;s actually git<a class="headerlink" href="#so-crazy-it-s-actually-git" title="Permalink to this headline">¶</a></h3>
 <p>Now look in <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ls</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="n">objects</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a .fancy_backups/objects
+.fancy_backups/objects
+├── 012ad9f6c3a715516514e8821a71d891c4211f8f
+├── 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
+├── 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
+├── 90aa1015732676bf63d2d950714a1f11196875fc
+├── aff88ecead2c7166770969a54dc855c8b91be864
+├── b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
+├── d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba
+└── e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+
+0 directories, 8 files
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>3af8809ecb9c6dec33fc7e5ad330e384663f5a0d  bc330d8886bb1b36a49d8e7ebb07d3443190b0e6  f473e51a38d40772722205c92dddd4bdfd941ef8
-63d466086dd359c0b34d21e04b812781c7153b23  d45095659d1ea567b90aaf923e265bf41cbb126f
-aff88ecead2c7166770969a54dc855c8b91be864  e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-</pre></div>
-</div>
-<p>That&#8217;s 3 file copies for the files from the first commit, 1 file copy
-from the second commit, 2 directory listings (for first and second
-commit) and one commit listing (for the first commit) = 7 hash objects.</p>
-<p>We know that the file beginning &#8216;f473e51&#8217; <em>completely defines the first
-commit</em>:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .fancy_backups/objects/f473e51a38d40772722205c92dddd4bdfd941ef8
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Date: April 1 2012, 14.30
-Author: I. M. Awesome
-Notes: First backup of my amazing idea
-Tree: 63d466086dd359c0b34d21e04b812781c7153b23
-</pre></div>
-</div>
+<p>That&#8217;s 3 file copies for the files from the first commit, 1 file copy from the
+second commit, 2 directory listings (for first and second commit) and two
+commit listings (for the first and second commit) = 8 hash objects.</p>
 </div>
 <div class="section" id="linking-the-commits">
 <h3>Linking the commits<a class="headerlink" href="#linking-the-commits" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="can-we-completely-get-rid-of-fancy-backups-1-fancy-backups-2">
 <h4>Can we completely get rid of <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt>, <tt class="docutils literal"><span class="pre">.fancy_backups/2</span></tt><a class="headerlink" href="#can-we-completely-get-rid-of-fancy-backups-1-fancy-backups-2" title="Permalink to this headline">¶</a></h4>
-<p>The reason for our commit names &#8220;1&#8221;,&#8221;2&#8221;, &#8220;3&#8221; was so we know that commit
-&#8220;2&#8221; comes after commit &#8220;1&#8221; and before commit &#8220;3&#8221;. Now our commits have
-arbitrary hashes, we can&#8217;t tell the order from the name.</p>
+<p>The reason for our commit names &#8220;1&#8221;,&#8221;2&#8221;, &#8220;3&#8221; was so we know that commit &#8220;2&#8221;
+comes after commit &#8220;1&#8221; and before commit &#8220;3&#8221;. Now our commits have filenames
+with arbitrary hashes, we can&#8217;t tell the order from the name.</p>
+<p>However, the commit hash does uniquely identify the commit.  For example, we
+know that the file beginning &#8216;012ad9f&#8217; <em>completely defines the first commit</em>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
+Date: April 1 2012, 14.30
+Author: I. M. Awesome
+Notes: First backup of my amazing idea
+Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
+</pre></div>
+</div>
 <p>We can specify the order by adding the commit hash of the previous
-commit into the current commit:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file .fancy_backups/temporary_file
+(parent) commit into the current commit:</p>
+<div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/2/info.txt
 Date: April 1 2012, 18.03
 Author: I. M. Awesome
 Notes: Fruit of enormous thought
-Tree: d45095659d1ea567b90aaf923e265bf41cbb126f
-Parent: 63dab6e48ed2e9111624a3b5391bdf784c040b86
+Tree: 1dca3837b1076cdcfb02e86018377725e5d0e86e
+Parent: 012ad9f6c3a715516514e8821a71d891c4211f8f
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Writing</span> <span class="o">.</span><span class="n">fancy_backups</span><span class="o">/</span><span class="n">temporary_file</span>
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">commit2_hash</span> <span class="o">=</span> <span class="n">copy_to_hash</span><span class="p">(</span><span class="s">&#39;.fancy_backups/temporary_file&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now we have the order of the commits from the links between them.</p>
+<p>Now we have the order of the commits from the links between them, where the
+links are given by the hash value in the <tt class="docutils literal"><span class="pre">Parent</span></tt> field.</p>
 <p>And now you are already a git master.</p>
 <div class="section" id="gitting-going-sorry">
 <h5>Gitting going (sorry)<a class="headerlink" href="#gitting-going-sorry" title="Permalink to this headline">¶</a></h5>
@@ -732,19 +753,18 @@ repository</a>. Thanks to Fernando
 for sharing.</p>
 <p>We need to tell git about us before we start. This stuff will go into
 the commit information.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git config --global user.name &quot;Matthew Brett&quot;
-!git config --global user.email &quot;matthew.brett@gmail.com&quot;
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git config --global user.name <span class="s2">&quot;Matthew Brett&quot;</span>
+<span class="nv">$ </span>git config --global user.email <span class="s2">&quot;matthew.brett@gmail.com&quot;</span>
 </pre></div>
 </div>
-<p>git often needs to call up a text editor. Choose the editor you like
-here:</p>
-<div class="code python highlight-python"><div class="highlight"><pre># Put here your preferred editor.
-!git config --global core.editor gedit
+<p>git often needs to call up a text editor. Choose the editor you like here:</p>
+<div class="highlight-python"><div class="highlight"><pre># Put here your preferred editor
+git config --global core.editor gedit
 </pre></div>
 </div>
 <p>We also turn on the use of color, which is very helpful in making the
-output of git easier to read</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git config --global color.ui &quot;auto&quot;
+output of git easier to read:</p>
+<div class="highlight-python"><div class="highlight"><pre>git config --global color.ui &quot;auto&quot;
 </pre></div>
 </div>
 </div>
@@ -752,14 +772,12 @@ output of git easier to read</p>
 </div>
 <div class="section" id="getting-help">
 <h3>Getting help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre>!git
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>usage: git [--version] [--exec-path[=&lt;path&gt;]] [--html-path] [--man-path] [--info-path]
-           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=&lt;path&gt;] [--work-tree=&lt;path&gt;] [--namespace=&lt;name&gt;]
-           [-c name=value] [--help]
-           &lt;command&gt; [&lt;args&gt;]
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git
+usage: git <span class="o">[</span>--version<span class="o">]</span> <span class="o">[</span>--help<span class="o">]</span> <span class="o">[</span>-C &lt;path&gt;<span class="o">]</span> <span class="o">[</span>-c <span class="nv">name</span><span class="o">=</span>value<span class="o">]</span>
+           <span class="o">[</span>--exec-path<span class="o">[=</span>&lt;path&gt;<span class="o">]]</span> <span class="o">[</span>--html-path<span class="o">]</span> <span class="o">[</span>--man-path<span class="o">]</span> <span class="o">[</span>--info-path<span class="o">]</span>
+           <span class="o">[</span>-p|--paginate|--no-pager<span class="o">]</span> <span class="o">[</span>--no-replace-objects<span class="o">]</span> <span class="o">[</span>--bare<span class="o">]</span>
+           <span class="o">[</span>--git-dir<span class="o">=</span>&lt;path&gt;<span class="o">]</span> <span class="o">[</span>--work-tree<span class="o">=</span>&lt;path&gt;<span class="o">]</span> <span class="o">[</span>--namespace<span class="o">=</span>&lt;name&gt;<span class="o">]</span>
+           &lt;<span class="nb">command</span>&gt; <span class="o">[</span>&lt;args&gt;<span class="o">]</span>
 
 The most commonly used git commands are:
    add        Add file contents to the index
@@ -771,78 +789,83 @@ The most commonly used git commands are:
    diff       Show changes between commits, commit and working tree, etc
    fetch      Download objects and refs from another repository
    grep       Print lines matching a pattern
-   init       Create an empty git repository or reinitialize an existing one
+   init       Create an empty Git repository or reinitialize an existing one
    log        Show commit logs
    merge      Join two or more development histories together
    mv         Move or rename a file, a directory, or a symlink
-   pull       Fetch from and merge with another repository or a local branch
+   pull       Fetch from and integrate with another repository or a <span class="nb">local </span>branch
    push       Update remote refs along with associated objects
-   rebase     Forward-port local commits to the updated upstream head
+   rebase     Forward-port <span class="nb">local </span>commits to the updated upstream head
    reset      Reset current HEAD to the specified state
    rm         Remove files from the working tree and from the index
    show       Show various types of objects
    status     Show the working tree status
    tag        Create, list, delete or verify a tag object signed with GPG
 
-See &#39;git help &lt;command&gt;&#39; for more information on a specific command.
+<span class="s1">&#39;git help -a&#39;</span> and <span class="s1">&#39;git help -g&#39;</span> lists available subcommands and some
+concept guides. See <span class="s1">&#39;git help &lt;command&gt;&#39;</span> or <span class="s1">&#39;git help &lt;concept&gt;&#39;</span>
+to <span class="nb">read </span>about a specific subcommand or concept.
 </pre></div>
 </div>
 <p>Try <tt class="docutils literal"><span class="pre">git</span> <span class="pre">help</span> <span class="pre">add</span></tt> for an example.</p>
 </div>
 <div class="section" id="initializing-the-repository">
 <h3>Initializing the repository<a class="headerlink" href="#initializing-the-repository" title="Permalink to this headline">¶</a></h3>
-<p>Let&#8217;s make this <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory be version controlled with
-git.</p>
-<div class="code python highlight-python"><div class="highlight"><pre># First pull the contents of the first commit from .fancy_backups
-!cp .fancy_backups/1/files/* .
-# Then delete .fancy_backups - we&#39;re done with those guys
-!rm -rf .fancy_backups
+<p>We first set this <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory be version controlled with
+git.  We start with the original files for the paper:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>unzip -o nobel_prize_files.zip
+<span class="nv">$ </span><span class="nb">cd </span>nobel_prize
+Archive:  nobel_prize_files.zip
+  inflating: nobel_prize/nobel_prize_paper.txt  
+  inflating: nobel_prize/stunning_figure.png  
+  inflating: nobel_prize/very_clever_analysis.py  
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls -a
+<p>Create git repository:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git init
+Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/nobel_prize/.git/
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[34m.[m[m                       [34m..[m[m                      nobel_prize.txt         stunning_figure.png     very_clever_analysis.py
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git init
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Initialized empty Git repository in /Users/mb312/dev_trees/pna-notebooks/nobel_prize/.git/
-</pre></div>
-</div>
-<p>Just what we were expecting; a <em>repository</em> directory called <tt class="docutils literal"><span class="pre">.git</span></tt></p>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls .git
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>HEAD        [34mbranches[m[m    config      [31mdescription[m[m [34mhooks[m[m       [34minfo[m[m        [34mobjects[m[m     [34mrefs[m[m
+<p>What happened when we did <tt class="docutils literal"><span class="pre">git</span> <span class="pre">init</span></tt>? Just what we were expecting; a
+<em>repository</em> directory called <tt class="docutils literal"><span class="pre">.git</span></tt></p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git
+HEAD
+branches
+config
+description
+hooks
+info
+objects
+refs
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">objects</span></tt> directory looks familiar. What&#8217;s in there?</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">(</span><span class="s">&#39;.git/objects&#39;</span><span class="p">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree .git/objects
+.git/objects
+├── info
+└── pack
+
+2 directories, 0 files
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>├── [94minfo[0m
-└── [94mpack[0m
-</pre></div>
-</div>
-<p>Nothing. That makes sense.</p>
+<p>Nothing but a couple of empty directories. That makes sense.</p>
 </div>
 <div class="section" id="git-add-put-stuff-into-the-staging-area">
 <h3>git add - put stuff into the staging area<a class="headerlink" href="#git-add-put-stuff-into-the-staging-area" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre>!git add nobel_prize.txt
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add nobel_prize_paper.txt
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">(</span><span class="s">&#39;.git/objects&#39;</span><span class="p">)</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree .git/objects
+.git/objects
+├── d9
+│   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
+├── info
+└── pack
+
+3 directories, 1 file
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>├── [94md9[0m
-│   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-├── [94minfo[0m
-└── [94mpack[0m
-</pre></div>
-</div>
-<p>Doing <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">nobel_prize.txt</span></tt> has added a file to the
+<p>Doing <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">nobel_prize_paper.txt</span></tt> has added a file to the
 <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory. That filename looks suspiciously like a
 hash.</p>
 </div>
@@ -850,23 +873,21 @@ hash.</p>
 <h3>git add and the staging area<a class="headerlink" href="#git-add-and-the-staging-area" title="Permalink to this headline">¶</a></h3>
 <p>We expect that <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> added the file to the <em>staging area</em>. Have we
 got any evidence of that?</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># On branch master</span>
-<span class="c">#</span>
-<span class="c"># Initial commit</span>
-<span class="c">#</span>
-<span class="c"># Changes to be committed:</span>
-<span class="c">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span>
-<span class="c">#</span>
-<span class="c">#   [32mnew file:   nobel_prize.txt[m</span>
-<span class="c">#</span>
-<span class="c"># Untracked files:</span>
-<span class="c">#   (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span>
-<span class="c">#</span>
-<span class="c">#   [31mstunning_figure.png[m</span>
-<span class="c">#   [31mvery_clever_analysis.py[m</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+
+	new file:   nobel_prize_paper.txt
+
+Untracked files:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to include in what will be committed<span class="o">)</span>
+
+	stunning_figure.png
+	very_clever_analysis.py
 </pre></div>
 </div>
 </div>
@@ -876,160 +897,143 @@ got any evidence of that?</p>
 <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt>.</p>
 <p>The main difference is that, to save space, they are compressed, in fact
 using a library called <tt class="docutils literal"><span class="pre">zlib</span></tt>.</p>
-<p>Here&#8217;s a routine that gives us the raw contents of stuff in the
-<tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory. There are neater commands in git to do this,
-but this shows just how simple these objects are.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">zlib</span> <span class="c"># A compression / decompression library</span>
+<p>These objects are so simple that it&#8217;s very easy to write small code snippets
+to read them - see <a class="reference internal" href="reading_git_objects.html"><em>Reading git objects</em></a>.</p>
+<p>Git will also show the contents of objects with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">show</span></tt>.</p>
+<p>When we did <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">nobel_prize_paper.txt</span></tt>, we got a new file in
+<tt class="docutils literal"><span class="pre">.git/objects</span></tt>, with filename <tt class="docutils literal"><span class="pre">d9/2d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt>.
+The filename is in fact a hash, where the first two digits form the directory
+name (<tt class="docutils literal"><span class="pre">d9</span></tt>) and the rest of the filename is the rest of the hash digits
+<a class="footnote-reference" href="#git-object-dir" id="id1">[1]</a>.</p>
+<p>Here&#8217;s the contents of the object:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git show d92d079af6a7f276cc8d63dcf2549c03e7deb553
+The brain is just a <span class="nb">set </span>of random <span class="nv">numbers</span>
+<span class="o">=========================================</span>
 
-<span class="k">def</span> <span class="nf">read_git_object</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Read an object in the ``.git/objects`` directory</span>
-
-<span class="sd">    Yes, it&#39;s this simple - in this case.  But git reserves the right to use</span>
-<span class="sd">    more complicated storage formats to save space when your repository is larger</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">compressed_contents</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">zlib</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">compressed_contents</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553&#39;</span>
-<span class="n">new_object_data</span> <span class="o">=</span> <span class="n">read_git_object</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">new_object_data</span>
-</pre></div>
-</div>
-<pre class="literal-block">
-blob 189The brain is just a set of random numbers
-=========================================
-
-We have discovered that the brain is a set of random numbers.
+We have discovered that the brain is a <span class="nb">set </span>of random numbers.
 
 We have charts and graphs to back us up.
-</pre>
-<p>It&#8217;s just the contents of the file, with some cruft at the start
-(<tt class="docutils literal"><span class="pre">blob</span> <span class="pre">189</span></tt>).</p>
+</pre></div>
+</div>
+<p>Just as we expected, it is the current contents of the
+<tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>.</p>
+<p>In fact we only need to give git enough hash digits for git to uniquely
+identify the object.  7 digits if often enough, as in:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git show d92d079
+The brain is just a <span class="nb">set </span>of random <span class="nv">numbers</span>
+<span class="o">=========================================</span>
+
+We have discovered that the brain is a <span class="nb">set </span>of random numbers.
+
+We have charts and graphs to back us up.
+</pre></div>
+</div>
 </div>
 <div class="section" id="staging-the-other-files">
 <h3>Staging the other files<a class="headerlink" href="#staging-the-other-files" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre>!git add stunning_figure.png
-!git add very_clever_analysis.py
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># On branch master</span>
-<span class="c">#</span>
-<span class="c"># Initial commit</span>
-<span class="c">#</span>
-<span class="c"># Changes to be committed:</span>
-<span class="c">#   (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span>
-<span class="c">#</span>
-<span class="c">#   [32mnew file:   nobel_prize.txt[m</span>
-<span class="c">#   [32mnew file:   stunning_figure.png[m</span>
-<span class="c">#   [32mnew file:   very_clever_analysis.py[m</span>
-<span class="c">#</span>
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">(</span><span class="s">&#39;.git/objects&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>├── [94m8a[0m
-│   └── dc8bf371d669242ea998f78f9916867cc6203c
-├── [94m9f[0m
-│   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
-├── [94md9[0m
-│   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-├── [94minfo[0m
-└── [94mpack[0m
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">read_git_object</span><span class="p">(</span><span class="s">&#39;.git/objects/8a/dc8bf371d669242ea998f78f9916867cc6203c&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<pre class="literal-block">
-blob 138# The brain analysis script
-import numpy as np
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add stunning_figure.png
+<span class="nv">$ </span>git add very_clever_analysis.py
+<span class="nv">$ </span>git status
+On branch master
 
-# Make brain data
-brain_size = (128, 128)
-random_data = np.random.normal(size=brain_size)
-</pre>
+Initial commit
+
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git rm --cached &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+
+	new file:   nobel_prize_paper.txt
+	new file:   stunning_figure.png
+	new file:   very_clever_analysis.py
+</pre></div>
+</div>
+<p>We have now staged all three of our files.  We have three objects in
+<tt class="docutils literal"><span class="pre">.git/objects</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree .git/objects
+.git/objects
+├── 8a
+│   └── dc8bf371d669242ea998f78f9916867cc6203c
+├── 9f
+│   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
+├── d9
+│   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
+├── info
+└── pack
+
+5 directories, 3 files
+</pre></div>
+</div>
 </div>
 <div class="section" id="git-commit-making-the-snapshot">
 <h3>git commit - making the snapshot<a class="headerlink" href="#git-commit-making-the-snapshot" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre>!git commit -m &quot;First backup of my amazing idea&quot;
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[master (root-commit) 1d7415e] First backup of my amazing idea
- 3 files changed, 12 insertions(+)
- create mode 100644 nobel_prize.txt
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;First backup of my amazing idea&quot;</span>
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> e1565c0<span class="o">]</span> First backup of my amazing idea
+ 3 files changed, 12 insertions<span class="o">(</span>+<span class="o">)</span>
+ create mode 100644 nobel_prize_paper.txt
  create mode 100644 stunning_figure.png
  create mode 100644 very_clever_analysis.py
 </pre></div>
 </div>
-<p>In the commit above, we used the -m flag to specify a message at the
+<p>In the line above, we used the <tt class="docutils literal"><span class="pre">-m</span></tt> flag to specify a message at the
 command line. If we don&#8217;t do that, git will open the editor we specified
 in our configuration above and require that we enter a message. By
 default, git refuses to record changes that don&#8217;t have a message to go
 along with them (though you can obviously &#8216;cheat&#8217; by using an empty or
 meaningless string: git only tries to facilitate best practices, it&#8217;s
 not your nanny).</p>
-<p>We are now expecting to have a .git object for the directory tree, and
-for the commit.</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="n">print_tree</span><span class="p">(</span><span class="s">&#39;.git/objects&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>├── [94m1d[0m
-│   └── 7415e14ef0d556a97630997644307942f7f703
-├── [94m1e[0m
-│   └── 322f4e782df4dfe963eda96517886f4e39a454
-├── [94m8a[0m
-│   └── dc8bf371d669242ea998f78f9916867cc6203c
-├── [94m9f[0m
-│   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
-├── [94md9[0m
-│   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-├── [94minfo[0m
-└── [94mpack[0m
-</pre></div>
-</div>
-<p>Here&#8217;s the tree:</p>
-<div class="code python highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">read_git_object</span><span class="p">(</span><span class="s">&#39;.git/objects/1e/322f4e782df4dfe963eda96517886f4e39a454&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<pre class="literal-block">
-tree 141100644 nobel_prize.txt�-����v̍c��T��޵S100644 stunning_figure.png��1)��{��-�Q���
+<p>We are now expecting to have two new <tt class="docutils literal"><span class="pre">.git/object</span></tt> files, for the directory
+tree, and for the commit.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree .git/objects
+.git/objects
+├── 8a
+│   └── dc8bf371d669242ea998f78f9916867cc6203c
+├── 9f
+│   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
+├── d9
+│   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
+├── e1
+│   ├── 298063f6f94851ae551a292ac91ca84029c0e8
+│   └── 565c05701b5df6740eea30316e7e52b5595567
+├── info
+└── pack
 
-}100644 very_clever_analysis.py�܋�q�i`.������|� &lt;
-</pre>
-<p>These are in fact the file permissions, the filenames, and a binary form
-of the file hashes. Git will read this in a more friendly form for us:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git ls-tree 1e322f4
+6 directories, 5 files
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>100644 blob d92d079af6a7f276cc8d63dcf2549c03e7deb553        nobel_prize.txt
-100644 blob 9ffc311b29f0c87bf502b92df951d90ef88c1c7d        stunning_figure.png
-100644 blob 8adc8bf371d669242ea998f78f9916867cc6203c        very_clever_analysis.py
+<p>Here&#8217;s <tt class="docutils literal"><span class="pre">git</span> <span class="pre">show</span></tt> for the tree (directory listing):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git show e129806
+tree e129806
+
+nobel_prize_paper.txt
+stunning_figure.png
+very_clever_analysis.py
 </pre></div>
 </div>
+<p>We can get a little more detail from the directory listing with <tt class="docutils literal"><span class="pre">git</span>
+<span class="pre">ls-tree</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git ls-tree e129806
+100644 blob d92d079af6a7f276cc8d63dcf2549c03e7deb553	nobel_prize_paper.txt
+100644 blob 9ffc311b29f0c87bf502b92df951d90ef88c1c7d	stunning_figure.png
+100644 blob 8adc8bf371d669242ea998f78f9916867cc6203c	very_clever_analysis.py
+</pre></div>
+</div>
+<p>These are in fact the file permissions, the type of file (another directory,
+or a file), the file hashes, and the file names.</p>
 </div>
 <div class="section" id="git-log-what-are-the-commits-so-far">
 <h3>git log - what are the commits so far?<a class="headerlink" href="#git-log-what-are-the-commits-so-far" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre>!git log
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log
+commit e1565c05701b5df6740eea30316e7e52b5595567
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Thu May 2 22:04:55 2013 -0700
+Date:   Tue Sep 16 12:09:23 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git log --parents
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
+<p>I can also ask to the parents of each commit in the log:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log --parents
+commit e1565c05701b5df6740eea30316e7e52b5595567
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Thu May 2 22:04:55 2013 -0700
+Date:   Tue Sep 16 12:09:23 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
@@ -1043,28 +1047,25 @@ commit we are on at the moment, and they track the commits as we do new
 ones.</p>
 <p>The default branch for git is called <tt class="docutils literal"><span class="pre">master</span></tt>. Git creates it
 automatically when you do your first commit.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch
+* master
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>* [32mmaster[m
+<p>Asking for more verbose detail shows us that the branch is pointing to a
+particular commit (where the commit is given by a hash):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
+* master e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch -v
+<p>A branch is just a bookmark - a name that points to a commit.  In fact, git
+stores branches as tiny text files, where the filename is the name of the
+branch, and the contents is the hash of the commit that it points to:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git/refs/heads
+master
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>* [32mmaster[m 1d7415e First backup of my amazing idea
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls .git/refs/heads
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">master</span>
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .git/refs/heads/master
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>1d7415e14ef0d556a97630997644307942f7f703
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/master
+e1565c05701b5df6740eea30316e7e52b5595567
 </pre></div>
 </div>
 </div>
@@ -1073,24 +1074,20 @@ automatically when you do your first commit.</p>
 <p>Let&#8217;s do a little bit more work... Again, in practice you&#8217;ll be editing
 the files by hand, here we do it via shell commands for the sake of
 automation (and therefore the reproducibility of this tutorial!)</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!echo &quot;\nThe charts are very impressive\n&quot; &gt;&gt; nobel_prize.txt
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;The charts are very impressive&quot;</span> &gt;&gt; nobel_prize_paper.txt
 </pre></div>
 </div>
 <p>And now we can ask git what is different:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git diff
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[1mdiff --git a/nobel_prize.txt b/nobel_prize.txt[m
-[1mindex d92d079..47b7547 100644[m
-[1m--- a/nobel_prize.txt[m
-[1m+++ b/nobel_prize.txt[m
-[36m@@ -4,3 +4,6 @@[m [mThe brain is just a set of random numbers[m
- We have discovered that the brain is a set of random numbers.[m
- [m
- We have charts and graphs to back us up.[m
-[32m+[m
-[32m+[m[32mThe charts are very impressive[m
-[41m+[m
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git diff
+diff --git a/nobel_prize_paper.txt b/nobel_prize_paper.txt
+index d92d079..04d063d 100644
+--- a/nobel_prize_paper.txt
++++ b/nobel_prize_paper.txt
+@@ -4,3 +4,4 @@ The brain is just a <span class="nb">set </span>of random numbers
+ We have discovered that the brain is a <span class="nb">set </span>of random numbers.
+ 
+ We have charts and graphs to back us up.
++The charts are very impressive
 </pre></div>
 </div>
 </div>
@@ -1099,110 +1096,106 @@ automation (and therefore the reproducibility of this tutorial!)</p>
 <p>Remember that git only commits stuff that has been added to the staging
 area.</p>
 <p>At the moment we have changes that have not been staged:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre># On branch master
-# Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-#
-#   [31mmodified:   nobel_prize.txt[m
-#
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+Changes not staged <span class="k">for </span>commit:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory<span class="o">)</span>
+
+	modified:   nobel_prize_paper.txt
+
+no changes added to commit <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> and/or <span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>If we try and do a commit, git will tell us there is nothing to commit,
 because nothing has been staged:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git commit
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit
+On branch master
+Changes not staged <span class="k">for </span>commit:
+	modified:   nobel_prize_paper.txt
+
+no changes added to commit
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre># On branch master
-# Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-#
-#   [31mmodified:   nobel_prize.txt[m
-#
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</pre></div>
 </div>
+<div class="section" id="git-distinguishes-three-types-of-files">
+<h3>Git distinguishes three types of files<a class="headerlink" href="#git-distinguishes-three-types-of-files" title="Permalink to this headline">¶</a></h3>
+<p>Files can be:</p>
+<ul class="simple">
+<li>unknown to git (&#8220;untracked&#8221;)</li>
+<li>known to git but modified from the version in the last commit</li>
+<li>known to git and unmodified</li>
+</ul>
 </div>
 <div class="section" id="the-cycle-of-git-virtue-work-commit-work-commit">
 <h3>The cycle of git virtue: work, commit, work, commit, ...<a class="headerlink" href="#the-cycle-of-git-virtue-work-commit-work-commit" title="Permalink to this headline">¶</a></h3>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
+<p>We&#8217;ve done some work in the working tree, and we check what changes there are
+that we might want to commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+Changes not staged <span class="k">for </span>commit:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory<span class="o">)</span>
+
+	modified:   nobel_prize_paper.txt
+
+no changes added to commit <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> and/or <span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre># On branch master
-# Changes not staged for commit:
-#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-#
-#   [31mmodified:   nobel_prize.txt[m
-#
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+<p>We add the changes for one edited file to the staging area:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add nobel_prize_paper.txt
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git add nobel_prize.txt
+<p>We check that git is planning to add the changes to the paper to the next
+commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+
+	modified:   nobel_prize_paper.txt
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
+<p>We do the commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Fruit of enormous thought&quot;</span>
+<span class="o">[</span>master d2b3c38<span class="o">]</span> Fruit of enormous thought
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># On branch master</span>
-<span class="c"># Changes to be committed:</span>
-<span class="c">#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span>
-<span class="c">#</span>
-<span class="c">#   [32mmodified:   nobel_prize.txt[m</span>
-<span class="c">#</span>
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git commit -m &quot;Fruit of enormous thought&quot;
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[master ceda705] Fruit of enormous thought
- 1 file changed, 3 insertions(+)
-</pre></div>
-</div>
-<p>Remember branches?</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .git/refs/heads/master
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ceda7056aba330314aa219f7facbb00eb1a03248</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="git-log-revisited">
-<h3>git log revisited<a class="headerlink" href="#git-log-revisited" title="Permalink to this headline">¶</a></h3>
-<p>First, let&#8217;s see what the log shows us now:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git log
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[33mcommit ceda7056aba330314aa219f7facbb00eb1a03248[m
+<p>Remember branches?  Git has now moved the &#8220;master&#8221; branch bookmark up to the
+new commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log
+commit d2b3c3881e39c30153beced21bae17e4e7aac667
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Thu May 2 22:04:59 2013 -0700
+Date:   Tue Sep 16 12:09:24 2014 -0400
 
     Fruit of enormous thought
 
-[33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
+commit e1565c05701b5df6740eea30316e7e52b5595567
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Thu May 2 22:04:55 2013 -0700
+Date:   Tue Sep 16 12:09:23 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git log --parents
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/master
+d2b3c3881e39c30153beced21bae17e4e7aac667
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[33mcommit ceda7056aba330314aa219f7facbb00eb1a03248 1d7415e14ef0d556a97630997644307942f7f703[m
+</div>
+<div class="section" id="git-log-and-parents">
+<h3>git log and parents<a class="headerlink" href="#git-log-and-parents" title="Permalink to this headline">¶</a></h3>
+<p>The first commit is the parent of the first:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log --parents
+commit d2b3c3881e39c30153beced21bae17e4e7aac667 e1565c05701b5df6740eea30316e7e52b5595567
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Thu May 2 22:04:59 2013 -0700
+Date:   Tue Sep 16 12:09:24 2014 -0400
 
     Fruit of enormous thought
 
-[33mcommit 1d7415e14ef0d556a97630997644307942f7f703[m
+commit e1565c05701b5df6740eea30316e7e52b5595567
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Thu May 2 22:04:55 2013 -0700
+Date:   Tue Sep 16 12:09:23 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
@@ -1210,26 +1203,23 @@ Date:   Thu May 2 22:04:55 2013 -0700
 </div>
 <div class="section" id="making-log-output-more-pithy">
 <h3>Making log output more pithy<a class="headerlink" href="#making-log-output-more-pithy" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes it&#8217;s handy to see a very summarized version of the log:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git log --oneline --topo-order --graph
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
+<p>It is very often useful to see a summarized version of the log.  Here is a
+useful version of the git log command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log --oneline --topo-order --graph
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
 <p>Git supports <em>aliases:</em> new names given to command combinations. Let&#8217;s
 make this handy shortlog an alias, so we only have to type <tt class="docutils literal"><span class="pre">git</span> <span class="pre">slog</span></tt>
-and see this compact log:</p>
-<div class="code python highlight-python"><div class="highlight"><pre># We create our alias (this saves it in git&#39;s permanent configuration file):
-!git config --global alias.slog &quot;log --oneline --topo-order --graph&quot;
-
-# And now we can use it
-!git slog
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
+to get this compact log:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># We create our alias (this saves it in git&#39;s permanent configuration file):</span>
+<span class="nv">$ </span>git config --global alias.slog <span class="s2">&quot;log --oneline --topo-order --graph&quot;</span>
+<span class="nv">$ </span>
+<span class="nv">$ </span><span class="c"># And now we can use it</span>
+<span class="nv">$ </span>git slog
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
 </div>
@@ -1239,35 +1229,28 @@ and see this compact log:</p>
 also tell it if we want their names to change or for it to stop tracking
 them. In familiar Unix fashion, the <tt class="docutils literal"><span class="pre">mv</span></tt> and <tt class="docutils literal"><span class="pre">rm</span></tt> git commands do
 precisely this:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git mv very_clever_analysis.py slightly_dodgy_analysis.py
-!git status
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># On branch master</span>
-<span class="c"># Changes to be committed:</span>
-<span class="c">#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span>
-<span class="c">#</span>
-<span class="c">#   [32mrenamed:    very_clever_analysis.py -&gt; slightly_dodgy_analysis.py[m</span>
-<span class="c">#</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git mv very_clever_analysis.py slightly_dodgy_analysis.py
+<span class="nv">$ </span>git status
+On branch master
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+
+	renamed:    very_clever_analysis.py -&gt; slightly_dodgy_analysis.py
 </pre></div>
 </div>
 <p>Note that these changes must be committed too, to become permanent! In
 git&#8217;s world, until something has been committed, it isn&#8217;t permanently
 recorded anywhere.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git commit -m &quot;I like this new name better&quot;
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;I like this new name better&quot;</span>
+<span class="o">[</span>master a31873a<span class="o">]</span> I like this new name better
+ 1 file changed, 0 insertions<span class="o">(</span>+<span class="o">)</span>, 0 deletions<span class="o">(</span>-<span class="o">)</span>
+ rename very_clever_analysis.py <span class="o">=</span>&gt; slightly_dodgy_analysis.py <span class="o">(</span>100%<span class="o">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>[master 01df2e1] I like this new name better
- 1 file changed, 0 insertions(+), 0 deletions(-)
- rename very_clever_analysis.py =&gt; slightly_dodgy_analysis.py (100%)
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git slog
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>* [33m01df2e1[m I like this new name better
-* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git slog
+* a31873a I like this new name better
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
 <p>And <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rm</span></tt> works in a similar fashion.</p>
@@ -1294,22 +1277,16 @@ currently active branch since it&#8217;s what HEAD points to:</p>
 
 ![](files/fig/HEAD_testing.png)
 
---><div class="code python highlight-python"><div class="highlight"><pre>!cat .git/HEAD
+--><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/HEAD
+ref: refs/heads/master
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>ref: refs/heads/master
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/master
+a31873a96f9f138fa26eba23e67adedab79d50fa
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .git/refs/heads/master
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>01df2e1271fe12e0586f3a3876a567c684d6ce9b
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch -v
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>* [32mmaster[m 01df2e1 I like this new name better
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
+* master a31873a I like this new name better
 </pre></div>
 </div>
 <p>Once new commits are made on a branch, HEAD and the branch label move
@@ -1332,41 +1309,36 @@ unified line of development:</p>
 
 --><p>Let&#8217;s now illustrate all of this with a concrete example. Let&#8217;s get our
 bearings first:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
-!ls
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre># On branch master
-nothing to commit (working directory clean)
-nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git status
+<span class="nv">$ </span>ls
+On branch master
+nothing to commit, working directory clean
+nobel_prize_paper.txt
+slightly_dodgy_analysis.py
+stunning_figure.png
 </pre></div>
 </div>
 <p>We are now going to try two different routes of development: on the
 <tt class="docutils literal"><span class="pre">master</span></tt> branch we will add one file and on the <tt class="docutils literal"><span class="pre">experiment</span></tt> branch,
 which we will create, we will add a different one. We will then merge
 the experimental branch into <tt class="docutils literal"><span class="pre">master</span></tt>.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch experiment
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch experiment
 </pre></div>
 </div>
 <p>What just happened? We made a branch, which is a pointer to this same
 commit:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls .git/refs/heads
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git/refs/heads
+experiment
+master
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>experiment master
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
+  experiment a31873a I like this new name better
+* master     a31873a I like this new name better
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch -v
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>  experiment[m 01df2e1 I like this new name better
-* [32mmaster    [m 01df2e1 I like this new name better
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .git/refs/heads/experiment
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>01df2e1271fe12e0586f3a3876a567c684d6ce9b
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/experiment
+a31873a96f9f138fa26eba23e67adedab79d50fa
 </pre></div>
 </div>
 <p>How do we start working on this branch <tt class="docutils literal"><span class="pre">experiment</span></tt> rather than
@@ -1378,24 +1350,18 @@ commit:</p>
 commit, the <tt class="docutils literal"><span class="pre">master</span></tt> branch pointer (<tt class="docutils literal"><span class="pre">.git/refs/heads/master</span></tt>) moves
 up to track our most recent commit.</p>
 <p><tt class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span></tt> can switch us to using another branch:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git checkout experiment
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Switched to branch &#39;experiment&#39;
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git checkout experiment
+Switched to branch <span class="s1">&#39;experiment&#39;</span>
 </pre></div>
 </div>
 <p>What just happened?</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch -v
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
+* experiment a31873a I like this new name better
+  master     a31873a I like this new name better
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>* [32mexperiment[m 01df2e1 I like this new name better
-  master    [m 01df2e1 I like this new name better
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .git/HEAD
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>ref: refs/heads/experiment
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/HEAD
+ref: refs/heads/experiment
 </pre></div>
 </div>
 <p>As we&#8217;ll see later, <tt class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">somebranch</span></tt> also sets the contents
@@ -1403,33 +1369,30 @@ of the working tree to match the commit contents for <tt class="docutils literal
 this case the commits for <tt class="docutils literal"><span class="pre">master</span></tt> and <tt class="docutils literal"><span class="pre">experiment</span></tt> are currently
 the same, so we don&#8217;t change the working tree at all.</p>
 <p>Now let&#8217;s do some changes on our <tt class="docutils literal"><span class="pre">experiment</span></tt> branch:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!echo &quot;Some crazy idea&quot; &gt; experiment.txt
-!git add experiment.txt
-!git commit -m &quot;Trying something new&quot;
-!git slog
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[experiment b83cd47] Trying something new
- 1 file changed, 1 insertion(+)
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Some crazy idea&quot;</span> &gt; experiment.txt
+<span class="nv">$ </span>git add experiment.txt
+<span class="nv">$ </span>git commit -m <span class="s2">&quot;Trying something new&quot;</span>
+<span class="nv">$ </span>git slog
+<span class="o">[</span>experiment a77b573<span class="o">]</span> Trying something new
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
  create mode 100644 experiment.txt
-* [33mb83cd47[m Trying something new
-* [33m01df2e1[m I like this new name better
-* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
+* a77b573 Trying something new
+* a31873a I like this new name better
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
 <p>Notice we have a new file called <tt class="docutils literal"><span class="pre">experiment.txt</span></tt> in this branch:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>experiment.txt             nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls
+experiment.txt
+nobel_prize_paper.txt
+slightly_dodgy_analysis.py
+stunning_figure.png
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">experiment</span></tt> branch has now moved:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat .git/refs/heads/experiment
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">b83cd47540cb7dbd7d16292d8a35417f031716f9</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/experiment
+a77b573dac0b7324486ed31b5bb5a4ad5031ce8b
 </pre></div>
 </div>
 </div>
@@ -1438,74 +1401,63 @@ the same, so we don&#8217;t change the working tree at all.</p>
 <p>If <tt class="docutils literal"><span class="pre">somewhere</span></tt> is a branch name, then <tt class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">somewhere</span></tt>
 selects <tt class="docutils literal"><span class="pre">somewhere</span></tt> as the current branch. It also resets the working
 tree to match the working tree for that commit.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git checkout master
-!cat .git/HEAD
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Switched to branch &#39;master&#39;
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git checkout master
+<span class="nv">$ </span>cat .git/HEAD
 ref: refs/heads/master
 </pre></div>
 </div>
 <p>We&#8217;re back to the working tree as of the <tt class="docutils literal"><span class="pre">master</span></tt> branch;
 <tt class="docutils literal"><span class="pre">experiment.txt</span></tt> has gone now.</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls
+nobel_prize_paper.txt
+slightly_dodgy_analysis.py
+stunning_figure.png
 </pre></div>
 </div>
 <p>Meanwhile we do some more work on master:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git slog
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git slog
+* a31873a I like this new name better
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>* [33m01df2e1[m I like this new name better
-* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;All the while, more work goes on in master...&quot;</span> &gt;&gt; nobel_prize_paper.txt
+<span class="nv">$ </span>git add nobel_prize_paper.txt
+<span class="nv">$ </span>git commit -m <span class="s2">&quot;The mainline keeps moving&quot;</span>
+<span class="nv">$ </span>git slog
+<span class="o">[</span>master 35d79b5<span class="o">]</span> The mainline keeps moving
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
+* 35d79b5 The mainline keeps moving
+* a31873a I like this new name better
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!echo &quot;All the while, more work goes on in master...&quot; &gt;&gt; nobel_prize.txt
-!git add nobel_prize.txt
-!git commit -m &quot;The mainline keeps moving&quot;
-!git slog
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>[master 5c436d0] The mainline keeps moving
- 1 file changed, 1 insertion(+)
-* [33m5c436d0[m The mainline keeps moving
-* [33m01df2e1[m I like this new name better
-* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
-</pre></div>
-</div>
-<div class="code python highlight-python"><div class="highlight"><pre>!ls
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>nobel_prize.txt            slightly_dodgy_analysis.py stunning_figure.png
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls
+nobel_prize_paper.txt
+slightly_dodgy_analysis.py
+stunning_figure.png
 </pre></div>
 </div>
 <p>Now let&#8217;s do the merge</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git merge experiment -m &quot;Merge in the experiment&quot;
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Merge made by the &#39;recursive&#39; strategy.
- experiment.txt | 1 [32m+[m
- 1 file changed, 1 insertion(+)
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git merge experiment -m <span class="s2">&quot;Merge in the experiment&quot;</span>
+Merge made by the <span class="s1">&#39;recursive&#39;</span> strategy.
+ experiment.txt | 1 +
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
  create mode 100644 experiment.txt
 </pre></div>
 </div>
-<div class="code python highlight-python"><div class="highlight"><pre>!git slog
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git slog
+*   1601911 Merge in the experiment
+|<span class="se">\ </span> 
+| * a77b573 Trying something new
+* | 35d79b5 The mainline keeps moving
+|/  
+* a31873a I like this new name better
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
-<pre class="literal-block">
-*   [33mb444163[m Merge in the experiment
-[31m|[m[32m[m
-[31m|[m * [33mb83cd47[m Trying something new
-* [32m|[m [33m5c436d0[m The mainline keeps moving
-[32m|[m[32m/[m
-* [33m01df2e1[m I like this new name better
-* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
-</pre>
 </div>
 <div class="section" id="an-important-aside-conflict-management">
 <h3>An important aside: conflict management<a class="headerlink" href="#an-important-aside-conflict-management" title="Permalink to this headline">¶</a></h3>
@@ -1517,29 +1469,23 @@ has a problem, but it&#8217;s up to you to resolve the conflict. Let&#8217;s see
 that works by intentionally creating a conflict.</p>
 <p>We start by creating a branch and making a change to our experiment
 file:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git branch trouble
-!git checkout trouble
-!echo &quot;This is going to be a problem...&quot; &gt;&gt; experiment.txt
-!git add experiment.txt
-!git commit -m&quot;Changes in the trouble branch&quot;
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Switched to branch &#39;trouble&#39;
-[trouble 6921250] Changes in the trouble branch
- 1 file changed, 1 insertion(+)
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch trouble
+<span class="nv">$ </span>git checkout trouble
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This is going to be a problem...&quot;</span> &gt;&gt; experiment.txt
+<span class="nv">$ </span>git add experiment.txt
+<span class="nv">$ </span>git commit -m<span class="s2">&quot;Changes in the trouble branch&quot;</span>
+<span class="o">[</span>trouble 40aa1f3<span class="o">]</span> Changes in the trouble branch
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
 <p>And now we go back to the master branch, where we change the <em>same</em>
 file:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git checkout master
-!echo &quot;More work on the master branch...&quot; &gt;&gt; experiment.txt
-!git add experiment.txt
-!git commit -m&quot;Mainline work&quot;
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Switched to branch &#39;master&#39;
-[master 1ebca55] Mainline work
- 1 file changed, 1 insertion(+)
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git checkout master
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More work on the master branch...&quot;</span> &gt;&gt; experiment.txt
+<span class="nv">$ </span>git add experiment.txt
+<span class="nv">$ </span>git commit -m<span class="s2">&quot;Mainline work&quot;</span>
+<span class="o">[</span>master 7ff693a<span class="o">]</span> Mainline work
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
 </div>
@@ -1556,28 +1502,24 @@ are merging <em>into</em></li>
 <li>The new file contents from the commit tree that you are merging
 <em>from</em></li>
 </ul>
-<div class="code python highlight-python"><div class="highlight"><pre>!git config merge.conflictstyle diff3
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git config merge.conflictstyle diff3
 </pre></div>
 </div>
 <p>So now let&#8217;s see what happens if we try to merge the <tt class="docutils literal"><span class="pre">trouble</span></tt> branch
 into <tt class="docutils literal"><span class="pre">master</span></tt>:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git merge trouble -m &quot;Unlikely this one will work&quot;
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Auto-merging experiment.txt
-CONFLICT (content): Merge conflict in experiment.txt
-Automatic merge failed; fix conflicts and then commit the result.
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git merge trouble -m <span class="s2">&quot;Unlikely this one will work&quot;</span>
+Auto-merging experiment.txt
+CONFLICT <span class="o">(</span>content<span class="o">)</span>: Merge conflict in experiment.txt
+Automatic merge failed; fix conflicts and <span class="k">then </span>commit the result.
 </pre></div>
 </div>
 <p>Let&#8217;s see what git has put into our file:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!cat experiment.txt
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Some crazy idea
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat experiment.txt
+Some crazy idea
+<span class="o">&lt;&lt;&lt;&lt;&lt;&lt;</span>&lt; HEAD
 More work on the master branch...
-||||||| merged common ancestors
-=======
+<span class="o">||||||</span>| merged common <span class="nv">ancestors</span>
+<span class="o">=======</span>
 This is going to be a problem...
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; trouble
 </pre></div>
@@ -1593,54 +1535,47 @@ This is going to be a problem...
 <p>At this point, we go into the file with a text editor, decide which
 changes to keep, and make a new commit that records our decision.</p>
 <p>I&#8217;ll do the edits by writing the file I want directly in this case:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>%%file experiment.txt
+<div class="highlight-python"><div class="highlight"><pre># file: experiment.txt
 Some crazy idea
 More work on the master branch...
 This is going to be a problem...
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>Overwriting experiment.txt
-</pre></div>
-</div>
 <p>I&#8217;ve now made the edits. I decided that both pieces of text were useful,
 but integrated them with some changes:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git status
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre># On branch master
-# You have unmerged paths.
-#   (fix conflicts and run &quot;git commit&quot;)
-#
-# Unmerged paths:
-#   (use &quot;git add &lt;file&gt;...&quot; to mark resolution)
-#
-#   [31mboth modified:      experiment.txt[m
-#
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git status
+On branch master
+You have unmerged paths.
+  <span class="o">(</span>fix conflicts and run <span class="s2">&quot;git commit&quot;</span><span class="o">)</span>
+
+Unmerged paths:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to mark resolution<span class="o">)</span>
+
+	both modified:      experiment.txt
+
+no changes added to commit <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> and/or <span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s then make our new commit:</p>
-<div class="code python highlight-python"><div class="highlight"><pre>!git add experiment.txt
-!git commit -m &quot;Completed merge of trouble, fixing conflicts along the way&quot;
-!git slog
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add experiment.txt
+<span class="nv">$ </span>git commit -m <span class="s2">&quot;Completed merge of trouble, fixing conflicts along the way&quot;</span>
+<span class="nv">$ </span>git slog
+<span class="o">[</span>master 08b0504<span class="o">]</span> Completed merge of trouble, fixing conflicts along the way
+*   08b0504 Completed merge of trouble, fixing conflicts along the way
+|<span class="se">\ </span> 
+| * 40aa1f3 Changes in the trouble branch
+* | 7ff693a Mainline work
+|/  
+*   1601911 Merge in the experiment
+|<span class="se">\ </span> 
+| * a77b573 Trying something new
+* | 35d79b5 The mainline keeps moving
+|/  
+* a31873a I like this new name better
+* d2b3c38 Fruit of enormous thought
+* e1565c0 First backup of my amazing idea
 </pre></div>
 </div>
-<pre class="literal-block">
-[master 51fd6ff] Completed merge of trouble, fixing conflicts along the way
-*   [33m51fd6ff[m Completed merge of trouble, fixing conflicts along the way
-[31m|[m[32m[m
-[31m|[m * [33m6921250[m Changes in the trouble branch
-* [32m|[m [33m1ebca55[m Mainline work
-[32m|[m[32m/[m
-*   [33mb444163[m Merge in the experiment
-[33m|[m[34m[m
-[33m|[m * [33mb83cd47[m Trying something new
-* [34m|[m [33m5c436d0[m The mainline keeps moving
-[34m|[m[34m/[m
-* [33m01df2e1[m I like this new name better
-* [33mceda705[m Fruit of enormous thought
-* [33m1d7415e[m First backup of my amazing idea
-</pre>
 </div>
 <div class="section" id="other-useful-commands">
 <h3>Other useful commands<a class="headerlink" href="#other-useful-commands" title="Permalink to this headline">¶</a></h3>
@@ -1806,6 +1741,23 @@ the line <tt class="docutils literal"><span class="pre">\input{revision}</span><
 <div class="highlight-python"><div class="highlight"><pre>git archive --prefix=fperez.org/  master | gzip &gt; ~/tmp/source.tgz
 </pre></div>
 </div>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="git-object-dir" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>When git stores a file in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory,
+it does a hash for the file, takes the first two digits of the hash to make
+a directory, and then stores a file with a filename from the remaining hash
+digits.  For example, when adding a file with hash
+<tt class="docutils literal"><span class="pre">d92d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt> git will create
+<tt class="docutils literal"><span class="pre">.git/objects/d9</span></tt> directory if it doesn&#8217;t exist, and stores the file
+contents as <tt class="docutils literal"><span class="pre">.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt>.  It
+does this so that the number of files in any one directory stay in a
+reasonable range.  If git had to store every file, directory listing and
+commit in one flat directory, it would soon have a very large number of
+files.</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -1834,12 +1786,11 @@ the line <tt class="docutils literal"><span class="pre">\input{revision}</span><
 <li><a class="reference internal" href="#now-the-very-difficult-problem">Now the very difficult problem</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#cryptographic-hashes">Cryptographic hashes</a><ul>
-<li><a class="reference internal" href="#exercise-your-strategy">Exercise - your strategy</a></li>
-<li><a class="reference internal" href="#my-crazy-idea-use-hash-values-as-file-names">My crazy idea - use hash values as file names</a></li>
+<li><a class="reference internal" href="#cryptographic-hashes-might-be-useful">Cryptographic hashes might be useful</a><ul>
+<li><a class="reference internal" href="#a-crazy-idea-use-hash-values-as-file-names">A crazy idea - use hash values as file names</a></li>
 <li><a class="reference internal" href="#making-the-directory-listing">Making the directory listing</a></li>
 <li><a class="reference internal" href="#the-next-commit-saves-space">The next commit - saves space!</a></li>
-<li><a class="reference internal" href="#an-even-more-crazy-idea-hash-the-tree">An even more crazy idea - hash the tree</a></li>
+<li><a class="reference internal" href="#an-even-more-crazy-idea-hash-the-directory-list">An even more crazy idea - hash the directory list</a></li>
 <li><a class="reference internal" href="#even-more-crazy-idea-make-the-whole-commit-into-a-text-file">Even more crazy idea - make the whole commit into a text file</a></li>
 <li><a class="reference internal" href="#so-crazy-it-s-actually-git">So crazy it&#8217;s actually git</a></li>
 <li><a class="reference internal" href="#linking-the-commits">Linking the commits</a><ul>
@@ -1860,8 +1811,9 @@ the line <tt class="docutils literal"><span class="pre">\input{revision}</span><
 <li><a class="reference internal" href="#git-branch-which-branch-are-we-on">git branch - which branch are we on?</a></li>
 <li><a class="reference internal" href="#git-diff-what-has-changed">git diff - what has changed?</a></li>
 <li><a class="reference internal" href="#you-need-to-git-add-a-file-to-put-it-into-the-staging-area">You need to <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> a file to put it into the staging area</a></li>
+<li><a class="reference internal" href="#git-distinguishes-three-types-of-files">Git distinguishes three types of files</a></li>
 <li><a class="reference internal" href="#the-cycle-of-git-virtue-work-commit-work-commit">The cycle of git virtue: work, commit, work, commit, ...</a></li>
-<li><a class="reference internal" href="#git-log-revisited">git log revisited</a></li>
+<li><a class="reference internal" href="#git-log-and-parents">git log and parents</a></li>
 <li><a class="reference internal" href="#making-log-output-more-pithy">Making log output more pithy</a></li>
 <li><a class="reference internal" href="#git-mv-and-rm-moving-and-removing-files"><tt class="docutils literal"><span class="pre">git</span> <span class="pre">mv</span></tt> and <tt class="docutils literal"><span class="pre">rm</span></tt>: moving and removing files</a></li>
 <li><a class="reference internal" href="#exercise">Exercise</a></li>
