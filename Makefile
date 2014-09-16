@@ -101,6 +101,7 @@ git-clean: clean
 	git clean -fxd
 
 gh-pages: git-clean html
+	rm -rf nobel_prize
 	git co gh-pages
 	git rm -r .
 	git checkout HEAD -- .gitignore README .nojekyll
