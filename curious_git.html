@@ -966,7 +966,7 @@ Changes to be committed:
 <div class="section" id="git-commit-making-the-snapshot">
 <h3>git commit - making the snapshot<a class="headerlink" href="#git-commit-making-the-snapshot" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;First backup of my amazing idea&quot;</span>
-<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> e1565c0<span class="o">]</span> First backup of my amazing idea
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 9fb1ee6<span class="o">]</span> First backup of my amazing idea
  3 files changed, 12 insertions<span class="o">(</span>+<span class="o">)</span>
  create mode 100644 nobel_prize_paper.txt
  create mode 100644 stunning_figure.png
@@ -987,12 +987,12 @@ tree, and for the commit.</p>
 ├── 8a
 │   └── dc8bf371d669242ea998f78f9916867cc6203c
 ├── 9f
+│   ├── b1ee6a5afb2f0151edaed8e73dd4c4685d6927
 │   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
 ├── d9
 │   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
 ├── e1
-│   ├── 298063f6f94851ae551a292ac91ca84029c0e8
-│   └── 565c05701b5df6740eea30316e7e52b5595567
+│   └── 298063f6f94851ae551a292ac91ca84029c0e8
 ├── info
 └── pack
 
@@ -1022,18 +1022,18 @@ or a file), the file hashes, and the file names.</p>
 <div class="section" id="git-log-what-are-the-commits-so-far">
 <h3>git log - what are the commits so far?<a class="headerlink" href="#git-log-what-are-the-commits-so-far" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log
-commit e1565c05701b5df6740eea30316e7e52b5595567
+commit 9fb1ee6a5afb2f0151edaed8e73dd4c4685d6927
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue Sep 16 12:09:23 2014 -0400
+Date:   Tue Sep 16 12:24:53 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
 </div>
 <p>I can also ask to the parents of each commit in the log:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log --parents
-commit e1565c05701b5df6740eea30316e7e52b5595567
+commit 9fb1ee6a5afb2f0151edaed8e73dd4c4685d6927
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue Sep 16 12:09:23 2014 -0400
+Date:   Tue Sep 16 12:24:53 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
@@ -1054,7 +1054,7 @@ automatically when you do your first commit.</p>
 <p>Asking for more verbose detail shows us that the branch is pointing to a
 particular commit (where the commit is given by a hash):</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
-* master e1565c0 First backup of my amazing idea
+* master 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 <p>A branch is just a bookmark - a name that points to a commit.  In fact, git
@@ -1065,7 +1065,7 @@ master
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/master
-e1565c05701b5df6740eea30316e7e52b5595567
+9fb1ee6a5afb2f0151edaed8e73dd4c4685d6927
 </pre></div>
 </div>
 </div>
@@ -1158,28 +1158,28 @@ Changes to be committed:
 </div>
 <p>We do the commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Fruit of enormous thought&quot;</span>
-<span class="o">[</span>master d2b3c38<span class="o">]</span> Fruit of enormous thought
+<span class="o">[</span>master 9c0dd8d<span class="o">]</span> Fruit of enormous thought
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
 <p>Remember branches?  Git has now moved the &#8220;master&#8221; branch bookmark up to the
 new commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log
-commit d2b3c3881e39c30153beced21bae17e4e7aac667
+commit 9c0dd8d682f95e60285b56cb586002e0b06df588
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue Sep 16 12:09:24 2014 -0400
+Date:   Tue Sep 16 12:24:53 2014 -0400
 
     Fruit of enormous thought
 
-commit e1565c05701b5df6740eea30316e7e52b5595567
+commit 9fb1ee6a5afb2f0151edaed8e73dd4c4685d6927
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue Sep 16 12:09:23 2014 -0400
+Date:   Tue Sep 16 12:24:53 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/master
-d2b3c3881e39c30153beced21bae17e4e7aac667
+9c0dd8d682f95e60285b56cb586002e0b06df588
 </pre></div>
 </div>
 </div>
@@ -1187,15 +1187,15 @@ d2b3c3881e39c30153beced21bae17e4e7aac667
 <h3>git log and parents<a class="headerlink" href="#git-log-and-parents" title="Permalink to this headline">¶</a></h3>
 <p>The first commit is the parent of the first:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log --parents
-commit d2b3c3881e39c30153beced21bae17e4e7aac667 e1565c05701b5df6740eea30316e7e52b5595567
+commit 9c0dd8d682f95e60285b56cb586002e0b06df588 9fb1ee6a5afb2f0151edaed8e73dd4c4685d6927
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue Sep 16 12:09:24 2014 -0400
+Date:   Tue Sep 16 12:24:53 2014 -0400
 
     Fruit of enormous thought
 
-commit e1565c05701b5df6740eea30316e7e52b5595567
+commit 9fb1ee6a5afb2f0151edaed8e73dd4c4685d6927
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue Sep 16 12:09:23 2014 -0400
+Date:   Tue Sep 16 12:24:53 2014 -0400
 
     First backup of my amazing idea
 </pre></div>
@@ -1206,8 +1206,8 @@ Date:   Tue Sep 16 12:09:23 2014 -0400
 <p>It is very often useful to see a summarized version of the log.  Here is a
 useful version of the git log command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log --oneline --topo-order --graph
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 <p>Git supports <em>aliases:</em> new names given to command combinations. Let&#8217;s
@@ -1218,8 +1218,8 @@ to get this compact log:</p>
 <span class="nv">$ </span>
 <span class="nv">$ </span><span class="c"># And now we can use it</span>
 <span class="nv">$ </span>git slog
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 </div>
@@ -1242,15 +1242,15 @@ Changes to be committed:
 git&#8217;s world, until something has been committed, it isn&#8217;t permanently
 recorded anywhere.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;I like this new name better&quot;</span>
-<span class="o">[</span>master a31873a<span class="o">]</span> I like this new name better
+<span class="o">[</span>master 1f05e12<span class="o">]</span> I like this new name better
  1 file changed, 0 insertions<span class="o">(</span>+<span class="o">)</span>, 0 deletions<span class="o">(</span>-<span class="o">)</span>
  rename very_clever_analysis.py <span class="o">=</span>&gt; slightly_dodgy_analysis.py <span class="o">(</span>100%<span class="o">)</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git slog
-* a31873a I like this new name better
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 1f05e12 I like this new name better
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 <p>And <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rm</span></tt> works in a similar fashion.</p>
@@ -1282,11 +1282,11 @@ ref: refs/heads/master
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/master
-a31873a96f9f138fa26eba23e67adedab79d50fa
+1f05e12fd71dfe85de13cdf0c2526cea65e72645
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
-* master a31873a I like this new name better
+* master 1f05e12 I like this new name better
 </pre></div>
 </div>
 <p>Once new commits are made on a branch, HEAD and the branch label move
@@ -1333,12 +1333,12 @@ master
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
-  experiment a31873a I like this new name better
-* master     a31873a I like this new name better
+  experiment 1f05e12 I like this new name better
+* master     1f05e12 I like this new name better
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/experiment
-a31873a96f9f138fa26eba23e67adedab79d50fa
+1f05e12fd71dfe85de13cdf0c2526cea65e72645
 </pre></div>
 </div>
 <p>How do we start working on this branch <tt class="docutils literal"><span class="pre">experiment</span></tt> rather than
@@ -1356,8 +1356,8 @@ Switched to branch <span class="s1">&#39;experiment&#39;</span>
 </div>
 <p>What just happened?</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
-* experiment a31873a I like this new name better
-  master     a31873a I like this new name better
+* experiment 1f05e12 I like this new name better
+  master     1f05e12 I like this new name better
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/HEAD
@@ -1373,13 +1373,13 @@ the same, so we don&#8217;t change the working tree at all.</p>
 <span class="nv">$ </span>git add experiment.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Trying something new&quot;</span>
 <span class="nv">$ </span>git slog
-<span class="o">[</span>experiment a77b573<span class="o">]</span> Trying something new
+<span class="o">[</span>experiment 15b1d11<span class="o">]</span> Trying something new
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
  create mode 100644 experiment.txt
-* a77b573 Trying something new
-* a31873a I like this new name better
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 15b1d11 Trying something new
+* 1f05e12 I like this new name better
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 <p>Notice we have a new file called <tt class="docutils literal"><span class="pre">experiment.txt</span></tt> in this branch:</p>
@@ -1392,7 +1392,7 @@ stunning_figure.png
 </div>
 <p>The <tt class="docutils literal"><span class="pre">experiment</span></tt> branch has now moved:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat .git/refs/heads/experiment
-a77b573dac0b7324486ed31b5bb5a4ad5031ce8b
+15b1d115e48fc0c674786aa9576a516c99863d02
 </pre></div>
 </div>
 </div>
@@ -1416,21 +1416,21 @@ stunning_figure.png
 </div>
 <p>Meanwhile we do some more work on master:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git slog
-* a31873a I like this new name better
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 1f05e12 I like this new name better
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;All the while, more work goes on in master...&quot;</span> &gt;&gt; nobel_prize_paper.txt
 <span class="nv">$ </span>git add nobel_prize_paper.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;The mainline keeps moving&quot;</span>
 <span class="nv">$ </span>git slog
-<span class="o">[</span>master 35d79b5<span class="o">]</span> The mainline keeps moving
+<span class="o">[</span>master 215bc96<span class="o">]</span> The mainline keeps moving
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
-* 35d79b5 The mainline keeps moving
-* a31873a I like this new name better
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 215bc96 The mainline keeps moving
+* 1f05e12 I like this new name better
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls
@@ -1448,14 +1448,14 @@ Merge made by the <span class="s1">&#39;recursive&#39;</span> strategy.
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git slog
-*   1601911 Merge in the experiment
+*   1c28be6 Merge in the experiment
 |<span class="se">\ </span> 
-| * a77b573 Trying something new
-* | 35d79b5 The mainline keeps moving
+| * 15b1d11 Trying something new
+* | 215bc96 The mainline keeps moving
 |/  
-* a31873a I like this new name better
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 1f05e12 I like this new name better
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 </div>
@@ -1474,7 +1474,7 @@ file:</p>
 <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This is going to be a problem...&quot;</span> &gt;&gt; experiment.txt
 <span class="nv">$ </span>git add experiment.txt
 <span class="nv">$ </span>git commit -m<span class="s2">&quot;Changes in the trouble branch&quot;</span>
-<span class="o">[</span>trouble 40aa1f3<span class="o">]</span> Changes in the trouble branch
+<span class="o">[</span>trouble ff5696a<span class="o">]</span> Changes in the trouble branch
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -1484,7 +1484,7 @@ file:</p>
 <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More work on the master branch...&quot;</span> &gt;&gt; experiment.txt
 <span class="nv">$ </span>git add experiment.txt
 <span class="nv">$ </span>git commit -m<span class="s2">&quot;Mainline work&quot;</span>
-<span class="o">[</span>master 7ff693a<span class="o">]</span> Mainline work
+<span class="o">[</span>master 5c0d7ab<span class="o">]</span> Mainline work
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -1560,20 +1560,20 @@ no changes added to commit <span class="o">(</span>use <span class="s2">&quot;gi
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add experiment.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Completed merge of trouble, fixing conflicts along the way&quot;</span>
 <span class="nv">$ </span>git slog
-<span class="o">[</span>master 08b0504<span class="o">]</span> Completed merge of trouble, fixing conflicts along the way
-*   08b0504 Completed merge of trouble, fixing conflicts along the way
+<span class="o">[</span>master 2f57ec2<span class="o">]</span> Completed merge of trouble, fixing conflicts along the way
+*   2f57ec2 Completed merge of trouble, fixing conflicts along the way
 |<span class="se">\ </span> 
-| * 40aa1f3 Changes in the trouble branch
-* | 7ff693a Mainline work
+| * ff5696a Changes in the trouble branch
+* | 5c0d7ab Mainline work
 |/  
-*   1601911 Merge in the experiment
+*   1c28be6 Merge in the experiment
 |<span class="se">\ </span> 
-| * a77b573 Trying something new
-* | 35d79b5 The mainline keeps moving
+| * 15b1d11 Trying something new
+* | 215bc96 The mainline keeps moving
 |/  
-* a31873a I like this new name better
-* d2b3c38 Fruit of enormous thought
-* e1565c0 First backup of my amazing idea
+* 1f05e12 I like this new name better
+* 9c0dd8d Fruit of enormous thought
+* 9fb1ee6 First backup of my amazing idea
 </pre></div>
 </div>
 </div>
