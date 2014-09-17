@@ -29,6 +29,7 @@ help:
 
 clean:
 	-rm -rf _build/*
+	-rm commit_names.inc
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) _build/html

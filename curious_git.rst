@@ -156,6 +156,8 @@ You can get this ground-breaking paper by downloading and unzipping
 
     # clean up old files from previous doc run
     rm -rf nobel_prize
+    # Copy my git config aside because we're goint to change it
+    mv ~/.gitconfig ~/.gitconfig.bak
 
 .. runblock:: bash
 
@@ -765,10 +767,13 @@ the commit information.
 git often needs to call up a text editor. Choose the editor you like here::
 
     # Put here your preferred editor
+    # gedit is a reasonable choice for Linux
     git config --global core.editor gedit
 
 We also turn on the use of color, which is very helpful in making the
-output of git easier to read::
+output of git easier to read:
+
+.. prizerun::
 
     git config --global color.ui "auto"
 
@@ -805,8 +810,8 @@ Create git repository:
 
     git init
 
-What happened when we did ``git init``? Just what we were expecting; a
-*repository* directory called ``.git``
+What happened when we did ``git init``? Just what we were expecting; we have a
+new *repository* directory called ``.git``
 
 .. prizerun::
 
@@ -835,12 +840,8 @@ Doing ``git add nobel_prize_paper.txt`` has added a file to the
 ``.git/objects`` directory. That filename looks suspiciously like a
 hash.
 
-We expect that ``git add`` added the file to the *staging area*. Have we
-got any evidence of that?
-
-.. prizerun::
-
-    git status
+We expect that ``git add`` added the file to the *staging area*.  We will need
+to use a command ``git status`` to check that, and that will come soon.
 
 Looking at real git objects
 ===========================
@@ -854,7 +855,8 @@ using a library called ``zlib``.
 These objects are so simple that it's very easy to write small code snippets
 to read them - see :doc:`reading_git_objects`.
 
-Git will also show the contents of objects with ``git show``.
+Git will also show the contents of objects with the command ``git cat-file
+-p``.
 
 When we did ``git add nobel_prize_paper.txt``, we got a new file in
 ``.git/objects``, with filename ``d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.
@@ -866,20 +868,46 @@ Here's the contents of the object:
 
 .. prizerun::
 
-    git show d92d079af6a7f276cc8d63dcf2549c03e7deb553
+    git cat-file -p d92d079af6a7f276cc8d63dcf2549c03e7deb553
 
 Just as we expected, it is the current contents of the
 ``nobel_prize_paper.txt``.
 
 In fact we only need to give git enough hash digits for git to uniquely
-identify the object.  7 digits if often enough, as in:
+identify the object.  7 digits is often enough, as in:
 
 .. prizerun::
 
-    git show d92d079
+    git cat-file -p d92d079
+
+git status - showing the status of files in the working tree
+============================================================
+
+The working tree is the ``nobel_prize`` directory.  It now contains a
+repository |--| the ``.git`` directory.
+
+``git status`` tells us about the relationship of the files in the working
+tree to the repository.
+
+We have done a ``git add`` on ``nobel_prize_paper.txt``, and that added the
+file to the staging area.  We can see that with ``git status``:
+
+.. prizerun::
+
+    git status
+
+Sure enough, the output tells that "new file: nobel_prize_paper.txt" is in the
+"changes to be committed".  It also tells us that the other two files |--|
+``stunning_figure.png`` and ``very_clever_analysis.py`` |--| are "untracked".
+
+An untracked file is a file with a filename that has never been added to the
+repo with ``git add``.  Until you ``git add`` an untracked file, git will
+ignore these files and assume you don't want to keep track of them.
 
 Staging the other files
 =======================
+
+We do want to keep track of the other files, so we stage them:
 
 .. prizerun::
 
@@ -897,7 +925,7 @@ We have now staged all three of our files.  We have three objects in
 git commit - making the snapshot
 ================================
 
-.. prizerun::
+.. prizecommit:: master-0 2012-04-01 11:13:13
 
     git commit -m "First backup of my amazing idea"
 
@@ -916,21 +944,21 @@ tree, and for the commit.
 
     tree .git/objects
 
-Here's ``git show`` for the tree (directory listing):
+Here's the contents of the tree object (directory listing):
 
 .. prizerun::
 
-    git show e129806
+    git cat-file -p e129806
 
-We can get a little more detail from the directory listing with ``git
-ls-tree``:
+These are in fact the file permissions, the type of the entry in the directory
+(where "tree" means a sub-directory, and "blob" means a file), the file
+hashes, and the file names.
+
+Here is the contents of the commit object:
 
 .. prizerun::
 
-    git ls-tree e129806
-
-These are in fact the file permissions, the type of file (another directory,
-or a file), the file hashes, and the file names.
+    git cat-file -p {{ master-0 }}
 
 git log - what are the commits so far?
 ======================================
@@ -939,23 +967,26 @@ git log - what are the commits so far?
 
     git log
 
-I can also ask to the parents of each commit in the log:
+Notice that git log identies each commit with its hash.  As we saw above, the
+hash for our commit was |master-0|.
+
+We can also ask to the see the parents of each commit in the log:
 
 .. prizerun::
 
     git log --parents
 
-Why are these two outputs the same?
+Why are the output of ``git log`` and ``git log --parents`` the same in this
+case?
 
 git branch - which branch are we on?
 ====================================
 
-We haven't covered branches yet. Branches are bookmarks. They label the
-commit we are on at the moment, and they track the commits as we do new
-ones.
+We haven't covered branches yet. Branches are bookmarks. They associate a name
+(like "master") with a commit (such as |master-0|).
 
 The default branch for git is called ``master``. Git creates it
-automatically when you do your first commit.
+automatically when we do our first commit.
 
 .. prizerun::
 
@@ -968,9 +999,9 @@ particular commit (where the commit is given by a hash):
 
     git branch -v
 
-A branch is just a bookmark - a name that points to a commit.  In fact, git
-stores branches as tiny text files, where the filename is the name of the
-branch, and the contents is the hash of the commit that it points to:
+A branch is just a name that points to a commit.  In fact, git stores branches
+as tiny text files, where the filename is the name of the branch, and the
+contents is the hash of the commit that it points to:
 
 .. prizerun::
 
@@ -980,12 +1011,15 @@ branch, and the contents is the hash of the commit that it points to:
 
     cat .git/refs/heads/master
 
+We will soon see that, if we are working on a branch, and we do a commit, then
+git will update the branch to point to the new commit.
+
 git diff - what has changed?
 ============================
 
 Let's do a little bit more work... Again, in practice you'll be editing
 the files by hand, here we do it via shell commands for the sake of
-automation (and therefore the reproducibility of this tutorial!)
+automation (and therefore the reproducibility of this tutorial):
 
 .. prizerun::
 
@@ -1009,40 +1043,51 @@ At the moment we have changes that have not been staged:
 
     git status
 
+Git status tells us that git is keeping track of changes to
+``nobel_prize_paper.txt``, and that the file has changed since the last
+commit, and that we haven't yet put these changes into the staging area.
+
 If we try and do a commit, git will tell us there is nothing to commit,
-because nothing has been staged:
+because nothing has been put into the staging area (staged):
 
 .. prizerun::
 
     git commit
 
-Git distinguishes three types of files
-======================================
+The cycle of git virtue: work, add, commit, work, add, commit...
+================================================================
 
-Files can be:
+Now we have the main commands we need for working with git.  The typical cycle
+is:
 
-* unknown to git ("untracked")
-* known to git but modified from the version in the last commit
-* known to git and unmodified
+* do some changes in the working tree;
+* ``git status`` and ``git diff`` to review what has changed;
+* ``git add`` to add the changes to the staging area;
+* ``git commit``
 
-The cycle of git virtue: work, commit, work, commit, ...
-========================================================
+and repeat, and repeat.
 
-We've done some work in the working tree, and we check what changes there are
-that we might want to commit:
+For example, we have now done some work in the working tree
+
+We first check what changes there are that we might want to commit:
 
 .. prizerun::
 
     git status
 
-We add the changes for one edited file to the staging area:
+We might want to check what these changes are before we stage them:
+
+.. prizerun::
+
+    git diff
+
+We add the changes for the one edited file to the staging area:
 
 .. prizerun::
 
     git add nobel_prize_paper.txt
 
-We check that git is planning to add the changes to the paper to the next
-commit:
+We might check again that git will add the changes to the next commit:
 
 .. prizerun::
 
@@ -1050,15 +1095,15 @@ commit:
 
 We do the commit:
 
-.. prizerun::
+.. prizecommit:: master-2 2012-04-01 12:01:01
 
     git commit -m "Fruit of enormous thought"
 
 Git updates the current branch with the latest commit
 =====================================================
 
-Remember branches?  Git has now moved the "master" branch bookmark up to the
-new commit:
+Remember branches (bookmarks)?  Git has now moved the "master" branch location
+up to the new commit:
 
 .. prizerun::
 
@@ -1072,7 +1117,7 @@ new commit:
 
     cat .git/refs/heads/master
 
-The first commit is the parent of the first:
+The first commit is the parent of the second:
 
 .. prizerun::
 
@@ -1082,7 +1127,7 @@ A nicer log command using ``git config``
 ========================================
 
 It is very often useful to see a summarized version of the log.  Here is a
-useful version of the git log command:
+useful set of command flags for git log:
 
 .. prizerun::
 
@@ -1090,7 +1135,7 @@ useful version of the git log command:
 
 Git supports *aliases:* new names given to command combinations. Let's
 make this handy shortlog an alias, so we only have to type ``git slog``
-to get this compact log:
+to get this compact log.
 
 .. prizerun::
 
@@ -1100,12 +1145,12 @@ to get this compact log:
     # And now we can use it
     git slog
 
-``git mv`` and ``rm``: moving and removing files
-================================================
+git mv and rm: moving and removing files
+========================================
 
-While ``git add`` is used to add files to the list git tracks, we must
-also tell it if we want their names to change or for it to stop tracking
-them. In familiar Unix fashion, the ``mv`` and ``rm`` git commands do
+While ``git add`` is used to add files to the list of files that git tracks,
+we must also tell it if we want their names to change or for it to stop
+tracking them. In familiar Unix fashion, the ``mv`` and ``rm`` git commands do
 precisely this:
 
 .. prizerun::
@@ -1113,11 +1158,11 @@ precisely this:
     git mv very_clever_analysis.py slightly_dodgy_analysis.py
     git status
 
-Note that these changes must be committed too, to become permanent! In
+Note that these changes must be committed too, to become permanent. In
 git's world, until something has been committed, it isn't permanently
 recorded anywhere.
 
-.. prizerun::
+.. prizecommit:: master-3 2012-04-01 13:15:01
 
     git commit -m "I like this new name better"
 
@@ -1132,99 +1177,35 @@ Exercise
 
 Add a new file ``file2.txt``, commit it, make some changes to it, commit
 them again, and then remove it (and don't forget to commit this last
-step!).
+step).
 
-Local user, branching
-=====================
+git branch again - making a new branch
+======================================
 
-What is a branch? Simply a *label for the 'current' commit in a sequence
-of ongoing commits*:
+Remember that a branch is simply a bookmark pointing to a particular commit.
 
-.. raw:: html
+We can have multiple branches in a repository, where each one may point to a
+different commit.
 
-   <!-- offline: 
-
-   ![](files/fig/masterbranch.png)
-
-   -->
-
-There can be multiple branches alive at any point in time; the working
-directory is the state of a special pointer called HEAD. In this example
-there are two branches, *master* and *testing*, and *testing* is the
-currently active branch since it's what HEAD points to:
-
-.. raw:: html
-
-   <!-- offline: 
-
-   ![](files/fig/HEAD_testing.png)
-
-   -->
-
-.. prizerun::
-
-    cat .git/HEAD
-
-.. prizerun::
-
-    cat .git/refs/heads/master
+At the moment, we only have one branch, "master":
 
 .. prizerun::
 
     git branch -v
 
-Once new commits are made on a branch, HEAD and the branch label move
-with the new commits:
-
-.. raw:: html
-
-   <!-- offline: 
-
-   ![](files/fig/branchcommit.png)
-
-   -->
-
-This allows the history of both branches to diverge:
-
-.. raw:: html
-
-   <!-- offline: 
-
-   ![](files/fig/mergescenario.png)
-
-   -->
-
-But based on this graph structure, git can compute the necessary
-information to merge the divergent branches back and continue with a
-unified line of development:
-
-.. raw:: html
-
-   <!-- offline: 
-
-   ![](files/fig/mergeaftermath.png)
-
-   -->
-
-Let's now illustrate all of this with a concrete example. Let's get our
-bearings first:
-
-.. prizerun::
-
-    git status
-    ls
-
-We are now going to try two different routes of development: on the
-``master`` branch we will add one file and on the ``experiment`` branch,
-which we will create, we will add a different one. We will then merge
-the experimental branch into ``master``.
+We can make a new branch with the ``git branch`` command:
 
 .. prizerun::
 
     git branch experiment
+    git branch -v
 
-What just happened? We made a branch, which is a pointer to this same
-commit:
+The new branch, by default, points to the commit we are currently on, and this
+commit is the also the commit that the "master" branch points to.  So, at the
+moment "master" and "experiment" point to the same commit.
+
+Of course this new branch is also just a tiny text file with the name of the
+branch and the commit that it currently points to:
 
 .. prizerun::
 
@@ -1232,11 +1213,52 @@ commit:
 
 .. prizerun::
 
+    cat .git/refs/heads/experiment
+
+git ``HEAD`` points to the current branch
+=========================================
+
+Remember that, when you make a new commit, git moves the branch pointer to
+point at the new commit.  Now we have two branches, how does git know which is
+the current branch, in order to move the pointer when you make a commit?
+
+This information goes in a special git pointer, called ``HEAD``.  HEAD stores
+the name of the current branch. HEAD is just a tiny text file storing the
+current branch:
+
+.. prizerun::
+
+    cat .git/HEAD
+
+Here, HEAD is pointing to the "master" branch.  The master branch is pointing
+to a particular commit:
+
+.. prizerun::
+
     git branch -v
 
 .. prizerun::
 
-    cat .git/refs/heads/experiment
+    cat .git/refs/heads/master
+
+Developing on different branches
+================================
+
+Let's now illustrate all of this with a concrete example. We get our bearings
+first:
+
+.. prizerun::
+
+    git status
+
+.. prizerun::
+
+    ls
+
+We are now going to try two different routes of development: we will add one
+file on on the ``experiment`` branch, and we will add another file on the
+``master`` branch. We will then merge the ``experiment`` branch into
+``master``.
 
 How do we start working on this branch ``experiment`` rather than
 ``master``?
@@ -1246,7 +1268,7 @@ git checkout - set the current branch, set the working tree from a commit
 
 Up until now we have been on the ``master`` branch. When we make a
 commit, the ``master`` branch pointer (``.git/refs/heads/master``) moves
-up to track our most recent commit.
+up to point to our most recent commit.
 
 ``git checkout`` can switch us to using another branch:
 
@@ -1256,9 +1278,14 @@ up to track our most recent commit.
 
 What just happened?
 
+The current branch has changed (notice the asterisk in front of
+``experiment``).
+
 .. prizerun::
 
     git branch -v
+
+Git ``HEAD`` now points to the ``experiment`` branch:
 
 .. prizerun::
 
@@ -1267,28 +1294,35 @@ What just happened?
 As we'll see later, ``git checkout somebranch`` also sets the contents
 of the working tree to match the commit contents for ``somebranch``. In
 this case the commits for ``master`` and ``experiment`` are currently
-the same, so we don't change the working tree at all.
+the same, meaning they have the same corresponding working tree, so our
+working tree did not change.
 
-Now let's do some changes on our ``experiment`` branch:
+Now let's do some changes on the ``experiment`` branch:
 
-.. prizerun::
+.. prizecommit:: experiment-0 2012-04-01 13:13:13
 
-    echo "Some crazy idea" > experiment.txt
-    git add experiment.txt
+    echo "Some crazy idea" > an_experiment.txt
+    git add an_experiment.txt
     git commit -m "Trying something new"
     git slog
 
-Notice we have a new file called ``experiment.txt`` in this branch:
+Notice we have a new file called ``an_experiment.txt`` in this branch:
 
 .. prizerun::
 
     ls
 
-The ``experiment`` branch has now moved:
+The ``experiment`` branch pointer has now moved up to the current commit:
 
 .. prizerun::
 
     cat .git/refs/heads/experiment
+
+But the ``master`` branch points to the same place as it did before:
+
+.. prizerun::
+
+    git branch -v
 
 git checkout again - reseting the working tree
 ==============================================
@@ -1303,7 +1337,7 @@ tree to match the working tree for that commit.
     cat .git/HEAD
 
 We're back to the working tree as of the ``master`` branch;
-``experiment.txt`` has gone now.
+``an_experiment.txt`` has gone now.
 
 .. prizerun::
 
@@ -1315,26 +1349,51 @@ Meanwhile we do some more work on master:
 
     git slog
 
-.. prizerun::
+.. prizecommit:: master-3 2012-04-01 13:43:13
 
-    echo "All the while, more work goes on in master..." >> nobel_prize_paper.txt
-    git add nobel_prize_paper.txt
+    echo "All the while, more work goes on in master..." >> boring_idea.txt
+    git add boring_idea.txt
     git commit -m "The mainline keeps moving"
     git slog
+
+git merge - merging changes from different branches
+===================================================
+
+We do a merge when we have made some changes in one branch, and we want to
+bring (merge) these changes into another branch.
+
+The typical situation is where we have made some useful changes in an
+experimental branch - like our ``experiment`` branch, and we decide we want to
+make these changes part of the main line of development - often the ``master``
+branch.
+
+Here is the merge:
+
+.. prizecommit:: master-exp-merge 2012-04-01 14:01:10
+
+    git merge experiment -m "Merge in the experiment"
+
+Notice now that the master branch has the new file ``an_experiment.txt`` from
+the ``experiment`` branch, as well as the new file ``boring_idea.txt`` from
+the master branch:
 
 .. prizerun::
 
     ls
 
-Now let's do the merge
-
-.. prizerun::
-
-    git merge experiment -m "Merge in the experiment"
+The git log output shows us two lines of development diverging and then
+merging:
 
 .. prizerun::
 
     git slog
+
+The merge commit has two "parent" commits, which are the previous commit on
+``master`` and the previous commit on ``experiment``:
+
+.. prizerun::
+
+    git slog --parents
 
 An important aside: conflict management
 =======================================
@@ -1346,46 +1405,26 @@ the decision. Git will help you by marking the location in the file that
 has a problem, but it's up to you to resolve the conflict. Let's see how
 that works by intentionally creating a conflict.
 
-We start by creating a branch and making a change to our experiment
+We start by making another new branch and making a change to our experiment
 file:
 
-.. prizerun::
+.. prizecommit:: trouble-0 2012-04-01 14:23:13
 
     git branch trouble
     git checkout trouble
-    echo "This is going to be a problem..." >> experiment.txt
-    git add experiment.txt
-    git commit -m"Changes in the trouble branch"
+    echo "This is going to be a problem..." >> an_experiment.txt
+    git add an_experiment.txt
+    git commit -m "Changes in the trouble branch"
 
 And now we go back to the master branch, where we change the *same*
 file:
 
-.. prizerun::
+.. prizecommit:: master-merged-0 2012-04-01 14:29:13
 
     git checkout master
-    echo "More work on the master branch..." >> experiment.txt
-    git add experiment.txt
-    git commit -m"Mainline work"
-
-More configuration for fuller output
-====================================
-
-This line tells git how to show conflicts in text files.
-
-See ``git config --help`` and look for ``merge.conflictstyle`` for more
-information.
-
-This setting asks git to show:
-
--  The original file contents from ``HEAD``, the commit tree that you
-   are merging *into*
--  The contents of the file as of last common ancestor commit
--  The new file contents from the commit tree that you are merging
-   *from*
-
-.. prizerun::
-
-    git config merge.conflictstyle diff3
+    echo "More work on the master branch..." >> an_experiment.txt
+    git add an_experiment.txt
+    git commit -m "Mainline work"
 
 So now let's see what happens if we try to merge the ``trouble`` branch
 into ``master``:
@@ -1398,12 +1437,11 @@ Let's see what git has put into our file:
 
 .. prizerun::
 
-    cat experiment.txt
+    cat an_experiment.txt
 
 Read this as:
 
--  Common ancestor (between ``||``... and ``==``) has nothing;
--  ``HEAD`` - the current branch - (between ``<<``... and ``||``) adds
+-  ``HEAD`` - the current branch - (between ``<<``... and ``==``) adds
    ``More work on the master branch...``;
 -  the ``trouble`` branch (between ``==``... and ``>>``...) adds
    ``This is going to be a problem...``.
@@ -1415,7 +1453,7 @@ I'll do the edits by writing the file I want directly in this case:
 
 .. prizewrite::
 
-    # file: experiment.txt
+    # file: an_experiment.txt
     Some crazy idea
     More work on the master branch...
     This is going to be a problem...
@@ -1429,21 +1467,21 @@ but integrated them with some changes:
 
 Let's then make our new commit:
 
+.. prizecommit:: master-merged-2 2012-04-01 14:33:13
+
+    git add an_experiment.txt
+    git commit -m "Completed merge of trouble, fixing conflicts along the way"
+
 .. prizerun::
 
-    git add experiment.txt
-    git commit -m "Completed merge of trouble, fixing conflicts along the way"
     git slog
 
 Other useful commands
 =====================
 
 -  `show <http://www.kernel.org/pub/software/scm/git/docs/git-show.html>`__
-
 -  `reflog <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`__
-
 -  `rebase <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`__
-
 -  `tag <http://www.kernel.org/pub/software/scm/git/docs/git-tag.html>`__
 
 Git resources
@@ -1625,6 +1663,12 @@ Git doesn't have a native export command, but this works just fine:
 
     git archive --prefix=fperez.org/  master | gzip > ~/tmp/source.tgz
 
+.. runblock::
+    :hide:
+
+    # Copy my git config back
+    cp ~/.gitconfig.bak ~/.gitconfig
+
 .. rubric:: Footnotes
 
 .. [#git-object-dir] When git stores a file in the ``.git/objects`` directory,
@@ -1640,3 +1684,4 @@ Git doesn't have a native export command, but this works just fine:
    files.
 
 .. include:: links_names.inc
+.. include:: commit_names.inc
