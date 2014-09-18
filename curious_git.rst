@@ -1476,6 +1476,297 @@ Let's then make our new commit:
 
     git slog
 
+*******************************************************
+git remotes - working with other people, making backups
+*******************************************************
+
+Now you are keeping the history of your data, you also want to make sure you
+have a backup in case your laptop dies.
+
+You might want to work with a friend on the same project.  Perhaps your friend
+Anne is also working on the paper, and you want to merge her changes into
+yours.
+
+We use git "remotes" to solve both of these problems.
+
+Keeping backups
+===============
+
+First - a simple backup. Let's say you have an external backup disk and you
+want to record all the history of your work on the backup disk.
+
+To do this you need three steps:
+
+* Make an empty backup repository on the external backup disk
+* Point your current git repository at the backup repository with ``git remote
+  add``
+* Send the changes to the backup repository with ``git push``
+
+Make the empty backup repository
+--------------------------------
+
+Let's say your external disk is mounted at ``/Volumes/usb_disk``.
+
+.. runblock::
+    :hide:
+
+    rm -rf my_usb_disk
+    mkdir my_usb_disk
+    ln -sf \$PWD/my_usb_disk /Volumes/my_usb_disk
+
+We make a new empty repository:
+
+.. runblock::
+
+    git init --bare /Volumes/my_usb_disk/nobel_prize_backup.git
+
+Notice the ``--bare`` flag.  This tells git to make a repository that does not
+have a working tree, but only the ``.git`` repository directory:
+
+.. runblock::
+
+    ls /Volumes/my_usb_disk/nobel_prize_backup.git
+
+This is what we want in this case, because we will not ever want to edit the
+files in the ``/Volumes/my_usb_disk/nobel_prize_backup.git`` backup
+repository, we will only be editing files in our local ``nobel_prize``
+directory, committing those changes locally (as we have done above), and then
+"pushing" these changes to the backup repository.
+
+Tell the current git repository about the backup repository
+-----------------------------------------------------------
+
+Check we're in our local git repository:
+
+.. prizerun::
+
+    pwd
+
+Add a remote.  A remote is a link to another repository.
+
+.. prizerun::
+
+    git remote add usb_backup /Volumes/my_usb_disk/nobel_prize_backup.git
+
+List the remotes:
+
+.. prizerun::
+
+    git remote -v
+
+The list shows that we can both ``fetch`` and ``push`` to this repository, of
+which more later.
+
+The entire of the rest of the information about the remote is in the
+repository file config file |--| ``.git/config``:
+
+.. prizerun::
+
+    cat .git/config
+
+git push |--| push all data for local branches to the remote
+------------------------------------------------------------
+
+We now want to synchronize the data in our ``nobel_prize`` repository with the
+remote ``my_usb_backup``.  The command to do this is ``git push``.
+
+Before we do the push, there are no objects in the ``.git/objects`` directory
+of the ``my_usb_backup`` backup repo:
+
+.. runblock::
+
+    tree -a /Volumes/my_usb_disk/nobel_prize_backup.git/objects
+
+Then we push:
+
+.. prizerun::
+
+    git push usb_backup master
+
+This command tells git to take all the information necessary to reconstruct
+the history of the ``master`` branch, and send it to the remote repository.
+Sure enough, we now have files in ``.git/objects`` of the backup repository:
+
+.. runblock::
+
+    tree -a /Volumes/my_usb_disk/nobel_prize_backup.git/objects
+
+You'll see that the 'master' branch in the backup repo now points to the same
+commit as the master branch in the local repo:
+
+.. prizerun::
+
+    cat .git/refs/heads/master
+
+.. runblock::
+
+    cat /Volumes/my_usb_disk/nobel_prize_backup.git/refs/heads/master
+
+The local repo has a copy of the last known position of the master branch in
+the remote repo.
+
+.. prizerun::
+
+    cat .git/refs/remotes/usb_backup/master
+
+You can see the last known positions of the remote branches using the ``-r``
+flag to ``git branch``:
+
+.. prizerun::
+
+    git branch -r  -v
+
+To see both local and remote branches, use the ``-a`` flag:
+
+.. prizerun::
+
+    git branch -a  -v
+
+``git push`` is an excellent way to do backups, because it only transfers the
+information that the remote repository does not have.
+
+Let's see that in action.
+
+First we make a new commit in the local repository:
+
+.. prizecommit:: master-merged-3 2012-04-01 15:13:13
+
+    echo "Express confidence in the study" >> nobel_prize_paper.txt
+    git add nobel_prize_paper.txt
+    git commit -m "Buff up the paper some more"
+
+Git updated the local ``master`` branch, but the remote does not know about
+this update yet:
+
+.. prizerun::
+
+    git branch -a -v
+
+We already know there will be three new objects in ``.git/objects`` after this
+commit.  There will be: one for the modified ``nobel_prize_paper.txt``; one
+for the modified directory listing with the new hash for
+``nobel_prize_paper.txt``; and one for the commit object.  The commit object
+we can see from the top of ``git log``. The ``-1`` flag to ``git log`` tells
+git to show just the first commit from the log:
+
+.. prizerun::
+
+    git log -1
+
+So the commit is |master-merged-3|.  We can get the directory listing object
+from the commit object:
+
+.. prizerun::
+
+    git cat-file -p {{ master-merged-3 }}
+
+We can show the directory listing contents to get the object for the new
+version of ``nobel_prize_paper.txt``.
+
+.. prizerun::
+
+    git cat-file -p 5915a38187f560bf99eff97740c4ff5b611b6175
+
+We do have these objects in the local repository:
+
+.. prizerun::
+
+    ls .git/objects/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502
+    ls .git/objects/59/15a38187f560bf99eff97740c4ff5b611b6175
+    ls .git/objects/8b/06b77a69682f5c9d3daf372bfe39159e1a8d23
+
+|--| but we don't have these objects in the remote repository yet (we haven't
+done a ``push``):
+
+.. prizerun::
+
+    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize_backup.git/objects
+    ls \$REMOTE_OBJECTS/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502
+    ls \$REMOTE_OBJECTS/59/15a38187f560bf99eff97740c4ff5b611b6175
+    ls \$REMOTE_OBJECTS/8b/06b77a69682f5c9d3daf372bfe39159e1a8d23
+
+Now we do a push:
+
+.. prizerun::
+
+    git push usb_backup master
+
+The branches are synchronized again:
+
+.. prizerun::
+
+    git branch -a -v
+
+We do have the new objects in the remote repository:
+
+.. prizerun::
+
+    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize_backup.git/objects
+    ls \$REMOTE_OBJECTS/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502
+    ls \$REMOTE_OBJECTS/59/15a38187f560bf99eff97740c4ff5b611b6175
+    ls \$REMOTE_OBJECTS/8b/06b77a69682f5c9d3daf372bfe39159e1a8d23
+
+An algorithm for git push
+-------------------------
+
+Now we know about how git stores its objects, we can work out an algorithm for
+doing a push.
+
+1. First send the branch file containing the commit hash to the remote
+   repository (in our case ``.git/refs/heads/master``).
+2. Get the commit hash (in our case |master-merged-3|)
+3. Does the remote have this object in
+   ``.git/objects/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502``? In that case
+   the remote is already up to date, and we can stop.
+4. If not, follow the parents of this commit back, along the path formed by
+   the parents of each commit, until we find a commit that the remote
+   repository does have.  Now we have a list of commits that that the remote
+   repository does not have.  Call these the "missing commits".*
+5. Send all the missing commits to the remote repo.
+6. For every missing commit:
+
+    a. Get the hash of the tree object from the commit
+    b. If the remote repo does not have this tree object, send it
+    c. Read the tree object directory listing
+    d. For any file hash, check if the remote has it this object and send it
+       if not
+    e. For every tree in the directory listing (subdirectory tree), follow the
+       same procedure [from a.)].
+
+7. Update the remote branch (remote ``refs/heads/master`` in our case) to
+   point to the same commit as the local branch.  In our case that would
+   update remote ``refs/heads/master`` to point to commit hash
+   |merged-master-3|.
+8. Update the local record of the remote branch to point to the same commit.
+   In our case, update local ``refs/remotes/usb_backup/master`` to point to
+   |merged-master-3|.
+
+Here is what will happen in our case. We first read the commit hash from
+``refs/heads/master`` to get the commit object, which is |master-merged-3|.
+We check whether the remote repo has this commit object.  It doesn't, so we
+send it (copy it) to the remote ``objects`` directory.
+
+We read the object |master-merged-3| to find the parent commit, which is
+|master-merged-2|.  We check if the remote has this, and it does, so we only
+have one missing commit to copy.
+
+We read the missing commit object |master-merged-3| to find the tree object,
+which is ``5915a38187f560bf99eff97740c4ff5b611b6175``.  The remote repo does
+not have it, so we send it (copy it).  We check the entries in the tree object
+``5915a38187f560bf99eff97740c4ff5b611b6175``. There are five objects in this
+tree, all files (blobs).  Of these, the remote has all but the latest version
+of ``nobel_prize_paper.txt``, with hash
+``8b06b77a69682f5c9d3daf372bfe39159e1a8d23``.  We send that.  Finally we
+update the remote ``refs/heads/master`` to point to |master-merged-3| and we
+update the local ``refs/remotes/usb_backup/master`` to point to
+|master-merged-3|.  Done.
+
+.. runblock::
+    :hide:
+
+    rm -rf my_usb_disk
+    rm -rf /Volumes/my_usb_disk
+
 Other useful commands
 =====================
 
@@ -1495,7 +1786,7 @@ can easily find yourself; this is just a short list of things I've found
 useful. For a beginner, I would recommend the following 'core' reading
 list, and below I mention a few extra resources:
 
-1. The smallest, and in the style of this tuorial: `git - the simple
+1. The smallest, and in the style of this tutorial: `git - the simple
    guide <http://rogerdudler.github.com/git-guide>`__ contains 'just the
    basics'. Very quick read.
 
