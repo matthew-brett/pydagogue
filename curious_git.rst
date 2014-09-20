@@ -8,9 +8,9 @@ The curious coder's guide to ``git``
 git - love - hate
 *****************
 
-I've used git now for a long time.  I think it's a true masterpiece of design,
-I use it all day every day and I just can't imagine what it would be like not
-to use it. So, no question, I *love* git.
+I've used git now for a long time.  I think it is a masterpiece of design, I
+use it all day every day and I just can't imagine what it would be like not to
+use it. So, no question, I *love* git.
 
 As y'all may know, `Linus Torvalds wrote git from scratch
 <http://git-scm.com/book/en/Getting-Started-A-Short-History-of-Git>`_.  He
@@ -156,7 +156,7 @@ You can get this ground-breaking paper by downloading and unzipping
 
     # clean up old files from previous doc run
     rm -rf nobel_prize
-    # Copy my git config aside because we're goint to change it
+    # Copy my git config aside because we're going to change it
     mv ~/.gitconfig ~/.gitconfig.bak
 
 .. runblock:: bash
@@ -925,7 +925,7 @@ We have now staged all three of our files.  We have three objects in
 git commit - making the snapshot
 ================================
 
-.. prizecommit:: master-0 2012-04-01 11:13:13
+.. prizecommit:: initial 2012-04-01 11:13:13
 
     git commit -m "First backup of my amazing idea"
 
@@ -958,7 +958,7 @@ Here is the contents of the commit object:
 
 .. prizerun::
 
-    git cat-file -p {{ master-0 }}
+    git cat-file -p {{ initial }}
 
 git log - what are the commits so far?
 ======================================
@@ -968,7 +968,7 @@ git log - what are the commits so far?
     git log
 
 Notice that git log identies each commit with its hash.  As we saw above, the
-hash for our commit was |master-0|.
+hash for our commit was |initial|.
 
 We can also ask to the see the parents of each commit in the log:
 
@@ -983,7 +983,7 @@ git branch - which branch are we on?
 ====================================
 
 We haven't covered branches yet. Branches are bookmarks. They associate a name
-(like "master") with a commit (such as |master-0|).
+(like "master") with a commit (such as |initial|).
 
 The default branch for git is called ``master``. Git creates it
 automatically when we do our first commit.
@@ -1095,7 +1095,7 @@ We might check again that git will add the changes to the next commit:
 
 We do the commit:
 
-.. prizecommit:: master-2 2012-04-01 12:01:01
+.. prizecommit:: fruit 2012-04-01 12:01:01
 
     git commit -m "Fruit of enormous thought"
 
@@ -1162,7 +1162,7 @@ Note that these changes must be committed too, to become permanent. In
 git's world, until something has been committed, it isn't permanently
 recorded anywhere.
 
-.. prizecommit:: master-3 2012-04-01 13:15:01
+.. prizecommit:: new-name 2012-04-01 13:15:01
 
     git commit -m "I like this new name better"
 
@@ -1299,7 +1299,7 @@ working tree did not change.
 
 Now let's do some changes on the ``experiment`` branch:
 
-.. prizecommit:: experiment-0 2012-04-01 13:13:13
+.. prizecommit:: an-experiment 2012-04-01 13:13:13
 
     echo "Some crazy idea" > an_experiment.txt
     git add an_experiment.txt
@@ -1349,7 +1349,7 @@ Meanwhile we do some more work on master:
 
     git slog
 
-.. prizecommit:: master-3 2012-04-01 13:43:13
+.. prizecommit:: boring 2012-04-01 13:43:13
 
     echo "All the while, more work goes on in master..." >> boring_idea.txt
     git add boring_idea.txt
@@ -1369,7 +1369,7 @@ branch.
 
 Here is the merge:
 
-.. prizecommit:: master-exp-merge 2012-04-01 14:01:10
+.. prizecommit:: merge-experiment 2012-04-01 14:01:10
 
     git merge experiment -m "Merge in the experiment"
 
@@ -1408,7 +1408,7 @@ that works by intentionally creating a conflict.
 We start by making another new branch and making a change to our experiment
 file:
 
-.. prizecommit:: trouble-0 2012-04-01 14:23:13
+.. prizecommit:: trouble-starts 2012-04-01 14:23:13
 
     git branch trouble
     git checkout trouble
@@ -1419,7 +1419,7 @@ file:
 And now we go back to the master branch, where we change the *same*
 file:
 
-.. prizecommit:: master-merged-0 2012-04-01 14:29:13
+.. prizecommit:: while-trouble 2012-04-01 14:29:13
 
     git checkout master
     echo "More work on the master branch..." >> an_experiment.txt
@@ -1439,7 +1439,7 @@ Let's see what git has put into our file:
 
     cat an_experiment.txt
 
-Read this as:
+Read these new markers as:
 
 -  ``HEAD`` - the current branch - (between ``<<``... and ``==``) adds
    ``More work on the master branch...``;
@@ -1467,7 +1467,7 @@ but integrated them with some changes:
 
 Let's then make our new commit:
 
-.. prizecommit:: master-merged-2 2012-04-01 14:33:13
+.. prizecommit:: merge-trouble 2012-04-01 14:33:13
 
     git add an_experiment.txt
     git commit -m "Completed merge of trouble, fixing conflicts along the way"
@@ -1475,6 +1475,14 @@ Let's then make our new commit:
 .. prizerun::
 
     git slog
+
+Git commits form a graph
+========================
+
+The output of ``git slog`` above shows the sequence of commits as a graph,
+where the graph starts at the latest commit, and ends at the initial commit.
+The nodes are the commits, and the edges are formed by the parents of the
+commits.
 
 *******************************************************
 git remotes - working with other people, making backups
@@ -1629,7 +1637,7 @@ Let's see that in action.
 
 First we make a new commit in the local repository:
 
-.. prizecommit:: master-merged-3 2012-04-01 15:13:13
+.. prizecommit:: buffing 2012-04-01 15:13:13
 
     echo "Express confidence in the study" >> nobel_prize_paper.txt
     git add nobel_prize_paper.txt
@@ -1653,12 +1661,12 @@ git to show just the first commit from the log:
 
     git log -1
 
-So the commit is |master-merged-3|.  We can get the directory listing object
-from the commit object:
+So the commit is |buffing|. We can get the directory listing object from the
+commit object:
 
 .. prizerun::
 
-    git cat-file -p {{ master-merged-3 }}
+    git cat-file -p {{ buffing }}
 
 We can show the directory listing contents to get the object for the new
 version of ``nobel_prize_paper.txt``.
@@ -1712,18 +1720,20 @@ An algorithm for git push
 Now we know about how git stores its objects, we can work out an algorithm for
 doing a push.
 
-1. First send the branch file containing the commit hash to the remote
-   repository (in our case ``.git/refs/heads/master``).
-2. Get the commit hash (in our case |master-merged-3|)
-3. Does the remote have this object in
+#. Get the commit corresponding the branch we are going to push.
+#. Check if the remote repo has an object (filename) corresponding to the
+   commit hash. If not, put this commit into a list of *missing commits*.
+   follow the parents of this commit.
+#. Get the commit hash (in our case |buffing|)
+#. Does the remote have this object in
    ``.git/objects/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502``? In that case
    the remote is already up to date, and we can stop.
-4. If not, follow the parents of this commit back, along the path formed by
+#. If not, follow the parents of this commit back, along the path formed by
    the parents of each commit, until we find a commit that the remote
    repository does have.  Now we have a list of commits that that the remote
    repository does not have.  Call these the "missing commits".*
-5. Send all the missing commits to the remote repo.
-6. For every missing commit:
+#. Send all the missing commits to the remote repo.
+#. For every missing commit:
 
     a. Get the hash of the tree object from the commit
     b. If the remote repo does not have this tree object, send it
@@ -1733,33 +1743,33 @@ doing a push.
     e. For every tree in the directory listing (subdirectory tree), follow the
        same procedure [from a.)].
 
-7. Update the remote branch (remote ``refs/heads/master`` in our case) to
+#. Update the remote branch (remote ``refs/heads/master`` in our case) to
    point to the same commit as the local branch.  In our case that would
    update remote ``refs/heads/master`` to point to commit hash
-   |merged-master-3|.
-8. Update the local record of the remote branch to point to the same commit.
+   |buffing|.
+#. Update the local record of the remote branch to point to the same commit.
    In our case, update local ``refs/remotes/usb_backup/master`` to point to
-   |merged-master-3|.
+   |buffing|.
 
 Here is what will happen in our case. We first read the commit hash from
-``refs/heads/master`` to get the commit object, which is |master-merged-3|.
+``refs/heads/master`` to get the commit object, which is |buffing|.
 We check whether the remote repo has this commit object.  It doesn't, so we
 send it (copy it) to the remote ``objects`` directory.
 
-We read the object |master-merged-3| to find the parent commit, which is
-|master-merged-2|.  We check if the remote has this, and it does, so we only
-have one missing commit to copy.
+We read the object |buffing| to find the parent commit, which is |buffing|.
+We check if the remote has this, and it does, so we only have one missing
+commit to copy.
 
-We read the missing commit object |master-merged-3| to find the tree object,
+We read the missing commit object |buffing| to find the tree object,
 which is ``5915a38187f560bf99eff97740c4ff5b611b6175``.  The remote repo does
 not have it, so we send it (copy it).  We check the entries in the tree object
 ``5915a38187f560bf99eff97740c4ff5b611b6175``. There are five objects in this
 tree, all files (blobs).  Of these, the remote has all but the latest version
 of ``nobel_prize_paper.txt``, with hash
 ``8b06b77a69682f5c9d3daf372bfe39159e1a8d23``.  We send that.  Finally we
-update the remote ``refs/heads/master`` to point to |master-merged-3| and we
+update the remote ``refs/heads/master`` to point to |buffing| and we
 update the local ``refs/remotes/usb_backup/master`` to point to
-|master-merged-3|.  Done.
+|buffing|.  Done.
 
 .. runblock::
     :hide:
@@ -1778,39 +1788,25 @@ Other useful commands
 Git resources
 =============
 
-Introductory materials
-======================
-
 There are lots of good tutorials and introductions for Git, which you
 can easily find yourself; this is just a short list of things I've found
 useful. For a beginner, I would recommend the following 'core' reading
 list, and below I mention a few extra resources:
 
-1. The smallest, and in the style of this tutorial: `git - the simple
-   guide <http://rogerdudler.github.com/git-guide>`__ contains 'just the
-   basics'. Very quick read.
+1. `Understanding Git Conceptually
+   <http://www.sbf5.com/~cduan/technical/git>`__ gives another review of how
+   the ideas behind git.
 
-2. The concise `Git Reference <http://gitref.org>`__: compact but with
-   all the key ideas. If you only read one document, make it this one.
-
-3. In my own experience, the most useful resource was `Understanding Git
-   Conceptually <http://www.sbf5.com/~cduan/technical/git>`__. Git has a
-   reputation for being hard to use, but I have found that with a clear
-   view of what is actually a *very simple* internal design, its
-   behavior is remarkably consistent, simple and comprehensible.
-
-4. For more detail, see the start of the excellent `Pro
+2. For more detail, see the start of the excellent `Pro
    Git <http://progit.org/book>`__ online book, or similarly the early
    parts of the `Git community book <http://book.git-scm.com>`__. Pro
    Git's chapters are very short and well illustrated; the community
    book tends to have more detail and has nice screencasts at the end of
    some sections.
 
-If you are really impatient and just want a quick start, this `visual
-git
-tutorial <http://www.ralfebert.de/blog/tools/visual_git_tutorial_1>`__
-may be sufficient. It is nicely illustrated with diagrams that show what
-happens on the filesystem.
+Thie `visual git tutorial
+<http://www.ralfebert.de/blog/tools/visual_git_tutorial_1>`__ gives a nice
+visual idea of git at work.
 
 For windows users, `an Illustrated Guide to Git on
 Windows <http://nathanj.github.com/gitguide/tour.html>`__ is useful in
