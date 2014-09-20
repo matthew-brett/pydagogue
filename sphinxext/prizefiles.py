@@ -3,6 +3,7 @@
 An autorun directive with ``nobel_prize`` as the default directory
 """
 
+import re
 import os
 from subprocess import check_output
 
@@ -23,6 +24,32 @@ def backtick(*args, **kwargs):
     """ Get command output as stripped string """
     output = check_output(*args, **kwargs)
     return output.decode('latin1').strip()
+
+
+SPLITTER_RE = re.compile(r'.. \|(.*)\| replace:: (.*)')
+
+
+def prefixes_match(prefixes, line):
+    match = SPLITTER_RE.match(line)
+    if match is None:
+        return False
+    return match.groups()[0] in prefixes
+
+
+def add_links(links, link_fname):
+    # Write into links file
+    link_lines = []
+    if os.path.exists(link_fname):
+        with open(link_fname, 'rt') as fobj:
+            link_lines = fobj.readlines()
+    link_lines = [line for line in link_lines
+                  if not prefixes_match(links, line)]
+    for name, value in links.items():
+        link_prefix = '.. |{0}|'.format(name)
+        link_line = '{0} replace:: {1}\n'.format(link_prefix, value)
+        link_lines.append(link_line)
+    with open(link_fname, 'wt') as fobj:
+        fobj.write(''.join(link_lines))
 
 
 class PrizeCommit(RunBlock):
@@ -58,17 +85,8 @@ export GIT_COMMITTER_DATE="{date}T{time}"
         vars = self._get_env_vars()
         vars[name] = commit
         self._set_env_vars(vars)
-        # Write into links file
-        link_prefix = '.. |{0}|'.format(name)
-        link_line = '{0} replace:: {1}\n'.format(link_prefix, commit)
-        link_lines = []
-        if os.path.exists(link_fname):
-            with open(link_fname, 'rt') as fobj:
-                link_lines = fobj.readlines()
-        link_lines = [line for line in link_lines
-                      if not line.startswith(link_prefix)]
-        with open(link_fname, 'wt') as fobj:
-            fobj.write(''.join(link_lines + [link_line]))
+        # Write links
+        add_links({name: commit, name + '-short': commit[:7]}, link_fname)
         return nodes
 
 
