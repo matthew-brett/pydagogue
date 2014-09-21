@@ -751,10 +751,10 @@ And now you are already a git master.
 Gitting going (sorry)
 ^^^^^^^^^^^^^^^^^^^^^
 
-**Note**: Much of the rest of this presentation comes from Fernando
-Perez' excellent git tutorial in his `reproducible software
-repository <https://github.com/fperez/reprosw>`__. Thanks to Fernando
-for sharing.
+**Note**: The rest of this presentation started off as Fernando Perez' git
+tutorial in his `reproducible software repository
+<https://github.com/fperez/reprosw>`__. I changed it quite a bit, so please
+blame me rather than Fernando for any faults in the presentation.
 
 We need to tell git about us before we start. This stuff will go into
 the commit information.
@@ -766,7 +766,6 @@ the commit information.
 
 git often needs to call up a text editor. Choose the editor you like here::
 
-    # Put here your preferred editor
     # gedit is a reasonable choice for Linux
     git config --global core.editor gedit
 
@@ -1240,13 +1239,6 @@ recorded anywhere.
     git slog
 
 And ``git rm`` works in a similar fashion.
-
-Exercise
-========
-
-Add a new file ``file2.txt``, commit it, make some changes to it, commit
-them again, and then remove it (and don't forget to commit this last
-step).
 
 git branch again - making a new branch
 ======================================
