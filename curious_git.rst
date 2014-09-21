@@ -1,8 +1,8 @@
 .. check with make doctest
 
-####################################
-The curious coder's guide to ``git``
-####################################
+################################
+The curious coder's guide to git
+################################
 
 *****************
 git - love - hate
@@ -38,14 +38,14 @@ very powerful, but I sometimes got lost and stuck and had to Google for a set
 of magic commands to get me out of trouble.  I once accidentally made a huge
 mess of our project's main repository by running a command I didn't
 understand. Git often made me feel stupid.  It felt like a prototype racecar
-with a badly designed dashboard that was just about to blow an engine or a
-tire and take me off the road.
+with a badly designed dashboard that was just about to blow a tire or an
+engine and take me off the road.
 
 Then, one day, I read the `git parable`_.  The git parable is a little story
 about a developer trying to work out how to make a version control system.  It
 gradually builds up from copying whole directories of files to something very
 much like git.  I didn't understand it all right away, but as soon as I read
-this page, the light-bulb went on - I got git.  I suddenly started to feel
+that page, the light-bulb went on - I got git.  I suddenly started to feel
 comfortable.  I knew for sure I could work out why git worked the way it did.
 I could see that it must be possible how to do complicated and powerful
 things, and I could work out how to do them.
@@ -70,16 +70,9 @@ From `understanding git conceptually
     worsened as I began to need more advanced (and less well documented)
     features.
 
-    When I first started using Git, I read plenty of tutorials, as well as the
-    user manual. Though I picked up the basic usage patterns and commands, I
-    never felt like I grasped what was going on “under the hood,” so to speak.
-    Frequently this resulted in cryptic error messages, caused by my random
-    guessing at the right command to use at a given time. These difficulties
-    worsened as I began to need more advanced (and less well documented)
-    features.
-
-Here's a quote from the `pro git book <http://git-scm.com/book>`_ by Scott Chacon.
-The git book is a standard reference that is hosted on the main git website.
+Here's a quote from the `pro git book <http://git-scm.com/book>`_ by Scott
+Chacon.  The git book is a standard reference that is hosted on the main git
+website.
 
     Chapter 9: Git Internals
 
@@ -105,11 +98,10 @@ Concentrate, go slowly, make sure you get it. In return for an hour of your
 life, you will get many happy years for which git will appear in its true
 form, both beautiful and useful.
 
-*****************************************************
 The one thing about git you really need to understand
-*****************************************************
+=====================================================
 
-``git`` is not really a "Version Control System". It is better described
+git is not really a "Version Control System". It is better described
 as a "Content Management System", that turns out to be really good for
 version control.
 
@@ -117,15 +109,15 @@ I'll say that again.  Git is a content management system.  Or - to quote from
 the `root page of the git manual <http://git-scm.com/docs/git.html>`_: "git -
 the stupid content tracker".
 
-**************************************
-So git is a content manager - so what?
-**************************************
+****************
+A familiar story
+****************
 
 To understand why git does what it does, we first need to think about what a
 content manager should do, and why we would want one.
 
 As in the `git parable`_ - we'll try and design our own, and then see what
-``git`` has to say.
+git has to say.
 
 (To go through this a little more slowly, and with more jokes, you might also
 try my  `git foundations
@@ -133,11 +125,10 @@ try my  `git foundations
 
 While we are designing our own content management system, we will do a lot of
 stuff longhand, to show how things work.  When we get to git, we will find it
-these tasks for us.
+does these tasks for us.
 
-*******************
 The story so far...
-*******************
+===================
 
 You are writing a breakthrough paper showing that you can entirely
 explain the brain using random numbers. You've got the draft paper, and
@@ -467,9 +458,8 @@ Let's say it changes only once across our 8 commits, at commit 5.
 
 What should we do to save disk space for ``.fancy_backups``?
 
-************************************
-Cryptographic hashes might be useful
-************************************
+Cryptographic hashes
+====================
 
 This section describes "Crytographic hashes". These are the key to an
 excellent way to store our snapshots.  Later we will see that they are central
@@ -748,8 +738,9 @@ links are given by the hash value in the ``Parent`` field.
 
 And now you are already a git master.
 
-Gitting going (sorry)
-^^^^^^^^^^^^^^^^^^^^^
+****************************
+Git rides in to save the day
+****************************
 
 **Note**: The rest of this presentation started off as Fernando Perez' git
 tutorial in his `reproducible software repository
@@ -1562,9 +1553,8 @@ then (from |boring-7| and |an-experiment-7|) to |boring-7|, |new-name-7|,
 |a-flag-7|, |fruit-7| and finally |initial-7| (because |initial-7| has no
 parents).  This is one *path* through the *commit history* graph.
 
-*******************************************************
 git remotes - working with other people, making backups
-*******************************************************
+=======================================================
 
 Now you are keeping the history of your data, you also want to make sure you
 have a backup in case your laptop dies.
@@ -1575,8 +1565,8 @@ yours.
 
 We use git "remotes" to solve both of these problems.
 
-Keeping backups
-===============
+Keeping backups with remotes
+============================
 
 First - a simple backup. Let's say you have an external backup disk and you
 want to record all the history of your work on the backup disk.
@@ -2190,14 +2180,12 @@ The commands complete the typical daily git toolkit of an experienced user:
 
 See :doc:`rebase_without_tears` for a tutorial on ``rebase``.
 
-****************
-Git: |--| ready?
-****************
+Git: are youready?
+==================
 
-If you followed this tutorial slowly, you now know how git works.  You will
-find that will start to see why git commands do what they do, and you will
-find it easier to get out of trouble when trouble happens, as it will,
-especially when you start.
+If you followed this tutorial, you now have a good knowledge of how git works.
+This will make it much easier to understand why git commands do what they do,
+and what to do when things go wrong.
 
 .. cleanup
 
