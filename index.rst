@@ -12,32 +12,11 @@ things like nipy_.
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   foundation
-   decorating_for_dummies
-   decorating_for_smart_people
-   introducing_unicode
-   python_unicode
-   develop_windows
-   develop_mac
-   develop_linux
-   vim_mergetool
-   rebase_without_tears
-   pain_in_dots
-   git_log_dots
-   git_diff_dots
-   git_gui_windows
-   installing_scripts
-   gh_delete_master
-   gitwash_build
-   floating_point
-   floating_error
-   bare_metal_waf
-   booting_macs
-   mac_runtime_link
-   legacy_package_redux
-   python_msvc
+    python
+    git
+    computing
 
 Indices and tables
 ==================
