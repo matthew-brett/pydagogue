@@ -2,6 +2,7 @@
 .. _git: http://git-scm.com
 .. _git parable: http://tom.preston-werner.com/2009/05/19/the-git-parable.html
 .. _github: http://github.com
+.. _bitbucket: https://bitbucket.org/
 
 .. Editors
 .. _vim: http://www.vim.org

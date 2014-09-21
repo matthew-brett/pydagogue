@@ -155,7 +155,7 @@ You can get this ground-breaking paper by downloading and unzipping
     :hide:
 
     # clean up old files from previous doc run
-    rm -rf nobel_prize
+    rm -rf nobel_prize my_repos
     # Copy my git config aside because we're going to change it
     mv ~/.gitconfig ~/.gitconfig.bak
 
@@ -982,8 +982,8 @@ case?
 git branch - which branch are we on?
 ====================================
 
-We haven't covered branches yet. Branches are bookmarks. They associate a name
-(like "master") with a commit (such as |initial|).
+Branches are bookmarks. They associate a name (like "master") with a commit
+(such as |initial|).
 
 The default branch for git is called ``master``. Git creates it
 automatically when we do our first commit.
@@ -1099,6 +1099,73 @@ We do the commit:
 
     git commit -m "Fruit of enormous thought"
 
+Adding with ``-a``
+==================
+
+So far we have done our commits with at least two steps: ``git add`` and
+then ``git commit``.  It also possible to add files and commit the snapshot in
+one step, using ``git commit -a``.
+
+Here is an example.  We first add some text to a couple of files that we are
+already tracking:
+
+.. prizerun::
+
+    echo "More self congratulation" >> nobel_prize_paper.txt
+    echo "fudge_factor = 42" >> very_clever_analysis.py
+
+Then we create another file that git knows nothing about:
+
+.. prizerun::
+
+    echo "My cat Arthur for dribbling on my keyboard" > acknowledgments.txt
+
+.. prizerun::
+
+    git status
+
+Git tells us, as expected, that we have two modified files that have not been
+staged, and one untracked file.   You also see that git has two suggestions
+for us |--| that we do ``git add`` on the modified files (as we have done up
+to now) |--| and / or ``git commit -a`` (the subject of this section).
+
+Adding the ``-a`` flag to ``git commit`` means that git will:
+
+* ``add`` any modified, tracked files to the staging area
+* ``commit`` these modified files.
+
+In our case, it is a shortcut for::
+
+    git add nobel_prize_paper.txt
+    git add an_experiment.txt
+    git commit
+
+The ``-a`` flag to ``git commit`` ignores any untracked files |--| so
+``acknowledgments.txt`` will still be untracked:
+
+.. prizecommit:: a-flag 2012-04-01 12:13:01
+
+    git commit -a -m "Paper nearly ready"
+
+.. prizerun::
+
+    git status
+
+Maybe we aren't ready for the acknowledgments yet, so we'll delete that file
+for now:
+
+.. prizerun::
+
+    rm acknowledgments.txt
+
+If you have used other version control systems, the ``-a`` flag may look like
+a good idea, but experienced users often find that they use ``git add`` and
+``git commit`` much more often than they use ``git commit -a``.  The explicit
+``git add`` helps us think about the changes we are adding, whereas the ``-a``
+flag makes it easier to add changes we didn't intend.  So I recommend you
+always use ``git add``, especially when you are learning, and that's how I'm
+going to do the rest of the examples in this tutorial.
+
 Git updates the current branch with the latest commit
 =====================================================
 
@@ -1117,7 +1184,9 @@ up to the new commit:
 
     cat .git/refs/heads/master
 
-The first commit is the parent of the second:
+Our most recent commit (|a-flag|) has the previous commit (|fruit|) as a
+parent.  |fruit| has |initial| as a parent.  |initial| is the first commit,
+and has no parent:
 
 .. prizerun::
 
@@ -1220,7 +1289,8 @@ git ``HEAD`` points to the current branch
 
 Remember that, when you make a new commit, git moves the branch pointer to
 point at the new commit.  Now we have two branches, how does git know which is
-the current branch, in order to move the pointer when you make a commit?
+the current branch, in order to move the right branch pointer when you make a
+commit?
 
 This information goes in a special git pointer, called ``HEAD``.  HEAD stores
 the name of the current branch. HEAD is just a tiny text file storing the
@@ -1304,6 +1374,9 @@ Now let's do some changes on the ``experiment`` branch:
     echo "Some crazy idea" > an_experiment.txt
     git add an_experiment.txt
     git commit -m "Trying something new"
+
+.. prizerun::
+
     git slog
 
 Notice we have a new file called ``an_experiment.txt`` in this branch:
@@ -1324,8 +1397,8 @@ But the ``master`` branch points to the same place as it did before:
 
     git branch -v
 
-git checkout again - reseting the working tree
-==============================================
+git checkout again - get a new working tree
+===========================================
 
 If ``somewhere`` is a branch name, then ``git checkout somewhere``
 selects ``somewhere`` as the current branch. It also resets the working
@@ -1479,10 +1552,23 @@ Let's then make our new commit:
 Git commits form a graph
 ========================
 
-The output of ``git slog`` above shows the sequence of commits as a graph,
-where the graph starts at the latest commit, and ends at the initial commit.
-The nodes are the commits, and the edges are formed by the parents of the
-commits.
+The output of ``git slog`` shows the sequence of commits as a graph.
+
+The nodes of the graph are the commits. Each commit has one or more parents,
+stored in the commit object.  The parents give the links between the commit
+and the previous commit(s) in the *commit history* graph.  The commit parents
+therefore give the edges in the graph.  If we start at a particular commit,
+and then track back following only one parent for each commit, this is a
+*path* in the *commit history*.
+
+.. depends on history
+
+For example, we might start at our current commit: |merge-trouble-7|.  This
+commit has two parents: |while-trouble-7| and |trouble-starts-7|.  We might
+follow one particular path to |while-trouble-7|, then |merge-experiment-7|,
+then (from |boring-7| and |an-experiment-7|) to |boring-7|, |new-name-7|,
+|a-flag-7|, |fruit-7| and finally |initial-7| (because |initial-7| has no
+parents).  This is one *path* through the *commit history* graph.
 
 *******************************************************
 git remotes - working with other people, making backups
@@ -1526,20 +1612,20 @@ We make a new empty repository:
 
 .. runblock::
 
-    git init --bare /Volumes/my_usb_disk/nobel_prize_backup.git
+    git init --bare /Volumes/my_usb_disk/nobel_prize.git
 
 Notice the ``--bare`` flag.  This tells git to make a repository that does not
 have a working tree, but only the ``.git`` repository directory:
 
 .. runblock::
 
-    ls /Volumes/my_usb_disk/nobel_prize_backup.git
+    ls /Volumes/my_usb_disk/nobel_prize.git
 
 This is what we want in this case, because we will not ever want to edit the
-files in the ``/Volumes/my_usb_disk/nobel_prize_backup.git`` backup
+files in the ``/Volumes/my_usb_disk/nobel_prize.git`` backup
 repository, we will only be editing files in our local ``nobel_prize``
 directory, committing those changes locally (as we have done above), and then
-"pushing" these changes to the backup repository.
+"pushing" these changes to the backup repository [#bare-detail]_.
 
 Tell the current git repository about the backup repository
 -----------------------------------------------------------
@@ -1554,7 +1640,7 @@ Add a remote.  A remote is a link to another repository.
 
 .. prizerun::
 
-    git remote add usb_backup /Volumes/my_usb_disk/nobel_prize_backup.git
+    git remote add usb_backup /Volumes/my_usb_disk/nobel_prize.git
 
 List the remotes:
 
@@ -1572,18 +1658,18 @@ repository file config file |--| ``.git/config``:
 
     cat .git/config
 
-git push |--| push all data for local branches to the remote
+git push |--| push all data for a local branch to the remote
 ------------------------------------------------------------
 
 We now want to synchronize the data in our ``nobel_prize`` repository with the
-remote ``my_usb_backup``.  The command to do this is ``git push``.
+remote ``usb_backup``.  The command to do this is ``git push``.
 
 Before we do the push, there are no objects in the ``.git/objects`` directory
-of the ``my_usb_backup`` backup repo:
+of the ``usb_backup`` backup repository:
 
 .. runblock::
 
-    tree -a /Volumes/my_usb_disk/nobel_prize_backup.git/objects
+    tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
 
 Then we push:
 
@@ -1597,10 +1683,10 @@ Sure enough, we now have files in ``.git/objects`` of the backup repository:
 
 .. runblock::
 
-    tree -a /Volumes/my_usb_disk/nobel_prize_backup.git/objects
+    tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
 
-You'll see that the 'master' branch in the backup repo now points to the same
-commit as the master branch in the local repo:
+You'll see that the 'master' branch in the backup repository now points to the
+same commit as the master branch in the local repository:
 
 .. prizerun::
 
@@ -1608,10 +1694,10 @@ commit as the master branch in the local repo:
 
 .. runblock::
 
-    cat /Volumes/my_usb_disk/nobel_prize_backup.git/refs/heads/master
+    cat /Volumes/my_usb_disk/nobel_prize.git/refs/heads/master
 
-The local repo has a copy of the last known position of the master branch in
-the remote repo.
+The local repository has a copy of the last known position of the master
+branch in the remote repository.
 
 .. prizerun::
 
@@ -1629,6 +1715,9 @@ To see both local and remote branches, use the ``-a`` flag:
 .. prizerun::
 
     git branch -a  -v
+
+git push |--| synchronizing repositories
+----------------------------------------
 
 ``git push`` is an excellent way to do backups, because it only transfers the
 information that the remote repository does not have.
@@ -1651,11 +1740,18 @@ this update yet:
     git branch -a -v
 
 We already know there will be three new objects in ``.git/objects`` after this
-commit.  There will be: one for the modified ``nobel_prize_paper.txt``; one
-for the modified directory listing with the new hash for
-``nobel_prize_paper.txt``; and one for the commit object.  The commit object
-we can see from the top of ``git log``. The ``-1`` flag to ``git log`` tells
-git to show just the first commit from the log:
+commit.  There are objects for:
+
+* the modified ``nobel_prize_paper.txt``;
+* the modified directory listing with the new hash for
+  ``nobel_prize_paper.txt``;
+* the new commit.
+
+Usually we don't need to worry about which objects these are, but here we will
+track these down to show how ``git push`` works.
+
+The commit object we can see from the top of ``git log``. The ``-1`` flag to
+``git log`` tells git to show just the most recent commit from the log:
 
 .. prizerun::
 
@@ -1671,27 +1767,52 @@ commit object:
 We can show the directory listing contents to get the object for the new
 version of ``nobel_prize_paper.txt``.
 
+.. depends on history
+
+.. prizevars:: buffing-fname
+
+    commit={{ buffing }}
+    echo \${commit:0:2}/\${commit:2}
+
+.. prizevars:: buffing-tree
+
+    git log -1 --format="%T"
+
+.. prizevars:: buffing-tree-fname
+
+    tree={{ buffing-tree }}
+    echo \${tree:0:2}/\${tree:2}
+
 .. prizerun::
 
-    git cat-file -p 5915a38187f560bf99eff97740c4ff5b611b6175
+    git cat-file -p {{ buffing-tree }}
+
+.. prizevars:: buffing-paper-obj
+
+    git cat-file -p {{ buffing-tree }} | grep nobel_prize | awk '{print \$3}'
+
+.. prizevars:: buffing-paper-obj-fname
+
+    obj={{ buffing-paper-obj }}
+    echo \${obj:0:2}/\${obj:2}
 
 We do have these objects in the local repository:
 
 .. prizerun::
 
-    ls .git/objects/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502
-    ls .git/objects/59/15a38187f560bf99eff97740c4ff5b611b6175
-    ls .git/objects/8b/06b77a69682f5c9d3daf372bfe39159e1a8d23
+    ls .git/objects/{{ buffing-fname }}
+    ls .git/objects/{{ buffing-tree-fname }}
+    ls .git/objects/{{ buffing-paper-obj-fname }}
 
 |--| but we don't have these objects in the remote repository yet (we haven't
 done a ``push``):
 
 .. prizerun::
 
-    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize_backup.git/objects
-    ls \$REMOTE_OBJECTS/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502
-    ls \$REMOTE_OBJECTS/59/15a38187f560bf99eff97740c4ff5b611b6175
-    ls \$REMOTE_OBJECTS/8b/06b77a69682f5c9d3daf372bfe39159e1a8d23
+    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize.git/objects
+    ls \$REMOTE_OBJECTS/{{ buffing-fname }}
+    ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
+    ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
 
 Now we do a push:
 
@@ -1709,10 +1830,10 @@ We do have the new objects in the remote repository:
 
 .. prizerun::
 
-    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize_backup.git/objects
-    ls \$REMOTE_OBJECTS/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502
-    ls \$REMOTE_OBJECTS/59/15a38187f560bf99eff97740c4ff5b611b6175
-    ls \$REMOTE_OBJECTS/8b/06b77a69682f5c9d3daf372bfe39159e1a8d23
+    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize.git/objects
+    ls \$REMOTE_OBJECTS/{{ buffing-fname }}
+    ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
+    ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
 
 An algorithm for git push
 -------------------------
@@ -1720,56 +1841,373 @@ An algorithm for git push
 Now we know about how git stores its objects, we can work out an algorithm for
 doing a push.
 
-#. Get the commit corresponding the branch we are going to push.
-#. Check if the remote repo has an object (filename) corresponding to the
-   commit hash. If not, put this commit into a list of *missing commits*.
-   follow the parents of this commit.
-#. Get the commit hash (in our case |buffing|)
-#. Does the remote have this object in
-   ``.git/objects/c5/b9b353be6e16b02f534ecc17ea0ffd2ec86502``? In that case
-   the remote is already up to date, and we can stop.
-#. If not, follow the parents of this commit back, along the path formed by
-   the parents of each commit, until we find a commit that the remote
-   repository does have.  Now we have a list of commits that that the remote
-   repository does not have.  Call these the "missing commits".*
-#. Send all the missing commits to the remote repo.
-#. For every missing commit:
+#. Get the commit hash corresponding the branch we are going to push
+#. Check if the remote has a matching object (filename). If yes, continue, if
+   not then:
 
-    a. Get the hash of the tree object from the commit
-    b. If the remote repo does not have this tree object, send it
-    c. Read the tree object directory listing
-    d. For any file hash, check if the remote has it this object and send it
-       if not
-    e. For every tree in the directory listing (subdirectory tree), follow the
-       same procedure [from a.)].
+    a. Put the commit has into a list of *missing commits*
+    b. Follow every possible *commit history path* back from this commit.
+       For each commit on the path, if the commit is in the remote objects,
+       stop, otherwise, add the commit to *missing commits* and continue to
+       the next commit on the path.  Copy all *missing commit* objects to the
+       remote objects directory.
+    c. For every *missing commit* get the corresponding directory listing
+       object (tree object).  If the tree object is not in the remote objects
+       directory, add to *missing trees*. Copy all *missing trees* to the
+       remote objects directory.
+    d. For every *missing tree* read the tree directory listing. Find any
+       file objects in the directory listing that are not in the remote
+       objects directory, add to *missing file* objects.  Copy any *missing
+       file* objects to the remote objects directory [#sub-trees]_.
 
 #. Update the remote branch (remote ``refs/heads/master`` in our case) to
-   point to the same commit as the local branch.  In our case that would
-   update remote ``refs/heads/master`` to point to commit hash
-   |buffing|.
-#. Update the local record of the remote branch to point to the same commit.
-   In our case, update local ``refs/remotes/usb_backup/master`` to point to
-   |buffing|.
+   point to the same commit as the local branch.
+#. Update the local record of the last known position of the remote branch to
+   point to the same commit.
 
-Here is what will happen in our case. We first read the commit hash from
-``refs/heads/master`` to get the commit object, which is |buffing|.
-We check whether the remote repo has this commit object.  It doesn't, so we
-send it (copy it) to the remote ``objects`` directory.
+This is what will happen in our case:
 
-We read the object |buffing| to find the parent commit, which is |buffing|.
-We check if the remote has this, and it does, so we only have one missing
-commit to copy.
+#. We look up the hash for ``master``, and we get |buffing| (abbreviated as
+   |buffing-7|).
+#. We look for the filename corresponding to |buffing-7| in the remote
+   ``objects`` directory.  It isn't there.
 
-We read the missing commit object |buffing| to find the tree object,
-which is ``5915a38187f560bf99eff97740c4ff5b611b6175``.  The remote repo does
-not have it, so we send it (copy it).  We check the entries in the tree object
-``5915a38187f560bf99eff97740c4ff5b611b6175``. There are five objects in this
-tree, all files (blobs).  Of these, the remote has all but the latest version
-of ``nobel_prize_paper.txt``, with hash
-``8b06b77a69682f5c9d3daf372bfe39159e1a8d23``.  We send that.  Finally we
-update the remote ``refs/heads/master`` to point to |buffing| and we
-update the local ``refs/remotes/usb_backup/master`` to point to
-|buffing|.  Done.
+    a. We put |buffing-7| into the list of missing commits;
+    b. We follow all commit history paths back from |buffing-7| to check for
+       more missing commits.  In our case we have only one path, because
+       |buffing-7| has parent |merge-trouble-7|, the remote already has the
+       object corresponding to |merge-trouble-7|, and we can stop looking for
+       missing commits. We copy |buffing-fname| in local ``.git/objects`` to
+       the remote objects directory;
+    c. We only have one missing commit, |buffing-7|.  We look in the contents
+       of |buffing-7| to find the directory listing (tree).  This is
+       |buffing-tree|.  We check for this object in the remote objects
+       directory, and sure enough, it is missing. We add this tree to the
+       list of missing trees.  We copy |buffing-tree-fname| in local
+       ``.git/objects`` to the remote objects directory;
+    d. We only have one missing tree |--| |buffing-tree|. We look in the
+       contents of this directory listing, and check in the remote object
+       directory for each object in this listing. We are only missing
+       |buffing-paper-obj|. We copy |buffing-paper-obj-fname| to the remote
+       objects directory.
+
+#. We set remote ``refs/heads/master`` to contain the hash |buffing|.
+#. Set the local ``refs/remotes/usb_backup/master`` to contain |buffing|.
+
+git clone |--| make a fresh new copy of the repo
+------------------------------------------------
+
+Imagine we have so far been working on our trusty work desktop.
+
+We unplug the external hard drive, put it in our trusty bag, and take the
+trusty bus back to our trusty house.
+
+Now we want to start work on the paper.
+
+We plug the hard drive into the laptop, it gets mounted again at
+``/Volumes/my_usb_disk``
+
+Now we want a repository with a working tree.
+
+Maybe we make a directory for git repositories first:
+
+.. runblock::
+
+    mkdir my_repos
+
+The command we want now is ``git clone``:
+
+.. runblock::
+
+    cd my_repos
+    git clone /Volumes/my_usb_disk/nobel_prize.git
+
+We have a full backup of the repository, including all the history:
+
+.. runblock::
+    :cwd: my_repos
+
+    cd nobel_prize
+    git slog
+
+git make a ``remote`` automatically for us, because it recorded where we cloned
+from.  The default name for a git remote is ``origin``:
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+
+    git remote -v
+
+Of course, just after the clone, the remote and the local copy are
+synchronized:
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+
+    git branch -v -a
+
+Now we could make some commits.
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+    :exe_pre: git_time=2012-04-01T20:13:31
+              export GIT_AUTHOR_DATE=\$git_time
+              export GIT_COMMITTER_DATE=\$git_time
+
+    echo "The brain is a really big network." >> nobel_prize_paper.txt
+    git add nobel_prize_paper.txt
+    git commit -m "More great ideas after some wine"
+
+The local copy is now ahead of the remote:
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+
+    git branch -v -a
+
+At the end of the night's work, we push back to the remote:
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+
+    git push origin master
+
+The local and remote are synchronized again:
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+
+    git branch -v -a
+
+git fetch |--| get all data from a remote
+-----------------------------------------
+
+``git fetch`` fetches data from a remote repository into a local one.
+
+Now we are back at the work desktop.  We don't have the great ideas from last
+night in the local repository::
+
+    cd nobel_prize
+
+Here is the latest commit in the work desktop repository:
+
+.. prizerun::
+
+    git log -1
+
+Here are the branch positions in the work desktop repository:
+
+.. prizerun::
+
+    git branch -v -a
+
+As you can see, the last known positions of the remote branches have not
+changed from last night.  This reminds us that the last known positions only
+get refreshed when we do an explicit git command to communicate with the
+remote copy.  Git stores the "last known positions" in ``refs/remotes``.  For
+example, if the remote name is ``usb_backup`` and the branch is ``master``,
+then the last known position (commit hash) is the contents of the file
+``refs/remotes/usb_backup/master``.
+
+.. prizerun::
+
+    cat .git/refs/remotes/usb_backup/master
+
+The commands that update the last known positions are:
+
+* ``git clone`` (a whole new copy, copying the remote branch positions with
+  it);
+* ``git push`` (updates the remote branches and therefore the local last known
+  positions in the local repository);
+* ``git fetch`` (this section) (reads the branch positions and data from the
+  remote repository and copies the data and last known positions into the
+  local repository);
+* ``git pull`` (this is just a ``git fetch`` followed by a ``git merge``).
+
+Now we have plugged in the USB drive, we can fetch the data and last known
+positions from the remote:
+
+.. prizerun::
+
+    git fetch usb_backup
+
+The last known positions are now the same as those on the remote repository:
+
+.. prizerun::
+
+    git branch -v -a
+
+We can set our local master branch to be the same as the remote master branch
+by doing a merge:
+
+.. prizerun::
+
+    git merge usb_backup/master
+
+This does a merge between ``usb_backup/master`` and local ``master``.  In this
+case, the "merge" is very straightforward, because there have been no new
+changes in local ``master`` since the new edits we have in the remote.
+Therefore the "merge" only involves setting local ``master`` to point to the
+same commit as ``usb_backup/master``.  This is called a "fast-forward" merge,
+because it just involves advancing the branch pointer, rather then fusing two
+lines of development:
+
+.. prizerun::
+
+    git slog
+
+git pull |--| git fetch followed by git merge
+---------------------------------------------
+
+``git pull`` is just a shortcut for ``git fetch`` followed by ``git merge``.
+
+For example, instead of doing ``git fetch usb_backup`` and ``git merge
+usb_backup/master`` above, we could have done ``git pull usb_backup master``.
+If we do that now, of course there is nothing to do:
+
+.. prizerun::
+
+    git pull usb_backup master
+
+When you first start using git, I strongly recommend you always use an
+explicit ``git fetch`` followed by ``git merge`` instead of ``git pull``.  It
+is very common to run into problems using ``git pull`` that are made more
+confusing by the fusion of the "fetch" and "merge" step.  For example, it is
+not uncommon that you have done more work on a local copy, before you do an
+innocent ``git pull`` from a repository with new work on the same file.  You
+may well get merge conflicts, which can be rather surprising and confusing,
+even for experienced users.  If you do ``git fetch`` followed by ``git
+merge``, the steps are clearer so the merge conflict is less confusing and it
+is clearer what to do.
+
+Linking local and remote branches
+---------------------------------
+
+It can get a bit boring typing all of::
+
+    git push usb_backup master
+
+It may well be that we nearly always want to ``git push`` the ``master``
+branch to ``usb_backup master``.
+
+We can set this up using the ``--set-upstream`` flag to ``git push``.
+
+.. prizerun::
+
+    git push usb_backup master --set-upstream
+
+Git then records this association in the ``.git/config`` file of the
+repository:
+
+.. prizerun::
+
+    cat .git/config
+
+We do a commit:
+
+.. prizecommit:: no-network 2012-04-02 11:13:13
+
+    echo "Is the network comment too obvious?" >> nobel_prize_paper.txt
+    git add nobel_prize_paper.txt
+    git commit -m "Rethinking the drinking again"
+
+Now instead of ``git push usb_backup master`` we can just do ``git push``.
+
+Before we try this, we need to set a default configuration variable to avoid a
+confusing warning. See ``git config --help`` for more detail:
+
+.. prizerun::
+
+    git config push.default simple
+
+.. prizerun::
+
+    git push
+
+Git also knows what to do if we do ``git fetch`` from this branch.
+
+To show this at work, we go home, fetch the desktop work, and then do another
+commit from the laptop:
+
+.. runblock::
+
+    cd my_repos/nobel_prize
+    git fetch origin
+    git merge origin/master
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+    :exe_pre: git_time=2012-04-02T22:13:31
+              export GIT_AUTHOR_DATE=\$git_time
+              export GIT_COMMITTER_DATE=\$git_time
+
+    echo "More convinced by networks." >> nobel_prize_paper.txt
+    git add nobel_prize_paper.txt
+    git commit -m "I think better at home"
+
+Then push back to the USB disk, setting the link between the laptop branch and
+the remote for good measure:
+
+.. runblock::
+    :cwd: my_repos/nobel_prize
+
+    git push origin master --set-upstream
+
+Back to the work desktop to demonstrate "fetch" after we have done ``git
+push`` with ``--set-upstream`` above:
+
+.. prizerun::
+
+    git fetch
+
+We still need to do an explicit merge:
+
+.. prizerun::
+
+    git merge usb_backup/master
+
+Remotes in the interwebs
+------------------------
+
+So far we've only used remotes on the filesystem of the laptop and desktop.
+
+Remotes can also refer to storage on |--| remote |--| machines, using
+communication protocols such as the "git" protocol, ssh, http or https.
+
+For example, here is the remote list for the repository containing this
+tutorial:
+
+.. runblock::
+
+    git remote -v
+
+Check out bitbucket_ and github_ for free hosting of your repositories.  Both
+services offer free hosting of data that anyone can read (public
+repositories).  Bitbucket offers free hosting of private repositories, and
+Github will host some private repositories for education users.
+
+Other useful commands
+=====================
+
+The commands complete the typical daily git toolkit of an experienced user:
+
+*  `show <http://www.kernel.org/pub/software/scm/git/docs/git-show.html>`__
+*  `reflog <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`__
+*  `rebase <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`__
+*  `tag <http://www.kernel.org/pub/software/scm/git/docs/git-tag.html>`__
+
+See :doc:`rebase_without_tears` for a tutorial on ``rebase``.
+
+****************
+Git: |--| ready?
+****************
+
+If you followed this tutorial slowly, you now know how git works.  You will
+find that will start to see why git commands do what they do, and you will
+find it easier to get out of trouble when trouble happens, as it will,
+especially when you start.
+
+.. cleanup
 
 .. runblock::
     :hide:
@@ -1777,15 +2215,11 @@ update the local ``refs/remotes/usb_backup/master`` to point to
     rm -rf my_usb_disk
     rm -rf /Volumes/my_usb_disk
 
-Other useful commands
-=====================
-
--  `show <http://www.kernel.org/pub/software/scm/git/docs/git-show.html>`__
--  `reflog <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`__
--  `rebase <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`__
--  `tag <http://www.kernel.org/pub/software/scm/git/docs/git-tag.html>`__
-
+*************
 Git resources
+*************
+
+Introductions
 =============
 
 There are lots of good tutorials and introductions for Git, which you
@@ -1804,7 +2238,7 @@ list, and below I mention a few extra resources:
    book tends to have more detail and has nice screencasts at the end of
    some sections.
 
-Thie `visual git tutorial
+This `visual git tutorial
 <http://www.ralfebert.de/blog/tools/visual_git_tutorial_1>`__ gives a nice
 visual idea of git at work.
 
@@ -1914,42 +2348,6 @@ the name):
 See the comments in both of those files for lots of extra functionality
 they offer.
 
-Embedding Git information in LaTeX documents
---------------------------------------------
-
-(Sent by `Yaroslav Halchenko <http://www.onerussian.com>`__)
-
-I use a Make rule:
-
-::
-
-    # Helper if interested in providing proper version tag within the manuscript
-    revision.tex: ../misc/revision.tex.in ../.git/index
-       GITID=$$(git log -1 | grep -e '^commit' -e '^Date:' | sed  -e 's/^[^ ]* *//g' | tr '\n' ' '); \
-       echo $$GITID; \
-       sed -e "s/GITID/$$GITID/g" $< >| $@
-
-in the top level ``Makefile.common`` which is included in all
-subdirectories which actually contain papers (hence all those
-``../.git``). The ``revision.tex.in`` file is simply:
-
-::
-
-    % Embed GIT ID revision and date
-    \def\revision{GITID}
-
-The corresponding ``paper.pdf`` depends on ``revision.tex`` and includes
-the line ``\input{revision}`` to load up the actual revision mark.
-
-git export
-----------
-
-Git doesn't have a native export command, but this works just fine:
-
-::
-
-    git archive --prefix=fperez.org/  master | gzip > ~/tmp/source.tgz
-
 .. runblock::
     :hide:
 
@@ -1966,9 +2364,28 @@ Git doesn't have a native export command, but this works just fine:
    ``.git/objects/d9`` directory if it doesn't exist, and stores the file
    contents as ``.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.  It
    does this so that the number of files in any one directory stay in a
-   reasonable range.  If git had to store every file, directory listing and
-   commit in one flat directory, it would soon have a very large number of
-   files.
+   reasonable range.  If git had to store hash filenames for every file,
+   directory listing and commit in one flat directory, it would soon have a
+   very large number of files.
+.. [#bare-detail] The reason we need a bare repository for our backup goes
+   deeper than the fact we do not need a working tree.  We are soon going to
+   do a ``push`` to this backup repository.  The ``push`` has the effect of
+   reseting the position of a branch (usually ``master``) in the backup repo.
+   Git is very reluctant to set a branch position in a repository with a
+   working tree, because it the new branch position will not not match the
+   current content of the working tree.  Git could either leave it like this,
+   or checkout the new branch in the remote repo, but either thing would be
+   very confusing for someone trying to use the working tree in that
+   repository.  So, by default git will refuse to ``push`` a new branch
+   position to a remote repository with a working tree, giving you a long
+   explanation as to why it is refusing, and listing things you can do about
+   it.  You can force git to go ahead and do the push, but it is much safer to
+   use a bare repository.
+.. [#sub-trees] You have probably worked out by now that git directory
+   listings can have files (called "blobs") and subdirectories ("trees").
+   When doing the copy, we actually have to recurse into any sub-directories
+   to get needed file ("blob") and subdirectory ("tree") objects.  But, you
+   get the idea.
 
 .. include:: links_names.inc
-.. include:: commit_names.inc
+.. include:: object_names.inc
