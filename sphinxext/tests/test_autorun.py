@@ -8,7 +8,7 @@ import shutil
 
 sys.path.insert(0, abspath(pjoin(dirname(__file__), '..')))
 
-from prizefiles import add_links, prefixes_match
+from autorun import add_links, prefixes_match
 
 from nose.tools import (assert_true, assert_false, assert_raises,
                         assert_equal, assert_not_equal)
@@ -35,13 +35,15 @@ def test_add_links():
     links_fname = pjoin(tmpdir, 'links.inc')
     try:
         add_links({'name': 'commit'}, links_fname)
-        assert_file_equal_string(links_fname, ".. |name| replace:: commit\n")
+        assert_file_equal_string(links_fname,
+                                 ".. |name| replace:: ``commit``\n")
         add_links({'name': 'commit'}, links_fname)
-        assert_file_equal_string(links_fname, ".. |name| replace:: commit\n")
+        assert_file_equal_string(links_fname,
+                                 ".. |name| replace:: ``commit``\n")
         add_links({'name2': 'commit2'}, links_fname)
         assert_file_equal_string(links_fname,
-""".. |name| replace:: commit
-.. |name2| replace:: commit2
+""".. |name| replace:: ``commit``
+.. |name2| replace:: ``commit2``
 """)
     finally:
         shutil.rmtree(tmpdir)
