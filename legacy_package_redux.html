@@ -26,7 +26,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
     <link rel="up" title="General computing" href="computing.html" />
-    <link rel="prev" title="Runtime linking on Mac" href="mac_runtime_link.html" /> 
+    <link rel="prev" title="OSX flat packages" href="flat_packages.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,7 +36,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="mac_runtime_link.html" title="Runtime linking on Mac"
+          <a href="flat_packages.html" title="OSX flat packages"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
           <li><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
@@ -82,9 +82,7 @@ customize the install experience with a XML  <a class="reference external" href=
 called <tt class="docutils literal"><span class="pre">Distribution</span></tt>. The <tt class="docutils literal"><span class="pre">Distribution</span></tt> file may contain javascript
 code for checking installation requirements and customizing install options.</li>
 </ul>
-<p>This flatter world is well covered by the <a class="reference external" href="http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html">MacTech flat package article</a>. The
-arcticle also gives a good summary of the older package formats described here
-(but see <a class="reference internal" href="#hybrid-package"><em>Hybrid package</em></a> for one source of confusion).</p>
+<p>See <a class="reference internal" href="flat_packages.html"><em>OSX flat packages</em></a> for details.</p>
 <p>Now we forget about flat packages and go back to the world where all installer
 packages are bundles.</p>
 </div>
@@ -184,7 +182,7 @@ drive:</p>
 <p>Confusingly, it is also possible to make a package that is <em>both</em> a
 metapackage <em>and</em> a distribution package.  These packages have the contents of
 a metapackage, but with the extra <tt class="docutils literal"><span class="pre">distribution.dist</span></tt> file.  The installer
-runs as a metapackage on OSX &lt; 10.4, and as a distribution pacakge for OSX &gt;=
+runs as a metapackage on OSX &lt; 10.4, and as a distribution package for OSX &gt;=
 10.4.  For example, this is why the metapackage and distribution package
 directory listings shown in the <a class="reference external" href="http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html">MacTech flat package article</a> have the same
 files.</p>
@@ -395,8 +393,8 @@ pre-post operations with scripts (they will be ignored if present).</p>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="mac_runtime_link.html"
-                        title="previous chapter">Runtime linking on Mac</a></p>
+  <p class="topless"><a href="flat_packages.html"
+                        title="previous chapter">OSX flat packages</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/legacy_package_redux.txt"
@@ -426,7 +424,7 @@ pre-post operations with scripts (they will be ignored if present).</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="mac_runtime_link.html" title="Runtime linking on Mac"
+          <a href="flat_packages.html" title="OSX flat packages"
              >previous</a> |</li>
         <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
           <li><a href="computing.html" >General computing</a> &raquo;</li> 

@@ -38,9 +38,7 @@ archives.  There are two types of packages in this new world of flat:
   called ``Distribution``. The ``Distribution`` file may contain javascript
   code for checking installation requirements and customizing install options.
 
-This flatter world is well covered by the `MacTech flat package article`_. The
-arcticle also gives a good summary of the older package formats described here
-(but see :ref:`hybrid-package` for one source of confusion).
+See :doc:`flat_packages` for details.
 
 Now we forget about flat packages and go back to the world where all installer
 packages are bundles.
@@ -165,7 +163,7 @@ Hybrid package
 Confusingly, it is also possible to make a package that is *both* a
 metapackage *and* a distribution package.  These packages have the contents of
 a metapackage, but with the extra ``distribution.dist`` file.  The installer
-runs as a metapackage on OSX < 10.4, and as a distribution pacakge for OSX >=
+runs as a metapackage on OSX < 10.4, and as a distribution package for OSX >=
 10.4.  For example, this is why the metapackage and distribution package
 directory listings shown in the `MacTech flat package article`_ have the same
 files.
@@ -342,12 +340,4 @@ Pre-post operations
 Unlike the metapackage, the distribution package cannot itself specify
 pre-post operations with scripts (they will be ignored if present).
 
-.. _flat package format: http://s.sudre.free.fr/Stuff/Ivanhoe/FLAT.html
-.. _unpacking flat packages:
-   http://ilostmynotes.blogspot.com/2012/06/mac-os-x-pkg-bom-files-package.html
-.. _mactech flat package article:
-    http://www.mactech.com/articles/mactech/Vol.26/26.02/TheFlatPackage/index.html
-.. _software delivery legacy guide:
-    https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/SoftwareDistribution4/Introduction/Introduction.html
-.. _distribution definition file:
-    https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Introduction.html#//apple_ref/doc/uid/TP40005370-CH1-SW1
+.. include:: links_names.inc

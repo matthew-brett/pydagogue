@@ -17,4 +17,5 @@ Contents:
    windows_dll_links
    booting_macs
    mac_runtime_link
+   flat_packages
    legacy_package_redux

@@ -1541,6 +1541,7 @@ tree to match the working tree for that commit.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git checkout master
 <span class="nv">$ </span>cat .git/HEAD
 ref: refs/heads/master
+Switched to branch <span class="s1">&#39;master&#39;</span>
 </pre></div>
 </div>
 <p>We&#8217;re back to the working tree as of the <tt class="docutils literal"><span class="pre">master</span></tt> branch;
@@ -1647,6 +1648,7 @@ file:</p>
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Changes in the trouble branch&quot;</span>
 <span class="o">[</span>trouble 0f83eb0<span class="o">]</span> Changes in the trouble branch
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
+Switched to branch <span class="s1">&#39;trouble&#39;</span>
 </pre></div>
 </div>
 <p>And now we go back to the master branch, where we change the <em>same</em>
@@ -1657,6 +1659,7 @@ file:</p>
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Mainline work&quot;</span>
 <span class="o">[</span>master cbf859e<span class="o">]</span> Mainline work
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
+Switched to branch <span class="s1">&#39;master&#39;</span>
 </pre></div>
 </div>
 <p>So now let&#8217;s see what happens if we try to merge the <tt class="docutils literal"><span class="pre">trouble</span></tt> branch
@@ -2322,6 +2325,8 @@ lines of development:</p>
 If we do that now, of course there is nothing to do:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git pull usb_backup master
 Already up-to-date.
+From /Volumes/my_usb_disk/nobel_prize
+ * branch            master     -&gt; FETCH_HEAD
 </pre></div>
 </div>
 <p>When you first start using git, I strongly recommend you always use an
@@ -2346,6 +2351,7 @@ branch to <tt class="docutils literal"><span class="pre">usb_backup</span> <span
 <p>We can set this up using the <tt class="docutils literal"><span class="pre">--set-upstream</span></tt> flag to <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt>.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git push usb_backup master --set-upstream
 Branch master <span class="nb">set </span>up to track remote branch master from usb_backup.
+Everything up-to-date
 </pre></div>
 </div>
 <p>Git then records this association in the <tt class="docutils literal"><span class="pre">.git/config</span></tt> file of the
@@ -2395,6 +2401,8 @@ Updating 68e572a..a465989
 Fast-forward
  nobel_prize_paper.txt | 1 +
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
+From /Volumes/my_usb_disk/nobel_prize
+   68e572a..a465989  master     -&gt; origin/master
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More convinced by networks.&quot;</span> &gt;&gt; nobel_prize_paper.txt
@@ -2408,6 +2416,8 @@ Fast-forward
 the remote for good measure:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git push origin master --set-upstream
 Branch master <span class="nb">set </span>up to track remote branch master from origin.
+To /Volumes/my_usb_disk/nobel_prize.git
+   a465989..5256d56  master -&gt; master
 </pre></div>
 </div>
 <p>Back to the work desktop to demonstrate &#8220;fetch&#8221; after we have done <tt class="docutils literal"><span class="pre">git</span>
