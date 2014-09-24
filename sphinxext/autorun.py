@@ -255,6 +255,7 @@ class AddVars(Directive, LangMixin, VarsMixin, LinksMixin):
     option_spec = {
         'runblock_vars': unchanged,
         'links_file': unchanged,
+        'omit_link': flag,
     }
 
     def run(self):
@@ -262,7 +263,8 @@ class AddVars(Directive, LangMixin, VarsMixin, LinksMixin):
         self.run_prepare()
         value = self.params.out.strip()
         self.add_var(name, value)
-        self.add_links({name: value})
+        if 'omit_link' not in self.options:
+            self.add_links({name: value})
         code = u'\n'.join(self.content)
         return [nodes.comment(code, code)]
 
