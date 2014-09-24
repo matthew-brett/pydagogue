@@ -11,6 +11,22 @@ Two and three dots with log
 
 .. _git-log-two-dots:
 
+********************
+Logging without dots
+********************
+
+Two dots is the default in ``git log``.  That is, if you do::
+
+    git log master topic
+
+what you'll get is the same as if you asked for::
+
+    git log master..topic
+
+So logging without dots is the same as :ref:`git-log-two-dots`.
+
+.. _git-log-two-dots:
+
 *********************
 Logging with two dots
 *********************
