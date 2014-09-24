@@ -1757,16 +1757,16 @@ version of ``nobel_prize_paper.txt``.
 
 .. depends on history
 
-.. prizevars:: buffing-fname
+.. prizevar:: buffing-fname
 
     commit={{ buffing }}
     echo \${commit:0:2}/\${commit:2}
 
-.. prizevars:: buffing-tree
+.. prizevar:: buffing-tree
 
     git log -1 --format="%T"
 
-.. prizevars:: buffing-tree-fname
+.. prizevar:: buffing-tree-fname
 
     tree={{ buffing-tree }}
     echo \${tree:0:2}/\${tree:2}
@@ -1775,11 +1775,11 @@ version of ``nobel_prize_paper.txt``.
 
     git cat-file -p {{ buffing-tree }}
 
-.. prizevars:: buffing-paper-obj
+.. prizevar:: buffing-paper-obj
 
     git cat-file -p {{ buffing-tree }} | grep nobel_prize | awk '{print \$3}'
 
-.. prizevars:: buffing-paper-obj-fname
+.. prizevar:: buffing-paper-obj-fname
 
     obj={{ buffing-paper-obj }}
     echo \${obj:0:2}/\${obj:2}

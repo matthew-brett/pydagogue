@@ -3,7 +3,7 @@
 Autorun directives with ``nobel_prize`` as the default directory
 """
 
-from autorun import RunBlock, AddVars, RunCommit
+from autorun import RunBlock, CmdAddVar, RunCommit
 from writefile import WriteFile
 
 class DesktopRun(RunBlock):
@@ -25,7 +25,7 @@ class PrizeCommit(RunCommit):
     default_cwd = 'nobel_prize'
 
 
-class PrizeVars(AddVars):
+class PrizeVar(CmdAddVar):
     default_cwd = 'nobel_prize'
 
 
@@ -49,7 +49,7 @@ def setup(app):
     app.add_directive('desktoprun', DesktopRun)
     app.add_directive('prizerun', PrizeRun)
     app.add_directive('prizecommit', PrizeCommit)
-    app.add_directive('prizevars', PrizeVars)
+    app.add_directive('prizevar', PrizeVar)
     app.add_directive('prizewrite', PrizeWrite)
     app.add_directive('laptoprun', LaptopRun)
     app.add_directive('prizelaprun', PrizeLapRun)

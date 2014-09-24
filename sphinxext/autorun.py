@@ -246,7 +246,7 @@ class LinksMixin(object):
         add_links(links, link_fname)
 
 
-class AddVars(Directive, LangMixin, VarsMixin, LinksMixin):
+class CmdAddVar(Directive, LangMixin, VarsMixin, LinksMixin):
     has_content = True
     required_arguments = 1
     optional_arguments = 1
@@ -306,7 +306,7 @@ export GIT_COMMITTER_DATE="{date}T{time}"
 def setup(app):
     app.add_directive('runblock', RunBlock)
     app.add_directive('runcommit', RunCommit)
-    app.add_directive('addvars', AddVars)
+    app.add_directive('cmdaddvar', CmdAddVar)
     app.connect('builder-inited', AutoRun.builder_init)
     app.add_config_value('autorun_languages', AutoRun.config, 'env')
 
