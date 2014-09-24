@@ -112,6 +112,7 @@ class LangMixin(VarsMixin):
     default_cwd = '/'
     default_exe_pre = ''
     default_exe_post = ''
+    default_home = None
 
     def run_prepare(self):
         p = _Params()
@@ -148,6 +149,11 @@ class LangMixin(VarsMixin):
         # Prepost, postpend extra code lines
         exe_pre = self.options.get('exe_pre', self.default_exe_pre)
         exe_post = self.options.get('exe_post', self.default_exe_post)
+        home = self.options.get('home', self.default_home)
+        # Get home directory
+        if not home is None:
+            _, home_dir = env.relfn2path(home)
+            exe_pre = '\n'.join(('export HOME=' + home_dir, exe_pre))
         exe_code = '\n'.join((exe_pre, p.exe_code, exe_post))
         # Do env substitution
         exe_code = subst_vars(exe_code, self._get_env_vars())
@@ -174,7 +180,8 @@ class RunBlock(Directive, LangMixin):
         'cwd': unchanged,
         'env_vars_name': unchanged,
         'exe_pre': unchanged,
-        'exe_post': unchanged
+        'exe_post': unchanged,
+        'home': unchanged,
     }
 
     def run(self):
