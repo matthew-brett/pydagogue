@@ -23,10 +23,13 @@ class WriteFile(Directive):
         'hide': flag,
         'cwd': unchanged,
         'file_prefix': unchanged,
+        'language': unchanged,
     }
 
     def run(self):
         env = self.state.document.settings.env
+        # Default language
+        language = self.options.get('language')
         # Build the file text
         cwd = self.options.get('cwd', self.default_cwd)
         # Get the filename
@@ -39,13 +42,18 @@ class WriteFile(Directive):
         file_content = u'\n'.join(self.content[1:]) + '\n'
         # Write the file
         if not fname_sphinx.startswith('/'):
-            fname_sphinx = cwd + '/' + fname_sphinx
+            if cwd == '/':
+                fname_sphinx = cwd + fname_sphinx
+            else:
+                fname_sphinx = cwd + '/' + fname_sphinx
         _, fname = env.relfn2path(fname_sphinx)
         with open(fname, 'wt') as fobj:
             fobj.write(file_content)
         if 'hide' in self.options:
             return [nodes.comment(page_content, page_content)]
         literal = nodes.literal_block(page_content, page_content)
+        if not language is None:
+            literal['language'] = language
         literal['linenos'] = 'linenos' in self.options
         return [literal]
 
