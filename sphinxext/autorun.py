@@ -42,7 +42,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import os
-from subprocess import Popen,PIPE
+from subprocess import Popen, PIPE
 import re
 
 from docutils import nodes
@@ -267,8 +267,43 @@ class AddVars(Directive, LangMixin, VarsMixin, LinksMixin):
         return [nodes.comment(code, code)]
 
 
+class RunCommit(RunBlock, LinksMixin):
+    """ Do a runblock with a commit in it somewhere """
+    required_arguments = 3 # name, date, time
+    option_spec = {
+        'linenos': flag,
+        'hide': flag,
+        'cwd': unchanged,
+        'links_file': unchanged,
+    }
+
+    def run(self):
+        name, date, time = self.arguments[0:3]
+        assert len(self.arguments) == 3 or self.arguments[3] == 'bash'
+        self.arguments[:] = []
+        env = self.state.document.settings.env
+        # Add lines setting git dates
+        self.default_exe_pre = \
+"""export GIT_AUTHOR_DATE="{date}T{time}"
+export GIT_COMMITTER_DATE="{date}T{time}"
+""".format(date=date, time=time)
+        # Execute code, return nodes to insert
+        nodes = RunBlock.run(self)
+        # Get git commit hash
+        _, cwd = env.relfn2path(self.options.get('cwd', self.default_cwd))
+        proc = Popen(['git', 'rev-parse', 'HEAD'], stdout=PIPE, cwd=cwd)
+        stdout, stderr = proc.communicate()
+        commit = stdout.decode(self.params.output_encoding).strip()
+        # Insert into names dict
+        self.add_var(name, commit)
+        # Write links
+        self.add_links({name: commit, name + '-7': commit[:7]})
+        return nodes
+
+
 def setup(app):
     app.add_directive('runblock', RunBlock)
+    app.add_directive('runcommit', RunCommit)
     app.add_directive('addvars', AddVars)
     app.connect('builder-inited', AutoRun.builder_init)
     app.add_config_value('autorun_languages', AutoRun.config, 'env')
