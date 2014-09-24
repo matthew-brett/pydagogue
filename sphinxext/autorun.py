@@ -113,6 +113,7 @@ class LangMixin(VarsMixin):
     default_exe_pre = ''
     default_exe_post = ''
     default_home = None
+    prompt_prefix = None
 
     def run_prepare(self):
         p = _Params()
@@ -133,7 +134,9 @@ class LangMixin(VarsMixin):
         p.output_encoding = config.get(language+'_output_encoding','ascii')
         p.prefix_chars = config.get(language+'_prefix_chars', 0)
         p.show_source = config.get(language+'_show_source', True)
-        p.prompt_prefix = config.get(language+'_prompt_prefix', '')
+        lang_prefix = config.get(language + '_prompt_prefix', '')
+        p.prompt_prefix = (lang_prefix if self.prompt_prefix is None
+                           else self.prompt_prefix)
         # Build the code text
         _, p.cwd = env.relfn2path(self.options.get('cwd', self.default_cwd))
         proc = Popen(args,
@@ -182,6 +185,7 @@ class RunBlock(Directive, LangMixin):
         'exe_pre': unchanged,
         'exe_post': unchanged,
         'home': unchanged,
+        'prompt_prefix': unchanged
     }
 
     def run(self):
