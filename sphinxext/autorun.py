@@ -169,7 +169,7 @@ class LangMixin(VarsMixin):
         if stderr:
             p.out += ''.join(stderr).decode(p.output_encoding)
         p.returncode = proc.returncode
-        return p
+        self.params = p
 
 
 class RunBlock(Directive, LangMixin):
@@ -189,7 +189,8 @@ class RunBlock(Directive, LangMixin):
     }
 
     def run(self):
-        params = self.run_prepare()
+        self.run_prepare()
+        params = self.params
         # Get the original code with prefixes
         if params.show_source:
             code = params.prompt_prefix + (
@@ -258,8 +259,8 @@ class AddVars(Directive, LangMixin, VarsMixin, LinksMixin):
 
     def run(self):
         name = self.arguments.pop(0)
-        params = self.run_prepare()
-        value = params.out.strip()
+        self.run_prepare()
+        value = self.params.out.strip()
         self.add_var(name, value)
         self.add_links({name: value})
         code = u'\n'.join(self.content)
