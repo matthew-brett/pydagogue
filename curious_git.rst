@@ -149,17 +149,15 @@ You can get this ground-breaking paper by downloading and unzipping
     :hide:
 
     # clean up old files from previous doc run
-    rm -rf nobel_prize my_repos
-    # Copy my git config aside because we're going to change it
-    mv ~/.gitconfig ~/.gitconfig.bak
+    rm -rf nobel_prize my_repos fake_home/.gitconfig
 
-.. runblock:: bash
+.. desktoprun:: bash
 
     unzip -o nobel_prize_files.zip
 
 Here's what we get in our ``nobel_prize`` directory:
 
-.. runblock::
+.. desktoprun::
 
     ls nobel_prize
 
@@ -204,7 +202,7 @@ somewhere safe.
 
 You make a directory to store the snapshots called ``.fancy_backups``:
 
-.. runblock:: bash
+.. desktoprun:: bash
 
     cd nobel_prize
 
@@ -481,7 +479,7 @@ data. The hash is a fixed length string that is the *signature* of that
 exact block of data.  One common hash function is called SHA1.  Let's run this
 via the command line:
 
-.. runblock::
+.. desktoprun::
 
     # Make a file with a single line of text
     echo "git is a rude word in UK English" > git_is_rude
@@ -501,7 +499,7 @@ different contents that will give the same hash.
 For example, a tiny change in the string makes the hash completely different.
 Here I've just added a full stop at the end:
 
-.. runblock::
+.. desktoprun::
 
     echo "git is a rude word in UK English." > git_is_rude_stop
     shasum git_is_rude_stop
@@ -797,7 +795,7 @@ git.  We start with the original files for the paper:
     rm -rf .
     rm -rf .fancy_backups
 
-.. runblock::
+.. desktoprun::
 
     unzip -o nobel_prize_files.zip
     cd nobel_prize
@@ -1591,7 +1589,7 @@ Make the empty backup repository
 
 Let's say your external disk is mounted at ``/Volumes/usb_disk``.
 
-.. runblock::
+.. desktoprun::
     :hide:
 
     rm -rf my_usb_disk
@@ -1600,14 +1598,14 @@ Let's say your external disk is mounted at ``/Volumes/usb_disk``.
 
 We make a new empty repository:
 
-.. runblock::
+.. desktoprun::
 
     git init --bare /Volumes/my_usb_disk/nobel_prize.git
 
 Notice the ``--bare`` flag.  This tells git to make a repository that does not
 have a working tree, but only the ``.git`` repository directory:
 
-.. runblock::
+.. desktoprun::
 
     ls /Volumes/my_usb_disk/nobel_prize.git
 
@@ -1642,7 +1640,7 @@ The list shows that we can both ``fetch`` and ``push`` to this repository, of
 which more later.
 
 The entire of the rest of the information about the remote is in the
-repository file config file |--| ``.git/config``:
+repository config file |--| ``.git/config``:
 
 .. prizerun::
 
@@ -1657,7 +1655,7 @@ remote ``usb_backup``.  The command to do this is ``git push``.
 Before we do the push, there are no objects in the ``.git/objects`` directory
 of the ``usb_backup`` backup repository:
 
-.. runblock::
+.. desktoprun::
 
     tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
 
@@ -1671,7 +1669,7 @@ This command tells git to take all the information necessary to reconstruct
 the history of the ``master`` branch, and send it to the remote repository.
 Sure enough, we now have files in ``.git/objects`` of the backup repository:
 
-.. runblock::
+.. desktoprun::
 
     tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
 
@@ -1682,7 +1680,7 @@ same commit as the master branch in the local repository:
 
     cat .git/refs/heads/master
 
-.. runblock::
+.. desktoprun::
 
     cat /Volumes/my_usb_disk/nobel_prize.git/refs/heads/master
 
@@ -1902,47 +1900,40 @@ Now we want a repository with a working tree.
 Maybe we make a directory for git repositories first:
 
 .. runblock::
+    :hide:
 
     mkdir my_repos
 
 The command we want now is ``git clone``:
 
-.. runblock::
+.. laptoprun::
 
-    cd my_repos
     git clone /Volumes/my_usb_disk/nobel_prize.git
 
 We have a full backup of the repository, including all the history:
 
-.. runblock::
-    :cwd: my_repos
+.. laptoprun::
 
     cd nobel_prize
     git slog
 
-git make a ``remote`` automatically for us, because it recorded where we cloned
-from.  The default name for a git remote is ``origin``:
+git made a ``remote`` automatically for us, because it recorded where we
+cloned from.  The default name for a git remote is ``origin``:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git remote -v
 
 Of course, just after the clone, the remote and the local copy are
 synchronized:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git branch -v -a
 
 Now we could make some commits.
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
-    :exe_pre: git_time=2012-04-01T20:13:31
-              export GIT_AUTHOR_DATE=\$git_time
-              export GIT_COMMITTER_DATE=\$git_time
+.. prizelapcommit:: wine-ideas 2012-04-01 20:13:31
 
     echo "The brain is a really big network." >> nobel_prize_paper.txt
     git add nobel_prize_paper.txt
@@ -1950,22 +1941,19 @@ Now we could make some commits.
 
 The local copy is now ahead of the remote:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git branch -v -a
 
-At the end of the night's work, we push back to the remote:
+At the end of the night's work, we push back to the remote on the USB disk:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git push origin master
 
 The local and remote are synchronized again:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git branch -v -a
 
@@ -2119,17 +2107,13 @@ Git also knows what to do if we do ``git fetch`` from this branch.
 To show this at work, we go home, fetch the desktop work, and then do another
 commit from the laptop:
 
-.. runblock::
+.. laptoprun::
 
-    cd my_repos/nobel_prize
+    cd nobel_prize
     git fetch origin
     git merge origin/master
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
-    :exe_pre: git_time=2012-04-02T22:13:31
-              export GIT_AUTHOR_DATE=\$git_time
-              export GIT_COMMITTER_DATE=\$git_time
+.. prizelapcommit:: convinced 2012-04-02 22:13:31
 
     echo "More convinced by networks." >> nobel_prize_paper.txt
     git add nobel_prize_paper.txt
@@ -2138,8 +2122,7 @@ commit from the laptop:
 Then push back to the USB disk, setting the link between the laptop branch and
 the remote for good measure:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git push origin master --set-upstream
 
@@ -2335,12 +2318,6 @@ the name):
 
 See the comments in both of those files for lots of extra functionality
 they offer.
-
-.. runblock::
-    :hide:
-
-    # Copy my git config back
-    cp ~/.gitconfig.bak ~/.gitconfig
 
 .. rubric:: Footnotes
 
