@@ -24,10 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="General computing" href="computing.html" />
-    <link rel="next" title="Developing on linux" href="develop_linux.html" />
-    <link rel="prev" title="Developing on windows" href="develop_windows.html" /> 
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,14 +33,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="develop_linux.html" title="Developing on linux"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="develop_windows.html" title="Developing on windows"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,179 +44,7 @@
             
   <div class="section" id="developing-on-mac">
 <h1>Developing on mac<a class="headerlink" href="#developing-on-mac" title="Permalink to this headline">¶</a></h1>
-<p>Sketch of the steps to get up and running on a mac to make binary releases for
-python packages.  This is my personal setup.</p>
-<p>Here&#8217;s a remarkably helpful short page on distinctive things about doing system
-and development work with Mac OSX binaries :
-<a class="reference external" href="http://www.tribler.org/trac/wiki/MacBinaries">http://www.tribler.org/trac/wiki/MacBinaries</a></p>
-<div class="section" id="my-systems">
-<h2>My systems<a class="headerlink" href="#my-systems" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Macbook air first generation running Snow Leopard. <tt class="docutils literal"><span class="pre">uname</span> <span class="pre">-a</span></tt> gives <tt class="docutils literal"><span class="pre">Darwin</span>
-<span class="pre">Kernel</span> <span class="pre">Version</span> <span class="pre">10.6.0</span></tt>.</li>
-</ul>
-</div>
-<div class="section" id="basic-setup">
-<h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p class="first"><a class="reference external" href="http://developer.apple.com/TOOLS/xcode">Xcode</a>, obviously</p>
-</li>
-<li><p class="first"><a class="reference external" href="http://git-scm.com">git</a> - see the <a class="reference external" href="http://help.github.com/mac-git-installation">github osx installation</a></p>
-</li>
-<li><p class="first">editor.  I like <a class="reference external" href="http://www.vim.org">vim</a> - via <a class="reference external" href="https://github.com/b4winckler/macvim">macvim</a></p>
-</li>
-<li><p class="first">For every python version you want to support, download the &#8220;Mac installer disk
-image&#8221; <tt class="docutils literal"><span class="pre">dmg</span></tt> file via the links from the <a class="reference external" href="http://www.python.org/download/releases">Python.org releases</a>.  Run the
-installation.</p>
-</li>
-<li><p class="first">Check in your <tt class="docutils literal"><span class="pre">~/.bash_profile</span></tt> to see what version of python will reach
-your path first.  Adapt to taste.  Python.org installs go in directories like
-<tt class="docutils literal"><span class="pre">/Library/Frameworks/Python.framework/Versions/2.6</span></tt>. You need this directory
-with <tt class="docutils literal"><span class="pre">/bin</span></tt> appended on your path.</p>
-</li>
-<li><p class="first">For each version of python you want to support:</p>
-<blockquote>
-<div><ul class="simple">
-<li>install <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a></li>
-<li>install <a class="reference external" href="http://sourceforge.net/projects/numpy/files">numpy</a></li>
-<li>install <a class="reference external" href="http://sourceforge.net/projects/scipy/files">scipy</a></li>
-</ul>
-</div></blockquote>
-</li>
-<li><p class="first">Install personal setup.  This is what that looks like for me (I store my set
-up on github to make it easier to move between computers):</p>
-<blockquote>
-<div><p>git clone <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:matthew-brett/myconfig.git
-cd myconfig
-make dotfiles
-cd ..</p>
-</div></blockquote>
-<p>I then edit <tt class="docutils literal"><span class="pre">~/.bash_profile</span></tt> to add the commented lines at the top of your new
-<tt class="docutils literal"><span class="pre">~/.bash_personal</span></tt> file.  Finally I set up my configuration of <tt class="docutils literal"><span class="pre">vim</span></tt>:</p>
-<blockquote>
-<div><p>git clone <a class="reference external" href="mailto:git&#37;&#52;&#48;github&#46;com">git<span>&#64;</span>github<span>&#46;</span>com</a>:matthew-brett/myvim.git
-cd myvim
-make
-make links</p>
-</div></blockquote>
-</li>
-<li><p class="first">For your favorite python version, install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a></p>
-</li>
-<li><p class="first">If you are using my config (above), you probably want my default environment
-cleanup for virtualenvs:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd myconfig
-make virtualenvs
-</pre></div>
-</div>
-</li>
-<li><p class="first">Make some good virtualenvs, with commands like:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.5/bin/python python25
-mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.6/bin/python python26
-mkvirtualenv --python=/Library/Frameworks/Python.framework/Versions/2.7/bin/python python27
-</pre></div>
-</div>
-<p>If you have to do something really bare, consider the <tt class="docutils literal"><span class="pre">no-site-packages</span></tt>
-flag to the <tt class="docutils literal"><span class="pre">mkvirtualenv</span></tt> command.</p>
-</li>
-<li><p class="first">For each virtualenv you&#8217;re going to use (to taste):</p>
-<div class="highlight-python"><div class="highlight"><pre>workon python25
-easy_install ipython
-</pre></div>
-</div>
-<p>Maybe also (this is for dipy and nipy installs):</p>
-<div class="highlight-python"><div class="highlight"><pre>easy_install nibabel
-easy_install cython
-</pre></div>
-</div>
-</li>
-<li><p class="first">For packaging, download and unpack the source distribution for <a class="reference external" href="http://pypi.python.org/pypi/bdist_mpkg">bdist_mpkg</a>.
-It looks as though the main package has gone cold, but Ralf Gommers <a class="reference external" href="https://github.com/rgommers/bdist_mpkg">cloned
-bdist_mpkg</a> on github.</p>
-</li>
-</ul>
-</div>
-<div class="section" id="building-windows-release-files-with-wine">
-<h2>Building windows release files with wine<a class="headerlink" href="#building-windows-release-files-with-wine" title="Permalink to this headline">¶</a></h2>
-<p>This trick comes to you courtesy of the numpy release managers - see the <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_RELEASE.rst.txt">numpy
-release howto</a>.  The suggestion in that howto, as of February 2010 - was to use
-the <a class="reference external" href="http://code.google.com/p/osxwinebuilder/">OSX wine builder</a> scripts. I&#8217;m using revision 107 of this script.
-Eventually I used this incantation:</p>
-<div class="highlight-python"><div class="highlight"><pre>./osxwinebuild.sh --devel
-</pre></div>
-</div>
-<p>for something that more or less worked - as below.  With this option we get wine
-1.3.13.  Without the <tt class="docutils literal"><span class="pre">--devel</span></tt> option, we get wine 1.2.2 - this crashed for me
-when trying to build some extension modules.  I also tried following the
-instructions on the <a class="reference external" href="http://wiki.winehq.org/MacOSX/Building">Wine HQ OSX building</a> page for a minimal up to date build
-using git SHA1 commit hash <tt class="docutils literal"><span class="pre">9e6de30f8feb8eb0a5fbbfd88f34c7358f7d6e6b</span></tt>.  This
-worked OK but I went back to the full <tt class="docutils literal"><span class="pre">osxwinebuild.sh</span> <span class="pre">--devel</span></tt> version
-because it was annoying to have bad fonts and font warnings from the bare build.</p>
-<p>After installing with <tt class="docutils literal"><span class="pre">osxwinebuild.sh</span></tt>, source the suggested environment
-variables, and then maybe you&#8217;ll have a working system ahead of you - as below.</p>
-<p>Thence, download the python windows binary <tt class="docutils literal"><span class="pre">msi</span></tt> installers and:</p>
-<div class="highlight-python"><div class="highlight"><pre>msiexec /i python-2.7.1.msi
-msiexec /i python-2.6.6.msi
-msiexec /i python-2.5.4.msi
-</pre></div>
-</div>
-<p>I then installed setuptools for each python:</p>
-<div class="highlight-python"><div class="highlight"><pre>wine setuptools-0.6c11.win32-py2.7.exe
-wine setuptools-0.6c11.win32-py2.6.exe
-wine setuptools-0.6c11.win32-py2.5.exe
-</pre></div>
-</div>
-<p>Then the <a class="reference external" href="http://www.mingw.org/wiki/Getting_Started">mingw</a> tools:</p>
-<div class="highlight-python"><div class="highlight"><pre>wine mingw-get-inst-20110211.exe
-</pre></div>
-</div>
-<p>I selected to install the <a class="reference external" href="http://www.mingw.org/wiki/Getting_Started">mingw</a> development tools - these include the <a class="reference external" href="http://www.mingw.org/wiki/MSYS">Msys</a>
-minimal development system.</p>
-<p>Similarly numpy and scipy for each version of python:</p>
-<div class="highlight-python"><div class="highlight"><pre>wine numpy-1.5.1-win32-superpack-python2.7.exe
-wine numpy-1.5.1-win32-superpack-python2.6.exe
-wine numpy-1.5.1-win32-superpack-python2.5.exe
-wine scipy-0.9.0rc2-win32-superpack-python2.7.exe
-wine scipy-0.8.0-win32-superpack-python2.6.exe
-wine scipy-0.8.0-win32-superpack-python2.5.exe
-</pre></div>
-</div>
-<p>I used scipy 0.9.0rc2 because it was the closest to a released version that
-worked with python 2.7 at the time (Feb 2011).</p>
-<p>I put python 2.6 (my current favorite) on the path by:</p>
-<div class="highlight-python"><div class="highlight"><pre>wine regedit
-</pre></div>
-</div>
-<p>then adding string values for <tt class="docutils literal"><span class="pre">PATH</span></tt> in <tt class="docutils literal"><span class="pre">HKEY_CURRENT_USER/Environment</span></tt> - as
-suggested in the <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_RELEASE.rst.txt">numpy release howto</a>.  Actually, I also added the mingw tools
-to the path, so my <tt class="docutils literal"><span class="pre">HKEY_CURRENT_USER/Enviromnment/PATH</span></tt> string value is:</p>
-<div class="highlight-python"><div class="highlight"><pre>c:\Python26;C:\Python26\Scripts;C:\mingw\bin;C:\mingw\msys\1.0\bin
-</pre></div>
-</div>
-<p>I also set <tt class="docutils literal"><span class="pre">HKEY_CURRENT_USER/Enviromnment/HOME</span></tt> to <tt class="docutils literal"><span class="pre">C:\users\mb312</span></tt> (where
-<tt class="docutils literal"><span class="pre">mb312</span></tt> is my username).</p>
-<p>Now, you may be as lucky as me, and this:</p>
-<div class="highlight-python"><div class="highlight"><pre>wineconsole bash
-</pre></div>
-</div>
-<p>gives you a perfectly reasonable bash shell operating in a windows-like
-environment.  It&#8217;s a little bit flaky, but for example, I can build python
-installers with <tt class="docutils literal"><span class="pre">wineconsole</span> <span class="pre">bash</span></tt> followed by:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd package_dir
-python setup.py bdist_egg
-</pre></div>
-</div>
-<p>or similar.  You will probably also need to tell distutils to use the
-instructions at <a class="reference internal" href="develop_windows.html#win-compile-tools"><em>Windows compiler and build tools</em></a>.</p>
-<p>I was also using virtualenvs.  In wineconsole bash:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd /c/
-mkdir virtualenvs
-cd virtualenvs
-easy_install virtualenvs
-virtualenv python27 --python=C:\\Python27\\python.exe
-</pre></div>
-</div>
-<p>and so on.</p>
-</div>
+<p>This page has moved to <a class="reference external" href="http://github.com/matthew-brett/docosx/develop_mac.html">developing on Mac</a>.  Please update your links.</p>
 </div>
 
 
@@ -235,22 +53,6 @@ virtualenv python27 --python=C:\\Python27\\python.exe
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Developing on mac</a><ul>
-<li><a class="reference internal" href="#my-systems">My systems</a></li>
-<li><a class="reference internal" href="#basic-setup">Basic setup</a></li>
-<li><a class="reference internal" href="#building-windows-release-files-with-wine">Building windows release files with wine</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="develop_windows.html"
-                        title="previous chapter">Developing on windows</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="develop_linux.html"
-                        title="next chapter">Developing on linux</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/develop_mac.txt"
@@ -279,14 +81,7 @@ virtualenv python27 --python=C:\\Python27\\python.exe
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="develop_linux.html" title="Developing on linux"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="develop_windows.html" title="Developing on windows"
-             >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
