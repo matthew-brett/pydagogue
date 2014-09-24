@@ -53,7 +53,17 @@
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
 
+.. Friend pages
+.. _docosx: http://github.com/matthew-brett/docosx
+.. _developing on mac: http://github.com/matthew-brett/docosx/develop_mac.html
+.. _booting macs: http://github.com/matthew-brett/docosx/booting_macs.html
+.. _runtime linking on Mac:
+    http://github.com/matthew-brett/docosx/mac_runtime_link.html
+.. _osx legacy packaging redux:
+    http://github.com/matthew-brett/docosx/osx_legacy_package_redux.html
+
 .. Substitutions
+.. |docosx| replace:: http://github.com/matthew-brett/docosx
 .. |emdash| unicode:: U+02014
 .. |--| unicode:: U+2013   .. en dash
 .. |---| unicode:: U+2014  .. em dash, trimming surrounding whitespace

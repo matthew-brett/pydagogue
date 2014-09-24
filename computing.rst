@@ -11,10 +11,10 @@ Contents:
    floating_point
    floating_error
    develop_windows
-   develop_mac
    develop_linux
    bare_metal_waf
    windows_dll_links
-   booting_macs
-   mac_runtime_link
-   legacy_package_redux
+
+You might also be interested on my `docosx`_ pages about developing on OSX.
+
+.. include:: links_names.inc

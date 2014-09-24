@@ -18,6 +18,8 @@ Contents:
     git
     computing
 
+You might also be interested on my `docosx`_ pages about developing on OSX.
+
 Indices and tables
 ==================
 
