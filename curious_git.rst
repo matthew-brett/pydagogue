@@ -1587,30 +1587,34 @@ To do this you need three steps:
 Make the empty backup repository
 --------------------------------
 
-Let's say your external disk is mounted at ``/Volumes/usb_disk``.
+.. cmdaddvar:: usb_mountpoint
+    :var_type: render
 
-.. desktoprun::
-    :hide:
+    echo "/Volumes/my_usb_disk"
 
-    rm -rf my_usb_disk
-    mkdir my_usb_disk
-    ln -sf \$PWD/my_usb_disk /Volumes/my_usb_disk
+.. cmdaddvar:: usb_mountpoint
+    :var_type: run
+    :omit_link:
+
+    echo "\$PWD/my_repos"
+
+Let's say your external disk is mounted at |usb_mountpoint|.
 
 We make a new empty repository:
 
 .. desktoprun::
 
-    git init --bare /Volumes/my_usb_disk/nobel_prize.git
+    git init --bare {{ usb_mountpoint }}/nobel_prize.git
 
 Notice the ``--bare`` flag.  This tells git to make a repository that does not
 have a working tree, but only the ``.git`` repository directory:
 
 .. desktoprun::
 
-    ls /Volumes/my_usb_disk/nobel_prize.git
+    ls {{ usb_mountpoint }}/nobel_prize.git
 
 This is what we want in this case, because we will not ever want to edit the
-files in the ``/Volumes/my_usb_disk/nobel_prize.git`` backup
+files in the |usb_mountpoint| backup
 repository, we will only be editing files in our local ``nobel_prize``
 directory, committing those changes locally (as we have done above), and then
 "pushing" these changes to the backup repository [#bare-detail]_.
@@ -1628,7 +1632,7 @@ Add a remote.  A remote is a link to another repository.
 
 .. prizerun::
 
-    git remote add usb_backup /Volumes/my_usb_disk/nobel_prize.git
+    git remote add usb_backup {{ usb_mountpoint }}/nobel_prize.git
 
 List the remotes:
 
@@ -1657,7 +1661,7 @@ of the ``usb_backup`` backup repository:
 
 .. desktoprun::
 
-    tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
+    tree -a {{ usb_mountpoint }}/nobel_prize.git/objects
 
 Then we push:
 
@@ -1671,7 +1675,7 @@ Sure enough, we now have files in ``.git/objects`` of the backup repository:
 
 .. desktoprun::
 
-    tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
+    tree -a {{ usb_mountpoint }}/nobel_prize.git/objects
 
 You'll see that the 'master' branch in the backup repository now points to the
 same commit as the master branch in the local repository:
@@ -1682,7 +1686,7 @@ same commit as the master branch in the local repository:
 
 .. desktoprun::
 
-    cat /Volumes/my_usb_disk/nobel_prize.git/refs/heads/master
+    cat {{ usb_mountpoint }}/nobel_prize.git/refs/heads/master
 
 The local repository has a copy of the last known position of the master
 branch in the remote repository.
@@ -1797,7 +1801,7 @@ done a ``push``):
 
 .. prizerun::
 
-    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize.git/objects
+    REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
     ls \$REMOTE_OBJECTS/{{ buffing-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
@@ -1818,7 +1822,7 @@ We do have the new objects in the remote repository:
 
 .. prizerun::
 
-    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize.git/objects
+    REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
     ls \$REMOTE_OBJECTS/{{ buffing-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
@@ -1893,7 +1897,7 @@ trusty bus back to our trusty house.
 Now we want to start work on the paper.
 
 We plug the hard drive into the laptop, it gets mounted again at
-``/Volumes/my_usb_disk``
+|usb_mountpoint|.
 
 Now we want a repository with a working tree.
 
@@ -1908,7 +1912,7 @@ The command we want now is ``git clone``:
 
 .. laptoprun::
 
-    git clone /Volumes/my_usb_disk/nobel_prize.git
+    git clone {{ usb_mountpoint }}/nobel_prize.git
 
 We have a full backup of the repository, including all the history:
 
@@ -2177,14 +2181,6 @@ Git: are you ready?
 If you followed this tutorial, you now have a good knowledge of how git works.
 This will make it much easier to understand why git commands do what they do,
 and what to do when things go wrong.
-
-.. cleanup
-
-.. runblock::
-    :hide:
-
-    rm -rf my_usb_disk
-    rm -rf /Volumes/my_usb_disk
 
 *************
 Git resources

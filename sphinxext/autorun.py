@@ -90,18 +90,27 @@ class VarsMixin(object):
     def env_vars_name(self):
         return self.options.get('env_vars_name', self.default_env_vars_name)
 
-    def _get_env_vars(self):
+    @property
+    def env_vars(self):
         env = self.state.document.settings.env
-        return getattr(env, self.env_vars_name, {})
+        if not hasattr(env, self.env_vars_name):
+            setattr(env,
+                    self.env_vars_name,
+                    dict(common = {},
+                         run = {},
+                         render = {}))
+        return getattr(env, self.env_vars_name)
 
-    def _set_env_vars(self, env_vars):
-        env = self.state.document.settings.env
-        return setattr(env, self.env_vars_name, env_vars)
+    def add_typed_var(self, name, value, var_type):
+        self.env_vars[var_type][name] = value
 
-    def add_var(self, name, value):
-        vars = self._get_env_vars()
-        vars[name] = value
-        self._set_env_vars(vars)
+    def get_typed_vars(self, var_type):
+        out = self.env_vars['common'].copy()
+        if var_type in ('run', 'render'):
+            out.update(self.env_vars[var_type])
+        elif not var_type == 'common':
+            raise ValueError('var_type should be in {common, run, render}')
+        return out
 
 
 class _Params(object):
@@ -159,7 +168,7 @@ class LangMixin(VarsMixin):
             exe_pre = '\n'.join(('export HOME=' + home_dir, exe_pre))
         exe_code = '\n'.join((exe_pre, p.exe_code, exe_post))
         # Do env substitution
-        exe_code = subst_vars(exe_code, self._get_env_vars())
+        exe_code = subst_vars(exe_code, self.get_typed_vars('run'))
         # Run the code
         stdout, stderr = proc.communicate(exe_code)
         # Process output
@@ -199,7 +208,7 @@ class RunBlock(Directive, LangMixin):
             code = ''
         code_out = u'\n'.join((code, params.out))
         # Do env substitution
-        code_out = subst_vars(code_out, self._get_env_vars())
+        code_out = subst_vars(code_out, self.get_typed_vars('render'))
         # Make nodes
         if 'hide' in self.options:
             return [nodes.comment(code_out, code_out)]
@@ -256,13 +265,15 @@ class CmdAddVar(Directive, LangMixin, VarsMixin, LinksMixin):
         'runblock_vars': unchanged,
         'links_file': unchanged,
         'omit_link': flag,
+        'var_type': unchanged
     }
 
     def run(self):
         name = self.arguments.pop(0)
         self.run_prepare()
         value = self.params.out.strip()
-        self.add_var(name, value)
+        var_type = self.options.get('var_type', 'common')
+        self.add_typed_var(name, value, var_type)
         if 'omit_link' not in self.options:
             self.add_links({name: value})
         code = u'\n'.join(self.content)
@@ -297,7 +308,7 @@ export GIT_COMMITTER_DATE="{date}T{time}"
         stdout, stderr = proc.communicate()
         commit = stdout.decode(self.params.output_encoding).strip()
         # Insert into names dict
-        self.add_var(name, commit)
+        self.add_typed_var(name, commit, 'common')
         # Write links
         self.add_links({name: commit, name + '-7': commit[:7]})
         return nodes
