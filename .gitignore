@@ -3,6 +3,7 @@
 *.pyc
 _build/
 nobel_prize/
+my_repos/
 git_is_rude
 git_is_rude_stop
 git_example/
