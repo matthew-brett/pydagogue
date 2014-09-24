@@ -47,11 +47,11 @@ gradually builds up from copying whole directories of files to something very
 much like git.  I didn't understand it all right away, but as soon as I read
 that page, the light-bulb went on - I got git.  I suddenly started to feel
 comfortable.  I knew for sure I could work out why git worked the way it did.
-I could see that it must be possible how to do complicated and powerful
+I could see that it must be possible to do complicated and powerful
 things, and I could work out how to do them.
 
 Reading the git parable took me about 45 minutes, but those 45 minutes changed
-me from an unhappy git user to the man you see before you today, someone who
+me from an unhappy git user to someone who
 uses git often every day, but, happily, knowing that I have the right tool for
 the job.
 
@@ -85,6 +85,9 @@ website.
     I’ve made this discussion the last chapter in the book so you could read
     it early or later in your learning process. I leave it up to you to
     decide.
+
+.. comment yoh -- below you demand an hour while above only 45
+           minutes.  Do not raise stakes! ;-)
 
 So - have no truck with people who try and tell you that you can just use git
 and that you don't need the `deep shit
@@ -314,8 +317,12 @@ You look in ``.fancy_backups/4/info.txt`` and it says::
     Author: I. M. Awesome
     Notes: I always get the best ideas after I have been drinking.
 
-Aha. Then you go find the problem in
-``fancy_backups/4/very_clever_analysis.py``.
+Aha. Then you go find the problem in ``very_clever_analysis.py`` very
+quickly since instead of eyeballing the entire script you need to
+inspect only the difference between
+``fancy_backups/3/very_clever_analysis.py`` and
+``fancy_backups/4/very_clever_analysis.py`` to find the not so
+ingenious *optimization* you have introduced.
 
 You fix ``very_clever_analysis.py``.
 
@@ -327,7 +334,7 @@ You make a new snapshot ``.fancy_backups/6``.
     # Cheat again
     cp -r .fancy_backups/3 .fancy_backups/6
 
-Back on track for a scientific breakthrough
+Back on track for a scientific breakthrough.
 
 Terminology breakout
 ====================
@@ -374,9 +381,9 @@ How can I do that?
 The staging area
 ================
 
-You adapt the workflow. Each time you do a commit, you copy the contents of
+You adapt the workflow. Each time you have done a commit, you copy the contents of
 the commit to directory ``.fancy_backups/staging_area``. That will be the
-default contents of your next commit.
+default contents to be considered for your next commit.
 
 .. prizerun::
 
@@ -454,7 +461,8 @@ Now the very difficult problem
 
 Let's say that the figure ``stunning_figure.png`` is large.
 
-Let's say it changes only once across our 8 commits, at commit 5.
+Let's say it changes only once across our 8 commits, at commit 5, but
+we keep copying it again and again to new commits.
 
 What should we do to save disk space for ``.fancy_backups``?
 
@@ -710,7 +718,7 @@ Linking the commits
 Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``
 -----------------------------------------------------------------------
 
-The reason for our commit names "1","2", "3" was so we know that commit "2"
+The reason for our commit names "1", "2", "3" was so we know that commit "2"
 comes after commit "1" and before commit "3". Now our commits have filenames
 with arbitrary hashes, we can't tell the order from the name.
 
@@ -877,7 +885,7 @@ The working tree is the ``nobel_prize`` directory.  It now contains a
 repository |--| the ``.git`` directory.
 
 ``git status`` tells us about the relationship of the files in the working
-tree to the repository.
+tree to the repository and staging area.
 
 We have done a ``git add`` on ``nobel_prize_paper.txt``, and that added the
 file to the staging area.  We can see that with ``git status``:
@@ -1057,7 +1065,7 @@ is:
 
 and repeat, and repeat.
 
-For example, we have now done some work in the working tree
+For example, we have now done some work in the working tree.
 
 We first check what changes there are that we might want to commit:
 
@@ -2180,8 +2188,8 @@ The commands complete the typical daily git toolkit of an experienced user:
 
 See :doc:`rebase_without_tears` for a tutorial on ``rebase``.
 
-Git: are youready?
-==================
+Git: are you ready?
+===================
 
 If you followed this tutorial, you now have a good knowledge of how git works.
 This will make it much easier to understand why git commands do what they do,
@@ -2350,7 +2358,7 @@ they offer.
 .. [#bare-detail] The reason we need a bare repository for our backup goes
    deeper than the fact we do not need a working tree.  We are soon going to
    do a ``push`` to this backup repository.  The ``push`` has the effect of
-   reseting the position of a branch (usually ``master``) in the backup repo.
+   resetting the position of a branch (usually ``master``) in the backup repo.
    Git is very reluctant to set a branch position in a repository with a
    working tree, because it the new branch position will not not match the
    current content of the working tree.  Git could either leave it like this,
