@@ -154,12 +154,11 @@ class LangMixin(VarsMixin):
         # Run the code
         stdout, stderr = proc.communicate(exe_code)
         # Process output
+        p.out = ''
         if stdout:
-            p.out = ''.join(stdout).decode(p.output_encoding)
-        elif stderr:
-            p.out = ''.join(stderr).decode(p.output_encoding)
-        else:
-            p.out = ''
+            p.out += ''.join(stdout).decode(p.output_encoding)
+        if stderr:
+            p.out += ''.join(stderr).decode(p.output_encoding)
         p.returncode = proc.returncode
         return p
 
