@@ -59,6 +59,18 @@
 <p class="last">Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> - see <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a> and
 <a class="reference internal" href="pain_in_dots.html#pain-in-dots"><em>Pain in the dots</em></a></p>
 </div>
+<div class="section" id="logging-without-dots">
+<h2>Logging without dots<a class="headerlink" href="#logging-without-dots" title="Permalink to this headline">¶</a></h2>
+<p>Two dots is the default in <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt>.  That is, if you do:</p>
+<div class="highlight-python"><div class="highlight"><pre>git log master topic
+</pre></div>
+</div>
+<p>what you&#8217;ll get is the same as if you asked for:</p>
+<div class="highlight-python"><div class="highlight"><pre>git log master..topic
+</pre></div>
+</div>
+<p>So logging without dots is the same as <a class="reference internal" href="#git-log-two-dots"><em>Logging with two dots</em></a>.</p>
+</div>
 <div class="section" id="logging-with-two-dots">
 <span id="git-log-two-dots"></span><h2>Logging with two dots<a class="headerlink" href="#logging-with-two-dots" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s say you asked for this:</p>
@@ -151,6 +163,7 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Two and three dots with log</a><ul>
+<li><a class="reference internal" href="#logging-without-dots">Logging without dots</a></li>
 <li><a class="reference internal" href="#logging-with-two-dots">Logging with two dots</a></li>
 <li><a class="reference internal" href="#logging-with-three-dots">Logging with three dots</a></li>
 </ul>

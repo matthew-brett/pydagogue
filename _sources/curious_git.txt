@@ -47,11 +47,11 @@ gradually builds up from copying whole directories of files to something very
 much like git.  I didn't understand it all right away, but as soon as I read
 that page, the light-bulb went on - I got git.  I suddenly started to feel
 comfortable.  I knew for sure I could work out why git worked the way it did.
-I could see that it must be possible how to do complicated and powerful
+I could see that it must be possible to do complicated and powerful
 things, and I could work out how to do them.
 
 Reading the git parable took me about 45 minutes, but those 45 minutes changed
-me from an unhappy git user to the man you see before you today, someone who
+me from an unhappy git user to someone who
 uses git often every day, but, happily, knowing that I have the right tool for
 the job.
 
@@ -85,6 +85,9 @@ website.
     I’ve made this discussion the last chapter in the book so you could read
     it early or later in your learning process. I leave it up to you to
     decide.
+
+.. comment yoh -- below you demand an hour while above only 45
+           minutes.  Do not raise stakes! ;-)
 
 So - have no truck with people who try and tell you that you can just use git
 and that you don't need the `deep shit
@@ -146,17 +149,15 @@ You can get this ground-breaking paper by downloading and unzipping
     :hide:
 
     # clean up old files from previous doc run
-    rm -rf nobel_prize my_repos
-    # Copy my git config aside because we're going to change it
-    mv ~/.gitconfig ~/.gitconfig.bak
+    rm -rf nobel_prize my_repos fake_home/.gitconfig
 
-.. runblock:: bash
+.. desktoprun:: bash
 
     unzip -o nobel_prize_files.zip
 
 Here's what we get in our ``nobel_prize`` directory:
 
-.. runblock::
+.. desktoprun::
 
     ls nobel_prize
 
@@ -201,7 +202,7 @@ somewhere safe.
 
 You make a directory to store the snapshots called ``.fancy_backups``:
 
-.. runblock:: bash
+.. desktoprun:: bash
 
     cd nobel_prize
 
@@ -314,8 +315,12 @@ You look in ``.fancy_backups/4/info.txt`` and it says::
     Author: I. M. Awesome
     Notes: I always get the best ideas after I have been drinking.
 
-Aha. Then you go find the problem in
-``fancy_backups/4/very_clever_analysis.py``.
+Aha. Then you go find the problem in ``very_clever_analysis.py`` very
+quickly since instead of eyeballing the entire script you need to
+inspect only the difference between
+``fancy_backups/3/very_clever_analysis.py`` and
+``fancy_backups/4/very_clever_analysis.py`` to find the not so
+ingenious *optimization* you have introduced.
 
 You fix ``very_clever_analysis.py``.
 
@@ -327,7 +332,7 @@ You make a new snapshot ``.fancy_backups/6``.
     # Cheat again
     cp -r .fancy_backups/3 .fancy_backups/6
 
-Back on track for a scientific breakthrough
+Back on track for a scientific breakthrough.
 
 Terminology breakout
 ====================
@@ -374,9 +379,9 @@ How can I do that?
 The staging area
 ================
 
-You adapt the workflow. Each time you do a commit, you copy the contents of
+You adapt the workflow. Each time you have done a commit, you copy the contents of
 the commit to directory ``.fancy_backups/staging_area``. That will be the
-default contents of your next commit.
+default contents to be considered for your next commit.
 
 .. prizerun::
 
@@ -454,7 +459,8 @@ Now the very difficult problem
 
 Let's say that the figure ``stunning_figure.png`` is large.
 
-Let's say it changes only once across our 8 commits, at commit 5.
+Let's say it changes only once across our 8 commits, at commit 5, but
+we keep copying it again and again to new commits.
 
 What should we do to save disk space for ``.fancy_backups``?
 
@@ -473,7 +479,7 @@ data. The hash is a fixed length string that is the *signature* of that
 exact block of data.  One common hash function is called SHA1.  Let's run this
 via the command line:
 
-.. runblock::
+.. desktoprun::
 
     # Make a file with a single line of text
     echo "git is a rude word in UK English" > git_is_rude
@@ -493,7 +499,7 @@ different contents that will give the same hash.
 For example, a tiny change in the string makes the hash completely different.
 Here I've just added a full stop at the end:
 
-.. runblock::
+.. desktoprun::
 
     echo "git is a rude word in UK English." > git_is_rude_stop
     shasum git_is_rude_stop
@@ -710,7 +716,7 @@ Linking the commits
 Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``
 -----------------------------------------------------------------------
 
-The reason for our commit names "1","2", "3" was so we know that commit "2"
+The reason for our commit names "1", "2", "3" was so we know that commit "2"
 comes after commit "1" and before commit "3". Now our commits have filenames
 with arbitrary hashes, we can't tell the order from the name.
 
@@ -789,7 +795,7 @@ git.  We start with the original files for the paper:
     rm -rf .
     rm -rf .fancy_backups
 
-.. runblock::
+.. desktoprun::
 
     unzip -o nobel_prize_files.zip
     cd nobel_prize
@@ -877,7 +883,7 @@ The working tree is the ``nobel_prize`` directory.  It now contains a
 repository |--| the ``.git`` directory.
 
 ``git status`` tells us about the relationship of the files in the working
-tree to the repository.
+tree to the repository and staging area.
 
 We have done a ``git add`` on ``nobel_prize_paper.txt``, and that added the
 file to the staging area.  We can see that with ``git status``:
@@ -1057,7 +1063,7 @@ is:
 
 and repeat, and repeat.
 
-For example, we have now done some work in the working tree
+For example, we have now done some work in the working tree.
 
 We first check what changes there are that we might want to commit:
 
@@ -1581,30 +1587,34 @@ To do this you need three steps:
 Make the empty backup repository
 --------------------------------
 
-Let's say your external disk is mounted at ``/Volumes/usb_disk``.
+.. cmdaddvar:: usb_mountpoint
+    :var_type: render
 
-.. runblock::
-    :hide:
+    echo "/Volumes/my_usb_disk"
 
-    rm -rf my_usb_disk
-    mkdir my_usb_disk
-    ln -sf \$PWD/my_usb_disk /Volumes/my_usb_disk
+.. cmdaddvar:: usb_mountpoint
+    :var_type: run
+    :omit_link:
+
+    echo "\$PWD/my_repos"
+
+Let's say your external disk is mounted at |usb_mountpoint|.
 
 We make a new empty repository:
 
-.. runblock::
+.. desktoprun::
 
-    git init --bare /Volumes/my_usb_disk/nobel_prize.git
+    git init --bare {{ usb_mountpoint }}/nobel_prize.git
 
 Notice the ``--bare`` flag.  This tells git to make a repository that does not
 have a working tree, but only the ``.git`` repository directory:
 
-.. runblock::
+.. desktoprun::
 
-    ls /Volumes/my_usb_disk/nobel_prize.git
+    ls {{ usb_mountpoint }}/nobel_prize.git
 
 This is what we want in this case, because we will not ever want to edit the
-files in the ``/Volumes/my_usb_disk/nobel_prize.git`` backup
+files in the |usb_mountpoint| backup
 repository, we will only be editing files in our local ``nobel_prize``
 directory, committing those changes locally (as we have done above), and then
 "pushing" these changes to the backup repository [#bare-detail]_.
@@ -1622,7 +1632,7 @@ Add a remote.  A remote is a link to another repository.
 
 .. prizerun::
 
-    git remote add usb_backup /Volumes/my_usb_disk/nobel_prize.git
+    git remote add usb_backup {{ usb_mountpoint }}/nobel_prize.git
 
 List the remotes:
 
@@ -1634,7 +1644,7 @@ The list shows that we can both ``fetch`` and ``push`` to this repository, of
 which more later.
 
 The entire of the rest of the information about the remote is in the
-repository file config file |--| ``.git/config``:
+repository config file |--| ``.git/config``:
 
 .. prizerun::
 
@@ -1649,9 +1659,9 @@ remote ``usb_backup``.  The command to do this is ``git push``.
 Before we do the push, there are no objects in the ``.git/objects`` directory
 of the ``usb_backup`` backup repository:
 
-.. runblock::
+.. desktoprun::
 
-    tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
+    tree -a {{ usb_mountpoint }}/nobel_prize.git/objects
 
 Then we push:
 
@@ -1663,9 +1673,9 @@ This command tells git to take all the information necessary to reconstruct
 the history of the ``master`` branch, and send it to the remote repository.
 Sure enough, we now have files in ``.git/objects`` of the backup repository:
 
-.. runblock::
+.. desktoprun::
 
-    tree -a /Volumes/my_usb_disk/nobel_prize.git/objects
+    tree -a {{ usb_mountpoint }}/nobel_prize.git/objects
 
 You'll see that the 'master' branch in the backup repository now points to the
 same commit as the master branch in the local repository:
@@ -1674,9 +1684,9 @@ same commit as the master branch in the local repository:
 
     cat .git/refs/heads/master
 
-.. runblock::
+.. desktoprun::
 
-    cat /Volumes/my_usb_disk/nobel_prize.git/refs/heads/master
+    cat {{ usb_mountpoint }}/nobel_prize.git/refs/heads/master
 
 The local repository has a copy of the last known position of the master
 branch in the remote repository.
@@ -1751,16 +1761,16 @@ version of ``nobel_prize_paper.txt``.
 
 .. depends on history
 
-.. prizevars:: buffing-fname
+.. prizevar:: buffing-fname
 
     commit={{ buffing }}
     echo \${commit:0:2}/\${commit:2}
 
-.. prizevars:: buffing-tree
+.. prizevar:: buffing-tree
 
     git log -1 --format="%T"
 
-.. prizevars:: buffing-tree-fname
+.. prizevar:: buffing-tree-fname
 
     tree={{ buffing-tree }}
     echo \${tree:0:2}/\${tree:2}
@@ -1769,11 +1779,11 @@ version of ``nobel_prize_paper.txt``.
 
     git cat-file -p {{ buffing-tree }}
 
-.. prizevars:: buffing-paper-obj
+.. prizevar:: buffing-paper-obj
 
     git cat-file -p {{ buffing-tree }} | grep nobel_prize | awk '{print \$3}'
 
-.. prizevars:: buffing-paper-obj-fname
+.. prizevar:: buffing-paper-obj-fname
 
     obj={{ buffing-paper-obj }}
     echo \${obj:0:2}/\${obj:2}
@@ -1791,7 +1801,7 @@ done a ``push``):
 
 .. prizerun::
 
-    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize.git/objects
+    REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
     ls \$REMOTE_OBJECTS/{{ buffing-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
@@ -1812,7 +1822,7 @@ We do have the new objects in the remote repository:
 
 .. prizerun::
 
-    REMOTE_OBJECTS=/Volumes/my_usb_disk/nobel_prize.git/objects
+    REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
     ls \$REMOTE_OBJECTS/{{ buffing-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
@@ -1887,54 +1897,47 @@ trusty bus back to our trusty house.
 Now we want to start work on the paper.
 
 We plug the hard drive into the laptop, it gets mounted again at
-``/Volumes/my_usb_disk``
+|usb_mountpoint|.
 
 Now we want a repository with a working tree.
 
 Maybe we make a directory for git repositories first:
 
 .. runblock::
+    :hide:
 
     mkdir my_repos
 
 The command we want now is ``git clone``:
 
-.. runblock::
+.. laptoprun::
 
-    cd my_repos
-    git clone /Volumes/my_usb_disk/nobel_prize.git
+    git clone {{ usb_mountpoint }}/nobel_prize.git
 
 We have a full backup of the repository, including all the history:
 
-.. runblock::
-    :cwd: my_repos
+.. laptoprun::
 
     cd nobel_prize
     git slog
 
-git make a ``remote`` automatically for us, because it recorded where we cloned
-from.  The default name for a git remote is ``origin``:
+git made a ``remote`` automatically for us, because it recorded where we
+cloned from.  The default name for a git remote is ``origin``:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git remote -v
 
 Of course, just after the clone, the remote and the local copy are
 synchronized:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git branch -v -a
 
 Now we could make some commits.
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
-    :exe_pre: git_time=2012-04-01T20:13:31
-              export GIT_AUTHOR_DATE=\$git_time
-              export GIT_COMMITTER_DATE=\$git_time
+.. prizelapcommit:: wine-ideas 2012-04-01 20:13:31
 
     echo "The brain is a really big network." >> nobel_prize_paper.txt
     git add nobel_prize_paper.txt
@@ -1942,22 +1945,19 @@ Now we could make some commits.
 
 The local copy is now ahead of the remote:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git branch -v -a
 
-At the end of the night's work, we push back to the remote:
+At the end of the night's work, we push back to the remote on the USB disk:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git push origin master
 
 The local and remote are synchronized again:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git branch -v -a
 
@@ -2111,17 +2111,13 @@ Git also knows what to do if we do ``git fetch`` from this branch.
 To show this at work, we go home, fetch the desktop work, and then do another
 commit from the laptop:
 
-.. runblock::
+.. laptoprun::
 
-    cd my_repos/nobel_prize
+    cd nobel_prize
     git fetch origin
     git merge origin/master
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
-    :exe_pre: git_time=2012-04-02T22:13:31
-              export GIT_AUTHOR_DATE=\$git_time
-              export GIT_COMMITTER_DATE=\$git_time
+.. prizelapcommit:: convinced 2012-04-02 22:13:31
 
     echo "More convinced by networks." >> nobel_prize_paper.txt
     git add nobel_prize_paper.txt
@@ -2130,8 +2126,7 @@ commit from the laptop:
 Then push back to the USB disk, setting the link between the laptop branch and
 the remote for good measure:
 
-.. runblock::
-    :cwd: my_repos/nobel_prize
+.. prizelaprun::
 
     git push origin master --set-upstream
 
@@ -2180,20 +2175,12 @@ The commands complete the typical daily git toolkit of an experienced user:
 
 See :doc:`rebase_without_tears` for a tutorial on ``rebase``.
 
-Git: are youready?
-==================
+Git: are you ready?
+===================
 
 If you followed this tutorial, you now have a good knowledge of how git works.
 This will make it much easier to understand why git commands do what they do,
 and what to do when things go wrong.
-
-.. cleanup
-
-.. runblock::
-    :hide:
-
-    rm -rf my_usb_disk
-    rm -rf /Volumes/my_usb_disk
 
 *************
 Git resources
@@ -2319,20 +2306,12 @@ the name):
 
 ::
 
-    source $HOME/.git-completion.bash
-
-    source $HOME/.git-prompt.sh
-
-    PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '   # adjust this to your prompt liking
+    source \$HOME/.git-completion.bash
+    source \$HOME/.git-prompt.sh
+    PS1='[\u@\h \W\$(__git_ps1 " (%s)")]\\$ ' # adjust this to your prompt liking
 
 See the comments in both of those files for lots of extra functionality
 they offer.
-
-.. runblock::
-    :hide:
-
-    # Copy my git config back
-    cp ~/.gitconfig.bak ~/.gitconfig
 
 .. rubric:: Footnotes
 
@@ -2350,7 +2329,7 @@ they offer.
 .. [#bare-detail] The reason we need a bare repository for our backup goes
    deeper than the fact we do not need a working tree.  We are soon going to
    do a ``push`` to this backup repository.  The ``push`` has the effect of
-   reseting the position of a branch (usually ``master``) in the backup repo.
+   resetting the position of a branch (usually ``master``) in the backup repo.
    Git is very reluctant to set a branch position in a repository with a
    working tree, because it the new branch position will not not match the
    current content of the working tree.  Git could either leave it like this,
