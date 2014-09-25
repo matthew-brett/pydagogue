@@ -9,8 +9,6 @@ Two and three dots with log
    Remember it's different for ``git diff`` - see :ref:`git-diff-dots` and
    :ref:`pain-in-dots`
 
-.. _git-log-two-dots:
-
 ********************
 Logging without dots
 ********************
