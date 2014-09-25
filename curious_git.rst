@@ -2306,11 +2306,9 @@ the name):
 
 ::
 
-    source $HOME/.git-completion.bash
-
-    source $HOME/.git-prompt.sh
-
-    PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '   # adjust this to your prompt liking
+    source \$HOME/.git-completion.bash
+    source \$HOME/.git-prompt.sh
+    PS1='[\u@\h \W\$(__git_ps1 " (%s)")]\\$ ' # adjust this to your prompt liking
 
 See the comments in both of those files for lots of extra functionality
 they offer.
