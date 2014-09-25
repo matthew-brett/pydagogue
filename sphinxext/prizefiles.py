@@ -2,11 +2,21 @@
 """
 Autorun directives with ``nobel_prize`` as the default directory
 """
+from os.path import join as pjoin
 
 from autorun import RunBlock, CmdAddVar, RunCommit
 from writefile import WriteFile
 
-class DesktopRun(RunBlock):
+
+class FakeUsbRun(RunBlock):
+    def process_out(self):
+        """ Replace the actual remote directory with fake USB directory """
+        out = super(FakeUsbRun, self).process_out()
+        usb_dir = pjoin(self.state.document.settings.env.srcdir, 'my_repos')
+        return out.replace(usb_dir, '/Volumes/my_usb_disk')
+
+
+class DesktopRun(FakeUsbRun):
     prompt_prefix = '[desktop]$ '
 
 
@@ -29,7 +39,7 @@ class PrizeVar(CmdAddVar):
     default_cwd = 'nobel_prize'
 
 
-class LaptopRun(RunBlock):
+class LaptopRun(FakeUsbRun):
     prompt_prefix = '[laptop]$ '
     default_cwd = 'my_repos'
     default_home = '/fake_home'

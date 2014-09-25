@@ -206,9 +206,12 @@ class RunBlock(Directive, LangMixin):
                 u'\n' + params.prompt_prefix).join(self.content)
         else:
             code = ''
-        code_out = u'\n'.join((code, params.out))
         # Do env substitution
-        code_out = subst_vars(code_out, self.get_typed_vars('render'))
+        code = subst_vars(code, self.get_typed_vars('render'))
+        # Do output post-processing
+        out = self.process_out()
+        # String for rendering
+        code_out = u'\n'.join((code, out))
         # Make nodes
         if 'hide' in self.options:
             return [nodes.comment(code_out, code_out)]
@@ -216,6 +219,11 @@ class RunBlock(Directive, LangMixin):
         literal['language'] = params.language
         literal['linenos'] = 'linenos' in self.options
         return [literal]
+
+    def process_out(self):
+        """ A hook to add extra processing for out
+        """
+        return self.params.out
 
 
 SPLITTER_RE = re.compile(r'.. \|(.*)\| replace:: (.*)')
