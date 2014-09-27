@@ -8,6 +8,7 @@ Contents:
    :maxdepth: 2
 
    introducing_unicode
+   xml_from_scratch
    floating_point
    floating_error
    develop_windows
