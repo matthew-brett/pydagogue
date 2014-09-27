@@ -166,9 +166,12 @@ class LangMixin(VarsMixin):
         if not home is None:
             _, home_dir = env.relfn2path(home)
             exe_pre = '\n'.join(('export HOME=' + home_dir, exe_pre))
-        exe_code = '\n'.join((exe_pre, p.exe_code, exe_post))
+        if exe_pre:
+            p.exe_code = '{0}\n{1}'.format(exe_pre, p.exe_code)
+        if exe_post:
+            p.exe_code = '{0}\n{1}'.format(p.exe_code, exe_post)
         # Do env substitution
-        exe_code = subst_vars(exe_code, self.get_typed_vars('run'))
+        exe_code = subst_vars(p.exe_code, self.get_typed_vars('run'))
         # Run the code
         stdout, stderr = proc.communicate(exe_code)
         # Process output
