@@ -88,7 +88,7 @@ class VarsMixin(object):
 
     @property
     def env_vars_name(self):
-        return self.options.get('env_vars_name', self.default_env_vars_name)
+        return self.options.get('env-vars-name', self.default_env_vars_name)
 
     @property
     def env_vars(self):
@@ -159,8 +159,8 @@ class LangMixin(VarsMixin):
         # Make executable code
         p.exe_code = u'\n'.join(p.codelines).encode(p.input_encoding)
         # Prepost, postpend extra code lines
-        exe_pre = self.options.get('exe_pre', self.default_exe_pre)
-        exe_post = self.options.get('exe_post', self.default_exe_post)
+        exe_pre = self.options.get('exe-pre', self.default_exe_pre)
+        exe_post = self.options.get('exe-post', self.default_exe_post)
         home = self.options.get('home', self.default_home)
         # Get home directory
         if not home is None:
@@ -193,9 +193,9 @@ class RunBlock(Directive, LangMixin):
         'linenos': flag,
         'hide': flag,
         'cwd': unchanged,
-        'env_vars_name': unchanged,
-        'exe_pre': unchanged,
-        'exe_post': unchanged,
+        'env-vars-name': unchanged,
+        'exe-pre': unchanged,
+        'exe-post': unchanged,
         'home': unchanged,
     }
 
