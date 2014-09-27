@@ -197,7 +197,6 @@ class RunBlock(Directive, LangMixin):
         'exe_pre': unchanged,
         'exe_post': unchanged,
         'home': unchanged,
-        'prompt_prefix': unchanged
     }
 
     def run(self):
