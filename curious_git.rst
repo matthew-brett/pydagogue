@@ -857,8 +857,7 @@ Git will also show the contents of objects with the command ``git cat-file
 When we did ``git add nobel_prize_paper.txt``, we got a new file in
 ``.git/objects``, with filename ``d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.
 The filename is in fact a hash, where the first two digits form the directory
-name (``d9``) and the rest of the filename is the rest of the hash digits
-[#git-object-dir]_.
+name (``d9``) and the rest of the digits are the filename [#git-object-dir]_.
 
 Here's the contents of the object:
 
@@ -925,13 +924,14 @@ git commit - making the snapshot
 
     git commit -m "First backup of my amazing idea"
 
-In the line above, we used the ``-m`` flag to specify a message at the
-command line. If we don't do that, git will open the editor we specified
-in our configuration above and require that we enter a message. By
-default, git refuses to record changes that don't have a message to go
-along with them (though you can obviously 'cheat' by using an empty or
-meaningless string: git only tries to facilitate best practices, it's
-not your nanny).
+In the line above, I used the ``-m`` flag to specify a message at the command
+line. If we don't do that, git will open the editor we specified in our
+configuration above and require that we enter a message.  I'm using the ``-m``
+flag so the commit command runs without interaction in this tutorial, but in
+ordinary use, I virtually never use ``-m``, and suggest you don't either.
+Using the editor for the commit message allows you to give a more complete
+commit message, and gives feedback about the ``git status`` of the commit to
+remind you what you've done in the commit.
 
 We are now expecting to have two new ``.git/object`` files, for the directory
 tree, and for the commit.
@@ -1202,12 +1202,16 @@ Git supports *aliases:* new names given to command combinations. Let's
 make this handy shortlog an alias, so we only have to type ``git slog``
 to get this compact log.
 
+We create our alias (this saves it in git's permanent configuration file):
+
 .. prizerun::
 
-    # We create our alias (this saves it in git's permanent configuration file):
     git config --global alias.slog "log --oneline --topo-order --graph"
 
-    # And now we can use it
+And now we can use it:
+
+.. prizerun::
+
     git slog
 
 git mv and rm: moving and removing files
@@ -1223,9 +1227,7 @@ precisely this:
     git mv very_clever_analysis.py slightly_dodgy_analysis.py
     git status
 
-Note that these changes must be committed too, to become permanent. In
-git's world, until something has been committed, it isn't permanently
-recorded anywhere.
+Note that these changes must be committed too, if we want to keep them.
 
 .. prizecommit:: new-name 2012-04-01 13:15:01
 
@@ -1295,10 +1297,6 @@ to a particular commit:
 .. prizerun::
 
     git branch -v
-
-.. prizerun::
-
-    cat .git/refs/heads/master
 
 Developing on different branches
 ================================
@@ -1396,6 +1394,9 @@ tree to match the working tree for that commit.
 .. prizerun::
 
     git checkout master
+
+.. prizerun::
+
     cat .git/HEAD
 
 We're back to the working tree as of the ``master`` branch;
@@ -1416,6 +1417,9 @@ Meanwhile we do some more work on master:
     echo "All the while, more work goes on in master..." >> boring_idea.txt
     git add boring_idea.txt
     git commit -m "The mainline keeps moving"
+
+.. prizerun::
+
     git slog
 
 git merge - merging changes from different branches
@@ -1518,7 +1522,7 @@ I'll do the edits by writing the file I want directly in this case:
     # file: an_experiment.txt
     Some crazy idea
     More work on the master branch...
-    This is going to be a problem...
+    This is no longer going to be a problem...
 
 I've now made the edits. I decided that both pieces of text were useful,
 but integrated them with some changes:
@@ -1537,6 +1541,8 @@ Let's then make our new commit:
 .. prizerun::
 
     git slog
+
+.. _git-graph:
 
 Git commits form a graph
 ========================
@@ -1574,8 +1580,8 @@ We use git "remotes" to solve both of these problems.
 Keeping backups with remotes
 ============================
 
-First - a simple backup. Let's say you have an external backup disk and you
-want to record all the history of your work on the backup disk.
+Let's say you have an external backup disk and you want to record all the
+history of your work on the backup disk.
 
 To do this you need three steps:
 
@@ -1830,60 +1836,49 @@ We do have the new objects in the remote repository:
 An algorithm for git push
 -------------------------
 
-Now we know about how git stores its objects, we can work out an algorithm for
-doing a push.
+Now we know about how git stores its objects, we can work out how git knows
+what objects to copy when it does a push.
 
-#. Get the commit hash corresponding the branch we are going to push
-#. Check if the remote has a matching object (filename). If yes, continue, if
-   not then:
+Something like this algorithm might do the job:
 
-    a. Put the commit has into a list of *missing commits*
-    b. Follow every possible *commit history path* back from this commit.
-       For each commit on the path, if the commit is in the remote objects,
-       stop, otherwise, add the commit to *missing commits* and continue to
-       the next commit on the path.  Copy all *missing commit* objects to the
-       remote objects directory.
-    c. For every *missing commit* get the corresponding directory listing
-       object (tree object).  If the tree object is not in the remote objects
-       directory, add to *missing trees*. Copy all *missing trees* to the
-       remote objects directory.
-    d. For every *missing tree* read the tree directory listing. Find any
-       file objects in the directory listing that are not in the remote
-       objects directory, add to *missing file* objects.  Copy any *missing
-       file* objects to the remote objects directory [#sub-trees]_.
-
-#. Update the remote branch (remote ``refs/heads/master`` in our case) to
-   point to the same commit as the local branch.
+#. Get the commit hash corresponding the branch we are going to push;
+#. Follow every :ref:`commit path <git-graph>` back from this commit, until we
+   hit a commit hash (filename) that the remote has.  All the previous commits
+   on the path, that the remote does not have, are *missing commits*;
+#. For every *missing commit* get the corresponding directory listing object
+   (tree object).  If the tree object is not in the remote objects directory,
+   add to the list of *missing trees*;
+#. For every *missing tree* read the tree directory listing. Find any file
+   objects in the directory listing that are not in the remote objects
+   directory, add to the list of *missing file* objects [#sub-trees]_;
+#. Copy all *missing commit*, *missing tree* and *missing file* objects to the
+   remote objects directory;
+#. Update the remote branch to point to the same commit as the local branch;
 #. Update the local record of the last known position of the remote branch to
    point to the same commit.
 
-This is what will happen in our case:
+In our case:
 
 #. We look up the hash for ``master``, and we get |buffing| (abbreviated as
-   |buffing-7|).
-#. We look for the filename corresponding to |buffing-7| in the remote
-   ``objects`` directory.  It isn't there.
-
-    a. We put |buffing-7| into the list of missing commits;
-    b. We follow all commit history paths back from |buffing-7| to check for
-       more missing commits.  In our case we have only one path, because
-       |buffing-7| has parent |merge-trouble-7|, the remote already has the
-       object corresponding to |merge-trouble-7|, and we can stop looking for
-       missing commits. We copy |buffing-fname| in local ``.git/objects`` to
-       the remote objects directory;
-    c. We only have one missing commit, |buffing-7|.  We look in the contents
-       of |buffing-7| to find the directory listing (tree).  This is
-       |buffing-tree|.  We check for this object in the remote objects
-       directory, and sure enough, it is missing. We add this tree to the
-       list of missing trees.  We copy |buffing-tree-fname| in local
-       ``.git/objects`` to the remote objects directory;
-    d. We only have one missing tree |--| |buffing-tree|. We look in the
-       contents of this directory listing, and check in the remote object
-       directory for each object in this listing. We are only missing
-       |buffing-paper-obj|. We copy |buffing-paper-obj-fname| to the remote
-       objects directory.
-
-#. We set remote ``refs/heads/master`` to contain the hash |buffing|.
+   |buffing-7|);
+#. We follow all commit history paths back from |buffing-7| to check for
+   missing commits. We start with |buffing-7|. The remote does not have a
+   matching file in ``objects``, so this is a missing commit. We only have one
+   path to follow, because |buffing-7| has only one parent |--|
+   |merge-trouble-7| |--| and the remote does have a corresponding object, so
+   we can stop looking for missing commits;
+#. We only have one missing commit, |buffing-7|.  We look in the contents of
+   |buffing-7| to find the directory listing (tree).  This is |buffing-tree|.
+   We check for this object in the remote objects directory, and sure enough,
+   it is missing. We add this tree to the list of missing trees;
+#. We only have one missing tree |--| |buffing-tree|. We look in the contents
+   of this directory listing, and check in the remote object directory for
+   each object in this listing. The only missing object is
+   |buffing-paper-obj|;
+#. We copy the objects for the missing commits (|merge-trouble|), missing
+   trees (|buffing-tree|) and missing files (|buffing-paper-obj|) to the
+   remote objects directory;
+#. We set remote ``refs/heads/master`` to contain the hash |buffing|;
 #. Set the local ``refs/remotes/usb_backup/master`` to contain |buffing|.
 
 git clone |--| make a fresh new copy of the repo
@@ -1933,7 +1928,7 @@ synchronized:
 
 .. prizelaprun::
 
-    git branch -v -a
+    git branch -a -v
 
 Now we could make some commits.
 
@@ -1947,7 +1942,7 @@ The local copy is now ahead of the remote:
 
 .. prizelaprun::
 
-    git branch -v -a
+    git branch -a -v
 
 At the end of the night's work, we push back to the remote on the USB disk:
 
@@ -1959,7 +1954,7 @@ The local and remote are synchronized again:
 
 .. prizelaprun::
 
-    git branch -v -a
+    git branch -a -v
 
 git fetch |--| get all data from a remote
 -----------------------------------------
@@ -1981,7 +1976,7 @@ Here are the branch positions in the work desktop repository:
 
 .. prizerun::
 
-    git branch -v -a
+    git branch -a -v
 
 As you can see, the last known positions of the remote branches have not
 changed from last night.  This reminds us that the last known positions only
@@ -2017,7 +2012,7 @@ The last known positions are now the same as those on the remote repository:
 
 .. prizerun::
 
-    git branch -v -a
+    git branch -a -v
 
 We can set our local master branch to be the same as the remote master branch
 by doing a merge:
@@ -2316,23 +2311,23 @@ they offer.
 .. rubric:: Footnotes
 
 .. [#git-object-dir] When git stores a file in the ``.git/objects`` directory,
-   it does a hash for the file, takes the first two digits of the hash to make
-   a directory, and then stores a file with a filename from the remaining hash
-   digits.  For example, when adding a file with hash
-   ``d92d079af6a7f276cc8d63dcf2549c03e7deb553`` git will create
+   it makes a hash from the file, takes the first two digits of the hash to
+   make a directory name, and then stores a file in this directory with a
+   filename from the remaining hash digits.  For example, when adding a file
+   with hash ``d92d079af6a7f276cc8d63dcf2549c03e7deb553`` git will create
    ``.git/objects/d9`` directory if it doesn't exist, and stores the file
    contents as ``.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.  It
    does this so that the number of files in any one directory stay in a
-   reasonable range.  If git had to store hash filenames for every file,
-   directory listing and commit in one flat directory, it would soon have a
-   very large number of files.
+   reasonable range.  If git had to store hash filenames for every object in
+   one flat directory, the directory would soon have a very large number of
+   files.
 .. [#bare-detail] The reason we need a bare repository for our backup goes
    deeper than the fact we do not need a working tree.  We are soon going to
    do a ``push`` to this backup repository.  The ``push`` has the effect of
    resetting the position of a branch (usually ``master``) in the backup repo.
    Git is very reluctant to set a branch position in a repository with a
-   working tree, because it the new branch position will not not match the
-   current content of the working tree.  Git could either leave it like this,
+   working tree, because the new branch position will not not match the
+   existing content of the working tree.  Git could either leave it like this,
    or checkout the new branch in the remote repo, but either thing would be
    very confusing for someone trying to use the working tree in that
    repository.  So, by default git will refuse to ``push`` a new branch
