@@ -14,6 +14,7 @@ Contents:
     pain_in_dots
     git_log_dots
     git_diff_dots
+    git_submodules
     vim_mergetool
     git_gui_windows
     gh_delete_master

@@ -100,11 +100,13 @@ git-clean: clean
 	# by git clean
 	- rm -rf gitting/history1 gitting/history2 gitting/root-example
 	- rm -rf nobel_prize my_repos fake_home/* fake_home/.*
+	- rm -rf super super-cloned myproject
 	git clean -fxd
 
 gh-pages: git-clean html
 	- rm -rf git_is_rude git_is_rude_top git_example
 	- rm -rf nobel_prize my_repos fake_home/* fake_home/.*
+	- rm -rf super super-cloned myproject
 	git co gh-pages
 	git rm -r .
 	git checkout HEAD -- .gitignore README .nojekyll
