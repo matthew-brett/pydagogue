@@ -1,6 +1,6 @@
-########################
-What are git submodules?
-########################
+###########################
+How do git submodules work?
+###########################
 
 Git submodules can be a little confusing.
 
@@ -9,9 +9,17 @@ it easier to understand how to *use* submodules.
 
 If you've read :doc:`curious_git` you will recognize this way of thinking.
 
+***************
+Why submodules?
+***************
+
 Submodules are useful when you have a project that is under git version
 control, and you need files from another project that is also under git
 version control.
+
+**************
+Worked example
+**************
 
 We will call the project that we need to use just *myproject*, and the project
 that is using *myproject* we will call *super*.
@@ -21,6 +29,9 @@ We are expecting that "myproject" will continue to develop.
 "Super" is going to start using some version of "myproject".  In the spirit of
 version control, we want to keep track of exactly which "myproject" version
 "super" is using.
+
+``myproject``
+=============
 
 We make a little "myproject" to start:
 
@@ -35,17 +46,22 @@ We make a little "myproject" to start:
 
     mkdir myproject
     cd myproject
+    git init
 
 .. projectcommit:: proj-init 2012-05-01 11:13:13
 
-    git init
     echo "Important code and data" > some_data.txt
     git add some_data.txt
     git commit -m "Initial commit on myproject"
 
+Back to the working directory containing the repositories:
+
 .. workrun::
 
     cd ..
+
+``super``
+=========
 
 Now a "super" project:
 
@@ -54,24 +70,52 @@ Now a "super" project:
     mkdir super
     cd super
 
-.. supercommit:: super-init 2012-05-01 12:12:12
+Remember (from :doc:`curious_git`) that doing ``git add`` on a file adds a new
+copy of that file to the ``.git/objects`` directory.  So, ``.git/objects``
+starts off empty:
+
+.. superrun::
 
     git init
-    echo "This project will use ``myproject``" > README.txt
-    git add README.txt
-    git commit -m "Initial commit on super"
-
-We know git well enough to know that there must be three files now in the git
-objects directory |--| one each for the ``README.txt`` file, the root
-directory listing and the commit:
 
 .. superrun::
 
     tree -a .git/objects
 
-We use a git submodule to put "myproject" inside "super".  We will give the
-submodule copy of "myproject" a different name to make it clear which is the
-submodule:
+When we ``git add`` a file, there is one new file in ``.git/objects``:
+
+.. superrun::
+
+    echo "This project will use ``myproject``" > README.txt
+    git add README.txt
+
+.. superrun::
+
+    tree -a .git/objects
+
+Now do the first commit for "super":
+
+.. supercommit:: super-init 2012-05-01 12:12:12
+
+    git commit -m "Initial commit on super"
+
+The commit made two new objects in the ``.git/objects`` directory:
+
+* a *tree* object giving the directory listing of the root directory;
+* a *commit* object giving information about the commit itself.
+
+So, we now have three files in ``.git/objects``:
+
+.. superrun::
+
+    tree -a .git/objects
+
+Adding ``myproject`` as a submodule of ``super``
+================================================
+
+We use a git submodule to put "myproject" inside "super".  We will use the
+name "subproject" for the submodule copy of "myproject", to make clear that it
+is the submodule copy:
 
 .. superrun::
 
@@ -101,19 +145,22 @@ there is a clone of "myproject" there:
 So, ``git submodule`` has:
 
 #. cloned "myproject" to "super" subdirectory "subproject";
-#. created and staged a text file called ``.gitmodules`` that records the
-   relationship of the "subproject" subdirectory to the original "myproject"
-   repository;
+#. created and staged a small text file called ``.gitmodules`` that records
+   the relationship of the ``subproject`` subdirectory to the original
+   "myproject" repository;
 #. claimed to have made a new *file* in the "super" repository that records
    the "myproject" commit that the submodule contains.
 
 It's the last of these three that is a little strange, so we will explore.
 
+Storing the current commit of ``myproject``
+===========================================
+
 Why do I say that git "claims" to have made a new file to record the
 "myproject" commit?
 
-Remember that we had three files in ``.git/objects`` after the first commit.
-After ``git submodule add`` we have four:
+Remember that we had three files in the ``.git/objects`` directory of "super"
+after the first commit.  After ``git submodule add`` we have four:
 
 .. superrun::
 
@@ -127,51 +174,69 @@ but I can get the hash git will use for ``.gitmodules`` with:
 
     git hash-object .gitmodules
 
-So |--| there is no new git object corresponding to the "myproject"
-repository.  What has in fact happened, is that git records the commit for
-"myproject" in the directory listing, instead of recording the ``subproject``
-directory as a |--| directory.  That is a bit difficult to see at the moment,
-because the directory listing is in the git staging area and not yet written
-into a tree object.  To write the tree object, we do a commit:
+.. workvar:: gitmodules-object
+
+    cd super
+    git hash-object .gitmodules
+
+.. superrun::
+
+    git cat-file -p {{ gitmodules-object }}
+
+If there is only one new object in ``.git/objects``, and that is for
+``.gitmodules``, then there is no new git object corresponding to the
+"myproject" repository.  What has in fact happened, is that git records the
+commit for "myproject" in the directory listing, instead of recording the
+``subproject`` directory as a subdirectory (tree object) or a file (blob
+object).  That is a bit difficult to see at the moment, because the directory
+listing is in the git staging area and not yet written into a tree object.  To
+write the tree object, we do a commit:
 
 .. supercommit:: add-module 2012-05-01 13:22:10
 
     git commit -m "Adding the submodule"
 
-We're expecting to have six objects in ``.git/objects`` now |--| the three
-objects for the first commit, the object for ``.gitmodules``, and a new tree
-and commit object for the latest commit:
+Here is the commit hash for the commit we just made:
 
 .. superrun::
 
-    tree -a .git/objects
+    git log -1
 
-Now we can list the root directory tree. I can get this tree object by listing
-the commit object with ``git cat-file``:
+Here's the full data for the commit, including the hash for the root directory
+tree object:
 
 .. superrun::
 
-    git cat-file -p HEAD
+    git cat-file -p  {{ add-module }}
 
-.. workvar:: add-module-tree
+.. workvar:: add-submodule-tree
 
     cd super
     git log -1 --format="%T"
 
+Here's the full data for the root directory tree object for the commit:
+
 .. superrun::
 
-    git cat-file -p {{ add-module-tree }}
+    git cat-file -p {{ add-submodule-tree }}
 
-As you can see, the two files |--| ``.gitmodules`` and ``README.txt`` |--| are
-listed as type ``blob``. The new directory |--| ``subproject`` |--| is of type
-``commit``.  The hash is the current commit of the "myproject" repository:
+As you can see, the two real files |--| ``.gitmodules`` and ``README.txt``
+|--| are listed as type ``blob``, with the hashes of their file contents. This
+is the usual way git refers to a file in a directory listing (see
+:doc:`curious_git`). The new entry for ``subproject`` is of type ``commit``.
+The hash is the current commit of the "myproject" repository, in the
+``subproject`` copy:
 
 .. superrun::
 
     cd subproject
     git log
 
-What happens if we change the contents of "myproject" in "super"?
+Updating submodules from their source repositories
+==================================================
+
+How do we keep the ``subproject`` copy of "myproject" up to date with the
+original ``myproject`` repository?
 
 We go back to the original "myproject" repository and make another commit:
 
@@ -240,19 +305,24 @@ Git is not tracking the *contents* of the "subproject" directory, but the *git
 state* of the directory.  In this case, all "super" sees is that the commit
 has changed.
 
-If we ``git-add`` the "subproject" directory, it has the effect of updating
-the commit that the "super" tree is pointing to in the staging area, but, as
-before, adds no new files to ``.git/objects``:
+As when we added the submodule, a ``git add`` of the ``subproject`` directory,
+has the effect of updating the commit that the "super" tree is pointing to
+in the staging area, but adds no new files to ``.git/objects``:
+
+.. superrun::
+
+    ls .git/objects/*/*
 
 .. superrun::
 
     git add subproject
 
-There are still only six objects in ``.git/objects``
-
 .. superrun::
 
-    tree -a .git/objects
+    ls .git/objects/*/*
+
+So ``git add subproject`` makes no new objects, but it does change the
+"myproject" commit hash that ``subproject`` points to.
 
 If we do the commit, we can see the root tree listing now points to the new
 commit of "myproject":
@@ -274,6 +344,9 @@ commit of "myproject":
 
     git cat-file -p {{ super-more-data-tree }}
 
+Cloning a repository with submodules
+====================================
+
 What happens if we clone the "super" project?
 
 .. superrun::
@@ -294,7 +367,7 @@ What is in the new ``subproject`` directory?
 
 .. superclonedrun::
 
-    ls subproject
+    tree -a subproject
 
 Nothing.  When you ``git clone`` a project with submodules, git does not clone
 the submodules.
@@ -312,6 +385,8 @@ repository to clone from instead of a slower internet repository.  In this
 case, you can do ``git submodule init``, edit ``.git/config``, and then do the
 cloning with ``git submdoule update``.
 
+Here's ``.git/config`` before the ``init`` step:
+
 .. superclonedrun::
 
     # .git/config before submodule init
@@ -321,10 +396,19 @@ cloning with ``git submdoule update``.
 
     git submodule init
 
+``.git/config`` after the ``init``:
+
 .. superclonedrun::
 
     # .git/config after submodule init
     cat .git/config
+
+We have done ``init``, but not ``update``. The submodule directory is still
+empty:
+
+.. superclonedrun::
+
+    tree -a subproject
 
 To do the submodule clone, use ``git submodule update`` after ``git submodule
 init``:
