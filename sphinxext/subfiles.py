@@ -1,48 +1,57 @@
 # -*- coding: utf-8 -*-
 """
-Autorun directives with ``subfiles`` as the default directory
+Autorun directives with default directories for:
+
+* myproject
+* super
+* super/subproject
 """
 
 from autorun import RunBlock, RunCommit
 
+
 class ProjectRun(RunBlock):
-    default_cwd = 'myproject'
-    default_home = '/fake_home'
+    default_cwd = '/working/myproject'
+    default_home = '/working'
 
 
 class ProjectCommit(RunCommit):
-    default_cwd = 'myproject'
-    default_home = '/fake_home'
+    default_links_file = '/object_names.inc'
+    default_cwd = '/working/myproject'
+    default_home = '/working'
 
 
 class SuperRun(RunBlock):
-    default_cwd = 'super'
-    default_home = '/fake_home'
+    default_cwd = '/working/super'
+    default_home = '/working'
 
 
 class SuperCommit(RunCommit):
-    default_cwd = 'super'
-    default_home = '/fake_home'
+    default_links_file = '/object_names.inc'
+    default_cwd = '/working/super'
+    default_home = '/working'
 
 
 class SuperClonedRun(RunBlock):
-    default_cwd = 'super-cloned'
-    default_home = '/fake_home'
+    default_cwd = '/working/super-cloned'
+    default_home = '/working'
 
 
 class SuperClonedCommit(RunCommit):
-    default_cwd = 'super-cloned'
-    default_home = '/fake_home'
+    default_links_file = '/object_names.inc'
+    default_cwd = '/working/super-cloned'
+    default_home = '/working'
 
 
 class SubProjectRun(RunBlock):
-    default_cwd = 'super/subproject'
-    default_home = '/fake_home'
+    default_cwd = '/working/super/subproject'
+    default_home = '/working'
 
 
 class SubProjectCommit(RunCommit):
-    default_cwd = 'super/subproject'
-    default_home = '/fake_home'
+    default_links_file = '/object_names.inc'
+    default_cwd = '/working/super/subproject'
+    default_home = '/working'
 
 
 def setup(app):

@@ -1,58 +1,64 @@
 # -*- coding: utf-8 -*-
 """
-Autorun directives with ``nobel_prize`` as the default directory
+Autorun directives with ``working/nobel_prize`` as the default directory
+Autorun directives with ``working/repos/nobel_prize`` as the default directory
 """
 from os.path import join as pjoin
 
-from autorun import RunBlock, CmdAddVar, RunCommit
+from autorun import RunBlock, RunCommit
+from workrun import WorkVar
 from writefile import WriteFile
 
 
 class FakeUsbRun(RunBlock):
+    default_home = '/working'
     def process_out(self):
         """ Replace the actual remote directory with fake USB directory """
         out = super(FakeUsbRun, self).process_out()
-        usb_dir = pjoin(self.state.document.settings.env.srcdir, 'my_repos')
+        usb_dir = pjoin(self.state.document.settings.env.srcdir,
+                        'working',
+                        'repos')
         return out.replace(usb_dir, '/Volumes/my_usb_disk')
 
 
 class DesktopRun(FakeUsbRun):
+    default_cwd = '/working'
     prompt_prefix = '[desktop]$ '
 
 
 class PrizeRun(DesktopRun):
-    default_cwd = 'nobel_prize'
-    default_home = '/fake_home'
+    default_cwd = '/working/nobel_prize'
 
 
 class PrizeWrite(WriteFile):
-    default_cwd = 'nobel_prize'
+    default_cwd = '/working/nobel_prize'
 
 
 class PrizeCommit(RunCommit):
+    default_links_file = '/object_names.inc'
     prompt_prefix = '[desktop]$ '
-    default_home = '/fake_home'
-    default_cwd = 'nobel_prize'
+    default_home = '/working'
+    default_cwd = '/working/nobel_prize'
 
 
-class PrizeVar(CmdAddVar):
-    default_cwd = 'nobel_prize'
+class PrizeVar(WorkVar):
+    default_cwd = '/working/nobel_prize'
 
 
 class LaptopRun(FakeUsbRun):
     prompt_prefix = '[laptop]$ '
-    default_cwd = 'my_repos'
-    default_home = '/fake_home'
+    default_cwd = '/working/repos'
 
 
 class PrizeLapRun(LaptopRun):
-    default_cwd = 'my_repos/nobel_prize'
+    default_cwd = '/working/repos/nobel_prize'
 
 
 class PrizeLapCommit(RunCommit):
+    default_links_file = '/object_names.inc'
     prompt_prefix = '[laptop]$ '
-    default_home = '/fake_home'
-    default_cwd = 'my_repos/nobel_prize'
+    default_home = '/working'
+    default_cwd = '/working/repos/nobel_prize'
 
 
 def setup(app):

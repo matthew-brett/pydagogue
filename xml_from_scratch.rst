@@ -62,6 +62,7 @@ There is one single element at the root of a valid XML document:
 
 .. writefile::
     :language: xml
+    :cwd: /working
 
     # file: some_example.xml
     <a-root-element my-type="example">
@@ -73,7 +74,7 @@ There is one single element at the root of a valid XML document:
 
 For example, in Python:
 
-.. runblock:: pycon
+.. workrun:: pycon
 
     >>> import xml.etree.ElementTree as ET
     >>> tree = ET.parse('some_example.xml')

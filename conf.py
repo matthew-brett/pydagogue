@@ -27,6 +27,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
               'autorun',
               'writefile',
+              'workrun',
               'prizefiles',
               'subfiles',
               'math_dollar']

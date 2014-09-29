@@ -24,14 +24,14 @@ version control, we want to keep track of exactly which "myproject" version
 
 We make a little "myproject" to start:
 
-.. runblock::
+.. workrun::
     :hide:
 
     rm -rf myproject
     rm -rf super
     rm -rf super-cloned
 
-.. runblock::
+.. workrun::
 
     mkdir myproject
     cd myproject
@@ -43,13 +43,13 @@ We make a little "myproject" to start:
     git add some_data.txt
     git commit -m "Initial commit on myproject"
 
-.. runblock::
+.. workrun::
 
     cd ..
 
 Now a "super" project:
 
-.. runblock::
+.. workrun::
 
     mkdir super
     cd super
@@ -153,7 +153,7 @@ the commit object with ``git cat-file``:
 
     git cat-file -p HEAD
 
-.. cmdaddvar:: add-module-tree
+.. workvar:: add-module-tree
 
     cd super
     git log -1 --format="%T"
@@ -265,7 +265,7 @@ commit of "myproject":
 
     git cat-file -p HEAD
 
-.. cmdaddvar:: super-more-data-tree
+.. workvar:: super-more-data-tree
 
     cd super
     git log -1 --format="%T"
@@ -280,12 +280,12 @@ What happens if we clone the "super" project?
 
     cd ..
 
-.. runblock::
+.. workrun::
 
     # In directory below "super"
     git clone super super-cloned
 
-.. runblock::
+.. workrun::
 
     cd super-cloned
     ls

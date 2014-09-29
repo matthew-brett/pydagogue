@@ -145,11 +145,12 @@ analysis script ``very_clever_analysis.py``, and a figure for the paper
 You can get this ground-breaking paper by downloading and unzipping
 :download:`nobel_prize_files.zip`.
 
-.. runblock::
+.. workrun::
     :hide:
 
     # clean up old files from previous doc run
-    rm -rf nobel_prize my_repos fake_home/.gitconfig
+    rm -rf nobel_prize repos .gitconfig
+    cp ../nobel_prize_files.zip .
 
 .. desktoprun:: bash
 
@@ -798,12 +799,12 @@ git.  We start with the original files for the paper:
 .. desktoprun::
 
     unzip -o nobel_prize_files.zip
-    cd nobel_prize
 
 Create git repository:
 
-.. prizerun::
+.. desktoprun::
 
+    cd nobel_prize
     git init
 
 What happened when we did ``git init``? Just what we were expecting; we have a
@@ -924,14 +925,16 @@ git commit - making the snapshot
 
     git commit -m "First backup of my amazing idea"
 
-In the line above, I used the ``-m`` flag to specify a message at the command
-line. If we don't do that, git will open the editor we specified in our
-configuration above and require that we enter a message.  I'm using the ``-m``
-flag so the commit command runs without interaction in this tutorial, but in
-ordinary use, I virtually never use ``-m``, and suggest you don't either.
-Using the editor for the commit message allows you to give a more complete
-commit message, and gives feedback about the ``git status`` of the commit to
-remind you what you've done in the commit.
+.. note::
+
+    In the line above, I used the ``-m`` flag to specify a message at the
+    command line. If I had not done that, git would open the editor we
+    specified in our configuration above and ask me to enter a message.  I'm
+    using the ``-m`` flag so the commit command runs without interaction in
+    this tutorial, but in ordinary use, I virtually never use ``-m``, and I
+    suggest you don't either.  Using the editor for the commit message allows
+    you to write a more complete commit message, and gives feedback about the
+    ``git status`` of the commit to remind you what you are about to do.
 
 We are now expecting to have two new ``.git/object`` files, for the directory
 tree, and for the commit.
@@ -1593,16 +1596,16 @@ To do this you need three steps:
 Make the empty backup repository
 --------------------------------
 
-.. cmdaddvar:: usb_mountpoint
+.. workvar:: usb_mountpoint
     :var_type: render
 
     echo "/Volumes/my_usb_disk"
 
-.. cmdaddvar:: usb_mountpoint
+.. workvar:: usb_mountpoint
     :var_type: run
     :omit_link:
 
-    echo "\$PWD/my_repos"
+    echo "\$PWD/working/my_repos"
 
 Let's say your external disk is mounted at |usb_mountpoint|.
 
@@ -1898,10 +1901,10 @@ Now we want a repository with a working tree.
 
 Maybe we make a directory for git repositories first:
 
-.. runblock::
+.. workrun::
     :hide:
 
-    mkdir my_repos
+    mkdir repos
 
 The command we want now is ``git clone``:
 
@@ -2149,7 +2152,7 @@ communication protocols such as the "git" protocol, ssh, http or https.
 For example, here is the remote list for the repository containing this
 tutorial:
 
-.. runblock::
+.. workrun::
 
     git remote -v
 

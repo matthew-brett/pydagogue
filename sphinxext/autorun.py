@@ -255,7 +255,7 @@ def add_links(links, link_fname):
 
 
 class LinksMixin(object):
-    default_links_file = '/object_names.inc'
+    default_links_file = '/dynamic_names.inc'
 
     def add_links(self, links):
         env = self.state.document.settings.env
