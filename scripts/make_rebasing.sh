@@ -1,8 +1,8 @@
 #!/bin/bash
 # Commands to make git repository for rebase page
 # If you run this inside the git repo, don't forget to remove the generated git
-# repos, they can be annoying to remove with git clean etc because (I presume)
-# they look like submodules
+# repos, they can be annoying to remove with git clean etc because they look
+# like submodules
 
 function make_repo {
     local repo_name=$1
