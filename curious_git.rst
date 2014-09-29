@@ -1477,10 +1477,13 @@ that works by intentionally creating a conflict.
 We start by making another new branch and making a change to our experiment
 file:
 
-.. prizecommit:: trouble-starts 2012-04-01 14:23:13
+.. prizerun::
 
     git branch trouble
     git checkout trouble
+
+.. prizecommit:: trouble-starts 2012-04-01 14:23:13
+
     echo "This is going to be a problem..." >> an_experiment.txt
     git add an_experiment.txt
     git commit -m "Changes in the trouble branch"
@@ -1508,17 +1511,19 @@ Let's see what git has put into our file:
 
     cat an_experiment.txt
 
-Read these new markers as:
+The text between ``<<``... and ``==``... gives the changes added by our
+current branch |--| ``HEAD``.  These are the changes introduced by the branch
+we are merging *into*.
 
--  ``HEAD`` - the current branch - (between ``<<``... and ``==``) adds
-   ``More work on the master branch...``;
--  the ``trouble`` branch (between ``==``... and ``>>``...) adds
-   ``This is going to be a problem...``.
+The text between ``==``... and ``>>``... gives the changes added by the
+``trouble`` branch.  These are the changes introduced by the branch we are
+merging *from*.
 
-At this point, we go into the file with a text editor, decide which
+At this point, we can go into the file with a text editor, decide which
 changes to keep, and make a new commit that records our decision.
 
-I'll do the edits by writing the file I want directly in this case:
+I decided that both pieces of text were useful, but I want to integrated them
+with some changes.  I do the edits by writing the file I want directly:
 
 .. prizewrite::
 
@@ -1526,9 +1531,6 @@ I'll do the edits by writing the file I want directly in this case:
     Some crazy idea
     More work on the master branch...
     This is no longer going to be a problem...
-
-I've now made the edits. I decided that both pieces of text were useful,
-but integrated them with some changes:
 
 .. prizerun::
 
@@ -1605,7 +1607,7 @@ Make the empty backup repository
     :var_type: run
     :omit_link:
 
-    echo "\$PWD/working/my_repos"
+    echo "\$PWD/repos"
 
 Let's say your external disk is mounted at |usb_mountpoint|.
 
@@ -1652,8 +1654,8 @@ List the remotes:
 The list shows that we can both ``fetch`` and ``push`` to this repository, of
 which more later.
 
-The entire of the rest of the information about the remote is in the
-repository config file |--| ``.git/config``:
+Git has written the information about the remote URL to the repository config
+file |--| ``.git/config``:
 
 .. prizerun::
 
@@ -1840,7 +1842,7 @@ An algorithm for git push
 -------------------------
 
 Now we know about how git stores its objects, we can work out how git knows
-what objects to copy when it does a push.
+which objects to copy when it does a push.
 
 Something like this algorithm might do the job:
 
@@ -1899,14 +1901,12 @@ We plug the hard drive into the laptop, it gets mounted again at
 
 Now we want a repository with a working tree.
 
-Maybe we make a directory for git repositories first:
-
 .. workrun::
     :hide:
 
     mkdir repos
 
-The command we want now is ``git clone``:
+The command we want is ``git clone``:
 
 .. laptoprun::
 
@@ -1965,11 +1965,8 @@ git fetch |--| get all data from a remote
 ``git fetch`` fetches data from a remote repository into a local one.
 
 Now we are back at the work desktop.  We don't have the great ideas from last
-night in the local repository::
-
-    cd nobel_prize
-
-Here is the latest commit in the work desktop repository:
+night in the local repository.  Here is the latest commit in the work desktop
+repository:
 
 .. prizerun::
 
@@ -1987,7 +1984,7 @@ get refreshed when we do an explicit git command to communicate with the
 remote copy.  Git stores the "last known positions" in ``refs/remotes``.  For
 example, if the remote name is ``usb_backup`` and the branch is ``master``,
 then the last known position (commit hash) is the contents of the file
-``refs/remotes/usb_backup/master``.
+``refs/remotes/usb_backup/master``:
 
 .. prizerun::
 
@@ -1997,11 +1994,10 @@ The commands that update the last known positions are:
 
 * ``git clone`` (a whole new copy, copying the remote branch positions with
   it);
-* ``git push`` (updates the remote branches and therefore the local last known
-  positions in the local repository);
-* ``git fetch`` (this section) (reads the branch positions and data from the
-  remote repository and copies the data and last known positions into the
-  local repository);
+* ``git push`` (copies data and branch positions to the remote repository, and
+  updates last known positions in the local repository);
+* ``git fetch`` (this section) (copies data and last known positions from
+  remote repository into the local repository);
 * ``git pull`` (this is just a ``git fetch`` followed by a ``git merge``).
 
 Now we have plugged in the USB drive, we can fetch the data and last known
@@ -2029,7 +2025,7 @@ case, the "merge" is very straightforward, because there have been no new
 changes in local ``master`` since the new edits we have in the remote.
 Therefore the "merge" only involves setting local ``master`` to point to the
 same commit as ``usb_backup/master``.  This is called a "fast-forward" merge,
-because it just involves advancing the branch pointer, rather then fusing two
+because it just involves advancing the branch pointer, rather than fusing two
 lines of development:
 
 .. prizerun::
@@ -2106,8 +2102,8 @@ confusing warning. See ``git config --help`` for more detail:
 
 Git also knows what to do if we do ``git fetch`` from this branch.
 
-To show this at work, we go home, fetch the desktop work, and then do another
-commit from the laptop:
+To show this at work, we go home to the laptop, fetch the desktop work from
+the USB drive, and then do another commit from the laptop:
 
 .. laptoprun::
 
@@ -2330,14 +2326,15 @@ they offer.
    resetting the position of a branch (usually ``master``) in the backup repo.
    Git is very reluctant to set a branch position in a repository with a
    working tree, because the new branch position will not not match the
-   existing content of the working tree.  Git could either leave it like this,
-   or checkout the new branch in the remote repo, but either thing would be
-   very confusing for someone trying to use the working tree in that
-   repository.  So, by default git will refuse to ``push`` a new branch
-   position to a remote repository with a working tree, giving you a long
-   explanation as to why it is refusing, and listing things you can do about
-   it.  You can force git to go ahead and do the push, but it is much safer to
-   use a bare repository.
+   existing content of the working tree.  Git could either leave the remote
+   working tree out of sync with the new branch position, or update the
+   remote working tree by doing a checkout of the new branch position, but
+   either thing would be very confusing for someone trying to use the working
+   tree in that repository.  So, by default git will refuse to ``push`` a new
+   branch position to a remote repository with a working tree, giving you a
+   long explanation as to why it is refusing, and listing things you can do
+   about it.  You can force git to go ahead and do the push, but it is much
+   safer to use a bare repository.
 .. [#sub-trees] You have probably worked out by now that git directory
    listings can have files (called "blobs") and subdirectories ("trees").
    When doing the copy, we actually have to recurse into any sub-directories

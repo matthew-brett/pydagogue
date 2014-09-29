@@ -30,6 +30,7 @@ help:
 clean:
 	-rm -rf _build/*
 	-rm object_names.inc
+	-rm -rf working/* working/.gitconfig
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) _build/html
@@ -98,7 +99,6 @@ gitwash-update:
 git-clean: clean
 	# The git repositories need hand deletion because they don't get cleaned up
 	# by git clean
-	- rm -rf working/* working/.gitconfig
 	git clean -fxd
 
 gh-pages: git-clean html
