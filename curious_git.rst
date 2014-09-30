@@ -746,35 +746,35 @@ We can do the same for the second commit:
 Would I get the same hash for the directory listing if I had had a different
 figure?
 
-Even more crazy idea - make the whole commit into a text file
-=============================================================
+Storing commit information as files
+===================================
 
 We've seen that we can make a directory listing that is unique for the whole
 contents of the snapshot files (file contents and file names).  Therefore the
 *hash* of the directory listing is also unique for the contents of the
 snapshot files.  So, we can make a *commit file* that is the ``info.txt`` file
-above, but now with the hash of the directory listing included.  Including the
-directory listing means that this *commit file* is now also unique to the
-contents of the snapshot.  The commit file for the first commit might look
+above, but now with the hash of the directory listing included.  Adding hash
+of the directory listing means that this *commit file* is now also unique to
+the contents of the snapshot.  The commit file for the first commit might look
 something like this:
 
 .. prizewrite::
 
     # file: .fancy_backups/1/commit
+    Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
     Date: April 1 2012, 14.30
     Author: I. M. Awesome
     Notes: First backup of my amazing idea
-    Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 
 The commit file for the second commit might look like this:
 
 .. prizewrite::
 
     # file: .fancy_backups/2/commit
+    Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
     Date: April 1 2012, 18.03
     Author: I. M. Awesome
     Notes: Fruit of enormous thought
-    Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 
 The commit is now just a text file, and I can hash this too:
 
@@ -785,13 +785,10 @@ The commit is now just a text file, and I can hash this too:
 
 .. prizerun::
 
-    cp .fancy_backups/1/commit .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
-    cp .fancy_backups/2/commit .fancy_backups/objects/d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba
+    cp .fancy_backups/1/commit .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
+    cp .fancy_backups/2/commit .fancy_backups/objects/015447b3e9ec05f476a6daf42484dd28c021e8a7
 
 Would the commit hash value change if the figure changed?
-
-So crazy it's actually git
-==========================
 
 Now look in ``.fancy_backups/objects``:
 
@@ -806,19 +803,20 @@ commit listings (for the first and second commit) = 8 hash objects.
 Linking the commits
 ===================
 
-Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``
------------------------------------------------------------------------
+Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``?
+------------------------------------------------------------------------
 
 The reason for our commit names "1", "2", "3" was so we know that commit "2"
 comes after commit "1" and before commit "3". Now our commits have filenames
 with arbitrary hashes, we can't tell the order from the name.
 
 However, the commit hash does uniquely identify the commit.  For example, we
-know that the file beginning '012ad9f' *completely defines the first commit*:
+know that the file beginning ``2f5e799`` *completely defines the first
+commit*:
 
 .. prizerun::
 
-    cat .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
+    cat .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
 
 We can specify the order by adding the commit hash of the previous
 (parent) commit into the current commit:
@@ -826,11 +824,11 @@ We can specify the order by adding the commit hash of the previous
 .. prizewrite::
 
     # file: .fancy_backups/2/info.txt
+    Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
+    Parent: 2f5e799e614b4e80c6f5a035ac29e1d16855e409
     Date: April 1 2012, 18.03
     Author: I. M. Awesome
     Notes: Fruit of enormous thought
-    Tree: 1dca3837b1076cdcfb02e86018377725e5d0e86e
-    Parent: 012ad9f6c3a715516514e8821a71d891c4211f8f
 
 Now we have the order of the commits from the links between them, where the
 links are given by the hash value in the ``Parent`` field.
