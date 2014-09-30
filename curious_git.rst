@@ -862,7 +862,7 @@ Armed with this deep_ understanding, we start to explore git.
     The rest of this presentation started off as Fernando Perez' git tutorial
     in his `reproducible software repository
     <https://github.com/fperez/reprosw>`__. I changed it quite a bit, so
-    please blame me rather than Fernando for any faults in the presentation.
+    please blame me rather than Fernando if you don't like what you read next.
 
 Basic configuration
 ===================
@@ -899,8 +899,8 @@ Try ``git help add`` for an example.
 Initializing the repository
 ===========================
 
-We first set this ``nobel_prize`` directory be version controlled with
-git.  We start with the original files for the paper:
+We first set this ``nobel_prize`` directory to be version controlled with git.
+We start off the working tree with the original files for the paper:
 
 .. prizerun::
     :hide:
@@ -913,7 +913,7 @@ git.  We start with the original files for the paper:
 
     unzip -o nobel_prize_files.zip
 
-Create git repository:
+Create the git repository:
 
 .. desktoprun::
 
@@ -1035,9 +1035,10 @@ file to the staging area.  We can see that with ``git status``:
 
     git status
 
-Sure enough, the output tells that "new file: nobel_prize_paper.txt" is in the
-"changes to be committed".  It also tells us that the other two files |--|
-``stunning_figure.png`` and ``very_clever_analysis.py`` |--| are "untracked".
+Sure enough, the output tells that ``new file: nobel_prize_paper.txt`` is in
+the ``changes to be committed``.  It also tells us that the other two files
+|--| ``stunning_figure.png`` and ``very_clever_analysis.py`` |--| are
+``untracked``.
 
 An untracked file is a file with a filename that has never been added to the
 repo with ``git add``.  Until you ``git add`` an untracked file, git will
@@ -1510,9 +1511,9 @@ Note that these changes must be committed too, if we want to keep them.
     git commit -m "I like this new name better"
 
 As you can imagine, all that changed is that the tree object for this commit
-associates the new filename with the old hash for the file.  I will use ``git
-ls-tree`` as a shortcut to show me the contents of the root tree object for
-this commit:
+associates the new filename with the old hash for the file.  I will use the
+obscure ``git ls-tree`` command as a shortcut to show me the contents of the
+root tree object for this commit:
 
 .. prizerun::
 
@@ -1862,6 +1863,9 @@ then (choosing from |boring-7| and |an-experiment-7|) to |boring-7|,
 |new-name-7|, |after-science-7|, |a-flag-7|, |fruit-7| and finally |initial-7|
 (because |initial-7| has no parents).  This is one *path* through the *commit
 history* graph.
+
+See :ref:`defining paths <git-reachable>` for a more formal definition of a
+commit path.
 
 git remotes - working with other people, making backups
 =======================================================

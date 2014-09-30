@@ -45,21 +45,23 @@ shorthand for::
 reached from ``end-branch``". ``^start-branch`` means |emdash| "excluding any
 commits that can be reached from ``start-branch``".
 
+.. _git-reachable:
+
 .. note:: What does "reachable" mean?
 
-    A commit, :math:`s`, can be **reached** from some commit, :math:`t`, if and
-    only if there is a path from :math:`s` to :math:`t` along the ancestry graph
-    of the commits.
+    A commit, :math:`s`, can be **reached** from some commit, :math:`t`, if
+    and only if there is a path from :math:`s` to :math:`t` along the ancestry
+    graph of the commits.
 
     The ancestry graph is the directed acyclic graph of the history, where the
     nodes are the commits and the edges are directed backwards from nodes to
     their parents.
 
-    Put more formally, a sequence of commits, :math:`v_0, v_1, ..., v_n`, forms
-    a **path** between :math:`v_0` and :math:`v_n` if and only if
-    :math:`v_{i-1}` is the parent of :math:`v_i` for :math:`i=1` to :math:`i=n`.
-    A commit is also reachable from itself, so a commit sequence of length 1 is
-    defined as forming a path.
+    Put more formally, a sequence of commits, :math:`v_0, v_1, ..., v_n`,
+    forms a **path** between :math:`v_0` and :math:`v_n` if and only if
+    :math:`v_{i-1}` is the parent of :math:`v_i` for :math:`i=1` to
+    :math:`i=n`.  A commit is also reachable from itself, so a commit sequence
+    of length 1 is defined as forming a path.
 
 Obviously ``git log start-branch..end-branch`` cannot include the commit
 pointed to by ``start-branch`` because you can always reach ``start-branch``
