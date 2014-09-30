@@ -51,15 +51,14 @@ I could see that it must be possible to do complicated and powerful
 things, and I could work out how to do them.
 
 Reading the git parable took me about 45 minutes, but those 45 minutes changed
-me from an unhappy git user to someone who
-uses git often every day, but, happily, knowing that I have the right tool for
-the job.
+me from an unhappy git user to someone who uses git often every day, but,
+happily, knowing that I have the right tool for the job.
 
-So, my experience tells me that to use git - yes *use* git - you need to spend
-that 45 minutes to *understand* git.  You don't believe me, or you think that
-I'm a strange kind of person not like you who probably likes writing their own
-operating systems. Not so - the insight I'm describing comes up over and over.
-From `understanding git conceptually
+So, my experience tells me that to use git |--| yes *use* git |--| you need to
+spend the short amount of time it takes to *understand* git.  You don't
+believe me, or you think that I'm a strange kind of person not like you who
+probably likes writing their own operating systems. Not so - the insight I'm
+describing comes up over and over.  From `understanding git conceptually
 <http://www.sbf5.com/~cduan/technical/git>`_:
 
     When I first started using Git, I read plenty of tutorials, as well as the
@@ -89,14 +88,15 @@ website.
 .. comment yoh -- below you demand an hour while above only 45
            minutes.  Do not raise stakes! ;-)
 
-So - have no truck with people who try and tell you that you can just use git
-and that you don't need the `deep shit
-<http://rogerdudler.github.io/git-guide>`_.  You *do* need the deep shit, but
-the deep shit isn't that deep, and it will take you an hour of your time to get
-it.  And then I'm betting that you'll see that the alchemist has succeeded at
-last, and the shit finally turned into gold.
+So |--| have no truck with people who try and tell you that you can just use
+git and that you don't need the `deep shit`_ You *do* need the deep shit, but
+the deep shit isn't that deep, and it will take you an hour of your time to
+get all of it.  And then I'm betting that you'll see that the alchemist has
+succeeded at last, and the shit finally turned into gold.
 
-So - please - invest an hour of your life to understand this stuff.
+.. _deep shit: http://rogerdudler.github.io/git-guide
+
+So |--| please |--| invest an hour of your life to understand this stuff.
 Concentrate, go slowly, make sure you get it. In return for an hour of your
 life, you will get many happy years for which git will appear in its true
 form, both beautiful and useful.
@@ -108,9 +108,17 @@ git is not really a "Version Control System". It is better described
 as a "Content Management System", that turns out to be really good for
 version control.
 
-I'll say that again.  Git is a content management system.  Or - to quote from
-the `root page of the git manual <http://git-scm.com/docs/git.html>`_: "git -
-the stupid content tracker".
+I'll say that again.  Git is a content management system.  To quote from the
+`root page of the git manual <http://git-scm.com/docs/git.html>`_: "git - the
+stupid content tracker".
+
+The reason that this is important is that git thinks in a very simple way
+about files and directories.  You will ask git to keep backups of files in a
+directory, and it does just this; it stores snapshots of the files, so you can
+go back to them later.
+
+Here is a story where we develop a very simple system for storing file
+backups.  We soon find it starts to look just like git.
 
 ****************
 A familiar story
@@ -123,8 +131,7 @@ As in the `git parable`_ - we'll try and design our own, and then see what
 git has to say.
 
 (To go through this a little more slowly, and with more jokes, you might also
-try my  `git foundations
-<http://matthew-brett.github.com/pydagogue/foundation.html>`__ page).
+try my  :doc:`foundation` page).
 
 While we are designing our own content management system, we will do a lot of
 stuff longhand, to show how things work.  When we get to git, we will find it
@@ -309,7 +316,7 @@ talk to Josephine. By now you have 5 snapshots.
     echo "Increasing anxiety" > .fancy_backups/4/files/nobel_prize_paper.txt
     cp -r .fancy_backups/3 .fancy_backups/5
     # Copy the other version of the stunning figure
-    cp ../../extras/stunning_figure.png.v2 .fancy_backups/5/files/
+    cp ../../extras/stunning_figure.png.v2 .fancy_backups/5/files/stunning_figure.png
 
 The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.
@@ -716,8 +723,8 @@ Here then is our directory listing for commit 2:
     stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
     very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 
-Storing the directory listing as files
-======================================
+Storing the directory listing as a file
+=======================================
 
 The directory listing is just a text file.  We can store the directory listing
 as we store the other files, by writing an object file with the file hash.
@@ -746,17 +753,17 @@ We can do the same for the second commit:
 Would I get the same hash for the directory listing if I had had a different
 figure?
 
-Storing commit information as files
-===================================
+Storing the commit information as a file
+========================================
 
-We've seen that we can make a directory listing that is unique for the whole
-contents of the snapshot files (file contents and file names).  Therefore the
-*hash* of the directory listing is also unique for the contents of the
-snapshot files.  So, we can make a *commit file* that is the ``info.txt`` file
-above, but now with the hash of the directory listing included.  Adding hash
-of the directory listing means that this *commit file* is now also unique to
-the contents of the snapshot.  The commit file for the first commit might look
-something like this:
+We've seen that we can make a directory listing file that is unique for the
+whole contents of the snapshot files (file contents and file names).
+Therefore the *hash* of the directory listing file is also unique for the
+contents of the snapshot files.  So, we can make a *commit file* that is the
+``info.txt`` file above, but now with the hash of the directory listing file
+included.  Adding the hash of the directory listing file means that this
+*commit file* is now also unique to the contents of the snapshot.  The commit
+file for the first commit might look something like this:
 
 .. prizewrite::
 
@@ -765,6 +772,9 @@ something like this:
     Date: April 1 2012, 14.30
     Author: I. M. Awesome
     Notes: First backup of my amazing idea
+
+The ``Tree:`` field gives the hash of the directory listing file for this
+commit.
 
 The commit file for the second commit might look like this:
 
@@ -776,7 +786,7 @@ The commit file for the second commit might look like this:
     Author: I. M. Awesome
     Notes: Fruit of enormous thought
 
-The commit is now just a text file, and I can hash this too:
+The commit is now just a text file, and I can hash and store this too:
 
 .. prizerun::
 
@@ -803,23 +813,24 @@ commit listings (for the first and second commit) = 8 hash objects.
 Linking the commits
 ===================
 
-Can we completely get rid of ``.fancy_backups/1``, ``.fancy_backups/2``?
-------------------------------------------------------------------------
+Can we completely get rid of our snapshot directories ``.fancy_backups/1``,
+``.fancy_backups/2``?
 
 The reason for our commit names "1", "2", "3" was so we know that commit "2"
-comes after commit "1" and before commit "3". Now our commits have filenames
-with arbitrary hashes, we can't tell the order from the name.
+comes after commit "1" and before commit "3". Now our commits have hash value
+filenames, we can't tell the order from the name.
 
 However, the commit hash does uniquely identify the commit.  For example, we
-know that the file beginning ``2f5e799`` *completely defines the first
-commit*:
+know that the file beginning ``2f5e799`` completely defines the first
+commit:
 
 .. prizerun::
 
     cat .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
 
-We can specify the order by adding the commit hash of the previous
-(parent) commit into the current commit:
+We can specify the order by adding the commit hash of the previous (parent)
+commit into the current commit. For example, we can make the second commit
+point back to the first commit like this:
 
 .. prizewrite::
 
@@ -831,21 +842,33 @@ We can specify the order by adding the commit hash of the previous
     Notes: Fruit of enormous thought
 
 Now we have the order of the commits from the links between them, where the
-links are given by the hash value in the ``Parent`` field.
-
-And now you are already a git master.
+links are given by the hash value in the ``Parent:`` field.
 
 ****************************
 Git rides in to save the day
 ****************************
 
-**Note**: The rest of this presentation started off as Fernando Perez' git
-tutorial in his `reproducible software repository
-<https://github.com/fperez/reprosw>`__. I changed it quite a bit, so please
-blame me rather than Fernando for any faults in the presentation.
+Now you have built your own "fancy backups" system, you know how git works
+|--| because it works in exactly the same way.  You will recognize hashes for
+files, directories and commits, commits linked by reference to their parents,
+the staging area, and the ``objects`` directory.
+
+Armed with this deep_ understanding, we start to explore git.
+
+.. _deep: http://rogerdudler.github.io/git-guide
+
+.. note::
+
+    The rest of this presentation started off as Fernando Perez' git tutorial
+    in his `reproducible software repository
+    <https://github.com/fperez/reprosw>`__. I changed it quite a bit, so
+    please blame me rather than Fernando for any faults in the presentation.
+
+Basic configuration
+===================
 
 We need to tell git about us before we start. This stuff will go into
-the commit information.
+the commit information by default.
 
 .. prizerun::
 
@@ -883,7 +906,7 @@ git.  We start with the original files for the paper:
     :hide:
 
     # Delete the current contents of 'nobel_prize'
-    rm -rf .
+    rm -rf *
     rm -rf .fancy_backups
 
 .. desktoprun::
@@ -911,6 +934,8 @@ The ``objects`` directory looks familiar. What's in there?
     tree .git/objects
 
 Nothing but a couple of empty directories. That makes sense.
+
+.. _git-add:
 
 git add - put stuff into the staging area
 =========================================
@@ -945,16 +970,31 @@ to read them - see :doc:`reading_git_objects`.
 Git will also show the contents of objects with the command ``git cat-file
 -p``.
 
+.. prizevar:: initial-paper-hash
+
+    git hash-object nobel_prize_paper.txt
+
+.. prizevar:: initial-paper-hash-fname
+
+    obj={{ initial-paper-hash }}
+    echo \${obj:0:2}/\${obj:2}
+
+.. prizevar:: initial-paper-hash-dirname
+
+    obj={{ initial-paper-hash }}
+    echo \${obj:0:2}
+
 When we did ``git add nobel_prize_paper.txt``, we got a new file in
-``.git/objects``, with filename ``d9/2d079af6a7f276cc8d63dcf2549c03e7deb553``.
-The filename is in fact a hash, where the first two digits form the directory
-name (``d9``) and the rest of the digits are the filename [#git-object-dir]_.
+``.git/objects``, with filename |initial-paper-hash-fname|.  The filename is
+in fact a hash, where the first two digits form the directory name
+(|initial-paper-hash-dirname|) and the rest of the digits are the filename
+[#git-object-dir]_.
 
 Here's the contents of the object:
 
 .. prizerun::
 
-    git cat-file -p d92d079af6a7f276cc8d63dcf2549c03e7deb553
+    git cat-file -p {{ initial-paper-hash }}
 
 Just as we expected, it is the current contents of the
 ``nobel_prize_paper.txt``.
@@ -962,9 +1002,14 @@ Just as we expected, it is the current contents of the
 In fact we only need to give git enough hash digits for git to uniquely
 identify the object.  7 digits is often enough, as in:
 
+.. prizevar:: initial-paper-hash-7
+
+    obj={{ initial-paper-hash }}
+    echo \${obj:0:7}
+
 .. prizerun::
 
-    git cat-file -p d92d079
+    git cat-file -p {{ initial-paper-hash-7 }}
 
 git status - showing the status of files in the working tree
 ============================================================
@@ -1438,109 +1483,145 @@ Types of objects in ``.git/objects``
 We now know all of the different types of objects that git stores in
 ``.git/objects``.  The object types are:
 
-* *tag*;
-* *commit*;
+* *blob*;
 * *tree*;
-* *blob*.
+* *commit*;
+* *tag*.
 
 ``git cat-file -t`` will show us the type of a git object.
 
-Tag object types
+Blob object type
 ----------------
 
-We have just seen that there is an annotated git *tag* object type:
+*Blob* is an abbreviation for "binary large object".  When we ``git add`` a
+file such as ``nobel_prize_paper.txt``, git creates a *blob* object containing
+the contents of the file.  Blobs are therefore the git object type for storing
+files from the working tree.
+
+For example, here is the git hash value for the current contents of
+``nobel_prize_paper.txt``:
 
 .. prizerun::
 
-    git cat-file -t {{ annotated-to-science }}
+    git hash-object nobel_prize_paper.txt
 
-The tag object type contains a text file the hash of the tagged object, the
-type of tagged object (usually a commit), the tag name, author, date and
-message:
+.. prizevar:: after-science-paper-hash
 
-.. prizerun::
+    git hash-object nobel_prize_paper.txt
 
-    git cat-file -p {{ annotated-to-science }}
+.. prizevar:: after-science-paper-hash-fname
 
-Commit object type
-------------------
+    obj={{ after-science-paper-hash }}
+    echo \${obj:0:2}/\${obj:2}
 
-There is a commit object type:
-
-.. prizerun::
-
-    git branch -v
+We have already done ``git add`` to this version of the file, so we already
+have an object corresponding to this hash in ``.git/objects``:
 
 .. prizerun::
 
-    git cat-file -t {{ after-science }}
+    ls .git/objects/{{ after-science-paper-hash-fname }}
 
-The contents of a commit object is a text file giving the directory tree
-object hash, parent commit hash, author, date and message:
+The corresponding object is of type *blob*:
 
 .. prizerun::
 
-    git cat-file -p {{ after-science }}
+    git cat-file -t {{ after-science-paper-hash }}
+
+The contents of the blob is the contents of the paper as of this commit:
+
+.. prizerun::
+
+    git cat-file -p {{ after-science-paper-hash }}
 
 Tree object type
 ----------------
 
-There is an object type for a directory listing, called a *tree* object. The
-commit file contents above shows us the directory tree object hash for this
-commit.
+There is an object type for a directory listing, called a *tree* object.
+
+For example, each commit contains the hash for the directory listing of the
+root directory.  I'll get this hash value for the current commit by asking
+``git log`` to only show me the tree hash for the commit (using
+``--format="%T"``), and only show me the latest commit (``-1``):
+
+.. prizerun::
+
+    # Show me the tree hash from the latest commit
+    git log --format="%T" -1
 
 .. prizevar:: after-science-tree
 
-    git log -1 --format="%T"
+    git log --format="%T" -1
+
+This hash refers to an object of type "tree":
 
 .. prizerun::
 
     git cat-file -t {{ after-science-tree }}
 
-The contents of a tree object is a text file with one line per file in a
-directory, and each line giving file permissions, *object type*, object hash
-and filename. Object type is usually one of "blob" for a file or "tree" for a
-subdirectory [#directory-tree-types]_.
-
-We can show the directory tree object contents using ``git cat-file -p``:
+The tree object contains a file with one line per file in a directory, and
+each line giving file permissions, *object type*, object hash and filename.
+*Object type* is usually one of "blob" for a file or "tree" for a subdirectory
+[#directory-tree-types]_.
 
 .. prizerun::
 
     git cat-file -p {{ after-science-tree }}
 
-We can also use ``git ls-tree`` to show us the tree contents for a commit.
-For example, this will also show us the directory contents for current commit:
+.. note::
+
+    We can also use ``git ls-tree`` to show us the tree contents for a commit.
+    For example, this will also show us the root directory listing for the
+    current commit:
+
+    .. prizerun::
+
+        git ls-tree master
+
+Commit object type
+------------------
+
+There is a commit object type.
+
+We can get the current commit hash from ``git log``, using the ``-1`` flag to
+show us only the latest commit:
 
 .. prizerun::
 
-    git ls-tree master
+    git log -1
 
-Blob object type
-----------------
-
-A *blob* is a binary large object. This is the file type for the file contents
-of the files we added to the commit with ``git add`` (or ``git commit -a``).
-
-Our directory tree above points to the hashes of the blob objects that have
-the file contents.  For example, the directory listing tells us that the hash
-for filename ``nobel_prize_paper.txt`` is |after-science-paper-obj|.
-
-.. prizevar:: after-science-paper-obj
-
-    git cat-file -p {{ after-science-tree }} | grep nobel_prize | awk '{print \$3}'
-
-As the directory listing says, this hash is for an object of type "blob""
+The hash of the current commit object is |after-science|.  This is an object
+of type "commit":
 
 .. prizerun::
 
-    git cat-file -t {{ after-science-paper-obj }}
+    git cat-file -t {{ after-science }}
 
-The contents of that blob are the bytes of ``nobel_prize_paper.txt`` as of
-this commit:
+The commit object contains the directory tree object hash, parent commit hash,
+author, date and message:
 
 .. prizerun::
 
-    git cat-file -p {{ after-science-paper-obj }}
+    git cat-file -p {{ after-science }}
+
+Tag object type
+---------------
+
+We have just seen that there is an annotated git *tag* object type:
+
+.. prizerun::
+
+    cat .git/refs/tags/annotated-to-science
+
+.. prizerun::
+
+    git cat-file -t {{ annotated-to-science }}
+
+The tag object type contains the hash of the tagged object, the type of tagged
+object (usually a commit), the tag name, author, date and message:
+
+.. prizerun::
+
+    git cat-file -p {{ annotated-to-science }}
 
 git mv and rm: moving and removing files
 ========================================
@@ -1628,6 +1709,20 @@ to a particular commit:
 .. prizerun::
 
     git branch -v
+
+Heads and refs
+==============
+
+For git, a *reference* or a *ref* is a name that refers to another object. A
+reference almost invariably points to a commit object [#tag-other-objects]_.
+
+For example a branch is a reference, and so is a tag. Remember that git stores
+branches and tags in ``.git/refs``.
+
+A *head* is a reference to a commit that updates when we do ``git commit``.
+All branches are heads.  A tag is not a head because it does not update when
+we do a commit.  Remember that git stores branches in ``.git/refs/heads``.
+The special reference HEAD points to the current head that we are working on.
 
 Developing on different branches
 ================================
@@ -2072,11 +2167,11 @@ this update yet:
     git branch -a -v
 
 We already know there will be three new objects in ``.git/objects`` after this
-commit.  There are objects for:
+commit.  These are:
 
-* the modified ``nobel_prize_paper.txt``;
-* the modified directory listing with the new hash for
-  ``nobel_prize_paper.txt``;
+* a new blob for the modified ``nobel_prize_paper.txt``;
+* a new tree (directory listing) associating the new hash for the contents of
+  ``nobel_prize_paper.txt`` with the ``nobel_prize_paper.txt`` filename.
 * the new commit.
 
 Usually we don't need to worry about which objects these are, but here we will
@@ -2089,14 +2184,13 @@ The commit object we can see from the top of ``git log``. The ``-1`` flag to
 
     git log -1
 
-So the commit is |buffing|. We can get the directory listing object from the
-commit object:
+So the commit is |buffing|. We can get the tree object from the commit object:
 
 .. prizerun::
 
     git cat-file -p {{ buffing }}
 
-We can show the directory listing contents to get the object for the new
+We can show the tree object contents to get the object for the new
 version of ``nobel_prize_paper.txt``.
 
 .. depends on history
@@ -2179,13 +2273,13 @@ Something like this algorithm might do the job:
 #. Follow every :ref:`commit path <git-graph>` back from this commit, until we
    hit a commit hash (filename) that the remote has.  All the previous commits
    on the path, that the remote does not have, are *missing commits*;
-#. For every *missing commit* get the corresponding directory listing object
-   (tree object).  If the tree object is not in the remote objects directory,
-   add to the list of *missing trees*;
-#. For every *missing tree* read the tree directory listing. Find any file
-   objects in the directory listing that are not in the remote objects
-   directory, add to the list of *missing file* objects [#sub-trees]_;
-#. Copy all *missing commit*, *missing tree* and *missing file* objects to the
+#. For every *missing commit* get the corresponding tree (directory listing)
+   object.  If the tree object is not in the remote objects directory, add to
+   the list of *missing trees*;
+#. For every *missing tree* read the tree directory listing. Find any blob
+   (file) objects in the directory listing that are not in the remote objects
+   directory, add to the list of *missing blob* objects [#sub-trees]_;
+#. Copy all *missing commit*, *missing tree* and *missing blob* objects to the
    remote objects directory;
 #. Update the remote branch to point to the same commit as the local branch;
 #. Update the local record of the last known position of the remote branch to
@@ -2202,15 +2296,14 @@ In our case:
    |merge-trouble-7| |--| and the remote does have a corresponding object, so
    we can stop looking for missing commits;
 #. We only have one missing commit, |buffing-7|.  We look in the contents of
-   |buffing-7| to find the directory listing (tree).  This is |buffing-tree|.
-   We check for this object in the remote objects directory, and sure enough,
-   it is missing. We add this tree to the list of missing trees;
+   |buffing-7| to find the tree object hash.  This is |buffing-tree|.  We
+   check for this object in the remote objects directory, and sure enough, it
+   is missing. We add this tree to the list of missing trees;
 #. We only have one missing tree |--| |buffing-tree|. We look in the contents
-   of this directory listing, and check in the remote object directory for
-   each object in this listing. The only missing object is
-   |buffing-paper-obj|;
+   of this tree object and check in the remote object directory for each
+   object in this listing. The only missing object is |buffing-paper-obj|;
 #. We copy the objects for the missing commits (|merge-trouble|), missing
-   trees (|buffing-tree|) and missing files (|buffing-paper-obj|) to the
+   trees (|buffing-tree|) and missing blobs (|buffing-paper-obj|) to the
    remote objects directory;
 #. We set remote ``refs/heads/master`` to contain the hash |buffing|;
 #. Set the local ``refs/remotes/usb_backup/master`` to contain |buffing|.
@@ -2501,7 +2594,9 @@ Git: are you ready?
 
 If you followed this tutorial, you now have a good knowledge of how git works.
 This will make it much easier to understand why git commands do what they do,
-and what to do when things go wrong.
+and what to do when things go wrong.  You know all the main terms that the git
+manual pages use, so git's own help will be more useful to you.  You will
+likely lead a long life of deep personal fulfillment.
 
 *************
 Git resources
@@ -2630,21 +2725,24 @@ they offer.
 .. [#directory-tree-types] The object types in a directory listing are almost
    invariably either "blob" or "tree", but can also be "commit" for recording
    the commit of a git submodule - see :doc:`git_submodules`.
+.. [#tag-other-objects] You might have guessed by now that a tag can refer to
+   any git object, not just a commit.  For example a tag can refer to a tree
+   or a blob object, although in practice tags almost always refer to commits.
 .. [#bare-detail] The reason we need a bare repository for our backup goes
    deeper than the fact we do not need a working tree.  We are soon going to
    do a ``push`` to this backup repository.  The ``push`` has the effect of
    resetting the position of a branch (usually ``master``) in the backup repo.
-   Git is very reluctant to set a branch position in a repository with a
-   working tree, because the new branch position will not not match the
+   Git is very reluctant to set a branch position in a remote repository with
+   a working tree, because the new branch position will not not match the
    existing content of the working tree.  Git could either leave the remote
-   working tree out of sync with the new branch position, or update the
-   remote working tree by doing a checkout of the new branch position, but
-   either thing would be very confusing for someone trying to use the working
-   tree in that repository.  So, by default git will refuse to ``push`` a new
-   branch position to a remote repository with a working tree, giving you a
-   long explanation as to why it is refusing, and listing things you can do
-   about it.  You can force git to go ahead and do the push, but it is much
-   safer to use a bare repository.
+   working tree out of sync with the new branch position, or update the remote
+   working tree by doing a checkout of the new branch position, but either
+   thing would be very confusing for someone trying to use the working tree in
+   that repository.  So, by default git will refuse to ``push`` a new branch
+   position to a remote repository with a working tree, giving you a long
+   explanation as to why it is refusing, and listing things you can do about
+   it.  You can force git to go ahead and do the push, but it is much safer to
+   use a bare repository.
 .. [#sub-trees] You have probably worked out by now that git directory
    listings can have files (called "blobs") and subdirectories ("trees").
    When doing the copy, we actually have to recurse into any sub-directories
