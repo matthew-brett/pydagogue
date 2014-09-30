@@ -70,7 +70,7 @@ design of Linux to Kernighan and Ritchie and Thompson. I mean there&#8217;s a
 reason I like Unix and I wanted to redo it. I do want to say that git is a
 design that is mine and unique, and I&#8217;m proud of the fact that I can damn
 well also do good design from scratch.</div></blockquote>
-<p>But - some people hate git.  Really <em>hate</em> it. They find it confusing and
+<p>But some people hate git.  Really <em>hate</em> it. They find it confusing and
 error prone and it makes them angry.  Why are there such different views?</p>
 <p>I think the reason some people hate git, is because they don&#8217;t yet understand
 it.  I reason I can say this without being patronizing is because I went
@@ -91,14 +91,13 @@ comfortable.  I knew for sure I could work out why git worked the way it did.
 I could see that it must be possible to do complicated and powerful
 things, and I could work out how to do them.</p>
 <p>Reading the git parable took me about 45 minutes, but those 45 minutes changed
-me from an unhappy git user to someone who
-uses git often every day, but, happily, knowing that I have the right tool for
-the job.</p>
-<p>So, my experience tells me that to use git - yes <em>use</em> git - you need to spend
-that 45 minutes to <em>understand</em> git.  You don&#8217;t believe me, or you think that
-I&#8217;m a strange kind of person not like you who probably likes writing their own
-operating systems. Not so - the insight I&#8217;m describing comes up over and over.
-From <a class="reference external" href="http://www.sbf5.com/~cduan/technical/git">understanding git conceptually</a>:</p>
+me from an unhappy git user to someone who uses git often every day, but,
+happily, knowing that I have the right tool for the job.</p>
+<p>So, my experience tells me that to use git – yes <em>use</em> git – you need to
+spend the short amount of time it takes to <em>understand</em> git.  You don&#8217;t
+believe me, or you think that I&#8217;m a strange kind of person not like you who
+probably likes writing their own operating systems. Not so - the insight I&#8217;m
+describing comes up over and over.  From <a class="reference external" href="http://www.sbf5.com/~cduan/technical/git">understanding git conceptually</a>:</p>
 <blockquote>
 <div>When I first started using Git, I read plenty of tutorials, as well as the
 user manual. Though I picked up the basic usage patterns and commands, I
@@ -122,12 +121,12 @@ I’ve made this discussion the last chapter in the book so you could read
 it early or later in your learning process. I leave it up to you to
 decide.</p>
 </div></blockquote>
-<p>So - have no truck with people who try and tell you that you can just use git
-and that you don&#8217;t need the <a class="reference external" href="http://rogerdudler.github.io/git-guide">deep shit</a>.  You <em>do</em> need the deep shit, but
-the deep shit isn&#8217;t that deep, and it will take you an hour of your time to get
-it.  And then I&#8217;m betting that you&#8217;ll see that the alchemist has succeeded at
-last, and the shit finally turned into gold.</p>
-<p>So - please - invest an hour of your life to understand this stuff.
+<p>So – have no truck with people who try and tell you that you can just use
+git and that you don&#8217;t need the <a class="reference external" href="http://rogerdudler.github.io/git-guide">deep shit</a>. You <em>do</em> need the deep shit, but
+the deep shit isn&#8217;t that deep, and it will take you an hour of your time to
+get all of it.  Then I&#8217;m betting that you&#8217;ll see that the alchemist has
+succeeded at last, and the shit has finally turned into gold.</p>
+<p>So – please – invest an hour of your life to understand this stuff.
 Concentrate, go slowly, make sure you get it. In return for an hour of your
 life, you will get many happy years for which git will appear in its true
 form, both beautiful and useful.</p>
@@ -136,9 +135,15 @@ form, both beautiful and useful.</p>
 <p>git is not really a &#8220;Version Control System&#8221;. It is better described
 as a &#8220;Content Management System&#8221;, that turns out to be really good for
 version control.</p>
-<p>I&#8217;ll say that again.  Git is a content management system.  Or - to quote from
-the <a class="reference external" href="http://git-scm.com/docs/git.html">root page of the git manual</a>: &#8220;git -
-the stupid content tracker&#8221;.</p>
+<p>I&#8217;ll say that again.  Git is a content management system.  To quote from the
+<a class="reference external" href="http://git-scm.com/docs/git.html">root page of the git manual</a>: &#8220;git - the
+stupid content tracker&#8221;.</p>
+<p>The reason that this is important is that git thinks in a very simple way
+about files and directories.  You will ask git to keep backups of files in a
+directory, and it does just this; it stores snapshots of the files, so you can
+go back to them later.</p>
+<p>Here is a story where we develop a very simple system for storing file
+backups.  We soon find it starts to look just like git.</p>
 </div>
 </div>
 <div class="section" id="a-familiar-story">
@@ -148,7 +153,7 @@ content manager should do, and why we would want one.</p>
 <p>As in the <a class="reference external" href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">git parable</a> - we&#8217;ll try and design our own, and then see what
 git has to say.</p>
 <p>(To go through this a little more slowly, and with more jokes, you might also
-try my  <a class="reference external" href="http://matthew-brett.github.com/pydagogue/foundation.html">git foundations</a> page).</p>
+try my  <a class="reference internal" href="foundation.html"><em>Git foundations</em></a> page).</p>
 <p>While we are designing our own content management system, we will do a lot of
 stuff longhand, to show how things work.  When we get to git, we will find it
 does these tasks for us.</p>
@@ -163,6 +168,7 @@ analysis script <tt class="docutils literal"><span class="pre">very_clever_analy
 <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt>.</p>
 <p>You can get this ground-breaking paper by downloading and unzipping
 <a class="reference download internal" href="_downloads/nobel_prize_files.zip"><tt class="xref download docutils literal"><span class="pre">nobel_prize_files.zip</span></tt></a>.</p>
+<p>Here I&#8217;m using the command line to do the unzip:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>unzip -o nobel_prize_files.zip
 Archive:  nobel_prize_files.zip
    creating: nobel_prize/
@@ -172,7 +178,8 @@ Archive:  nobel_prize_files.zip
 </pre></div>
 </div>
 <p>Here&#8217;s what we get in our <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls nobel_prize
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># List directory contents</span>
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls nobel_prize
 nobel_prize_paper.txt
 stunning_figure.png
 very_clever_analysis.py
@@ -195,8 +202,8 @@ used to look better than that&#8221;. That&#8217;s what you think too. But:</p>
 </div>
 <div class="section" id="deja-vu-all-over-again">
 <h3>Deja vu all over again<a class="headerlink" href="#deja-vu-all-over-again" title="Permalink to this headline">¶</a></h3>
-<p>Given you are so clever and you have worked out the brain, it&#8217;s really
-easy for you to leap in your time machine, and go back two weeks to
+<p>Given you are so clever and you have discovered how the brain works, it is
+really easy for you to leap in your time machine, and go back two weeks to
 start again.</p>
 <p>What are you going to do differently this time?</p>
 </div>
@@ -210,10 +217,12 @@ of the analysis directory.</p>
 <p>The snapshot is just a copy of all the files in the directory, kept
 somewhere safe.</p>
 <p>You make a directory to store the snapshots called <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt>:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># Change to nobel_prize directory</span>
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>mkdir .fancy_backups
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># Make the &quot;.fancy_backups&quot; directory</span>
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>mkdir .fancy_backups
 </pre></div>
 </div>
 <p>Then you make a directory for the first backup:</p>
@@ -222,7 +231,8 @@ somewhere safe.</p>
 </pre></div>
 </div>
 <p>And you copy the files there:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp * .fancy_backups/1/files
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># Copy all files in curent directory to backup directory</span>
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp * .fancy_backups/1/files
 </pre></div>
 </div>
 </div>
@@ -237,8 +247,9 @@ Author: I. M. Awesome
 Notes: First backup of my amazing idea
 </pre></div>
 </div>
-<p>Now you have these files in the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>tree -a
+<p>Now you have these files in the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory <a class="footnote-reference" href="#tree-command" id="id1">[1]</a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># Show representation of directory tree</span>
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>tree -a
 .
 ├── .fancy_backups
 │   └── 1
@@ -320,22 +331,21 @@ Notes: Now seeing things clearly
 talk to Josephine. By now you have 5 snapshots.</p>
 <p>The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.</p>
-<p>You go back and look at <tt class="docutils literal"><span class="pre">.fancy_backups/1/stunning_figure.png</span></tt>. It
-does look different.</p>
+<p>You go back and look at the original figure in
+<tt class="docutils literal"><span class="pre">.fancy_backups/1/stunning_figure.png</span></tt>. It does look different.</p>
 <p>You go through all the <tt class="docutils literal"><span class="pre">.fancy_backups</span></tt> directories in order. It turns
-out that the figure changes in <tt class="docutils literal"><span class="pre">.fancy_backups/4</span></tt>.</p>
-<p>You look in <tt class="docutils literal"><span class="pre">.fancy_backups/4/info.txt</span></tt> and it says:</p>
+out that the figure changes in <tt class="docutils literal"><span class="pre">.fancy_backups/5</span></tt>.</p>
+<p>You look in <tt class="docutils literal"><span class="pre">.fancy_backups/5/info.txt</span></tt> and it says:</p>
 <div class="highlight-python"><div class="highlight"><pre>Date: April 4 2012, 01.40
 Author: I. M. Awesome
 Notes: I always get the best ideas after I have been drinking.
 </pre></div>
 </div>
-<p>Aha. Then you go find the problem in <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> very
-quickly since instead of eyeballing the entire script you need to
-inspect only the difference between
-<tt class="docutils literal"><span class="pre">fancy_backups/3/very_clever_analysis.py</span></tt> and
-<tt class="docutils literal"><span class="pre">fancy_backups/4/very_clever_analysis.py</span></tt> to find the not so
-ingenious <em>optimization</em> you have introduced.</p>
+<p>Aha. Then you find the problem in <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> very quickly
+since instead of eyeballing the entire script you need to inspect only the
+difference between <tt class="docutils literal"><span class="pre">fancy_backups/4/very_clever_analysis.py</span></tt> and
+<tt class="docutils literal"><span class="pre">fancy_backups/5/very_clever_analysis.py</span></tt> to find the not so ingenious
+<em>optimization</em> you have introduced.</p>
 <p>You fix <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>.</p>
 <p>You make a new snapshot <tt class="docutils literal"><span class="pre">.fancy_backups/6</span></tt>.</p>
 <p>Back on track for a scientific breakthrough.</p>
@@ -350,8 +360,8 @@ ingenious <em>optimization</em> you have introduced.</p>
 The files <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>, <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>,
 <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> are the files in your working tree.</dd>
 <dt>Repository</dt>
-<dd>The directory containing information about the history of the files. Your
-directory <tt class="docutils literal"><span class="pre">.fancy_snapshot</span></tt> is the repository.</dd>
+<dd>The directory containing the snapshots. Your directory <tt class="docutils literal"><span class="pre">.fancy_snapshot</span></tt>
+is the repository.</dd>
 <dt>Commit</dt>
 <dd>A completed snapshot. For example, <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt> contains one
 commit.</dd>
@@ -370,8 +380,8 @@ bits of extra work, with their own comments in the <tt class="docutils literal">
 <ol class="arabic simple">
 <li>a commit containing the changes to <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>, with comment
 &#8220;Changes to introduction&#8221;;</li>
-<li>Another commit containing the changes to <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt>
-with comment &#8220;Crazy new analysis&#8221;</li>
+<li>Another commit that adds the changes to <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> with
+comment &#8220;Crazy new analysis&#8221;</li>
 </ol>
 <p>How can I do that?</p>
 </div>
@@ -413,7 +423,7 @@ Author: I. M. Awesome
 Notes: Changes to introduction
 </pre></div>
 </div>
-<p>After we have done the commit this way, by coping the staging area to the
+<p>After we have done the commit this way, by copying the staging area to the
 commit <tt class="docutils literal"><span class="pre">files</span></tt> directory, the staging area is identical to the contents of
 the commit.  Now you are ready for the next commit, that adds the changes to
 the analysis script.</p>
@@ -540,30 +550,91 @@ comes out as <tt class="docutils literal"><span class="pre">30ad6c360a692c1fe663
 sure that the data you gave me was exactly the ASCII string &#8220;git is a rude
 word in UK English&#8221;.</p>
 </div>
-<div class="section" id="a-crazy-idea-use-hash-values-as-file-names">
-<h3>A crazy idea - use hash values as file names<a class="headerlink" href="#a-crazy-idea-use-hash-values-as-file-names" title="Permalink to this headline">¶</a></h3>
-<p>Make a new directory:</p>
+<div class="section" id="hashes-make-excellent-unique-file-names">
+<h3>Hashes make excellent unique file names<a class="headerlink" href="#hashes-make-excellent-unique-file-names" title="Permalink to this headline">¶</a></h3>
+<p>Remember that our problem was that many commits may have exactly the same
+contents for individual files.</p>
+<p>For example, maybe commits 1 through 4 have exactly the same contents for the
+file <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt>.  The figure changes for commit 5 but stays the
+same through to commit 8.  Can we find a way to store only the two different
+versions of this file, and make our commits point to one of these two
+versions?</p>
+<p>We can do this by storing only the two unique versions of
+<tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> with unique filenames.  Maybe store the first version
+of the file as <tt class="docutils literal"><span class="pre">stunning_figure.png.v1</span></tt> and the second as
+<tt class="docutils literal"><span class="pre">stunning_figure.png.v2</span></tt>.  Then make commits 1 through 4 point to
+<tt class="docutils literal"><span class="pre">stunning_figure.png.v1</span></tt> for <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt>, and make commits 5
+through 8 point to <tt class="docutils literal"><span class="pre">stunning_figure.png.v2</span></tt>.</p>
+<p>But, <tt class="docutils literal"><span class="pre">stunning_figure.png.v1</span></tt> and <tt class="docutils literal"><span class="pre">stunning_figure.png.v2</span></tt> are not very
+good unique filenames.  What happens if Josephine and I are working at the
+same time on different copies of <tt class="docutils literal"><span class="pre">nobel_prize</span></tt>, and she and I both make a
+new version of the figure.  My version will be called
+<tt class="docutils literal"><span class="pre">stunning_figure.png.v3</span></tt> and her version will have the same name, but they
+will be different, and this will cause a mess if we try and merge our work.</p>
+<p>What if we use the file hash values as unique filenames?</p>
+<p>First we make a directory to put the unique file contents:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>mkdir .fancy_backups/objects
 </pre></div>
 </div>
-<p>Calculate the hash value for the figure:</p>
+<p>We calculate the hash for the first version of the figure:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/1/files/stunning_figure.png
 aff88ecead2c7166770969a54dc855c8b91be864  .fancy_backups/1/files/stunning_figure.png
 </pre></div>
 </div>
-<p>Save the figure with the hash value as the file name:</p>
+<p>We copy the first version of the figure there using its hash as a unique
+filename:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
+</pre></div>
+</div>
+<p>We do the same thing for the second version of the figure:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/5/files/stunning_figure.png
+f86b56e97a3378f313eccadf78ab0a74ce56049f  .fancy_backups/5/files/stunning_figure.png
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/5/files/stunning_figure.png .fancy_backups/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f
+</pre></div>
+</div>
+<p>We will tell commits 1 through 4 to use
+<tt class="docutils literal"><span class="pre">.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864</span></tt> for
+<tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt>.</p>
+<p>Commits 5 though 8 will use
+<tt class="docutils literal"><span class="pre">.fancy_backups/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f</span></tt> for
+<tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt>.</p>
+<p>Now what happens if Josephine and I make different figures and do the same
+procedure of copying to <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>?  If our two figures are
+different, then they will have different hashes, and therefore different
+filenames, so they will not clash with each other.  If the two figures happen
+to be the same, then they will have the same hash, and the same filename, so
+my object contents and filename will be identical to Josephine&#8217;s and there is
+still no clash.</p>
+</div>
+<div class="section" id="building-the-first-commit-from-unique-files">
+<h3>Building the first commit from unique files<a class="headerlink" href="#building-the-first-commit-from-unique-files" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s use this idea to build a whole commit.</p>
+<div class="section" id="copying-the-files">
+<h4>Copying the files<a class="headerlink" href="#copying-the-files" title="Permalink to this headline">¶</a></h4>
+<p>So we don&#8217;t get our commits mixed up, I&#8217;ll delete everything in the
+<tt class="docutils literal"><span class="pre">objects</span></tt> directory and start again:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>rm -rf .fancy_backups/objects/*
+</pre></div>
+</div>
+<p>Copy the figure for the first commit again:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
 </pre></div>
 </div>
 <p>Do the same for the other two files in the first commit.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/1/files/nobel_prize_paper.txt
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/1/files/very_clever_analysis.py
 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d  .fancy_backups/1/files/nobel_prize_paper.txt
-e7f3ca9157fd7088b6a927a618e18d4bc4712fb6  .fancy_backups/1/files/very_clever_analysis.py
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/files/nobel_prize_paper.txt .fancy_backups/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/files/very_clever_analysis.py .fancy_backups/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/1/files/very_clever_analysis.py
+e7f3ca9157fd7088b6a927a618e18d4bc4712fb6  .fancy_backups/1/files/very_clever_analysis.py
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/files/very_clever_analysis.py .fancy_backups/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 </pre></div>
 </div>
 <p>We now have three new files in <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>, one corresponding
@@ -579,14 +650,13 @@ to each unique file <em>contents</em> we have hashed:</p>
 </div>
 </div>
 <div class="section" id="making-the-directory-listing">
-<h3>Making the directory listing<a class="headerlink" href="#making-the-directory-listing" title="Permalink to this headline">¶</a></h3>
-<p>The snapshot has three files.  We can think of the file has having <em>content</em>
-(the bytes contained in the file) and a <em>filename</em>.  We have already stored
-the contents in the object directory, but with a different filename, from the
-hash of the contents.  To record the filenames, we need to make a directory
-listing.</p>
-<p>To do this, we can point the snapshot to the hash filename versions of the
-files by making a <em>text directory listing</em> or <em>tree</em> listing:</p>
+<h4>Making the directory listing<a class="headerlink" href="#making-the-directory-listing" title="Permalink to this headline">¶</a></h4>
+<p>We now need to associate the filenames in the commit snapshot with the file
+contents we have just copied to <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>. For example, we
+have to tell the commit that the file named <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> in first
+commit should get its contents from
+<tt class="docutils literal"><span class="pre">.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864</span></tt>.</p>
+<p>We do this by making a <em>directory listing</em> for the commit:</p>
 <div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/1/directory_list
 Filename                Hash value
 ========                ==========
@@ -594,6 +664,7 @@ nobel_prize_paper.txt   3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
 stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
 very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="the-next-commit-saves-space">
@@ -643,18 +714,20 @@ very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 </pre></div>
 </div>
 </div>
-<div class="section" id="an-even-more-crazy-idea-hash-the-directory-list">
-<h3>An even more crazy idea - hash the directory list<a class="headerlink" href="#an-even-more-crazy-idea-hash-the-directory-list" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="storing-the-directory-listing-as-a-file">
+<h3>Storing the directory listing as a file<a class="headerlink" href="#storing-the-directory-listing-as-a-file" title="Permalink to this headline">¶</a></h3>
 <p>The directory listing is just a text file.  We can store the directory listing
-as we store the other files, by writing an object file with the file hash:</p>
+as we store the other files, by writing an object file with the file hash.
+Here is the hash for the directory listing of the first commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/1/directory_list
 b7c9cd682e7d4bf28b82e76fb2276608f49e16d5  .fancy_backups/1/directory_list
 </pre></div>
 </div>
+<p>We copy that file to the objects directory as we have for the other files:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/directory_list .fancy_backups/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 </pre></div>
 </div>
-<p>And we can do the same for the second commit:</p>
+<p>We can do the same for the second commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/2/directory_list
 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e  .fancy_backups/2/directory_list
 </pre></div>
@@ -662,59 +735,58 @@ b7c9cd682e7d4bf28b82e76fb2276608f49e16d5  .fancy_backups/1/directory_list
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/2/directory_list .fancy_backups/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 </pre></div>
 </div>
-<p>Now - would I get the same hash for the directory listing if I had had a
-different figure?</p>
+<p>Would I get the same hash for the directory listing if I had had a different
+figure?</p>
 </div>
-<div class="section" id="even-more-crazy-idea-make-the-whole-commit-into-a-text-file">
-<h3>Even more crazy idea - make the whole commit into a text file<a class="headerlink" href="#even-more-crazy-idea-make-the-whole-commit-into-a-text-file" title="Permalink to this headline">¶</a></h3>
-<p>We&#8217;ve seen that we can make a directory listing that is unique for the whole
-contents of the snapshot files (file contents and file names).  Therefore the
-<em>hash</em> of the directory listing is also unique for the contents of the
-snapshot files.  So, we can make a <em>commit file</em> that is the <tt class="docutils literal"><span class="pre">info.txt</span></tt> file
-above, but now with the hash of the directory listing included.  Including the
-directory listing means that this <em>commit file</em> is now also unique to the
-contents of the snapshot.  The commit file for the first commit might look
-something like this:</p>
+<div class="section" id="storing-the-commit-information-as-a-file">
+<h3>Storing the commit information as a file<a class="headerlink" href="#storing-the-commit-information-as-a-file" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ve seen that we can make a directory listing file that is unique for the
+whole contents of the snapshot files (file contents and file names).
+Therefore the <em>hash</em> of the directory listing file is also unique for the
+contents of the snapshot files.  So, we can make a <em>commit file</em> that is the
+<tt class="docutils literal"><span class="pre">info.txt</span></tt> file above, but now with the hash of the directory listing file
+included.  Adding the hash of the directory listing file means that this
+<em>commit file</em> is now also unique to the contents of the snapshot.  The commit
+file for the first commit might look something like this:</p>
 <div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/1/commit
+Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 Date: April 1 2012, 14.30
 Author: I. M. Awesome
 Notes: First backup of my amazing idea
-Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 </pre></div>
 </div>
+<p>The <tt class="docutils literal"><span class="pre">Tree:</span></tt> field gives the hash of the directory listing file for this
+commit.</p>
 <p>The commit file for the second commit might look like this:</p>
 <div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/2/commit
+Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 Date: April 1 2012, 18.03
 Author: I. M. Awesome
 Notes: Fruit of enormous thought
-Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 </pre></div>
 </div>
-<p>The commit is now just a text file, and I can hash this too:</p>
+<p>The commit is now just a text file, and I can hash and store this too:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/1/commit
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>shasum .fancy_backups/2/commit
-012ad9f6c3a715516514e8821a71d891c4211f8f  .fancy_backups/1/commit
-d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba  .fancy_backups/2/commit
+2f5e799e614b4e80c6f5a035ac29e1d16855e409  .fancy_backups/1/commit
+015447b3e9ec05f476a6daf42484dd28c021e8a7  .fancy_backups/2/commit
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/commit .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/2/commit .fancy_backups/objects/d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/1/commit .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cp .fancy_backups/2/commit .fancy_backups/objects/015447b3e9ec05f476a6daf42484dd28c021e8a7
 </pre></div>
 </div>
 <p>Would the commit hash value change if the figure changed?</p>
-</div>
-<div class="section" id="so-crazy-it-s-actually-git">
-<h3>So crazy it&#8217;s actually git<a class="headerlink" href="#so-crazy-it-s-actually-git" title="Permalink to this headline">¶</a></h3>
 <p>Now look in <tt class="docutils literal"><span class="pre">.fancy_backups/objects</span></tt>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>tree -a .fancy_backups/objects
 .fancy_backups/objects
-├── 012ad9f6c3a715516514e8821a71d891c4211f8f
+├── 015447b3e9ec05f476a6daf42484dd28c021e8a7
+├── 2f5e799e614b4e80c6f5a035ac29e1d16855e409
 ├── 3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
 ├── 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 ├── 90aa1015732676bf63d2d950714a1f11196875fc
 ├── aff88ecead2c7166770969a54dc855c8b91be864
 ├── b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
-├── d4c297c8b0c768647e0b3faa9308a40d0e3cb4ba
 └── e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 
 0 directories, 8 files
@@ -726,43 +798,53 @@ commit listings (for the first and second commit) = 8 hash objects.</p>
 </div>
 <div class="section" id="linking-the-commits">
 <h3>Linking the commits<a class="headerlink" href="#linking-the-commits" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="can-we-completely-get-rid-of-fancy-backups-1-fancy-backups-2">
-<h4>Can we completely get rid of <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt>, <tt class="docutils literal"><span class="pre">.fancy_backups/2</span></tt><a class="headerlink" href="#can-we-completely-get-rid-of-fancy-backups-1-fancy-backups-2" title="Permalink to this headline">¶</a></h4>
+<p>Can we completely get rid of our snapshot directories <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt>,
+<tt class="docutils literal"><span class="pre">.fancy_backups/2</span></tt>?</p>
 <p>The reason for our commit names &#8220;1&#8221;, &#8220;2&#8221;, &#8220;3&#8221; was so we know that commit &#8220;2&#8221;
-comes after commit &#8220;1&#8221; and before commit &#8220;3&#8221;. Now our commits have filenames
-with arbitrary hashes, we can&#8217;t tell the order from the name.</p>
+comes after commit &#8220;1&#8221; and before commit &#8220;3&#8221;. Now our commits have hash value
+filenames, we can&#8217;t tell the order from the name.</p>
 <p>However, the commit hash does uniquely identify the commit.  For example, we
-know that the file beginning &#8216;012ad9f&#8217; <em>completely defines the first commit</em>:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .fancy_backups/objects/012ad9f6c3a715516514e8821a71d891c4211f8f
+know that the file beginning <tt class="docutils literal"><span class="pre">2f5e799</span></tt> completely defines the first
+commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
+Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 Date: April 1 2012, 14.30
 Author: I. M. Awesome
 Notes: First backup of my amazing idea
-Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 </pre></div>
 </div>
-<p>We can specify the order by adding the commit hash of the previous
-(parent) commit into the current commit:</p>
+<p>We can specify the order by adding the commit hash of the previous (parent)
+commit into the current commit. For example, we can make the second commit
+point back to the first commit like this:</p>
 <div class="highlight-python"><div class="highlight"><pre># file: .fancy_backups/2/info.txt
+Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
+Parent: 2f5e799e614b4e80c6f5a035ac29e1d16855e409
 Date: April 1 2012, 18.03
 Author: I. M. Awesome
 Notes: Fruit of enormous thought
-Tree: 1dca3837b1076cdcfb02e86018377725e5d0e86e
-Parent: 012ad9f6c3a715516514e8821a71d891c4211f8f
 </pre></div>
 </div>
 <p>Now we have the order of the commits from the links between them, where the
-links are given by the hash value in the <tt class="docutils literal"><span class="pre">Parent</span></tt> field.</p>
-<p>And now you are already a git master.</p>
-</div>
+links are given by the hash value in the <tt class="docutils literal"><span class="pre">Parent:</span></tt> field.</p>
 </div>
 </div>
 <div class="section" id="git-rides-in-to-save-the-day">
 <h2>Git rides in to save the day<a class="headerlink" href="#git-rides-in-to-save-the-day" title="Permalink to this headline">¶</a></h2>
-<p><strong>Note</strong>: The rest of this presentation started off as Fernando Perez&#8217; git
-tutorial in his <a class="reference external" href="https://github.com/fperez/reprosw">reproducible software repository</a>. I changed it quite a bit, so please
-blame me rather than Fernando for any faults in the presentation.</p>
+<p>Now you have built your own &#8220;fancy backups&#8221; system, you know how git works
+– because it works in exactly the same way.  You will recognize hashes for
+files, directories and commits, commits linked by reference to their parents,
+the staging area, and the <tt class="docutils literal"><span class="pre">objects</span></tt> directory.</p>
+<p>Armed with this <a class="reference external" href="http://rogerdudler.github.io/git-guide">deep</a> understanding, we start to explore git.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The rest of this presentation started off as Fernando Perez&#8217; git tutorial
+in his <a class="reference external" href="https://github.com/fperez/reprosw">reproducible software repository</a>. I changed it quite a bit, so
+please blame me rather than Fernando if you don&#8217;t like what you read next.</p>
+</div>
+<div class="section" id="basic-configuration">
+<h3>Basic configuration<a class="headerlink" href="#basic-configuration" title="Permalink to this headline">¶</a></h3>
 <p>We need to tell git about us before we start. This stuff will go into
-the commit information.</p>
+the commit information by default.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git config --global user.name <span class="s2">&quot;Matthew Brett&quot;</span>
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git config --global user.email <span class="s2">&quot;matthew.brett@gmail.com&quot;</span>
 </pre></div>
@@ -776,6 +858,7 @@ git config --global core.editor gedit
 output of git easier to read:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git config --global color.ui <span class="s2">&quot;auto&quot;</span>
 </pre></div>
+</div>
 </div>
 <div class="section" id="getting-help">
 <h3>Getting help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h3>
@@ -818,19 +901,19 @@ to <span class="nb">read </span>about a specific subcommand or concept.
 </div>
 <div class="section" id="initializing-the-repository">
 <h3>Initializing the repository<a class="headerlink" href="#initializing-the-repository" title="Permalink to this headline">¶</a></h3>
-<p>We first set this <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory be version controlled with
-git.  We start with the original files for the paper:</p>
+<p>We first set this <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> directory to be version controlled with git.
+We start off the working tree with the original files for the paper:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>unzip -o nobel_prize_files.zip
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
 Archive:  nobel_prize_files.zip
   inflating: nobel_prize/nobel_prize_paper.txt  
   inflating: nobel_prize/stunning_figure.png  
   inflating: nobel_prize/very_clever_analysis.py  
 </pre></div>
 </div>
-<p>Create git repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git init
-Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/nobel_prize/.git/
+<p>Create the git repository:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git init
+Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/nobel_prize/.git/
 </pre></div>
 </div>
 <p>What happened when we did <tt class="docutils literal"><span class="pre">git</span> <span class="pre">init</span></tt>? Just what we were expecting; we have a
@@ -858,7 +941,7 @@ refs
 <p>Nothing but a couple of empty directories. That makes sense.</p>
 </div>
 <div class="section" id="git-add-put-stuff-into-the-staging-area">
-<h3>git add - put stuff into the staging area<a class="headerlink" href="#git-add-put-stuff-into-the-staging-area" title="Permalink to this headline">¶</a></h3>
+<span id="git-add"></span><h3>git add - put stuff into the staging area<a class="headerlink" href="#git-add-put-stuff-into-the-staging-area" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize_paper.txt
 </pre></div>
 </div>
@@ -888,11 +971,19 @@ using a library called <tt class="docutils literal"><span class="pre">zlib</span
 to read them - see <a class="reference internal" href="reading_git_objects.html"><em>Reading git objects</em></a>.</p>
 <p>Git will also show the contents of objects with the command <tt class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span>
 <span class="pre">-p</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">I will use <tt class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span> <span class="pre">-p</span></tt> to display the content of nearly raw git
+objects, because this shows the great simplicity of git&#8217;s internal model.
+I doubt you will need this command in your daily git work – I had never
+used it before I wrote this tutorial.  So, feel free to forget the
+<tt class="docutils literal"><span class="pre">cat-file</span></tt> command as soon as you finish this tutorial.</p>
+</div>
 <p>When we did <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">nobel_prize_paper.txt</span></tt>, we got a new file in
-<tt class="docutils literal"><span class="pre">.git/objects</span></tt>, with filename <tt class="docutils literal"><span class="pre">d9/2d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt>.
-The filename is in fact a hash, where the first two digits form the directory
-name (<tt class="docutils literal"><span class="pre">d9</span></tt>) and the rest of the filename is the rest of the hash digits
-<a class="footnote-reference" href="#git-object-dir" id="id1">[1]</a>.</p>
+<tt class="docutils literal"><span class="pre">.git/objects</span></tt>, with filename <tt class="docutils literal"><span class="pre">d9/2d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt>.  The filename is
+in fact a hash, where the first two digits form the directory name
+(<tt class="docutils literal"><span class="pre">d9</span></tt>) and the rest of the digits are the filename
+<a class="footnote-reference" href="#git-object-dir" id="id2">[2]</a>.</p>
 <p>Here&#8217;s the contents of the object:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p d92d079af6a7f276cc8d63dcf2549c03e7deb553
 The brain is just a <span class="nb">set </span>of random <span class="nv">numbers</span>
@@ -942,9 +1033,10 @@ Untracked files:
 	very_clever_analysis.py
 </pre></div>
 </div>
-<p>Sure enough, the output tells that &#8220;new file: nobel_prize_paper.txt&#8221; is in the
-&#8220;changes to be committed&#8221;.  It also tells us that the other two files –
-<tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> and <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> – are &#8220;untracked&#8221;.</p>
+<p>Sure enough, the output tells that <tt class="docutils literal"><span class="pre">new</span> <span class="pre">file:</span> <span class="pre">nobel_prize_paper.txt</span></tt> is in
+the <tt class="docutils literal"><span class="pre">changes</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">committed</span></tt>.  It also tells us that the other two files
+– <tt class="docutils literal"><span class="pre">stunning_figure.png</span></tt> and <tt class="docutils literal"><span class="pre">very_clever_analysis.py</span></tt> – are
+<tt class="docutils literal"><span class="pre">untracked</span></tt>.</p>
 <p>An untracked file is a file with a filename that has never been added to the
 repo with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt>.  Until you <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> an untracked file, git will
 ignore these files and assume you don&#8217;t want to keep track of them.</p>
@@ -994,13 +1086,17 @@ Changes to be committed:
  create mode 100644 very_clever_analysis.py
 </pre></div>
 </div>
-<p>In the line above, we used the <tt class="docutils literal"><span class="pre">-m</span></tt> flag to specify a message at the
-command line. If we don&#8217;t do that, git will open the editor we specified
-in our configuration above and require that we enter a message. By
-default, git refuses to record changes that don&#8217;t have a message to go
-along with them (though you can obviously &#8216;cheat&#8217; by using an empty or
-meaningless string: git only tries to facilitate best practices, it&#8217;s
-not your nanny).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In the line above, I used the <tt class="docutils literal"><span class="pre">-m</span></tt> flag to specify a message at the
+command line. If I had not done that, git would open the editor we
+specified in our configuration above and ask me to enter a message.  I&#8217;m
+using the <tt class="docutils literal"><span class="pre">-m</span></tt> flag so the commit command runs without interaction in
+this tutorial, but in ordinary use, I virtually never use <tt class="docutils literal"><span class="pre">-m</span></tt>, and I
+suggest you don&#8217;t either.  Using the editor for the commit message allows
+you to write a more complete commit message, and gives feedback about the
+<tt class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></tt> of the commit to remind you what you are about to do.</p>
+</div>
 <p>We are now expecting to have two new <tt class="docutils literal"><span class="pre">.git/object</span></tt> files, for the directory
 tree, and for the commit.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>tree .git/objects
@@ -1030,7 +1126,7 @@ tree, and for the commit.</p>
 </div>
 <p>These are in fact the file permissions, the type of the entry in the directory
 (where &#8220;tree&#8221; means a sub-directory, and &#8220;blob&#8221; means a file), the file
-hashes, and the file names.</p>
+hashes, and the file names (see <a class="reference internal" href="git_object_types.html#git-object-types"><em>Types of git objects</em></a>).</p>
 <p>Here is the contents of the commit object:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 96286d8b40ba9438557dd3d8af5fea6f02a4fb52
 tree e1298063f6f94851ae551a292ac91ca84029c0e8
@@ -1253,8 +1349,8 @@ git commit
 </div>
 <p>The <tt class="docutils literal"><span class="pre">-a</span></tt> flag to <tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></tt> ignores any untracked files – so
 <tt class="docutils literal"><span class="pre">acknowledgments.txt</span></tt> will still be untracked:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Paper nearly ready&quot;</span>
-<span class="o">[</span>master 9c1b0c5<span class="o">]</span> Paper nearly ready
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Paper ready for submission to Science&quot;</span>
+<span class="o">[</span>master 7c4bf5d<span class="o">]</span> Paper ready <span class="k">for </span>submission to Science
  2 files changed, 2 insertions<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -1286,11 +1382,11 @@ going to do the rest of the examples in this tutorial.</p>
 <p>Remember branches (bookmarks)?  Git has now moved the &#8220;master&#8221; branch location
 up to the new commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log
-commit 9c1b0c5c1992708a4ca9e5429376ef4815183f52
+commit 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
 Date:   Sun Apr 1 12:13:01 2012 -0400
 
-    Paper nearly ready
+    Paper ready <span class="k">for </span>submission to Science
 
 commit 445ad17988a8c97c6d04da9d5d4d550b811899a7
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
@@ -1306,22 +1402,22 @@ Date:   Sun Apr 1 11:13:13 2012 -0400
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
-* master 9c1b0c5 Paper nearly ready
+* master 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/heads/master
-9c1b0c5c1992708a4ca9e5429376ef4815183f52
+7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
 </pre></div>
 </div>
-<p>Our most recent commit (<tt class="docutils literal"><span class="pre">9c1b0c5c1992708a4ca9e5429376ef4815183f52</span></tt>) has the previous commit (<tt class="docutils literal"><span class="pre">445ad17988a8c97c6d04da9d5d4d550b811899a7</span></tt>) as a
+<p>Our most recent commit (<tt class="docutils literal"><span class="pre">7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376</span></tt>) has the previous commit (<tt class="docutils literal"><span class="pre">445ad17988a8c97c6d04da9d5d4d550b811899a7</span></tt>) as a
 parent.  <tt class="docutils literal"><span class="pre">445ad17988a8c97c6d04da9d5d4d550b811899a7</span></tt> has <tt class="docutils literal"><span class="pre">96286d8b40ba9438557dd3d8af5fea6f02a4fb52</span></tt> as a parent.  <tt class="docutils literal"><span class="pre">96286d8b40ba9438557dd3d8af5fea6f02a4fb52</span></tt> is the first commit,
 and has no parent:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log --parents
-commit 9c1b0c5c1992708a4ca9e5429376ef4815183f52 445ad17988a8c97c6d04da9d5d4d550b811899a7
+commit 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376 445ad17988a8c97c6d04da9d5d4d550b811899a7
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
 Date:   Sun Apr 1 12:13:01 2012 -0400
 
-    Paper nearly ready
+    Paper ready <span class="k">for </span>submission to Science
 
 commit 445ad17988a8c97c6d04da9d5d4d550b811899a7 96286d8b40ba9438557dd3d8af5fea6f02a4fb52
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
@@ -1342,7 +1438,7 @@ Date:   Sun Apr 1 11:13:13 2012 -0400
 <p>It is very often useful to see a summarized version of the log.  Here is a
 useful set of command flags for git log:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log --oneline --topo-order --graph
-* 9c1b0c5 Paper nearly ready
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -1350,16 +1446,128 @@ useful set of command flags for git log:</p>
 <p>Git supports <em>aliases:</em> new names given to command combinations. Let&#8217;s
 make this handy shortlog an alias, so we only have to type <tt class="docutils literal"><span class="pre">git</span> <span class="pre">slog</span></tt>
 to get this compact log.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># We create our alias (this saves it in git&#39;s permanent configuration file):</span>
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git config --global alias.slog <span class="s2">&quot;log --oneline --topo-order --graph&quot;</span>
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="c"># And now we can use it</span>
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-* 9c1b0c5 Paper nearly ready
+<p>We create our alias (this saves it in git&#8217;s permanent configuration file):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git config --global alias.slog <span class="s2">&quot;log --oneline --topo-order --graph&quot;</span>
+</pre></div>
+</div>
+<p>And now we can use it:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
 </div>
+</div>
+<div class="section" id="git-tag-makes-a-static-bookmark">
+<span id="git-tag"></span><h3>git tag makes a static bookmark<a class="headerlink" href="#git-tag-makes-a-static-bookmark" title="Permalink to this headline">¶</a></h3>
+<p>We have seen that a branch is a bookmark that points to a commit.</p>
+<p>When we do a new commit on a branch, the branch points to the new commit.</p>
+<p>We can also make bookmarks that do not update when we do a commit.  These are
+git <em>tags</em>.</p>
+<p>Imagine we are now happy with the state of our paper, and we submit it to
+Science.</p>
+<p>We want to record the exact state of the paper when we sent it to Science,
+because we may need to go back to this version when those nasty Science
+reviewers ask us to make changes.</p>
+<p>We could write down the current commit hash somewhere, but then we might lose
+it.  Luckily <tt class="docutils literal"><span class="pre">git</span> <span class="pre">tag</span></tt> has a better solution:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git tag submitted-to-science
+</pre></div>
+</div>
+<p>We now have a tag with name <tt class="docutils literal"><span class="pre">submitted-to-science</span></tt> that points to this
+commit.  As we will see, unlike a branch, the tag does not change when you do
+another commit.</p>
+<p>The current commit is:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
+* master 7c4bf5d Paper ready <span class="k">for </span>submission to Science
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">git</span> <span class="pre">tag</span></tt> without arguments will list the current tags:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git tag
+submitted-to-science
+</pre></div>
+</div>
+<p>As you can imagine, this tag is very similar to a branch – it is just a
+tiny file where the name of the file is the tag name, and the contents is the
+commit hash:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/refs/tags
+submitted-to-science
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/submitted-to-science
+7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+</pre></div>
+</div>
+<p>This type of tag is what git calls a <em>lightweight</em> tag – it is just a
+bookmark to a commit, with no other information.</p>
+<p>We often want to add some extra information to our tags, such as a message
+about what the tag is for, the date, and the person doing the tag.  We can do
+this with <em>annotated tags</em>. To make an annotated tag, use the <tt class="docutils literal"><span class="pre">-a</span></tt> flag to
+<tt class="docutils literal"><span class="pre">git</span> <span class="pre">tag</span></tt> and give a tag message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git tag -a -m <span class="s2">&quot;Submitted to Science&quot;</span> annotated-to-science
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">I&#8217;m using the the <tt class="docutils literal"><span class="pre">-m</span></tt> flag as I have for the commits, and for the same
+reason.  Normally you would not use <tt class="docutils literal"><span class="pre">-m</span></tt> and let the text editor open
+for you to type the tag message.</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git tag
+annotated-to-science
+submitted-to-science
+</pre></div>
+</div>
+<p>There is still a tiny text file for the tag:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/refs/tags
+annotated-to-science
+submitted-to-science
+</pre></div>
+</div>
+<p>This time the tag does not point to a commit hash, but to a new tag object:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/annotated-to-science
+bd24b753d684c384d9b5802092e13fcef1c5b419
+</pre></div>
+</div>
+<p>The new tag object is very much like a commit object, but pointing to a commit
+object rather than a tree object:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p bd24b753d684c384d9b5802092e13fcef1c5b419
+object 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+<span class="nb">type </span>commit
+tag annotated-to-science
+tagger Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333296814 -0400
+
+Submitted to Science
+</pre></div>
+</div>
+<p>Unlike a branch, a tag does not change when we make a commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
+* master 7c4bf5d Paper ready <span class="k">for </span>submission to Science
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Actually, maybe this is all wrong&quot;</span> &gt;&gt; nobel_prize_paper.txt
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize_paper.txt
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -a -m <span class="s2">&quot;Luckily we submitted the paper before we realized&quot;</span>
+<span class="o">[</span>master 444a120<span class="o">]</span> Luckily we submitted the paper before we realized
+ 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
+</pre></div>
+</div>
+<p>The branch bookmark has changed:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
+* master 444a120 Luckily we submitted the paper before we realized
+</pre></div>
+</div>
+<p>But the tags have not changed:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/submitted-to-science
+7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/annotated-to-science
+bd24b753d684c384d9b5802092e13fcef1c5b419
+</pre></div>
+</div>
+<p>You have now seen all the possible types of objects in <tt class="docutils literal"><span class="pre">.git/objects</span></tt>.  See
+<a class="reference internal" href="git_object_types.html#git-object-types"><em>Types of git objects</em></a> for a review.</p>
 </div>
 <div class="section" id="git-mv-and-rm-moving-and-removing-files">
 <h3>git mv and rm: moving and removing files<a class="headerlink" href="#git-mv-and-rm-moving-and-removing-files" title="Permalink to this headline">¶</a></h3>
@@ -1376,23 +1584,24 @@ Changes to be committed:
 	renamed:    very_clever_analysis.py -&gt; slightly_dodgy_analysis.py
 </pre></div>
 </div>
-<p>Note that these changes must be committed too, to become permanent. In
-git&#8217;s world, until something has been committed, it isn&#8217;t permanently
-recorded anywhere.</p>
+<p>Note that these changes must be committed too, if we want to keep them.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;I like this new name better&quot;</span>
-<span class="o">[</span>master 766826e<span class="o">]</span> I like this new name better
+<span class="o">[</span>master afb4445<span class="o">]</span> I like this new name better
  1 file changed, 0 insertions<span class="o">(</span>+<span class="o">)</span>, 0 deletions<span class="o">(</span>-<span class="o">)</span>
  rename very_clever_analysis.py <span class="o">=</span>&gt; slightly_dodgy_analysis.py <span class="o">(</span>100%<span class="o">)</span>
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
-* 445ad17 Fruit of enormous thought
-* 96286d8 First backup of my amazing idea
+<p>As you can imagine, all that changed is that the tree object for this commit
+associates the new filename with the old hash for the file.  I will use the
+obscure <tt class="docutils literal"><span class="pre">git</span> <span class="pre">ls-tree</span></tt> command as a shortcut to show me the contents of the
+root tree object for this commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git ls-tree master
+100644 blob 96c1f7136b989f562bfb2692468e765db42e7007	nobel_prize_paper.txt
+100644 blob 42ba16b291fcf7add49ecfd71011643ded4e5363	slightly_dodgy_analysis.py
+100644 blob 9ffc311b29f0c87bf502b92df951d90ef88c1c7d	stunning_figure.png
 </pre></div>
 </div>
-<p>And <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rm</span></tt> works in a similar fashion.</p>
+<p><tt class="docutils literal"><span class="pre">git</span> <span class="pre">rm</span></tt> works in a similar fashion.</p>
 </div>
 <div class="section" id="git-branch-again-making-a-new-branch">
 <h3>git branch again - making a new branch<a class="headerlink" href="#git-branch-again-making-a-new-branch" title="Permalink to this headline">¶</a></h3>
@@ -1401,14 +1610,14 @@ recorded anywhere.</p>
 different commit.</p>
 <p>At the moment, we only have one branch, &#8220;master&#8221;:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
-* master 766826e I like this new name better
+* master afb4445 I like this new name better
 </pre></div>
 </div>
 <p>We can make a new branch with the <tt class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></tt> command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch experiment
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
-  experiment 766826e I like this new name better
-* master     766826e I like this new name better
+  experiment afb4445 I like this new name better
+* master     afb4445 I like this new name better
 </pre></div>
 </div>
 <p>The new branch, by default, points to the commit we are currently on, and this
@@ -1422,7 +1631,7 @@ master
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/heads/experiment
-766826ebea0ee978e3f4a7baef92c772e3831394
+afb4445011b4bfef9ffb4fa437fdea8017cacdec
 </pre></div>
 </div>
 </div>
@@ -1442,14 +1651,21 @@ ref: refs/heads/master
 <p>Here, HEAD is pointing to the &#8220;master&#8221; branch.  The master branch is pointing
 to a particular commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
-  experiment 766826e I like this new name better
-* master     766826e I like this new name better
+  experiment afb4445 I like this new name better
+* master     afb4445 I like this new name better
 </pre></div>
 </div>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/heads/master
-766826ebea0ee978e3f4a7baef92c772e3831394
-</pre></div>
 </div>
+<div class="section" id="heads-and-refs">
+<h3>Heads and refs<a class="headerlink" href="#heads-and-refs" title="Permalink to this headline">¶</a></h3>
+<p>For git, a <em>reference</em> or a <em>ref</em> is a name that refers to another object. A
+reference almost invariably points to a commit object <a class="footnote-reference" href="#tag-other-objects" id="id3">[3]</a>.</p>
+<p>For example a branch is a reference, and so is a tag. Remember that git stores
+branches and tags in <tt class="docutils literal"><span class="pre">.git/refs</span></tt>.</p>
+<p>A <em>head</em> is a reference to a commit that updates when we do <tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></tt>.
+All branches are heads.  A tag is not a head because it does not update when
+we do a commit.  Remember that git stores branches in <tt class="docutils literal"><span class="pre">.git/refs/heads</span></tt>.
+The special reference HEAD points to the current head that we are working on.</p>
 </div>
 <div class="section" id="developing-on-different-branches">
 <h3>Developing on different branches<a class="headerlink" href="#developing-on-different-branches" title="Permalink to this headline">¶</a></h3>
@@ -1487,8 +1703,8 @@ Switched to branch <span class="s1">&#39;experiment&#39;</span>
 <p>The current branch has changed (notice the asterisk in front of
 <tt class="docutils literal"><span class="pre">experiment</span></tt>).</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
-* experiment 766826e I like this new name better
-  master     766826e I like this new name better
+* experiment afb4445 I like this new name better
+  master     afb4445 I like this new name better
 </pre></div>
 </div>
 <p>Git <tt class="docutils literal"><span class="pre">HEAD</span></tt> now points to the <tt class="docutils literal"><span class="pre">experiment</span></tt> branch:</p>
@@ -1505,15 +1721,16 @@ working tree did not change.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Some crazy idea&quot;</span> &gt; an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Trying something new&quot;</span>
-<span class="o">[</span>experiment f57dd34<span class="o">]</span> Trying something new
+<span class="o">[</span>experiment 3ed2b2b<span class="o">]</span> Trying something new
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
  create mode 100644 an_experiment.txt
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-* f57dd34 Trying something new
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+* 3ed2b2b Trying something new
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -1528,13 +1745,13 @@ stunning_figure.png
 </div>
 <p>The <tt class="docutils literal"><span class="pre">experiment</span></tt> branch pointer has now moved up to the current commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/heads/experiment
-f57dd34433cc67d312e8bc1189c2c31d2c42d5d6
+3ed2b2b525fd347f40643efdb3684ca8c33c87f2
 </pre></div>
 </div>
 <p>But the <tt class="docutils literal"><span class="pre">master</span></tt> branch points to the same place as it did before:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v
-* experiment f57dd34 Trying something new
-  master     766826e I like this new name better
+* experiment 3ed2b2b Trying something new
+  master     afb4445 I like this new name better
 </pre></div>
 </div>
 </div>
@@ -1544,9 +1761,11 @@ f57dd34433cc67d312e8bc1189c2c31d2c42d5d6
 selects <tt class="docutils literal"><span class="pre">somewhere</span></tt> as the current branch. It also resets the working
 tree to match the working tree for that commit.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git checkout master
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/HEAD
-ref: refs/heads/master
 Switched to branch <span class="s1">&#39;master&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/HEAD
+ref: refs/heads/master
 </pre></div>
 </div>
 <p>We&#8217;re back to the working tree as of the <tt class="docutils literal"><span class="pre">master</span></tt> branch;
@@ -1559,8 +1778,9 @@ stunning_figure.png
 </div>
 <p>Meanwhile we do some more work on master:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -1568,13 +1788,16 @@ stunning_figure.png
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;All the while, more work goes on in master...&quot;</span> &gt;&gt; boring_idea.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add boring_idea.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;The mainline keeps moving&quot;</span>
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-<span class="o">[</span>master 82385a3<span class="o">]</span> The mainline keeps moving
+<span class="o">[</span>master 39a919e<span class="o">]</span> The mainline keeps moving
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
  create mode 100644 boring_idea.txt
-* 82385a3 The mainline keeps moving
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
+* 39a919e The mainline keeps moving
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -1610,13 +1833,14 @@ stunning_figure.png
 <p>The git log output shows us two lines of development diverging and then
 merging:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-*   bc7f311 Merge in the experiment
+*   8c032bc Merge in the experiment
 |<span class="se">\ </span> 
-| * f57dd34 Trying something new
-* | 82385a3 The mainline keeps moving
+| * 3ed2b2b Trying something new
+* | 39a919e The mainline keeps moving
 |/  
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -1624,13 +1848,14 @@ merging:</p>
 <p>The merge commit has two &#8220;parent&#8221; commits, which are the previous commit on
 <tt class="docutils literal"><span class="pre">master</span></tt> and the previous commit on <tt class="docutils literal"><span class="pre">experiment</span></tt>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog --parents
-*   bc7f311 82385a3 f57dd34 Merge in the experiment
+*   8c032bc 39a919e 3ed2b2b Merge in the experiment
 |<span class="se">\ </span> 
-| * f57dd34 766826e Trying something new
-* | 82385a3 766826e The mainline keeps moving
+| * 3ed2b2b afb4445 Trying something new
+* | 39a919e afb4445 The mainline keeps moving
 |/  
-* 766826e 9c1b0c5 I like this new name better
-* 9c1b0c5 445ad17 Paper nearly ready
+* afb4445 444a120 I like this new name better
+* 444a120 7c4bf5d Luckily we submitted the paper before we realized
+* 7c4bf5d 445ad17 Paper ready <span class="k">for </span>submission to Science
 * 445ad17 96286d8 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -1648,12 +1873,14 @@ that works by intentionally creating a conflict.</p>
 file:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch trouble
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git checkout trouble
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This is going to be a problem...&quot;</span> &gt;&gt; an_experiment.txt
+Switched to branch <span class="s1">&#39;trouble&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This is going to be a problem...&quot;</span> &gt;&gt; an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Changes in the trouble branch&quot;</span>
-<span class="o">[</span>trouble 0f83eb0<span class="o">]</span> Changes in the trouble branch
+<span class="o">[</span>trouble df03e9a<span class="o">]</span> Changes in the trouble branch
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
-Switched to branch <span class="s1">&#39;trouble&#39;</span>
 </pre></div>
 </div>
 <p>And now we go back to the master branch, where we change the <em>same</em>
@@ -1662,7 +1889,7 @@ file:</p>
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More work on the master branch...&quot;</span> &gt;&gt; an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Mainline work&quot;</span>
-<span class="o">[</span>master cbf859e<span class="o">]</span> Mainline work
+<span class="o">[</span>master f86d4e0<span class="o">]</span> Mainline work
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 Switched to branch <span class="s1">&#39;master&#39;</span>
 </pre></div>
@@ -1685,24 +1912,22 @@ This is going to be a problem...
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; trouble
 </pre></div>
 </div>
-<p>Read these new markers as:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">HEAD</span></tt> - the current branch - (between <tt class="docutils literal"><span class="pre">&lt;&lt;</span></tt>... and <tt class="docutils literal"><span class="pre">==</span></tt>) adds
-<tt class="docutils literal"><span class="pre">More</span> <span class="pre">work</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">master</span> <span class="pre">branch...</span></tt>;</li>
-<li>the <tt class="docutils literal"><span class="pre">trouble</span></tt> branch (between <tt class="docutils literal"><span class="pre">==</span></tt>... and <tt class="docutils literal"><span class="pre">&gt;&gt;</span></tt>...) adds
-<tt class="docutils literal"><span class="pre">This</span> <span class="pre">is</span> <span class="pre">going</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">problem...</span></tt>.</li>
-</ul>
-<p>At this point, we go into the file with a text editor, decide which
+<p>The text between <tt class="docutils literal"><span class="pre">&lt;&lt;</span></tt>... and <tt class="docutils literal"><span class="pre">==</span></tt>... gives the changes added by our
+current branch – <tt class="docutils literal"><span class="pre">HEAD</span></tt>.  These are the changes introduced by the branch
+we are merging <em>into</em>.</p>
+<p>The text between <tt class="docutils literal"><span class="pre">==</span></tt>... and <tt class="docutils literal"><span class="pre">&gt;&gt;</span></tt>... gives the changes added by the
+<tt class="docutils literal"><span class="pre">trouble</span></tt> branch.  These are the changes introduced by the branch we are
+merging <em>from</em>.</p>
+<p>At this point, we can go into the file with a text editor, decide which
 changes to keep, and make a new commit that records our decision.</p>
-<p>I&#8217;ll do the edits by writing the file I want directly in this case:</p>
+<p>I decided that both pieces of text were useful, but I want to integrate them
+with some changes.  I do the edits by writing the file I want directly:</p>
 <div class="highlight-python"><div class="highlight"><pre># file: an_experiment.txt
 Some crazy idea
 More work on the master branch...
-This is going to be a problem...
+This is no longer going to be a problem...
 </pre></div>
 </div>
-<p>I&#8217;ve now made the edits. I decided that both pieces of text were useful,
-but integrated them with some changes:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git status
 On branch master
 You have unmerged paths.
@@ -1719,29 +1944,30 @@ no changes added to commit <span class="o">(</span>use <span class="s2">&quot;gi
 <p>Let&#8217;s then make our new commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add an_experiment.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Completed merge of trouble, fixing conflicts along the way&quot;</span>
-<span class="o">[</span>master 2e7fb1e<span class="o">]</span> Completed merge of trouble, fixing conflicts along the way
+<span class="o">[</span>master 43dff3f<span class="o">]</span> Completed merge of trouble, fixing conflicts along the way
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-*   2e7fb1e Completed merge of trouble, fixing conflicts along the way
+*   43dff3f Completed merge of trouble, fixing conflicts along the way
 |<span class="se">\ </span> 
-| * 0f83eb0 Changes in the trouble branch
-* | cbf859e Mainline work
+| * df03e9a Changes in the trouble branch
+* | f86d4e0 Mainline work
 |/  
-*   bc7f311 Merge in the experiment
+*   8c032bc Merge in the experiment
 |<span class="se">\ </span> 
-| * f57dd34 Trying something new
-* | 82385a3 The mainline keeps moving
+| * 3ed2b2b Trying something new
+* | 39a919e The mainline keeps moving
 |/  
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
 </div>
 </div>
 <div class="section" id="git-commits-form-a-graph">
-<h3>Git commits form a graph<a class="headerlink" href="#git-commits-form-a-graph" title="Permalink to this headline">¶</a></h3>
+<span id="git-graph"></span><h3>Git commits form a graph<a class="headerlink" href="#git-commits-form-a-graph" title="Permalink to this headline">¶</a></h3>
 <p>The output of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">slog</span></tt> shows the sequence of commits as a graph.</p>
 <p>The nodes of the graph are the commits. Each commit has one or more parents,
 stored in the commit object.  The parents give the links between the commit
@@ -1749,12 +1975,15 @@ and the previous commit(s) in the <em>commit history</em> graph.  The commit par
 therefore give the edges in the graph.  If we start at a particular commit,
 and then track back following only one parent for each commit, this is a
 <em>path</em> in the <em>commit history</em>.</p>
-<p>For example, we might start at our current commit: <tt class="docutils literal"><span class="pre">2e7fb1e</span></tt>.  This
-commit has two parents: <tt class="docutils literal"><span class="pre">cbf859e</span></tt> and <tt class="docutils literal"><span class="pre">0f83eb0</span></tt>.  We might
-follow one particular path to <tt class="docutils literal"><span class="pre">cbf859e</span></tt>, then <tt class="docutils literal"><span class="pre">bc7f311</span></tt>,
-then (from <tt class="docutils literal"><span class="pre">82385a3</span></tt> and <tt class="docutils literal"><span class="pre">f57dd34</span></tt>) to <tt class="docutils literal"><span class="pre">82385a3</span></tt>, <tt class="docutils literal"><span class="pre">766826e</span></tt>,
-<tt class="docutils literal"><span class="pre">9c1b0c5</span></tt>, <tt class="docutils literal"><span class="pre">445ad17</span></tt> and finally <tt class="docutils literal"><span class="pre">96286d8</span></tt> (because <tt class="docutils literal"><span class="pre">96286d8</span></tt> has no
-parents).  This is one <em>path</em> through the <em>commit history</em> graph.</p>
+<p>For example, we might start at our current commit: <tt class="docutils literal"><span class="pre">43dff3f</span></tt>.  This
+commit has two parents: <tt class="docutils literal"><span class="pre">f86d4e0</span></tt> and <tt class="docutils literal"><span class="pre">df03e9a</span></tt>.  We might
+follow one particular path to <tt class="docutils literal"><span class="pre">f86d4e0</span></tt>, then <tt class="docutils literal"><span class="pre">8c032bc</span></tt>,
+then (choosing from <tt class="docutils literal"><span class="pre">39a919e</span></tt> and <tt class="docutils literal"><span class="pre">3ed2b2b</span></tt>) to <tt class="docutils literal"><span class="pre">39a919e</span></tt>,
+<tt class="docutils literal"><span class="pre">afb4445</span></tt>, <tt class="docutils literal"><span class="pre">444a120</span></tt>, <tt class="docutils literal"><span class="pre">7c4bf5d</span></tt>, <tt class="docutils literal"><span class="pre">445ad17</span></tt> and finally <tt class="docutils literal"><span class="pre">96286d8</span></tt>
+(because <tt class="docutils literal"><span class="pre">96286d8</span></tt> has no parents).  This is one <em>path</em> through the <em>commit
+history</em> graph.</p>
+<p>See <a class="reference internal" href="git_log_dots.html#git-reachable"><em>defining paths</em></a> for a more formal definition of a
+commit path.</p>
 </div>
 <div class="section" id="git-remotes-working-with-other-people-making-backups">
 <h3>git remotes - working with other people, making backups<a class="headerlink" href="#git-remotes-working-with-other-people-making-backups" title="Permalink to this headline">¶</a></h3>
@@ -1767,8 +1996,8 @@ yours.</p>
 </div>
 <div class="section" id="keeping-backups-with-remotes">
 <h3>Keeping backups with remotes<a class="headerlink" href="#keeping-backups-with-remotes" title="Permalink to this headline">¶</a></h3>
-<p>First - a simple backup. Let&#8217;s say you have an external backup disk and you
-want to record all the history of your work on the backup disk.</p>
+<p>Let&#8217;s say you have an external backup disk and you want to record all the
+history of your work on the backup disk.</p>
 <p>To do this you need three steps:</p>
 <ul class="simple">
 <li>Make an empty backup repository on the external backup disk</li>
@@ -1801,13 +2030,13 @@ refs
 files in the <tt class="docutils literal"><span class="pre">/Volumes/my_usb_disk</span></tt> backup
 repository, we will only be editing files in our local <tt class="docutils literal"><span class="pre">nobel_prize</span></tt>
 directory, committing those changes locally (as we have done above), and then
-&#8220;pushing&#8221; these changes to the backup repository <a class="footnote-reference" href="#bare-detail" id="id2">[2]</a>.</p>
+&#8220;pushing&#8221; these changes to the backup repository <a class="footnote-reference" href="#bare-detail" id="id4">[4]</a>.</p>
 </div>
 <div class="section" id="tell-the-current-git-repository-about-the-backup-repository">
 <h4>Tell the current git repository about the backup repository<a class="headerlink" href="#tell-the-current-git-repository-about-the-backup-repository" title="Permalink to this headline">¶</a></h4>
 <p>Check we&#8217;re in our local git repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">pwd</span>
-/Users/mb312/dev_trees/pydagogue/nobel_prize
+/Users/mb312/dev_trees/pydagogue/working/nobel_prize
 </pre></div>
 </div>
 <p>Add a remote.  A remote is a link to another repository.</p>
@@ -1822,8 +2051,8 @@ usb_backup	/Volumes/my_usb_disk/nobel_prize.git <span class="o">(</span>push<spa
 </div>
 <p>The list shows that we can both <tt class="docutils literal"><span class="pre">fetch</span></tt> and <tt class="docutils literal"><span class="pre">push</span></tt> to this repository, of
 which more later.</p>
-<p>The entire of the rest of the information about the remote is in the
-repository config file – <tt class="docutils literal"><span class="pre">.git/config</span></tt>:</p>
+<p>Git has written the information about the remote URL to the repository config
+file – <tt class="docutils literal"><span class="pre">.git/config</span></tt>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/config
 <span class="o">[</span>core<span class="o">]</span>
 	<span class="nv">repositoryformatversion</span> <span class="o">=</span> 0
@@ -1867,102 +2096,105 @@ Sure enough, we now have files in <tt class="docutils literal"><span class="pre"
 │   └── d063db4b257f62dab66a91bbbbe128ec71c720
 ├── 0d
 │   └── 6c257b396bf7778e630deec2fdbb443d38723c
-├── 0f
-│   └── 83eb0ed77694f1fcc8244f745fb30fe5c8e104
 ├── 19
 │   └── a4289becf85485352b9a2238bb5348d1e6c5bc
-├── 2e
-│   └── 7fb1e5ec4bb3a7501191d54bd02c2d1e9a853d
+├── 1d
+│   └── ffb44cdab0bf6a343d15f3ab22043a663705be
+├── 2d
+│   └── aaaa53f77de1cf970e7ddeaa8f1076aac39196
 ├── 37
 │   └── 9a83c8dd04c545317d44a0868d09fee260d6e6
-├── 3f
-│   └── 8b4f91e337c3a5113e31b89abc0d086196a489
+├── 39
+│   └── a919e8af367a56d58cb0416278f9423733c65d
+├── 3e
+│   └── d2b2b525fd347f40643efdb3684ca8c33c87f2
 ├── 42
 │   └── ba16b291fcf7add49ecfd71011643ded4e5363
+├── 43
+│   └── dff3f58685cb13d25218a23d9a596f8e7d0cab
 ├── 44
+│   ├── 4a12064422010ab49e016b3df4f919e4a9e35b
 │   └── 5ad17988a8c97c6d04da9d5d4d550b811899a7
-├── 76
-│   └── 6826ebea0ee978e3f4a7baef92c772e3831394
+├── 6a
+│   └── c7fcda10353b4fa9fc8d0f32c698d3c9ddeb3a
 ├── 7c
+│   ├── 4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
 │   └── aea43055fe2f40df9f370745cb58809b39b26f
-├── 82
-│   ├── 385a31f61316560dfb663f6abc2a9da79b19ab
-│   └── cba6f370da7d7f23e7fd39189d21a6869b8359
 ├── 8a
 │   └── dc8bf371d669242ea998f78f9916867cc6203c
-├── 8e
-│   └── c67c60a14d6c42617204fe7b528860be360e81
+├── 8c
+│   └── 032bcfdb3530f7677d54c32aa425e781461ee9
 ├── 96
-│   └── 286d8b40ba9438557dd3d8af5fea6f02a4fb52
-├── 9c
-│   └── 1b0c5c1992708a4ca9e5429376ef4815183f52
-├── 9d
-│   └── 5f2ad212454f1163b6c182b38871ce822d35b6
+│   ├── 286d8b40ba9438557dd3d8af5fea6f02a4fb52
+│   └── c1f7136b989f562bfb2692468e765db42e7007
+├── 99
+│   └── 3473b05df32693bf76a2c2a9a6fda7df0a2f5a
 ├── 9f
 │   └── fc311b29f0c87bf502b92df951d90ef88c1c7d
 ├── ad
 │   └── 38fb606954c94432403432e804544a9a75334f
-├── b4
-│   └── 7289a86f20113f5ebb5c25eaaa2a8839354beb
-├── bc
-│   └── 7f3118f1c2db27f3fc3635797b71d474869bb7
+├── af
+│   └── b4445011b4bfef9ffb4fa437fdea8017cacdec
+├── b5
+│   └── f00bd2ea63695674bd1e3754c26c39a0c92126
 ├── bf
 │   └── f7e228b27468f17dd9072d55eda3c5e0144022
-├── cb
-│   └── f859e78af1af6472fca94b4723d62f4d600d35
 ├── d2
 │   └── b93bd091bfbde188b4898a13fd12bb05b9183e
 ├── d9
 │   └── 2d079af6a7f276cc8d63dcf2549c03e7deb553
-├── da
-│   └── c796980c951239bc730d39074747400cc84ad2
+├── db
+│   └── b0908e8b105e59cfa75a0e47ee7a6b7628f135
+├── df
+│   └── 03e9a337cb3ef11eb3984b9c3e145686a328af
 ├── e1
-│   └── 298063f6f94851ae551a292ac91ca84029c0e8
-├── f0
-│   └── ce7b8e787a68379eb3084998ef2ed44f6201cf
-├── f1
-│   └── d7f271c92852ad954205990859e25e1cd72aed
-├── f5
-│   └── 7dd34433cc67d312e8bc1189c2c31d2c42d5d6
+│   ├── 298063f6f94851ae551a292ac91ca84029c0e8
+│   └── e74d674de40c2927fdedee0872e9017131b7bd
+├── f2
+│   └── d2bdf6064d65f6d8bdcbebbdebcd25b0a2129b
+├── f8
+│   └── 6d4e0eefd6b7bfdf22914abc671ae57f261012
+├── fb
+│   └── b8fc66ffae6d36846debb2b956eb22ff83cd90
 ├── info
 └── pack
 
-32 directories, 31 files
+32 directories, 34 files
 </pre></div>
 </div>
 <p>You&#8217;ll see that the &#8216;master&#8217; branch in the backup repository now points to the
 same commit as the master branch in the local repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/heads/master
-2e7fb1e5ec4bb3a7501191d54bd02c2d1e9a853d
+43dff3f58685cb13d25218a23d9a596f8e7d0cab
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat /Volumes/my_usb_disk/nobel_prize.git/refs/heads/master
-2e7fb1e5ec4bb3a7501191d54bd02c2d1e9a853d
+43dff3f58685cb13d25218a23d9a596f8e7d0cab
 </pre></div>
 </div>
 <p>The local repository has a copy of the last known position of the master
 branch in the remote repository.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/remotes/usb_backup/master
-2e7fb1e5ec4bb3a7501191d54bd02c2d1e9a853d
+43dff3f58685cb13d25218a23d9a596f8e7d0cab
 </pre></div>
 </div>
 <p>You can see the last known positions of the remote branches using the <tt class="docutils literal"><span class="pre">-r</span></tt>
 flag to <tt class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></tt>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -r  -v
-  usb_backup/master 2e7fb1e Completed merge of trouble, fixing conflicts along the way
+  usb_backup/master 43dff3f Completed merge of trouble, fixing conflicts along the way
 </pre></div>
 </div>
 <p>To see both local and remote branches, use the <tt class="docutils literal"><span class="pre">-a</span></tt> flag:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a  -v
-  experiment                f57dd34 Trying something new
-* master                    2e7fb1e Completed merge of trouble, fixing conflicts along the way
-  trouble                   0f83eb0 Changes in the trouble branch
-  remotes/usb_backup/master 2e7fb1e Completed merge of trouble, fixing conflicts along the way
+  experiment                3ed2b2b Trying something new
+* master                    43dff3f Completed merge of trouble, fixing conflicts along the way
+  trouble                   df03e9a Changes in the trouble branch
+  remotes/usb_backup/master 43dff3f Completed merge of trouble, fixing conflicts along the way
 </pre></div>
 </div>
 </div>
 <div class="section" id="git-push-synchronizing-repositories">
-<h4>git push – synchronizing repositories<a class="headerlink" href="#git-push-synchronizing-repositories" title="Permalink to this headline">¶</a></h4>
+<span id="git-push"></span><h4>git push – synchronizing repositories<a class="headerlink" href="#git-push-synchronizing-repositories" title="Permalink to this headline">¶</a></h4>
 <p><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> is an excellent way to do backups, because it only transfers the
 information that the remote repository does not have.</p>
 <p>Let&#8217;s see that in action.</p>
@@ -1970,175 +2202,106 @@ information that the remote repository does not have.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Express confidence in the study&quot;</span> &gt;&gt; nobel_prize_paper.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize_paper.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Buff up the paper some more&quot;</span>
-<span class="o">[</span>master 73bcfe2<span class="o">]</span> Buff up the paper some more
+<span class="o">[</span>master 44d2c12<span class="o">]</span> Buff up the paper some more
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
 <p>Git updated the local <tt class="docutils literal"><span class="pre">master</span></tt> branch, but the remote does not know about
 this update yet:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
-  experiment                f57dd34 Trying something new
-* master                    73bcfe2 Buff up the paper some more
-  trouble                   0f83eb0 Changes in the trouble branch
-  remotes/usb_backup/master 2e7fb1e Completed merge of trouble, fixing conflicts along the way
+  experiment                3ed2b2b Trying something new
+* master                    44d2c12 Buff up the paper some more
+  trouble                   df03e9a Changes in the trouble branch
+  remotes/usb_backup/master 43dff3f Completed merge of trouble, fixing conflicts along the way
 </pre></div>
 </div>
 <p>We already know there will be three new objects in <tt class="docutils literal"><span class="pre">.git/objects</span></tt> after this
-commit.  There are objects for:</p>
+commit.  These are:</p>
 <ul class="simple">
-<li>the modified <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>;</li>
-<li>the modified directory listing with the new hash for
-<tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>;</li>
-<li>the new commit.</li>
+<li>a new blob (file) object for the modified <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>;</li>
+<li>a new tree (directory listing) object associating the new hash for the
+contents of <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt> with the <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>
+filename;</li>
+<li>the new commit object.</li>
 </ul>
 <p>Usually we don&#8217;t need to worry about which objects these are, but here we will
 track these down to show how <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> works.</p>
 <p>The commit object we can see from the top of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt>. The <tt class="docutils literal"><span class="pre">-1</span></tt> flag to
 <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> tells git to show just the most recent commit from the log:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log -1
-commit 73bcfe269091c6ad7239899e38fb25015ecb6363
+commit 44d2c12aba8f3d8a26459cdc1432899580c26c44
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
 Date:   Sun Apr 1 15:13:13 2012 -0400
 
     Buff up the paper some more
 </pre></div>
 </div>
-<p>So the commit is <tt class="docutils literal"><span class="pre">73bcfe269091c6ad7239899e38fb25015ecb6363</span></tt>. We can get the directory listing object from the
-commit object:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 73bcfe269091c6ad7239899e38fb25015ecb6363
-tree f73ddeda1a9bf87125077f99b7f019251509c1c2
-parent 2e7fb1e5ec4bb3a7501191d54bd02c2d1e9a853d
+<p>So the commit is <tt class="docutils literal"><span class="pre">44d2c12aba8f3d8a26459cdc1432899580c26c44</span></tt>. We can get the tree object from the commit object:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 44d2c12aba8f3d8a26459cdc1432899580c26c44
+tree 7f0de8dd99ee5c9987309668b5835796dc9c98c5
+parent 43dff3f58685cb13d25218a23d9a596f8e7d0cab
 author Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333307593 -0400
 committer Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333307593 -0400
 
 Buff up the paper some more
 </pre></div>
 </div>
-<p>We can show the directory listing contents to get the object for the new
+<p>We can show the tree object contents to get the object for the new
 version of <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p f73ddeda1a9bf87125077f99b7f019251509c1c2
-100644 blob 3f8b4f91e337c3a5113e31b89abc0d086196a489	an_experiment.txt
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 7f0de8dd99ee5c9987309668b5835796dc9c98c5
+100644 blob 1dffb44cdab0bf6a343d15f3ab22043a663705be	an_experiment.txt
 100644 blob 0d6c257b396bf7778e630deec2fdbb443d38723c	boring_idea.txt
-100644 blob 1cf14dbbc3793860a41655521a769b4529e585dd	nobel_prize_paper.txt
+100644 blob bfb83ae9365ab2a8343ef5f3cb77f834bdffff93	nobel_prize_paper.txt
 100644 blob 42ba16b291fcf7add49ecfd71011643ded4e5363	slightly_dodgy_analysis.py
 100644 blob 9ffc311b29f0c87bf502b92df951d90ef88c1c7d	stunning_figure.png
 </pre></div>
 </div>
 <p>We do have these objects in the local repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/73/bcfe269091c6ad7239899e38fb25015ecb6363
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/f7/3ddeda1a9bf87125077f99b7f019251509c1c2
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/1c/f14dbbc3793860a41655521a769b4529e585dd
-.git/objects/73/bcfe269091c6ad7239899e38fb25015ecb6363
-.git/objects/f7/3ddeda1a9bf87125077f99b7f019251509c1c2
-.git/objects/1c/f14dbbc3793860a41655521a769b4529e585dd
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/44/d2c12aba8f3d8a26459cdc1432899580c26c44
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/7f/0de8dd99ee5c9987309668b5835796dc9c98c5
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/bf/b83ae9365ab2a8343ef5f3cb77f834bdffff93
+.git/objects/44/d2c12aba8f3d8a26459cdc1432899580c26c44
+.git/objects/7f/0de8dd99ee5c9987309668b5835796dc9c98c5
+.git/objects/bf/b83ae9365ab2a8343ef5f3cb77f834bdffff93
 </pre></div>
 </div>
 <p>– but we don&#8217;t have these objects in the remote repository yet (we haven&#8217;t
 done a <tt class="docutils literal"><span class="pre">push</span></tt>):</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ REMOTE_OBJECTS</span><span class="o">=</span>/Volumes/my_usb_disk/nobel_prize.git/objects
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/73/bcfe269091c6ad7239899e38fb25015ecb6363
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/f7/3ddeda1a9bf87125077f99b7f019251509c1c2
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/1c/f14dbbc3793860a41655521a769b4529e585dd
-ls: /Volumes/my_usb_disk/nobel_prize.git/objects/73/bcfe269091c6ad7239899e38fb25015ecb6363: No such file or directory
-ls: /Volumes/my_usb_disk/nobel_prize.git/objects/f7/3ddeda1a9bf87125077f99b7f019251509c1c2: No such file or directory
-ls: /Volumes/my_usb_disk/nobel_prize.git/objects/1c/f14dbbc3793860a41655521a769b4529e585dd: No such file or directory
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/44/d2c12aba8f3d8a26459cdc1432899580c26c44
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/7f/0de8dd99ee5c9987309668b5835796dc9c98c5
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/bf/b83ae9365ab2a8343ef5f3cb77f834bdffff93
+ls: /Volumes/my_usb_disk/nobel_prize.git/objects/44/d2c12aba8f3d8a26459cdc1432899580c26c44: No such file or directory
+ls: /Volumes/my_usb_disk/nobel_prize.git/objects/7f/0de8dd99ee5c9987309668b5835796dc9c98c5: No such file or directory
+ls: /Volumes/my_usb_disk/nobel_prize.git/objects/bf/b83ae9365ab2a8343ef5f3cb77f834bdffff93: No such file or directory
 </pre></div>
 </div>
 <p>Now we do a push:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git push usb_backup master
 To /Volumes/my_usb_disk/nobel_prize.git
-   2e7fb1e..73bcfe2  master -&gt; master
+   43dff3f..44d2c12  master -&gt; master
 </pre></div>
 </div>
 <p>The branches are synchronized again:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
-  experiment                f57dd34 Trying something new
-* master                    73bcfe2 Buff up the paper some more
-  trouble                   0f83eb0 Changes in the trouble branch
-  remotes/usb_backup/master 73bcfe2 Buff up the paper some more
+  experiment                3ed2b2b Trying something new
+* master                    44d2c12 Buff up the paper some more
+  trouble                   df03e9a Changes in the trouble branch
+  remotes/usb_backup/master 44d2c12 Buff up the paper some more
 </pre></div>
 </div>
 <p>We do have the new objects in the remote repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ REMOTE_OBJECTS</span><span class="o">=</span>/Volumes/my_usb_disk/nobel_prize.git/objects
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/73/bcfe269091c6ad7239899e38fb25015ecb6363
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/f7/3ddeda1a9bf87125077f99b7f019251509c1c2
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/1c/f14dbbc3793860a41655521a769b4529e585dd
-/Volumes/my_usb_disk/nobel_prize.git/objects/73/bcfe269091c6ad7239899e38fb25015ecb6363
-/Volumes/my_usb_disk/nobel_prize.git/objects/f7/3ddeda1a9bf87125077f99b7f019251509c1c2
-/Volumes/my_usb_disk/nobel_prize.git/objects/1c/f14dbbc3793860a41655521a769b4529e585dd
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/44/d2c12aba8f3d8a26459cdc1432899580c26c44
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/7f/0de8dd99ee5c9987309668b5835796dc9c98c5
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/bf/b83ae9365ab2a8343ef5f3cb77f834bdffff93
+/Volumes/my_usb_disk/nobel_prize.git/objects/44/d2c12aba8f3d8a26459cdc1432899580c26c44
+/Volumes/my_usb_disk/nobel_prize.git/objects/7f/0de8dd99ee5c9987309668b5835796dc9c98c5
+/Volumes/my_usb_disk/nobel_prize.git/objects/bf/b83ae9365ab2a8343ef5f3cb77f834bdffff93
 </pre></div>
 </div>
-</div>
-<div class="section" id="an-algorithm-for-git-push">
-<h4>An algorithm for git push<a class="headerlink" href="#an-algorithm-for-git-push" title="Permalink to this headline">¶</a></h4>
-<p>Now we know about how git stores its objects, we can work out an algorithm for
-doing a push.</p>
-<ol class="arabic">
-<li><p class="first">Get the commit hash corresponding the branch we are going to push</p>
-</li>
-<li><p class="first">Check if the remote has a matching object (filename). If yes, continue, if
-not then:</p>
-<blockquote>
-<div><ol class="loweralpha simple">
-<li>Put the commit has into a list of <em>missing commits</em></li>
-<li>Follow every possible <em>commit history path</em> back from this commit.
-For each commit on the path, if the commit is in the remote objects,
-stop, otherwise, add the commit to <em>missing commits</em> and continue to
-the next commit on the path.  Copy all <em>missing commit</em> objects to the
-remote objects directory.</li>
-<li>For every <em>missing commit</em> get the corresponding directory listing
-object (tree object).  If the tree object is not in the remote objects
-directory, add to <em>missing trees</em>. Copy all <em>missing trees</em> to the
-remote objects directory.</li>
-<li>For every <em>missing tree</em> read the tree directory listing. Find any
-file objects in the directory listing that are not in the remote
-objects directory, add to <em>missing file</em> objects.  Copy any <em>missing
-file</em> objects to the remote objects directory <a class="footnote-reference" href="#sub-trees" id="id3">[3]</a>.</li>
-</ol>
-</div></blockquote>
-</li>
-<li><p class="first">Update the remote branch (remote <tt class="docutils literal"><span class="pre">refs/heads/master</span></tt> in our case) to
-point to the same commit as the local branch.</p>
-</li>
-<li><p class="first">Update the local record of the last known position of the remote branch to
-point to the same commit.</p>
-</li>
-</ol>
-<p>This is what will happen in our case:</p>
-<ol class="arabic">
-<li><p class="first">We look up the hash for <tt class="docutils literal"><span class="pre">master</span></tt>, and we get <tt class="docutils literal"><span class="pre">73bcfe269091c6ad7239899e38fb25015ecb6363</span></tt> (abbreviated as
-<tt class="docutils literal"><span class="pre">73bcfe2</span></tt>).</p>
-</li>
-<li><p class="first">We look for the filename corresponding to <tt class="docutils literal"><span class="pre">73bcfe2</span></tt> in the remote
-<tt class="docutils literal"><span class="pre">objects</span></tt> directory.  It isn&#8217;t there.</p>
-<blockquote>
-<div><ol class="loweralpha simple">
-<li>We put <tt class="docutils literal"><span class="pre">73bcfe2</span></tt> into the list of missing commits;</li>
-<li>We follow all commit history paths back from <tt class="docutils literal"><span class="pre">73bcfe2</span></tt> to check for
-more missing commits.  In our case we have only one path, because
-<tt class="docutils literal"><span class="pre">73bcfe2</span></tt> has parent <tt class="docutils literal"><span class="pre">2e7fb1e</span></tt>, the remote already has the
-object corresponding to <tt class="docutils literal"><span class="pre">2e7fb1e</span></tt>, and we can stop looking for
-missing commits. We copy <tt class="docutils literal"><span class="pre">73/bcfe269091c6ad7239899e38fb25015ecb6363</span></tt> in local <tt class="docutils literal"><span class="pre">.git/objects</span></tt> to
-the remote objects directory;</li>
-<li>We only have one missing commit, <tt class="docutils literal"><span class="pre">73bcfe2</span></tt>.  We look in the contents
-of <tt class="docutils literal"><span class="pre">73bcfe2</span></tt> to find the directory listing (tree).  This is
-<tt class="docutils literal"><span class="pre">f73ddeda1a9bf87125077f99b7f019251509c1c2</span></tt>.  We check for this object in the remote objects
-directory, and sure enough, it is missing. We add this tree to the
-list of missing trees.  We copy <tt class="docutils literal"><span class="pre">f7/3ddeda1a9bf87125077f99b7f019251509c1c2</span></tt> in local
-<tt class="docutils literal"><span class="pre">.git/objects</span></tt> to the remote objects directory;</li>
-<li>We only have one missing tree – <tt class="docutils literal"><span class="pre">f73ddeda1a9bf87125077f99b7f019251509c1c2</span></tt>. We look in the
-contents of this directory listing, and check in the remote object
-directory for each object in this listing. We are only missing
-<tt class="docutils literal"><span class="pre">1cf14dbbc3793860a41655521a769b4529e585dd</span></tt>. We copy <tt class="docutils literal"><span class="pre">1c/f14dbbc3793860a41655521a769b4529e585dd</span></tt> to the remote
-objects directory.</li>
-</ol>
-</div></blockquote>
-</li>
-<li><p class="first">We set remote <tt class="docutils literal"><span class="pre">refs/heads/master</span></tt> to contain the hash <tt class="docutils literal"><span class="pre">73bcfe269091c6ad7239899e38fb25015ecb6363</span></tt>.</p>
-</li>
-<li><p class="first">Set the local <tt class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></tt> to contain <tt class="docutils literal"><span class="pre">73bcfe269091c6ad7239899e38fb25015ecb6363</span></tt>.</p>
-</li>
-</ol>
+<p>You might also be able to see how git would work out what to transfer.  See
+<a class="reference internal" href="git_push_algorithm.html"><em>An algorithm for git push</em></a> for how it could work in general, and for this case.</p>
 </div>
 <div class="section" id="git-clone-make-a-fresh-new-copy-of-the-repo">
 <h4>git clone – make a fresh new copy of the repo<a class="headerlink" href="#git-clone-make-a-fresh-new-copy-of-the-repo" title="Permalink to this headline">¶</a></h4>
@@ -2149,8 +2312,7 @@ trusty bus back to our trusty house.</p>
 <p>We plug the hard drive into the laptop, it gets mounted again at
 <tt class="docutils literal"><span class="pre">/Volumes/my_usb_disk</span></tt>.</p>
 <p>Now we want a repository with a working tree.</p>
-<p>Maybe we make a directory for git repositories first:</p>
-<p>The command we want now is <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt>:</p>
+<p>The command we want is <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git clone /Volumes/my_usb_disk/nobel_prize.git
 Cloning into <span class="s1">&#39;nobel_prize&#39;</span>...
 <span class="k">done</span>.
@@ -2159,19 +2321,20 @@ Cloning into <span class="s1">&#39;nobel_prize&#39;</span>...
 <p>We have a full backup of the repository, including all the history:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git slog
-* 73bcfe2 Buff up the paper some more
-*   2e7fb1e Completed merge of trouble, fixing conflicts along the way
+* 44d2c12 Buff up the paper some more
+*   43dff3f Completed merge of trouble, fixing conflicts along the way
 |<span class="se">\ </span> 
-| * 0f83eb0 Changes in the trouble branch
-* | cbf859e Mainline work
+| * df03e9a Changes in the trouble branch
+* | f86d4e0 Mainline work
 |/  
-*   bc7f311 Merge in the experiment
+*   8c032bc Merge in the experiment
 |<span class="se">\ </span> 
-| * f57dd34 Trying something new
-* | 82385a3 The mainline keeps moving
+| * 3ed2b2b Trying something new
+* | 39a919e The mainline keeps moving
 |/  
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -2185,38 +2348,38 @@ origin	/Volumes/my_usb_disk/nobel_prize.git <span class="o">(</span>push<span cl
 </div>
 <p>Of course, just after the clone, the remote and the local copy are
 synchronized:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -v -a
-* master                73bcfe2 Buff up the paper some more
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
+* master                44d2c12 Buff up the paper some more
   remotes/origin/HEAD   -&gt; origin/master
-  remotes/origin/master 73bcfe2 Buff up the paper some more
+  remotes/origin/master 44d2c12 Buff up the paper some more
 </pre></div>
 </div>
 <p>Now we could make some commits.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;The brain is a really big network.&quot;</span> &gt;&gt; nobel_prize_paper.txt
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize_paper.txt
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;More great ideas after some wine&quot;</span>
-<span class="o">[</span>master 68e572a<span class="o">]</span> More great ideas after some wine
+<span class="o">[</span>master 2c4486f<span class="o">]</span> More great ideas after some wine
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
 <p>The local copy is now ahead of the remote:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -v -a
-* master                68e572a <span class="o">[</span>ahead 1<span class="o">]</span> More great ideas after some wine
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
+* master                2c4486f <span class="o">[</span>ahead 1<span class="o">]</span> More great ideas after some wine
   remotes/origin/HEAD   -&gt; origin/master
-  remotes/origin/master 73bcfe2 Buff up the paper some more
+  remotes/origin/master 44d2c12 Buff up the paper some more
 </pre></div>
 </div>
 <p>At the end of the night&#8217;s work, we push back to the remote on the USB disk:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git push origin master
 To /Volumes/my_usb_disk/nobel_prize.git
-   73bcfe2..68e572a  master -&gt; master
+   44d2c12..2c4486f  master -&gt; master
 </pre></div>
 </div>
 <p>The local and remote are synchronized again:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -v -a
-* master                68e572a More great ideas after some wine
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
+* master                2c4486f More great ideas after some wine
   remotes/origin/HEAD   -&gt; origin/master
-  remotes/origin/master 68e572a More great ideas after some wine
+  remotes/origin/master 2c4486f More great ideas after some wine
 </pre></div>
 </div>
 </div>
@@ -2224,13 +2387,10 @@ To /Volumes/my_usb_disk/nobel_prize.git
 <h4>git fetch – get all data from a remote<a class="headerlink" href="#git-fetch-get-all-data-from-a-remote" title="Permalink to this headline">¶</a></h4>
 <p><tt class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></tt> fetches data from a remote repository into a local one.</p>
 <p>Now we are back at the work desktop.  We don&#8217;t have the great ideas from last
-night in the local repository:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd nobel_prize
-</pre></div>
-</div>
-<p>Here is the latest commit in the work desktop repository:</p>
+night in the local repository.  Here is the latest commit in the work desktop
+repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log -1
-commit 73bcfe269091c6ad7239899e38fb25015ecb6363
+commit 44d2c12aba8f3d8a26459cdc1432899580c26c44
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
 Date:   Sun Apr 1 15:13:13 2012 -0400
 
@@ -2238,11 +2398,11 @@ Date:   Sun Apr 1 15:13:13 2012 -0400
 </pre></div>
 </div>
 <p>Here are the branch positions in the work desktop repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v -a
-  experiment                f57dd34 Trying something new
-* master                    73bcfe2 Buff up the paper some more
-  trouble                   0f83eb0 Changes in the trouble branch
-  remotes/usb_backup/master 73bcfe2 Buff up the paper some more
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
+  experiment                3ed2b2b Trying something new
+* master                    44d2c12 Buff up the paper some more
+  trouble                   df03e9a Changes in the trouble branch
+  remotes/usb_backup/master 44d2c12 Buff up the paper some more
 </pre></div>
 </div>
 <p>As you can see, the last known positions of the remote branches have not
@@ -2251,41 +2411,40 @@ get refreshed when we do an explicit git command to communicate with the
 remote copy.  Git stores the &#8220;last known positions&#8221; in <tt class="docutils literal"><span class="pre">refs/remotes</span></tt>.  For
 example, if the remote name is <tt class="docutils literal"><span class="pre">usb_backup</span></tt> and the branch is <tt class="docutils literal"><span class="pre">master</span></tt>,
 then the last known position (commit hash) is the contents of the file
-<tt class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></tt>.</p>
+<tt class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></tt>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/remotes/usb_backup/master
-73bcfe269091c6ad7239899e38fb25015ecb6363
+44d2c12aba8f3d8a26459cdc1432899580c26c44
 </pre></div>
 </div>
 <p>The commands that update the last known positions are:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt> (a whole new copy, copying the remote branch positions with
 it);</li>
-<li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> (updates the remote branches and therefore the local last known
-positions in the local repository);</li>
-<li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></tt> (this section) (reads the branch positions and data from the
-remote repository and copies the data and last known positions into the
-local repository);</li>
+<li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> (copies data and branch positions to the remote repository, and
+updates last known positions in the local repository);</li>
+<li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></tt> (this section) (copies data and last known positions from
+remote repository into the local repository);</li>
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">pull</span></tt> (this is just a <tt class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></tt> followed by a <tt class="docutils literal"><span class="pre">git</span> <span class="pre">merge</span></tt>).</li>
 </ul>
 <p>Now we have plugged in the USB drive, we can fetch the data and last known
 positions from the remote:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git fetch usb_backup
 From /Volumes/my_usb_disk/nobel_prize
-   73bcfe2..68e572a  master     -&gt; usb_backup/master
+   44d2c12..2c4486f  master     -&gt; usb_backup/master
 </pre></div>
 </div>
 <p>The last known positions are now the same as those on the remote repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -v -a
-  experiment                f57dd34 Trying something new
-* master                    73bcfe2 Buff up the paper some more
-  trouble                   0f83eb0 Changes in the trouble branch
-  remotes/usb_backup/master 68e572a More great ideas after some wine
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
+  experiment                3ed2b2b Trying something new
+* master                    44d2c12 Buff up the paper some more
+  trouble                   df03e9a Changes in the trouble branch
+  remotes/usb_backup/master 2c4486f More great ideas after some wine
 </pre></div>
 </div>
 <p>We can set our local master branch to be the same as the remote master branch
 by doing a merge:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git merge usb_backup/master
-Updating 73bcfe2..68e572a
+Updating 44d2c12..2c4486f
 Fast-forward
  nobel_prize_paper.txt | 1 +
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
@@ -2296,23 +2455,24 @@ case, the &#8220;merge&#8221; is very straightforward, because there have been n
 changes in local <tt class="docutils literal"><span class="pre">master</span></tt> since the new edits we have in the remote.
 Therefore the &#8220;merge&#8221; only involves setting local <tt class="docutils literal"><span class="pre">master</span></tt> to point to the
 same commit as <tt class="docutils literal"><span class="pre">usb_backup/master</span></tt>.  This is called a &#8220;fast-forward&#8221; merge,
-because it just involves advancing the branch pointer, rather then fusing two
+because it just involves advancing the branch pointer, rather than fusing two
 lines of development:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git slog
-* 68e572a More great ideas after some wine
-* 73bcfe2 Buff up the paper some more
-*   2e7fb1e Completed merge of trouble, fixing conflicts along the way
+* 2c4486f More great ideas after some wine
+* 44d2c12 Buff up the paper some more
+*   43dff3f Completed merge of trouble, fixing conflicts along the way
 |<span class="se">\ </span> 
-| * 0f83eb0 Changes in the trouble branch
-* | cbf859e Mainline work
+| * df03e9a Changes in the trouble branch
+* | f86d4e0 Mainline work
 |/  
-*   bc7f311 Merge in the experiment
+*   8c032bc Merge in the experiment
 |<span class="se">\ </span> 
-| * f57dd34 Trying something new
-* | 82385a3 The mainline keeps moving
+| * 3ed2b2b Trying something new
+* | 39a919e The mainline keeps moving
 |/  
-* 766826e I like this new name better
-* 9c1b0c5 Paper nearly ready
+* afb4445 I like this new name better
+* 444a120 Luckily we submitted the paper before we realized
+* 7c4bf5d Paper ready <span class="k">for </span>submission to Science
 * 445ad17 Fruit of enormous thought
 * 96286d8 First backup of my amazing idea
 </pre></div>
@@ -2377,7 +2537,7 @@ repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Is the network comment too obvious?&quot;</span> &gt;&gt; nobel_prize_paper.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize_paper.txt
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Rethinking the drinking again&quot;</span>
-<span class="o">[</span>master a465989<span class="o">]</span> Rethinking the drinking again
+<span class="o">[</span>master 8cd94ef<span class="o">]</span> Rethinking the drinking again
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -2389,27 +2549,27 @@ confusing warning. See <tt class="docutils literal"><span class="pre">git</span>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git push
 To /Volumes/my_usb_disk/nobel_prize.git
-   68e572a..a465989  master -&gt; master
+   2c4486f..8cd94ef  master -&gt; master
 </pre></div>
 </div>
 <p>Git also knows what to do if we do <tt class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></tt> from this branch.</p>
-<p>To show this at work, we go home, fetch the desktop work, and then do another
-commit from the laptop:</p>
+<p>To show this at work, we go home to the laptop, fetch the desktop work from
+the USB drive, and then do another commit from the laptop:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git fetch origin
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git merge origin/master
-Updating 68e572a..a465989
+Updating 2c4486f..8cd94ef
 Fast-forward
  nobel_prize_paper.txt | 1 +
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 From /Volumes/my_usb_disk/nobel_prize
-   68e572a..a465989  master     -&gt; origin/master
+   2c4486f..8cd94ef  master     -&gt; origin/master
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More convinced by networks.&quot;</span> &gt;&gt; nobel_prize_paper.txt
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize_paper.txt
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;I think better at home&quot;</span>
-<span class="o">[</span>master 5256d56<span class="o">]</span> I think better at home
+<span class="o">[</span>master e5cd229<span class="o">]</span> I think better at home
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -2418,19 +2578,19 @@ the remote for good measure:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git push origin master --set-upstream
 Branch master <span class="nb">set </span>up to track remote branch master from origin.
 To /Volumes/my_usb_disk/nobel_prize.git
-   a465989..5256d56  master -&gt; master
+   8cd94ef..e5cd229  master -&gt; master
 </pre></div>
 </div>
 <p>Back to the work desktop to demonstrate &#8220;fetch&#8221; after we have done <tt class="docutils literal"><span class="pre">git</span>
 <span class="pre">push</span></tt> with <tt class="docutils literal"><span class="pre">--set-upstream</span></tt> above:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git fetch
 From /Volumes/my_usb_disk/nobel_prize
-   a465989..5256d56  master     -&gt; usb_backup/master
+   8cd94ef..e5cd229  master     -&gt; usb_backup/master
 </pre></div>
 </div>
 <p>We still need to do an explicit merge:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git merge usb_backup/master
-Updating a465989..5256d56
+Updating 8cd94ef..e5cd229
 Fast-forward
  nobel_prize_paper.txt | 1 +
  1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
@@ -2457,12 +2617,10 @@ Github will host some private repositories for education users.</p>
 </div>
 <div class="section" id="other-useful-commands">
 <h3>Other useful commands<a class="headerlink" href="#other-useful-commands" title="Permalink to this headline">¶</a></h3>
-<p>The commands complete the typical daily git toolkit of an experienced user:</p>
+<p>These commands complete the typical daily toolkit of an experienced git user:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-show.html">show</a></li>
 <li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html">reflog</a></li>
 <li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html">rebase</a></li>
-<li><a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">tag</a></li>
 </ul>
 <p>See <a class="reference internal" href="rebase_without_tears.html"><em>Rebase without tears</em></a> for a tutorial on <tt class="docutils literal"><span class="pre">rebase</span></tt>.</p>
 </div>
@@ -2470,84 +2628,58 @@ Github will host some private repositories for education users.</p>
 <h3>Git: are you ready?<a class="headerlink" href="#git-are-you-ready" title="Permalink to this headline">¶</a></h3>
 <p>If you followed this tutorial, you now have a good knowledge of how git works.
 This will make it much easier to understand why git commands do what they do,
-and what to do when things go wrong.</p>
+and what to do when things go wrong.  You know all the main terms that the git
+manual pages use, so git&#8217;s own help will be more useful to you.  You will
+likely lead a long life of deep personal fulfillment.</p>
 </div>
 </div>
 <div class="section" id="git-resources">
 <h2>Git resources<a class="headerlink" href="#git-resources" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="introductions">
-<h3>Introductions<a class="headerlink" href="#introductions" title="Permalink to this headline">¶</a></h3>
-<p>There are lots of good tutorials and introductions for Git, which you
-can easily find yourself; this is just a short list of things I&#8217;ve found
-useful. For a beginner, I would recommend the following &#8216;core&#8217; reading
-list, and below I mention a few extra resources:</p>
-<ol class="arabic simple">
+<div class="section" id="introductions-and-tutorials">
+<h3>Introductions and tutorials<a class="headerlink" href="#introductions-and-tutorials" title="Permalink to this headline">¶</a></h3>
+<p>As you&#8217;ve seen, this tutorial makes the bold assumption that you&#8217;ll be able to
+understand how git works by seeing how it is <em>built</em>. These documents take a
+similar approach to varying levels of detail:</p>
+<ul class="simple">
+<li>This <a class="reference external" href="http://www.ralfebert.de/blog/tools/visual_git_tutorial_1">visual git tutorial</a> gives a nice
+visual idea of git at work.</li>
 <li><a class="reference external" href="http://www.sbf5.com/~cduan/technical/git">Understanding Git Conceptually</a> gives another review of how
 the ideas behind git.</li>
-<li>For more detail, see the start of the excellent <a class="reference external" href="http://progit.org/book">Pro
-Git</a> online book, or similarly the early
-parts of the <a class="reference external" href="http://book.git-scm.com">Git community book</a>. Pro
-Git&#8217;s chapters are very short and well illustrated; the community
-book tends to have more detail and has nice screencasts at the end of
-some sections.</li>
-</ol>
-<p>This <a class="reference external" href="http://www.ralfebert.de/blog/tools/visual_git_tutorial_1">visual git tutorial</a> gives a nice
-visual idea of git at work.</p>
-<p>For windows users, <a class="reference external" href="http://nathanj.github.com/gitguide/tour.html">an Illustrated Guide to Git on
-Windows</a> is useful in
-that it contains also some information about handling SSH (necessary to
-interface with git hosted on remote servers when collaborating) as well
-as screenshots of the Windows interface.</p>
-<dl class="docutils">
-<dt>Cheat sheets</dt>
-<dd>Two different
-<a class="reference external" href="http://zrusin.blogspot.com/2007/09/git-cheat-sheet.html">cheat</a>
-<a class="reference external" href="http://jan-krueger.net/development/git-cheat-sheet-extended-edition">sheets</a>
-in PDF format that can be printed for frequent reference.</dd>
-</dl>
-</div>
-<div class="section" id="beyond-the-basics">
-<h3>Beyond the basics<a class="headerlink" href="#beyond-the-basics" title="Permalink to this headline">¶</a></h3>
-<p>As you&#8217;ve seen, this tutorial makes the bold assumption that you&#8217;ll be
-able to understand how git works by seeing how it is <em>built</em>. These two
-documents, written in a similar spirit, are probably the most useful
-descriptions of the Git architecture short of diving into the actual
-implementation. They walk you through how you would go about building a
-version control system with a little story. By the end you realize that
-Git&#8217;s model is almost an inevitable outcome of the proposed constraints:</p>
-<ul class="simple">
-<li>The <a class="reference external" href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">Git
-parable</a>
-by Tom Preston-Werner.</li>
-<li><a class="reference external" href="http://matthew-brett.github.com/pydagogue/foundation.html">Git
-foundations</a>
-by Matthew Brett.</li>
+<li>For more detail, see the start of the excellent <a class="reference external" href="http://progit.org/book">Pro Git</a> online book, or similarly the early parts of the
+<a class="reference external" href="http://book.git-scm.com">Git community book</a>. Pro Git&#8217;s chapters are
+very short and well illustrated; the community book tends to have more
+detail and has nice screencasts at the end of some sections.</li>
+<li>The <a class="reference external" href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">Git parable</a> by Tom
+Preston-Werner.</li>
+<li><a class="reference internal" href="foundation.html"><em>Git foundations</em></a></li>
 </ul>
-<dl class="docutils">
-<dt><a class="reference external" href="http://www.gitready.com">Git ready</a></dt>
-<dd>A great website of posts on specific git-related topics, organized
-by difficulty.</dd>
-<dt><a class="reference external" href="http://sourceforge.net/projects/qgit/">QGit</a>: an excellent Git GUI</dt>
-<dd>Git ships by default with gitk and git-gui, a pair of Tk graphical
-clients to browse a repo and to operate in it. I personally have
-found <a class="reference external" href="http://sourceforge.net/projects/qgit/">qgit</a> to be nicer
-and easier to use. It is available on modern linux distros, and
-since it is based on Qt, it should run on OSX and Windows.</dd>
-<dt><a class="reference external" href="http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html">Git Magic</a> :</dt>
-<dd>Another book-size guide that has useful snippets.</dd>
-<dt>The <a class="reference external" href="http://learn.github.com">learning center</a> at Github</dt>
-<dd>Guides on a number of topics, some specific to github hosting but
-much of it of general value.</dd>
-<dt>A <a class="reference external" href="http://cworth.org/hgbook-git/tour">port</a> of the Hg book&#8217;s beginning</dt>
-<dd>The <a class="reference external" href="http://hgbook.red-bean.com">Mercurial book</a> has a reputation
-for clarity, so Carl Worth decided to
-<a class="reference external" href="http://cworth.org/hgbook-git/tour">port</a> its introductory
-chapter to Git. It&#8217;s a nicely written intro, which is possible in
-good measure because of how similar the underlying models of Hg and
-Git ultimately are.</dd>
-<dt><a class="reference external" href="http://andyjeffries.co.uk/articles/25-tips-for-intermediate-git-users">Intermediate tips</a>: A set</dt>
-<dd>of tips that contains some very valuable nuggets, once you&#8217;re past the basics.</dd>
-</dl>
+<p>You might also try:</p>
+<ul class="simple">
+<li>For windows users, <a class="reference external" href="http://nathanj.github.com/gitguide/tour.html">an Illustrated Guide to Git on Windows</a> is useful in that it
+contains also some information about handling SSH (necessary to interface
+with git hosted on remote servers when collaborating) as well as screenshots
+of the Windows interface.</li>
+<li><a class="reference external" href="http://www.gitready.com">Git ready</a> A great website of posts on specific
+git-related topics, organized by difficulty.</li>
+<li><a class="reference external" href="http://sourceforge.net/projects/qgit/">QGit</a>: an excellent Git GUI Git
+ships by default with gitk and git-gui, a pair of Tk graphical clients to
+browse a repo and to operate in it. I personally have found <a class="reference external" href="http://sourceforge.net/projects/qgit/">qgit</a> to be nicer and easier to use. It
+is available on modern Linux distros, and since it is based on Qt, it should
+run on OSX and Windows.</li>
+<li><a class="reference external" href="http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html">Git Magic</a> : Another
+book-size guide that has useful snippets.</li>
+<li>The <a class="reference external" href="http://learn.github.com">learning center</a> at Github Guides on a
+number of topics, some specific to github hosting but much of it of general
+value.</li>
+<li>A <a class="reference external" href="http://cworth.org/hgbook-git/tour">port</a> of the Hg book&#8217;s beginning
+The <a class="reference external" href="http://hgbook.red-bean.com">Mercurial book</a> has a reputation for
+clarity, so Carl Worth decided to <a class="reference external" href="http://cworth.org/hgbook-git/tour">port</a> its introductory chapter to Git. It&#8217;s
+a nicely written intro, which is possible in good measure because of how
+similar the underlying models of Hg and Git ultimately are.</li>
+<li><a class="reference external" href="http://andyjeffries.co.uk/articles/25-tips-for-intermediate-git-users">Intermediate tips</a>: A
+set of tips that contains some very valuable nuggets, once you&#8217;re past the
+basics.</li>
+</ul>
 </div>
 <div class="section" id="for-svn-users">
 <h3>For SVN users<a class="headerlink" href="#for-svn-users" title="Permalink to this headline">¶</a></h3>
@@ -2587,49 +2719,60 @@ PS1=&#39;[\u@\h \W$(__git_ps1 &quot; (%s)&quot;)]\$ &#39; # adjust this to your 
 <p>See the comments in both of those files for lots of extra functionality
 they offer.</p>
 <p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="tree-command" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>I am using the <tt class="docutils literal"><span class="pre">tree</span></tt> command to give a nice text-graphic
+listing of directories.  If you want to try running <tt class="docutils literal"><span class="pre">tree</span></tt> yourself, you
+may need to find an implementation of <tt class="docutils literal"><span class="pre">tree</span></tt> for your operating system.
+On Debian or Ubuntu you can use <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">tree</span></tt>. For OSX you
+might want to use something like homebrew (<tt class="docutils literal"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">tree</span></tt>).  I have
+not tried installing <tt class="docutils literal"><span class="pre">tree</span></tt> on Windows.</td></tr>
+</tbody>
+</table>
 <table class="docutils footnote" frame="void" id="git-object-dir" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>When git stores a file in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory,
-it does a hash for the file, takes the first two digits of the hash to make
-a directory, and then stores a file with a filename from the remaining hash
-digits.  For example, when adding a file with hash
-<tt class="docutils literal"><span class="pre">d92d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt> git will create
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>When git stores a file in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory,
+it makes a hash from the file, takes the first two digits of the hash to
+make a directory name, and then stores a file in this directory with a
+filename from the remaining hash digits.  For example, when adding a file
+with hash <tt class="docutils literal"><span class="pre">d92d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt> git will create
 <tt class="docutils literal"><span class="pre">.git/objects/d9</span></tt> directory if it doesn&#8217;t exist, and stores the file
 contents as <tt class="docutils literal"><span class="pre">.git/objects/d9/2d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt>.  It
 does this so that the number of files in any one directory stay in a
-reasonable range.  If git had to store hash filenames for every file,
-directory listing and commit in one flat directory, it would soon have a
-very large number of files.</td></tr>
+reasonable range.  If git had to store hash filenames for every object in
+one flat directory, the directory would soon have a very large number of
+files.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="tag-other-objects" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>You might have guessed by now that a tag can refer to
+any git object, not just a commit.  For example a tag can refer to a tree
+(directory listing) or blob (file) object, although in practice tags almost
+always refer to commits.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="bare-detail" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>The reason we need a bare repository for our backup goes
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>The reason we need a bare repository for our backup goes
 deeper than the fact we do not need a working tree.  We are soon going to
 do a <tt class="docutils literal"><span class="pre">push</span></tt> to this backup repository.  The <tt class="docutils literal"><span class="pre">push</span></tt> has the effect of
 resetting the position of a branch (usually <tt class="docutils literal"><span class="pre">master</span></tt>) in the backup repo.
-Git is very reluctant to set a branch position in a repository with a
-working tree, because it the new branch position will not not match the
-current content of the working tree.  Git could either leave it like this,
-or checkout the new branch in the remote repo, but either thing would be
-very confusing for someone trying to use the working tree in that
-repository.  So, by default git will refuse to <tt class="docutils literal"><span class="pre">push</span></tt> a new branch
+Git is very reluctant to set a branch position in a remote repository with
+a working tree, because the new branch position will not not match the
+existing content of the working tree.  Git could either leave the remote
+working tree out of sync with the new branch position, or update the remote
+working tree by doing a checkout of the new branch position, but either
+thing would be very confusing for someone trying to use the working tree in
+that repository.  So, by default git will refuse to <tt class="docutils literal"><span class="pre">push</span></tt> a new branch
 position to a remote repository with a working tree, giving you a long
 explanation as to why it is refusing, and listing things you can do about
 it.  You can force git to go ahead and do the push, but it is much safer to
 use a bare repository.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="sub-trees" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>You have probably worked out by now that git directory
-listings can have files (called &#8220;blobs&#8221;) and subdirectories (&#8220;trees&#8221;).
-When doing the copy, we actually have to recurse into any sub-directories
-to get needed file (&#8220;blob&#8221;) and subdirectory (&#8220;tree&#8221;) objects.  But, you
-get the idea.</td></tr>
 </tbody>
 </table>
 </div>
@@ -2661,19 +2804,20 @@ get the idea.</td></tr>
 <li><a class="reference internal" href="#the-staging-area">The staging area</a></li>
 <li><a class="reference internal" href="#now-the-very-difficult-problem">Now the very difficult problem</a></li>
 <li><a class="reference internal" href="#cryptographic-hashes">Cryptographic hashes</a></li>
-<li><a class="reference internal" href="#a-crazy-idea-use-hash-values-as-file-names">A crazy idea - use hash values as file names</a></li>
+<li><a class="reference internal" href="#hashes-make-excellent-unique-file-names">Hashes make excellent unique file names</a></li>
+<li><a class="reference internal" href="#building-the-first-commit-from-unique-files">Building the first commit from unique files</a><ul>
+<li><a class="reference internal" href="#copying-the-files">Copying the files</a></li>
 <li><a class="reference internal" href="#making-the-directory-listing">Making the directory listing</a></li>
-<li><a class="reference internal" href="#the-next-commit-saves-space">The next commit - saves space!</a></li>
-<li><a class="reference internal" href="#an-even-more-crazy-idea-hash-the-directory-list">An even more crazy idea - hash the directory list</a></li>
-<li><a class="reference internal" href="#even-more-crazy-idea-make-the-whole-commit-into-a-text-file">Even more crazy idea - make the whole commit into a text file</a></li>
-<li><a class="reference internal" href="#so-crazy-it-s-actually-git">So crazy it&#8217;s actually git</a></li>
-<li><a class="reference internal" href="#linking-the-commits">Linking the commits</a><ul>
-<li><a class="reference internal" href="#can-we-completely-get-rid-of-fancy-backups-1-fancy-backups-2">Can we completely get rid of <tt class="docutils literal"><span class="pre">.fancy_backups/1</span></tt>, <tt class="docutils literal"><span class="pre">.fancy_backups/2</span></tt></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#the-next-commit-saves-space">The next commit - saves space!</a></li>
+<li><a class="reference internal" href="#storing-the-directory-listing-as-a-file">Storing the directory listing as a file</a></li>
+<li><a class="reference internal" href="#storing-the-commit-information-as-a-file">Storing the commit information as a file</a></li>
+<li><a class="reference internal" href="#linking-the-commits">Linking the commits</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#git-rides-in-to-save-the-day">Git rides in to save the day</a><ul>
+<li><a class="reference internal" href="#basic-configuration">Basic configuration</a></li>
 <li><a class="reference internal" href="#getting-help">Getting help</a></li>
 <li><a class="reference internal" href="#initializing-the-repository">Initializing the repository</a></li>
 <li><a class="reference internal" href="#git-add-put-stuff-into-the-staging-area">git add - put stuff into the staging area</a></li>
@@ -2689,9 +2833,11 @@ get the idea.</td></tr>
 <li><a class="reference internal" href="#adding-with-a">Adding with <tt class="docutils literal"><span class="pre">-a</span></tt></a></li>
 <li><a class="reference internal" href="#git-updates-the-current-branch-with-the-latest-commit">Git updates the current branch with the latest commit</a></li>
 <li><a class="reference internal" href="#a-nicer-log-command-using-git-config">A nicer log command using <tt class="docutils literal"><span class="pre">git</span> <span class="pre">config</span></tt></a></li>
+<li><a class="reference internal" href="#git-tag-makes-a-static-bookmark">git tag makes a static bookmark</a></li>
 <li><a class="reference internal" href="#git-mv-and-rm-moving-and-removing-files">git mv and rm: moving and removing files</a></li>
 <li><a class="reference internal" href="#git-branch-again-making-a-new-branch">git branch again - making a new branch</a></li>
 <li><a class="reference internal" href="#git-head-points-to-the-current-branch">git <tt class="docutils literal"><span class="pre">HEAD</span></tt> points to the current branch</a></li>
+<li><a class="reference internal" href="#heads-and-refs">Heads and refs</a></li>
 <li><a class="reference internal" href="#developing-on-different-branches">Developing on different branches</a></li>
 <li><a class="reference internal" href="#git-checkout-set-the-current-branch-set-the-working-tree-from-a-commit">git checkout - set the current branch, set the working tree from a commit</a></li>
 <li><a class="reference internal" href="#git-checkout-again-get-a-new-working-tree">git checkout again - get a new working tree</a></li>
@@ -2704,7 +2850,6 @@ get the idea.</td></tr>
 <li><a class="reference internal" href="#tell-the-current-git-repository-about-the-backup-repository">Tell the current git repository about the backup repository</a></li>
 <li><a class="reference internal" href="#git-push-push-all-data-for-a-local-branch-to-the-remote">git push – push all data for a local branch to the remote</a></li>
 <li><a class="reference internal" href="#git-push-synchronizing-repositories">git push – synchronizing repositories</a></li>
-<li><a class="reference internal" href="#an-algorithm-for-git-push">An algorithm for git push</a></li>
 <li><a class="reference internal" href="#git-clone-make-a-fresh-new-copy-of-the-repo">git clone – make a fresh new copy of the repo</a></li>
 <li><a class="reference internal" href="#git-fetch-get-all-data-from-a-remote">git fetch – get all data from a remote</a></li>
 <li><a class="reference internal" href="#git-pull-git-fetch-followed-by-git-merge">git pull – git fetch followed by git merge</a></li>
@@ -2717,8 +2862,7 @@ get the idea.</td></tr>
 </ul>
 </li>
 <li><a class="reference internal" href="#git-resources">Git resources</a><ul>
-<li><a class="reference internal" href="#introductions">Introductions</a></li>
-<li><a class="reference internal" href="#beyond-the-basics">Beyond the basics</a></li>
+<li><a class="reference internal" href="#introductions-and-tutorials">Introductions and tutorials</a></li>
 <li><a class="reference internal" href="#for-svn-users">For SVN users</a></li>
 <li><a class="reference internal" href="#a-few-useful-tips-for-common-tasks">A few useful tips for common tasks</a><ul>
 <li><a class="reference internal" href="#better-shell-support">Better shell support</a></li>

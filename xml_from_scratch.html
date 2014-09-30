@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>XML from absolutely nothing &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="up" title="General computing" href="computing.html" />
+    <link rel="next" title="Points on floats" href="floating_point.html" />
+    <link rel="prev" title="Introducing Unicode" href="introducing_unicode.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="floating_point.html" title="Points on floats"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introducing_unicode.html" title="Introducing Unicode"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="xml-from-absolutely-nothing">
+<h1>XML from absolutely nothing<a class="headerlink" href="#xml-from-absolutely-nothing" title="Permalink to this headline">¶</a></h1>
+<p>The basic unit of an XML document is an <em>element</em>.</p>
+<p>A standard XML element consists of:</p>
+<ul class="simple">
+<li>a start <em>tag</em> – e.g. <tt class="docutils literal"><span class="pre">&lt;my-element&gt;</span></tt>;</li>
+<li>optional content – e.g. <tt class="docutils literal"><span class="pre">Some</span> <span class="pre">data</span></tt>;</li>
+<li>an end <em>tag</em> – e.g. <tt class="docutils literal"><span class="pre">&lt;/my-element&gt;</span></tt>.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;Some data&lt;/my-element&gt;
+</pre></div>
+</div>
+<p>If an element has no content, it can be abbreviated into an <em>empty element
+tag</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;my-element /&gt;
+</pre></div>
+</div>
+<p>To repeat then, there are three types of tag:</p>
+<ul class="simple">
+<li>a start tag – e.g. <tt class="docutils literal"><span class="pre">&lt;a-name&gt;</span></tt>;</li>
+<li>an end tag – e.g. <tt class="docutils literal"><span class="pre">&lt;/a-name&gt;</span></tt>;</li>
+<li>an empty element tag – e.g <tt class="docutils literal"><span class="pre">&lt;a-name</span> <span class="pre">/&gt;</span></tt>.</li>
+</ul>
+<p>A tag always starts with <tt class="docutils literal"><span class="pre">&lt;</span></tt> and ends with <tt class="docutils literal"><span class="pre">&gt;</span></tt>.</p>
+<p>A start tag and an empty element tag can have <em>attributes</em>. These are name,
+value pairs:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot;&gt;Some text&lt;/a-name&gt;
+&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot; /&gt;
+</pre></div>
+</div>
+<p>The <em>content</em> of an element can be:</p>
+<ul class="simple">
+<li>Empty</li>
+<li>Text</li>
+<li>One more other elements</li>
+</ul>
+<p>Elements contained in other elements are <em>child elements</em>, e.g:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;a-parent&gt;
+    &lt;a-child&gt;with text content&lt;/a-child&gt;
+    &lt;another-child&gt;with more text&lt;/another-child&gt;
+&lt;/a-parent&gt;
+</pre></div>
+</div>
+<p>There is one single element at the root of a valid XML document:</p>
+<div class="highlight-xml"><div class="highlight"><pre># file: some_example.xml
+<span class="nt">&lt;a-root-element</span> <span class="na">my-type=</span><span class="s">&quot;example&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;at-second-level&gt;</span>
+        <span class="nt">&lt;first-thing&gt;</span>Some text<span class="nt">&lt;/first-thing&gt;</span>
+        <span class="nt">&lt;second-thing&gt;</span>More text<span class="nt">&lt;/second-thing&gt;</span>
+    <span class="nt">&lt;/at-second-level&gt;</span>
+<span class="nt">&lt;/a-root-element&gt;</span>
+</pre></div>
+</div>
+<p>For example, in Python:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;some_example.xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+<span class="go">a-root-element</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">attrib</span><span class="p">)</span>
+<span class="go">{&#39;my-type&#39;: &#39;example&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">children</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">only_child</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">only_child</span><span class="o">.</span><span class="n">getchildren</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">(&#39;first-thing&#39;, &#39;Some text&#39;)</span>
+<span class="go">(&#39;second-thing&#39;, &#39;More text&#39;)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introducing_unicode.html"
+                        title="previous chapter">Introducing Unicode</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="floating_point.html"
+                        title="next chapter">Points on floats</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/xml_from_scratch.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="floating_point.html" title="Points on floats"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introducing_unicode.html" title="Introducing Unicode"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li><a href="computing.html" >General computing</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

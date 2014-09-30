@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Types of git objects &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="up" title="Notes and tutorials on git" href="git.html" />
+    <link rel="next" title="An algorithm for git push" href="git_push_algorithm.html" />
+    <link rel="prev" title="Reading git objects" href="reading_git_objects.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="git_push_algorithm.html" title="An algorithm for git push"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reading_git_objects.html" title="Reading git objects"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="types-of-git-objects">
+<span id="git-object-types"></span><h1>Types of git objects<a class="headerlink" href="#types-of-git-objects" title="Permalink to this headline">¶</a></h1>
+<p>If you have read <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>, you know all the different types of
+objects that git stores in <tt class="docutils literal"><span class="pre">.git/objects</span></tt>.  The object types are:</p>
+<ul class="simple">
+<li><em>blob</em>;</li>
+<li><em>tree</em>;</li>
+<li><em>commit</em>;</li>
+<li><em>tag</em>.</li>
+</ul>
+<p>Here we use examples from one particular commit in the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt>
+repository from <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>.</p>
+<p>The commit is the commit we tagged as <tt class="docutils literal"><span class="pre">submitted-to-science</span></tt>.  The hash for
+the commit is:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/submitted-to-science
+7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+</pre></div>
+</div>
+<p>Here is the working tree for the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> repository as of that commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls
+nobel_prize_paper.txt
+stunning_figure.png
+very_clever_analysis.py
+</pre></div>
+</div>
+<div class="section" id="blob-object-type">
+<h2>Blob object type<a class="headerlink" href="#blob-object-type" title="Permalink to this headline">¶</a></h2>
+<p><em>Blob</em> is an abbreviation for &#8220;binary large object&#8221;.  When we <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> a
+file such as <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>, git creates a <em>blob</em> object containing
+the contents of the file.  Blobs are therefore the git object type for storing
+files.</p>
+<p>The <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rev-parse</span></tt> command will give me the hash value for individual
+objects.  <tt class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span> <span class="pre">-t</span></tt> will show us the type of a git object given a
+hash. <tt class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span> <span class="pre">-p</span></tt> shows us the content of the object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">git</span> <span class="pre">rev-parse</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span></tt> are obscure git commands and it is
+quite possible you will never need to use them in your daily git work.
+I&#8217;m using them here to show how the git machinery works.  Feel free to
+forget about them after you&#8217;ve read this page.</p>
+</div>
+<p>Here is the object hash value for the <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt> file as of our
+example commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git rev-parse 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376:nobel_prize_paper.txt
+379a83c8dd04c545317d44a0868d09fee260d6e6
+</pre></div>
+</div>
+<p>The corresponding object is of type <em>blob</em>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t 379a83c8dd04c545317d44a0868d09fee260d6e6
+blob
+</pre></div>
+</div>
+<p>The contents of the blob are the contents of the paper as of this commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 379a83c8dd04c545317d44a0868d09fee260d6e6
+The brain is just a <span class="nb">set </span>of random <span class="nv">numbers</span>
+<span class="o">=========================================</span>
+
+We have discovered that the brain is a <span class="nb">set </span>of random numbers.
+
+We have charts and graphs to back us up.
+The charts are very impressive
+More self congratulation
+</pre></div>
+</div>
+</div>
+<div class="section" id="tree-object-type">
+<h2>Tree object type<a class="headerlink" href="#tree-object-type" title="Permalink to this headline">¶</a></h2>
+<p>There is an object type for a directory listing, called a <em>tree</em> object.</p>
+<p>Here is the tree object hash for the root directory listing as of this commit:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git rev-parse 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376:./
+bff7e228b27468f17dd9072d55eda3c5e0144022
+</pre></div>
+</div>
+<p>The object is of type &#8220;tree&#8221;:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t bff7e228b27468f17dd9072d55eda3c5e0144022
+tree
+</pre></div>
+</div>
+<p>The tree object contains one line per file or subdirectory, with each line
+giving file permissions, <em>object type</em>, object hash and filename.  <em>Object
+type</em> is usually one of &#8220;blob&#8221; for a file or &#8220;tree&#8221; for a subdirectory
+<a class="footnote-reference" href="#directory-tree-types" id="id1">[1]</a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p bff7e228b27468f17dd9072d55eda3c5e0144022
+100644 blob 379a83c8dd04c545317d44a0868d09fee260d6e6	nobel_prize_paper.txt
+100644 blob 9ffc311b29f0c87bf502b92df951d90ef88c1c7d	stunning_figure.png
+100644 blob 42ba16b291fcf7add49ecfd71011643ded4e5363	very_clever_analysis.py
+</pre></div>
+</div>
+<p>Notice the line linking the hash value <tt class="docutils literal"><span class="pre">379a83c8dd04c545317d44a0868d09fee260d6e6</span></tt> with the filename
+<tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt>.</p>
+</div>
+<div class="section" id="commit-object-type">
+<h2>Commit object type<a class="headerlink" href="#commit-object-type" title="Permalink to this headline">¶</a></h2>
+<p>We already know that the hash of the current commit object is <tt class="docutils literal"><span class="pre">7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376</span></tt>.  This
+is an object of type &#8220;commit&#8221;:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+commit
+</pre></div>
+</div>
+<p>The commit object contains the directory tree object hash, parent commit hash,
+author, committer, date and message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+tree bff7e228b27468f17dd9072d55eda3c5e0144022
+parent 445ad17988a8c97c6d04da9d5d4d550b811899a7
+author Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333296781 -0400
+committer Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333296781 -0400
+
+Paper ready <span class="k">for </span>submission to Science
+</pre></div>
+</div>
+<p>Notice the root tree hash is <tt class="docutils literal"><span class="pre">bff7e228b27468f17dd9072d55eda3c5e0144022</span></tt> as we were expecting.</p>
+</div>
+<div class="section" id="tag-object-type">
+<h2>Tag object type<a class="headerlink" href="#tag-object-type" title="Permalink to this headline">¶</a></h2>
+<p>There is also an annotated git <em>tag</em> object type.  We made one of these in the
+<a class="reference internal" href="curious_git.html#git-tag"><em>git tag makes a static bookmark</em></a> section of <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/annotated-to-science
+bd24b753d684c384d9b5802092e13fcef1c5b419
+</pre></div>
+</div>
+<p>The object is of type &#8220;tag&#8221;:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t bd24b753d684c384d9b5802092e13fcef1c5b419
+tag
+</pre></div>
+</div>
+<p>The tag object type contains the hash of the tagged object, the type of tagged
+object (usually a commit), the tag name, author, date and message:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p bd24b753d684c384d9b5802092e13fcef1c5b419
+object 7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376
+<span class="nb">type </span>commit
+tag annotated-to-science
+tagger Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333296814 -0400
+
+Submitted to Science
+</pre></div>
+</div>
+<p>Notice that the tagged object is the commit object <tt class="docutils literal"><span class="pre">7c4bf5d3b7dc68f6e794b6cf0e3e8d725a2ea376</span></tt>, as we were
+expecting.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="directory-tree-types" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>The object types in a directory listing are almost
+invariably either &#8220;blob&#8221; or &#8220;tree&#8221;, but can also be &#8220;commit&#8221; for recording
+the commit of a git submodule - see <a class="reference internal" href="git_submodules.html"><em>How do git submodules work?</em></a>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Types of git objects</a><ul>
+<li><a class="reference internal" href="#blob-object-type">Blob object type</a></li>
+<li><a class="reference internal" href="#tree-object-type">Tree object type</a></li>
+<li><a class="reference internal" href="#commit-object-type">Commit object type</a></li>
+<li><a class="reference internal" href="#tag-object-type">Tag object type</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reading_git_objects.html"
+                        title="previous chapter">Reading git objects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="git_push_algorithm.html"
+                        title="next chapter">An algorithm for git push</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/git_object_types.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="git_push_algorithm.html" title="An algorithm for git push"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reading_git_objects.html" title="Reading git objects"
+             >previous</a> |</li>
+        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -87,20 +87,20 @@ shorthand for:</p>
 <p><tt class="docutils literal"><span class="pre">end-branch</span></tt> above means — &#8220;show me all commits that can be
 reached from <tt class="docutils literal"><span class="pre">end-branch</span></tt>&#8221;. <tt class="docutils literal"><span class="pre">^start-branch</span></tt> means — &#8220;excluding any
 commits that can be reached from <tt class="docutils literal"><span class="pre">start-branch</span></tt>&#8221;.</p>
-<div class="admonition note">
+<div class="admonition note" id="git-reachable">
 <p class="first admonition-title">Note</p>
 <p>What does &#8220;reachable&#8221; mean?</p>
-<p>A commit, <span class="math">\(s\)</span>, can be <strong>reached</strong> from some commit, <span class="math">\(t\)</span>, if and
-only if there is a path from <span class="math">\(s\)</span> to <span class="math">\(t\)</span> along the ancestry graph
-of the commits.</p>
+<p>A commit, <span class="math">\(s\)</span>, can be <strong>reached</strong> from some commit, <span class="math">\(t\)</span>, if
+and only if there is a path from <span class="math">\(s\)</span> to <span class="math">\(t\)</span> along the ancestry
+graph of the commits.</p>
 <p>The ancestry graph is the directed acyclic graph of the history, where the
 nodes are the commits and the edges are directed backwards from nodes to
 their parents.</p>
-<p class="last">Put more formally, a sequence of commits, <span class="math">\(v_0, v_1, ..., v_n\)</span>, forms
-a <strong>path</strong> between <span class="math">\(v_0\)</span> and <span class="math">\(v_n\)</span> if and only if
-<span class="math">\(v_{i-1}\)</span> is the parent of <span class="math">\(v_i\)</span> for <span class="math">\(i=1\)</span> to <span class="math">\(i=n\)</span>.
-A commit is also reachable from itself, so a commit sequence of length 1 is
-defined as forming a path.</p>
+<p class="last">Put more formally, a sequence of commits, <span class="math">\(v_0, v_1, ..., v_n\)</span>,
+forms a <strong>path</strong> between <span class="math">\(v_0\)</span> and <span class="math">\(v_n\)</span> if and only if
+<span class="math">\(v_{i-1}\)</span> is the parent of <span class="math">\(v_i\)</span> for <span class="math">\(i=1\)</span> to
+<span class="math">\(i=n\)</span>.  A commit is also reachable from itself, so a commit sequence
+of length 1 is defined as forming a path.</p>
 </div>
 <p>Obviously <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">start-branch..end-branch</span></tt> cannot include the commit
 pointed to by <tt class="docutils literal"><span class="pre">start-branch</span></tt> because you can always reach <tt class="docutils literal"><span class="pre">start-branch</span></tt>
