@@ -6,7 +6,7 @@ Autorun directives with ``working/repos/nobel_prize`` as the default directory
 from os.path import join as pjoin
 
 from autorun import RunBlock, RunCommit
-from workrun import WorkVar
+from workrun import WorkVar, OBJECTS_INC
 from writefile import WriteFile
 
 
@@ -35,7 +35,7 @@ class PrizeWrite(WriteFile):
 
 
 class PrizeCommit(RunCommit):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     prompt_prefix = '[desktop]$ '
     default_home = '/working'
     default_cwd = '/working/nobel_prize'
@@ -55,7 +55,7 @@ class PrizeLapRun(LaptopRun):
 
 
 class PrizeLapCommit(RunCommit):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     prompt_prefix = '[laptop]$ '
     default_home = '/working'
     default_cwd = '/working/repos/nobel_prize'

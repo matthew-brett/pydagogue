@@ -9,6 +9,8 @@ Autorun directives with default directories for:
 
 from autorun import RunBlock, RunCommit
 
+from workrun import OBJECTS_INC
+
 
 class ProjectRun(RunBlock):
     default_cwd = '/working/myproject'
@@ -16,7 +18,7 @@ class ProjectRun(RunBlock):
 
 
 class ProjectCommit(RunCommit):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     default_cwd = '/working/myproject'
     default_home = '/working'
 
@@ -27,7 +29,7 @@ class SuperRun(RunBlock):
 
 
 class SuperCommit(RunCommit):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     default_cwd = '/working/super'
     default_home = '/working'
 
@@ -38,7 +40,7 @@ class SuperClonedRun(RunBlock):
 
 
 class SuperClonedCommit(RunCommit):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     default_cwd = '/working/super-cloned'
     default_home = '/working'
 
@@ -49,7 +51,7 @@ class SubProjectRun(RunBlock):
 
 
 class SubProjectCommit(RunCommit):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     default_cwd = '/working/super/subproject'
     default_home = '/working'
 

@@ -29,7 +29,6 @@ help:
 
 clean:
 	-rm -rf _build/*
-	-rm object_names.inc
 	-rm -rf working/* working/.gitconfig
 
 html:

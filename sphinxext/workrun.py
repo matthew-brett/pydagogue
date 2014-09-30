@@ -5,13 +5,15 @@ Autorun directives with ``working`` as the default directory
 
 from autorun import RunBlock, CmdAddVar
 
+OBJECTS_INC = '/working/object_names.inc'
+
 
 class WorkRun(RunBlock):
     default_cwd = '/working'
 
 
 class WorkVar(CmdAddVar):
-    default_links_file = '/object_names.inc'
+    default_links_file = OBJECTS_INC
     default_cwd = '/working'
 
 
