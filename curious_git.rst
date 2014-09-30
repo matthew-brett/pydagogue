@@ -970,6 +970,14 @@ to read them - see :doc:`reading_git_objects`.
 Git will also show the contents of objects with the command ``git cat-file
 -p``.
 
+.. note::
+
+    I will use ``git cat-file -p`` to display the content of nearly raw git
+    objects, because this shows the great simplicity of git's internal model.
+    I doubt you will need this command in your daily git work |--| I had never
+    used it before I wrote this tutorial.  So, feel free to forget the
+    ``cat-file`` command as soon as you finish this tutorial.
+
 .. prizevar:: initial-paper-hash
 
     git hash-object nobel_prize_paper.txt
@@ -1352,6 +1360,8 @@ And now we can use it:
 
     git slog
 
+.. _git-tag:
+
 git tag makes a static bookmark
 ===============================
 
@@ -1376,7 +1386,9 @@ it.  Luckily ``git tag`` has a better solution:
 
     git tag submitted-to-science
 
-We now have a tag that points to the current commit.
+We now have a tag with name ``submitted-to-science`` that points to this
+commit.  As we will see, unlike a branch, the tag does not change when you do
+another commit.
 
 The current commit is:
 
@@ -1447,7 +1459,7 @@ object rather than a tree object:
 
     git cat-file -p {{ annotated-to-science }}
 
-Unlike a branch, the tag does not change when we make a commit:
+Unlike a branch, a tag does not change when we make a commit:
 
 .. prizerun::
 
@@ -1475,153 +1487,8 @@ But the tags have not changed:
 
     cat .git/refs/tags/annotated-to-science
 
-.. _git-object-types:
-
-Types of objects in ``.git/objects``
-====================================
-
-We now know all of the different types of objects that git stores in
-``.git/objects``.  The object types are:
-
-* *blob*;
-* *tree*;
-* *commit*;
-* *tag*.
-
-``git cat-file -t`` will show us the type of a git object.
-
-Blob object type
-----------------
-
-*Blob* is an abbreviation for "binary large object".  When we ``git add`` a
-file such as ``nobel_prize_paper.txt``, git creates a *blob* object containing
-the contents of the file.  Blobs are therefore the git object type for storing
-files from the working tree.
-
-For example, here is the git hash value for the current contents of
-``nobel_prize_paper.txt``:
-
-.. prizerun::
-
-    git hash-object nobel_prize_paper.txt
-
-.. prizevar:: after-science-paper-hash
-
-    git hash-object nobel_prize_paper.txt
-
-.. prizevar:: after-science-paper-hash-fname
-
-    obj={{ after-science-paper-hash }}
-    echo \${obj:0:2}/\${obj:2}
-
-We have already done ``git add`` to this version of the file, so we already
-have an object corresponding to this hash in ``.git/objects``:
-
-.. prizerun::
-
-    ls .git/objects/{{ after-science-paper-hash-fname }}
-
-The corresponding object is of type *blob*:
-
-.. prizerun::
-
-    git cat-file -t {{ after-science-paper-hash }}
-
-The contents of the blob is the contents of the paper as of this commit:
-
-.. prizerun::
-
-    git cat-file -p {{ after-science-paper-hash }}
-
-Tree object type
-----------------
-
-There is an object type for a directory listing, called a *tree* object.
-
-For example, each commit contains the hash for the directory listing of the
-root directory.  I'll get this hash value for the current commit by asking
-``git log`` to only show me the tree hash for the commit (using
-``--format="%T"``), and only show me the latest commit (``-1``):
-
-.. prizerun::
-
-    # Show me the tree hash from the latest commit
-    git log --format="%T" -1
-
-.. prizevar:: after-science-tree
-
-    git log --format="%T" -1
-
-This hash refers to an object of type "tree":
-
-.. prizerun::
-
-    git cat-file -t {{ after-science-tree }}
-
-The tree object contains a file with one line per file in a directory, and
-each line giving file permissions, *object type*, object hash and filename.
-*Object type* is usually one of "blob" for a file or "tree" for a subdirectory
-[#directory-tree-types]_.
-
-.. prizerun::
-
-    git cat-file -p {{ after-science-tree }}
-
-.. note::
-
-    We can also use ``git ls-tree`` to show us the tree contents for a commit.
-    For example, this will also show us the root directory listing for the
-    current commit:
-
-    .. prizerun::
-
-        git ls-tree master
-
-Commit object type
-------------------
-
-There is a commit object type.
-
-We can get the current commit hash from ``git log``, using the ``-1`` flag to
-show us only the latest commit:
-
-.. prizerun::
-
-    git log -1
-
-The hash of the current commit object is |after-science|.  This is an object
-of type "commit":
-
-.. prizerun::
-
-    git cat-file -t {{ after-science }}
-
-The commit object contains the directory tree object hash, parent commit hash,
-author, date and message:
-
-.. prizerun::
-
-    git cat-file -p {{ after-science }}
-
-Tag object type
----------------
-
-We have just seen that there is an annotated git *tag* object type:
-
-.. prizerun::
-
-    cat .git/refs/tags/annotated-to-science
-
-.. prizerun::
-
-    git cat-file -t {{ annotated-to-science }}
-
-The tag object type contains the hash of the tagged object, the type of tagged
-object (usually a commit), the tag name, author, date and message:
-
-.. prizerun::
-
-    git cat-file -p {{ annotated-to-science }}
+You have now seen all the possible types of objects in ``.git/objects``.  See
+:ref:`git-object-types` for a review.
 
 git mv and rm: moving and removing files
 ========================================
@@ -1643,7 +1510,9 @@ Note that these changes must be committed too, if we want to keep them.
     git commit -m "I like this new name better"
 
 As you can imagine, all that changed is that the tree object for this commit
-associates the new filename with the old blob:
+associates the new filename with the old hash for the file.  I will use ``git
+ls-tree`` as a shortcut to show me the contents of the root tree object for
+this commit:
 
 .. prizerun::
 
@@ -1945,7 +1814,7 @@ merging *from*.
 At this point, we can go into the file with a text editor, decide which
 changes to keep, and make a new commit that records our decision.
 
-I decided that both pieces of text were useful, but I want to integrated them
+I decided that both pieces of text were useful, but I want to integrate them
 with some changes.  I do the edits by writing the file I want directly:
 
 .. prizewrite::
@@ -2143,6 +2012,8 @@ To see both local and remote branches, use the ``-a`` flag:
 
     git branch -a  -v
 
+.. _git-push:
+
 git push |--| synchronizing repositories
 ----------------------------------------
 
@@ -2169,10 +2040,11 @@ this update yet:
 We already know there will be three new objects in ``.git/objects`` after this
 commit.  These are:
 
-* a new blob for the modified ``nobel_prize_paper.txt``;
-* a new tree (directory listing) associating the new hash for the contents of
-  ``nobel_prize_paper.txt`` with the ``nobel_prize_paper.txt`` filename.
-* the new commit.
+* a new blob (file) object for the modified ``nobel_prize_paper.txt``;
+* a new tree (directory listing) object associating the new hash for the
+  contents of ``nobel_prize_paper.txt`` with the ``nobel_prize_paper.txt``
+  filename;
+* the new commit object.
 
 Usually we don't need to worry about which objects these are, but here we will
 track these down to show how ``git push`` works.
@@ -2261,52 +2133,8 @@ We do have the new objects in the remote repository:
     ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
     ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
 
-An algorithm for git push
--------------------------
-
-Now we know about how git stores its objects, we can work out how git knows
-which objects to copy when it does a push.
-
-Something like this algorithm might do the job:
-
-#. Get the commit hash corresponding the branch we are going to push;
-#. Follow every :ref:`commit path <git-graph>` back from this commit, until we
-   hit a commit hash (filename) that the remote has.  All the previous commits
-   on the path, that the remote does not have, are *missing commits*;
-#. For every *missing commit* get the corresponding tree (directory listing)
-   object.  If the tree object is not in the remote objects directory, add to
-   the list of *missing trees*;
-#. For every *missing tree* read the tree directory listing. Find any blob
-   (file) objects in the directory listing that are not in the remote objects
-   directory, add to the list of *missing blob* objects [#sub-trees]_;
-#. Copy all *missing commit*, *missing tree* and *missing blob* objects to the
-   remote objects directory;
-#. Update the remote branch to point to the same commit as the local branch;
-#. Update the local record of the last known position of the remote branch to
-   point to the same commit.
-
-In our case:
-
-#. We look up the hash for ``master``, and we get |buffing| (abbreviated as
-   |buffing-7|);
-#. We follow all commit history paths back from |buffing-7| to check for
-   missing commits. We start with |buffing-7|. The remote does not have a
-   matching file in ``objects``, so this is a missing commit. We only have one
-   path to follow, because |buffing-7| has only one parent |--|
-   |merge-trouble-7| |--| and the remote does have a corresponding object, so
-   we can stop looking for missing commits;
-#. We only have one missing commit, |buffing-7|.  We look in the contents of
-   |buffing-7| to find the tree object hash.  This is |buffing-tree|.  We
-   check for this object in the remote objects directory, and sure enough, it
-   is missing. We add this tree to the list of missing trees;
-#. We only have one missing tree |--| |buffing-tree|. We look in the contents
-   of this tree object and check in the remote object directory for each
-   object in this listing. The only missing object is |buffing-paper-obj|;
-#. We copy the objects for the missing commits (|merge-trouble|), missing
-   trees (|buffing-tree|) and missing blobs (|buffing-paper-obj|) to the
-   remote objects directory;
-#. We set remote ``refs/heads/master`` to contain the hash |buffing|;
-#. Set the local ``refs/remotes/usb_backup/master`` to contain |buffing|.
+You might also be able to see how git would work out what to transfer.  See
+:doc:`git_push_algorithm` for how it could work in general, and for this case.
 
 git clone |--| make a fresh new copy of the repo
 ------------------------------------------------
@@ -2722,12 +2550,10 @@ they offer.
    reasonable range.  If git had to store hash filenames for every object in
    one flat directory, the directory would soon have a very large number of
    files.
-.. [#directory-tree-types] The object types in a directory listing are almost
-   invariably either "blob" or "tree", but can also be "commit" for recording
-   the commit of a git submodule - see :doc:`git_submodules`.
 .. [#tag-other-objects] You might have guessed by now that a tag can refer to
    any git object, not just a commit.  For example a tag can refer to a tree
-   or a blob object, although in practice tags almost always refer to commits.
+   (directory listing) or blob (file) object, although in practice tags almost
+   always refer to commits.
 .. [#bare-detail] The reason we need a bare repository for our backup goes
    deeper than the fact we do not need a working tree.  We are soon going to
    do a ``push`` to this backup repository.  The ``push`` has the effect of
@@ -2743,11 +2569,6 @@ they offer.
    explanation as to why it is refusing, and listing things you can do about
    it.  You can force git to go ahead and do the push, but it is much safer to
    use a bare repository.
-.. [#sub-trees] You have probably worked out by now that git directory
-   listings can have files (called "blobs") and subdirectories ("trees").
-   When doing the copy, we actually have to recurse into any sub-directories
-   to get needed file ("blob") and subdirectory ("tree") objects.  But, you
-   get the idea.
 
 .. include:: links_names.inc
 .. include:: working/object_names.inc

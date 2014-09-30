@@ -9,6 +9,8 @@ Contents:
 
     curious_git
     reading_git_objects
+    git_object_types
+    git_push_algorithm
     foundation
     rebase_without_tears
     pain_in_dots
