@@ -26,7 +26,7 @@ session:
     design that is mine and unique, and I'm proud of the fact that I can damn
     well also do good design from scratch.
 
-But - some people hate git.  Really *hate* it. They find it confusing and
+But some people hate git.  Really *hate* it. They find it confusing and
 error prone and it makes them angry.  Why are there such different views?
 
 I think the reason some people hate git, is because they don't yet understand
@@ -152,6 +152,8 @@ You can get this ground-breaking paper by downloading and unzipping
     rm -rf nobel_prize repos .gitconfig
     cp ../nobel_prize_files.zip .
 
+Here I'm using the command line to do the unzip:
+
 .. desktoprun:: bash
 
     unzip -o nobel_prize_files.zip
@@ -160,6 +162,7 @@ Here's what we get in our ``nobel_prize`` directory:
 
 .. desktoprun::
 
+    # List directory contents
     ls nobel_prize
 
 The dog ate my results
@@ -181,8 +184,8 @@ used to look better than that". That's what you think too. But:
 Deja vu all over again
 ======================
 
-Given you are so clever and you have worked out the brain, it's really
-easy for you to leap in your time machine, and go back two weeks to
+Given you are so clever and you have discovered how the brain works, it is
+really easy for you to leap in your time machine, and go back two weeks to
 start again.
 
 What are you going to do differently this time?
@@ -205,10 +208,12 @@ You make a directory to store the snapshots called ``.fancy_backups``:
 
 .. desktoprun:: bash
 
+    # Change to nobel_prize directory
     cd nobel_prize
 
 .. prizerun::
 
+    # Make the ".fancy_backups" directory
     mkdir .fancy_backups
 
 Then you make a directory for the first backup:
@@ -222,6 +227,7 @@ And you copy the files there:
 
 .. prizerun::
 
+    # Copy all files in curent directory to backup directory
     cp * .fancy_backups/1/files
 
 Reminding yourself of what you did
@@ -238,10 +244,11 @@ this file ``info.txt``.  So, we write something like this:
     Author: I. M. Awesome
     Notes: First backup of my amazing idea
 
-Now you have these files in the ``nobel_prize`` directory:
+Now you have these files in the ``nobel_prize`` directory [#tree-command]_.
 
 .. prizerun::
 
+    # Show representation of directory tree
     tree -a
 
 Every time you do some work on the files, you back them up in the same
@@ -297,9 +304,12 @@ talk to Josephine. By now you have 5 snapshots.
 .. prizerun::
     :hide:
 
-    # Now we just cheat, and copy the commits
+    # Make the next couple of commits
     cp -r .fancy_backups/3 .fancy_backups/4
+    echo "Increasing anxiety" > .fancy_backups/4/files/nobel_prize_paper.txt
     cp -r .fancy_backups/3 .fancy_backups/5
+    # Copy the other version of the stunning figure
+    cp ../working/stunning_figure.png .fancy_backups/5/files/
 
 The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.
@@ -347,8 +357,8 @@ Working tree
     ``stunning_figure.png`` are the files in your working tree.
 
 Repository
-    The directory containing information about the history of the files. Your
-    directory ``.fancy_snapshot`` is the repository.
+    The directory containing the snapshots. Your directory ``.fancy_snapshot``
+    is the repository.
 
 Commit
     A completed snapshot. For example, ``.fancy_backups/1`` contains one
@@ -372,8 +382,8 @@ You want to make two commits from your changes:
 
 1. a commit containing the changes to ``nobel_prize_paper.txt``, with comment
    "Changes to introduction";
-2. Another commit containing the changes to ``very_clever_analysis.py``
-   with comment "Crazy new analysis"
+2. Another commit that adds the changes to ``very_clever_analysis.py`` with
+   comment "Crazy new analysis"
 
 How can I do that?
 
@@ -422,7 +432,7 @@ with message:
     Author: I. M. Awesome
     Notes: Changes to introduction
 
-After we have done the commit this way, by coping the staging area to the
+After we have done the commit this way, by copying the staging area to the
 commit ``files`` directory, the staging area is identical to the contents of
 the commit.  Now you are ready for the next commit, that adds the changes to
 the analysis script.
@@ -510,22 +520,96 @@ comes out as ``30ad6c360a692c1fe66335bb00d00e0528346be5``, then I can be very
 sure that the data you gave me was exactly the ASCII string "git is a rude
 word in UK English".
 
-A crazy idea - use hash values as file names
-============================================
+Hashes make excellent unique file names
+=======================================
 
-Make a new directory:
+Remember that our problem was that many commits may have exactly the same
+contents for individual files.
+
+For example, maybe commits 1 through 4 have exactly the same contents for the
+file ``stunning_figure.png``.  The figure changes for commit 5 but stays the
+same through to commit 8.  Can we find a way to store only the two different
+versions of this file, and make our commits point to one of these two
+versions?
+
+We can do this by storing only the two unique versions of
+``stunning_figure.png`` with unique filenames.  Maybe store the first version
+of the file as ``stunning_figure.png.v1`` and the second as
+``stunning_figure.png.v2``.  Then make commits 1 through 4 point to
+``stunning_figure.png.v1`` for ``stunning_figure.png``, and make commits 5
+through 8 point to ``stunning_figure.png.v2``.
+
+But, ``stunning_figure.png.v1`` and ``stunning_figure.png.v2`` are not very
+good unique filenames.  What happens if Josephine and I are working at the
+same time on different copies of ``nobel_prize``, and she and I both make a
+new version of the figure.  My version will be called
+``stunning_figure.png.v3`` and her version will have the same name, but they
+will be different, and this will cause a mess if we try and merge our work.
+
+What if we use the file hash values as unique filenames? For example, we might
+do something like the following.
+
+First we make a directory to put the unique file contents:
 
 .. prizerun::
 
     mkdir .fancy_backups/objects
 
-Calculate the hash value for the figure:
+We calculate the hash for the first version of the figure:
 
 .. prizerun::
 
     shasum .fancy_backups/1/files/stunning_figure.png
 
-Save the figure with the hash value as the file name:
+We copy the first version of the figure there using its hash as a unique
+filename:
+
+.. prizerun::
+
+    cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
+
+We do the same thing for the second version of the figure:
+
+.. prizerun::
+
+    shasum .fancy_backups/5/files/stunning_figure.png
+
+.. prizerun::
+
+    cp .fancy_backups/5/files/stunning_figure.png .fancy_backups/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f
+
+We will tell commits 1 through 4 to use
+``.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864`` for
+``stunning_figure.png``.
+
+Commits 5 though 8 will use
+``.fancy_backups/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f`` for
+``stunning_figure.png``.
+
+Now what happens if Josephine and I make different figures and do the same
+procedure of copying to ``.fancy_backups/objects``?  If our two figures are
+different, then they will have different hashes, and therefore different
+filenames, so they will not clash with each other.  If the two figures happen
+to be the same, then they will have the same hash, and the same filename, so
+my object contents and filename will be identical to Josephine's and there is
+still no clash.
+
+Building the first commit from unique files
+===========================================
+
+Let's use this idea to build a whole commit.
+
+Copying the files
+-----------------
+
+So we don't get our commits mixed up, I'll delete everything in the
+``objects`` directory and start again:
+
+.. prizerun::
+
+    rm -rf .fancy_backups/objects/*
+
+Copy the figure for the first commit again:
 
 .. prizerun::
 
@@ -536,11 +620,17 @@ Do the same for the other two files in the first commit.
 .. prizerun::
 
     shasum .fancy_backups/1/files/nobel_prize_paper.txt
-    shasum .fancy_backups/1/files/very_clever_analysis.py
 
 .. prizerun::
 
     cp .fancy_backups/1/files/nobel_prize_paper.txt .fancy_backups/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
+
+.. prizerun::
+
+    shasum .fancy_backups/1/files/very_clever_analysis.py
+
+.. prizerun::
+
     cp .fancy_backups/1/files/very_clever_analysis.py .fancy_backups/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 
 We now have three new files in ``.fancy_backups/objects``, one corresponding
@@ -551,16 +641,15 @@ to each unique file *contents* we have hashed:
     tree -a .fancy_backups/objects
 
 Making the directory listing
-============================
+----------------------------
 
-The snapshot has three files.  We can think of the file has having *content*
-(the bytes contained in the file) and a *filename*.  We have already stored
-the contents in the object directory, but with a different filename, from the
-hash of the contents.  To record the filenames, we need to make a directory
-listing.
+We now need to associate the filenames in the commit snapshot with the file
+contents we have just copied to ``.fancy_backups/objects``. For example, we
+have to tell the commit that the file named ``stunning_figure.png`` in first
+commit should get its contents from
+``.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864``.
 
-To do this, we can point the snapshot to the hash filename versions of the
-files by making a *text directory listing* or *tree* listing:
+We do this by making a *directory listing* for the commit:
 
 .. prizewrite::
 
@@ -627,21 +716,24 @@ Here then is our directory listing for commit 2:
     stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
     very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 
-An even more crazy idea - hash the directory list
-=================================================
+Storing the directory listing as files
+======================================
 
 The directory listing is just a text file.  We can store the directory listing
-as we store the other files, by writing an object file with the file hash:
+as we store the other files, by writing an object file with the file hash.
+Here is the hash for the directory listing of the first commit:
 
 .. prizerun::
 
     shasum .fancy_backups/1/directory_list
 
+We copy that file to the objects directory as we have for the other files:
+
 .. prizerun::
 
     cp .fancy_backups/1/directory_list .fancy_backups/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 
-And we can do the same for the second commit:
+We can do the same for the second commit:
 
 .. prizerun::
 
@@ -651,8 +743,8 @@ And we can do the same for the second commit:
 
     cp .fancy_backups/2/directory_list .fancy_backups/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 
-Now - would I get the same hash for the directory listing if I had had a
-different figure?
+Would I get the same hash for the directory listing if I had had a different
+figure?
 
 Even more crazy idea - make the whole commit into a text file
 =============================================================
@@ -951,7 +1043,7 @@ Here's the contents of the tree object (directory listing):
 
 These are in fact the file permissions, the type of the entry in the directory
 (where "tree" means a sub-directory, and "blob" means a file), the file
-hashes, and the file names.
+hashes, and the file names (see :ref:`git-object-types`).
 
 Here is the contents of the commit object:
 
@@ -1144,7 +1236,7 @@ The ``-a`` flag to ``git commit`` ignores any untracked files |--| so
 
 .. prizecommit:: a-flag 2012-04-01 12:13:01
 
-    git commit -a -m "Paper nearly ready"
+    git commit -a -m "Paper ready for submission to Science"
 
 .. prizerun::
 
@@ -1217,6 +1309,241 @@ And now we can use it:
 
     git slog
 
+git tag makes a static bookmark
+===============================
+
+We have seen that a branch is a bookmark that points to a commit.
+
+When we do a new commit on a branch, the branch points to the new commit.
+
+We can also make bookmarks that do not update when we do a commit.  These are
+git *tags*.
+
+Imagine we are now happy with the state of our paper, and we submit it to
+Science.
+
+We want to record the exact state of the paper when we sent it to Science,
+because we may need to go back to this version when those nasty Science
+reviewers ask us to make changes.
+
+We could write down the current commit hash somewhere, but then we might lose
+it.  Luckily ``git tag`` has a better solution:
+
+.. prizerun::
+
+    git tag submitted-to-science
+
+We now have a tag that points to the current commit.
+
+The current commit is:
+
+.. prizerun::
+
+    git branch -v
+
+``git tag`` without arguments will list the current tags:
+
+.. prizerun::
+
+    git tag
+
+As you can imagine, this tag is very similar to a branch |--| it is just a
+tiny file where the name of the file is the tag name, and the contents is the
+commit hash:
+
+.. prizerun::
+
+    ls .git/refs/tags
+
+.. prizerun::
+
+    cat .git/refs/tags/submitted-to-science
+
+This type of tag is what git calls a *lightweight* tag |--| it is just a
+bookmark to a commit, with no other information.
+
+We often want to add some extra information to our tags, such as a message
+about what the tag is for, the date, and the person doing the tag.  We can do
+this with *annotated tags*. To make an annotated tag, use the ``-a`` flag to
+``git tag`` and give a tag message:
+
+.. prizecommit:: dummy-label 2012-04-01 12:13:34
+
+    git tag -a -m "Submitted to Science" annotated-to-science
+
+.. note::
+
+    I'm using the the ``-m`` flag as I have for the commits, and for the same
+    reason.  Normally you would not use ``-m`` and let the text editor open
+    for you to type the tag message.
+
+.. prizerun::
+
+    git tag
+
+There is still a tiny text file for the tag:
+
+.. prizerun::
+
+    ls .git/refs/tags
+
+This time the tag does not point to a commit hash, but to a new tag object:
+
+.. prizerun::
+
+    cat .git/refs/tags/annotated-to-science
+
+.. prizevar:: annotated-to-science
+
+    cat .git/refs/tags/annotated-to-science
+
+The new tag object is very much like a commit object, but pointing to a commit
+object rather than a tree object:
+
+.. prizerun::
+
+    git cat-file -p {{ annotated-to-science }}
+
+Unlike a branch, the tag does not change when we make a commit:
+
+.. prizerun::
+
+    git branch -v
+
+.. prizecommit:: after-science 2012-04-01 12:13:01
+
+    echo "Actually, maybe this is all wrong" >> nobel_prize_paper.txt
+    git add nobel_prize_paper.txt
+    git commit -a -m "Luckily we submitted the paper before we realized"
+
+The branch bookmark has changed:
+
+.. prizerun::
+
+    git branch -v
+
+But the tags have not changed:
+
+.. prizerun::
+
+    cat .git/refs/tags/submitted-to-science
+
+.. prizerun::
+
+    cat .git/refs/tags/annotated-to-science
+
+.. _git-object-types:
+
+Types of objects in ``.git/objects``
+====================================
+
+We now know all of the different types of objects that git stores in
+``.git/objects``.  The object types are:
+
+* *tag*;
+* *commit*;
+* *tree*;
+* *blob*.
+
+``git cat-file -t`` will show us the type of a git object.
+
+Tag object types
+----------------
+
+We have just seen that there is an annotated git *tag* object type:
+
+.. prizerun::
+
+    git cat-file -t {{ annotated-to-science }}
+
+The tag object type contains a text file the hash of the tagged object, the
+type of tagged object (usually a commit), the tag name, author, date and
+message:
+
+.. prizerun::
+
+    git cat-file -p {{ annotated-to-science }}
+
+Commit object type
+------------------
+
+There is a commit object type:
+
+.. prizerun::
+
+    git branch -v
+
+.. prizerun::
+
+    git cat-file -t {{ after-science }}
+
+The contents of a commit object is a text file giving the directory tree
+object hash, parent commit hash, author, date and message:
+
+.. prizerun::
+
+    git cat-file -p {{ after-science }}
+
+Tree object type
+----------------
+
+There is an object type for a directory listing, called a *tree* object. The
+commit file contents above shows us the directory tree object hash for this
+commit.
+
+.. prizevar:: after-science-tree
+
+    git log -1 --format="%T"
+
+.. prizerun::
+
+    git cat-file -t {{ after-science-tree }}
+
+The contents of a tree object is a text file with one line per file in a
+directory, and each line giving file permissions, *object type*, object hash
+and filename. Object type is usually one of "blob" for a file or "tree" for a
+subdirectory [#directory-tree-types]_.
+
+We can show the directory tree object contents using ``git cat-file -p``:
+
+.. prizerun::
+
+    git cat-file -p {{ after-science-tree }}
+
+We can also use ``git ls-tree`` to show us the tree contents for a commit.
+For example, this will also show us the directory contents for current commit:
+
+.. prizerun::
+
+    git ls-tree master
+
+Blob object type
+----------------
+
+A *blob* is a binary large object. This is the file type for the file contents
+of the files we added to the commit with ``git add`` (or ``git commit -a``).
+
+Our directory tree above points to the hashes of the blob objects that have
+the file contents.  For example, the directory listing tells us that the hash
+for filename ``nobel_prize_paper.txt`` is |after-science-paper-obj|.
+
+.. prizevar:: after-science-paper-obj
+
+    git cat-file -p {{ after-science-tree }} | grep nobel_prize | awk '{print \$3}'
+
+As the directory listing says, this hash is for an object of type "blob""
+
+.. prizerun::
+
+    git cat-file -t {{ after-science-paper-obj }}
+
+The contents of that blob are the bytes of ``nobel_prize_paper.txt`` as of
+this commit:
+
+.. prizerun::
+
+    git cat-file -p {{ after-science-paper-obj }}
+
 git mv and rm: moving and removing files
 ========================================
 
@@ -1236,11 +1563,14 @@ Note that these changes must be committed too, if we want to keep them.
 
     git commit -m "I like this new name better"
 
+As you can imagine, all that changed is that the tree object for this commit
+associates the new filename with the old blob:
+
 .. prizerun::
 
-    git slog
+    git ls-tree master
 
-And ``git rm`` works in a similar fashion.
+``git rm`` works in a similar fashion.
 
 git branch again - making a new branch
 ======================================
@@ -1566,9 +1896,10 @@ and then track back following only one parent for each commit, this is a
 For example, we might start at our current commit: |merge-trouble-7|.  This
 commit has two parents: |while-trouble-7| and |trouble-starts-7|.  We might
 follow one particular path to |while-trouble-7|, then |merge-experiment-7|,
-then (from |boring-7| and |an-experiment-7|) to |boring-7|, |new-name-7|,
-|a-flag-7|, |fruit-7| and finally |initial-7| (because |initial-7| has no
-parents).  This is one *path* through the *commit history* graph.
+then (choosing from |boring-7| and |an-experiment-7|) to |boring-7|,
+|new-name-7|, |after-science-7|, |a-flag-7|, |fruit-7| and finally |initial-7|
+(because |initial-7| has no parents).  This is one *path* through the *commit
+history* graph.
 
 git remotes - working with other people, making backups
 =======================================================
@@ -2160,12 +2491,10 @@ Github will host some private repositories for education users.
 Other useful commands
 =====================
 
-The commands complete the typical daily git toolkit of an experienced user:
+These commands complete the typical daily toolkit of an experienced git user:
 
-*  `show <http://www.kernel.org/pub/software/scm/git/docs/git-show.html>`__
 *  `reflog <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`__
 *  `rebase <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`__
-*  `tag <http://www.kernel.org/pub/software/scm/git/docs/git-tag.html>`__
 
 See :doc:`rebase_without_tears` for a tutorial on ``rebase``.
 
@@ -2180,87 +2509,60 @@ and what to do when things go wrong.
 Git resources
 *************
 
-Introductions
-=============
+Introductions and tutorials
+===========================
 
-There are lots of good tutorials and introductions for Git, which you
-can easily find yourself; this is just a short list of things I've found
-useful. For a beginner, I would recommend the following 'core' reading
-list, and below I mention a few extra resources:
+As you've seen, this tutorial makes the bold assumption that you'll be able to
+understand how git works by seeing how it is *built*. These documents take a
+similar approach to varying levels of detail:
 
-1. `Understanding Git Conceptually
-   <http://www.sbf5.com/~cduan/technical/git>`__ gives another review of how
-   the ideas behind git.
+* This `visual git tutorial
+  <http://www.ralfebert.de/blog/tools/visual_git_tutorial_1>`__ gives a nice
+  visual idea of git at work.
+* `Understanding Git Conceptually
+  <http://www.sbf5.com/~cduan/technical/git>`__ gives another review of how
+  the ideas behind git.
+* For more detail, see the start of the excellent `Pro Git
+  <http://progit.org/book>`__ online book, or similarly the early parts of the
+  `Git community book <http://book.git-scm.com>`__. Pro Git's chapters are
+  very short and well illustrated; the community book tends to have more
+  detail and has nice screencasts at the end of some sections.
+* The `Git parable
+  <http://tom.preston-werner.com/2009/05/19/the-git-parable.html>`__ by Tom
+  Preston-Werner.
+*  :doc:`foundation`
 
-2. For more detail, see the start of the excellent `Pro
-   Git <http://progit.org/book>`__ online book, or similarly the early
-   parts of the `Git community book <http://book.git-scm.com>`__. Pro
-   Git's chapters are very short and well illustrated; the community
-   book tends to have more detail and has nice screencasts at the end of
-   some sections.
+You might also try:
 
-This `visual git tutorial
-<http://www.ralfebert.de/blog/tools/visual_git_tutorial_1>`__ gives a nice
-visual idea of git at work.
-
-For windows users, `an Illustrated Guide to Git on
-Windows <http://nathanj.github.com/gitguide/tour.html>`__ is useful in
-that it contains also some information about handling SSH (necessary to
-interface with git hosted on remote servers when collaborating) as well
-as screenshots of the Windows interface.
-
-Cheat sheets
-    Two different
-    `cheat <http://zrusin.blogspot.com/2007/09/git-cheat-sheet.html>`__
-    `sheets <http://jan-krueger.net/development/git-cheat-sheet-extended-edition>`__
-    in PDF format that can be printed for frequent reference.
-
-Beyond the basics
-=================
-
-As you've seen, this tutorial makes the bold assumption that you'll be
-able to understand how git works by seeing how it is *built*. These two
-documents, written in a similar spirit, are probably the most useful
-descriptions of the Git architecture short of diving into the actual
-implementation. They walk you through how you would go about building a
-version control system with a little story. By the end you realize that
-Git's model is almost an inevitable outcome of the proposed constraints:
-
--  The `Git
-   parable <http://tom.preston-werner.com/2009/05/19/the-git-parable.html>`__
-   by Tom Preston-Werner.
--  `Git
-   foundations <http://matthew-brett.github.com/pydagogue/foundation.html>`__
-   by Matthew Brett.
-
-`Git ready <http://www.gitready.com>`__
-    A great website of posts on specific git-related topics, organized
-    by difficulty.
-
-`QGit <http://sourceforge.net/projects/qgit/>`__: an excellent Git GUI
-    Git ships by default with gitk and git-gui, a pair of Tk graphical
-    clients to browse a repo and to operate in it. I personally have
-    found `qgit <http://sourceforge.net/projects/qgit/>`__ to be nicer
-    and easier to use. It is available on modern linux distros, and
-    since it is based on Qt, it should run on OSX and Windows.
-
-`Git Magic <http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html>`_ :
-    Another book-size guide that has useful snippets.
-
-The `learning center <http://learn.github.com>`__ at Github
-    Guides on a number of topics, some specific to github hosting but
-    much of it of general value.
-
-A `port <http://cworth.org/hgbook-git/tour>`__ of the Hg book's beginning
-    The `Mercurial book <http://hgbook.red-bean.com>`__ has a reputation
-    for clarity, so Carl Worth decided to
-    `port <http://cworth.org/hgbook-git/tour>`__ its introductory
-    chapter to Git. It's a nicely written intro, which is possible in
-    good measure because of how similar the underlying models of Hg and
-    Git ultimately are.
-
-`Intermediate tips <http://andyjeffries.co.uk/articles/25-tips-for-intermediate-git-users>`_: A set
-    of tips that contains some very valuable nuggets, once you're past the basics.
+* For windows users, `an Illustrated Guide to Git on Windows
+  <http://nathanj.github.com/gitguide/tour.html>`__ is useful in that it
+  contains also some information about handling SSH (necessary to interface
+  with git hosted on remote servers when collaborating) as well as screenshots
+  of the Windows interface.
+* `Git ready <http://www.gitready.com>`__ A great website of posts on specific
+  git-related topics, organized by difficulty.
+* `QGit <http://sourceforge.net/projects/qgit/>`__: an excellent Git GUI Git
+  ships by default with gitk and git-gui, a pair of Tk graphical clients to
+  browse a repo and to operate in it. I personally have found `qgit
+  <http://sourceforge.net/projects/qgit/>`__ to be nicer and easier to use. It
+  is available on modern Linux distros, and since it is based on Qt, it should
+  run on OSX and Windows.
+* `Git Magic
+  <http://www-cs-students.stanford.edu/~blynn/gitmagic/index.html>`_ : Another
+  book-size guide that has useful snippets.
+* The `learning center <http://learn.github.com>`__ at Github Guides on a
+  number of topics, some specific to github hosting but much of it of general
+  value.
+* A `port <http://cworth.org/hgbook-git/tour>`__ of the Hg book's beginning
+  The `Mercurial book <http://hgbook.red-bean.com>`__ has a reputation for
+  clarity, so Carl Worth decided to `port
+  <http://cworth.org/hgbook-git/tour>`__ its introductory chapter to Git. It's
+  a nicely written intro, which is possible in good measure because of how
+  similar the underlying models of Hg and Git ultimately are.
+* `Intermediate tips
+  <http://andyjeffries.co.uk/articles/25-tips-for-intermediate-git-users>`_: A
+  set of tips that contains some very valuable nuggets, once you're past the
+  basics.
 
 For SVN users
 =============
@@ -2289,9 +2591,10 @@ Better shell support
 Adding git branch info to your bash prompt and tab completion for git
 commands and branches is extremely useful. I suggest you at least copy:
 
--  `git-completion.bash <https://github.com/git/git/blob/master/contrib/completion/git-completion.bash>`__
-
--  `git-prompt.sh <https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh>`__
+* `git-completion.bash
+  <https://github.com/git/git/blob/master/contrib/completion/git-completion.bash>`__
+* `git-prompt.sh
+  <https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh>`__
 
 You can then source both of these files in your ``~/.bashrc`` (Linux) or
 ``~/.bash_profile`` (OSX), and then set your prompt (I'll assume you
@@ -2309,6 +2612,12 @@ they offer.
 
 .. rubric:: Footnotes
 
+.. [#tree-command] I am using the ``tree`` command to give a nice text-graphic
+   listing of directories.  If you want to try running ``tree`` yourself, you
+   may need to find an implementation of ``tree`` for your operating system.
+   On Debian or Ubuntu you can use ``sudo apt-get install tree``. For OSX you
+   might want to use something like homebrew (``brew install tree``).  I have
+   not tried installing ``tree`` on Windows.
 .. [#git-object-dir] When git stores a file in the ``.git/objects`` directory,
    it makes a hash from the file, takes the first two digits of the hash to
    make a directory name, and then stores a file in this directory with a
@@ -2320,6 +2629,9 @@ they offer.
    reasonable range.  If git had to store hash filenames for every object in
    one flat directory, the directory would soon have a very large number of
    files.
+.. [#directory-tree-types] The object types in a directory listing are almost
+   invariably either "blob" or "tree", but can also be "commit" for recording
+   the commit of a git submodule - see :doc:`git_submodules`.
 .. [#bare-detail] The reason we need a bare repository for our backup goes
    deeper than the fact we do not need a working tree.  We are soon going to
    do a ``push`` to this backup repository.  The ``push`` has the effect of
