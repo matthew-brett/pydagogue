@@ -309,7 +309,7 @@ talk to Josephine. By now you have 5 snapshots.
     echo "Increasing anxiety" > .fancy_backups/4/files/nobel_prize_paper.txt
     cp -r .fancy_backups/3 .fancy_backups/5
     # Copy the other version of the stunning figure
-    cp ../working/stunning_figure.png .fancy_backups/5/files/
+    cp ../../extras/stunning_figure.png.v2 .fancy_backups/5/files/
 
 The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.
@@ -340,7 +340,7 @@ You make a new snapshot ``.fancy_backups/6``.
 .. prizerun::
     :hide:
 
-    # Cheat again
+    # Cheat to make a new commit
     cp -r .fancy_backups/3 .fancy_backups/6
 
 Back on track for a scientific breakthrough.
