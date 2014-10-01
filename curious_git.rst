@@ -317,28 +317,28 @@ talk to Josephine. By now you have 5 snapshots.
     cp -r .fancy_backups/3 .fancy_backups/5
     # Copy the other version of the stunning figure
     cp ../../extras/stunning_figure.png.v2 .fancy_backups/5/files/stunning_figure.png
+    echo "random_data[0, 0] = 42" > .fancy_backups/5/files/very_clever_analysis.py
 
 The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.
 
-You go back and look at ``.fancy_backups/1/stunning_figure.png``. It
-does look different.
+You go back and look at the original figure in
+``.fancy_backups/1/stunning_figure.png``. It does look different.
 
 You go through all the ``.fancy_backups`` directories in order. It turns
-out that the figure changes in ``.fancy_backups/4``.
+out that the figure changes in ``.fancy_backups/5``.
 
-You look in ``.fancy_backups/4/info.txt`` and it says::
+You look in ``.fancy_backups/5/info.txt`` and it says::
 
     Date: April 4 2012, 01.40
     Author: I. M. Awesome
     Notes: I always get the best ideas after I have been drinking.
 
-Aha. Then you go find the problem in ``very_clever_analysis.py`` very
-quickly since instead of eyeballing the entire script you need to
-inspect only the difference between
-``fancy_backups/3/very_clever_analysis.py`` and
-``fancy_backups/4/very_clever_analysis.py`` to find the not so
-ingenious *optimization* you have introduced.
+Aha. Then you find the problem in ``very_clever_analysis.py`` very quickly
+since instead of eyeballing the entire script you need to inspect only the
+difference between ``fancy_backups/4/very_clever_analysis.py`` and
+``fancy_backups/5/very_clever_analysis.py`` to find the not so ingenious
+*optimization* you have introduced.
 
 You fix ``very_clever_analysis.py``.
 
@@ -553,8 +553,7 @@ new version of the figure.  My version will be called
 ``stunning_figure.png.v3`` and her version will have the same name, but they
 will be different, and this will cause a mess if we try and merge our work.
 
-What if we use the file hash values as unique filenames? For example, we might
-do something like the following.
+What if we use the file hash values as unique filenames?
 
 First we make a directory to put the unique file contents:
 
