@@ -22,16 +22,28 @@ the commit is:
 
     cat .git/refs/tags/submitted-to-science
 
+Here is the working tree for the ``nobel_prize`` repository as of that commit:
+
+.. prizerun::
+    :hide:
+
+    git checkout {{ a-flag }}
+
+.. prizerun::
+
+    ls
+
 Blob object type
 ----------------
 
 *Blob* is an abbreviation for "binary large object".  When we ``git add`` a
 file such as ``nobel_prize_paper.txt``, git creates a *blob* object containing
 the contents of the file.  Blobs are therefore the git object type for storing
-files from the working tree.
+files.
 
-The ``git rev-parse`` command will give me the hash for individual objects.
-``git cat-file -t`` will show us the type of a git object given a hash.
+The ``git rev-parse`` command will give me the hash value for individual
+objects.  ``git cat-file -t`` will show us the type of a git object given a
+hash. ``git cat-file -p`` shows us the content of the object.
 
 .. note::
 
@@ -40,7 +52,7 @@ The ``git rev-parse`` command will give me the hash for individual objects.
     I'm using them here to show how the git machinery works.  Feel free to
     forget about them after you've read this page.
 
-Here is the blob object hash value for ``nobel_prize_paper.txt`` as of our
+Here is the object hash value for the ``nobel_prize_paper.txt`` file as of our
 example commit:
 
 .. prizerun::
@@ -57,7 +69,7 @@ The corresponding object is of type *blob*:
 
     git cat-file -t {{ a-flag-paper-obj }}
 
-The contents of the blob is the contents of the paper as of this commit:
+The contents of the blob are the contents of the paper as of this commit:
 
 .. prizerun::
 
@@ -84,19 +96,20 @@ The object is of type "tree":
 
     git cat-file -t {{ a-flag-tree }}
 
-The tree object contains a file with one line per file in a directory, and
-each line giving file permissions, *object type*, object hash and filename.
-*Object type* is usually one of "blob" for a file or "tree" for a subdirectory
+The tree object contains one line per file or subdirectory, with each line
+giving file permissions, *object type*, object hash and filename.  *Object
+type* is usually one of "blob" for a file or "tree" for a subdirectory
 [#directory-tree-types]_.
 
 .. prizerun::
 
     git cat-file -p {{ a-flag-tree }}
 
+Notice the line linking the hash value |a-flag-paper-obj| with the filename
+``nobel_prize_paper.txt``.
+
 Commit object type
 ------------------
-
-There is a commit object type.
 
 We already know that the hash of the current commit object is |a-flag|.  This
 is an object of type "commit":
@@ -106,11 +119,13 @@ is an object of type "commit":
     git cat-file -t {{ a-flag }}
 
 The commit object contains the directory tree object hash, parent commit hash,
-author, date and message:
+author, committer, date and message:
 
 .. prizerun::
 
     git cat-file -p {{ a-flag }}
+
+Notice the root tree hash is |a-flag-tree| as we were expecting.
 
 Tag object type
 ---------------
@@ -134,6 +149,9 @@ object (usually a commit), the tag name, author, date and message:
 .. prizerun::
 
     git cat-file -p {{ annotated-to-science }}
+
+Notice that the tagged object is the commit object |a-flag|, as we were
+expecting.
 
 .. rubric:: Footnotes
 

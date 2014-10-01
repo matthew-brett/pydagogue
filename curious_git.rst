@@ -89,10 +89,10 @@ website.
            minutes.  Do not raise stakes! ;-)
 
 So |--| have no truck with people who try and tell you that you can just use
-git and that you don't need the `deep shit`_ You *do* need the deep shit, but
+git and that you don't need the `deep shit`_. You *do* need the deep shit, but
 the deep shit isn't that deep, and it will take you an hour of your time to
-get all of it.  And then I'm betting that you'll see that the alchemist has
-succeeded at last, and the shit finally turned into gold.
+get all of it.  Then I'm betting that you'll see that the alchemist has
+succeeded at last, and the shit has finally turned into gold.
 
 .. _deep shit: http://rogerdudler.github.io/git-guide
 

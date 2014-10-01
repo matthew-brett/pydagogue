@@ -82,6 +82,8 @@ starts off empty:
 
     tree -a .git/objects
 
+.. superrun::
+
 When we ``git add`` a file, there is one new file in ``.git/objects``:
 
 .. superrun::
@@ -166,18 +168,13 @@ after the first commit.  After ``git submodule add`` we have four:
 
     tree -a .git/objects
 
-The new object is for the ``.gitmodules`` text file. I could work out which
-object that is by comparing with the previous listing for ``.git/objects``,
-but I can get the hash git will use for ``.gitmodules`` with:
-
-.. superrun::
-
-    git hash-object .gitmodules
-
 .. workvar:: gitmodules-object
 
     cd super
-    git hash-object .gitmodules
+    git rev-parse :0:.gitmodules
+
+The new object has hash |gitmodules-object|, and it contains the contents of
+the new ``.gitmodules`` file:
 
 .. superrun::
 
@@ -196,36 +193,19 @@ write the tree object, we do a commit:
 
     git commit -m "Adding the submodule"
 
-Here is the commit hash for the commit we just made:
+The exotic ``git ls-tree`` command shows us the contents of the new root tree
+object (directory listing) for this commit:
 
 .. superrun::
 
-    git log -1
-
-Here's the full data for the commit, including the hash for the root directory
-tree object:
-
-.. superrun::
-
-    git cat-file -p  {{ add-module }}
-
-.. workvar:: add-submodule-tree
-
-    cd super
-    git log -1 --format="%T"
-
-Here's the full data for the root directory tree object for the commit:
-
-.. superrun::
-
-    git cat-file -p {{ add-submodule-tree }}
+    git ls-tree master
 
 As you can see, the two real files |--| ``.gitmodules`` and ``README.txt``
 |--| are listed as type ``blob``, with the hashes of their file contents. This
 is the usual way git refers to a file in a directory listing (see
-:doc:`curious_git`). The new entry for ``subproject`` is of type ``commit``.
-The hash is the current commit of the "myproject" repository, in the
-``subproject`` copy:
+:doc:`curious_git`, and :ref:`git-object-types`). The new entry for
+``subproject`` is of type ``commit``.  The hash is the hash for current commit
+of the "myproject" repository, in the ``subproject`` copy:
 
 .. superrun::
 
@@ -313,6 +293,9 @@ in the staging area, but adds no new files to ``.git/objects``:
 
     ls .git/objects/*/*
 
+Adding the subproject to the staging area does not make any new objects in
+``.git/objects``:
+
 .. superrun::
 
     git add subproject
@@ -324,8 +307,8 @@ in the staging area, but adds no new files to ``.git/objects``:
 So ``git add subproject`` makes no new objects, but it does change the
 "myproject" commit hash that ``subproject`` points to.
 
-If we do the commit, we can see the root tree listing now points to the new
-commit of "myproject":
+If we do the commit, we can see the root tree listing now points
+``subproject`` to the new commit of "myproject":
 
 .. supercommit:: super-more-data 2012-05-01 13:44:32
 
@@ -333,16 +316,7 @@ commit of "myproject":
 
 .. superrun::
 
-    git cat-file -p HEAD
-
-.. workvar:: super-more-data-tree
-
-    cd super
-    git log -1 --format="%T"
-
-.. superrun::
-
-    git cat-file -p {{ super-more-data-tree }}
+    git ls-tree master
 
 Cloning a repository with submodules
 ====================================
@@ -425,3 +399,4 @@ you can do both ``init`` and ``update`` in one step with:
     git submodule update --init
 
 .. include:: links_names.inc
+.. include:: working/object_names.inc
