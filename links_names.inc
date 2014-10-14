@@ -54,7 +54,7 @@
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 .. Friend pages
-.. _docosx: http://matthew-brett/github.com/docosx
+.. _docosx: http://matthew-brett.github.com/docosx
 .. _developing on mac: http://matthew-brett.github.com/docosx/develop_mac.html
 .. _booting macs: http://matthew-brett.github.com/docosx/booting_macs.html
 .. _runtime linking on Mac:
