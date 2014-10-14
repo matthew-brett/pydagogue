@@ -78,26 +78,26 @@ point to the same commit.</li>
 <p>There&#8217;s a specific example of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> at <a class="reference internal" href="curious_git.html#git-push"><em>git push – synchronizing repositories</em></a>. Here is how
 that example would follow our algorithm:</p>
 <ol class="arabic simple">
-<li>We look up the hash for <tt class="docutils literal"><span class="pre">master</span></tt>, and we get <tt class="docutils literal"><span class="pre">44d2c12aba8f3d8a26459cdc1432899580c26c44</span></tt> (abbreviated as
-<tt class="docutils literal"><span class="pre">44d2c12</span></tt>);</li>
-<li>We follow all commit history paths back from <tt class="docutils literal"><span class="pre">44d2c12</span></tt> to check for
-missing commits. We start with <tt class="docutils literal"><span class="pre">44d2c12</span></tt>. The remote does not have a
+<li>We look up the hash for <tt class="docutils literal"><span class="pre">master</span></tt>, and we get <tt class="docutils literal"><span class="pre">3ed451c8b4df1e43d190c6fc6bd42bf3054cd360</span></tt> (abbreviated as
+<tt class="docutils literal"><span class="pre">3ed451c</span></tt>);</li>
+<li>We follow all commit history paths back from <tt class="docutils literal"><span class="pre">3ed451c</span></tt> to check for
+missing commits. We start with <tt class="docutils literal"><span class="pre">3ed451c</span></tt>. The remote does not have a
 matching file in <tt class="docutils literal"><span class="pre">objects</span></tt>, so this is a missing commit. We only have one
-path to follow, because <tt class="docutils literal"><span class="pre">44d2c12</span></tt> has only one parent –
-<tt class="docutils literal"><span class="pre">43dff3f</span></tt> – and the remote does have a corresponding object, so
+path to follow, because <tt class="docutils literal"><span class="pre">3ed451c</span></tt> has only one parent –
+<tt class="docutils literal"><span class="pre">bce99da</span></tt> – and the remote does have a corresponding object, so
 we can stop looking for missing commits;</li>
-<li>We only have one missing commit, <tt class="docutils literal"><span class="pre">44d2c12</span></tt>.  We look in the contents of
-<tt class="docutils literal"><span class="pre">44d2c12</span></tt> to find the tree object hash.  This is <tt class="docutils literal"><span class="pre">7f0de8dd99ee5c9987309668b5835796dc9c98c5</span></tt>.  We
+<li>We only have one missing commit, <tt class="docutils literal"><span class="pre">3ed451c</span></tt>.  We look in the contents of
+<tt class="docutils literal"><span class="pre">3ed451c</span></tt> to find the tree object hash.  This is <tt class="docutils literal"><span class="pre">7f0de8dd99ee5c9987309668b5835796dc9c98c5</span></tt>.  We
 check for this object in the remote objects directory, and sure enough, it
 is missing. We add this tree to the list of missing trees;</li>
 <li>We only have one missing tree – <tt class="docutils literal"><span class="pre">7f0de8dd99ee5c9987309668b5835796dc9c98c5</span></tt>. We look in the contents
 of this tree object and check in the remote object directory for each
 object in this listing. The only missing object is <tt class="docutils literal"><span class="pre">bfb83ae9365ab2a8343ef5f3cb77f834bdffff93</span></tt>;</li>
-<li>We copy the objects for the missing commits (<tt class="docutils literal"><span class="pre">43dff3f58685cb13d25218a23d9a596f8e7d0cab</span></tt>), missing
+<li>We copy the objects for the missing commits (<tt class="docutils literal"><span class="pre">bce99da1c301714aa7d3d895c1ef2aca63ada629</span></tt>), missing
 trees (<tt class="docutils literal"><span class="pre">7f0de8dd99ee5c9987309668b5835796dc9c98c5</span></tt>) and missing blobs (<tt class="docutils literal"><span class="pre">bfb83ae9365ab2a8343ef5f3cb77f834bdffff93</span></tt>) to the
 remote objects directory;</li>
-<li>We set remote <tt class="docutils literal"><span class="pre">refs/heads/master</span></tt> to contain the hash <tt class="docutils literal"><span class="pre">44d2c12aba8f3d8a26459cdc1432899580c26c44</span></tt>;</li>
-<li>Set the local <tt class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></tt> to contain <tt class="docutils literal"><span class="pre">44d2c12aba8f3d8a26459cdc1432899580c26c44</span></tt>.</li>
+<li>We set remote <tt class="docutils literal"><span class="pre">refs/heads/master</span></tt> to contain the hash <tt class="docutils literal"><span class="pre">3ed451c8b4df1e43d190c6fc6bd42bf3054cd360</span></tt>;</li>
+<li>Set the local <tt class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></tt> to contain <tt class="docutils literal"><span class="pre">3ed451c8b4df1e43d190c6fc6bd42bf3054cd360</span></tt>.</li>
 </ol>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="sub-trees" rules="none">
