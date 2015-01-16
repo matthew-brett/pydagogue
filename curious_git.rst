@@ -1849,22 +1849,7 @@ The output of ``git slog`` shows the sequence of commits as a graph.
 The nodes of the graph are the commits. Each commit has one or more parents,
 stored in the commit object.  The parents give the links between the commit
 and the previous commit(s) in the *commit history* graph.  The commit parents
-therefore give the edges in the graph.  If we start at a particular commit,
-and then track back following only one parent for each commit, this is a
-*path* in the *commit history*.
-
-.. depends on history
-
-For example, we might start at our current commit: |merge-trouble-7|.  This
-commit has two parents: |while-trouble-7| and |trouble-starts-7|.  We might
-follow one particular path to |while-trouble-7|, then |merge-experiment-7|,
-then (choosing from |boring-7| and |an-experiment-7|) to |boring-7|,
-|new-name-7|, |after-science-7|, |a-flag-7|, |fruit-7| and finally |initial-7|
-(because |initial-7| has no parents).  This is one *path* through the *commit
-history* graph.
-
-See :ref:`defining paths <git-reachable>` for a more formal definition of a
-commit path.
+therefore give links that form the edges in the graph.
 
 git remotes - working with other people, making backups
 =======================================================

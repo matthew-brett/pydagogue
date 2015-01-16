@@ -7,6 +7,39 @@ We saw how git stores its object in :doc:`curious_git`.
 Now we know about how git stores its objects, we can work out how git knows
 which objects to copy when it does a push.
 
+*********************
+Paths through commits
+*********************
+
+Git commits form a graph.  The commits are the *nodes* in the graph.  Each
+commit (except the first) has one or more parents, stored as hash references
+in the commit object. The references to commit parents are the links
+between nodes that form the *edges* in the graph.
+
+The output of ``git log --graph`` shows the sequence of commits as a graph,
+with commits as nodes and parent links as edges.  Here's some example output
+from the ``git log`` command with flags to make the graph structure more
+obvious:
+
+.. prizevar:: merge-trouble-7
+
+    obj={{ merge-trouble }}
+    echo \${obj:0:7}
+
+.. prizerun::
+
+    git log --graph --oneline --topo-order {{ merge-trouble-7 }}
+
+If we start at a particular commit, and then track back following only one
+parent for each commit, this is a *path* in the *commit history*.
+
+See :ref:`defining paths <git-reachable>` for a more formal definition of a
+commit path.
+
+************
+An algorithm
+************
+
 Something like this algorithm might do the job:
 
 #. Get the commit hash corresponding the branch we are going to push;
