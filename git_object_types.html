@@ -8,7 +8,7 @@
     
     <title>Types of git objects &mdash; pydagogue 0.2 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -67,7 +67,7 @@ repository from <a class="reference internal" href="curious_git.html"><em>The cu
 <p>The commit is the commit we tagged as <tt class="docutils literal"><span class="pre">submitted-to-science</span></tt>.  The hash for
 the commit is:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/submitted-to-science
-a3239b99395993fcb7ff6454e0d8cc46c9437cb5
+13fcdb3a2960af8f17cae8eaea4e3bebac526b84
 </pre></div>
 </div>
 <p>Here is the working tree for the <tt class="docutils literal"><span class="pre">nobel_prize</span></tt> repository as of that commit:</p>
@@ -95,7 +95,7 @@ forget about them after you&#8217;ve read this page.</p>
 </div>
 <p>Here is the object hash value for the <tt class="docutils literal"><span class="pre">nobel_prize_paper.txt</span></tt> file as of our
 example commit:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git rev-parse a3239b99395993fcb7ff6454e0d8cc46c9437cb5:nobel_prize_paper.txt
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git rev-parse 13fcdb3a2960af8f17cae8eaea4e3bebac526b84:nobel_prize_paper.txt
 379a83c8dd04c545317d44a0868d09fee260d6e6
 </pre></div>
 </div>
@@ -121,7 +121,7 @@ More self congratulation
 <h2>Tree object type<a class="headerlink" href="#tree-object-type" title="Permalink to this headline">¶</a></h2>
 <p>There is an object type for a directory listing, called a <em>tree</em> object.</p>
 <p>Here is the tree object hash for the root directory listing as of this commit:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git rev-parse a3239b99395993fcb7ff6454e0d8cc46c9437cb5:./
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git rev-parse 13fcdb3a2960af8f17cae8eaea4e3bebac526b84:./
 bff7e228b27468f17dd9072d55eda3c5e0144022
 </pre></div>
 </div>
@@ -145,19 +145,19 @@ type</em> is usually one of &#8220;blob&#8221; for a file or &#8220;tree&#8221; 
 </div>
 <div class="section" id="commit-object-type">
 <h2>Commit object type<a class="headerlink" href="#commit-object-type" title="Permalink to this headline">¶</a></h2>
-<p>We already know that the hash of the current commit object is <tt class="docutils literal"><span class="pre">a3239b99395993fcb7ff6454e0d8cc46c9437cb5</span></tt>.  This
+<p>We already know that the hash of the current commit object is <tt class="docutils literal"><span class="pre">13fcdb3a2960af8f17cae8eaea4e3bebac526b84</span></tt>.  This
 is an object of type &#8220;commit&#8221;:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t a3239b99395993fcb7ff6454e0d8cc46c9437cb5
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t 13fcdb3a2960af8f17cae8eaea4e3bebac526b84
 commit
 </pre></div>
 </div>
 <p>The commit object contains the directory tree object hash, parent commit hash,
 author, committer, date and message:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p a3239b99395993fcb7ff6454e0d8cc46c9437cb5
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 13fcdb3a2960af8f17cae8eaea4e3bebac526b84
 tree bff7e228b27468f17dd9072d55eda3c5e0144022
-parent 407d747bc545d6c5d55073b31af432e0f7878536
-author Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333307581 -0700
-committer Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333307581 -0700
+parent 722f81d2341acbf9727ad5f332a600ba1cae1437
+author Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333278781 +0100
+committer Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333278781 +0100
 
 Paper ready <span class="k">for </span>submission to Science
 </pre></div>
@@ -169,26 +169,26 @@ Paper ready <span class="k">for </span>submission to Science
 <p>There is also an annotated git <em>tag</em> object type.  We made one of these in the
 <a class="reference internal" href="curious_git.html#git-tag"><em>git tag makes a static bookmark</em></a> section of <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/tags/annotated-to-science
-714e1c65f00c9852d809e33f2d6a795c350cdeb0
+99c5a98d00e8cfadf0de21c8b47fcf4e9fac9f48
 </pre></div>
 </div>
 <p>The object is of type &#8220;tag&#8221;:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t 714e1c65f00c9852d809e33f2d6a795c350cdeb0
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -t 99c5a98d00e8cfadf0de21c8b47fcf4e9fac9f48
 tag
 </pre></div>
 </div>
 <p>The tag object type contains the hash of the tagged object, the type of tagged
 object (usually a commit), the tag name, author, date and message:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 714e1c65f00c9852d809e33f2d6a795c350cdeb0
-object a3239b99395993fcb7ff6454e0d8cc46c9437cb5
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 99c5a98d00e8cfadf0de21c8b47fcf4e9fac9f48
+object 13fcdb3a2960af8f17cae8eaea4e3bebac526b84
 <span class="nb">type </span>commit
 tag annotated-to-science
-tagger Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333307614 -0700
+tagger Matthew Brett &lt;matthew.brett@gmail.com&gt; 1333278814 +0100
 
 Submitted to Science
 </pre></div>
 </div>
-<p>Notice that the tagged object is the commit object <tt class="docutils literal"><span class="pre">a3239b99395993fcb7ff6454e0d8cc46c9437cb5</span></tt>, as we were
+<p>Notice that the tagged object is the commit object <tt class="docutils literal"><span class="pre">13fcdb3a2960af8f17cae8eaea4e3bebac526b84</span></tt>, as we were
 expecting.</p>
 <p class="rubric">Footnotes</p>
 <table class="docutils footnote" frame="void" id="directory-tree-types" rules="none">

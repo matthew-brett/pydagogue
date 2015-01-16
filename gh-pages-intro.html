@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Booting Macs &mdash; pydagogue 0.2 documentation</title>
+    <title>Setting up a gh-pages branch &mdash; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -42,9 +42,49 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="booting-macs">
-<h1>Booting Macs<a class="headerlink" href="#booting-macs" title="Permalink to this headline">¶</a></h1>
-<p>This page has moved to <a class="reference external" href="http://matthew-brett.github.com/docosx/booting_macs.html">booting Macs</a>.  Please update your links.</p>
+  <div class="section" id="setting-up-a-gh-pages-branch">
+<h1>Setting up a gh-pages branch<a class="headerlink" href="#setting-up-a-gh-pages-branch" title="Permalink to this headline">¶</a></h1>
+<p>These assume a default sphinx build directory of <tt class="docutils literal"><span class="pre">doc/_build</span></tt>.</p>
+<p>Makefile target (don&#8217;t forget the tabs before the target body lines):</p>
+<div class="highlight-python"><div class="highlight"><pre>git-clean:
+    git clean -fxd
+
+html:
+    cd doc &amp;&amp; make html
+
+gh-pages: git-clean html
+    git co gh-pages
+    git rm -r .
+    git checkout HEAD -- .gitignore README.md .nojekyll
+    cp -r doc/_build/html/* . # your sphinx build directory
+    git stage .
+    @echo &#39;Commit and push when ready or git reset --hard &amp;&amp; git checkout master to revert&#39;
+</pre></div>
+</div>
+<p>Make a new empty <tt class="docutils literal"><span class="pre">gh-pages</span></tt> branch:</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout --orphan gh-pages
+git reset --hard
+git clean -fxd
+</pre></div>
+</div>
+<p>Make some files for working with github pages in this branch:</p>
+<div class="highlight-python"><div class="highlight"><pre># Ignore the doc and doc build directory
+echo &quot;doc/&quot; &gt; .gitignore
+echo &quot;Github pages for project&quot; &gt; README.md
+touch .nojekyll
+git add .gitignore .nojekyll README.md
+git commit -m &#39;Initial commit&#39;
+</pre></div>
+</div>
+<p>Set the upstream for this branch:</p>
+<div class="highlight-python"><div class="highlight"><pre>git push &lt;your-github-remote&gt; gh-pages --set-upstream
+</pre></div>
+</div>
+<p>Now go back to the master branch:</p>
+<div class="highlight-python"><div class="highlight"><pre>git co master
+make gh-pages
+</pre></div>
+</div>
 </div>
 
 
@@ -55,7 +95,7 @@
         <div class="sphinxsidebarwrapper">
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/booting_macs.txt"
+    <li><a href="_sources/gh-pages-intro.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
