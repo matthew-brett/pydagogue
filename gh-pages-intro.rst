@@ -24,9 +24,8 @@ Makefile target (don't forget the tabs before the target body lines)::
 Make a new empty ``gh-pages`` branch::
 
     git checkout --orphan gh-pages
-    rm .gitignore
-    git clean -fxd
     git reset --hard
+    git clean -fxd
 
 Make some files for working with github pages in this branch::
 
