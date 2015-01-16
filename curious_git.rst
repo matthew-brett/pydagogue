@@ -750,7 +750,7 @@ We can do the same for the second commit:
     cp .fancy_backups/2/directory_list .fancy_backups/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 
 Would I get the same hash for the directory listing if I had had a different
-figure?
+figure? (answer [#list-figure]_).
 
 Storing the commit information as a file
 ========================================
@@ -797,7 +797,8 @@ The commit is now just a text file, and I can hash and store this too:
     cp .fancy_backups/1/commit .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
     cp .fancy_backups/2/commit .fancy_backups/objects/015447b3e9ec05f476a6daf42484dd28c021e8a7
 
-Would the commit hash value change if the figure changed?
+Would the commit hash value change if the figure changed?  (answer
+[#commit-figure]_).
 
 Now look in ``.fancy_backups/objects``:
 
@@ -2527,6 +2528,15 @@ they offer.
    On Debian or Ubuntu you can use ``sudo apt-get install tree``. For OSX you
    might want to use something like homebrew (``brew install tree``).  I have
    not tried installing ``tree`` on Windows.
+.. [#list-figure] Would I get the same hash for the directory listing if I had
+   had a different figure?  No |--| because the figure hash would be
+   different, the directory listing would contain this different hash, and so
+   the hash for the directory listing must be different.
+.. [#commit-figure] Would the commit hash value change if the figure changed?
+   Yes, because the change in the figure would cause a different hash for the
+   figure; this would cause a different hash for the directory listing, and
+   this hash in turn appears in the commit contents, causing a different hash
+   for the commit.
 .. [#git-object-dir] When git stores a file in the ``.git/objects`` directory,
    it makes a hash from the file, takes the first two digits of the hash to
    make a directory name, and then stores a file in this directory with a
