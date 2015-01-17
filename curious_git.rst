@@ -1120,7 +1120,7 @@ We can also ask to the see the parents of each commit in the log:
     git log --parents
 
 Why are the output of ``git log`` and ``git log --parents`` the same in this
-case?
+case? (answer [#no-parents]_).
 
 git branch - which branch are we on?
 ====================================
@@ -1206,7 +1206,7 @@ is:
 * do some changes in the working tree;
 * ``git status`` and ``git diff`` to review what has changed;
 * ``git add`` to add the changes to the staging area;
-* ``git commit``
+* ``git commit``;
 
 and repeat, and repeat.
 
@@ -2537,6 +2537,9 @@ they offer.
    figure; this would cause a different hash for the directory listing, and
    this hash in turn appears in the commit contents, causing a different hash
    for the commit.
+.. [#no-parents] Why are the output of ``git log`` and ``git log --parents``
+   the same in this case?  They are the same because this is the first commit,
+   and the first commit has no parents.
 .. [#git-object-dir] When git stores a file in the ``.git/objects`` directory,
    it makes a hash from the file, takes the first two digits of the hash to
    make a directory name, and then stores a file in this directory with a
