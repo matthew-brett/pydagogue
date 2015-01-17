@@ -158,7 +158,7 @@ It's the last of these three that is a little strange, so we will explore.
 Storing the current commit of ``myproject``
 ===========================================
 
-Why do I say that git "claims" to have made a new file to record the
+Why do I say that git "claimed" to have made a new file to record the
 "myproject" commit?
 
 Remember that we had three files in the ``.git/objects`` directory of "super"
