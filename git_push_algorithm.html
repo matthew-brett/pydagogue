@@ -95,11 +95,11 @@ commit path.</p>
 <p>Something like this algorithm might do the job:</p>
 <ol class="arabic simple">
 <li>Get the commit hash corresponding the branch we are going to push;</li>
-<li>Follow every <a class="reference internal" href="curious_git.html#git-graph"><em>commit path</em></a> back from this commit, until we hit a commit hash
-(filename) that the remote has.  All the previous commits on the path, that
-the remote does not have, are <em>missing commits</em>; #. For every <em>missing
-commit</em> get the corresponding tree (directory listing) object.  If the tree
-object is not in the remote objects directory, add to
+<li>Follow every commit path (see above)back from this commit, until we hit a
+commit hash (filename) that the remote has.  All the previous commits on
+the path, that the remote does not have, are <em>missing commits</em>;</li>
+<li>For every <em>missing commit</em> get the corresponding tree (directory listing)
+object.  If the tree object is not in the remote objects directory, add to
 the list of <em>missing trees</em>;</li>
 <li>For every <em>missing tree</em> read the tree directory listing. Find any blob
 (file) objects in the directory listing that are not in the remote objects

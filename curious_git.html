@@ -994,7 +994,7 @@ used it before I wrote this tutorial.  So, feel free to forget the
 <tt class="docutils literal"><span class="pre">.git/objects</span></tt>, with filename <tt class="docutils literal"><span class="pre">d9/2d079af6a7f276cc8d63dcf2549c03e7deb553</span></tt>.  The filename is
 in fact a hash, where the first two digits form the directory name
 (<tt class="docutils literal"><span class="pre">d9</span></tt>) and the rest of the digits are the filename
-<a class="footnote-reference" href="#git-object-dir" id="id4">[4]</a>.</p>
+<a class="footnote-reference" href="#git-object-dir" id="id4">[5]</a>.</p>
 <p>Here&#8217;s the contents of the object:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p d92d079af6a7f276cc8d63dcf2549c03e7deb553
 The brain is just a <span class="nb">set </span>of random <span class="nv">numbers</span>
@@ -1170,7 +1170,7 @@ Date:   Sun Apr 1 11:13:13 2012 +0100
 </pre></div>
 </div>
 <p>Why are the output of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--parents</span></tt> the same in this
-case?</p>
+case? (answer <a class="footnote-reference" href="#no-parents" id="id5">[4]</a>).</p>
 </div>
 <div class="section" id="git-branch-which-branch-are-we-on">
 <h3>git branch - which branch are we on?<a class="headerlink" href="#git-branch-which-branch-are-we-on" title="Permalink to this headline">¶</a></h3>
@@ -1262,7 +1262,7 @@ is:</p>
 <li>do some changes in the working tree;</li>
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">status</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> to review what has changed;</li>
 <li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> to add the changes to the staging area;</li>
-<li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></tt>;</li>
 </ul>
 <p>and repeat, and repeat.</p>
 <p>For example, we have now done some work in the working tree.</p>
@@ -1670,7 +1670,7 @@ to a particular commit:</p>
 <div class="section" id="heads-and-refs">
 <h3>Heads and refs<a class="headerlink" href="#heads-and-refs" title="Permalink to this headline">¶</a></h3>
 <p>For git, a <em>reference</em> or a <em>ref</em> is a name that refers to another object. A
-reference almost invariably points to a commit object <a class="footnote-reference" href="#tag-other-objects" id="id5">[5]</a>.</p>
+reference almost invariably points to a commit object <a class="footnote-reference" href="#tag-other-objects" id="id6">[6]</a>.</p>
 <p>For example a branch is a reference, and so is a tag. Remember that git stores
 branches and tags in <tt class="docutils literal"><span class="pre">.git/refs</span></tt>.</p>
 <p>A <em>head</em> is a reference to a commit that updates when we do <tt class="docutils literal"><span class="pre">git</span> <span class="pre">commit</span></tt>.
@@ -2031,7 +2031,7 @@ refs
 files in the <tt class="docutils literal"><span class="pre">/Volumes/my_usb_disk</span></tt> backup
 repository, we will only be editing files in our local <tt class="docutils literal"><span class="pre">nobel_prize</span></tt>
 directory, committing those changes locally (as we have done above), and then
-&#8220;pushing&#8221; these changes to the backup repository <a class="footnote-reference" href="#bare-detail" id="id6">[6]</a>.</p>
+&#8220;pushing&#8221; these changes to the backup repository <a class="footnote-reference" href="#bare-detail" id="id7">[7]</a>.</p>
 </div>
 <div class="section" id="tell-the-current-git-repository-about-the-backup-repository">
 <h4>Tell the current git repository about the backup repository<a class="headerlink" href="#tell-the-current-git-repository-about-the-backup-repository" title="Permalink to this headline">¶</a></h4>
@@ -2751,10 +2751,18 @@ this hash in turn appears in the commit contents, causing a different hash
 for the commit.</td></tr>
 </tbody>
 </table>
+<table class="docutils footnote" frame="void" id="no-parents" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[4]</a></td><td>Why are the output of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--parents</span></tt>
+the same in this case?  They are the same because this is the first commit,
+and the first commit has no parents.</td></tr>
+</tbody>
+</table>
 <table class="docutils footnote" frame="void" id="git-object-dir" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>When git stores a file in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory,
+<tr><td class="label"><a class="fn-backref" href="#id4">[5]</a></td><td>When git stores a file in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory,
 it makes a hash from the file, takes the first two digits of the hash to
 make a directory name, and then stores a file in this directory with a
 filename from the remaining hash digits.  For example, when adding a file
@@ -2770,7 +2778,7 @@ files.</td></tr>
 <table class="docutils footnote" frame="void" id="tag-other-objects" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>You might have guessed by now that a tag can refer to
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>You might have guessed by now that a tag can refer to
 any git object, not just a commit.  For example a tag can refer to a tree
 (directory listing) or blob (file) object, although in practice tags almost
 always refer to commits.</td></tr>
@@ -2779,7 +2787,7 @@ always refer to commits.</td></tr>
 <table class="docutils footnote" frame="void" id="bare-detail" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>The reason we need a bare repository for our backup goes
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>The reason we need a bare repository for our backup goes
 deeper than the fact we do not need a working tree.  We are soon going to
 do a <tt class="docutils literal"><span class="pre">push</span></tt> to this backup repository.  The <tt class="docutils literal"><span class="pre">push</span></tt> has the effect of
 resetting the position of a branch (usually <tt class="docutils literal"><span class="pre">master</span></tt>) in the backup repo.
