@@ -11,33 +11,38 @@ See also:
 * http://effbot.org/zone/unicode-objects.htm
 * http://wiki.python.org/moin/Unicode
 
-Python supports unicode with unicode strings::
+Python 2 supports unicode with unicode strings::
 
    s = u'Hello world'
 
-There are various ways of inputing characters you cannot type at your
-prompt.  The simplest is to give the unicode code point in hexadecimal:
+Python 3 strings are always unicode. Python 3 as of Python 3.3 allows (but
+ignores) the ``u`` prefix for strings, so I will use that convention for
+unicode strings for compatibility with Python 2 and Python 3.
+
+There are various ways of inputing characters you cannot type at your prompt.
+The most basic is to give the unicode code point in hexadecimal::
 
    question = u'\u00bfHabla espa\u00f1ol?'  # ¿Habla español?
 
-where ``00bf`` is the code for the inverted question mark; see
-http://www.unicode.org/Public/UNIDATA/UnicodeData.txt.  Use the
+where ``00bf`` is the hexadecimal unicode code point for the inverted question
+mark; see http://www.unicode.org/Public/UNIDATA/UnicodeData.txt.  Use the
 ``\u0000`` format, i.e. ``\u`` followed by 4 hexadecimal digits.  For code
-points outside the 16 bit range (outside the BMP - see
-:ref:`introducing-unicode` - use capital U and eight hexadecimal digits, like
-this::
+points outside the 16 bit range (outside the BMP |--| see
+:ref:`introducing-unicode`) |--| use capital ``U`` and eight hexadecimal
+digits, like this::
 
    complicated = u'\U0001D11A is musical symbol 5 line staff'
 
-See below for some complications of using these 32 bit unicode
-characters in python though.
+See below for some complications of using these 32 bit unicode characters in
+some builds of python 2.
 
 You can also use the standard unicode name (see
 http://www.unicode.org/Public/UNIDATA/UnicodeData.txt )::
 
    less_opaque = u'\N{MUSICAL SYMBOL FIVE-LINE STAFF} is more obviously a five line staff'
 
-To create an utf-8 encoded version of a string - for example to write to a text file::
+To create an UTF-8 encoded version of a string - for example to write to a
+text file::
 
    question = u'\u00bfHabla espa\u00f1ol?'  # ¿Habla español?
    raw_str = question.encode('utf-8')
@@ -53,43 +58,56 @@ To get a unicode string from text that has been encoded::
 
    question = raw_str.decode('utf-8')
 
+In Python 3, ``raw_str`` will be a *byte string* rather than a standard
+(unicode) string.
+
 Python internal encoding of unicode strings
 -------------------------------------------
 
-Python - as of version 2.2 - either stores its unicode strings in UCS-2
-or UCS-4 format.  See :ref:`introducing-unicode` for definitions of
-UCS-2 and UCS-4.  Which one of these it uses is dictated by a compile
-time flag such as ``-enable-unicode=ucs2``.
+The internal encoding of unicode strings depends on the version of Python.
 
-To tell which format your python uses::
+Python versions 2.2 through 3.2
+-------------------------------
+
+The internal representation of unicode stirngs Pythons 2.2 through 3.2 depends
+on flags with which the Python program binary was built.  Pythons built with
+the build flag ``--enable-unicode=ucs2`` `use UTF-16 as the internal
+representation
+<https://mail.python.org/pipermail/python-dev/2008-July/080892.html>`_.  Yes,
+it is confusing that the flag value is ``ucs2`` and the actual result is
+UTF-16.  Pythons built with build flag ``--enable-unicode=ucs4`` use UCS-4 (or
+equivalently, UTF-32) as their internal representation.
+
+To tell which format your Python uses::
 
    import sys
-   ucs2 = sys.maxunicode == 65535
+   utf_16 = sys.maxunicode == 65535
 
 
-If ucs2 is True, you have UCS2, otherwise you have UCS4.
+If ``utf_16`` is True, you have a UTF-16 build, otherwise you have UCS4.
 
 See also:
 
 * http://www.python.org/dev/peps/pep-0100/
 * http://www.python.org/dev/peps/pep-0261/
 
-Python and 32 bit unicode code points
--------------------------------------
+UTF-16 (ucs2) builds of Python and 32 bit unicode code points
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have a UCS-2 build of python, and want to use a 32 bit code
-point, then some oddness occurs::
+If you have a UTF-16 build of python, and want to use a 32 bit code point,
+then some oddness occurs::
 
    complicated = u'\U0001D11A '
    print ord(complicated[0])
    print ord(complicated[1])
 
-On a UCS-2 build the above gives you::
+On a UTF-16 build the above gives you::
 
    55348
    56602
 
-In this case, the 32 bit value has been represented by two 16 bit values - a **surrogate pair** - see :ref:`introducing-unicode`.
+In this case, the 32 bit value has been represented by two 16 bit values - a
+UTF-16 **surrogate pair** - see :ref:`introducing-unicode`.
 
 On a UCS-4 build you get::
 
@@ -101,8 +119,15 @@ decimal representation of hexadecimal 1D11A.  The difference between the two
 builds can mean some oddness in slicing strings... (as noted in
 http://www.python.org/dev/peps/pep-0261/).
 
-Recent discussion about UCS-2, UCS-4 and Python 3 here:
+Some discussion about UTF-16 / UCS-2, UCS-4 and Python 3 here:
 http://mail.python.org/pipermail/python-dev/2008-July/080886.html
+
+Python versions from 3.3
+------------------------
+
+Python versions 3.3 and above use a flexible internal representation of the
+string that depends on the string contents |--| see
+http://www.python.org/dev/peps/pep-0393.
 
 Relevant python modules and commands
 ------------------------------------
@@ -126,12 +151,12 @@ String methods
 Builtins
 ========
 
-* unichr - unicode equivalent of ``chr``
-* unicode - constructor for unicode strings
+* unichr - unicode equivalent of ``chr`` in Python 2.
+* unicode - constructor for unicode strings in Python 2.
 
 Exceptions:
 ===========
 
 * UnicodeEncodeError
 
-
+.. include:: links_names.inc

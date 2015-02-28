@@ -61,11 +61,12 @@ the character.  This encoding is referred to as Universal Character Set
 4 (UCS-4) or Unicode Transformation Format 32 (UTF-32):
 http://en.wikipedia.org/wiki/UTF-32/UCS-4
 
-Unicode characters above hexadecimal FFFF (and outside the BMP) are very rare,
-and so another simple way of representing almost all common unicode strings is
-to have one 16 bit value per character; this is UCS-2.  Because it cannot
-encode all unicode strings, UCS-2 has become increasingly uncommon:
-http://en.wikipedia.org/wiki/UTF-16/UCS-2
+Unicode characters above hexadecimal FFFF (and outside the BMP) are rare in
+most languages, and so another simple way of representing common unicode
+strings is to have just one 16 bit value per character; this is UCS-2.
+Because it cannot encode all unicode strings, UCS-2 has become increasingly
+uncommon: http://en.wikipedia.org/wiki/UTF-16/UCS-2. UCS-2 is a strict subset
+of UTF-16 (see below).
 
 Variable width encoding
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +74,7 @@ Variable width encoding
 Variable width encoding represents individual characters with different
 numbers of bytes. Thus a string representing a single code point with a
 variable width encoding could be 1 to 4 bytes long, depending on the
-code point it contained.
+code point it contained and the encoding you are using.
 
 A common encoding for unicode is UTF-8; this is standard with most Linux
 distributions and many multilingual web pages:
@@ -88,3 +89,10 @@ http://en.wikipedia.org/wiki/UTF-16/UCS-2.  The two 16 bit values are
 referred to as a 'surrogate pair' - see the **surrogate pair** entry in
 the Unicode glossary: http://www.unicode.org/glossary/#S.  UTF-16 is the
 standard encoding for modern versions of windows.
+
+UCS-2 (see above) is a struct subset of UTF-16 in that UTF-16 also uses only
+one 16-bit word value to encode all characters supported by UCS-2 (see "Q:
+What is the difference between UCS-2 and UTF-16?" in
+http://www.unicode.org/faq/utf_bom.html).  This is possible because the first
+16-bit character in UTF-16 surrogate pairs use the hex range D80016 to DBFF,
+and there are not defined unicode code points (characters) in this range.
