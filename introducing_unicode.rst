@@ -25,18 +25,18 @@ job of defining which code point corresponds to which character.  The
 correspondence of code points to characters is published in the Unicode
 Character Database - the latest version of which should be at
 http://www.unicode.org/Public/UNIDATA/.  To refer to a code point it is
-conventional to use octal - for example code point U+00E9 is the latin
+conventional to use hexadecimal - for example code point U+00E9 is the latin
 small letter e with an acute accent.
 
-The code points up to 128 (octal 7F) are identical to the ascii
+The code points up to 128 (hexadecimal 7F) are identical to the ascii
 character codes; so for example ``U+0065`` is the latin letter e.
 
-Code points from 0 to 65535 (octal FFFF) represent characters in the
+Code points from 0 to 65535 (hexadecimal FFFF) represent characters in the
 Basic Multilingual Plane (BMP).  The BMP contains characters for almost
 all modern languages, including Chinese, as well as a large number of
-symbols.  Codes outside the BMP (octal 10000 and above) include some
-modern Chinese characters, various historical scripts and characters,
-and musical and mathematical symbols - see
+symbols.  Codes outside the BMP (hexadecimal 10000 and above) include some
+modern Chinese characters, various historical scripts and characters, and
+musical and mathematical symbols - see
 http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters.
 
 Encoding
@@ -61,11 +61,11 @@ the character.  This encoding is referred to as Universal Character Set
 4 (UCS-4) or Unicode Transformation Format 32 (UTF-32):
 http://en.wikipedia.org/wiki/UTF-32/UCS-4
 
-Unicode characters above octal FFFF (and outside the BMP) are very rare,
-and so another simple way of representing almost all common unicode
-strings is to have one 16 bit value per character; this is UCS-2.
-Because it cannot encode all unicode strings, UCS-2 has become
-increasingly uncommon: http://en.wikipedia.org/wiki/UTF-16/UCS-2
+Unicode characters above hexadecimal FFFF (and outside the BMP) are very rare,
+and so another simple way of representing almost all common unicode strings is
+to have one 16 bit value per character; this is UCS-2.  Because it cannot
+encode all unicode strings, UCS-2 has become increasingly uncommon:
+http://en.wikipedia.org/wiki/UTF-16/UCS-2
 
 Variable width encoding
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,9 +78,9 @@ code point it contained.
 A common encoding for unicode is UTF-8; this is standard with most Linux
 distributions and many multilingual web pages:
 http://en.wikipedia.org/wiki/UTF-8.  A single unicode code point can be
-represented by up to four bytes.  Code points in the ascii range (0 to
-7F) only need one byte, so this format is very space efficient for most
-western text.
+represented by up to four bytes.  Code points in the ascii range (0 to 7F)
+only need one byte, so this format is very space efficient for most western
+text.
 
 UTF-16 uses one 16 bit value for characters in the BMP, but two 16 bit
 values for characters outside the BMP:

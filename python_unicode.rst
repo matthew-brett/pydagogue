@@ -16,15 +16,15 @@ Python supports unicode with unicode strings::
    s = u'Hello world'
 
 There are various ways of inputing characters you cannot type at your
-prompt.  The simplest is to give the unicode code point in octal::
+prompt.  The simplest is to give the unicode code point in hexadecimal:
 
    question = u'\u00bfHabla espa\u00f1ol?'  # ¿Habla español?
 
 where ``00bf`` is the code for the inverted question mark; see
 http://www.unicode.org/Public/UNIDATA/UnicodeData.txt.  Use the
-``\u0000`` format, i.e. ``\u`` followed by 4 octal digits.  For code
+``\u0000`` format, i.e. ``\u`` followed by 4 hexadecimal digits.  For code
 points outside the 16 bit range (outside the BMP - see
-:ref:`introducing-unicode` - use capital U and eight octal digits, like
+:ref:`introducing-unicode` - use capital U and eight hexadecimal digits, like
 this::
 
    complicated = u'\U0001D11A is musical symbol 5 line staff'
@@ -97,7 +97,7 @@ On a UCS-4 build you get::
    32
 
 which might have been more what you were expecting - 119066 is the
-decimal representation of octal 1D11A.  The difference between the two
+decimal representation of hexadecimal 1D11A.  The difference between the two
 builds can mean some oddness in slicing strings... (as noted in
 http://www.python.org/dev/peps/pep-0261/).
 
