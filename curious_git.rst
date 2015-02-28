@@ -113,12 +113,12 @@ I'll say that again.  Git is a content management system.  To quote from the
 stupid content tracker".
 
 The reason that this is important is that git thinks in a very simple way
-about files and directories.  You will ask git to keep backups of files in a
+about files and directories.  You will ask git to keep snapshots of files in a
 directory, and it does just this; it stores snapshots of the files, so you can
 go back to them later.
 
 Here is a story where we develop a very simple system for storing file
-backups.  We soon find it starts to look just like git.
+snapshots.  We soon find it starts to look just like git.
 
 ****************
 A familiar story
@@ -201,7 +201,7 @@ Make regular snapshots
 ======================
 
 You decide to make your own content management system called
-``fancy_backups``.
+*fancy_snapshots*.
 
 It's very simple.
 
@@ -211,7 +211,7 @@ of the analysis directory.
 The snapshot is just a copy of all the files in the directory, kept
 somewhere safe.
 
-You make a directory to store the snapshots called ``.fancy_backups``:
+You make a directory to store the snapshots called ``.fancy_snapshots``:
 
 .. desktoprun:: bash
 
@@ -220,22 +220,22 @@ You make a directory to store the snapshots called ``.fancy_backups``:
 
 .. prizerun::
 
-    # Make the ".fancy_backups" directory
-    mkdir .fancy_backups
+    # Make the ".fancy_snapshots" directory
+    mkdir .fancy_snapshots
 
 Then you make a directory for the first backup:
 
 .. prizerun::
 
-    mkdir .fancy_backups/1
-    mkdir .fancy_backups/1/files
+    mkdir .fancy_snapshots/1
+    mkdir .fancy_snapshots/1/files
 
 And you copy the files there:
 
 .. prizerun::
 
     # Copy all files in curent directory to backup directory
-    cp * .fancy_backups/1/files
+    cp * .fancy_snapshots/1/files
 
 Reminding yourself of what you did
 ==================================
@@ -246,7 +246,7 @@ this file ``info.txt``.  So, we write something like this:
 
 .. prizewrite::
 
-    # file: .fancy_backups/1/info.txt
+    # file: .fancy_snapshots/1/info.txt
     Date: April 1 2012, 14.30
     Author: I. M. Awesome
     Notes: First backup of my amazing idea
@@ -266,15 +266,15 @@ way. After a few days:
     # Append some text to nobel_prize_paper.txt
     echo "The charts are very impressive" >> nobel_prize_paper.txt
     # Make a new snapshot
-    mkdir .fancy_backups/2
-    mkdir .fancy_backups/2/files
-    cp * .fancy_backups/2/files
+    mkdir .fancy_snapshots/2
+    mkdir .fancy_snapshots/2/files
+    cp * .fancy_snapshots/2/files  # Copy all working directory files
 
 We make a new ``info.txt`` file describing what is new in this snapshot:
 
 .. prizewrite::
 
-    # file: .fancy_backups/2/info.txt
+    # file: .fancy_snapshots/2/info.txt
     Date: April 1 2012, 18.03
     Author: I. M. Awesome
     Notes: Fruit of enormous thought
@@ -286,15 +286,15 @@ The next day we write a little more on our paper:
     # Append some more text to nobel_prize_paper.txt
     echo "The graphs are also compelling" >> nobel_prize_paper.txt
     # Make another shapshot
-    mkdir .fancy_backups/3
-    mkdir .fancy_backups/3/files
-    cp * .fancy_backups/3/files
+    mkdir .fancy_snapshots/3
+    mkdir .fancy_snapshots/3/files
+    cp * .fancy_snapshots/3/files  # Copy all working directory files
 
 We add a description of these changes:
 
 .. prizewrite::
 
-    # file: .fancy_backups/3/info.txt
+    # file: .fancy_snapshots/3/info.txt
     Date: April 2 2012, 11.20
     Author: I. M. Awesome
     Notes: Now seeing things clearly
@@ -312,23 +312,23 @@ talk to Josephine. By now you have 5 snapshots.
     :hide:
 
     # Make the next couple of commits
-    cp -r .fancy_backups/3 .fancy_backups/4
-    echo "Increasing anxiety" > .fancy_backups/4/files/nobel_prize_paper.txt
-    cp -r .fancy_backups/3 .fancy_backups/5
+    cp -r .fancy_snapshots/3 .fancy_snapshots/4
+    echo "Increasing anxiety" > .fancy_snapshots/4/files/nobel_prize_paper.txt
+    cp -r .fancy_snapshots/3 .fancy_snapshots/5
     # Copy the other version of the stunning figure
-    cp ../../extras/stunning_figure.png.v2 .fancy_backups/5/files/stunning_figure.png
-    echo "random_data[0, 0] = 42" > .fancy_backups/5/files/very_clever_analysis.py
+    cp ../../extras/stunning_figure.png.v2 .fancy_snapshots/5/files/stunning_figure.png
+    echo "random_data[0, 0] = 42" > .fancy_snapshots/5/files/very_clever_analysis.py
 
 The future has not changed. Josephine again thinks the results have
 changed. But now - you can check.
 
 You go back and look at the original figure in
-``.fancy_backups/1/stunning_figure.png``. It does look different.
+``.fancy_snapshots/1/stunning_figure.png``. It does look different.
 
-You go through all the ``.fancy_backups`` directories in order. It turns
-out that the figure changes in ``.fancy_backups/5``.
+You go through all the ``.fancy_snapshots`` directories in order, `1, 2, 3, 4,
+5`. It turns out that the figure changes in ``.fancy_snapshots/5``.
 
-You look in ``.fancy_backups/5/info.txt`` and it says::
+You look in ``.fancy_snapshots/5/info.txt`` and it says::
 
     Date: April 4 2012, 01.40
     Author: I. M. Awesome
@@ -336,19 +336,19 @@ You look in ``.fancy_backups/5/info.txt`` and it says::
 
 Aha. Then you find the problem in ``very_clever_analysis.py`` very quickly
 since instead of eyeballing the entire script you need to inspect only the
-difference between ``fancy_backups/4/very_clever_analysis.py`` and
-``fancy_backups/5/very_clever_analysis.py`` to find the not so ingenious
+difference between ``.fancy_snapshots/4/very_clever_analysis.py`` and
+``.fancy_snapshots/5/very_clever_analysis.py`` to find the not so ingenious
 *optimization* you have introduced.
 
 You fix ``very_clever_analysis.py``.
 
-You make a new snapshot ``.fancy_backups/6``.
+You make a new snapshot ``.fancy_snapshots/6``.
 
 .. prizerun::
     :hide:
 
     # Cheat to make a new commit
-    cp -r .fancy_backups/3 .fancy_backups/6
+    cp -r .fancy_snapshots/3 .fancy_snapshots/6
 
 Back on track for a scientific breakthrough.
 
@@ -368,7 +368,7 @@ Repository
     is the repository.
 
 Commit
-    A completed snapshot. For example, ``.fancy_backups/1`` contains one
+    A completed snapshot. For example, ``.fancy_snapshots/1`` contains one
     commit.
 
 We'll use these terms to get used to them.
@@ -398,14 +398,14 @@ The staging area
 ================
 
 You adapt the workflow. Each time you have done a commit, you copy the contents of
-the commit to directory ``.fancy_backups/staging_area``. That will be the
+the commit to directory ``.fancy_snapshots/staging_area``. That will be the
 default contents to be considered for your next commit.
 
 .. prizerun::
 
-    mkdir .fancy_backups/staging_area
-    cp .fancy_backups/6/files/* .fancy_backups/staging_area
-    ls .fancy_backups/staging_area
+    mkdir .fancy_snapshots/staging_area
+    cp .fancy_snapshots/6/files/* .fancy_snapshots/staging_area
+    ls .fancy_snapshots/staging_area
 
 Now, you do your edits to ``nobel_prize_paper.txt``, and
 ``very_clever_analysis.py`` in your *working tree* (the ``nobel_prize``
@@ -414,7 +414,7 @@ but not the changes to the script.  You get ready for the next commit with:
 
 .. prizerun::
 
-    cp nobel_prize_paper.txt .fancy_backups/staging_area
+    cp nobel_prize_paper.txt .fancy_snapshots/staging_area
 
 The staging area now contains all the files for the upcoming commit
 (snapshot). The upcoming commit only has the changes in the paper.
@@ -425,16 +425,16 @@ of the staging area into the commit ``files`` directory:
 .. prizerun::
 
     # Make commit directories
-    mkdir .fancy_backups/7
-    mkdir .fancy_backups/7/files
+    mkdir .fancy_snapshots/7
+    mkdir .fancy_snapshots/7/files
     # Copy contents of staging area into commit directory
-    cp .fancy_backups/staging_area/* .fancy_backups/7/files
+    cp .fancy_snapshots/staging_area/* .fancy_snapshots/7/files
 
 with message:
 
 .. prizewrite::
 
-    # file: .fancy_backups/7/info.txt
+    # file: .fancy_snapshots/7/info.txt
     Date: April 10 2012, 14.30
     Author: I. M. Awesome
     Notes: Changes to introduction
@@ -446,31 +446,31 @@ the analysis script.
 
 .. prizerun::
 
-    cp very_clever_analysis.py .fancy_backups/staging_area
+    cp very_clever_analysis.py .fancy_snapshots/staging_area
 
 The commit is now *staged* and ready to be saved.
 
 .. prizerun::
 
     # Our commit procedure; same as last time with "8" instead of "7"
-    mkdir .fancy_backups/8
-    mkdir .fancy_backups/8/files
-    cp .fancy_backups/staging_area/* .fancy_backups/8/files
+    mkdir .fancy_snapshots/8
+    mkdir .fancy_snapshots/8/files
+    cp .fancy_snapshots/staging_area/* .fancy_snapshots/8/files
 
 The message is:
 
 .. prizewrite::
 
-    # file: .fancy_backups/8/info.txt
+    # file: .fancy_snapshots/8/info.txt
     Date: April 10 2012, 14.35
     Author: I. M. Awesome
     Notes: Crazy new analysis
 
-Here is what you have in your ``.fancy_backups`` directory:
+Here is what you have in your ``.fancy_snapshots`` directory:
 
 .. prizerun::
 
-    tree -a .fancy_backups
+    tree -a .fancy_snapshots
 
 Now the very difficult problem
 ==============================
@@ -480,7 +480,7 @@ Let's say that the figure ``stunning_figure.png`` is large.
 Let's say it changes only once across our 8 commits, at commit 5, but
 we keep copying it again and again to new commits.
 
-What should we do to save disk space for ``.fancy_backups``?
+What should we do to save disk space for ``.fancy_snapshots``?
 
 Cryptographic hashes
 ====================
@@ -559,41 +559,41 @@ First we make a directory to put the unique file contents:
 
 .. prizerun::
 
-    mkdir .fancy_backups/objects
+    mkdir .fancy_snapshots/objects
 
 We calculate the hash for the first version of the figure:
 
 .. prizerun::
 
-    shasum .fancy_backups/1/files/stunning_figure.png
+    shasum .fancy_snapshots/1/files/stunning_figure.png
 
 We copy the first version of the figure there using its hash as a unique
 filename:
 
 .. prizerun::
 
-    cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
+    cp .fancy_snapshots/1/files/stunning_figure.png .fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864
 
 We do the same thing for the second version of the figure:
 
 .. prizerun::
 
-    shasum .fancy_backups/5/files/stunning_figure.png
+    shasum .fancy_snapshots/5/files/stunning_figure.png
 
 .. prizerun::
 
-    cp .fancy_backups/5/files/stunning_figure.png .fancy_backups/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f
+    cp .fancy_snapshots/5/files/stunning_figure.png .fancy_snapshots/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f
 
 We will tell commits 1 through 4 to use
-``.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864`` for
+``.fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864`` for
 ``stunning_figure.png``.
 
 Commits 5 though 8 will use
-``.fancy_backups/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f`` for
+``.fancy_snapshots/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f`` for
 ``stunning_figure.png``.
 
 Now what happens if Josephine and I make different figures and do the same
-procedure of copying to ``.fancy_backups/objects``?  If our two figures are
+procedure of copying to ``.fancy_snapshots/objects``?  If our two figures are
 different, then they will have different hashes, and therefore different
 filenames, so they will not clash with each other.  If the two figures happen
 to be the same, then they will have the same hash, and the same filename, so
@@ -613,53 +613,53 @@ So we don't get our commits mixed up, I'll delete everything in the
 
 .. prizerun::
 
-    rm -rf .fancy_backups/objects/*
+    rm -rf .fancy_snapshots/objects/*
 
 Copy the figure for the first commit again:
 
 .. prizerun::
 
-    cp .fancy_backups/1/files/stunning_figure.png .fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864
+    cp .fancy_snapshots/1/files/stunning_figure.png .fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864
 
 Do the same for the other two files in the first commit.
 
 .. prizerun::
 
-    shasum .fancy_backups/1/files/nobel_prize_paper.txt
+    shasum .fancy_snapshots/1/files/nobel_prize_paper.txt
 
 .. prizerun::
 
-    cp .fancy_backups/1/files/nobel_prize_paper.txt .fancy_backups/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
+    cp .fancy_snapshots/1/files/nobel_prize_paper.txt .fancy_snapshots/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
 
 .. prizerun::
 
-    shasum .fancy_backups/1/files/very_clever_analysis.py
+    shasum .fancy_snapshots/1/files/very_clever_analysis.py
 
 .. prizerun::
 
-    cp .fancy_backups/1/files/very_clever_analysis.py .fancy_backups/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
+    cp .fancy_snapshots/1/files/very_clever_analysis.py .fancy_snapshots/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
 
-We now have three new files in ``.fancy_backups/objects``, one corresponding
+We now have three new files in ``.fancy_snapshots/objects``, one corresponding
 to each unique file *contents* we have hashed:
 
 .. prizerun::
 
-    tree -a .fancy_backups/objects
+    tree -a .fancy_snapshots/objects
 
 Making the directory listing
 ----------------------------
 
 We now need to associate the filenames in the commit snapshot with the file
-contents we have just copied to ``.fancy_backups/objects``. For example, we
+contents we have just copied to ``.fancy_snapshots/objects``. For example, we
 have to tell the commit that the file named ``stunning_figure.png`` in first
 commit should get its contents from
-``.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864``.
+``.fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864``.
 
 We do this by making a *directory listing* for the commit:
 
 .. prizewrite::
 
-    # file: .fancy_backups/1/directory_list
+    # file: .fancy_snapshots/1/directory_list
     Filename                Hash value
     ========                ==========
     nobel_prize_paper.txt   3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
@@ -670,7 +670,7 @@ The next commit - saves space!
 ==============================
 
 Now we work on the files from the second commit. These are the files in
-``.fancy_backups/2/files``.
+``.fancy_snapshots/2/files``.
 
 Remember that we only changed ``nobel_prize_paper.txt`` in this commit.
 
@@ -682,14 +682,14 @@ values have not changed.  Because their hash values have not changed, and
 because the hash values are unique to the contents, we already have the files
 we need in the ``objects`` directory.
 
-Specifically, because ``.fancy_backups/2/stunning_figure.png`` is the same as
-``.fancy_backups/1/stunning_figure.png`` we know that the hash is the same,
+Specifically, because ``.fancy_snapshots/2/stunning_figure.png`` is the same as
+``.fancy_snapshots/1/stunning_figure.png`` we know that the hash is the same,
 and the hash is the one we've already calculated,
 ``aff88ecead2c7166770969a54dc855c8b91be864``.  We already have a file
-``.fancy_backups/objects/aff88ecead2c7166770969a54dc855c8b91be864``, and we
+``.fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864``, and we
 know, because the hash values are unique, that this file must contain the
-exact contents of ``.fancy_backups/1/stunning_figure.png``, which is also the
-exact contents of ``.fancy_backups/2/stunning_figure.png``.
+exact contents of ``.fancy_snapshots/1/stunning_figure.png``, which is also the
+exact contents of ``.fancy_snapshots/2/stunning_figure.png``.
 
 So in general, if we do a hash on a file, and then we find a filename the same
 as this hash in the objects directory, we already have that exact contents
@@ -699,23 +699,23 @@ Here are the hashes for the files in commit 2:
 
 .. prizerun::
 
-    shasum .fancy_backups/2/files/nobel_prize_paper.txt
-    shasum .fancy_backups/2/files/stunning_figure.png
-    shasum .fancy_backups/2/files/very_clever_analysis.py
+    shasum .fancy_snapshots/2/files/nobel_prize_paper.txt
+    shasum .fancy_snapshots/2/files/stunning_figure.png
+    shasum .fancy_snapshots/2/files/very_clever_analysis.py
 
 We already have files ``aff88ecead2c7166770969a54dc855c8b91be864`` and
-``e7f3ca9157fd7088b6a927a618e18d4bc4712fb6`` in ``.fancy_backups/objects``, so
+``e7f3ca9157fd7088b6a927a618e18d4bc4712fb6`` in ``.fancy_snapshots/objects``, so
 the only file we need to copy is ``nobel_prize_paper.txt``:
 
 .. prizerun::
 
-    cp .fancy_backups/2/files/nobel_prize_paper.txt .fancy_backups/objects/90aa1015732676bf63d2d950714a1f11196875fc
+    cp .fancy_snapshots/2/files/nobel_prize_paper.txt .fancy_snapshots/objects/90aa1015732676bf63d2d950714a1f11196875fc
 
 Here then is our directory listing for commit 2:
 
 .. prizewrite::
 
-    # file: .fancy_backups/2/directory_list
+    # file: .fancy_snapshots/2/directory_list
     Filename                Hash value
     ========                ==========
     nobel_prize_paper.txt   90aa1015732676bf63d2d950714a1f11196875fc
@@ -731,23 +731,23 @@ Here is the hash for the directory listing of the first commit:
 
 .. prizerun::
 
-    shasum .fancy_backups/1/directory_list
+    shasum .fancy_snapshots/1/directory_list
 
 We copy that file to the objects directory as we have for the other files:
 
 .. prizerun::
 
-    cp .fancy_backups/1/directory_list .fancy_backups/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
+    cp .fancy_snapshots/1/directory_list .fancy_snapshots/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
 
 We can do the same for the second commit:
 
 .. prizerun::
 
-    shasum .fancy_backups/2/directory_list
+    shasum .fancy_snapshots/2/directory_list
 
 .. prizerun::
 
-    cp .fancy_backups/2/directory_list .fancy_backups/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
+    cp .fancy_snapshots/2/directory_list .fancy_snapshots/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
 
 Would I get the same hash for the directory listing if I had had a different
 figure? (answer [#list-figure]_).
@@ -766,7 +766,7 @@ file for the first commit might look something like this:
 
 .. prizewrite::
 
-    # file: .fancy_backups/1/commit
+    # file: .fancy_snapshots/1/commit
     Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
     Date: April 1 2012, 14.30
     Author: I. M. Awesome
@@ -779,7 +779,7 @@ The commit file for the second commit might look like this:
 
 .. prizewrite::
 
-    # file: .fancy_backups/2/commit
+    # file: .fancy_snapshots/2/commit
     Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
     Date: April 1 2012, 18.03
     Author: I. M. Awesome
@@ -789,22 +789,22 @@ The commit is now just a text file, and I can hash and store this too:
 
 .. prizerun::
 
-    shasum .fancy_backups/1/commit
-    shasum .fancy_backups/2/commit
+    shasum .fancy_snapshots/1/commit
+    shasum .fancy_snapshots/2/commit
 
 .. prizerun::
 
-    cp .fancy_backups/1/commit .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
-    cp .fancy_backups/2/commit .fancy_backups/objects/015447b3e9ec05f476a6daf42484dd28c021e8a7
+    cp .fancy_snapshots/1/commit .fancy_snapshots/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
+    cp .fancy_snapshots/2/commit .fancy_snapshots/objects/015447b3e9ec05f476a6daf42484dd28c021e8a7
 
 Would the commit hash value change if the figure changed?  (answer
 [#commit-figure]_).
 
-Now look in ``.fancy_backups/objects``:
+Now look in ``.fancy_snapshots/objects``:
 
 .. prizerun::
 
-    tree -a .fancy_backups/objects
+    tree -a .fancy_snapshots/objects
 
 That's 3 file copies for the files from the first commit, 1 file copy from the
 second commit, 2 directory listings (for first and second commit) and two
@@ -813,8 +813,8 @@ commit listings (for the first and second commit) = 8 hash objects.
 Linking the commits
 ===================
 
-Can we completely get rid of our snapshot directories ``.fancy_backups/1``,
-``.fancy_backups/2``?
+Can we completely get rid of our snapshot directories ``.fancy_snapshots/1``,
+``.fancy_snapshots/2``?
 
 The reason for our commit names "1", "2", "3" was so we know that commit "2"
 comes after commit "1" and before commit "3". Now our commits have hash value
@@ -826,7 +826,7 @@ commit:
 
 .. prizerun::
 
-    cat .fancy_backups/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
+    cat .fancy_snapshots/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
 
 We can specify the order by adding the commit hash of the previous (parent)
 commit into the current commit. For example, we can make the second commit
@@ -834,7 +834,7 @@ point back to the first commit like this:
 
 .. prizewrite::
 
-    # file: .fancy_backups/2/info.txt
+    # file: .fancy_snapshots/2/info.txt
     Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
     Parent: 2f5e799e614b4e80c6f5a035ac29e1d16855e409
     Date: April 1 2012, 18.03
@@ -848,7 +848,7 @@ links are given by the hash value in the ``Parent:`` field.
 Git rides in to save the day
 ****************************
 
-Now you have built your own "fancy backups" system, you know how git works
+Now you have built your own "fancy_snaphots" system, you know how git works
 |--| because it works in exactly the same way.  You will recognize hashes for
 files, directories and commits, commits linked by reference to their parents,
 the staging area, and the ``objects`` directory.
@@ -907,7 +907,7 @@ We start off the working tree with the original files for the paper:
 
     # Delete the current contents of 'nobel_prize'
     rm -rf *
-    rm -rf .fancy_backups
+    rm -rf .fancy_snapshots
 
 .. desktoprun::
 
@@ -959,7 +959,7 @@ Looking at real git objects
 ===========================
 
 Git objects are nearly as simple as the objects we were writing in
-``.fancy_backups``.
+``.fancy_snapshots``.
 
 The main difference is that, to save space, they are compressed, in fact
 using a library called ``zlib``.
