@@ -72,16 +72,16 @@ job of defining which code point corresponds to which character.  The
 correspondence of code points to characters is published in the Unicode
 Character Database - the latest version of which should be at
 <a class="reference external" href="http://www.unicode.org/Public/UNIDATA/">http://www.unicode.org/Public/UNIDATA/</a>.  To refer to a code point it is
-conventional to use octal - for example code point U+00E9 is the latin
+conventional to use hexadecimal - for example code point U+00E9 is the latin
 small letter e with an acute accent.</p>
-<p>The code points up to 128 (octal 7F) are identical to the ascii
+<p>The code points up to 128 (hexadecimal 7F) are identical to the ascii
 character codes; so for example <tt class="docutils literal"><span class="pre">U+0065</span></tt> is the latin letter e.</p>
-<p>Code points from 0 to 65535 (octal FFFF) represent characters in the
+<p>Code points from 0 to 65535 (hexadecimal FFFF) represent characters in the
 Basic Multilingual Plane (BMP).  The BMP contains characters for almost
 all modern languages, including Chinese, as well as a large number of
-symbols.  Codes outside the BMP (octal 10000 and above) include some
-modern Chinese characters, various historical scripts and characters,
-and musical and mathematical symbols - see
+symbols.  Codes outside the BMP (hexadecimal 10000 and above) include some
+modern Chinese characters, various historical scripts and characters, and
+musical and mathematical symbols - see
 <a class="reference external" href="http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters">http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters</a>.</p>
 </div>
 <div class="section" id="encoding">
@@ -101,30 +101,37 @@ value for each character, where each 32 bit value is the code point for
 the character.  This encoding is referred to as Universal Character Set
 4 (UCS-4) or Unicode Transformation Format 32 (UTF-32):
 <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-32/UCS-4">http://en.wikipedia.org/wiki/UTF-32/UCS-4</a></p>
-<p>Unicode characters above octal FFFF (and outside the BMP) are very rare,
-and so another simple way of representing almost all common unicode
-strings is to have one 16 bit value per character; this is UCS-2.
-Because it cannot encode all unicode strings, UCS-2 has become
-increasingly uncommon: <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2">http://en.wikipedia.org/wiki/UTF-16/UCS-2</a></p>
+<p>Unicode characters above hexadecimal FFFF (and outside the BMP) are rare in
+most languages, and so another simple way of representing common unicode
+strings is to have just one 16 bit value per character; this is UCS-2.
+Because it cannot encode all unicode strings, UCS-2 has become increasingly
+uncommon: <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2">http://en.wikipedia.org/wiki/UTF-16/UCS-2</a>. UCS-2 is a strict subset
+of UTF-16 (see below).</p>
 </div>
 <div class="section" id="variable-width-encoding">
 <h3>Variable width encoding<a class="headerlink" href="#variable-width-encoding" title="Permalink to this headline">¶</a></h3>
 <p>Variable width encoding represents individual characters with different
 numbers of bytes. Thus a string representing a single code point with a
 variable width encoding could be 1 to 4 bytes long, depending on the
-code point it contained.</p>
+code point it contained and the encoding you are using.</p>
 <p>A common encoding for unicode is UTF-8; this is standard with most Linux
 distributions and many multilingual web pages:
 <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-8">http://en.wikipedia.org/wiki/UTF-8</a>.  A single unicode code point can be
-represented by up to four bytes.  Code points in the ascii range (0 to
-7F) only need one byte, so this format is very space efficient for most
-western text.</p>
+represented by up to four bytes.  Code points in the ascii range (0 to 7F)
+only need one byte, so this format is very space efficient for most western
+text.</p>
 <p>UTF-16 uses one 16 bit value for characters in the BMP, but two 16 bit
 values for characters outside the BMP:
 <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2">http://en.wikipedia.org/wiki/UTF-16/UCS-2</a>.  The two 16 bit values are
 referred to as a &#8216;surrogate pair&#8217; - see the <strong>surrogate pair</strong> entry in
 the Unicode glossary: <a class="reference external" href="http://www.unicode.org/glossary/#S">http://www.unicode.org/glossary/#S</a>.  UTF-16 is the
 standard encoding for modern versions of windows.</p>
+<p>UCS-2 (see above) is a struct subset of UTF-16 in that UTF-16 also uses only
+one 16-bit word value to encode all characters supported by UCS-2 (see &#8220;Q:
+What is the difference between UCS-2 and UTF-16?&#8221; in
+<a class="reference external" href="http://www.unicode.org/faq/utf_bom.html">http://www.unicode.org/faq/utf_bom.html</a>).  This is possible because the first
+16-bit character in UTF-16 surrogate pairs use the hex range D80016 to DBFF,
+and there are not defined unicode code points (characters) in this range.</p>
 </div>
 </div>
 </div>
