@@ -493,9 +493,9 @@ See : `Wikipedia on hash
 functions <http://en.wikipedia.org/wiki/Cryptographic_hash_function>`__.
 
 A *hash* is the result of running a *hash function* over a block of
-data. The hash is a fixed length string that is the *signature* of that
-exact block of data.  One common hash function is called SHA1.  Let's run this
-via the command line:
+data. The hash is a fixed length string that is the characteristic
+*fingerprint* of that exact block of data.  One common hash function is called
+SHA1.  Let's run this via the command line:
 
 .. desktoprun::
 
@@ -505,11 +505,11 @@ via the command line:
     shasum git_is_rude
 
 Not too exciting so far. However, the rather magical nature of this string is
-not yet apparent. This SHA1 hash is a *cryptographic* hash because
+not yet apparent. This SHA1 hash is a *cryptographic* hash because:
 
 * the hash value is (almost) unique to this exact file contents, and
 * it is (almost) impossible to find some other file contents with the same
-  hash
+  hash.
 
 In other words, there is no practical way for you to find another file with
 different contents that will give the same hash.
