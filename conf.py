@@ -200,3 +200,6 @@ latex_documents = [
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+# Set path to mathjax
+mathjax_path="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
