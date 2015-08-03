@@ -51,6 +51,7 @@
 .. Nipy and friends
 .. _nipy: http://nipy.org
 .. _gitwash: http://github.com/matthew-brett/gitwash
+.. _neurodebian: http://neuro.debian.net/
 
 .. Licenses
 .. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
@@ -63,6 +64,9 @@
     http://matthew-brett.github.com/docosx/mac_runtime_link.html
 .. _osx legacy packaging redux:
     http://matthew-brett.github.com/docosx/osx_legacy_package_redux.html
+
+.. This repo
+.. _pydagogue issue : https://github.com/matthew-brett/pydagogue/issues
 
 .. Substitutions
 .. |emdash| unicode:: U+02014
