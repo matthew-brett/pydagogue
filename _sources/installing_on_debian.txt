@@ -24,7 +24,9 @@ Debian and Ubuntu have some special rules for where Python packages go.  See : h
 The main point of interest to us, is that Python packages that you install for
 the Debian / Ubuntu packaged Python using ``apt`` or ``pip`` or ``python
 setup.py install`` go into a folder ``/usr/local/lib/pythonX.Y/dist-packages``
-where X.Y is your Python version (such as ``2.7``).  This is different from Python as compiled from the raw Python source code, which expects by default to install to a folder ``/usr/local/lib/pythonX.Y/site-packages``.
+where X.Y is your Python version (such as ``2.7``).  This is different from
+Python as compiled from the raw Python source code, which expects by default
+to install to a folder ``/usr/local/lib/pythonX.Y/site-packages``.
 
 .. _un-easy-install:
 
@@ -180,5 +182,25 @@ the installed packages::
 
     sudo apt-get install python-vtk
     mkvirtualenv --system-site-packages with-vtk
+
+*********************
+Another good approach
+*********************
+
+Another good approach that can get you the at-or-near-latest packages quickly,
+is to install packages from NeuroDebian_.  Here, you rely on the NeuroDebian
+packages, which install, like other Debian packages, into
+``/usr/local/lib/pythonX.Y/site-packages``.  You can either use Python or Python3 without a virtualenv, or do::
+
+    mkvirtualenv --system-site-packages my-venv
+
+to pick up all the packages installed in
+``/usr/local/lib/pythonX.Y/site-packages``.
+
+*********************************************
+Doesn't work for you?  Help improve this page
+*********************************************
+
+If you try the instructions here, and you can't get a particular package or set-up to work, then why not make an `issue <pydagogue issues>`_ for the repository hosting these pages, and I'll see if I can work the fix into this page somewhere.
 
 .. include:: links_names.inc

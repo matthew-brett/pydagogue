@@ -63,7 +63,9 @@ packages in a way that could make them particularly difficult to uninstall (see 
 <p>The main point of interest to us, is that Python packages that you install for
 the Debian / Ubuntu packaged Python using <code class="docutils literal"><span class="pre">apt</span></code> or <code class="docutils literal"><span class="pre">pip</span></code> or <code class="docutils literal"><span class="pre">python</span>
 <span class="pre">setup.py</span> <span class="pre">install</span></code> go into a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>
-where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).  This is different from Python as compiled from the raw Python source code, which expects by default to install to a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.</p>
+where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).  This is different from
+Python as compiled from the raw Python source code, which expects by default
+to install to a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.</p>
 </div>
 <div class="section" id="clean-out-old-easy-install-installs">
 <span id="un-easy-install"></span><h2>Clean out old easy_install installs<a class="headerlink" href="#clean-out-old-easy-install-installs" title="Permalink to this headline">¶</a></h2>
@@ -201,6 +203,22 @@ mkvirtualenv --system-site-packages with-vtk
 </pre></div>
 </div>
 </div>
+<div class="section" id="another-good-approach">
+<h2>Another good approach<a class="headerlink" href="#another-good-approach" title="Permalink to this headline">¶</a></h2>
+<p>Another good approach that can get you the at-or-near-latest packages quickly,
+is to install packages from <a class="reference external" href="http://neuro.debian.net/">NeuroDebian</a>.  Here, you rely on the NeuroDebian
+packages, which install, like other Debian packages, into
+<code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.  You can either use Python or Python3 without a virtualenv, or do:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --system-site-packages my-venv
+</pre></div>
+</div>
+<p>to pick up all the packages installed in
+<code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.</p>
+</div>
+<div class="section" id="doesn-t-work-for-you-help-improve-this-page">
+<h2>Doesn&#8217;t work for you?  Help improve this page<a class="headerlink" href="#doesn-t-work-for-you-help-improve-this-page" title="Permalink to this headline">¶</a></h2>
+<p>If you try the instructions here, and you can&#8217;t get a particular package or set-up to work, then why not make an <a class="reference external" href="pydagogueissues">issue</a> for the repository hosting these pages, and I&#8217;ll see if I can work the fix into this page somewhere.</p>
+</div>
 </div>
 
 
@@ -221,6 +239,8 @@ mkvirtualenv --system-site-packages with-vtk
 <li><a class="reference internal" href="#now-you-are-in-virtualenv-nirvana">Now you are in virtualenv nirvana</a></li>
 <li><a class="reference internal" href="#adding-new-wheels">Adding new wheels</a></li>
 <li><a class="reference internal" href="#sometimes-it-s-a-package-too-far">Sometimes, it&#8217;s a package too far</a></li>
+<li><a class="reference internal" href="#another-good-approach">Another good approach</a></li>
+<li><a class="reference internal" href="#doesn-t-work-for-you-help-improve-this-page">Doesn&#8217;t work for you?  Help improve this page</a></li>
 </ul>
 </li>
 </ul>
