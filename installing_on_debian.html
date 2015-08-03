@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Python installations on Debian / Ubuntu &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="up" title="General computing" href="computing.html" />
+    <link rel="prev" title="Windows DLLs - information" href="windows_dll_links.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="windows_dll_links.html" title="Windows DLLs - information"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="python-installations-on-debian-ubuntu">
+<h1>Python installations on Debian / Ubuntu<a class="headerlink" href="#python-installations-on-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
+<p>In the old days, installation of Python packages was badly messed up.</p>
+<p>One of the big problems was the <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> program, that installed
+packages in a way that could make them particularly difficult to uninstall (see <a class="reference internal" href="#un-easy-install"><span>Clean out old easy_install installs</span></a>).</p>
+<p>Things started to improve as <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> took over from <code class="docutils literal"><span class="pre">easy_install</span></code> as the standard Python package installer.</p>
+<p>They got better still when <code class="docutils literal"><span class="pre">pip</span></code> got a binary installer format – <a class="reference external" href="https://pypi.python.org/pypi/wheel">wheels</a>.</p>
+<p>The combination of <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <code class="docutils literal"><span class="pre">pip</span></code> and wheels makes it much easier to maintain a set of Python environments to develop and test code.</p>
+<p>This page is a recipe for setting up these virtualenvs on your Debian or Ubuntu machine.</p>
+<div class="section" id="debian-and-ubuntu-python">
+<h2>Debian and Ubuntu Python<a class="headerlink" href="#debian-and-ubuntu-python" title="Permalink to this headline">¶</a></h2>
+<p>Debian and Ubuntu have some special rules for where Python packages go.  See : <a class="reference external" href="https://wiki.debian.org/Python">https://wiki.debian.org/Python</a></p>
+<p>The main point of interest to us, is that Python packages that you install for
+the Debian / Ubuntu packaged Python using <code class="docutils literal"><span class="pre">apt</span></code> or <code class="docutils literal"><span class="pre">pip</span></code> or <code class="docutils literal"><span class="pre">python</span>
+<span class="pre">setup.py</span> <span class="pre">install</span></code> go into a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>
+where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).  This is different from Python as compiled from the raw Python source code, which expects by default to install to a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.</p>
+</div>
+<div class="section" id="clean-out-old-easy-install-installs">
+<span id="un-easy-install"></span><h2>Clean out old easy_install installs<a class="headerlink" href="#clean-out-old-easy-install-installs" title="Permalink to this headline">¶</a></h2>
+<p>I highly recommend you nuke any old easy_install installations.  If you have
+never used easy_install on this system, you don&#8217;t need to read this section.</p>
+<p>First you need to find the easy_install installs.  To do this, display the file <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages/easy-install.pth</span></code> (where <code class="docutils literal"><span class="pre">X.Y</span></code> is the relevant Python version, such as <code class="docutils literal"><span class="pre">2.7</span></code>).  If this file doesn&#8217;t exist, lucky you, skip this section.</p>
+<p>If the file does exist, look for the packages listed in the file.  The file will look something like:</p>
+<div class="highlight-python"><div class="highlight"><pre>import sys; sys.__plen = len(sys.path)
+./requests-0.12.1-py2.7.egg
+./oauthlib-0.1.3-py2.7.egg
+./certifi-0.0.8-py2.7.egg
+./rsa-3.0.1-py2.7.egg
+./pyasn1-0.1.3-py2.7.egg
+import sys; new=sys.path[sys.__plen:]; del sys.path[sys.__plen:]; p=getattr(sys,&#39;__egginsert&#39;,0); sys.path[p:p]=new; sys.__egginsert = p+len(new)
+</pre></div>
+</div>
+<p>Delete each directory listed, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>rm -rf /usr/local/lib/python2.7/dist-packages/requests-0.12.1-py2.7.egg
+rm -rf /usr/local/lib/python2.7/dist-packages/oauthlib-0.1.3-py2.7.egg
+</pre></div>
+</div>
+<p>etc.  When you have finished deleting these directories, delete the <code class="docutils literal"><span class="pre">easy-install.pth</span></code> file.  Phew, all done.</p>
+</div>
+<div class="section" id="install-virtualenvwrapper">
+<h2>Install virtualenvwrapper<a class="headerlink" href="#install-virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> is a very useful – er – wrapper around <code class="docutils literal"><span class="pre">virtualenv</span></code>, that makes it easier and neater to have a library of virtual Python environments:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip install virtualenvwrapper
+</pre></div>
+</div>
+<p>To insert various useful aliases into your shell environment, this one time you should do:</p>
+<div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-python-3">
+<h2>Install Python 3<a class="headerlink" href="#install-python-3" title="Permalink to this headline">¶</a></h2>
+<p>If you want to make virtualenvs using Python 3, you will need to install Python 3 from the Debian / Ubuntu repositories.</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python3 python3-pip
+</pre></div>
+</div>
+</div>
+<div class="section" id="prepare-a-wheelhouse-directory">
+<h2>Prepare a wheelhouse directory<a class="headerlink" href="#prepare-a-wheelhouse-directory" title="Permalink to this headline">¶</a></h2>
+<p>In this step you build wheels that you can install in virtualenvs.</p>
+<p>First install build dependencies for common libraries:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
+</pre></div>
+</div>
+<p>This will take about 20 minutes (at least, it did on my virtualbox / Vagrant
+Debian instance).</p>
+<p>Next make a directory to contain the wheels:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir ~/wheelhouse
+</pre></div>
+</div>
+<p>Tell pip that it can install wheels from this directory, by creating a file <code class="docutils literal"><span class="pre">~/.pip/pip.conf</span></code> something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>[global]
+find-links = /home/&lt;your-user-name&gt;/wheelhouse
+use-wheel = True
+</pre></div>
+</div>
+<p>Obviously you need to replace <code class="docutils literal"><span class="pre">&lt;your-user-name&gt;</span></code> with your user name.</p>
+</div>
+<div class="section" id="build-wheels">
+<h2>Build wheels<a class="headerlink" href="#build-wheels" title="Permalink to this headline">¶</a></h2>
+<p>Start up a new virtualenv for Python 2:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualev python2
+</pre></div>
+</div>
+<p>Make sure the <code class="docutils literal"><span class="pre">wheel</span></code> utility is installed:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install wheel
+</pre></div>
+</div>
+<p>Build and install wheels for numpy and cython:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip wheel -w ~/wheelhouse numpy cython
+pip install numpy cython
+</pre></div>
+</div>
+<p>Now build any other wheels you are likely to use, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip wheel -w ~/wheelhouse scipy matplotlib h5py
+</pre></div>
+</div>
+<p>Finish up by deactivating the virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">deactivate</span>
+</pre></div>
+</div>
+<p>You might want to do the same with Python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --python=/usr/bin/python3 python3
+pip install wheel
+pip wheel -w ~/wheelhouse numpy cython
+pip install numpy cython
+pip wheel -w ~/wheelhouse scipy matplotlib h5py
+deactivate
+</pre></div>
+</div>
+</div>
+<div class="section" id="now-you-are-in-virtualenv-nirvana">
+<h2>Now you are in virtualenv nirvana<a class="headerlink" href="#now-you-are-in-virtualenv-nirvana" title="Permalink to this headline">¶</a></h2>
+<p>You can now make virtualenvs for your testing development quickly, even when
+you are offline.  Say you want to test something out for Python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre># Make clean virtual environment
+mkvirtualenv --python=/usr/bin/python3 testing-something
+pip install numpy scipy matplotlib h5py
+# install anything else you want
+# run your tests
+deactivate
+</pre></div>
+</div>
+<p>Nice.</p>
+</div>
+<div class="section" id="adding-new-wheels">
+<h2>Adding new wheels<a class="headerlink" href="#adding-new-wheels" title="Permalink to this headline">¶</a></h2>
+<p>Adding new wheels is usually as simple as:</p>
+<div class="highlight-python"><div class="highlight"><pre># Switch to relevant virtualenv
+workon python2
+pip wheel -w ~/wheelhouse my-package
+</pre></div>
+</div>
+<p>Sometimes the Python package you are installing has nasty binary dependencies.  In this case, usually your easiest path is to install the build dependencies for the corresponding Debian / Ubuntu package, and then continue as before:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep pillow
+workon python2
+pip wheel -w ~/wheelhouse pillow
+</pre></div>
+</div>
+</div>
+<div class="section" id="sometimes-it-s-a-package-too-far">
+<h2>Sometimes, it&#8217;s a package too far<a class="headerlink" href="#sometimes-it-s-a-package-too-far" title="Permalink to this headline">¶</a></h2>
+<p>There are some Python packages that have heavy binary dependencies, or use
+complicated build systems, so that it is not practical to build a wheel with
+pip.  Examples I know of are vtk and itk.  For those cases, your best option
+is to install the Python package using <code class="docutils literal"><span class="pre">apt-get</span></code>, and then make your
+virtualenv with the <code class="docutils literal"><span class="pre">--system-site-packages</span></code> flag, so that it will pick up
+the installed packages:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-vtk
+mkvirtualenv --system-site-packages with-vtk
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Python installations on Debian / Ubuntu</a><ul>
+<li><a class="reference internal" href="#debian-and-ubuntu-python">Debian and Ubuntu Python</a></li>
+<li><a class="reference internal" href="#clean-out-old-easy-install-installs">Clean out old easy_install installs</a></li>
+<li><a class="reference internal" href="#install-virtualenvwrapper">Install virtualenvwrapper</a></li>
+<li><a class="reference internal" href="#install-python-3">Install Python 3</a></li>
+<li><a class="reference internal" href="#prepare-a-wheelhouse-directory">Prepare a wheelhouse directory</a></li>
+<li><a class="reference internal" href="#build-wheels">Build wheels</a></li>
+<li><a class="reference internal" href="#now-you-are-in-virtualenv-nirvana">Now you are in virtualenv nirvana</a></li>
+<li><a class="reference internal" href="#adding-new-wheels">Adding new wheels</a></li>
+<li><a class="reference internal" href="#sometimes-it-s-a-package-too-far">Sometimes, it&#8217;s a package too far</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="windows_dll_links.html"
+                        title="previous chapter">Windows DLLs - information</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installing_on_debian.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="windows_dll_links.html" title="Windows DLLs - information"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
