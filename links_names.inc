@@ -16,6 +16,8 @@
 .. _setuptools: http://pypi.python.org/pypi/setuptools
 .. _distribute: http://pypi.python.org/pypi/distribute
 .. _pip: http://pypi.python.org/pypi/pip
+.. _easy_install: https://pythonhosted.org/setuptools/easy_install.html
+.. _wheels: https://pypi.python.org/pypi/wheel
 .. _numpy: http://sourceforge.net/projects/numpy/files
 .. _scipy: http://sourceforge.net/projects/scipy/files
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
