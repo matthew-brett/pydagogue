@@ -29,8 +29,8 @@
     <link rel="next" title="Getting started with git gui on Windows" href="git_gui_windows.html" />
     <link rel="prev" title="How do git submodules work?" href="git_submodules.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,15 +42,15 @@
         <li class="right" >
           <a href="git_submodules.html" title="How do git submodules work?"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="using-vim-as-a-mergetool-in-git">
 <span id="vim-mergetool"></span><h1>Using vim as a mergetool in git<a class="headerlink" href="#using-vim-as-a-mergetool-in-git" title="Permalink to this headline">¶</a></h1>
@@ -68,7 +68,7 @@ common basis for the two different versions implied in the merge.</p>
 git mergetool
 </pre></div>
 </div>
-<p>Quoting from <tt class="docutils literal"><span class="pre">git</span> <span class="pre">mergetool</span> <span class="pre">--help</span></tt>:</p>
+<p>Quoting from <code class="docutils literal"><span class="pre">git</span> <span class="pre">mergetool</span> <span class="pre">--help</span></code>:</p>
 <blockquote>
 <div>When git mergetool is invoked with this tool (either through the -t or
 &#8211;tool option or the merge.tool configuration variable) the configured
@@ -78,29 +78,29 @@ name of a temporary file containing the contents of the file on the current
 branch; $REMOTE set to the name of a temporary file containing the contents
 of the file to be merged, and $MERGED set to the name of the file to which
 the merge tool should write the result of the merge resolution.</div></blockquote>
-<p>Interpreting the text above in the context of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">--help</span></tt> - the
-&#8220;current branch&#8221; will, in this case, be <tt class="docutils literal"><span class="pre">main-master</span></tt> - more generally it will
+<p>Interpreting the text above in the context of <code class="docutils literal"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">--help</span></code> - the
+&#8220;current branch&#8221; will, in this case, be <code class="docutils literal"><span class="pre">main-master</span></code> - more generally it will
 be the &#8220;upstream&#8221; branch in the rebase command line, or &#8220;newbase&#8221; if you used
-the <tt class="docutils literal"><span class="pre">--onto</span> <span class="pre">&lt;newbase&gt;</span></tt> option.</p>
+the <code class="docutils literal"><span class="pre">--onto</span> <span class="pre">&lt;newbase&gt;</span></code> option.</p>
 <p>On my screen, there are four windows, three at the top, and one below.  (This is
 for git 1.7.4.1.  Versions at least until 1.7.2 had three windows, vertically
 arranged, being LOCAL, MERGED and REMOTE in the terms below).  In a rebase, the
 ones at the top will be</p>
 <ul class="simple">
-<li>LOCAL : the current branch (<tt class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></tt>). In the case of a rebase this will
-be the upstream branch (or &lt;newbase&gt; from <tt class="docutils literal"><span class="pre">--onto</span></tt>).  Here it would be
-<tt class="docutils literal"><span class="pre">main-master</span></tt>.</li>
+<li>LOCAL : the current branch (<code class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></code>). In the case of a rebase this will
+be the upstream branch (or &lt;newbase&gt; from <code class="docutils literal"><span class="pre">--onto</span></code>).  Here it would be
+<code class="docutils literal"><span class="pre">main-master</span></code>.</li>
 <li>BASE : the common basis against which LOCAL and REMOTE have changed. This
 allows us to see what LOCAL and REMOTE have changed against.</li>
 <li>REMOTE : the file as for the changes we are adding with the rebase.  In our
-case, that would be the branch we were on when we issued <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rebase</span>
-<span class="pre">main-master</span></tt>.</li>
+case, that would be the branch we were on when we issued <code class="docutils literal"><span class="pre">git</span> <span class="pre">rebase</span>
+<span class="pre">main-master</span></code>.</li>
 </ul>
 <p>The one at the bottom is:</p>
 <ul class="simple">
 <li>MERGED : the file to which we write the changes, to be selected from LOCAL
 (new changes) REMOTE (upstream changes).  This is the file with the merge
-markers in it. If you have <em>conflictstyle</em> above set to <tt class="docutils literal"><span class="pre">diff3</span></tt> you will see
+markers in it. If you have <em>conflictstyle</em> above set to <code class="docutils literal"><span class="pre">diff3</span></code> you will see
 the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
 </ul>
 <p>Now, time to go through the lower pane, pulling in changes from the &#8220;upstream&#8221;
@@ -116,7 +116,7 @@ the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="git_submodules.html"
@@ -124,12 +124,14 @@ the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
   <h4>Next topic</h4>
   <p class="topless"><a href="git_gui_windows.html"
                         title="next chapter">Getting started with git gui on Windows</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/vim_mergetool.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/vim_mergetool.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -146,7 +148,7 @@ the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -158,13 +160,13 @@ the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
         <li class="right" >
           <a href="git_submodules.html" title="How do git submodules work?"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

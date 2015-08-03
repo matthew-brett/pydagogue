@@ -26,25 +26,25 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="setting-up-a-gh-pages-branch">
 <h1>Setting up a gh-pages branch<a class="headerlink" href="#setting-up-a-gh-pages-branch" title="Permalink to this headline">¶</a></h1>
-<p>These assume a default sphinx build directory of <tt class="docutils literal"><span class="pre">doc/_build</span></tt>.</p>
+<p>These assume a default sphinx build directory of <code class="docutils literal"><span class="pre">doc/_build</span></code>.</p>
 <p>Makefile target (don&#8217;t forget the tabs before the target body lines):</p>
 <div class="highlight-python"><div class="highlight"><pre>git-clean:
     git clean -fxd
@@ -61,7 +61,7 @@ gh-pages: git-clean html
     @echo &#39;Commit and push when ready or git reset --hard &amp;&amp; git checkout master to revert&#39;
 </pre></div>
 </div>
-<p>Make a new empty <tt class="docutils literal"><span class="pre">gh-pages</span></tt> branch:</p>
+<p>Make a new empty <code class="docutils literal"><span class="pre">gh-pages</span></code> branch:</p>
 <div class="highlight-python"><div class="highlight"><pre>git checkout --orphan gh-pages
 git reset --hard
 git clean -fxd
@@ -91,14 +91,16 @@ make gh-pages
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/gh-pages-intro.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/gh-pages-intro.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -115,18 +117,18 @@ make gh-pages
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

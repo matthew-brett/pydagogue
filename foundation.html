@@ -29,8 +29,8 @@
     <link rel="next" title="Rebase without tears" href="rebase_without_tears.html" />
     <link rel="prev" title="An algorithm for git push" href="git_push_algorithm.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,15 +42,15 @@
         <li class="right" >
           <a href="git_push_algorithm.html" title="An algorithm for git push"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="git-foundations">
 <span id="git-foundation"></span><h1>Git foundations<a class="headerlink" href="#git-foundations" title="Permalink to this headline">¶</a></h1>
@@ -61,7 +61,7 @@ from the <a class="reference external" href="http://tom.preston-werner.com/2009/
 <p>I&#8217;m young and the world is fresh and I have lots of time.</p>
 <p>I have so much time, that I decide that I want to write a book.  The project I
 am working on is a modest history and explanation of everything, with
-provisional title &#8220;The Book&#8221;.  It has a table of contents <tt class="docutils literal"><span class="pre">contents.txt</span></tt> and a
+provisional title &#8220;The Book&#8221;.  It has a table of contents <code class="docutils literal"><span class="pre">contents.txt</span></code> and a
 single book chapter:</p>
 <div class="highlight-python"><div class="highlight"><pre>.
 ├── chapter1.txt
@@ -72,14 +72,14 @@ single book chapter:</p>
 some sort of version control system.  How hard can it be?</p>
 <p>I start with some names.  I&#8217;m going to call this set of files that I&#8217;m working
 on, the <em>working tree</em>. Because I currently lack any shame about body issues, I
-will call my new versioning system <tt class="docutils literal"><span class="pre">ahole</span></tt> <a class="footnote-reference" href="#ahole-git" id="id1">[1]</a> .</p>
+will call my new versioning system <code class="docutils literal"><span class="pre">ahole</span></code> <a class="footnote-reference" href="#ahole-git" id="id1">[1]</a> .</p>
 <p>I decide that I need to store the state of The Book at the end of each
-day.  To do this, I make a new directory in my working tree, called <tt class="docutils literal"><span class="pre">.ahole</span></tt>.
+day.  To do this, I make a new directory in my working tree, called <code class="docutils literal"><span class="pre">.ahole</span></code>.
 This directory will store The Book as it evolves into a world-wide best-seller.
-I will use the name <em>repository</em> for the contents of <tt class="docutils literal"><span class="pre">.ahole</span></tt>.</p>
+I will use the name <em>repository</em> for the contents of <code class="docutils literal"><span class="pre">.ahole</span></code>.</p>
 <p>At the end of the day, I make a copy of all the files in the working tree, and
-save it in my new <tt class="docutils literal"><span class="pre">.ahole</span></tt> repository.  In fact, what I will do is, make a new
-subdirectory in <tt class="docutils literal"><span class="pre">.ahole</span></tt> named for today&#8217;s date, then store a copy of the book
+save it in my new <code class="docutils literal"><span class="pre">.ahole</span></code> repository.  In fact, what I will do is, make a new
+subdirectory in <code class="docutils literal"><span class="pre">.ahole</span></code> named for today&#8217;s date, then store a copy of the book
 files in there.  On unix, that might look like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-01
 mkdir .ahole/year0-jan-01/files
@@ -105,7 +105,7 @@ today:</p>
 <p>Today I do some more work on the book.   I start work on chapter 2, and, while
 I&#8217;m thinking about things, I find that I am also writing some notes to myself
 about this character &#8220;Eve&#8221; that I have seen wandering around.  I save those
-notes in a file called <tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt>.  When I get to the end of
+notes in a file called <code class="docutils literal"><span class="pre">something_about_eve.txt</span></code>.  When I get to the end of
 the day, I get ready to store my work.  At the moment, my directory looks like
 this:</p>
 <div class="highlight-python"><div class="highlight"><pre>.
@@ -121,12 +121,12 @@ this:</p>
 </pre></div>
 </div>
 <p>For some reason I can&#8217;t put my finger on, I don&#8217;t want to put
-<tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt> into the repository at the moment.  In fact, in
+<code class="docutils literal"><span class="pre">something_about_eve.txt</span></code> into the repository at the moment.  In fact, in
 general, I want to choose which changes I back up into the repository, and which
 changes I leave for another day.  In the end I come up with an idea.  I&#8217;ll make
-a directory in <tt class="docutils literal"><span class="pre">.ahole</span></tt> called <tt class="docutils literal"><span class="pre">staging_area</span></tt>.  When I start work at the
+a directory in <code class="docutils literal"><span class="pre">.ahole</span></code> called <code class="docutils literal"><span class="pre">staging_area</span></code>.  When I start work at the
 beginning of the day, I copy the previous backed-up version of my files from the
-repository, into <tt class="docutils literal"><span class="pre">staging_area</span></tt>. These files are now ready for storing in the
+repository, into <code class="docutils literal"><span class="pre">staging_area</span></code>. These files are now ready for storing in the
 next snapshot:</p>
 <div class="highlight-python"><div class="highlight"><pre>cp .ahole/year0-jan-01/* .ahole/staging_area
 </pre></div>
@@ -147,11 +147,11 @@ next snapshot:</p>
 </pre></div>
 </div>
 <p>As I work, I decide what I&#8217;m going to put into tonight&#8217;s snapshot.  For example,
-maybe I changed <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt> and I think it&#8217;s ready to back up. I copy my
-modified version of <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt> from the working tree to <tt class="docutils literal"><span class="pre">staging_area</span></tt>.
-I&#8217;ll call that <em>stage</em>-ing the file.  I&#8217;ll also &#8216;stage&#8217; the new <tt class="docutils literal"><span class="pre">chapter2.txt</span></tt>
+maybe I changed <code class="docutils literal"><span class="pre">chapter1.txt</span></code> and I think it&#8217;s ready to back up. I copy my
+modified version of <code class="docutils literal"><span class="pre">chapter1.txt</span></code> from the working tree to <code class="docutils literal"><span class="pre">staging_area</span></code>.
+I&#8217;ll call that <em>stage</em>-ing the file.  I&#8217;ll also &#8216;stage&#8217; the new <code class="docutils literal"><span class="pre">chapter2.txt</span></code>
 file (copy it to the staging area).  I&#8217;m not going to stage
-<tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt> at the moment.</p>
+<code class="docutils literal"><span class="pre">something_about_eve.txt</span></code> at the moment.</p>
 <p>Now I&#8217;ve done that, all the stuff I want to store in the backup is ready.  I
 just need to put it into its own backup snapshot directory.   To do that, I just
 do something like (Unix again):</p>
@@ -183,7 +183,7 @@ cp .ahole/staging_area/* .ahole/year0-jan-02/files
 </pre></div>
 </div>
 <p>I decide that I&#8217;ll use the name <em>commit</em> for each of the daily snapshot
-directories (<tt class="docutils literal"><span class="pre">year0-jan-01</span></tt> and <tt class="docutils literal"><span class="pre">year0-jan-02</span></tt>).  The action of adding files
+directories (<code class="docutils literal"><span class="pre">year0-jan-01</span></code> and <code class="docutils literal"><span class="pre">year0-jan-02</span></code>).  The action of adding files
 to the staging area, I will call <em>staging</em> files for the commit.  I will use
 the term <em>committing</em> for the action of making the snapshot directory, and
 copying the files from the staging area to the snapshot directory.</p>
@@ -192,8 +192,8 @@ copying the files from the staging area to the snapshot directory.</p>
 <h2>On the third day - history<a class="headerlink" href="#on-the-third-day-history" title="Permalink to this headline">¶</a></h2>
 <p>As a result of certain events yesterday evening, I have a new friend, Eve.  She
 wants to help out.  Of course Eve has her own computer, and I send her my
-<tt class="docutils literal"><span class="pre">.ahole</span></tt> directory.  I thank myself for my wisdom in not adding
-<tt class="docutils literal"><span class="pre">something_about_eve.txt</span></tt> to the repository.</p>
+<code class="docutils literal"><span class="pre">.ahole</span></code> directory.  I thank myself for my wisdom in not adding
+<code class="docutils literal"><span class="pre">something_about_eve.txt</span></code> to the repository.</p>
 <p>Eve checks out our book (reconstructs my working tree) with something like:</p>
 <div class="highlight-python"><div class="highlight"><pre>cp .ahole/year0-jan-02/files/* .
 </pre></div>
@@ -207,9 +207,9 @@ the last commit files into the staging area, as I did:</p>
 │   │    └── contents.txt
 </pre></div>
 </div>
-<p>She works hard on a new file <tt class="docutils literal"><span class="pre">chapter1_discussion.txt</span></tt>. It&#8217;s good to see she&#8217;s
+<p>She works hard on a new file <code class="docutils literal"><span class="pre">chapter1_discussion.txt</span></code>. It&#8217;s good to see she&#8217;s
 enjoying the work.  As the afternoon turns to evening, she gets ready to save
-her work, so she copies <tt class="docutils literal"><span class="pre">chapter1_discussion.txt</span></tt> to <tt class="docutils literal"><span class="pre">.ahole/staging_area</span></tt>.
+her work, so she copies <code class="docutils literal"><span class="pre">chapter1_discussion.txt</span></code> to <code class="docutils literal"><span class="pre">.ahole/staging_area</span></code>.
 Now she is ready to do a commit:</p>
 <div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-03
 mkdir .ahole/year0-jan-03/files
@@ -218,7 +218,7 @@ cp .ahole/staging_area/* .ahole/year0-jan-03/files
 </div>
 <p>That is what Eve was going to do, but Eve is smart, and she immediately realizes
 that there is a problem.  After she has done her commit, both of us will likely
-have a commit directory <tt class="docutils literal"><span class="pre">.ahole/year0-jan-03</span></tt> - but they will have different
+have a commit directory <code class="docutils literal"><span class="pre">.ahole/year0-jan-03</span></code> - but they will have different
 contents.   If she later wants to share work with me, that could get confusing.</p>
 <p>The two of us are a little tired after all our work, and we meet for a beer.  We
 talk about it for a while.  At first we think we can just add the time to the
@@ -232,8 +232,8 @@ will work even if two of us are working independently.</p>
 identifier string instead of the date.  We might have a problem in making sure
 that the unique identifier string is actually unique, but let&#8217;s assume we can
 solve that somehow.  We&#8217;ll store the contents of the working tree in the same
-way as we have done up till now, in the <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory, but we&#8217;ll add a
-new file to each commit, called <tt class="docutils literal"><span class="pre">info.txt</span></tt>, that will tell us who did the
+way as we have done up till now, in the <code class="docutils literal"><span class="pre">files</span></code> subdirectory, but we&#8217;ll add a
+new file to each commit, called <code class="docutils literal"><span class="pre">info.txt</span></code>, that will tell us who did the
 commit, and when, and, most importantly, what the previous commit was.  We&#8217;ll
 call the previous commit the <em>parent</em>.</p>
 <p>Eve was right to predict that I had made my own commit today.  I&#8217;ve been happily
@@ -301,7 +301,7 @@ this:</p>
 └── contents.txt
 </pre></div>
 </div>
-<p>and <tt class="docutils literal"><span class="pre">.ahole/5d89f8/info.txt</span></tt> looks like this:</p>
+<p>and <code class="docutils literal"><span class="pre">.ahole/5d89f8/info.txt</span></code> looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>committer = Adam
 message = Third day
 date = year0-jan-03
@@ -340,7 +340,7 @@ parent = 7ef41f
 └── contents.txt
 </pre></div>
 </div>
-<p>and Eve&#8217;s <tt class="docutils literal"><span class="pre">.ahole/0a01a0/info.txt</span></tt> looks like this:</p>
+<p>and Eve&#8217;s <code class="docutils literal"><span class="pre">.ahole/0a01a0/info.txt</span></code> looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>committer = Eve
 message = Eve day 3
 date = year0-jan-03
@@ -350,11 +350,11 @@ parent = 7ef41f
 <p>After a little thought, Eve and I realize that, when we make our new commit, we
 are going to have to know what the current commit is, so we can use that as the
 parent.  When we make a new commit, we store the commit identifier in a file.
-We&#8217;ll call this file <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>, so, after my last commit above, the file
-<tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> will have the contents <tt class="docutils literal"><span class="pre">5d89f8</span></tt>. We use the contents of
-<tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> to identify the last (current) commit.  And of course, when we
+We&#8217;ll call this file <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>, so, after my last commit above, the file
+<code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> will have the contents <code class="docutils literal"><span class="pre">5d89f8</span></code>. We use the contents of
+<code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to identify the last (current) commit.  And of course, when we
 make a new commit, we can get the parent of the new commit, from the current
-commit in <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>.</p>
+commit in <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>.</p>
 <p>So now, we have a new procedure for our commit.  In outline it looks like this
 (now in <a class="reference external" href="http://www.python.org">python</a> syntax) <a class="footnote-reference" href="#commit-imports" id="id2">[2]</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
@@ -395,19 +395,19 @@ commit in <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>
     <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>So, when we run <tt class="docutils literal"><span class="pre">ahole_checkout('7ef41f`)</span></tt> we will get the copy of the working
-tree corresponging to <tt class="docutils literal"><span class="pre">7ef41f</span></tt>, and <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> will just contain the
-string <tt class="docutils literal"><span class="pre">7ef41f</span></tt>.</p>
+<p>So, when we run <code class="docutils literal"><span class="pre">ahole_checkout('7ef41f`)</span></code> we will get the copy of the working
+tree corresponging to <code class="docutils literal"><span class="pre">7ef41f</span></code>, and <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> will just contain the
+string <code class="docutils literal"><span class="pre">7ef41f</span></code>.</p>
 <p>In our excitement, we immediately realize that it&#8217;s really easy to see the
-history of the book now.  We can easily fetch out <tt class="docutils literal"><span class="pre">info.txt</span></tt> from the current
-commit, print it, then find its parent, and fetch <tt class="docutils literal"><span class="pre">info.txt</span></tt> from the parent,
+history of the book now.  We can easily fetch out <code class="docutils literal"><span class="pre">info.txt</span></code> from the current
+commit, print it, then find its parent, and fetch <code class="docutils literal"><span class="pre">info.txt</span></code> from the parent,
 print it, and so on.</p>
 <p>Now we are tired, but happy, and we rest.</p>
 </div>
 <div class="section" id="on-the-fourth-day-references">
 <h2>On the fourth day - references<a class="headerlink" href="#on-the-fourth-day-references" title="Permalink to this headline">¶</a></h2>
 <p>We wake with a strange excitement.  The idea, of keeping a reference to the
-current commit in <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>, seems that it could be more general.  I
+current commit in <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>, seems that it could be more general.  I
 talk to Eve over breakfast (she stayed in her own place of course, but she came
 over for work).  Together we work out the concept of <em>references</em>. A reference
 is:</p>
@@ -415,30 +415,30 @@ is:</p>
 <dt>Reference</dt>
 <dd>Something that points to a commit</dd>
 </dl>
-<p>So, <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> is a reference - to the current commit.  But what if I decide
+<p>So, <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> is a reference - to the current commit.  But what if I decide
 that I want to give out some preliminary version of our book.  Let&#8217;s say I want
-to release the book stored in <tt class="docutils literal"><span class="pre">.ahole/7ef41f/files</span></tt> as &#8216;release-0.1&#8217;.   I&#8217;m
+to release the book stored in <code class="docutils literal"><span class="pre">.ahole/7ef41f/files</span></code> as &#8216;release-0.1&#8217;.   I&#8217;m
 going to send this out to all my friends (to be honest, I don&#8217;t have many
 friends just yet, but still).  I want to be able to remember what version of the
 book I sent out.  I can make a <em>reference</em> to this commit.  I&#8217;ll call this a
-<em>tag</em>.   I make a new directory in <tt class="docutils literal"><span class="pre">.ahole</span></tt> called <tt class="docutils literal"><span class="pre">refs</span></tt>, and another
-directory in <tt class="docutils literal"><span class="pre">refs</span></tt>, called <tt class="docutils literal"><span class="pre">tags</span></tt>, and then, in
-<tt class="docutils literal"><span class="pre">.ahole/refs/tags/release-0.1</span></tt> I just put <tt class="docutils literal"><span class="pre">7ef41f</span></tt> - a reference to the
+<em>tag</em>.   I make a new directory in <code class="docutils literal"><span class="pre">.ahole</span></code> called <code class="docutils literal"><span class="pre">refs</span></code>, and another
+directory in <code class="docutils literal"><span class="pre">refs</span></code>, called <code class="docutils literal"><span class="pre">tags</span></code>, and then, in
+<code class="docutils literal"><span class="pre">.ahole/refs/tags/release-0.1</span></code> I just put <code class="docutils literal"><span class="pre">7ef41f</span></code> - a reference to the
 release commit.   That way, if I ever need to go back to the version of the book
-I released, I just have to read the <tt class="docutils literal"><span class="pre">release-0.1</span></tt> file to find the commit, and
+I released, I just have to read the <code class="docutils literal"><span class="pre">release-0.1</span></code> file to find the commit, and
 then checkout that commit.</p>
-<p>Wait, but, there&#8217;s a problem.  If I checkout the commit in <tt class="docutils literal"><span class="pre">release-0.1</span></tt>, I
-will overwrite <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>, and I will lose track of what commit I was
+<p>Wait, but, there&#8217;s a problem.  If I checkout the commit in <code class="docutils literal"><span class="pre">release-0.1</span></code>, I
+will overwrite <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>, and I will lose track of what commit I was
 working on before.</p>
 <p>Let&#8217;s store that in another reference.  Let&#8217;s use the name &#8216;master&#8217; for my main
 line of development.  I store where this is, by making a new file
-<tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt> that is a reference to the last commit.  It just
+<code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> that is a reference to the last commit.  It just
 contains the text &#8216;5d89f8&#8217;.  So that I know that I am working on &#8216;master&#8217;, I
-make <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> have the text <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></tt>.  Now, when I make
-a new commit, I first check <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>; if I see <tt class="docutils literal"><span class="pre">ref:</span>
-<span class="pre">refs/heads/master</span></tt>, then first, I get the commit id in
-<tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt> - and I use that as the parent id for the commit.
-When I&#8217;ve saved the new commit, I set <tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt> to have the
+make <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> have the text <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code>.  Now, when I make
+a new commit, I first check <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>; if I see <code class="docutils literal"><span class="pre">ref:</span>
+<span class="pre">refs/heads/master</span></code>, then first, I get the commit id in
+<code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> - and I use that as the parent id for the commit.
+When I&#8217;ve saved the new commit, I set <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> to have the
 new commit id.  So, I need to modify my commit procedure slightly:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="c"># *** this stuff down to the next *** line is new</span>
@@ -478,32 +478,32 @@ new commit id.  So, I need to modify my commit procedure slightly:</p>
     <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>So, let&#8217;s say that I&#8217;m currently on commit &#8216;5d89f8&#8217;.  <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> contains
-<tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></tt>.  <tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt> contains <tt class="docutils literal"><span class="pre">5d89f8</span></tt>.
+<p>So, let&#8217;s say that I&#8217;m currently on commit &#8216;5d89f8&#8217;.  <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> contains
+<code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code>.  <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> contains <code class="docutils literal"><span class="pre">5d89f8</span></code>.
 I run my commit procedure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_commit</span><span class="p">(</span><span class="s">&#39;Adam&#39;</span><span class="p">,</span> <span class="s">&#39;Night follows day&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The commit procedure has made a new commit &#8216;dfbeda&#8217;; <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> continues
-to have text <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></tt>, but now <tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt>
-contains <tt class="docutils literal"><span class="pre">dfbeda</span></tt>.  In this way, we keep track of which commit we are on, by
+<p>The commit procedure has made a new commit &#8216;dfbeda&#8217;; <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> continues
+to have text <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code>, but now <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code>
+contains <code class="docutils literal"><span class="pre">dfbeda</span></code>.  In this way, we keep track of which commit we are on, by
 constantly updating &#8216;master&#8217;.</p>
 <p>Ok - now let&#8217;s return to me checking out the released version of the book.  I
-first get the contents of <tt class="docutils literal"><span class="pre">.ahole/refs/tags/release-0.1</span></tt> - it&#8217;s &#8216;5d89f8&#8217;.
+first get the contents of <code class="docutils literal"><span class="pre">.ahole/refs/tags/release-0.1</span></code> - it&#8217;s &#8216;5d89f8&#8217;.
 Then I checkout the working tree for that version, using my nice
-<tt class="docutils literal"><span class="pre">ahole_checkout</span></tt> procedure:</p>
+<code class="docutils literal"><span class="pre">ahole_checkout</span></code> procedure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;5d89f8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The checkout procedure will make <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> contain the text <tt class="docutils literal"><span class="pre">5d89f8</span></tt>.</p>
+<p>The checkout procedure will make <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> contain the text <code class="docutils literal"><span class="pre">5d89f8</span></code>.</p>
 <p>Now I want to go back to working on my current version of the book.  That&#8217;s the
-set of files pointed to by <tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt>.  I can
-check the contents of <tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt> - it is <tt class="docutils literal"><span class="pre">dfbeda</span></tt>.  Then I
+set of files pointed to by <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code>.  I can
+check the contents of <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> - it is <code class="docutils literal"><span class="pre">dfbeda</span></code>.  Then I
 get the current version with the normal checkout procedure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;dfbeda&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Finally, I&#8217;ll have to set <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> to be <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></tt>.  All
+<p>Finally, I&#8217;ll have to set <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to be <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code>.  All
 good.</p>
 <p>Of course, I could automate this, by modifying my checkout procedure slightly:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_checkout</span><span class="p">(</span><span class="n">commit_reference</span><span class="p">):</span>
@@ -547,7 +547,7 @@ dynamic reference - in particular, it&#8217;s a <em>head</em> reference:</p>
 <dd>A head is a reference that updates when we do a commit</dd>
 </dl>
 <p>My head is hurting a little, after Eve explains all this, but after a little
-while and a nice apple pie, I&#8217;m feeling positive about <tt class="docutils literal"><span class="pre">ahole</span></tt>.</p>
+while and a nice apple pie, I&#8217;m feeling positive about <code class="docutils literal"><span class="pre">ahole</span></code>.</p>
 </div>
 <div class="section" id="on-the-fifth-day-branches-merges-and-remotes">
 <h2>On the fifth day - branches, merges and remotes<a class="headerlink" href="#on-the-fifth-day-branches-merges-and-remotes" title="Permalink to this headline">¶</a></h2>
@@ -562,14 +562,14 @@ I&#8217;m currently working on?  I can just make a new <em>head</em>.  I&#8217;l
 <div class="highlight-python"><div class="highlight"><pre><span class="n">cp</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">working</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="mf">0.1</span>
 </pre></div>
 </div>
-<p>Then, I look at what commit <tt class="docutils literal"><span class="pre">working-on-0.1</span></tt> contains - of course it&#8217;s
-<tt class="docutils literal"><span class="pre">7ef41f</span></tt>.  I get that state of the book with my new checkout procedure:</p>
+<p>Then, I look at what commit <code class="docutils literal"><span class="pre">working-on-0.1</span></code> contains - of course it&#8217;s
+<code class="docutils literal"><span class="pre">7ef41f</span></code>.  I get that state of the book with my new checkout procedure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;working-on-0.1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This changes <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> to be <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/working-on-0.1</span></tt>.  Now,
-when I do a commit with <tt class="docutils literal"><span class="pre">ahole_commit</span></tt>,  that will update the file
-<tt class="docutils literal"><span class="pre">.ahole/refs/heads/working-on-0.1</span></tt> to have the new commit identifier.  Despite the
+<p>This changes <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to be <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/working-on-0.1</span></code>.  Now,
+when I do a commit with <code class="docutils literal"><span class="pre">ahole_commit</span></code>,  that will update the file
+<code class="docutils literal"><span class="pre">.ahole/refs/heads/working-on-0.1</span></code> to have the new commit identifier.  Despite the
 apple pie being a bit bitter last night, we&#8217;re feeling good.</p>
 <p>As we think about this, we come to think of &#8216;master&#8217; and &#8216;working-on-0.1&#8217; as
 <em>branches</em> - because they can each be thought of as identifying a tree or graph
@@ -583,9 +583,9 @@ starting at the current position of &#8216;master&#8217;, all I need is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;my-new-branch&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>That will get the commit identifier in <tt class="docutils literal"><span class="pre">.ahole/refs/heads/my-new-branch</span></tt>, unpack
-the commit tree into the working tree, and set <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> to contain the
-text <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/my-new-branch</span></tt></p>
+<p>That will get the commit identifier in <code class="docutils literal"><span class="pre">.ahole/refs/heads/my-new-branch</span></code>, unpack
+the commit tree into the working tree, and set <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to contain the
+text <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/my-new-branch</span></code></p>
 <p>I&#8217;ve got my branches, but Eve will have her own branches, and this will help us
 know where each of us is working.</p>
 <p>That&#8217;s good, because Eve is now asking me if I can have a look at her changes,
@@ -595,34 +595,34 @@ covered with an as-yet not-invented headscarf.  In the end we patch it up, and I
 agree to go back and try and put in her changes.</p>
 <p>Luckily, despite the lack of basics like clothing, there is an excellent local
 network, so I can see the contents of her version of the book at
-<tt class="docutils literal"><span class="pre">/eves_computer/our_book/.ahole</span></tt>.  She wants me to look at her &#8216;master&#8217;
+<code class="docutils literal"><span class="pre">/eves_computer/our_book/.ahole</span></code>.  She wants me to look at her &#8216;master&#8217;
 branch.  Just because the network might fail, I need to fetch what I need from
 her computer to mine.  So, to keep track of things, I&#8217;ll make a new directory,
-called <tt class="docutils literal"><span class="pre">.ahole/refs/remotes/eve</span></tt>, and I&#8217;ll copy all her <em>heads</em> - in this case
-just <tt class="docutils literal"><span class="pre">master</span></tt> - to that directory.   So now, I&#8217;ve got
-<tt class="docutils literal"><span class="pre">.ahole/refs/remotes/eve/master</span></tt>, and in fact, it points to the commit that
+called <code class="docutils literal"><span class="pre">.ahole/refs/remotes/eve</span></code>, and I&#8217;ll copy all her <em>heads</em> - in this case
+just <code class="docutils literal"><span class="pre">master</span></code> - to that directory.   So now, I&#8217;ve got
+<code class="docutils literal"><span class="pre">.ahole/refs/remotes/eve/master</span></code>, and in fact, it points to the commit that
 she did on the third day; this was commit &#8216;0a01a0&#8217;.  I don&#8217;t have this
-commit in my <tt class="docutils literal"><span class="pre">.ahole</span></tt> directory, so I&#8217;ll copy that from
-<tt class="docutils literal"><span class="pre">/eves_computer/our_book/.ahole/0a01a0</span></tt>.  I look in the <tt class="docutils literal"><span class="pre">info.txt</span></tt> file
+commit in my <code class="docutils literal"><span class="pre">.ahole</span></code> directory, so I&#8217;ll copy that from
+<code class="docutils literal"><span class="pre">/eves_computer/our_book/.ahole/0a01a0</span></code>.  I look in the <code class="docutils literal"><span class="pre">info.txt</span></code> file
 for that commit, and check what the parent is.  It is &#8216;7ef41f&#8217;.  I check if I
 have that, and yes, I have, so I can stop copying stuff from Eve&#8217;s directory.</p>
 <p>So, what I just did was:</p>
 <ul class="simple">
 <li>Copy Eve&#8217;s <em>head</em> references from
-<tt class="docutils literal"><span class="pre">/eves_computer/our_book/.ahole/refs/heads</span></tt> to my
-<tt class="docutils literal"><span class="pre">.ahole/refs/remotes/eve</span></tt>.</li>
-<li>For each of the references in <tt class="docutils literal"><span class="pre">.ahole/refs/remotes/eve</span></tt>, I check whether
+<code class="docutils literal"><span class="pre">/eves_computer/our_book/.ahole/refs/heads</span></code> to my
+<code class="docutils literal"><span class="pre">.ahole/refs/remotes/eve</span></code>.</li>
+<li>For each of the references in <code class="docutils literal"><span class="pre">.ahole/refs/remotes/eve</span></code>, I check whether
 I have the referenced commit, and the parents of that commit, and, if not, I
-copy them to <tt class="docutils literal"><span class="pre">.ahole</span></tt>.</li>
+copy them to <code class="docutils literal"><span class="pre">.ahole</span></code>.</li>
 </ul>
 <p>We decide to call that two-step sequence - a <em>fetch</em>.</p>
 <p>Now I want to look at her version of the book.  I have her head references and
 the commits they point to, so I can checkout her latest version. I first get the
-commit identifier from <tt class="docutils literal"><span class="pre">.ahole/refs/remotes/eve/master</span></tt> - &#8216;0a01a0&#8217;.  Then:</p>
+commit identifier from <code class="docutils literal"><span class="pre">.ahole/refs/remotes/eve/master</span></code> - &#8216;0a01a0&#8217;.  Then:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;0a01a0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This will put &#8216;0a01a0&#8217; into <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt>.  I can look at her version of the
+<p>This will put &#8216;0a01a0&#8217; into <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>.  I can look at her version of the
 book, and decide if I like it.  If I do, then I can do a <em>merge</em>.</p>
 <p>What is a merge?  It&#8217;s the join of two commits.  First I work out where Eve&#8217;s
 tree diverged from mine, by going back in her history, following the parents of
@@ -630,15 +630,15 @@ the commits.  In this case it&#8217;s easy, because the parent commit (&#8216;7e
 this commit (&#8216;0a01a0&#8217;) is one that is also in my history (the history for my
 &#8216;master&#8217; branch).  This most recent shared commit I will call the <em>common
 ancestor</em>.  Then I work out the difference between the common ancestor commit
-(&#8216;7ef41f&#8217;) and this commit (&#8216;0a01a0&#8217;) - let&#8217;s call that <tt class="docutils literal"><span class="pre">eves_diff</span></tt>.</p>
+(&#8216;7ef41f&#8217;) and this commit (&#8216;0a01a0&#8217;) - let&#8217;s call that <code class="docutils literal"><span class="pre">eves_diff</span></code>.</p>
 <p>I go back to my own &#8216;master&#8217; - which turns out to be
-(<tt class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></tt>) - &#8216;dfbeda&#8217;:</p>
+(<code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code>) - &#8216;dfbeda&#8217;:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;master&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This will change <tt class="docutils literal"><span class="pre">.ahole/HEAD</span></tt> to be <tt class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></tt> - and I will
-have just got the working tree from <tt class="docutils literal"><span class="pre">.ahole/dfbeda/files</span></tt>.  Then I take
-<tt class="docutils literal"><span class="pre">eves_diff</span></tt> and apply it to my current working tree.  If there were any
+<p>This will change <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to be <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code> - and I will
+have just got the working tree from <code class="docutils literal"><span class="pre">.ahole/dfbeda/files</span></code>.  Then I take
+<code class="docutils literal"><span class="pre">eves_diff</span></code> and apply it to my current working tree.  If there were any
 conflicts, I resolve them, but in my world, there are no conflicts.  I have a
 feeling there may be some later.   That apple pie is making me feel a little
 funny.</p>
@@ -651,7 +651,7 @@ and won&#8217;t need to apply it again.</p>
 </div>
 <div class="section" id="on-the-sixth-day-saving-time-and-space-with-objects">
 <h2>On the sixth day - saving time and space with objects<a class="headerlink" href="#on-the-sixth-day-saving-time-and-space-with-objects" title="Permalink to this headline">¶</a></h2>
-<p>I am now very happy with <tt class="docutils literal"><span class="pre">ahole</span></tt>, but Eve clearly doesn&#8217;t think we&#8217;ve got it
+<p>I am now very happy with <code class="docutils literal"><span class="pre">ahole</span></code>, but Eve clearly doesn&#8217;t think we&#8217;ve got it
 right yet.</p>
 <p>As she&#8217;s thinking, she decides to make a couple of illustrations for The Book,
 so she adds some photos to her working tree:</p>
@@ -667,9 +667,9 @@ so she adds some photos to her working tree:</p>
 └── contents.txt
 </pre></div>
 </div>
-<p>As soon as she does this, she realizes what&#8217;s wrong with <tt class="docutils literal"><span class="pre">ahole</span></tt>.  The photos
+<p>As soon as she does this, she realizes what&#8217;s wrong with <code class="docutils literal"><span class="pre">ahole</span></code>.  The photos
 are large files.  At the moment, every time we make a commit, we&#8217;re copying all
-the files into the commit <tt class="docutils literal"><span class="pre">files</span></tt> directory to make the snapshot.  With big
+the files into the commit <code class="docutils literal"><span class="pre">files</span></code> directory to make the snapshot.  With big
 files, this is going to lead to many identical copies and lots of wasted space.</p>
 <p>Eve realizes that what we need to do, is to make the commit use <em>references</em> to
 files, rather than the files themselves.  That way, when the commit has files
@@ -679,13 +679,13 @@ carrying a wasteful copy of the file.</p>
 files, so they can be referenced.  Maybe we could store the files for our
 snapshots in a directory, and use some sort of unique filename so that the
 commits can reference that filename?  For example, maybe we could make a
-directory in <tt class="docutils literal"><span class="pre">.ahole</span></tt> like this:</p>
+directory in <code class="docutils literal"><span class="pre">.ahole</span></code> like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mkdir</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">objects</span>
 </pre></div>
 </div>
 <p>and use this directory to store the contents of the files for our snapshots.
 Then we could store the commits as something like a table, where the entries
-would tell us how to get the matching files from the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>
+would tell us how to get the matching files from the <code class="docutils literal"><span class="pre">.ahole/objects</span></code>
 directory.</p>
 <p>We could have some structure for the commits like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>├── .ahole
@@ -694,9 +694,9 @@ directory.</p>
 │   │   └── file_list
 </pre></div>
 </div>
-<p>where <tt class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></tt> would be a list of references to files in the
-<tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory, along with the filename that the contents has when
-reconstructed back into the snapshot.  For example, maybe <tt class="docutils literal"><span class="pre">file_list</span></tt> would
+<p>where <code class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></code> would be a list of references to files in the
+<code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory, along with the filename that the contents has when
+reconstructed back into the snapshot.  For example, maybe <code class="docutils literal"><span class="pre">file_list</span></code> would
 have a series of (object reference, filename) pairs like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>contents_version1            contents.txt
 chapter1_version1            chapter1.txt
@@ -706,7 +706,7 @@ chapter1_discussion_version1 chapter1_discussion.txt
 </pre></div>
 </div>
 <p>These references in the first column could match filenames in the
-<tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
+<code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory:</p>
 <div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── chapter1_version1
 │   │   ├── chapter2_version1
@@ -716,15 +716,15 @@ chapter1_discussion_version1 chapter1_discussion.txt
 │   │   └── contents_version1
 </pre></div>
 </div>
-<p>We could think of the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory as a very simple form of
+<p>We could think of the <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory as a very simple form of
 database, where the keys are the filenames, and the file contents are the
 values.</p>
 <p>We think about this for a while and realize that it&#8217;s going to be annoying
-trying to find unique names to use as filenames in <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>, because
-there will be many versions of many files.  For example <tt class="docutils literal"><span class="pre">chapter1_version2</span></tt>,
-<tt class="docutils literal"><span class="pre">chapter1_version3</span></tt> and so on is clearly not going to work, because when Eve
+trying to find unique names to use as filenames in <code class="docutils literal"><span class="pre">.ahole/objects</span></code>, because
+there will be many versions of many files.  For example <code class="docutils literal"><span class="pre">chapter1_version2</span></code>,
+<code class="docutils literal"><span class="pre">chapter1_version3</span></code> and so on is clearly not going to work, because when Eve
 and I work independently, at some point we&#8217;re both going to have something like
-a <tt class="docutils literal"><span class="pre">chapter1_version3</span></tt> in our respective <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directories, but
+a <code class="docutils literal"><span class="pre">chapter1_version3</span></code> in our respective <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directories, but
 they will be different, and that will be confusing.</p>
 <p>At this stage, Eve reveals that she has some training in computer science.  Of
 course I have no idea what that is, or who did the training, but she&#8217;s in too
@@ -767,8 +767,8 @@ string and therefore we have a new unique filename with which to store the new
 contents. For example, the original version of chapter 2 was a bit shorter, and
 had a hash of &#8216;1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f&#8217;.</p>
 <p>Now we have got a nice way of making the references that will go into
-<tt class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></tt>.  First we store the file versions in our
-<tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory, using their hash values as filenames:</p>
+<code class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></code>.  First we store the file versions in our
+<code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory, using their hash values as filenames:</p>
 <div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
 │   │   ├── 1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f (chapter2 version 1)
@@ -777,9 +777,9 @@ had a hash of &#8216;1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f&#8217;.</p>
 │   │   └── f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 (contents version 1)
 </pre></div>
 </div>
-<p>Next we create <tt class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></tt> with one row per file in our
+<p>Next we create <code class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></code> with one row per file in our
 directory.  Each row contains first - the hash value (and therefore filename in
-<tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>) which allows me to get the file contents, then the type of
+<code class="docutils literal"><span class="pre">.ahole/objects</span></code>) which allows me to get the file contents, then the type of
 thing this is - here a file - and lastly, the filename as it was in the
 snapshot:</p>
 <div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
@@ -789,13 +789,13 @@ f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
 </pre></div>
 </div>
 <p>Now, what about Eve&#8217;s new working tree with the photos in it?  The photos are in
-the <tt class="docutils literal"><span class="pre">images</span></tt> subdirectory, and we don&#8217;t have a way of storing subdirectories
+the <code class="docutils literal"><span class="pre">images</span></code> subdirectory, and we don&#8217;t have a way of storing subdirectories
 yet.  Aha - why not store directories in the object database too?  Directories
-can just be <em>tree</em> files like <tt class="docutils literal"><span class="pre">file_list</span></tt>.  <em>tree</em> files are lists, one entry
+can just be <em>tree</em> files like <code class="docutils literal"><span class="pre">file_list</span></code>.  <em>tree</em> files are lists, one entry
 per row, where each row contains the hash reference for the file contents, the
 type of thing it is (tree or file), and the filename as it was in the snapshot.
 So, for Eve&#8217;s new commit, we&#8217;d first store the contents of the two photo files
-in the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
+in the <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory:</p>
 <div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
 │   │   ├── e8b23357995db47e70906d4c7a08114c0c0ba376 (lion_with_lamb.jpg)
@@ -808,7 +808,7 @@ e8b23357995db47e70906d4c7a08114c0c0ba376 file lion_with_lamb.jpg
 </pre></div>
 </div>
 <p>and we make a hash for that tree file too, and put that into
-<tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>:</p>
+<code class="docutils literal"><span class="pre">.ahole/objects</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
@@ -826,16 +826,16 @@ be242dba385bc0689be16454e959f4b64c87abce tree images
 </pre></div>
 </div>
 <p>Oh - but wait - that&#8217;s just a tree listing too, let&#8217;s make a hash for that, and
-put it into the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory:</p>
+put it into the <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory:</p>
 <div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── e52dc9dbe358c549df65307652ff2709322812b3 (root listing)
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
 </pre></div>
 </div>
-<p>Right - so now our whole commit boils down to our <tt class="docutils literal"><span class="pre">info.txt</span></tt> file, and the
+<p>Right - so now our whole commit boils down to our <code class="docutils literal"><span class="pre">info.txt</span></code> file, and the
 hash for the root tree (the one starting &#8216;e52dc&#8217; above). We can get rid of the
-old <tt class="docutils literal"><span class="pre">files</span></tt> subdirectory in the commit, and add the hash for the root tree
+old <code class="docutils literal"><span class="pre">files</span></code> subdirectory in the commit, and add the hash for the root tree
 instead - something like:</p>
 <div class="highlight-python"><div class="highlight"><pre>committer = Eve
 message = Adding funny pictures
@@ -845,8 +845,8 @@ parent = 0a01a0
 </pre></div>
 </div>
 <p>Now we can solve the annoying problem of finding an unique commit id for each
-commit.   We just make a hash for the <tt class="docutils literal"><span class="pre">info.txt</span></tt> file, and put that into the
-<tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory too, as a <em>commit</em> file:</p>
+commit.   We just make a hash for the <code class="docutils literal"><span class="pre">info.txt</span></code> file, and put that into the
+<code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory too, as a <em>commit</em> file:</p>
 <div class="highlight-python"><div class="highlight"><pre>│   ├── objects
 │   │   ├── 7e0cda8c145b300b519ed28998a31f801b6d626f (latest commit)
 │   │   ├── e52dc9dbe358c549df65307652ff2709322812b3 (root listing)
@@ -862,13 +862,13 @@ listing, and the root tree listing contains file hashes, which are in turn
 unique to the file contents, so the root tree hash will be unique to the file
 contents of the commit.  Thus, the commit id is unique to all the things that go
 into the commit, including the contents.  It&#8217;s clever isn&#8217;t it?</p>
-<p>We can now have three types of files in the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt> directory -
+<p>We can now have three types of files in the <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory -
 files, trees, and commits.</p>
 <p>OK - so things are now a little more complicated than our previous setup with
 file copies, but lots of things have just got much easier.   For example, we can
-now get rid of the <tt class="docutils literal"><span class="pre">staging_area</span></tt> directory.  The staging area can just be a
+now get rid of the <code class="docutils literal"><span class="pre">staging_area</span></code> directory.  The staging area can just be a
 single file containing the root tree listing of the snapshot.  Let&#8217;s call that
-file <tt class="docutils literal"><span class="pre">.ahole/index</span></tt>.  Now Eve has done her new commit, that file can just be
+file <code class="docutils literal"><span class="pre">.ahole/index</span></code>.  Now Eve has done her new commit, that file can just be
 the root directory listing of the previous commit (the commit we have just
 done):</p>
 <div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
@@ -878,12 +878,12 @@ f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
 be242dba385bc0689be16454e959f4b64c87abce tree images
 </pre></div>
 </div>
-<p>When Eve makes an edit to <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt>, instead of copying the file to the
-<tt class="docutils literal"><span class="pre">staging_area</span></tt> directory, she makes a hash for the new <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt>
-contents, she stores the new <tt class="docutils literal"><span class="pre">chapter1.txt</span></tt> contents in the <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>
-directory using the hash as a filename, and then she edits the <tt class="docutils literal"><span class="pre">.ahole/index</span></tt>
+<p>When Eve makes an edit to <code class="docutils literal"><span class="pre">chapter1.txt</span></code>, instead of copying the file to the
+<code class="docutils literal"><span class="pre">staging_area</span></code> directory, she makes a hash for the new <code class="docutils literal"><span class="pre">chapter1.txt</span></code>
+contents, she stores the new <code class="docutils literal"><span class="pre">chapter1.txt</span></code> contents in the <code class="docutils literal"><span class="pre">.ahole/objects</span></code>
+directory using the hash as a filename, and then she edits the <code class="docutils literal"><span class="pre">.ahole/index</span></code>
 file to point to her new chapter 1 contents instead of the old.  She might
-automate this with a small command like <tt class="docutils literal"><span class="pre">ahole_stage</span></tt> <a class="footnote-reference" href="#need-hashlib" id="id3">[3]</a></p>
+automate this with a small command like <code class="docutils literal"><span class="pre">ahole_stage</span></code> <a class="footnote-reference" href="#need-hashlib" id="id3">[3]</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_stage</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
     <span class="c"># Get the hash for the file contents</span>
     <span class="n">file_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -902,9 +902,9 @@ automate this with a small command like <tt class="docutils literal"><span class
     <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/index&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">root_listing</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Making a new commit involves taking the contents of <tt class="docutils literal"><span class="pre">.ahole/index</span></tt> and using
-it to make a new commit file in <tt class="docutils literal"><span class="pre">.ahole/objects</span></tt>.  Using the structure of our
-previous <tt class="docutils literal"><span class="pre">ahole_commit</span></tt> routine, that might look like:</p>
+<p>Making a new commit involves taking the contents of <code class="docutils literal"><span class="pre">.ahole/index</span></code> and using
+it to make a new commit file in <code class="docutils literal"><span class="pre">.ahole/objects</span></code>.  Using the structure of our
+previous <code class="docutils literal"><span class="pre">ahole_commit</span></code> routine, that might look like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="c"># *** this stuff is the same as before ***</span>
     <span class="c"># Get previous (parent) commit id from .ahole/HEAD</span>
@@ -965,12 +965,12 @@ and the previous commit</li>
 version control system called <em>ahole</em>, you can use a very similar system called
 <a class="reference external" href="http://git-scm.com">git</a>.</p>
 <p>If you use <a class="reference external" href="http://git-scm.com">git</a>, you&#8217;ll notice that you have lots of <em>ahole</em> friends.  You&#8217;ll
-see git creates a <tt class="docutils literal"><span class="pre">.git</span></tt> subdirectory that contains the repository.  You&#8217;ll
-recognize the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory containing filenames with SHA1 hashes.
-You&#8217;ll see that commits have SHA1 hashes.  You&#8217;ll recognize the <tt class="docutils literal"><span class="pre">.git/HEAD</span></tt>
-file and <tt class="docutils literal"><span class="pre">.git/refs/heads</span></tt> and <tt class="docutils literal"><span class="pre">.git/refs/tags</span></tt> and
-<tt class="docutils literal"><span class="pre">.git/refs/heads/master</span></tt>. There is a <tt class="docutils literal"><span class="pre">.git/index</span></tt> file, and it is the
-staging area. <tt class="docutils literal"><span class="pre">.git/index</span></tt> is a little more complicated than <tt class="docutils literal"><span class="pre">.ahole/index</span></tt>
+see git creates a <code class="docutils literal"><span class="pre">.git</span></code> subdirectory that contains the repository.  You&#8217;ll
+recognize the <code class="docutils literal"><span class="pre">.git/objects</span></code> directory containing filenames with SHA1 hashes.
+You&#8217;ll see that commits have SHA1 hashes.  You&#8217;ll recognize the <code class="docutils literal"><span class="pre">.git/HEAD</span></code>
+file and <code class="docutils literal"><span class="pre">.git/refs/heads</span></code> and <code class="docutils literal"><span class="pre">.git/refs/tags</span></code> and
+<code class="docutils literal"><span class="pre">.git/refs/heads/master</span></code>. There is a <code class="docutils literal"><span class="pre">.git/index</span></code> file, and it is the
+staging area. <code class="docutils literal"><span class="pre">.git/index</span></code> is a little more complicated than <code class="docutils literal"><span class="pre">.ahole/index</span></code>
 because it&#8217;s adapted to helping with difficult merges, but it&#8217;s the same idea.</p>
 <p>You now live in the garden of Eden of version control.  Remember to stay away
 from that apple tree.</p>
@@ -978,7 +978,7 @@ from that apple tree.</p>
 <table class="docutils footnote" frame="void" id="ahole-git" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><tt class="docutils literal"><span class="pre">ahole</span></tt> might seem a bit rude to you, but I was born in the UK, and,
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><code class="docutils literal"><span class="pre">ahole</span></code> might seem a bit rude to you, but I was born in the UK, and,
 where I come from, &#8216;ahole&#8217; is roughly as rude as &#8216;git&#8217;.</td></tr>
 </tbody>
 </table>
@@ -1019,7 +1019,7 @@ for copying files into the working tree:</p>
             <span class="n">copytree</span><span class="p">(</span><span class="n">src_name</span><span class="p">,</span> <span class="n">dst_name</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="last">We also need some definition of <tt class="docutils literal"><span class="pre">make_unique_id()</span></tt>.</p>
+<p class="last">We also need some definition of <code class="docutils literal"><span class="pre">make_unique_id()</span></code>.</p>
 </td></tr>
 </tbody>
 </table>
@@ -1044,7 +1044,7 @@ for copying files into the working tree:</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -1066,12 +1066,14 @@ for copying files into the working tree:</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="rebase_without_tears.html"
                         title="next chapter">Rebase without tears</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/foundation.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/foundation.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -1088,7 +1090,7 @@ for copying files into the working tree:</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1100,13 +1102,13 @@ for copying files into the working tree:</p>
         <li class="right" >
           <a href="git_push_algorithm.html" title="An algorithm for git push"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

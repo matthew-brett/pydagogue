@@ -29,8 +29,8 @@
     <link rel="next" title="XML from absolutely nothing" href="xml_from_scratch.html" />
     <link rel="prev" title="General computing" href="computing.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,20 +42,20 @@
         <li class="right" >
           <a href="computing.html" title="General computing"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="introducing-unicode">
 <span id="id1"></span><h1>Introducing Unicode<a class="headerlink" href="#introducing-unicode" title="Permalink to this headline">¶</a></h1>
 <p>A collection of links and some very basic introduction.</p>
-<p>For some information on Unicode in Python, see <a class="reference internal" href="python_unicode.html#python-unicode"><em>Python and unicode</em></a>.</p>
+<p>For some information on Unicode in Python, see <a class="reference internal" href="python_unicode.html#python-unicode"><span>Python and unicode</span></a>.</p>
 <p>For a good programmer&#8217;s introduction see:
 <a class="reference external" href="http://www.joelonsoftware.com/articles/Unicode.html">http://www.joelonsoftware.com/articles/Unicode.html</a></p>
 <div class="section" id="unicode">
@@ -75,7 +75,7 @@ Character Database - the latest version of which should be at
 conventional to use hexadecimal - for example code point U+00E9 is the latin
 small letter e with an acute accent.</p>
 <p>The code points up to 128 (hexadecimal 7F) are identical to the ascii
-character codes; so for example <tt class="docutils literal"><span class="pre">U+0065</span></tt> is the latin letter e.</p>
+character codes; so for example <code class="docutils literal"><span class="pre">U+0065</span></code> is the latin letter e.</p>
 <p>Code points from 0 to 65535 (hexadecimal FFFF) represent characters in the
 Basic Multilingual Plane (BMP).  The BMP contains characters for almost
 all modern languages, including Chinese, as well as a large number of
@@ -140,7 +140,7 @@ and there are not defined unicode code points (characters) in this range.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -161,12 +161,14 @@ and there are not defined unicode code points (characters) in this range.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="xml_from_scratch.html"
                         title="next chapter">XML from absolutely nothing</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/introducing_unicode.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introducing_unicode.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -183,7 +185,7 @@ and there are not defined unicode code points (characters) in this range.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -195,13 +197,13 @@ and there are not defined unicode code points (characters) in this range.</p>
         <li class="right" >
           <a href="computing.html" title="General computing"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -29,8 +29,8 @@
     <link rel="next" title="Points on floats" href="floating_point.html" />
     <link rel="prev" title="Introducing Unicode" href="introducing_unicode.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,24 +42,24 @@
         <li class="right" >
           <a href="introducing_unicode.html" title="Introducing Unicode"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="xml-from-absolutely-nothing">
 <h1>XML from absolutely nothing<a class="headerlink" href="#xml-from-absolutely-nothing" title="Permalink to this headline">¶</a></h1>
 <p>The basic unit of an XML document is an <em>element</em>.</p>
 <p>A standard XML element consists of:</p>
 <ul class="simple">
-<li>a start <em>tag</em> – e.g. <tt class="docutils literal"><span class="pre">&lt;my-element&gt;</span></tt>;</li>
-<li>optional content – e.g. <tt class="docutils literal"><span class="pre">Some</span> <span class="pre">data</span></tt>;</li>
-<li>an end <em>tag</em> – e.g. <tt class="docutils literal"><span class="pre">&lt;/my-element&gt;</span></tt>.</li>
+<li>a start <em>tag</em> – e.g. <code class="docutils literal"><span class="pre">&lt;my-element&gt;</span></code>;</li>
+<li>optional content – e.g. <code class="docutils literal"><span class="pre">Some</span> <span class="pre">data</span></code>;</li>
+<li>an end <em>tag</em> – e.g. <code class="docutils literal"><span class="pre">&lt;/my-element&gt;</span></code>.</li>
 </ul>
 <div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;Some data&lt;/my-element&gt;
 </pre></div>
@@ -71,11 +71,11 @@ tag</em>:</p>
 </div>
 <p>To repeat then, there are three types of tag:</p>
 <ul class="simple">
-<li>a start tag – e.g. <tt class="docutils literal"><span class="pre">&lt;a-name&gt;</span></tt>;</li>
-<li>an end tag – e.g. <tt class="docutils literal"><span class="pre">&lt;/a-name&gt;</span></tt>;</li>
-<li>an empty element tag – e.g <tt class="docutils literal"><span class="pre">&lt;a-name</span> <span class="pre">/&gt;</span></tt>.</li>
+<li>a start tag – e.g. <code class="docutils literal"><span class="pre">&lt;a-name&gt;</span></code>;</li>
+<li>an end tag – e.g. <code class="docutils literal"><span class="pre">&lt;/a-name&gt;</span></code>;</li>
+<li>an empty element tag – e.g <code class="docutils literal"><span class="pre">&lt;a-name</span> <span class="pre">/&gt;</span></code>.</li>
 </ul>
-<p>A tag always starts with <tt class="docutils literal"><span class="pre">&lt;</span></tt> and ends with <tt class="docutils literal"><span class="pre">&gt;</span></tt>.</p>
+<p>A tag always starts with <code class="docutils literal"><span class="pre">&lt;</span></code> and ends with <code class="docutils literal"><span class="pre">&gt;</span></code>.</p>
 <p>A start tag and an empty element tag can have <em>attributes</em>. These are name,
 value pairs:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot;&gt;Some text&lt;/a-name&gt;
@@ -97,7 +97,7 @@ value pairs:</p>
 </div>
 <p>There is one single element at the root of a valid XML document:</p>
 <div class="admonition">
-<em class="first">Contents of </em><tt class="docutils literal"><span class="pre">some_example.xml</span></tt><div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;a-root-element</span> <span class="na">my-type=</span><span class="s">&quot;example&quot;</span><span class="nt">&gt;</span>
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">some_example.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;a-root-element</span> <span class="na">my-type=</span><span class="s">&quot;example&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;at-second-level&gt;</span>
         <span class="nt">&lt;first-thing&gt;</span>Some text<span class="nt">&lt;/first-thing&gt;</span>
         <span class="nt">&lt;second-thing&gt;</span>More text<span class="nt">&lt;/second-thing&gt;</span>
@@ -131,7 +131,7 @@ value pairs:</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="introducing_unicode.html"
@@ -139,12 +139,14 @@ value pairs:</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="floating_point.html"
                         title="next chapter">Points on floats</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/xml_from_scratch.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/xml_from_scratch.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -161,7 +163,7 @@ value pairs:</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -173,13 +175,13 @@ value pairs:</p>
         <li class="right" >
           <a href="introducing_unicode.html" title="Introducing Unicode"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

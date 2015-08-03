@@ -29,8 +29,8 @@
     <link rel="next" title="Using vim as a mergetool in git" href="vim_mergetool.html" />
     <link rel="prev" title="Two and three dots with diff" href="git_diff_dots.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,15 +42,15 @@
         <li class="right" >
           <a href="git_diff_dots.html" title="Two and three dots with diff"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="how-do-git-submodules-work">
 <h1>How do git submodules work?<a class="headerlink" href="#how-do-git-submodules-work" title="Permalink to this headline">¶</a></h1>
@@ -73,7 +73,7 @@ that is using <em>myproject</em> we will call <em>super</em>.</p>
 version control, we want to keep track of exactly which &#8220;myproject&#8221; version
 &#8220;super&#8221; is using.</p>
 <div class="section" id="myproject">
-<h3><tt class="docutils literal"><span class="pre">myproject</span></tt><a class="headerlink" href="#myproject" title="Permalink to this headline">¶</a></h3>
+<h3><code class="docutils literal"><span class="pre">myproject</span></code><a class="headerlink" href="#myproject" title="Permalink to this headline">¶</a></h3>
 <p>We make a little &#8220;myproject&#8221; to start:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir myproject
 <span class="nv">$ </span><span class="nb">cd </span>myproject
@@ -84,9 +84,9 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/myp
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Important code and data&quot;</span> &gt; some_data.txt
 <span class="nv">$ </span>git add some_data.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Initial commit on myproject&quot;</span>
-<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 880f471<span class="o">]</span> Initial commit on myproject
- 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
- create mode 100644 some_data.txt
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 196bbbb<span class="o">]</span> Initial commit on myproject
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> some_data.txt
 </pre></div>
 </div>
 <p>Back to the working directory containing the repositories:</p>
@@ -95,14 +95,14 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/myp
 </div>
 </div>
 <div class="section" id="super">
-<h3><tt class="docutils literal"><span class="pre">super</span></tt><a class="headerlink" href="#super" title="Permalink to this headline">¶</a></h3>
+<h3><code class="docutils literal"><span class="pre">super</span></code><a class="headerlink" href="#super" title="Permalink to this headline">¶</a></h3>
 <p>Now a &#8220;super&#8221; project:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>mkdir super
 <span class="nv">$ </span><span class="nb">cd </span>super
 </pre></div>
 </div>
-<p>Remember (from <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>) that doing <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> on a file adds a new
-copy of that file to the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory.  So, <tt class="docutils literal"><span class="pre">.git/objects</span></tt>
+<p>Remember (from <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>) that doing <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></code> on a file adds a new
+copy of that file to the <code class="docutils literal"><span class="pre">.git/objects</span></code> directory.  So, <code class="docutils literal"><span class="pre">.git/objects</span></code>
 starts off empty:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git init
 Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/super/.git/
@@ -113,13 +113,13 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/sup
 ├── info
 └── pack
 
-2 directories, 0 files
+<span class="m">2</span> directories, <span class="m">0</span> files
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>
 </pre></div>
 </div>
-<p>When we <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> a file, there is one new file in <tt class="docutils literal"><span class="pre">.git/objects</span></tt>:</p>
+<p>When we <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></code> a file, there is one new file in <code class="docutils literal"><span class="pre">.git/objects</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This project will use ``myproject``&quot;</span> &gt; README.txt
 <span class="nv">$ </span>git add README.txt
 </pre></div>
@@ -131,26 +131,26 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/sup
 ├── info
 └── pack
 
-3 directories, 1 file
+<span class="m">3</span> directories, <span class="m">1</span> file
 </pre></div>
 </div>
 <p>Now do the first commit for &#8220;super&#8221;:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Initial commit on super&quot;</span>
-<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 4f1f025<span class="o">]</span> Initial commit on super
- 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
- create mode 100644 README.txt
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 2326240<span class="o">]</span> Initial commit on super
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> README.txt
 </pre></div>
 </div>
-<p>The commit made two new objects in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory:</p>
+<p>The commit made two new objects in the <code class="docutils literal"><span class="pre">.git/objects</span></code> directory:</p>
 <ul class="simple">
 <li>a <em>tree</em> object giving the directory listing of the root directory;</li>
 <li>a <em>commit</em> object giving information about the commit itself.</li>
 </ul>
-<p>So, we now have three files in <tt class="docutils literal"><span class="pre">.git/objects</span></tt>:</p>
+<p>So, we now have three files in <code class="docutils literal"><span class="pre">.git/objects</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a .git/objects
 .git/objects
-├── 4f
-│   └── 1f025a04562fa057ab43170bf724aab0a95ec5
+├── 23
+│   └── 262403a0b913d02219ead935dd1a85d3724a0d
 ├── 9c
 │   └── 0042144fc489d7b528ef186af49e78c2867f91
 ├── f1
@@ -158,12 +158,12 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/sup
 ├── info
 └── pack
 
-5 directories, 3 files
+<span class="m">5</span> directories, <span class="m">3</span> files
 </pre></div>
 </div>
 </div>
 <div class="section" id="adding-myproject-as-a-submodule-of-super">
-<h3>Adding <tt class="docutils literal"><span class="pre">myproject</span></tt> as a submodule of <tt class="docutils literal"><span class="pre">super</span></tt><a class="headerlink" href="#adding-myproject-as-a-submodule-of-super" title="Permalink to this headline">¶</a></h3>
+<h3>Adding <code class="docutils literal"><span class="pre">myproject</span></code> as a submodule of <code class="docutils literal"><span class="pre">super</span></code><a class="headerlink" href="#adding-myproject-as-a-submodule-of-super" title="Permalink to this headline">¶</a></h3>
 <p>We use a git submodule to put &#8220;myproject&#8221; inside &#8220;super&#8221;.  We will use the
 name &#8220;subproject&#8221; for the submodule copy of &#8220;myproject&#8221;, to make clear that it
 is the submodule copy:</p>
@@ -182,8 +182,8 @@ Changes to be committed:
 	new file:   subproject
 </pre></div>
 </div>
-<p>Notice that <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></tt> has already staged its changes, so we need the
-<tt class="docutils literal"><span class="pre">--staged</span></tt> flag to <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> to see what has changed:</p>
+<p>Notice that <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> has already staged its changes, so we need the
+<code class="docutils literal"><span class="pre">--staged</span></code> flag to <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> to see what has changed:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git diff --staged
 diff --git a/.gitmodules b/.gitmodules
 new file mode 100644
@@ -196,29 +196,29 @@ index 0000000..00b54ec
 +	<span class="nv">url</span> <span class="o">=</span> ../myproject
 diff --git a/subproject b/subproject
 new file mode 160000
-index 0000000..880f471
+index 0000000..196bbbb
 --- /dev/null
 +++ b/subproject
 @@ -0,0 +1 @@
-+Subproject commit 880f47177efb90203b3db99fc0fc6dd4908ab90c
++Subproject commit 196bbbb2b7497fdc868fa61425959d23ff1c0fe5
 </pre></div>
 </div>
-<p>As you saw, the output from <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></tt> says <tt class="docutils literal"><span class="pre">Cloning</span> <span class="pre">into</span>
-<span class="pre">subproject</span></tt>, and sure enough, if we look in the new <tt class="docutils literal"><span class="pre">subproject</span></tt> directory,
+<p>As you saw, the output from <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> says <code class="docutils literal"><span class="pre">Cloning</span> <span class="pre">into</span>
+<span class="pre">subproject</span></code>, and sure enough, if we look in the new <code class="docutils literal"><span class="pre">subproject</span></code> directory,
 there is a clone of &#8220;myproject&#8221; there:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a subproject
 subproject
 ├── .git
 └── some_data.txt
 
-0 directories, 2 files
+<span class="m">0</span> directories, <span class="m">2</span> files
 </pre></div>
 </div>
-<p>So, <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></tt> has:</p>
+<p>So, <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> has:</p>
 <ol class="arabic simple">
 <li>cloned &#8220;myproject&#8221; to &#8220;super&#8221; subdirectory &#8220;subproject&#8221;;</li>
-<li>created and staged a small text file called <tt class="docutils literal"><span class="pre">.gitmodules</span></tt> that records
-the relationship of the <tt class="docutils literal"><span class="pre">subproject</span></tt> subdirectory to the original
+<li>created and staged a small text file called <code class="docutils literal"><span class="pre">.gitmodules</span></code> that records
+the relationship of the <code class="docutils literal"><span class="pre">subproject</span></code> subdirectory to the original
 &#8220;myproject&#8221; repository;</li>
 <li>claimed to have made a new <em>file</em> in the &#8220;super&#8221; repository that records
 the &#8220;myproject&#8221; commit that the submodule contains.</li>
@@ -226,17 +226,17 @@ the &#8220;myproject&#8221; commit that the submodule contains.</li>
 <p>It&#8217;s the last of these three that is a little strange, so we will explore.</p>
 </div>
 <div class="section" id="storing-the-current-commit-of-myproject">
-<h3>Storing the current commit of <tt class="docutils literal"><span class="pre">myproject</span></tt><a class="headerlink" href="#storing-the-current-commit-of-myproject" title="Permalink to this headline">¶</a></h3>
+<h3>Storing the current commit of <code class="docutils literal"><span class="pre">myproject</span></code><a class="headerlink" href="#storing-the-current-commit-of-myproject" title="Permalink to this headline">¶</a></h3>
 <p>Why do I say that git &#8220;claimed&#8221; to have made a new file to record the
 &#8220;myproject&#8221; commit?</p>
-<p>Remember that we had three files in the <tt class="docutils literal"><span class="pre">.git/objects</span></tt> directory of &#8220;super&#8221;
-after the first commit.  After <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">add</span></tt> we have four:</p>
+<p>Remember that we had three files in the <code class="docutils literal"><span class="pre">.git/objects</span></code> directory of &#8220;super&#8221;
+after the first commit.  After <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">add</span></code> we have four:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a .git/objects
 .git/objects
 ├── 00
 │   └── b54ece7789a75ca80a0edb1e1b1e532a1833d8
-├── 4f
-│   └── 1f025a04562fa057ab43170bf724aab0a95ec5
+├── 23
+│   └── 262403a0b913d02219ead935dd1a85d3724a0d
 ├── 9c
 │   └── 0042144fc489d7b528ef186af49e78c2867f91
 ├── f1
@@ -244,51 +244,51 @@ after the first commit.  After <tt class="docutils literal"><span class="pre">gi
 ├── info
 └── pack
 
-6 directories, 4 files
+<span class="m">6</span> directories, <span class="m">4</span> files
 </pre></div>
 </div>
-<p>The new object has hash <tt class="docutils literal"><span class="pre">00b54ece7789a75ca80a0edb1e1b1e532a1833d8</span></tt>, and it contains the contents of
-the new <tt class="docutils literal"><span class="pre">.gitmodules</span></tt> file:</p>
+<p>The new object has hash <code class="docutils literal"><span class="pre">00b54ece7789a75ca80a0edb1e1b1e532a1833d8</span></code>, and it contains the contents of
+the new <code class="docutils literal"><span class="pre">.gitmodules</span></code> file:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -p 00b54ece7789a75ca80a0edb1e1b1e532a1833d8
 <span class="o">[</span>submodule <span class="s2">&quot;subproject&quot;</span><span class="o">]</span>
 	<span class="nv">path</span> <span class="o">=</span> subproject
 	<span class="nv">url</span> <span class="o">=</span> ../myproject
 </pre></div>
 </div>
-<p>If there is only one new object in <tt class="docutils literal"><span class="pre">.git/objects</span></tt>, and that is for
-<tt class="docutils literal"><span class="pre">.gitmodules</span></tt>, then there is no new git object corresponding to the
+<p>If there is only one new object in <code class="docutils literal"><span class="pre">.git/objects</span></code>, and that is for
+<code class="docutils literal"><span class="pre">.gitmodules</span></code>, then there is no new git object corresponding to the
 &#8220;myproject&#8221; repository.  What has in fact happened, is that git records the
 commit for &#8220;myproject&#8221; in the directory listing, instead of recording the
-<tt class="docutils literal"><span class="pre">subproject</span></tt> directory as a subdirectory (tree object) or a file (blob
+<code class="docutils literal"><span class="pre">subproject</span></code> directory as a subdirectory (tree object) or a file (blob
 object).  That is a bit difficult to see at the moment, because the directory
 listing is in the git staging area and not yet written into a tree object.  To
 write the tree object, we do a commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Adding the submodule&quot;</span>
-<span class="o">[</span>master 2ed4151<span class="o">]</span> Adding the submodule
- 2 files changed, 4 insertions<span class="o">(</span>+<span class="o">)</span>
- create mode 100644 .gitmodules
- create mode 160000 subproject
+<span class="o">[</span>master 7c556d2<span class="o">]</span> Adding the submodule
+ <span class="m">2</span> files changed, <span class="m">4</span> insertions<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> .gitmodules
+ create mode <span class="m">160000</span> subproject
 </pre></div>
 </div>
-<p>The exotic <tt class="docutils literal"><span class="pre">git</span> <span class="pre">ls-tree</span></tt> command shows us the contents of the new root tree
+<p>The exotic <code class="docutils literal"><span class="pre">git</span> <span class="pre">ls-tree</span></code> command shows us the contents of the new root tree
 object (directory listing) for this commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git ls-tree master
-100644 blob 00b54ece7789a75ca80a0edb1e1b1e532a1833d8	.gitmodules
-100644 blob 9c0042144fc489d7b528ef186af49e78c2867f91	README.txt
-160000 commit 880f47177efb90203b3db99fc0fc6dd4908ab90c	subproject
+<span class="m">100644</span> blob 00b54ece7789a75ca80a0edb1e1b1e532a1833d8	.gitmodules
+<span class="m">100644</span> blob 9c0042144fc489d7b528ef186af49e78c2867f91	README.txt
+<span class="m">160000</span> commit 196bbbb2b7497fdc868fa61425959d23ff1c0fe5	subproject
 </pre></div>
 </div>
-<p>As you can see, the two real files – <tt class="docutils literal"><span class="pre">.gitmodules</span></tt> and <tt class="docutils literal"><span class="pre">README.txt</span></tt>
-– are listed as type <tt class="docutils literal"><span class="pre">blob</span></tt>, with the hashes of their file contents. This
+<p>As you can see, the two real files – <code class="docutils literal"><span class="pre">.gitmodules</span></code> and <code class="docutils literal"><span class="pre">README.txt</span></code>
+– are listed as type <code class="docutils literal"><span class="pre">blob</span></code>, with the hashes of their file contents. This
 is the usual way git refers to a file in a directory listing (see
-<a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>, and <a class="reference internal" href="git_object_types.html#git-object-types"><em>Types of git objects</em></a>). The new entry for
-<tt class="docutils literal"><span class="pre">subproject</span></tt> is of type <tt class="docutils literal"><span class="pre">commit</span></tt>.  The hash is the hash for current commit
-of the &#8220;myproject&#8221; repository, in the <tt class="docutils literal"><span class="pre">subproject</span></tt> copy:</p>
+<a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>, and <a class="reference internal" href="git_object_types.html#git-object-types"><span>Types of git objects</span></a>). The new entry for
+<code class="docutils literal"><span class="pre">subproject</span></code> is of type <code class="docutils literal"><span class="pre">commit</span></code>.  The hash is the hash for current commit
+of the &#8220;myproject&#8221; repository, in the <code class="docutils literal"><span class="pre">subproject</span></code> copy:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>subproject
 <span class="nv">$ </span>git log
-commit 880f47177efb90203b3db99fc0fc6dd4908ab90c
+commit 196bbbb2b7497fdc868fa61425959d23ff1c0fe5
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue May 1 11:13:13 2012 -0700
+Date:   Tue May <span class="m">1</span> 11:13:13 <span class="m">2012</span> +0100
 
     Initial commit on myproject
 </pre></div>
@@ -296,8 +296,8 @@ Date:   Tue May 1 11:13:13 2012 -0700
 </div>
 <div class="section" id="updating-submodules-from-their-source-repositories">
 <h3>Updating submodules from their source repositories<a class="headerlink" href="#updating-submodules-from-their-source-repositories" title="Permalink to this headline">¶</a></h3>
-<p>How do we keep the <tt class="docutils literal"><span class="pre">subproject</span></tt> copy of &#8220;myproject&#8221; up to date with the
-original <tt class="docutils literal"><span class="pre">myproject</span></tt> repository?</p>
+<p>How do we keep the <code class="docutils literal"><span class="pre">subproject</span></code> copy of &#8220;myproject&#8221; up to date with the
+original <code class="docutils literal"><span class="pre">myproject</span></code> repository?</p>
 <p>We go back to the original &#8220;myproject&#8221; repository and make another commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ../myproject
 </pre></div>
@@ -306,13 +306,13 @@ original <tt class="docutils literal"><span class="pre">myproject</span></tt> re
 <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More data&quot;</span> &gt; some_more_data.txt
 <span class="nv">$ </span>git add some_more_data.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Add some more data&quot;</span>
-<span class="o">[</span>master 15299e9<span class="o">]</span> Add some more data
- 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
- create mode 100644 some_more_data.txt
+<span class="o">[</span>master 43c26bf<span class="o">]</span> Add some more data
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> some_more_data.txt
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
-* master 15299e9 Add some more data
+* master 43c26bf Add some more data
 </pre></div>
 </div>
 <p>Of course &#8220;super&#8221; has not changed, because we haven&#8217;t updated the submodule
@@ -326,9 +326,9 @@ nothing to commit, working directory clean
 </pre></div>
 </div>
 <p>The &#8220;subproject&#8221; directory is a full git repository clone of the original
-&#8220;myproject&#8221;.  Remember that <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">add</span></tt> created the directory by
-cloning. The &#8220;myproject&#8221; clone has a remote from the URL we gave to <tt class="docutils literal"><span class="pre">git</span>
-<span class="pre">subproject</span></tt>.</p>
+&#8220;myproject&#8221;.  Remember that <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">add</span></code> created the directory by
+cloning. The &#8220;myproject&#8221; clone has a remote from the URL we gave to <code class="docutils literal"><span class="pre">git</span>
+<span class="pre">subproject</span></code>.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># We&#39;re in the &quot;super&quot; directory</span>
 <span class="nv">$ </span><span class="nb">cd </span>subproject
 <span class="nv">$ </span><span class="c"># Now we&#39;re in the submodule clone of &quot;myproject&quot;</span>
@@ -337,17 +337,17 @@ origin	/Users/mb312/dev_trees/pydagogue/working/myproject <span class="o">(</spa
 origin	/Users/mb312/dev_trees/pydagogue/working/myproject <span class="o">(</span>push<span class="o">)</span>
 </pre></div>
 </div>
-<p>We can do a <tt class="docutils literal"><span class="pre">fetch</span></tt> / <tt class="docutils literal"><span class="pre">merge</span></tt> to get the new commit:</p>
+<p>We can do a <code class="docutils literal"><span class="pre">fetch</span></code> / <code class="docutils literal"><span class="pre">merge</span></code> to get the new commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># This is the same as &quot;git pull&quot;</span>
 <span class="nv">$ </span>git fetch origin
 <span class="nv">$ </span>git merge origin/master
-Updating 880f471..15299e9
+Updating 196bbbb..43c26bf
 Fast-forward
- some_more_data.txt | 1 +
- 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>
- create mode 100644 some_more_data.txt
+ some_more_data.txt <span class="p">|</span> <span class="m">1</span> +
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> some_more_data.txt
 From /Users/mb312/dev_trees/pydagogue/working/myproject
-   880f471..15299e9  master     -&gt; origin/master
+   196bbbb..43c26bf  master     -&gt; origin/master
 </pre></div>
 </div>
 <p>Now what do we see in &#8220;super&#8221;?</p>
@@ -357,7 +357,7 @@ From /Users/mb312/dev_trees/pydagogue/working/myproject
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># Now we are in the &quot;super&quot; directory</span>
 <span class="nv">$ </span>git status
 On branch master
-Changes not staged <span class="k">for </span>commit:
+Changes not staged <span class="k">for</span> commit:
   <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
   <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory<span class="o">)</span>
 
@@ -368,56 +368,56 @@ no changes added to commit <span class="o">(</span>use <span class="s2">&quot;gi
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git diff
 diff --git a/subproject b/subproject
-index 880f471..15299e9 160000
+index 196bbbb..43c26bf 160000
 --- a/subproject
 +++ b/subproject
 @@ -1 +1 @@
--Subproject commit 880f47177efb90203b3db99fc0fc6dd4908ab90c
-+Subproject commit 15299e979df54673993e94b4d8fc99abe9cad159
+-Subproject commit 196bbbb2b7497fdc868fa61425959d23ff1c0fe5
++Subproject commit 43c26bf6df6a4efade8082f3a5473b807d07c161
 </pre></div>
 </div>
 <p>Git is not tracking the <em>contents</em> of the &#8220;subproject&#8221; directory, but the <em>git
 state</em> of the directory.  In this case, all &#8220;super&#8221; sees is that the commit
 has changed.</p>
-<p>As when we added the submodule, a <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></tt> of the <tt class="docutils literal"><span class="pre">subproject</span></tt> directory,
+<p>As when we added the submodule, a <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></code> of the <code class="docutils literal"><span class="pre">subproject</span></code> directory,
 has the effect of updating the commit that the &#8220;super&#8221; tree is pointing to
-in the staging area, but adds no new files to <tt class="docutils literal"><span class="pre">.git/objects</span></tt>:</p>
+in the staging area, but adds no new files to <code class="docutils literal"><span class="pre">.git/objects</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git/objects/*/*
 .git/objects/00/b54ece7789a75ca80a0edb1e1b1e532a1833d8
-.git/objects/2e/d4151f974b79e7310b0479445f95485133e463
-.git/objects/4f/1f025a04562fa057ab43170bf724aab0a95ec5
+.git/objects/23/262403a0b913d02219ead935dd1a85d3724a0d
+.git/objects/7c/556d246e95b5cb5b57fbeab8e29686e24225af
 .git/objects/9c/0042144fc489d7b528ef186af49e78c2867f91
-.git/objects/a5/998756e9314512275989752d5eb467bbaf2827
+.git/objects/b6/f9da32793466297a8aeb3d6048c1e96cbd3849
 .git/objects/f1/3a8c8331c76ac965c43b09d11ee2d72bb053c1
 </pre></div>
 </div>
 <p>Adding the subproject to the staging area does not make any new objects in
-<tt class="docutils literal"><span class="pre">.git/objects</span></tt>:</p>
+<code class="docutils literal"><span class="pre">.git/objects</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add subproject
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git/objects/*/*
 .git/objects/00/b54ece7789a75ca80a0edb1e1b1e532a1833d8
-.git/objects/2e/d4151f974b79e7310b0479445f95485133e463
-.git/objects/4f/1f025a04562fa057ab43170bf724aab0a95ec5
+.git/objects/23/262403a0b913d02219ead935dd1a85d3724a0d
+.git/objects/7c/556d246e95b5cb5b57fbeab8e29686e24225af
 .git/objects/9c/0042144fc489d7b528ef186af49e78c2867f91
-.git/objects/a5/998756e9314512275989752d5eb467bbaf2827
+.git/objects/b6/f9da32793466297a8aeb3d6048c1e96cbd3849
 .git/objects/f1/3a8c8331c76ac965c43b09d11ee2d72bb053c1
 </pre></div>
 </div>
-<p>So <tt class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">subproject</span></tt> makes no new objects, but it does change the
-&#8220;myproject&#8221; commit hash that <tt class="docutils literal"><span class="pre">subproject</span></tt> points to.</p>
+<p>So <code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">subproject</span></code> makes no new objects, but it does change the
+&#8220;myproject&#8221; commit hash that <code class="docutils literal"><span class="pre">subproject</span></code> points to.</p>
 <p>If we do the commit, we can see the root tree listing now points
-<tt class="docutils literal"><span class="pre">subproject</span></tt> to the new commit of &#8220;myproject&#8221;:</p>
+<code class="docutils literal"><span class="pre">subproject</span></code> to the new commit of &#8220;myproject&#8221;:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Update myproject with more data&quot;</span>
-<span class="o">[</span>master cbb20f7<span class="o">]</span> Update myproject with more data
- 1 file changed, 1 insertion<span class="o">(</span>+<span class="o">)</span>, 1 deletion<span class="o">(</span>-<span class="o">)</span>
+<span class="o">[</span>master 3379d64<span class="o">]</span> Update myproject with more data
+ <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletion<span class="o">(</span>-<span class="o">)</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git ls-tree master
-100644 blob 00b54ece7789a75ca80a0edb1e1b1e532a1833d8	.gitmodules
-100644 blob 9c0042144fc489d7b528ef186af49e78c2867f91	README.txt
-160000 commit 15299e979df54673993e94b4d8fc99abe9cad159	subproject
+<span class="m">100644</span> blob 00b54ece7789a75ca80a0edb1e1b1e532a1833d8	.gitmodules
+<span class="m">100644</span> blob 9c0042144fc489d7b528ef186af49e78c2867f91	README.txt
+<span class="m">160000</span> commit 43c26bf6df6a4efade8082f3a5473b807d07c161	subproject
 </pre></div>
 </div>
 </div>
@@ -439,28 +439,28 @@ README.txt
 subproject
 </pre></div>
 </div>
-<p>What is in the new <tt class="docutils literal"><span class="pre">subproject</span></tt> directory?</p>
+<p>What is in the new <code class="docutils literal"><span class="pre">subproject</span></code> directory?</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a subproject
 subproject
 
-0 directories, 0 files
+<span class="m">0</span> directories, <span class="m">0</span> files
 </pre></div>
 </div>
-<p>Nothing.  When you <tt class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></tt> a project with submodules, git does not clone
+<p>Nothing.  When you <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span></code> a project with submodules, git does not clone
 the submodules.</p>
 <p>Getting the submodule repository clone takes two steps.  These are:</p>
 <ul class="simple">
-<li>initialize with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">init</span></tt>;</li>
-<li>clone with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span></tt>.</li>
+<li>initialize with <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">init</span></code>;</li>
+<li>clone with <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span></code>.</li>
 </ul>
 <p>Initializing the submodule copies the repository submodule information in
-<tt class="docutils literal"><span class="pre">.gitmodules</span></tt> to the repository <tt class="docutils literal"><span class="pre">.git/config</span></tt> file.  Having this as a
+<code class="docutils literal"><span class="pre">.gitmodules</span></code> to the repository <code class="docutils literal"><span class="pre">.git/config</span></code> file.  Having this as a
 separate step is useful when you want to use a different clone URL from the
-one recorded in <tt class="docutils literal"><span class="pre">.gitmodules</span></tt>. This might happen if you want to use a local
+one recorded in <code class="docutils literal"><span class="pre">.gitmodules</span></code>. This might happen if you want to use a local
 repository to clone from instead of a slower internet repository.  In this
-case, you can do <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">init</span></tt>, edit <tt class="docutils literal"><span class="pre">.git/config</span></tt>, and then do the
-cloning with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submdoule</span> <span class="pre">update</span></tt>.</p>
-<p>Here&#8217;s <tt class="docutils literal"><span class="pre">.git/config</span></tt> before the <tt class="docutils literal"><span class="pre">init</span></tt> step:</p>
+case, you can do <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">init</span></code>, edit <code class="docutils literal"><span class="pre">.git/config</span></code>, and then do the
+cloning with <code class="docutils literal"><span class="pre">git</span> <span class="pre">submdoule</span> <span class="pre">update</span></code>.</p>
+<p>Here&#8217;s <code class="docutils literal"><span class="pre">.git/config</span></code> before the <code class="docutils literal"><span class="pre">init</span></code> step:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># .git/config before submodule init</span>
 <span class="nv">$ </span>cat .git/config
 <span class="o">[</span>core<span class="o">]</span>
@@ -479,10 +479,10 @@ cloning with <tt class="docutils literal"><span class="pre">git</span> <span cla
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git submodule init
-Submodule <span class="s1">&#39;subproject&#39;</span> <span class="o">(</span>/Users/mb312/dev_trees/pydagogue/working/myproject<span class="o">)</span> registered <span class="k">for </span>path <span class="s1">&#39;subproject&#39;</span>
+Submodule <span class="s1">&#39;subproject&#39;</span> <span class="o">(</span>/Users/mb312/dev_trees/pydagogue/working/myproject<span class="o">)</span> registered <span class="k">for</span> path <span class="s1">&#39;subproject&#39;</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">.git/config</span></tt> after the <tt class="docutils literal"><span class="pre">init</span></tt>:</p>
+<p><code class="docutils literal"><span class="pre">.git/config</span></code> after the <code class="docutils literal"><span class="pre">init</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># .git/config after submodule init</span>
 <span class="nv">$ </span>cat .git/config
 <span class="o">[</span>core<span class="o">]</span>
@@ -502,24 +502,24 @@ Submodule <span class="s1">&#39;subproject&#39;</span> <span class="o">(</span>/
 	<span class="nv">url</span> <span class="o">=</span> /Users/mb312/dev_trees/pydagogue/working/myproject
 </pre></div>
 </div>
-<p>We have done <tt class="docutils literal"><span class="pre">init</span></tt>, but not <tt class="docutils literal"><span class="pre">update</span></tt>. The submodule directory is still
+<p>We have done <code class="docutils literal"><span class="pre">init</span></code>, but not <code class="docutils literal"><span class="pre">update</span></code>. The submodule directory is still
 empty:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a subproject
 subproject
 
-0 directories, 0 files
+<span class="m">0</span> directories, <span class="m">0</span> files
 </pre></div>
 </div>
-<p>To do the submodule clone, use <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span></tt> after <tt class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span>
-<span class="pre">init</span></tt>:</p>
+<p>To do the submodule clone, use <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span></code> after <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span>
+<span class="pre">init</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git submodule update
-Submodule path <span class="s1">&#39;subproject&#39;</span>: checked out <span class="s1">&#39;15299e979df54673993e94b4d8fc99abe9cad159&#39;</span>
+Submodule path <span class="s1">&#39;subproject&#39;</span>: checked out <span class="s1">&#39;43c26bf6df6a4efade8082f3a5473b807d07c161&#39;</span>
 Cloning into <span class="s1">&#39;subproject&#39;</span>...
 <span class="k">done</span>.
 </pre></div>
 </div>
-<p>If you are happy to clone from the clone URL recorded in <tt class="docutils literal"><span class="pre">.gitmodules</span></tt>, then
-you can do both <tt class="docutils literal"><span class="pre">init</span></tt> and <tt class="docutils literal"><span class="pre">update</span></tt> in one step with:</p>
+<p>If you are happy to clone from the clone URL recorded in <code class="docutils literal"><span class="pre">.gitmodules</span></code>, then
+you can do both <code class="docutils literal"><span class="pre">init</span></code> and <code class="docutils literal"><span class="pre">update</span></code> in one step with:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git submodule update --init
 </pre></div>
 </div>
@@ -531,17 +531,17 @@ you can do both <tt class="docutils literal"><span class="pre">init</span></tt> 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">How do git submodules work?</a><ul>
 <li><a class="reference internal" href="#why-submodules">Why submodules?</a></li>
 <li><a class="reference internal" href="#worked-example">Worked example</a><ul>
-<li><a class="reference internal" href="#myproject"><tt class="docutils literal"><span class="pre">myproject</span></tt></a></li>
-<li><a class="reference internal" href="#super"><tt class="docutils literal"><span class="pre">super</span></tt></a></li>
-<li><a class="reference internal" href="#adding-myproject-as-a-submodule-of-super">Adding <tt class="docutils literal"><span class="pre">myproject</span></tt> as a submodule of <tt class="docutils literal"><span class="pre">super</span></tt></a></li>
-<li><a class="reference internal" href="#storing-the-current-commit-of-myproject">Storing the current commit of <tt class="docutils literal"><span class="pre">myproject</span></tt></a></li>
+<li><a class="reference internal" href="#myproject"><code class="docutils literal"><span class="pre">myproject</span></code></a></li>
+<li><a class="reference internal" href="#super"><code class="docutils literal"><span class="pre">super</span></code></a></li>
+<li><a class="reference internal" href="#adding-myproject-as-a-submodule-of-super">Adding <code class="docutils literal"><span class="pre">myproject</span></code> as a submodule of <code class="docutils literal"><span class="pre">super</span></code></a></li>
+<li><a class="reference internal" href="#storing-the-current-commit-of-myproject">Storing the current commit of <code class="docutils literal"><span class="pre">myproject</span></code></a></li>
 <li><a class="reference internal" href="#updating-submodules-from-their-source-repositories">Updating submodules from their source repositories</a></li>
 <li><a class="reference internal" href="#cloning-a-repository-with-submodules">Cloning a repository with submodules</a></li>
 </ul>
@@ -556,12 +556,14 @@ you can do both <tt class="docutils literal"><span class="pre">init</span></tt> 
   <h4>Next topic</h4>
   <p class="topless"><a href="vim_mergetool.html"
                         title="next chapter">Using vim as a mergetool in git</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/git_submodules.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/git_submodules.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -578,7 +580,7 @@ you can do both <tt class="docutils literal"><span class="pre">init</span></tt> 
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -590,13 +592,13 @@ you can do both <tt class="docutils literal"><span class="pre">init</span></tt> 
         <li class="right" >
           <a href="git_diff_dots.html" title="Two and three dots with diff"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

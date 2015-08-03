@@ -29,8 +29,8 @@
     <link rel="next" title="Git for development" href="git_development.html" />
     <link rel="prev" title="Following the latest source" href="following_latest.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,17 +42,17 @@
         <li class="right" >
           <a href="following_latest.html" title="Following the latest source"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="../git.html" >Notes and tutorials on git</a> &raquo;</li>
-          <li><a href="../gitwash_build.html" >Gitwash build</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">Working with <em>gitwash</em> source code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="index.html" accesskey="U">Working with <em>gitwash</em> source code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="making-a-patch">
 <h1>Making a patch<a class="headerlink" href="#making-a-patch" title="Permalink to this headline">¶</a></h1>
@@ -64,7 +64,7 @@ in <a class="reference external" href="http://github.com/matthew-brett/gitwash">
 we explain how.  Making a patch is the simplest and quickest,
 but if you&#8217;re going to be doing anything more than simple
 quick things, please consider following the
-<a class="reference internal" href="git_development.html#git-development"><em>Git for development</em></a> model instead.</p>
+<a class="reference internal" href="git_development.html#git-development"><span>Git for development</span></a> model instead.</p>
 <div class="section" id="making-patches">
 <span id="id1"></span><h2>Making patches<a class="headerlink" href="#making-patches" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="overview">
@@ -128,9 +128,9 @@ git commit -am &#39;BF - added tests for Funny bug&#39;
 git commit -am &#39;BF - added fix for Funny bug&#39;
 </pre></div>
 </div>
-<p>Note the <tt class="docutils literal"><span class="pre">-am</span></tt> options to <tt class="docutils literal"><span class="pre">commit</span></tt>. The <tt class="docutils literal"><span class="pre">m</span></tt> flag just
+<p>Note the <code class="docutils literal"><span class="pre">-am</span></code> options to <code class="docutils literal"><span class="pre">commit</span></code>. The <code class="docutils literal"><span class="pre">m</span></code> flag just
 signals that you&#8217;re going to type a message on the command
-line.  The <tt class="docutils literal"><span class="pre">a</span></tt> flag — you can just take on faith —
+line.  The <code class="docutils literal"><span class="pre">a</span></code> flag — you can just take on faith —
 or see <a class="reference external" href="http://www.gitready.com/beginner/2009/01/18/the-staging-area.html">why the -a flag?</a>.</p>
 </li>
 <li><p class="first">When you have finished, check you have committed all your
@@ -140,7 +140,7 @@ changes:</p>
 </div>
 </li>
 <li><p class="first">Finally, make your commits into patches.  You want all the
-commits since you branched from the <tt class="docutils literal"><span class="pre">master</span></tt> branch:</p>
+commits since you branched from the <code class="docutils literal"><span class="pre">master</span></code> branch:</p>
 <div class="highlight-python"><div class="highlight"><pre>git format-patch -M -C master
 </pre></div>
 </div>
@@ -153,7 +153,7 @@ commits since you branched from the <tt class="docutils literal"><span class="pr
 </li>
 </ol>
 <p>When you are done, to switch back to the main copy of the
-code, just return to the <tt class="docutils literal"><span class="pre">master</span></tt> branch:</p>
+code, just return to the <code class="docutils literal"><span class="pre">master</span></code> branch:</p>
 <div class="highlight-python"><div class="highlight"><pre>git checkout master
 </pre></div>
 </div>
@@ -165,7 +165,7 @@ code, just return to the <tt class="docutils literal"><span class="pre">master</
 more feature branches, you will probably want to switch to
 development mode.  You can do this with the repository you
 have.</p>
-<p>Fork the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> repository on github — <a class="reference internal" href="forking_hell.html#forking"><em>Making your own copy (fork) of gitwash</em></a>.
+<p>Fork the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> repository on github — <a class="reference internal" href="forking_hell.html#forking"><span>Making your own copy (fork) of gitwash</span></a>.
 Then:</p>
 <div class="highlight-python"><div class="highlight"><pre># checkout and refresh master branch from main repo
 git checkout master
@@ -179,7 +179,7 @@ git push origin the-fix-im-thinking-of
 </pre></div>
 </div>
 <p>Then you can, if you want, follow the
-<a class="reference internal" href="development_workflow.html#development-workflow"><em>Development workflow</em></a>.</p>
+<a class="reference internal" href="development_workflow.html#development-workflow"><span>Development workflow</span></a>.</p>
 </div>
 </div>
 
@@ -187,7 +187,7 @@ git push origin the-fix-im-thinking-of
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -208,12 +208,14 @@ git push origin the-fix-im-thinking-of
   <h4>Next topic</h4>
   <p class="topless"><a href="git_development.html"
                         title="next chapter">Git for development</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/gitwash/patching.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/gitwash/patching.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -230,7 +232,7 @@ git push origin the-fix-im-thinking-of
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -242,15 +244,15 @@ git push origin the-fix-im-thinking-of
         <li class="right" >
           <a href="following_latest.html" title="Following the latest source"
              >previous</a> |</li>
-        <li><a href="../index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="../git.html" >Notes and tutorials on git</a> &raquo;</li>
-          <li><a href="../gitwash_build.html" >Gitwash build</a> &raquo;</li>
-          <li><a href="index.html" >Working with <em>gitwash</em> source code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

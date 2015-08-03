@@ -29,8 +29,8 @@
     <link rel="next" title="Two and three dots with log" href="git_log_dots.html" />
     <link rel="prev" title="Rebase without tears" href="rebase_without_tears.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,22 +42,22 @@
         <li class="right" >
           <a href="rebase_without_tears.html" title="Rebase without tears"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="pain-in-the-dots">
 <span id="pain-in-dots"></span><h1>Pain in the dots<a class="headerlink" href="#pain-in-the-dots" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="http://git-scm.com">git</a> uses a two and three dot notation for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> and <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt>.</p>
+<p><a class="reference external" href="http://git-scm.com">git</a> uses a two and three dot notation for <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> and <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code>.</p>
 <p>Unfortunately they mean different, and nearly opposite things, in the two cases.</p>
-<p>See <a class="reference internal" href="git_log_dots.html#git-log-dots"><em>Two and three dots with log</em></a> for the explanation of <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> and dots.  See
-<a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a> for the <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> explanation.</p>
+<p>See <a class="reference internal" href="git_log_dots.html#git-log-dots"><span>Two and three dots with log</span></a> for the explanation of <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> and dots.  See
+<a class="reference internal" href="git_diff_dots.html#git-diff-dots"><span>Two and three dots with diff</span></a> for the <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> explanation.</p>
 <p>See <a class="reference external" href="http://genomewiki.ucsc.edu/index.php/Getting_Started_With_Git#Git_Diff_and_Git_Log">git log and git diff</a>
 for an alterative explanation.</p>
 <div class="section" id="the-dot-difference">
@@ -69,37 +69,37 @@ for an alterative explanation.</p>
 D---E---F---G master
 </pre></div>
 </div>
-<p>Obviously <tt class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></tt> is the stuff unique to <tt class="docutils literal"><span class="pre">topic</span></tt>, and <tt class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></tt> is the
-stuff unique to <tt class="docutils literal"><span class="pre">master</span></tt>.</p>
-<p><tt class="docutils literal"><span class="pre">log</span></tt> and two dots gives you the stuff unique to the second named branch.
+<p>Obviously <code class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></code> is the stuff unique to <code class="docutils literal"><span class="pre">topic</span></code>, and <code class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></code> is the
+stuff unique to <code class="docutils literal"><span class="pre">master</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">log</span></code> and two dots gives you the stuff unique to the second named branch.
 So:</p>
 <div class="highlight-python"><div class="highlight"><pre>git log master..topic
 </pre></div>
 </div>
-<p>will show you a log of commits <tt class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt>.</p>
-<p><tt class="docutils literal"><span class="pre">log</span></tt> and three dots shows you the stuff unique to the second named branch AND
+<p>will show you a log of commits <code class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">log</span></code> and three dots shows you the stuff unique to the second named branch AND
 the stuff unique to the first named branch, so:</p>
 <div class="highlight-python"><div class="highlight"><pre>git log master...topic
 </pre></div>
 </div>
-<p>shows you <tt class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></tt>.</p>
-<p><tt class="docutils literal"><span class="pre">diff</span></tt> on the other hand, means something different.  So <tt class="docutils literal"><span class="pre">diff</span></tt> and two
+<p>shows you <code class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">diff</span></code> on the other hand, means something different.  So <code class="docutils literal"><span class="pre">diff</span></code> and two
 dots:</p>
 <div class="highlight-python"><div class="highlight"><pre>git diff master..topic
 </pre></div>
 </div>
-<p>shows you all stuff that differs between the state as of <tt class="docutils literal"><span class="pre">master</span></tt> and the
-state as of <tt class="docutils literal"><span class="pre">topic</span></tt>.  It will show you the difference between the effect of
-<tt class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></tt> and the effect of <tt class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></tt>.  You can think of this as being the
-difference between the stuff unique to <tt class="docutils literal"><span class="pre">topic</span></tt> and the stuff unique to
-<tt class="docutils literal"><span class="pre">master</span></tt>.</p>
-<p><tt class="docutils literal"><span class="pre">diff</span></tt> and three dots:</p>
+<p>shows you all stuff that differs between the state as of <code class="docutils literal"><span class="pre">master</span></code> and the
+state as of <code class="docutils literal"><span class="pre">topic</span></code>.  It will show you the difference between the effect of
+<code class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></code> and the effect of <code class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></code>.  You can think of this as being the
+difference between the stuff unique to <code class="docutils literal"><span class="pre">topic</span></code> and the stuff unique to
+<code class="docutils literal"><span class="pre">master</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">diff</span></code> and three dots:</p>
 <div class="highlight-python"><div class="highlight"><pre>git diff master...topic
 </pre></div>
 </div>
-<p>shows you the stuff that differs between <tt class="docutils literal"><span class="pre">topic</span></tt> and the last common ancestor
-of (<tt class="docutils literal"><span class="pre">topic</span></tt>, <tt class="docutils literal"><span class="pre">master</span></tt>). In this example that ancestor is commit <tt class="docutils literal"><span class="pre">E</span></tt>.  Thus
-three dots for diff is the difference caused by the stuff unique to <tt class="docutils literal"><span class="pre">topic</span></tt>.</p>
+<p>shows you the stuff that differs between <code class="docutils literal"><span class="pre">topic</span></code> and the last common ancestor
+of (<code class="docutils literal"><span class="pre">topic</span></code>, <code class="docutils literal"><span class="pre">master</span></code>). In this example that ancestor is commit <code class="docutils literal"><span class="pre">E</span></code>.  Thus
+three dots for diff is the difference caused by the stuff unique to <code class="docutils literal"><span class="pre">topic</span></code>.</p>
 </div>
 </div>
 
@@ -107,7 +107,7 @@ three dots for diff is the difference caused by the stuff unique to <tt class="d
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -123,12 +123,14 @@ three dots for diff is the difference caused by the stuff unique to <tt class="d
   <h4>Next topic</h4>
   <p class="topless"><a href="git_log_dots.html"
                         title="next chapter">Two and three dots with log</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/pain_in_dots.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pain_in_dots.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -145,7 +147,7 @@ three dots for diff is the difference caused by the stuff unique to <tt class="d
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -157,13 +159,13 @@ three dots for diff is the difference caused by the stuff unique to <tt class="d
         <li class="right" >
           <a href="rebase_without_tears.html" title="Rebase without tears"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

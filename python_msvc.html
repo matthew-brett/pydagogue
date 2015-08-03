@@ -29,8 +29,8 @@
     <link rel="next" title="Notes and tutorials on git" href="git.html" />
     <link rel="prev" title="Installing python scripts" href="installing_scripts.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,22 +42,22 @@
         <li class="right" >
           <a href="installing_scripts.html" title="Installing python scripts"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="using-microsoft-visual-c-with-python">
 <h1>Using Microsoft Visual C with Python<a class="headerlink" href="#using-microsoft-visual-c-with-python" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="visual-studio-compiler-versions">
 <h2>Visual studio compiler versions<a class="headerlink" href="#visual-studio-compiler-versions" title="Permalink to this headline">¶</a></h2>
 <p>Here is a list of Visual Studio / Visual C++ version numbers, the value of the
-defined <tt class="docutils literal"><span class="pre">_MSC_VER</span></tt> during compilation, and the alternative year-based name.</p>
+defined <code class="docutils literal"><span class="pre">_MSC_VER</span></code> during compilation, and the alternative year-based name.</p>
 <p>See: <a class="reference external" href="http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time">http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time</a></p>
 <p>and: <a class="reference external" href="http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with">http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with</a></p>
 <p>and: <a class="reference external" href="http://en.wikipedia.org/wiki/Visual_C%2B%2B">http://en.wikipedia.org/wiki/Visual_C%2B%2B</a></p>
@@ -134,9 +134,9 @@ defined <tt class="docutils literal"><span class="pre">_MSC_VER</span></tt> duri
 <p>See:
 <a class="reference external" href="http://stackoverflow.com/questions/12028762/what-version-of-visual-studio-and-or-mingw-do-i-need-to-build-extension-modules">http://stackoverflow.com/questions/12028762/what-version-of-visual-studio-and-or-mingw-do-i-need-to-build-extension-modules</a></p>
 <p>and: <a class="reference external" href="http://stackoverflow.com/questions/9047072/windows-python-version-and-vc-redistributable-version">http://stackoverflow.com/questions/9047072/windows-python-version-and-vc-redistributable-version</a></p>
-<p>The version of Visual Studio is described in <tt class="docutils literal"><span class="pre">readme.txt</span></tt> in the <tt class="docutils literal"><span class="pre">PCBuild</span></tt>
+<p>The version of Visual Studio is described in <code class="docutils literal"><span class="pre">readme.txt</span></code> in the <code class="docutils literal"><span class="pre">PCBuild</span></code>
 folder of the source distribution.  The full Visual C++ version number is in
-either <tt class="docutils literal"><span class="pre">release.vsprops</span></tt> or <tt class="docutils literal"><span class="pre">release.props</span></tt>.  I read these files from the
+either <code class="docutils literal"><span class="pre">release.vsprops</span></code> or <code class="docutils literal"><span class="pre">release.props</span></code>.  I read these files from the
 <a class="reference external" href="http://hg.python.org/cpython/tags">CPython Hg web interface</a> for each tagged
 release.</p>
 <table border="1" class="docutils">
@@ -197,7 +197,7 @@ installation.  I had good success with <a class="reference external" href="http:
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -215,12 +215,14 @@ installation.  I had good success with <a class="reference external" href="http:
   <h4>Next topic</h4>
   <p class="topless"><a href="git.html"
                         title="next chapter">Notes and tutorials on git</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/python_msvc.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/python_msvc.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -237,7 +239,7 @@ installation.  I had good success with <a class="reference external" href="http:
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -249,13 +251,13 @@ installation.  I had good success with <a class="reference external" href="http:
         <li class="right" >
           <a href="installing_scripts.html" title="Installing python scripts"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

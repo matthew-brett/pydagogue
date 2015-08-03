@@ -29,8 +29,8 @@
     <link rel="next" title="Two and three dots with diff" href="git_diff_dots.html" />
     <link rel="prev" title="Pain in the dots" href="pain_in_dots.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,26 +42,26 @@
         <li class="right" >
           <a href="pain_in_dots.html" title="Pain in the dots"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="two-and-three-dots-with-log">
 <span id="git-log-dots"></span><h1>Two and three dots with log<a class="headerlink" href="#two-and-three-dots-with-log" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Remember it&#8217;s different for <tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> - see <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><em>Two and three dots with diff</em></a> and
-<a class="reference internal" href="pain_in_dots.html#pain-in-dots"><em>Pain in the dots</em></a></p>
+<p class="last">Remember it&#8217;s different for <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> - see <a class="reference internal" href="git_diff_dots.html#git-diff-dots"><span>Two and three dots with diff</span></a> and
+<a class="reference internal" href="pain_in_dots.html#pain-in-dots"><span>Pain in the dots</span></a></p>
 </div>
 <div class="section" id="logging-without-dots">
 <h2>Logging without dots<a class="headerlink" href="#logging-without-dots" title="Permalink to this headline">¶</a></h2>
-<p>Two dots is the default in <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt>.  That is, if you do:</p>
+<p>Two dots is the default in <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code>.  That is, if you do:</p>
 <div class="highlight-python"><div class="highlight"><pre>git log master topic
 </pre></div>
 </div>
@@ -69,7 +69,7 @@
 <div class="highlight-python"><div class="highlight"><pre>git log master..topic
 </pre></div>
 </div>
-<p>So logging without dots is the same as <a class="reference internal" href="#git-log-two-dots"><em>Logging with two dots</em></a>.</p>
+<p>So logging without dots is the same as <a class="reference internal" href="#git-log-two-dots"><span>Logging with two dots</span></a>.</p>
 </div>
 <div class="section" id="logging-with-two-dots">
 <span id="git-log-two-dots"></span><h2>Logging with two dots<a class="headerlink" href="#logging-with-two-dots" title="Permalink to this headline">¶</a></h2>
@@ -78,15 +78,15 @@
 </pre></div>
 </div>
 <p>You will see a log of a series of commits. The commits will be all the commits
-reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> that are not reachable from <tt class="docutils literal"><span class="pre">start-branch</span></tt>.</p>
-<p>In fact, the two dot form of log is shorthand.  The <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></tt> line above is
+reachable from <code class="docutils literal"><span class="pre">end-branch</span></code> that are not reachable from <code class="docutils literal"><span class="pre">start-branch</span></code>.</p>
+<p>In fact, the two dot form of log is shorthand.  The <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> line above is
 shorthand for:</p>
 <div class="highlight-python"><div class="highlight"><pre>git log ^start-branch end-branch
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">end-branch</span></tt> above means — &#8220;show me all commits that can be
-reached from <tt class="docutils literal"><span class="pre">end-branch</span></tt>&#8221;. <tt class="docutils literal"><span class="pre">^start-branch</span></tt> means — &#8220;excluding any
-commits that can be reached from <tt class="docutils literal"><span class="pre">start-branch</span></tt>&#8221;.</p>
+<p><code class="docutils literal"><span class="pre">end-branch</span></code> above means — &#8220;show me all commits that can be
+reached from <code class="docutils literal"><span class="pre">end-branch</span></code>&#8221;. <code class="docutils literal"><span class="pre">^start-branch</span></code> means — &#8220;excluding any
+commits that can be reached from <code class="docutils literal"><span class="pre">start-branch</span></code>&#8221;.</p>
 <div class="admonition note" id="git-reachable">
 <p class="first admonition-title">Note</p>
 <p>What does &#8220;reachable&#8221; mean?</p>
@@ -102,8 +102,8 @@ forms a <strong>path</strong> between <span class="math">\(v_0\)</span> and <spa
 <span class="math">\(i=n\)</span>.  A commit is also reachable from itself, so a commit sequence
 of length 1 is defined as forming a path.</p>
 </div>
-<p>Obviously <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">start-branch..end-branch</span></tt> cannot include the commit
-pointed to by <tt class="docutils literal"><span class="pre">start-branch</span></tt> because you can always reach <tt class="docutils literal"><span class="pre">start-branch</span></tt>
+<p>Obviously <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">start-branch..end-branch</span></code> cannot include the commit
+pointed to by <code class="docutils literal"><span class="pre">start-branch</span></code> because you can always reach <code class="docutils literal"><span class="pre">start-branch</span></code>
 from itself.</p>
 <p>Let&#8217;s say we have this history:</p>
 <div class="highlight-python"><div class="highlight"><pre>             H--I--J  topicB
@@ -113,10 +113,10 @@ from itself.</p>
 A---B---C---D  master
 </pre></div>
 </div>
-<p>What would <tt class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">topicB..topicA</span></tt> show?  From <tt class="docutils literal"><span class="pre">topicA</span></tt> we can
-reach <tt class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt>.  From <tt class="docutils literal"><span class="pre">topicB</span></tt> we can reach <tt class="docutils literal"><span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>
-<span class="pre">A</span></tt>.  So, the commits reachable from <tt class="docutils literal"><span class="pre">topicA</span></tt> but not reachable from
-<tt class="docutils literal"><span class="pre">topicB</span></tt> are <tt class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E</span></tt>.</p>
+<p>What would <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">topicB..topicA</span></code> show?  From <code class="docutils literal"><span class="pre">topicA</span></code> we can
+reach <code class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code>.  From <code class="docutils literal"><span class="pre">topicB</span></code> we can reach <code class="docutils literal"><span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>
+<span class="pre">A</span></code>.  So, the commits reachable from <code class="docutils literal"><span class="pre">topicA</span></code> but not reachable from
+<code class="docutils literal"><span class="pre">topicB</span></code> are <code class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E</span></code>.</p>
 </div>
 <div class="section" id="logging-with-three-dots">
 <h2>Logging with three dots<a class="headerlink" href="#logging-with-three-dots" title="Permalink to this headline">¶</a></h2>
@@ -124,20 +124,20 @@ reach <tt class="docutils literal"><span class="pre">G,</span> <span class="pre"
 <div class="highlight-python"><div class="highlight"><pre>git log start-branch...end-branch
 </pre></div>
 </div>
-<p>There are three dots between <tt class="docutils literal"><span class="pre">start-branch</span></tt> and <tt class="docutils literal"><span class="pre">end-branch</span></tt>.  This three
+<p>There are three dots between <code class="docutils literal"><span class="pre">start-branch</span></code> and <code class="docutils literal"><span class="pre">end-branch</span></code>.  This three
 dot version of the command finds all commits that are reachable from
-<tt class="docutils literal"><span class="pre">start-branch</span></tt>, OR that are reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> BUT that are NOT
-reachable from both <tt class="docutils literal"><span class="pre">start-branch</span></tt> AND <tt class="docutils literal"><span class="pre">end-branch</span></tt>.</p>
-<p>Put another way, you will see all commits reachable from <tt class="docutils literal"><span class="pre">start-branch</span></tt> AND
-all commits reachable from <tt class="docutils literal"><span class="pre">end-branch</span></tt> BUT excluding any commits reachable
-from any common ancestor.  As the <tt class="docutils literal"><span class="pre">gitrevisions</span></tt> man page puts it, the three
+<code class="docutils literal"><span class="pre">start-branch</span></code>, OR that are reachable from <code class="docutils literal"><span class="pre">end-branch</span></code> BUT that are NOT
+reachable from both <code class="docutils literal"><span class="pre">start-branch</span></code> AND <code class="docutils literal"><span class="pre">end-branch</span></code>.</p>
+<p>Put another way, you will see all commits reachable from <code class="docutils literal"><span class="pre">start-branch</span></code> AND
+all commits reachable from <code class="docutils literal"><span class="pre">end-branch</span></code> BUT excluding any commits reachable
+from any common ancestor.  As the <code class="docutils literal"><span class="pre">gitrevisions</span></code> man page puts it, the three
 dots command above is equivalent to:</p>
 <div class="highlight-python"><div class="highlight"><pre>git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)
 </pre></div>
 </div>
 <p>Put another way, if <span class="math">\(S\)</span> is the set of all commits that can be reached from
-<tt class="docutils literal"><span class="pre">start-branch</span></tt> and <span class="math">\(E\)</span> is the set of all commits that can be reached
-from <tt class="docutils literal"><span class="pre">end-branch</span></tt> then the commits returned from the three dot version of log
+<code class="docutils literal"><span class="pre">start-branch</span></code> and <span class="math">\(E\)</span> is the set of all commits that can be reached
+from <code class="docutils literal"><span class="pre">end-branch</span></code> then the commits returned from the three dot version of log
 are:</p>
 <div class="math">
 \[(S \cup E) \setminus (S \cap E)\]</div>
@@ -147,10 +147,10 @@ in set <span class="math">\(Y\)</span>).</p>
 <div class="highlight-python"><div class="highlight"><pre>git log topicB...topicA
 </pre></div>
 </div>
-<p>From <tt class="docutils literal"><span class="pre">topicA</span></tt> we can reach this set of commits — <tt class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>
-<span class="pre">A</span></tt>.  From <tt class="docutils literal"><span class="pre">topicB</span></tt> we can reach <tt class="docutils literal"><span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt>.  That means that we
-can reach <tt class="docutils literal"><span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></tt> from both of <tt class="docutils literal"><span class="pre">topicA</span></tt> AND <tt class="docutils literal"><span class="pre">topicB</span></tt>.  So the
-returned commits would be <tt class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H</span></tt>.</p>
+<p>From <code class="docutils literal"><span class="pre">topicA</span></code> we can reach this set of commits — <code class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>
+<span class="pre">A</span></code>.  From <code class="docutils literal"><span class="pre">topicB</span></code> we can reach <code class="docutils literal"><span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code>.  That means that we
+can reach <code class="docutils literal"><span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code> from both of <code class="docutils literal"><span class="pre">topicA</span></code> AND <code class="docutils literal"><span class="pre">topicB</span></code>.  So the
+returned commits would be <code class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">J,</span> <span class="pre">I,</span> <span class="pre">H</span></code>.</p>
 </div>
 </div>
 
@@ -158,7 +158,7 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -176,12 +176,14 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
   <h4>Next topic</h4>
   <p class="topless"><a href="git_diff_dots.html"
                         title="next chapter">Two and three dots with diff</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/git_log_dots.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/git_log_dots.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -198,7 +200,7 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -210,13 +212,13 @@ returned commits would be <tt class="docutils literal"><span class="pre">G,</spa
         <li class="right" >
           <a href="pain_in_dots.html" title="Pain in the dots"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

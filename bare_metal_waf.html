@@ -29,8 +29,8 @@
     <link rel="next" title="Windows DLLs - information" href="windows_dll_links.html" />
     <link rel="prev" title="Developing on linux" href="develop_linux.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,20 +42,20 @@
         <li class="right" >
           <a href="develop_linux.html" title="Developing on linux"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="bare-metal-waf">
 <h1>Bare metal WAF<a class="headerlink" href="#bare-metal-waf" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://code.google.com/waf">waf</a> is a configure / build / install system.</p>
-<p>It can do the jobs of <tt class="docutils literal"><span class="pre">autotools</span></tt> and <tt class="docutils literal"><span class="pre">make</span></tt>, so instead of typing (say):</p>
+<p>It can do the jobs of <code class="docutils literal"><span class="pre">autotools</span></code> and <code class="docutils literal"><span class="pre">make</span></code>, so instead of typing (say):</p>
 <div class="highlight-python"><div class="highlight"><pre>./configure
 make
 make install
@@ -67,14 +67,14 @@ make install
 ./waf install
 </pre></div>
 </div>
-<p>You don&#8217;t need <tt class="docutils literal"><span class="pre">autotools</span></tt> or <tt class="docutils literal"><span class="pre">make</span></tt> installed.  The full <tt class="docutils literal"><span class="pre">waf</span></tt> binary is
+<p>You don&#8217;t need <code class="docutils literal"><span class="pre">autotools</span></code> or <code class="docutils literal"><span class="pre">make</span></code> installed.  The full <code class="docutils literal"><span class="pre">waf</span></code> binary is
 90K and usually sits in your source code repository.</p>
 <p>waf uses a Python configuration file so you can use Python code to define your
-configure, build and install rules rather than the obscure <tt class="docutils literal"><span class="pre">make</span></tt> syntax and
+configure, build and install rules rather than the obscure <code class="docutils literal"><span class="pre">make</span></code> syntax and
 funny variable names.</p>
 <p>Among other projects, SAMBA uses waf for its entire configure / build / install system.</p>
 <p>There is a comprehensive waf manual.</p>
-<p>What&#8217;s the downside?  The waf build system (like - say - <tt class="docutils literal"><span class="pre">make</span></tt>) works at a
+<p>What&#8217;s the downside?  The waf build system (like - say - <code class="docutils literal"><span class="pre">make</span></code>) works at a
 fairly high and abstract level, so it can be hard to understand the flow of
 control.  It can sometimes be hard to find the part of waf that you want.</p>
 <p>This page has notes to myself about how waf works.</p>
@@ -95,9 +95,9 @@ DAG to execute the build steps in an efficient order.</p>
 </div>
 <div class="section" id="a-taster">
 <h2>A taster<a class="headerlink" href="#a-taster" title="Permalink to this headline">¶</a></h2>
-<p>Let&#8217;s say you have a project <tt class="docutils literal"><span class="pre">myproject</span></tt>.  It&#8217;s a directory called
-<tt class="docutils literal"><span class="pre">myproject</span></tt>.  It has a single C file <tt class="docutils literal"><span class="pre">myprogram.c</span></tt>.</p>
-<p>Download the <tt class="docutils literal"><span class="pre">waf</span></tt> binary to the <tt class="docutils literal"><span class="pre">myproject</span></tt> from the <a class="reference external" href="http://code.google.com/waf">waf</a> site.</p>
+<p>Let&#8217;s say you have a project <code class="docutils literal"><span class="pre">myproject</span></code>.  It&#8217;s a directory called
+<code class="docutils literal"><span class="pre">myproject</span></code>.  It has a single C file <code class="docutils literal"><span class="pre">myprogram.c</span></code>.</p>
+<p>Download the <code class="docutils literal"><span class="pre">waf</span></code> binary to the <code class="docutils literal"><span class="pre">myproject</span></code> from the <a class="reference external" href="http://code.google.com/waf">waf</a> site.</p>
 <p>You invoke waf thus:</p>
 <div class="highlight-python"><div class="highlight"><pre>cd myproject
 ./waf
@@ -108,11 +108,11 @@ DAG to execute the build steps in an efficient order.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li>the <tt class="docutils literal"><span class="pre">waf</span></tt> program loads a configuration file called <tt class="docutils literal"><span class="pre">wscript</span></tt></li>
+<li>the <code class="docutils literal"><span class="pre">waf</span></code> program loads a configuration file called <code class="docutils literal"><span class="pre">wscript</span></code></li>
 </ul>
 <p>waf loads the wscript file, and executes the code inside in order to do stuff.</p>
-<p>Let&#8217;s pretend our project creates a file called <tt class="docutils literal"><span class="pre">foo</span></tt> and then copies it to
-<tt class="docutils literal"><span class="pre">bar</span></tt>.  The wscript might look like this:</p>
+<p>Let&#8217;s pretend our project creates a file called <code class="docutils literal"><span class="pre">foo</span></code> and then copies it to
+<code class="docutils literal"><span class="pre">bar</span></code>.  The wscript might look like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="c"># Check we have &#39;touch&#39;</span>
@@ -127,13 +127,13 @@ DAG to execute the build steps in an efficient order.</p>
     <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;${CP} ${SRC} ${TGT}&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We run the checks with <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span></tt>, and the build with <tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">build</span></tt>.</p>
+<p>We run the checks with <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span></code>, and the build with <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">build</span></code>.</p>
 <p>It isn&#8217;t easy to see exactly how this works, and rest of this page will try to
 do that.</p>
 </div>
 <div class="section" id="waf-commands">
 <h2>waf commands<a class="headerlink" href="#waf-commands" title="Permalink to this headline">¶</a></h2>
-<p>You execute a waf command with <tt class="docutils literal"><span class="pre">.waf</span> <span class="pre">command-name</span> <span class="pre">[options]</span></tt></p>
+<p>You execute a waf command with <code class="docutils literal"><span class="pre">.waf</span> <span class="pre">command-name</span> <span class="pre">[options]</span></code></p>
 <p>You can define any command you like with something like this in the wscript
 file:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript file</span>
@@ -151,9 +151,9 @@ file:</p>
 </pre></div>
 </div>
 <p>What happened?  waf loaded the wscript file, looked for a callable object called
-<tt class="docutils literal"><span class="pre">mycommand</span></tt>, created a <tt class="docutils literal"><span class="pre">Context</span></tt> instance <tt class="docutils literal"><span class="pre">ctx</span></tt>, and passed it to the
+<code class="docutils literal"><span class="pre">mycommand</span></code>, created a <code class="docutils literal"><span class="pre">Context</span></code> instance <code class="docutils literal"><span class="pre">ctx</span></code>, and passed it to the
 callable thing as the first and only argument.</p>
-<p>The <tt class="docutils literal"><span class="pre">ctx</span></tt> instance contains information about the current waf run.
+<p>The <code class="docutils literal"><span class="pre">ctx</span></code> instance contains information about the current waf run.
 We investigate with a print in the wscript:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript file</span>
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
@@ -183,7 +183,7 @@ We investigate with a print in the wscript:</p>
 <p>(there may be others I don&#8217;t know).</p>
 <p>If you define functions (callables) with these names, they have default and
 specialized behavior.  For example, each of these commands receives its own
-specialized Context object. We can show that for the the <tt class="docutils literal"><span class="pre">options</span></tt> command.</p>
+specialized Context object. We can show that for the the <code class="docutils literal"><span class="pre">options</span></code> command.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="n">opt_ctx</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="n">opt_ctx</span><span class="p">)</span>
@@ -260,19 +260,19 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 <p>You can see from the printout above that all of (clean, build, install,
 uninstall, list, step) end up executing the &#8216;build&#8217; command not their own
 commands.  If you want to specialize behavior of these commands, you&#8217;ll need to
-put code in the <tt class="docutils literal"><span class="pre">build</span></tt> function (callable) to check the <tt class="docutils literal"><span class="pre">cmd</span></tt> attribute of
-the build context to find which of these commands the <tt class="docutils literal"><span class="pre">build</span></tt> function is
+put code in the <code class="docutils literal"><span class="pre">build</span></code> function (callable) to check the <code class="docutils literal"><span class="pre">cmd</span></code> attribute of
+the build context to find which of these commands the <code class="docutils literal"><span class="pre">build</span></code> function is
 running. See &#8220;More build commands&#8221; in the waf book for more detail.</p>
 </div>
 <div class="section" id="more-on-the-configure-command">
 <h3>More on the configure command<a class="headerlink" href="#more-on-the-configure-command" title="Permalink to this headline">¶</a></h3>
-<p>Executing the <tt class="docutils literal"><span class="pre">configure</span></tt> command will:</p>
+<p>Executing the <code class="docutils literal"><span class="pre">configure</span></code> command will:</p>
 <ul class="simple">
 <li>call the options command</li>
 <li>set some default path information</li>
 </ul>
-<p>This happens before your own <tt class="docutils literal"><span class="pre">configure</span></tt> command gets executed, and even if
-there is no <tt class="docutils literal"><span class="pre">configure</span></tt> command defined.  For example, if wscript is an empty
+<p>This happens before your own <code class="docutils literal"><span class="pre">configure</span></code> command gets executed, and even if
+there is no <code class="docutils literal"><span class="pre">configure</span></code> command defined.  For example, if wscript is an empty
 file:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ waf configure
 &lt;waflib.Options.OptionsContext object at 0x1011b53d0&gt;
@@ -284,24 +284,24 @@ No function configure defined in /Users/mb312/dev_trees/myproject/wscript
 <p>The default configure machinery has set the default &#8216;source&#8217; (<em>top</em>) directory
 and the &#8216;build&#8217; (<em>out</em>) directory.  <em>top</em> is (by default) the directory
 containing the wscript file, and <em>out</em> is (by default) a subdirectory of <em>top</em>
-called <tt class="docutils literal"><span class="pre">build</span></tt>.  You can customize these directories if you want, for example
-by using the <tt class="docutils literal"><span class="pre">top</span></tt> and <tt class="docutils literal"><span class="pre">out</span></tt> global variables at the top of the wscript.</p>
+called <code class="docutils literal"><span class="pre">build</span></code>.  You can customize these directories if you want, for example
+by using the <code class="docutils literal"><span class="pre">top</span></code> and <code class="docutils literal"><span class="pre">out</span></code> global variables at the top of the wscript.</p>
 </div>
 </div>
 <div class="section" id="how-the-build-gets-built">
 <h2>How the build gets built<a class="headerlink" href="#how-the-build-gets-built" title="Permalink to this headline">¶</a></h2>
 <p>See the waf book chapter called &#8220;Builds&#8221;.</p>
 <p>A build consists of tasks.  Tasks are instances of subclasses of the
-<tt class="docutils literal"><span class="pre">waflib.Task.Task</span></tt> class.  But - where is <tt class="docutils literal"><span class="pre">waflib</span></tt>?</p>
+<code class="docutils literal"><span class="pre">waflib.Task.Task</span></code> class.  But - where is <code class="docutils literal"><span class="pre">waflib</span></code>?</p>
 <div class="section" id="where-is-the-waf-code">
 <h3>Where is the waf code?<a class="headerlink" href="#where-is-the-waf-code" title="Permalink to this headline">¶</a></h3>
 <p>See &#8220;Local waflib folders&#8221; in the waf book.</p>
-<p>The usual way to use waf is to download the <tt class="docutils literal"><span class="pre">waf</span></tt> binary to your source code
+<p>The usual way to use waf is to download the <code class="docutils literal"><span class="pre">waf</span></code> binary to your source code
 tree, maybe checking the binary into your source control.</p>
-<p>In this case, executing the <tt class="docutils literal"><span class="pre">./waf</span></tt> binary will automatically unpack the waf
+<p>In this case, executing the <code class="docutils literal"><span class="pre">./waf</span></code> binary will automatically unpack the waf
 code from within the binary to a specially named folder in the same directory as
-the binary, with a name beginning with <tt class="docutils literal"><span class="pre">.waf-</span></tt>. For example, after I have run
-<tt class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span></tt> in the test project folder I get:</p>
+the binary, with a name beginning with <code class="docutils literal"><span class="pre">.waf-</span></code>. For example, after I have run
+<code class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span></code> in the test project folder I get:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ ls -A1
 .lock-waf_darwin_build
 .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc
@@ -310,12 +310,12 @@ waf
 wscript
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">waflib</span></tt> code is in this special <tt class="docutils literal"><span class="pre">.waf-*</span></tt> directory:</p>
+<p>The <code class="docutils literal"><span class="pre">waflib</span></code> code is in this special <code class="docutils literal"><span class="pre">.waf-*</span></code> directory:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
 waflib
 </pre></div>
 </div>
-<p>As the waf book explains, it&#8217;s also possible to run waf with <tt class="docutils literal"><span class="pre">waflib</span></tt> as a
+<p>As the waf book explains, it&#8217;s also possible to run waf with <code class="docutils literal"><span class="pre">waflib</span></code> as a
 standard folder in the source tree or elsewhere.</p>
 </div>
 <div class="section" id="high-level-api-for-creating-tasks">
@@ -331,12 +331,12 @@ generator creates the task instances for us:</p>
     <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="#variable-substitution"><em>run_str Variable substitution</em></a> below for more on the <tt class="docutils literal"><span class="pre">${TGT}</span></tt> string
+<p>See <a class="reference internal" href="#variable-substitution"><span>run_str Variable substitution</span></a> below for more on the <code class="docutils literal"><span class="pre">${TGT}</span></code> string
 substitution form.</p>
-<p>The <tt class="docutils literal"><span class="pre">rule</span></tt> is a system command that we can run, and the <tt class="docutils literal"><span class="pre">target</span></tt> in this
+<p>The <code class="docutils literal"><span class="pre">rule</span></code> is a system command that we can run, and the <code class="docutils literal"><span class="pre">target</span></code> in this
 case is a filename of a file we generate with the command.</p>
-<p>From here on in, I&#8217;ll use the invocation <tt class="docutils literal"><span class="pre">waf</span> <span class="pre">distclean</span> <span class="pre">configure</span> <span class="pre">build</span></tt> to
-run the waf build.  <tt class="docutils literal"><span class="pre">distclean</span></tt> deletes all the generated build targets,
+<p>From here on in, I&#8217;ll use the invocation <code class="docutils literal"><span class="pre">waf</span> <span class="pre">distclean</span> <span class="pre">configure</span> <span class="pre">build</span></code> to
+run the waf build.  <code class="docutils literal"><span class="pre">distclean</span></code> deletes all the generated build targets,
 clearing the outputs of any previous waf run.</p>
 <p>So:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
@@ -349,10 +349,10 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 &#39;build&#39; finished successfully (0.024s)
 </pre></div>
 </div>
-<p>The script generates an empty file <tt class="docutils literal"><span class="pre">build/foo</span></tt>.</p>
-<p>The call to <tt class="docutils literal"><span class="pre">build_ctx()</span></tt> above is a very short piece of code that ends up
-creating an instance of <tt class="docutils literal"><span class="pre">waflib.TaskGen.task_gen</span></tt>.  In due course this will
-generate all the relevant <tt class="docutils literal"><span class="pre">Task</span></tt> instances.  Adpapting an example from the waf
+<p>The script generates an empty file <code class="docutils literal"><span class="pre">build/foo</span></code>.</p>
+<p>The call to <code class="docutils literal"><span class="pre">build_ctx()</span></code> above is a very short piece of code that ends up
+creating an instance of <code class="docutils literal"><span class="pre">waflib.TaskGen.task_gen</span></code>.  In due course this will
+generate all the relevant <code class="docutils literal"><span class="pre">Task</span></code> instances.  Adpapting an example from the waf
 book:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
@@ -399,9 +399,9 @@ concept of &#8216;nodes&#8217;.</p>
 The files or directories may or may not exist at the time you create the node.</p>
 <p>The waf book has a chapter devoted to &#8220;Node objects&#8221;.</p>
 <p>Two node objects get automatically created and attached to the &#8216;Context&#8217; of
-every command - &#8216;path&#8217; and &#8216;root&#8217;.  Here we use a custom command <tt class="docutils literal"><span class="pre">mycommand</span></tt>.
+every command - &#8216;path&#8217; and &#8216;root&#8217;.  Here we use a custom command <code class="docutils literal"><span class="pre">mycommand</span></code>.
 Because it&#8217;s a custom command (not one of the defined waf commands above), the
-command  receives an instance of the base <tt class="docutils literal"><span class="pre">Context</span></tt> class.  All command
+command  receives an instance of the base <code class="docutils literal"><span class="pre">Context</span></code> class.  All command
 contexts will have these node objects:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
@@ -418,8 +418,8 @@ contexts will have these node objects:</p>
 &#39;mycommand&#39; finished successfully (0.000s)
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">base_ctx.path</span></tt> is a node pointing to the directory containing the executed
-wscript file. <tt class="docutils literal"><span class="pre">base_ctx.root</span></tt> is a node pointing to the root directory of the
+<p><code class="docutils literal"><span class="pre">base_ctx.path</span></code> is a node pointing to the directory containing the executed
+wscript file. <code class="docutils literal"><span class="pre">base_ctx.root</span></code> is a node pointing to the root directory of the
 filesystem containing the wscript.</p>
 <p>Node objects contain various useful methods:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
@@ -443,7 +443,7 @@ filesystem containing the wscript.</p>
 </pre></div>
 </div>
 <p>The waf book goes into more detail about these methods.</p>
-<p>One interesting method is <tt class="docutils literal"><span class="pre">abspath()</span></tt>.  It gives the absolute path to the
+<p>One interesting method is <code class="docutils literal"><span class="pre">abspath()</span></code>.  It gives the absolute path to the
 node as a string:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
@@ -462,35 +462,35 @@ node as a string:</p>
 <div class="section" id="creating-nodes">
 <h3>Creating nodes<a class="headerlink" href="#creating-nodes" title="Permalink to this headline">¶</a></h3>
 <p>Here are some useful ordinary methods for creating nodes.  By &#8216;ordinary&#8217; I mean
-methods that work for all command contexts (base <tt class="docutils literal"><span class="pre">Context</span></tt>, <tt class="docutils literal"><span class="pre">BuildContext</span></tt>,
-<tt class="docutils literal"><span class="pre">OptionContext</span></tt> etc).</p>
+methods that work for all command contexts (base <code class="docutils literal"><span class="pre">Context</span></code>, <code class="docutils literal"><span class="pre">BuildContext</span></code>,
+<code class="docutils literal"><span class="pre">OptionContext</span></code> etc).</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">.search(path)</span></tt> : search for an already-created node for <tt class="docutils literal"><span class="pre">path</span></tt></li>
-<li><tt class="docutils literal"><span class="pre">.find_node(path)</span></tt> : create a node for <tt class="docutils literal"><span class="pre">path</span></tt> if it exists on the
+<li><code class="docutils literal"><span class="pre">.search(path)</span></code> : search for an already-created node for <code class="docutils literal"><span class="pre">path</span></code></li>
+<li><code class="docutils literal"><span class="pre">.find_node(path)</span></code> : create a node for <code class="docutils literal"><span class="pre">path</span></code> if it exists on the
 filesystem, return None otherwise</li>
-<li><tt class="docutils literal"><span class="pre">.make_node(path)</span></tt> : create a node for <tt class="docutils literal"><span class="pre">path</span></tt> whether <tt class="docutils literal"><span class="pre">path</span></tt>
+<li><code class="docutils literal"><span class="pre">.make_node(path)</span></code> : create a node for <code class="docutils literal"><span class="pre">path</span></code> whether <code class="docutils literal"><span class="pre">path</span></code>
 exists on the filesystem or not.</li>
-<li><tt class="docutils literal"><span class="pre">.find_dir(dirname)</span></tt>: create a node for <tt class="docutils literal"><span class="pre">dirname</span></tt> if it exists on the
+<li><code class="docutils literal"><span class="pre">.find_dir(dirname)</span></code>: create a node for <code class="docutils literal"><span class="pre">dirname</span></code> if it exists on the
 filesystem and is a directory, return None otherwise. This is just
-<tt class="docutils literal"><span class="pre">.find_node(path)</span></tt> with an extra check that <tt class="docutils literal"><span class="pre">path</span></tt> is in fact a
+<code class="docutils literal"><span class="pre">.find_node(path)</span></code> with an extra check that <code class="docutils literal"><span class="pre">path</span></code> is in fact a
 directory.</li>
 </ul>
 </div>
 <div class="section" id="waf-creates-some-nodes-automatically-but-not-many">
 <h3>waf creates some nodes automatically, but not many<a class="headerlink" href="#waf-creates-some-nodes-automatically-but-not-many" title="Permalink to this headline">¶</a></h3>
-<p>When waf creates <tt class="docutils literal"><span class="pre">path</span></tt> and <tt class="docutils literal"><span class="pre">root</span></tt> nodes, it also creates some nodes for
+<p>When waf creates <code class="docutils literal"><span class="pre">path</span></code> and <code class="docutils literal"><span class="pre">root</span></code> nodes, it also creates some nodes for
 other parts of the system file tree, but not all. This is in order not to waste
 time reading the file system for nodes that may not be needed.  Call this lazy
 node creation.</p>
 <p>Lazy node creation may come up in two situations.  The first is when using
-<tt class="docutils literal"><span class="pre">.search(path)</span></tt> (above).  This will only find nodes that are already
-defined.  For example, if you do <tt class="docutils literal"><span class="pre">build_ctx.path.search('waf')</span></tt> at the
+<code class="docutils literal"><span class="pre">.search(path)</span></code> (above).  This will only find nodes that are already
+defined.  For example, if you do <code class="docutils literal"><span class="pre">build_ctx.path.search('waf')</span></code> at the
 beginning of your build command, you will usually get None, even if the file
-<tt class="docutils literal"><span class="pre">waf</span></tt> does exist in the folder referred to by the <tt class="docutils literal"><span class="pre">path</span></tt> node.  You probably
-want <tt class="docutils literal"><span class="pre">.find_node(path)</span></tt> instead, which will read the filesystem and create
+<code class="docutils literal"><span class="pre">waf</span></code> does exist in the folder referred to by the <code class="docutils literal"><span class="pre">path</span></code> node.  You probably
+want <code class="docutils literal"><span class="pre">.find_node(path)</span></code> instead, which will read the filesystem and create
 a node if the file exists.</p>
 <p>Another place where lazy node creation is relevant is interpreting the
-<tt class="docutils literal"><span class="pre">children</span></tt> attribute of a directory node. <tt class="docutils literal"><span class="pre">children</span></tt> is a dictionary giving
+<code class="docutils literal"><span class="pre">children</span></code> attribute of a directory node. <code class="docutils literal"><span class="pre">children</span></code> is a dictionary giving
 nodes corresponding to the contents of a directory. For efficiency, waf doesn&#8217;t
 always read the filesystem to fill this structure, so you may need to create
 nodes manually if they have not been read from the filesystem already:</p>
@@ -520,14 +520,14 @@ And Information&#39;, &#39;Users&#39;, &#39;usr&#39;, &#39;var&#39;, &#39;Volume
 </div>
 <div class="section" id="specialized-noding-for-builds">
 <h3>Specialized noding for builds<a class="headerlink" href="#specialized-noding-for-builds" title="Permalink to this headline">¶</a></h3>
-<p>This describes node stuff that only applies to the <tt class="docutils literal"><span class="pre">BuildContext</span></tt> - the
-context object passed to a <tt class="docutils literal"><span class="pre">build</span></tt> command.</p>
+<p>This describes node stuff that only applies to the <code class="docutils literal"><span class="pre">BuildContext</span></code> - the
+context object passed to a <code class="docutils literal"><span class="pre">build</span></code> command.</p>
 <div class="section" id="build-and-source-nodes">
 <h4>build and source nodes<a class="headerlink" href="#build-and-source-nodes" title="Permalink to this headline">¶</a></h4>
-<p>The build context is a special context passed to the <tt class="docutils literal"><span class="pre">build</span></tt> command.</p>
+<p>The build context is a special context passed to the <code class="docutils literal"><span class="pre">build</span></code> command.</p>
 <p>The build also needs to know about the location of the directory containing the
 source files, and the output directory to put the target files. To solve this,
-the build context contains two extra nodes, <tt class="docutils literal"><span class="pre">bldnode</span></tt> and <tt class="docutils literal"><span class="pre">srcnode</span></tt>:</p>
+the build context contains two extra nodes, <code class="docutils literal"><span class="pre">bldnode</span></code> and <code class="docutils literal"><span class="pre">srcnode</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
@@ -574,7 +574,7 @@ or <em>out</em> directories:</p>
     <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.bldnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>We need to create the <tt class="docutils literal"><span class="pre">tmp2</span></tt> directory in the project directory in order for
+<p>We need to create the <code class="docutils literal"><span class="pre">tmp2</span></code> directory in the project directory in order for
 this not to raise an error:</p>
 <div class="highlight-python"><div class="highlight"><pre>mkdir tmp2
 </pre></div>
@@ -595,9 +595,9 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/tmp2/build2&#39;
 &#39;build&#39; finished successfully (0.010s)
 </pre></div>
 </div>
-<p>Iff you have a build context <tt class="docutils literal"><span class="pre">bldnode</span></tt>, you can get the source node with
-<tt class="docutils literal"><span class="pre">get_src</span></tt>; if you have the build context <tt class="docutils literal"><span class="pre">srcnode</span></tt> you can get the build
-node with <tt class="docutils literal"><span class="pre">get_bld</span></tt>:</p>
+<p>Iff you have a build context <code class="docutils literal"><span class="pre">bldnode</span></code>, you can get the source node with
+<code class="docutils literal"><span class="pre">get_src</span></code>; if you have the build context <code class="docutils literal"><span class="pre">srcnode</span></code> you can get the build
+node with <code class="docutils literal"><span class="pre">get_bld</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
@@ -626,19 +626,19 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/tmp2/build2&#39;
 &#39;build&#39; finished successfully (0.005s)
 </pre></div>
 </div>
-<p>Careful with these methods - if you call them on nodes other than <tt class="docutils literal"><span class="pre">bldnode</span></tt> or
-<tt class="docutils literal"><span class="pre">srcnode</span></tt>, you may well not get what you expect.</p>
+<p>Careful with these methods - if you call them on nodes other than <code class="docutils literal"><span class="pre">bldnode</span></code> or
+<code class="docutils literal"><span class="pre">srcnode</span></code>, you may well not get what you expect.</p>
 </div>
 <div class="section" id="where-s-my-node-build-or-source">
 <h4>Where&#8217;s my node - build or source?<a class="headerlink" href="#where-s-my-node-build-or-source" title="Permalink to this headline">¶</a></h4>
 <p>During the build, we may want to create nodes that might refer to the build
 tree <em>or</em> to the source tree.  For example you could imagine a command
-<tt class="docutils literal"><span class="pre">my_find_node_build_source(path)</span></tt> which would look for <tt class="docutils literal"><span class="pre">path</span></tt> in the
+<code class="docutils literal"><span class="pre">my_find_node_build_source(path)</span></code> which would look for <code class="docutils literal"><span class="pre">path</span></code> in the
 build tree, then in the source tree.  There are a couple of node methods that
 look both in the build tree and the source tree.  These both only work for build
 contexts:</p>
 <ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">.find_resource(path)</span></tt>:</p>
+<li><p class="first"><code class="docutils literal"><span class="pre">.find_resource(path)</span></code>:</p>
 <ol class="arabic simple">
 <li>look for an existing file node in the build node tree. Return that node if
 it exists.</li>
@@ -646,9 +646,9 @@ it exists.</li>
 path and return it if the path exists.</li>
 <li>Otherwise return None</li>
 </ol>
-<p>The routine also returns None if <tt class="docutils literal"><span class="pre">path</span></tt> is a directory.</p>
+<p>The routine also returns None if <code class="docutils literal"><span class="pre">path</span></code> is a directory.</p>
 </li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">.find_or_declare(path)</span></tt>:</p>
+<li><p class="first"><code class="docutils literal"><span class="pre">.find_or_declare(path)</span></code>:</p>
 <ol class="arabic simple">
 <li>look for an existing node in the build node tree. Return that node if it
 exists.</li>
@@ -656,7 +656,7 @@ exists.</li>
 and return it if the path exists.</li>
 <li>Make a new node in the build node tree for this path and return that node.</li>
 </ol>
-<p><tt class="docutils literal"><span class="pre">find_or_declare</span></tt> will return a node for a directory.</p>
+<p><code class="docutils literal"><span class="pre">find_or_declare</span></code> will return a node for a directory.</p>
 </li>
 </ul>
 </div>
@@ -738,9 +738,9 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 &#39;build&#39; finished successfully (0.040s)
 </pre></div>
 </div>
-<p>We can also define tasks using the slightly higher-level <tt class="docutils literal"><span class="pre">run_str</span></tt> attribute
-instead of the <tt class="docutils literal"><span class="pre">run</span></tt> method.  waf translates the <tt class="docutils literal"><span class="pre">run_str</span></tt> attribute to a
-<tt class="docutils literal"><span class="pre">run</span></tt> method automatically on execution, to give the same result:</p>
+<p>We can also define tasks using the slightly higher-level <code class="docutils literal"><span class="pre">run_str</span></code> attribute
+instead of the <code class="docutils literal"><span class="pre">run</span></code> method.  waf translates the <code class="docutils literal"><span class="pre">run_str</span></code> attribute to a
+<code class="docutils literal"><span class="pre">run</span></code> method automatically on execution, to give the same result:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">waflib.Task</span> <span class="kn">import</span> <span class="n">Task</span>
 
@@ -771,15 +771,15 @@ instead of the <tt class="docutils literal"><span class="pre">run</span></tt> me
 </div>
 <div class="section" id="run-str-variable-substitution">
 <span id="variable-substitution"></span><h2>run_str Variable substitution<a class="headerlink" href="#run-str-variable-substitution" title="Permalink to this headline">¶</a></h2>
-<p>As we&#8217;ve seen, a Task can define a system command by defining a <tt class="docutils literal"><span class="pre">run</span></tt> method,
-or a <tt class="docutils literal"><span class="pre">run_str</span></tt>, which will be compiled into a <tt class="docutils literal"><span class="pre">run</span></tt> method.</p>
-<p>If you pass a string using the <tt class="docutils literal"><span class="pre">rule=</span></tt> keyword argument to the high-level API,
-this also becomes the <tt class="docutils literal"><span class="pre">run_str</span></tt> of the task.</p>
+<p>As we&#8217;ve seen, a Task can define a system command by defining a <code class="docutils literal"><span class="pre">run</span></code> method,
+or a <code class="docutils literal"><span class="pre">run_str</span></code>, which will be compiled into a <code class="docutils literal"><span class="pre">run</span></code> method.</p>
+<p>If you pass a string using the <code class="docutils literal"><span class="pre">rule=</span></code> keyword argument to the high-level API,
+this also becomes the <code class="docutils literal"><span class="pre">run_str</span></code> of the task.</p>
 <p>As you can see from the examples above, the run_str has some extra rules of
 variable substitution.</p>
-<p>For example, <tt class="docutils literal"><span class="pre">${SRC}</span></tt> and <tt class="docutils literal"><span class="pre">${TGT}</span></tt> get substituted for the <tt class="docutils literal"><span class="pre">source</span></tt> and
-<tt class="docutils literal"><span class="pre">target</span></tt> filenames.  Other variable names that work in this mode
-(<tt class="docutils literal"><span class="pre">${VARIABLE_NAME}</span></tt>) are any attribute of <tt class="docutils literal"><span class="pre">build_ctx.env</span></tt>.</p>
+<p>For example, <code class="docutils literal"><span class="pre">${SRC}</span></code> and <code class="docutils literal"><span class="pre">${TGT}</span></code> get substituted for the <code class="docutils literal"><span class="pre">source</span></code> and
+<code class="docutils literal"><span class="pre">target</span></code> filenames.  Other variable names that work in this mode
+(<code class="docutils literal"><span class="pre">${VARIABLE_NAME}</span></code>) are any attribute of <code class="docutils literal"><span class="pre">build_ctx.env</span></code>.</p>
 <p>See <em>Scriptlet expressions</em> in the waf book for more substitutions. Here I&#8217;ve
 copied from the book:</p>
 <div class="highlight-python"><div class="highlight"><pre>1. If the value starts by env, gen, bld or tsk, a method call will be made
@@ -841,7 +841,7 @@ into the IPython shell from waf:</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -880,12 +880,14 @@ into the IPython shell from waf:</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="windows_dll_links.html"
                         title="next chapter">Windows DLLs - information</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/bare_metal_waf.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bare_metal_waf.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -902,7 +904,7 @@ into the IPython shell from waf:</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -914,13 +916,13 @@ into the IPython shell from waf:</p>
         <li class="right" >
           <a href="develop_linux.html" title="Developing on linux"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

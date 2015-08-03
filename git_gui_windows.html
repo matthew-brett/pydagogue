@@ -29,8 +29,8 @@
     <link rel="next" title="Deleting your master branch" href="gh_delete_master.html" />
     <link rel="prev" title="Using vim as a mergetool in git" href="vim_mergetool.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,35 +42,35 @@
         <li class="right" >
           <a href="vim_mergetool.html" title="Using vim as a mergetool in git"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="getting-started-with-git-gui-on-windows">
 <h1>Getting started with git gui on Windows<a class="headerlink" href="#getting-started-with-git-gui-on-windows" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="install-git-for-windows">
 <h2>Install git for Windows<a class="headerlink" href="#install-git-for-windows" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Get a copy of the <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a> <tt class="docutils literal"><span class="pre">.exe</span></tt> installer</li>
+<li>Get a copy of the <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a> <code class="docutils literal"><span class="pre">.exe</span></code> installer</li>
 <li>Double click to install <a class="reference external" href="http://git-scm.com">git</a> on your machine</li>
 <li>Accept all the defaults</li>
 </ul>
 </div>
 <div class="section" id="a-pretend-project">
 <h2>A pretend project<a class="headerlink" href="#a-pretend-project" title="Permalink to this headline">¶</a></h2>
-<p>For simplicity, let us make a folder for our project in the <tt class="docutils literal"><span class="pre">c:\</span></tt> drive.</p>
+<p>For simplicity, let us make a folder for our project in the <code class="docutils literal"><span class="pre">c:\</span></code> drive.</p>
 <ul class="simple">
-<li>Right click on the <tt class="docutils literal"><span class="pre">C:\</span></tt> drive in Windows Explorer, select &#8220;New folder&#8221;,
-name <tt class="docutils literal"><span class="pre">my_idea</span></tt></li>
-<li>Right click in <tt class="docutils literal"><span class="pre">my_idea</span></tt>, folder, select New file, of type &#8220;Text document&#8221;.
-Name it <tt class="docutils literal"><span class="pre">good_idea.txt</span></tt>.</li>
-<li>Open <tt class="docutils literal"><span class="pre">good_idea.txt</span></tt> and add some text like &#8220;This is my good idea&#8221;, and
+<li>Right click on the <code class="docutils literal"><span class="pre">C:\</span></code> drive in Windows Explorer, select &#8220;New folder&#8221;,
+name <code class="docutils literal"><span class="pre">my_idea</span></code></li>
+<li>Right click in <code class="docutils literal"><span class="pre">my_idea</span></code>, folder, select New file, of type &#8220;Text document&#8221;.
+Name it <code class="docutils literal"><span class="pre">good_idea.txt</span></code>.</li>
+<li>Open <code class="docutils literal"><span class="pre">good_idea.txt</span></code> and add some text like &#8220;This is my good idea&#8221;, and
 save.</li>
 </ul>
 </div>
@@ -81,11 +81,11 @@ now put this folder into version control.</p>
 <div class="section" id="initializing-the-repository">
 <h3>Initializing the repository<a class="headerlink" href="#initializing-the-repository" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Right click in the <tt class="docutils literal"><span class="pre">my_idea</span></tt> folder, choose &#8220;Git Init Here&#8221; to initialize
+<li><p class="first">Right click in the <code class="docutils literal"><span class="pre">my_idea</span></code> folder, choose &#8220;Git Init Here&#8221; to initialize
 the git database:</p>
 <img alt="_images/git_init_rc.png" src="_images/git_init_rc.png" />
 </li>
-<li><p class="first">You may notice that there is now a hidden folder called <tt class="docutils literal"><span class="pre">.git</span></tt> in the <tt class="docutils literal"><span class="pre">my_idea</span></tt> folder.</p>
+<li><p class="first">You may notice that there is now a hidden folder called <code class="docutils literal"><span class="pre">.git</span></code> in the <code class="docutils literal"><span class="pre">my_idea</span></code> folder.</p>
 <img alt="_images/dot_git_folder.png" src="_images/dot_git_folder.png" />
 <p>If you can&#8217;t see this hidden folder, you may need to change the folder viewing
 options.  From Windows XP explorer this is the &#8220;Tools&#8221; menu, then &#8220;Options&#8221;.
@@ -98,7 +98,7 @@ You should enable viewing hidden folders in the &#8220;View&#8221; tab:</p>
 <h3>Adding stuff to the repository<a class="headerlink" href="#adding-stuff-to-the-repository" title="Permalink to this headline">¶</a></h3>
 <p>Now we have a git database in our folder, we need to add our file.</p>
 <ul>
-<li><p class="first">Right click in the <tt class="docutils literal"><span class="pre">my_idea</span></tt> again, choose &#8220;Git Commit Tool&#8221;</p>
+<li><p class="first">Right click in the <code class="docutils literal"><span class="pre">my_idea</span></code> again, choose &#8220;Git Commit Tool&#8221;</p>
 <img alt="_images/git_gui_rc.png" src="_images/git_gui_rc.png" />
 </li>
 <li><p class="first">You will get a dialog like this:</p>
@@ -107,13 +107,13 @@ You should enable viewing hidden folders in the &#8220;View&#8221; tab:</p>
 at the moment, it is not going to be part of any &#8220;Commit&#8221; we do.  A commit is
 where we record changes into the database.  We do want to record our file, so</p>
 </li>
-<li><p class="first">Either click on the little icon to the left of the <tt class="docutils literal"><span class="pre">good_idea.txt</span></tt> filename
+<li><p class="first">Either click on the little icon to the left of the <code class="docutils literal"><span class="pre">good_idea.txt</span></code> filename
 in the dialog, or go to the &#8220;Commit&#8221; menu, &#8220;Stage to commit&#8221; option.  Notice
-the <tt class="docutils literal"><span class="pre">good_idea.txt</span></tt> file then goes to the &#8220;Staged changes (Will Commit)&#8221;
+the <code class="docutils literal"><span class="pre">good_idea.txt</span></code> file then goes to the &#8220;Staged changes (Will Commit)&#8221;
 section of the dialog.</p>
 <img alt="_images/first_commit_staged.png" src="_images/first_commit_staged.png" />
 </li>
-<li><p class="first">Add a message in the lower right box, like <tt class="docutils literal"><span class="pre">The</span> <span class="pre">first</span> <span class="pre">signs</span> <span class="pre">of</span> <span class="pre">my</span> <span class="pre">idea</span></tt>. The
+<li><p class="first">Add a message in the lower right box, like <code class="docutils literal"><span class="pre">The</span> <span class="pre">first</span> <span class="pre">signs</span> <span class="pre">of</span> <span class="pre">my</span> <span class="pre">idea</span></code>. The
 commit message is a reminder what set of changes the commit has.  It&#8217;s very
 useful to put meaningful messages here for quick reminders of what you
 intended with the changes.  Now click &#8220;Commit&#8221;.  Congratulations!</p>
@@ -141,7 +141,7 @@ That way git can see who&#8217;s doing the work (or doing the damage).</p>
 <p>Save.  Close.</p>
 </li>
 <li><p class="first">Let&#8217;s show ourselves that I have become myself.  Make a new file
-<tt class="docutils literal"><span class="pre">another_idea.txt</span></tt>. Start &#8220;Git Commit Tool&#8221; with a right click, stage the
+<code class="docutils literal"><span class="pre">another_idea.txt</span></code>. Start &#8220;Git Commit Tool&#8221; with a right click, stage the
 file by clicking on the icon next to the filename, add a message and the click
 commit.</p>
 </li>
@@ -156,17 +156,17 @@ Notice that you have two commits now, and the second one has your name on it.</p
 <p>Now you have your changes backed up into your repository, but you will probably
 want to back up the repository somewhere.</p>
 <p>Let&#8217;s pretend to back the repository up to a shared drive (but in fact we&#8217;ll
-back up to the <tt class="docutils literal"><span class="pre">C:\</span></tt> drive).</p>
+back up to the <code class="docutils literal"><span class="pre">C:\</span></code> drive).</p>
 <ul>
-<li><p class="first">Right click in the <tt class="docutils literal"><span class="pre">my_idea</span></tt> folder, chose &#8220;Git Gui&#8221;</p>
+<li><p class="first">Right click in the <code class="docutils literal"><span class="pre">my_idea</span></code> folder, chose &#8220;Git Gui&#8221;</p>
 </li>
 <li><p class="first">Choose menu &#8220;Remote&#8221;, &#8220;Add&#8221;:</p>
 <img alt="_images/initial_remote_add.png" src="_images/initial_remote_add.png" />
 </li>
 <li><p class="first">Give a name for your backup (no spaces) and a path to write the backup to.
-I like to add <tt class="docutils literal"><span class="pre">.git</span></tt> to the folder name for the backup, because this will be
-a backup with only the repository (the <tt class="docutils literal"><span class="pre">.git</span></tt> subfolder, but not the
-<tt class="docutils literal"><span class="pre">.txt</span></tt> files):</p>
+I like to add <code class="docutils literal"><span class="pre">.git</span></code> to the folder name for the backup, because this will be
+a backup with only the repository (the <code class="docutils literal"><span class="pre">.git</span></code> subfolder, but not the
+<code class="docutils literal"><span class="pre">.txt</span></code> files):</p>
 </li>
 <li><p class="first">Select &#8220;Initialize repository and push&#8221;, then click &#8220;Add&#8221;.</p>
 <img alt="_images/remote_add_dialog.png" src="_images/remote_add_dialog.png" />
@@ -179,36 +179,36 @@ a backup with only the repository (the <tt class="docutils literal"><span class=
 <h2>Working from another machine<a class="headerlink" href="#working-from-another-machine" title="Permalink to this headline">¶</a></h2>
 <p>Now you can work from any computer and send changes back to the backup copy.</p>
 <p>We can pretend to do this by making a new copy as if it was on (say) your
-laptop.  But in fact we&#8217;ll create the folder in the <tt class="docutils literal"><span class="pre">C:\</span></tt> drive again.</p>
+laptop.  But in fact we&#8217;ll create the folder in the <code class="docutils literal"><span class="pre">C:\</span></code> drive again.</p>
 <ul>
-<li><p class="first">Right click on the <tt class="docutils literal"><span class="pre">C:\</span></tt> drive, choose &#8216;Git Gui&#8217;:</p>
+<li><p class="first">Right click on the <code class="docutils literal"><span class="pre">C:\</span></code> drive, choose &#8216;Git Gui&#8217;:</p>
 <img alt="_images/git_gui_main.png" src="_images/git_gui_main.png" />
 </li>
 <li><p class="first">Select &#8220;Clone existing repository&#8221;.  For the &#8216;Source location&#8217;, browse to the
-backup that you just made. Type <tt class="docutils literal"><span class="pre">C:\laptop_working</span></tt> for the target directory.  Choose
+backup that you just made. Type <code class="docutils literal"><span class="pre">C:\laptop_working</span></code> for the target directory.  Choose
 &#8220;full copy&#8221; from the options (for safety).  Click on &#8220;Clone&#8221;.</p>
 <img alt="_images/clone_dialog.png" src="_images/clone_dialog.png" />
 </li>
-<li><p class="first">You now have a <tt class="docutils literal"><span class="pre">c:\laptop_working</span></tt> folder that is a clone of the &#8220;my_backup&#8221;
-repository, and that also has the same data as the <tt class="docutils literal"><span class="pre">c:\my_idea</span></tt> folder.</p>
+<li><p class="first">You now have a <code class="docutils literal"><span class="pre">c:\laptop_working</span></code> folder that is a clone of the &#8220;my_backup&#8221;
+repository, and that also has the same data as the <code class="docutils literal"><span class="pre">c:\my_idea</span></code> folder.</p>
 </li>
-<li><p class="first">Let&#8217;s make some changes on the laptop.  Go to the <tt class="docutils literal"><span class="pre">c:\laptop_working</span></tt>
-folder.  Make a new file <tt class="docutils literal"><span class="pre">idea_on_laptop.txt</span></tt> and type some text in it.
+<li><p class="first">Let&#8217;s make some changes on the laptop.  Go to the <code class="docutils literal"><span class="pre">c:\laptop_working</span></code>
+folder.  Make a new file <code class="docutils literal"><span class="pre">idea_on_laptop.txt</span></code> and type some text in it.
 Save.</p>
 </li>
-<li><p class="first">Right click, &#8220;Git Commit Tool&#8221;, stage the <tt class="docutils literal"><span class="pre">idea_on_laptop.txt</span></tt> file, add a
+<li><p class="first">Right click, &#8220;Git Commit Tool&#8221;, stage the <code class="docutils literal"><span class="pre">idea_on_laptop.txt</span></code> file, add a
 commit message and click &#8220;Commit&#8221;.</p>
-<p>Now you have this contents in your <tt class="docutils literal"><span class="pre">laptop_working</span></tt> folder.</p>
+<p>Now you have this contents in your <code class="docutils literal"><span class="pre">laptop_working</span></code> folder.</p>
 <img alt="_images/laptop_directory.png" src="_images/laptop_directory.png" />
 </li>
 </ul>
 <p>You put the changes back into the backup by doing a &#8220;Push&#8221;</p>
 <ul>
-<li><p class="first">Right click in <tt class="docutils literal"><span class="pre">laptop_working</span></tt>. &#8220;Git Gui&#8221;, &#8220;Remote&#8221; menu, &#8220;Push ...&#8221;</p>
+<li><p class="first">Right click in <code class="docutils literal"><span class="pre">laptop_working</span></code>. &#8220;Git Gui&#8221;, &#8220;Remote&#8221; menu, &#8220;Push ...&#8221;</p>
 <img alt="_images/laptop_remote_menu.png" src="_images/laptop_remote_menu.png" />
 <p>On the next dialog, click &#8220;Push&#8221;.</p>
 <img alt="_images/laptop_push.png" src="_images/laptop_push.png" />
-<p>The changes go back to the <tt class="docutils literal"><span class="pre">my_backup.git</span></tt> repository.</p>
+<p>The changes go back to the <code class="docutils literal"><span class="pre">my_backup.git</span></code> repository.</p>
 </li>
 </ul>
 </div>
@@ -217,15 +217,15 @@ commit message and click &#8220;Commit&#8221;.</p>
 <p>Let&#8217;s pretend that we&#8217;ve gone back to our original computer and we want the
 changes that we pushed from the laptop.</p>
 <ul>
-<li><p class="first">Go back to the <tt class="docutils literal"><span class="pre">my_idea</span></tt> folder.  Notice you don&#8217;t have the
-<tt class="docutils literal"><span class="pre">idea_on_laptop</span></tt> file yet.</p>
+<li><p class="first">Go back to the <code class="docutils literal"><span class="pre">my_idea</span></code> folder.  Notice you don&#8217;t have the
+<code class="docutils literal"><span class="pre">idea_on_laptop</span></code> file yet.</p>
 </li>
-<li><p class="first">Right click, &#8220;Git Gui&#8221;, &#8220;Remote&#8221; menu, &#8220;Fetch from&#8221; from the <tt class="docutils literal"><span class="pre">my_backup</span></tt>
+<li><p class="first">Right click, &#8220;Git Gui&#8221;, &#8220;Remote&#8221; menu, &#8220;Fetch from&#8221; from the <code class="docutils literal"><span class="pre">my_backup</span></code>
 remote.</p>
 <img alt="_images/gg_fetch_my_idea.png" src="_images/gg_fetch_my_idea.png" />
-<p>Now you have the changes <em>in the repository</em> (the <tt class="docutils literal"><span class="pre">.git</span></tt> subdirectory)
+<p>Now you have the changes <em>in the repository</em> (the <code class="docutils literal"><span class="pre">.git</span></code> subdirectory)
 - but not <em>in the working tree</em>.  Specifically, we don&#8217;t have the
-<tt class="docutils literal"><span class="pre">idea_on_laptop.txt</span></tt> file in the folder yet:</p>
+<code class="docutils literal"><span class="pre">idea_on_laptop.txt</span></code> file in the folder yet:</p>
 <img alt="_images/my_idea_before_merge.png" src="_images/my_idea_before_merge.png" />
 <p>To get the file, we need to do a <em>merge</em>.  This brings the changes from the
 <em>repository</em> into the working tree.  Open the &#8220;Git Gui&#8221; if it is not open.
@@ -264,7 +264,7 @@ expert after you have made a mistake or got confused.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -291,12 +291,14 @@ expert after you have made a mistake or got confused.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="gh_delete_master.html"
                         title="next chapter">Deleting your master branch</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/git_gui_windows.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/git_gui_windows.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -313,7 +315,7 @@ expert after you have made a mistake or got confused.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -325,13 +327,13 @@ expert after you have made a mistake or got confused.</p>
         <li class="right" >
           <a href="vim_mergetool.html" title="Using vim as a mergetool in git"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

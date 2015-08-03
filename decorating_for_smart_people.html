@@ -29,8 +29,8 @@
     <link rel="next" title="Python and unicode" href="python_unicode.html" />
     <link rel="prev" title="What is a decorator?" href="decorating_for_dummies.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -42,15 +42,15 @@
         <li class="right" >
           <a href="decorating_for_dummies.html" title="What is a decorator?"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="what-is-a-decorator-really">
 <span id="decorating-for-smart-people"></span><h1>What is a decorator, really?<a class="headerlink" href="#what-is-a-decorator-really" title="Permalink to this headline">¶</a></h1>
@@ -65,11 +65,11 @@
 function-definition
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">decorator-expression</span></tt> is an <em>expression</em> that returns a callable
+<p><code class="docutils literal"><span class="pre">decorator-expression</span></code> is an <em>expression</em> that returns a callable
 thing. The callable thing has to take single argument. That&#8217;s all it is.
-<tt class="docutils literal"><span class="pre">function-definition</span></tt> is a function definition (it therefore must
-begin with <tt class="docutils literal"><span class="pre">def</span></tt>).  If <tt class="docutils literal"><span class="pre">decorator-expression</span></tt> is <tt class="docutils literal"><span class="pre">dec_func</span></tt> and
-<tt class="docutils literal"><span class="pre">function-definition</span></tt> is <tt class="docutils literal"><span class="pre">def</span> <span class="pre">func():</span> <span class="pre">pass</span></tt> then the syntax above is
+<code class="docutils literal"><span class="pre">function-definition</span></code> is a function definition (it therefore must
+begin with <code class="docutils literal"><span class="pre">def</span></code>).  If <code class="docutils literal"><span class="pre">decorator-expression</span></code> is <code class="docutils literal"><span class="pre">dec_func</span></code> and
+<code class="docutils literal"><span class="pre">function-definition</span></code> is <code class="docutils literal"><span class="pre">def</span> <span class="pre">func():</span> <span class="pre">pass</span></code> then the syntax above is
 exactly the result of:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span>
 <span class="n">func</span> <span class="o">=</span> <span class="n">dec_func</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
@@ -140,13 +140,13 @@ decorator expression.</p>
 </pre></div>
 </div>
 <p>Note that, the decorator expression result will process the
-<tt class="docutils literal"><span class="pre">function-definition</span></tt> like this:</p>
+<code class="docutils literal"><span class="pre">function-definition</span></code> like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span> <span class="c"># function definition</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func</span> <span class="o">=</span> <span class="n">dec_exp_res</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>That is what the syntax says.  Usually, as in
-<a class="reference internal" href="decorating_for_dummies.html#decorating-for-dummies"><em>What is a decorator?</em></a>, you will want to return a modified
+<a class="reference internal" href="decorating_for_dummies.html#decorating-for-dummies"><span>What is a decorator?</span></a>, you will want to return a modified
 function.  But, given the syntax, you can do anything you want:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">strange_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;I am strange&#39;</span>
@@ -165,7 +165,7 @@ something.  This may seem a little bizarre, but - there are uses...</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -182,12 +182,14 @@ something.  This may seem a little bizarre, but - there are uses...</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="python_unicode.html"
                         title="next chapter">Python and unicode</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/decorating_for_smart_people.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/decorating_for_smart_people.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -204,7 +206,7 @@ something.  This may seem a little bizarre, but - there are uses...</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -216,13 +218,13 @@ something.  This may seem a little bizarre, but - there are uses...</p>
         <li class="right" >
           <a href="decorating_for_dummies.html" title="What is a decorator?"
              >previous</a> |</li>
-        <li><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
