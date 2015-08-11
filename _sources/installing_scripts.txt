@@ -10,8 +10,8 @@ running examples of script installation in different situations.
 
 .. note::
 
-    The code on this page is copyright me, Matthew Brett 2013. I hereby release
-    it under the `CC0 license`_
+    The code on this page is copyright me, Matthew Brett 2013. I hereby
+    release it under the `CC0 license`_
 
 ****************
 The main problem
@@ -378,6 +378,7 @@ Windows wrapper to analyze the script file shebang line::
 
     BAT_TEMPLATE = \
     r"""@echo off
+    REM wrapper to use shebang first line of {FNAME}
     set mypath=%~dp0
     set pyscript="%mypath%{FNAME}"
     set /p line1=<%pyscript%
@@ -386,7 +387,7 @@ Windows wrapper to analyze the script file shebang line::
     exit /b 1
     :goodstart
     set py_exe=%line1:~2%
-    call %py_exe% %pyscript% %*
+    call "%py_exe%" %pyscript% %*
     """
 
 

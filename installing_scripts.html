@@ -60,8 +60,8 @@
 running examples of script installation in different situations.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The code on this page is copyright me, Matthew Brett 2013. I hereby release
-it under the <a class="reference external" href="http://creativecommons.org/publicdomain/zero/1.0/legalcode">CC0 license</a></p>
+<p class="last">The code on this page is copyright me, Matthew Brett 2013. I hereby
+release it under the <a class="reference external" href="http://creativecommons.org/publicdomain/zero/1.0/legalcode">CC0 license</a></p>
 </div>
 <div class="section" id="the-main-problem">
 <h2>The main problem<a class="headerlink" href="#the-main-problem" title="Permalink to this headline">¶</a></h2>
@@ -405,6 +405,7 @@ Windows wrapper to analyze the script file shebang line:</p>
 
 <span class="n">BAT_TEMPLATE</span> <span class="o">=</span> \
 <span class="sd">r&quot;&quot;&quot;@echo off</span>
+<span class="sd">REM wrapper to use shebang first line of {FNAME}</span>
 <span class="sd">set mypath=%~dp0</span>
 <span class="sd">set pyscript=&quot;%mypath%{FNAME}&quot;</span>
 <span class="sd">set /p line1=&lt;%pyscript%</span>
@@ -413,7 +414,7 @@ Windows wrapper to analyze the script file shebang line:</p>
 <span class="sd">exit /b 1</span>
 <span class="sd">:goodstart</span>
 <span class="sd">set py_exe=%line1:~2%</span>
-<span class="sd">call %py_exe% %pyscript% %*</span>
+<span class="sd">call &quot;%py_exe%&quot; %pyscript% %*</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
