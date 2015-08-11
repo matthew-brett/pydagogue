@@ -88,7 +88,7 @@ equivalent steps::
     import sys
     print("Python starts at " + sys.prefix)
 
-Again, disutils has modified the Python path in the shebang line.  But this
+Again, distutils has modified the Python path in the shebang line.  But this
 time, the shebang is useless, because::
 
     (venv) C:\repos\myscripter>myscript
@@ -190,7 +190,7 @@ Then we modify our ``setup.py``::
 
 
 Notice we import setuptools at the top.  This modifies (monkey-patches)
-disutils, imported below that.  We now depend on setuptools at install time to
+distutils, imported below that.  We now depend on setuptools at install time to
 write the console script stuff and at run time in finding the installed scripts
 via ``pkg_resources`` (see above and below).  We run an install into a
 virtualenv (Unix again)::
