@@ -209,7 +209,7 @@ deactivate
 </pre></div>
 </div>
 <p>then <code class="docutils literal"><span class="pre">mypackage</span></code> will be installed into a special user-specific directory, that, by default, is on your Python module search path.  For example, outside any virtualenv, here is what I get for the Python module search path (<code class="docutils literal"><span class="pre">sys.path</span></code>) (after I have done a <code class="docutils literal"><span class="pre">--user</span></code> install as above):</p>
-<div class="highlight-python"><div class="highlight"><pre>:math:` python
+<div class="highlight-python"><div class="highlight"><pre>$ python
 Python 2.7.9 (default, Mar  1 2015, 12:57:24)
 [GCC 4.9.2] on linux2
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
@@ -235,8 +235,8 @@ the path containing packages that have been installed with the pip <code class="
 option.</p>
 <p>Python packages often install scripts (executables) as well as Python modules.
 To get full use of <code class="docutils literal"><span class="pre">--user</span></code> installed packages, you may also want to put the matching executable path onto your system.  I do this with the following lines in my <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
-<div class="highlight-python"><div class="highlight"><pre>export PY_USER_BIN=`(python -c &#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;)
-export PATH=:math:`PY_USER_BIN:`PATH
+<div class="highlight-python"><div class="highlight"><pre>export PY_USER_BIN=$(python -c &#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;)
+export PATH=$PY_USER_BIN:$PATH
 </pre></div>
 </div>
 <p>These lines work on Linux or OSX.</p>
@@ -246,7 +246,7 @@ you aren&#8217;t getting the <code class="docutils literal"><span class="pre">--
 off the path.  To do this, I have the following in my
 <code class="docutils literal"><span class="pre">~/.virtualenvs/postactivate</span></code> file:</p>
 <div class="highlight-python"><div class="highlight"><pre># Clear user Python binary path when using virtualenvs
-export PATH=:math:`(echo `PATH | sed &quot;s|${PY_USER_BIN}:\{0,1\}||&quot;)
+export PATH=$(echo :math:`PATH | sed &quot;s|\`{PY_USER_BIN}:\{0,1\}||&quot;)
 </pre></div>
 </div>
 </div>
