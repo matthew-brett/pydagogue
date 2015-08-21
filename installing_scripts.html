@@ -129,7 +129,7 @@ equivalent steps:</p>
 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Again, disutils has modified the Python path in the shebang line.  But this
+<p>Again, distutils has modified the Python path in the shebang line.  But this
 time, the shebang is useless, because:</p>
 <div class="highlight-python"><div class="highlight"><pre>(venv) C:\repos\myscripter&gt;myscript
 &#39;myscript&#39; is not recognized as an internal or external command,
@@ -228,7 +228,7 @@ code for a script into a file <code class="docutils literal"><span class="pre">m
 </pre></div>
 </div>
 <p>Notice we import setuptools at the top.  This modifies (monkey-patches)
-disutils, imported below that.  We now depend on setuptools at install time to
+distutils, imported below that.  We now depend on setuptools at install time to
 write the console script stuff and at run time in finding the installed scripts
 via <code class="docutils literal"><span class="pre">pkg_resources</span></code> (see above and below).  We run an install into a
 virtualenv (Unix again):</p>
