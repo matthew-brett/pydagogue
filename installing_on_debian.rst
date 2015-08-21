@@ -5,21 +5,41 @@ Python installations on Debian / Ubuntu
 In the old days, installation of Python packages was badly messed up.
 
 One of the big problems was the `easy_install`_ program, that installed
-packages in a way that could make them particularly difficult to uninstall (see :ref:`un-easy-install`).
+packages in a way that could make them particularly difficult to uninstall (see
+:ref:`un-easy-install`).
 
-Things started to improve as pip_ took over from ``easy_install`` as the standard Python package installer.
+Things started to improve as pip_ took over from ``easy_install`` as the
+standard Python package installer.
 
 They got better still when ``pip`` got a binary installer format |--| wheels_.
 
-The combination of virtualenv_, ``pip`` and wheels makes it much easier to maintain a set of Python environments to develop and test code.
+The combination of virtualenv_, ``pip`` and wheels makes it much easier to
+maintain a set of Python environments to develop and test code.
 
-This page is a recipe for setting up these virtualenvs on your Debian or Ubuntu machine.
+This page is a recipe for setting up these virtualenvs on your Debian or
+Ubuntu machine.
 
-************************
-Debian and Ubuntu Python
-************************
+The recipe I propose is this:
 
-Debian and Ubuntu have some special rules for where Python packages go.  See : https://wiki.debian.org/Python
+* if you have any `easy_install` installations, remove them;
+* build Python wheels for all the packages you use, and install from those;
+* have a very low threshold for using virtualenvs, via virtualenvwrapper_;
+* Use ``pip install --user`` to install packages into your day to day default
+  Python environment.
+
+.. _un-easy-install:
+
+***********************************
+Clean out old easy_install installs
+***********************************
+
+If you are starting from scratch or you have never used `easy_install` on your system, you can ignore this section.
+
+A note on Debian and Ubuntu Python
+==================================
+
+Debian and Ubuntu have some special rules for where Python packages go.  See
+: https://wiki.debian.org/Python
 
 The main point of interest to us, is that Python packages that you install for
 the Debian / Ubuntu packaged Python using ``apt`` or ``pip`` or ``python
@@ -28,18 +48,16 @@ where X.Y is your Python version (such as ``2.7``).  This is different from
 Python as compiled from the raw Python source code, which expects by default
 to install to a folder ``/usr/local/lib/pythonX.Y/site-packages``.
 
-.. _un-easy-install:
+Removing easy-install installs
+==============================
 
-***********************************
-Clean out old easy_install installs
-***********************************
+First you need to find the easy_install installs.  To do this, display the
+file ``/usr/local/lib/pythonX.Y/dist-packages/easy-install.pth`` (where
+``X.Y`` is the relevant Python version, such as ``2.7``).  If this file
+doesn't exist, lucky you, skip this section.
 
-I highly recommend you nuke any old easy_install installations.  If you have
-never used easy_install on this system, you don't need to read this section.
-
-First you need to find the easy_install installs.  To do this, display the file ``/usr/local/lib/pythonX.Y/dist-packages/easy-install.pth`` (where ``X.Y`` is the relevant Python version, such as ``2.7``).  If this file doesn't exist, lucky you, skip this section.
-
-If the file does exist, look for the packages listed in the file.  The file will look something like::
+If the file does exist, look for the packages listed in the file.  The file
+will look something like::
 
     import sys; sys.__plen = len(sys.path)
     ./requests-0.12.1-py2.7.egg
@@ -54,17 +72,21 @@ Delete each directory listed, e.g.::
     rm -rf /usr/local/lib/python2.7/dist-packages/requests-0.12.1-py2.7.egg
     rm -rf /usr/local/lib/python2.7/dist-packages/oauthlib-0.1.3-py2.7.egg
 
-etc.  When you have finished deleting these directories, delete the ``easy-install.pth`` file.  Phew, all done.
+etc.  When you have finished deleting these directories, delete the
+``easy-install.pth`` file.  Phew, all done.
 
 *************************
 Install virtualenvwrapper
 *************************
 
-``virtualenvwrapper`` is a very useful |--| er |--| wrapper around ``virtualenv``, that makes it easier and neater to have a library of virtual Python environments::
+``virtualenvwrapper`` is a very useful |--| er |--| wrapper around |--| er
+|--| ``virtualenv``, that makes it easier and neater to have a library of
+virtual Python environments::
 
     sudo pip install virtualenvwrapper
 
-To insert various useful aliases into your shell environment, this one time you should do::
+To insert various useful aliases into your shell environment, this one time
+you should do::
 
     source ~/.bashrc
 
@@ -72,7 +94,8 @@ To insert various useful aliases into your shell environment, this one time you 
 Install Python 3
 ****************
 
-If you want to make virtualenvs using Python 3, you will need to install Python 3 from the Debian / Ubuntu repositories.
+If you want to make virtualenvs using Python 3, you will need to install
+Python 3 from the Debian / Ubuntu repositories.
 
 ::
 
@@ -95,7 +118,8 @@ Next make a directory to contain the wheels::
 
     mkdir ~/wheelhouse
 
-Tell pip that it can install wheels from this directory, by creating a file ``~/.pip/pip.conf`` something like this::
+Tell pip that it can install wheels from this directory, by creating a file
+``~/.pip/pip.conf`` something like this::
 
     [global]
     find-links = /home/<your-user-name>/wheelhouse
@@ -141,6 +165,8 @@ You might want to do the same with Python 3::
 Now you are in virtualenv nirvana
 *********************************
 
+It's often good to use virtualenvs to start a development session.  Doing so means that you can install exactly the requirements that you need, without causing changes to your other virtualenvs.
+
 You can now make virtualenvs for your testing development quickly, even when
 you are offline.  Say you want to test something out for Python 3::
 
@@ -153,13 +179,66 @@ you are offline.  Say you want to test something out for Python 3::
 
 Nice.
 
+****************************************************
+Use ``--user`` installs for your default environment
+****************************************************
+
+Sometimes you may want a default environment, that has a set of packages that you commonly use.
+
+This is a good role for pip ``--user`` installs.  If you install a package like this::
+
+    pip install --user mypackage
+
+then ``mypackage`` will be installed into a special user-specific directory, that, by default, is on your Python module search path.  For example, outside any virtualenv, here is what I get for the Python module search path (``sys.path``) (after I have done a ``--user`` install as above)::
+
+    $ python
+    Python 2.7.9 (default, Mar  1 2015, 12:57:24) 
+    [GCC 4.9.2] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import sys
+    >>> print('\n'.join(sys.path))
+
+    /usr/lib/python2.7
+    /usr/lib/python2.7/plat-x86_64-linux-gnu
+    /usr/lib/python2.7/lib-tk
+    /usr/lib/python2.7/lib-old
+    /usr/lib/python2.7/lib-dynload
+    /home/vagrant/.local/lib/python2.7/site-packages
+    /usr/local/lib/python2.7/dist-packages
+    /usr/lib/python2.7/dist-packages
+    /usr/lib/python2.7/dist-packages/PILcompat
+    /usr/lib/python2.7/dist-packages/gtk-2.0
+    /usr/lib/pymodules/python2.7
+    /usr/lib/python2.7/dist-packages/wx-3.0-gtk2
+
+Notice the line ``/home/vagrant/.local/lib/python2.7/site-packages``. This is
+the path containing packages that have been installed with the pip ``--user``
+option.
+
+Python packages often install scripts (executables) as well as Python modules.
+To get full use of ``--user`` installed packages, you may also want to put the matching executable path onto your system.  I do this with the following lines in my ``~/.bashrc`` file::
+
+    export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
+    export PATH=$PY_USER_BIN:$PATH
+
+These lines work on Linux or OSX.
+
+If you do this, then you can use the command line scripts installed by
+packages like `ipython`_.  When using virtualenvs, you may want to make sure
+you aren't getting the ``--user`` installed scripts, by taking this directory
+off the path.  To do this, I have the following in my
+``~/.virtualenvs/postactivate`` file::
+
+    # Clear user Python binary path when using virtualenvs
+    export PATH=$(echo $PATH | sed "s|${PY_USER_BIN}:\{0,1\}||")
+
 *****************
 Adding new wheels
 *****************
 
 Adding new wheels is usually as simple as::
 
-    # Switch to relevant virtualenv
+    # Switch to relevant virtualenv to build wheel
     workon python2
     pip wheel -w ~/wheelhouse my-package
 
@@ -190,7 +269,8 @@ Another good approach
 Another good approach that can get you the at-or-near-latest packages quickly,
 is to install packages from NeuroDebian_.  Here, you rely on the NeuroDebian
 packages, which install, like other Debian packages, into
-``/usr/local/lib/pythonX.Y/site-packages``.  You can either use Python or Python3 without a virtualenv, or do::
+``/usr/local/lib/pythonX.Y/site-packages``.  You can either use Python or
+Python3 without a virtualenv, or do::
 
     mkvirtualenv --system-site-packages my-venv
 
@@ -201,6 +281,9 @@ to pick up all the packages installed in
 Doesn't work for you?  Help improve this page
 *********************************************
 
-If you try the instructions here, and you can't get a particular package or set-up to work, then why not make an `issue <pydagogue issues>`_ for the repository hosting these pages, and I'll see if I can work the fix into this page somewhere.
+If you try the instructions here, and you can't get a particular package or
+set-up to work, then why not make an `issue <pydagogue issues>`_ for the
+repository hosting these pages, and I'll see if I can work the fix into this
+page somewhere.
 
 .. include:: links_names.inc
