@@ -23,6 +23,7 @@
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 .. _nose: http://readthedocs.org/docs/nose/en/latest
 .. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
+.. _ipython: http://ipython.org
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
