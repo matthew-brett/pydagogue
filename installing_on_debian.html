@@ -77,11 +77,19 @@ Python environment.</li>
 <p>Debian and Ubuntu have some special rules for where Python packages go.  See
 : <a class="reference external" href="https://wiki.debian.org/Python">https://wiki.debian.org/Python</a></p>
 <p>The main point of interest to us, is that Python packages that you install for
-the Debian / Ubuntu packaged Python using <code class="docutils literal"><span class="pre">apt</span></code> or <code class="docutils literal"><span class="pre">pip</span></code> or <code class="docutils literal"><span class="pre">python</span>
-<span class="pre">setup.py</span> <span class="pre">install</span></code> go into a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>
-where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).  This is different from
-Python as compiled from the raw Python source code, which expects by default
-to install to a folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.</p>
+the Debian / Ubuntu packaged Python go into different directories that would
+be the case for a non-Debian Python installation.</p>
+<p>A non-Debian Python installation, such as Python compiled from source, will
+install Python packages into <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code> by
+default, where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).</p>
+<p>For Debian Python, package files go into different directories depending on
+whether you installed the package from standard Debian packages, or using
+Python&#8217;s own packaging mechanisms, such as <code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or
+<code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.</p>
+<p>Debian Python packages installed via <code class="docutils literal"><span class="pre">apt</span></code> or <code class="docutils literal"><span class="pre">dpkg</span></code> go into
+a folder <code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code> <a class="footnote-reference" href="#apt-installs" id="id1">[1]</a></p>
+<p><code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> installs go into a
+folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>.</p>
 </div>
 <div class="section" id="removing-easy-install-installs">
 <h3>Removing easy-install installs<a class="headerlink" href="#removing-easy-install-installs" title="Permalink to this headline">¶</a></h3>
@@ -109,14 +117,47 @@ rm -rf /usr/local/lib/python2.7/dist-packages/oauthlib-0.1.3-py2.7.egg
 <code class="docutils literal"><span class="pre">easy-install.pth</span></code> file.  Phew, all done.</p>
 </div>
 </div>
-<div class="section" id="install-virtualenvwrapper">
-<h2>Install virtualenvwrapper<a class="headerlink" href="#install-virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-update-pip">
+<h2>Install, update pip<a class="headerlink" href="#install-update-pip" title="Permalink to this headline">¶</a></h2>
+<p>You will need pip version &gt;= 6.0 in order to get <a class="reference external" href="https://pip.pypa.io/en/latest/reference/pip_install/#caching">pip wheel caching</a>. This is a
+killer pip feature, that means that you only build wheels from source once,
+the first time you install a package.  Pip then caches the wheel so you use
+the cached version next time you do an install.</p>
+<p>We recommend you uninstall any Debian versions of pip, if you have them:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get remove python-pip python3-pip
+</pre></div>
+</div>
+<p>Then install pip using the <a class="reference external" href="https://pip.pypa.io/en/latest/installing/#install-pip">standard instructions</a>:</p>
+<div class="highlight-python"><div class="highlight"><pre>wget https://bootstrap.pypa.io/get-pip.py
+sudo python get-pip.py
+</pre></div>
+</div>
+<p>Now check the pip version is &gt;= 6.0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>You can do the same for Python3:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo python3 get-pip.py
+</pre></div>
+</div>
+<p>This will make <code class="docutils literal"><span class="pre">pip</span></code>, by default, install into Python 3.  If you prefer the
+<code class="docutils literal"><span class="pre">pip</span></code> command to install into Python 2 by default, you could run <code class="docutils literal"><span class="pre">python</span>
+<span class="pre">get-pip.py</span> <span class="pre">--ignore-installed</span></code> again to make <code class="docutils literal"><span class="pre">pip</span></code> be the Python 2 pip
+by default.  You can always run <code class="docutils literal"><span class="pre">pip2</span></code> and <code class="docutils literal"><span class="pre">pip3</span></code> explicitly if you need
+the Python 2 or Python 3 versions.</p>
+</div>
+<div class="section" id="install-update-virtualenvwrapper">
+<h2>Install, update virtualenvwrapper<a class="headerlink" href="#install-update-virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> is a very useful – er – wrapper around – er
 – <code class="docutils literal"><span class="pre">virtualenv</span></code>, that makes it easier and neater to have a library of
 virtual Python environments:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip install virtualenvwrapper
+<div class="highlight-python"><div class="highlight"><pre>sudo pip install --upgrade virtualenvwrapper
 </pre></div>
 </div>
+<p>The <code class="docutils literal"><span class="pre">--upgrade</span></code> is important because virtualenv (installed by
+virtualenvwrapper) contains its own copy of pip.  We need the latest version
+of virtualenv to make sure we will get a recent version of pip in our
+virtualenvs.</p>
 <p>To insert various useful aliases into your shell environment, this one time
 you should do:</p>
 <div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
@@ -127,49 +168,34 @@ you should do:</p>
 <h2>Install Python 3<a class="headerlink" href="#install-python-3" title="Permalink to this headline">¶</a></h2>
 <p>If you want to make virtualenvs using Python 3, you will need to install
 Python 3 from the Debian / Ubuntu repositories.</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python3 python3-pip
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python3
 </pre></div>
 </div>
 </div>
-<div class="section" id="prepare-a-wheelhouse-directory">
-<h2>Prepare a wheelhouse directory<a class="headerlink" href="#prepare-a-wheelhouse-directory" title="Permalink to this headline">¶</a></h2>
-<p>In this step you build wheels that you can install in virtualenvs.</p>
-<p>First install build dependencies for common libraries:</p>
+<div class="section" id="set-up-the-system-to-build-wheels">
+<h2>Set up the system to build wheels<a class="headerlink" href="#set-up-the-system-to-build-wheels" title="Permalink to this headline">¶</a></h2>
+<p>Install standard build dependencies for common libraries:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
 </pre></div>
 </div>
 <p>This will take about 20 minutes (at least, it did on my virtualbox / Vagrant
 Debian instance).</p>
-<p>Next make a directory to contain the wheels:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir ~/wheelhouse
-</pre></div>
 </div>
-<p>Tell pip that it can install wheels from this directory, by creating a file
-<code class="docutils literal"><span class="pre">~/.pip/pip.conf</span></code> something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>[global]
-find-links = /home/&lt;your-user-name&gt;/wheelhouse
-use-wheel = True
-</pre></div>
-</div>
-<p>Obviously you need to replace <code class="docutils literal"><span class="pre">&lt;your-user-name&gt;</span></code> with your user name.</p>
-</div>
-<div class="section" id="build-wheels">
-<h2>Build wheels<a class="headerlink" href="#build-wheels" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="build-wheels-by-installing-with-pip">
+<h2>Build wheels by installing with pip<a class="headerlink" href="#build-wheels-by-installing-with-pip" title="Permalink to this headline">¶</a></h2>
+<p>Now you have pip &gt; 6.0, building wheels is just a matter of installing the
+package for the first time.</p>
 <p>Start up a new virtualenv for Python 2:</p>
 <div class="highlight-python"><div class="highlight"><pre>mkvirtualev python2
 </pre></div>
 </div>
-<p>Make sure the <code class="docutils literal"><span class="pre">wheel</span></code> utility is installed:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install wheel
+<p>Install numpy and cython.  This will build and cache wheels for the latest
+numpy and cython:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install numpy cython
 </pre></div>
 </div>
-<p>Build and install wheels for numpy and cython:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip wheel -w ~/wheelhouse numpy cython
-pip install numpy cython
-</pre></div>
-</div>
-<p>Now build any other wheels you are likely to use, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip wheel -w ~/wheelhouse scipy matplotlib h5py
+<p>Now you can install (therefore, build and cache) other wheels you might need:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install scipy matplotlib h5py
 </pre></div>
 </div>
 <p>Finish up by deactivating the virtualenv:</p>
@@ -178,19 +204,19 @@ pip install numpy cython
 </div>
 <p>You might want to do the same with Python 3:</p>
 <div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --python=/usr/bin/python3 python3
-pip install wheel
-pip wheel -w ~/wheelhouse numpy cython
 pip install numpy cython
-pip wheel -w ~/wheelhouse scipy matplotlib h5py
+pip install scipy matplotlib h5py
 deactivate
 </pre></div>
 </div>
 </div>
 <div class="section" id="now-you-are-in-virtualenv-nirvana">
 <h2>Now you are in virtualenv nirvana<a class="headerlink" href="#now-you-are-in-virtualenv-nirvana" title="Permalink to this headline">¶</a></h2>
-<p>It&#8217;s often good to use virtualenvs to start a development session.  Doing so means that you can install exactly the requirements that you need, without causing changes to your other virtualenvs.</p>
-<p>You can now make virtualenvs for your testing development quickly, even when
-you are offline.  Say you want to test something out for Python 3:</p>
+<p>It&#8217;s often good to use virtualenvs to start a development session.  Doing so
+means that you can install exactly the requirements that you need, without
+causing changes to your other virtualenvs.</p>
+<p>You can now make virtualenvs for your testing development quickly.  Say you
+want to test something out for Python 3:</p>
 <div class="highlight-python"><div class="highlight"><pre># Make clean virtual environment
 mkvirtualenv --python=/usr/bin/python3 testing-something
 pip install numpy scipy matplotlib h5py
@@ -200,15 +226,30 @@ deactivate
 </pre></div>
 </div>
 <p>Nice.</p>
+<p>Even if you are offline, you can always install things you have already built
+and cached, by adding the <code class="docutils literal"><span class="pre">--no-index</span></code> flag to pip:</p>
+<div class="highlight-python"><div class="highlight"><pre># Make another clean virtual environment
+mkvirtualenv --python=/usr/bin/python3 testing-offline
+pip install numpy scipy matplotlib h5py --no-index
+# install anything else you want
+# run your tests
+deactivate
+</pre></div>
+</div>
 </div>
 <div class="section" id="use-user-installs-for-your-default-environment">
 <h2>Use <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment<a class="headerlink" href="#use-user-installs-for-your-default-environment" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes you may want a default environment, that has a set of packages that you commonly use.</p>
-<p>This is a good role for pip <code class="docutils literal"><span class="pre">--user</span></code> installs.  If you install a package like this:</p>
+<p>Sometimes you may want a default environment, that has a set of packages that
+you commonly use.</p>
+<p>This is a good role for pip <code class="docutils literal"><span class="pre">--user</span></code> installs.  If you install a package
+like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install --user mypackage
 </pre></div>
 </div>
-<p>then <code class="docutils literal"><span class="pre">mypackage</span></code> will be installed into a special user-specific directory, that, by default, is on your Python module search path.  For example, outside any virtualenv, here is what I get for the Python module search path (<code class="docutils literal"><span class="pre">sys.path</span></code>) (after I have done a <code class="docutils literal"><span class="pre">--user</span></code> install as above):</p>
+<p>then <code class="docutils literal"><span class="pre">mypackage</span></code> will be installed into a special user-specific directory,
+that, by default, is on your Python module search path.  For example, outside
+any virtualenv, here is what I get for the Python module search path
+(<code class="docutils literal"><span class="pre">sys.path</span></code>) (after I have done a <code class="docutils literal"><span class="pre">--user</span></code> install as above):</p>
 <div class="highlight-python"><div class="highlight"><pre>$ python
 Python 2.7.9 (default, Mar  1 2015, 12:57:24)
 [GCC 4.9.2] on linux2
@@ -234,7 +275,9 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 the path containing packages that have been installed with the pip <code class="docutils literal"><span class="pre">--user</span></code>
 option.</p>
 <p>Python packages often install scripts (executables) as well as Python modules.
-To get full use of <code class="docutils literal"><span class="pre">--user</span></code> installed packages, you may also want to put the matching executable path onto your system.  I do this with the following lines in my <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
+To get full use of <code class="docutils literal"><span class="pre">--user</span></code> installed packages, you may also want to put the
+matching executable path onto your system.  I do this with the following lines
+in my <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
 <div class="highlight-python"><div class="highlight"><pre>export PY_USER_BIN=$(python -c &#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;)
 export PATH=$PY_USER_BIN:$PATH
 </pre></div>
@@ -250,18 +293,20 @@ export PATH=$(echo :math:`PATH | sed &quot;s|\`{PY_USER_BIN}:\{0,1\}||&quot;)
 </pre></div>
 </div>
 </div>
-<div class="section" id="adding-new-wheels">
-<h2>Adding new wheels<a class="headerlink" href="#adding-new-wheels" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="adding-new-packages-and-wheels">
+<h2>Adding new packages and wheels<a class="headerlink" href="#adding-new-packages-and-wheels" title="Permalink to this headline">¶</a></h2>
 <p>Adding new wheels is usually as simple as:</p>
-<div class="highlight-python"><div class="highlight"><pre># Switch to relevant virtualenv to build wheel
+<div class="highlight-python"><div class="highlight"><pre># Switch to relevant virtualenv to build, cache, install wheel
 workon python2
-pip wheel -w ~/wheelhouse my-package
+pip install my-package
 </pre></div>
 </div>
-<p>Sometimes the Python package you are installing has nasty binary dependencies.  In this case, usually your easiest path is to install the build dependencies for the corresponding Debian / Ubuntu package, and then continue as before:</p>
+<p>Sometimes the Python package you are installing has nasty binary dependencies.
+In this case, usually your easiest path is to install the build dependencies
+for the corresponding Debian / Ubuntu package, and then continue as before:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep pillow
 workon python2
-pip wheel -w ~/wheelhouse pillow
+pip install pillow
 </pre></div>
 </div>
 </div>
@@ -274,7 +319,7 @@ is to install the Python package using <code class="docutils literal"><span clas
 virtualenv with the <code class="docutils literal"><span class="pre">--system-site-packages</span></code> flag, so that it will pick up
 the installed packages:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-vtk
-mkvirtualenv --system-site-packages with-vtk
+mkvirtualenv --system-site-packages an-env-including-vtk
 </pre></div>
 </div>
 </div>
@@ -283,13 +328,13 @@ mkvirtualenv --system-site-packages with-vtk
 <p>Another good approach that can get you the at-or-near-latest packages quickly,
 is to install packages from <a class="reference external" href="http://neuro.debian.net/">NeuroDebian</a>.  Here, you rely on the NeuroDebian
 packages, which install, like other Debian packages, into
-<code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.  You can either use Python or
+<code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code>.  You can either use Python or
 Python3 without a virtualenv, or do:</p>
 <div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --system-site-packages my-venv
 </pre></div>
 </div>
 <p>to pick up all the packages installed in
-<code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code>.</p>
+<code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code>.</p>
 </div>
 <div class="section" id="doesn-t-work-for-you-help-improve-this-page">
 <h2>Doesn&#8217;t work for you?  Help improve this page<a class="headerlink" href="#doesn-t-work-for-you-help-improve-this-page" title="Permalink to this headline">¶</a></h2>
@@ -297,6 +342,14 @@ Python3 without a virtualenv, or do:</p>
 set-up to work, then why not make an <a class="reference external" href="pydagogueissues">issue</a> for the
 repository hosting these pages, and I&#8217;ll see if I can work the fix into this
 page somewhere.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="apt-installs" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>You can see where files would go for any Debian / Ubuntu
+package with <code class="docutils literal"><span class="pre">apt-file</span> <span class="pre">list</span> <span class="pre">&lt;package-name&gt;</span></code></td></tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -314,13 +367,14 @@ page somewhere.</p>
 <li><a class="reference internal" href="#removing-easy-install-installs">Removing easy-install installs</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#install-virtualenvwrapper">Install virtualenvwrapper</a></li>
+<li><a class="reference internal" href="#install-update-pip">Install, update pip</a></li>
+<li><a class="reference internal" href="#install-update-virtualenvwrapper">Install, update virtualenvwrapper</a></li>
 <li><a class="reference internal" href="#install-python-3">Install Python 3</a></li>
-<li><a class="reference internal" href="#prepare-a-wheelhouse-directory">Prepare a wheelhouse directory</a></li>
-<li><a class="reference internal" href="#build-wheels">Build wheels</a></li>
+<li><a class="reference internal" href="#set-up-the-system-to-build-wheels">Set up the system to build wheels</a></li>
+<li><a class="reference internal" href="#build-wheels-by-installing-with-pip">Build wheels by installing with pip</a></li>
 <li><a class="reference internal" href="#now-you-are-in-virtualenv-nirvana">Now you are in virtualenv nirvana</a></li>
 <li><a class="reference internal" href="#use-user-installs-for-your-default-environment">Use <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment</a></li>
-<li><a class="reference internal" href="#adding-new-wheels">Adding new wheels</a></li>
+<li><a class="reference internal" href="#adding-new-packages-and-wheels">Adding new packages and wheels</a></li>
 <li><a class="reference internal" href="#sometimes-it-s-a-package-too-far">Sometimes, it&#8217;s a package too far</a></li>
 <li><a class="reference internal" href="#another-good-approach">Another good approach</a></li>
 <li><a class="reference internal" href="#doesn-t-work-for-you-help-improve-this-page">Doesn&#8217;t work for you?  Help improve this page</a></li>
