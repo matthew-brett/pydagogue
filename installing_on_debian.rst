@@ -42,11 +42,23 @@ Debian and Ubuntu have some special rules for where Python packages go.  See
 : https://wiki.debian.org/Python
 
 The main point of interest to us, is that Python packages that you install for
-the Debian / Ubuntu packaged Python using ``apt`` or ``pip`` or ``python
-setup.py install`` go into a folder ``/usr/local/lib/pythonX.Y/dist-packages``
-where X.Y is your Python version (such as ``2.7``).  This is different from
-Python as compiled from the raw Python source code, which expects by default
-to install to a folder ``/usr/local/lib/pythonX.Y/site-packages``.
+the Debian / Ubuntu packaged Python go into different directories that would
+be the case for a non-Debian Python installation.
+
+A non-Debian Python installation, such as Python compiled from source, will
+install Python packages into ``/usr/local/lib/pythonX.Y/site-packages`` by
+default, where X.Y is your Python version (such as ``2.7``).
+
+For Debian Python, package files go into different directories depending on
+whether you installed the package from standard Debian packages, or using
+Python's own packaging mechanisms, such as ``pip``, ``easy_install`` or
+``python setup.py install``.
+
+Debian Python packages installed via ``apt`` or ``dpkg`` go into
+a folder ``/usr/lib/pythonX.Y/dist-packages`` [#apt-installs]_
+
+``pip``, ``easy_install`` or ``python setup.py install`` installs go into a
+folder ``/usr/local/lib/pythonX.Y/dist-packages``.
 
 Removing easy-install installs
 ==============================
@@ -75,15 +87,54 @@ Delete each directory listed, e.g.::
 etc.  When you have finished deleting these directories, delete the
 ``easy-install.pth`` file.  Phew, all done.
 
-*************************
-Install virtualenvwrapper
-*************************
+*******************
+Install, update pip
+*******************
+
+You will need pip version >= 6.0 in order to get `pip wheel caching
+<https://pip.pypa.io/en/latest/reference/pip_install/#caching>`_. This is a
+killer pip feature, that means that you only build wheels from source once,
+the first time you install a package.  Pip then caches the wheel so you use
+the cached version next time you do an install.
+
+We recommend you uninstall any Debian versions of pip, if you have them::
+
+    sudo apt-get remove python-pip python3-pip
+
+Then install pip using the `standard instructions
+<https://pip.pypa.io/en/latest/installing/#install-pip>`_::
+
+    wget https://bootstrap.pypa.io/get-pip.py
+    sudo python get-pip.py
+
+Now check the pip version is >= 6.0::
+
+    pip --version
+
+You can do the same for Python3::
+
+    sudo python3 get-pip.py
+
+This will make ``pip``, by default, install into Python 3.  If you prefer the
+``pip`` command to install into Python 2 by default, you could run ``python
+get-pip.py --ignore-installed`` again to make ``pip`` be the Python 2 pip
+by default.  You can always run ``pip2`` and ``pip3`` explicitly if you need
+the Python 2 or Python 3 versions.
+
+*********************************
+Install, update virtualenvwrapper
+*********************************
 
 ``virtualenvwrapper`` is a very useful |--| er |--| wrapper around |--| er
 |--| ``virtualenv``, that makes it easier and neater to have a library of
 virtual Python environments::
 
-    sudo pip install virtualenvwrapper
+    sudo pip install --upgrade virtualenvwrapper
+
+The ``--upgrade`` is important because virtualenv (installed by
+virtualenvwrapper) contains its own copy of pip.  We need the latest version
+of virtualenv to make sure we will get a recent version of pip in our
+virtualenvs.
 
 To insert various useful aliases into your shell environment, this one time
 you should do::
@@ -99,54 +150,38 @@ Python 3 from the Debian / Ubuntu repositories.
 
 ::
 
-    sudo apt-get install python3 python3-pip
+    sudo apt-get install python3
 
-******************************
-Prepare a wheelhouse directory
-******************************
+*********************************
+Set up the system to build wheels
+*********************************
 
-In this step you build wheels that you can install in virtualenvs.
-
-First install build dependencies for common libraries::
+Install standard build dependencies for common libraries::
 
     sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
 
 This will take about 20 minutes (at least, it did on my virtualbox / Vagrant
 Debian instance).
 
-Next make a directory to contain the wheels::
+***********************************
+Build wheels by installing with pip
+***********************************
 
-    mkdir ~/wheelhouse
-
-Tell pip that it can install wheels from this directory, by creating a file
-``~/.pip/pip.conf`` something like this::
-
-    [global]
-    find-links = /home/<your-user-name>/wheelhouse
-    use-wheel = True
-
-Obviously you need to replace ``<your-user-name>`` with your user name.
-
-************
-Build wheels
-************
+Now you have pip > 6.0, building wheels is just a matter of installing the
+package for the first time.
 
 Start up a new virtualenv for Python 2::
 
     mkvirtualev python2
 
-Make sure the ``wheel`` utility is installed::
+Install numpy and cython.  This will build and cache wheels for the latest
+numpy and cython::
 
-    pip install wheel
-
-Build and install wheels for numpy and cython::
-
-    pip wheel -w ~/wheelhouse numpy cython
     pip install numpy cython
 
-Now build any other wheels you are likely to use, e.g.::
+Now you can install (therefore, build and cache) other wheels you might need::
 
-    pip wheel -w ~/wheelhouse scipy matplotlib h5py
+    pip install scipy matplotlib h5py
 
 Finish up by deactivating the virtualenv::
 
@@ -155,20 +190,20 @@ Finish up by deactivating the virtualenv::
 You might want to do the same with Python 3::
 
     mkvirtualenv --python=/usr/bin/python3 python3
-    pip install wheel
-    pip wheel -w ~/wheelhouse numpy cython
     pip install numpy cython
-    pip wheel -w ~/wheelhouse scipy matplotlib h5py
+    pip install scipy matplotlib h5py
     deactivate
 
 *********************************
 Now you are in virtualenv nirvana
 *********************************
 
-It's often good to use virtualenvs to start a development session.  Doing so means that you can install exactly the requirements that you need, without causing changes to your other virtualenvs.
+It's often good to use virtualenvs to start a development session.  Doing so
+means that you can install exactly the requirements that you need, without
+causing changes to your other virtualenvs.
 
-You can now make virtualenvs for your testing development quickly, even when
-you are offline.  Say you want to test something out for Python 3::
+You can now make virtualenvs for your testing development quickly.  Say you
+want to test something out for Python 3::
 
     # Make clean virtual environment
     mkvirtualenv --python=/usr/bin/python3 testing-something
@@ -179,17 +214,32 @@ you are offline.  Say you want to test something out for Python 3::
 
 Nice.
 
+Even if you are offline, you can always install things you have already built
+and cached, by adding the ``--no-index`` flag to pip::
+
+    # Make another clean virtual environment
+    mkvirtualenv --python=/usr/bin/python3 testing-offline
+    pip install numpy scipy matplotlib h5py --no-index
+    # install anything else you want
+    # run your tests
+    deactivate
+
 ****************************************************
 Use ``--user`` installs for your default environment
 ****************************************************
 
-Sometimes you may want a default environment, that has a set of packages that you commonly use.
+Sometimes you may want a default environment, that has a set of packages that
+you commonly use.
 
-This is a good role for pip ``--user`` installs.  If you install a package like this::
+This is a good role for pip ``--user`` installs.  If you install a package
+like this::
 
     pip install --user mypackage
 
-then ``mypackage`` will be installed into a special user-specific directory, that, by default, is on your Python module search path.  For example, outside any virtualenv, here is what I get for the Python module search path (``sys.path``) (after I have done a ``--user`` install as above)::
+then ``mypackage`` will be installed into a special user-specific directory,
+that, by default, is on your Python module search path.  For example, outside
+any virtualenv, here is what I get for the Python module search path
+(``sys.path``) (after I have done a ``--user`` install as above)::
 
     \$ python
     Python 2.7.9 (default, Mar  1 2015, 12:57:24)
@@ -216,7 +266,9 @@ the path containing packages that have been installed with the pip ``--user``
 option.
 
 Python packages often install scripts (executables) as well as Python modules.
-To get full use of ``--user`` installed packages, you may also want to put the matching executable path onto your system.  I do this with the following lines in my ``~/.bashrc`` file::
+To get full use of ``--user`` installed packages, you may also want to put the
+matching executable path onto your system.  I do this with the following lines
+in my ``~/.bashrc`` file::
 
     export PY_USER_BIN=\$(python -c 'import site; print(site.USER_BASE + "/bin")')
     export PATH=\$PY_USER_BIN:\$PATH
@@ -232,21 +284,23 @@ off the path.  To do this, I have the following in my
     # Clear user Python binary path when using virtualenvs
     export PATH=\$(echo $PATH | sed "s|\${PY_USER_BIN}:\{0,1\}||")
 
-*****************
-Adding new wheels
-*****************
+******************************
+Adding new packages and wheels
+******************************
 
 Adding new wheels is usually as simple as::
 
-    # Switch to relevant virtualenv to build wheel
+    # Switch to relevant virtualenv to build, cache, install wheel
     workon python2
-    pip wheel -w ~/wheelhouse my-package
+    pip install my-package
 
-Sometimes the Python package you are installing has nasty binary dependencies.  In this case, usually your easiest path is to install the build dependencies for the corresponding Debian / Ubuntu package, and then continue as before::
+Sometimes the Python package you are installing has nasty binary dependencies.
+In this case, usually your easiest path is to install the build dependencies
+for the corresponding Debian / Ubuntu package, and then continue as before::
 
     sudo apt-get build-dep pillow
     workon python2
-    pip wheel -w ~/wheelhouse pillow
+    pip install pillow
 
 *********************************
 Sometimes, it's a package too far
@@ -260,7 +314,7 @@ virtualenv with the ``--system-site-packages`` flag, so that it will pick up
 the installed packages::
 
     sudo apt-get install python-vtk
-    mkvirtualenv --system-site-packages with-vtk
+    mkvirtualenv --system-site-packages an-env-including-vtk
 
 *********************
 Another good approach
@@ -269,13 +323,13 @@ Another good approach
 Another good approach that can get you the at-or-near-latest packages quickly,
 is to install packages from NeuroDebian_.  Here, you rely on the NeuroDebian
 packages, which install, like other Debian packages, into
-``/usr/local/lib/pythonX.Y/site-packages``.  You can either use Python or
+``/usr/lib/pythonX.Y/dist-packages``.  You can either use Python or
 Python3 without a virtualenv, or do::
 
     mkvirtualenv --system-site-packages my-venv
 
 to pick up all the packages installed in
-``/usr/local/lib/pythonX.Y/site-packages``.
+``/usr/lib/pythonX.Y/dist-packages``.
 
 *********************************************
 Doesn't work for you?  Help improve this page
@@ -285,5 +339,10 @@ If you try the instructions here, and you can't get a particular package or
 set-up to work, then why not make an `issue <pydagogue issues>`_ for the
 repository hosting these pages, and I'll see if I can work the fix into this
 page somewhere.
+
+.. rubric:: Footnotes
+
+.. [#apt-installs] You can see where files would go for any Debian / Ubuntu
+   package with ``apt-file list <package-name>``
 
 .. include:: links_names.inc
