@@ -30,7 +30,7 @@ extensions = ['sphinx.ext.autodoc',
               'workrun',
               'prizefiles',
               'subfiles',
-              'math_dollar']
+              'texext.math_dollar']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

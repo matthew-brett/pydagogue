@@ -201,7 +201,7 @@ virtualenv (Unix again)::
 
 Our console script got installed::
 
-    (venv)\$ my_console_script
+    (venv)$ my_console_script
     Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
 
 The actual ``venv/bin/my_console_script`` file is just a wrapper for setuptools::
@@ -294,7 +294,7 @@ The way to hook into the distutils install is to subclass the distutils
 
 This gets run during ``install`` obviously::
 
-    \$ python setup.py install
+    $ python setup.py install
     running install
     running build
     running build_scripts
@@ -308,7 +308,7 @@ This gets run during ``install`` obviously::
 
 Less obviously, it gets run making a binary installer such as an egg::
 
-    \$ python setupegg.py bdist_egg
+    $ python setupegg.py bdist_egg
     running bdist_egg
     running egg_info
     ...

@@ -24,7 +24,7 @@ obvious:
 .. prizevar:: merge-trouble-7
 
     obj={{ merge-trouble }}
-    echo \${obj:0:7}
+    echo ${obj:0:7}
 
 .. prizerun::
 
