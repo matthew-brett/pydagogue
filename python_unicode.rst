@@ -62,13 +62,15 @@ To get a unicode string from text that has been encoded::
 In Python 3, ``raw_str`` will be a *byte string* rather than a standard
 (unicode) string.
 
+*******************************************
 Python internal encoding of unicode strings
--------------------------------------------
+*******************************************
 
 The internal encoding of unicode strings depends on the version of Python.
 
+*******************************
 Python versions 2.2 through 3.2
--------------------------------
+*******************************
 
 The internal representation of unicode stirngs Pythons 2.2 through 3.2 depends
 on flags with which the Python program binary was built.  Pythons built with
@@ -93,7 +95,7 @@ See also:
 * http://www.python.org/dev/peps/pep-0261/
 
 UTF-16 (ucs2) builds of Python and 32 bit unicode code points
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=============================================================
 
 If you have a UTF-16 build of python, and want to use a 32 bit code point,
 then some oddness occurs::
@@ -123,15 +125,17 @@ http://www.python.org/dev/peps/pep-0261/).
 Some discussion about UTF-16 / UCS-2, UCS-4 and Python 3 here:
 http://mail.python.org/pipermail/python-dev/2008-July/080886.html
 
+************************
 Python versions from 3.3
-------------------------
+************************
 
 Python versions 3.3 and above use a flexible internal representation of the
 string that depends on the string contents |--| see
 http://www.python.org/dev/peps/pep-0393.
 
+************************************
 Relevant python modules and commands
-------------------------------------
+************************************
 
 Modules
 =======

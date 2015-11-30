@@ -23,12 +23,13 @@ Quoting from ``git mergetool --help``:
 
     When git mergetool is invoked with this tool (either through the -t or
     --tool option or the merge.tool configuration variable) the configured
-    command line will be invoked with $BASE set to the name of a temporary file
-    containing the common base for the merge, if available; $LOCAL set to the
-    name of a temporary file containing the contents of the file on the current
-    branch; $REMOTE set to the name of a temporary file containing the contents
-    of the file to be merged, and $MERGED set to the name of the file to which
-    the merge tool should write the result of the merge resolution.
+    command line will be invoked with \$BASE set to the name of a temporary
+    file containing the common base for the merge, if available; \$LOCAL set
+    to the name of a temporary file containing the contents of the file on the
+    current branch; \$REMOTE set to the name of a temporary file containing
+    the contents of the file to be merged, and \$MERGED set to the name of the
+    file to which the merge tool should write the result of the merge
+    resolution.
 
 Interpreting the text above in the context of ``git rebase --help`` - the
 "current branch" will, in this case, be ``main-master`` - more generally it will
@@ -53,8 +54,8 @@ The one at the bottom is:
 
 * MERGED : the file to which we write the changes, to be selected from LOCAL
   (new changes) REMOTE (upstream changes).  This is the file with the merge
-  markers in it. If you have *conflictstyle* above set to ``diff3`` you will see
-  the LOCAL, REMOTE and BASE versions within the mergemarker block.
+  markers in it. If you have *conflictstyle* above set to ``diff3`` you will
+  see the LOCAL, REMOTE and BASE versions within the mergemarker block.
 
 Now, time to go through the lower pane, pulling in changes from the "upstream"
 (left) pane, or the "rebase changes" (right) pane, as in one of::
@@ -62,5 +63,3 @@ Now, time to go through the lower pane, pulling in changes from the "upstream"
     :diffg LO
     :diffg BA
     :diffg RE
-
-
