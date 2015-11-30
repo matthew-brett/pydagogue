@@ -249,7 +249,7 @@ clone:
 The "subproject" directory is a full git repository clone of the original
 "myproject".  Remember that ``git submodule add`` created the directory by
 cloning. The "myproject" clone has a remote from the URL we gave to ``git
-subproject``.
+submodule add``.
 
 .. superrun::
 

@@ -72,12 +72,13 @@ git mergetool
 <blockquote>
 <div>When git mergetool is invoked with this tool (either through the -t or
 &#8211;tool option or the merge.tool configuration variable) the configured
-command line will be invoked with <span class="math">\(BASE set to the name of a temporary file
-containing the common base for the merge, if available; \)</span>LOCAL set to the
-name of a temporary file containing the contents of the file on the current
-branch; <span class="math">\(REMOTE set to the name of a temporary file containing the contents
-of the file to be merged, and \)</span>MERGED set to the name of the file to which
-the merge tool should write the result of the merge resolution.</div></blockquote>
+command line will be invoked with $BASE set to the name of a temporary
+file containing the common base for the merge, if available; $LOCAL set
+to the name of a temporary file containing the contents of the file on the
+current branch; $REMOTE set to the name of a temporary file containing
+the contents of the file to be merged, and $MERGED set to the name of the
+file to which the merge tool should write the result of the merge
+resolution.</div></blockquote>
 <p>Interpreting the text above in the context of <code class="docutils literal"><span class="pre">git</span> <span class="pre">rebase</span> <span class="pre">--help</span></code> - the
 &#8220;current branch&#8221; will, in this case, be <code class="docutils literal"><span class="pre">main-master</span></code> - more generally it will
 be the &#8220;upstream&#8221; branch in the rebase command line, or &#8220;newbase&#8221; if you used
@@ -100,8 +101,8 @@ case, that would be the branch we were on when we issued <code class="docutils l
 <ul class="simple">
 <li>MERGED : the file to which we write the changes, to be selected from LOCAL
 (new changes) REMOTE (upstream changes).  This is the file with the merge
-markers in it. If you have <em>conflictstyle</em> above set to <code class="docutils literal"><span class="pre">diff3</span></code> you will see
-the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
+markers in it. If you have <em>conflictstyle</em> above set to <code class="docutils literal"><span class="pre">diff3</span></code> you will
+see the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
 </ul>
 <p>Now, time to go through the lower pane, pulling in changes from the &#8220;upstream&#8221;
 (left) pane, or the &#8220;rebase changes&#8221; (right) pane, as in one of:</p>
