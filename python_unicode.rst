@@ -1,7 +1,8 @@
 .. _python-unicode:
 
+##################
 Python and unicode
-==================
+##################
 
 See :ref:`introducing-unicode` for an introduction to Unicode.
 
