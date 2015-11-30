@@ -985,12 +985,12 @@ Git will also show the contents of objects with the command ``git cat-file
 .. prizevar:: initial-paper-hash-fname
 
     obj={{ initial-paper-hash }}
-    echo \${obj:0:2}/\${obj:2}
+    echo ${obj:0:2}/${obj:2}
 
 .. prizevar:: initial-paper-hash-dirname
 
     obj={{ initial-paper-hash }}
-    echo \${obj:0:2}
+    echo ${obj:0:2}
 
 When we did ``git add nobel_prize_paper.txt``, we got a new file in
 ``.git/objects``, with filename |initial-paper-hash-fname|.  The filename is
@@ -1013,7 +1013,7 @@ identify the object.  7 digits is often enough, as in:
 .. prizevar:: initial-paper-hash-7
 
     obj={{ initial-paper-hash }}
-    echo \${obj:0:7}
+    echo ${obj:0:7}
 
 .. prizerun::
 
@@ -1889,7 +1889,7 @@ Make the empty backup repository
     :var_type: run
     :omit_link:
 
-    echo "\$PWD/repos"
+    echo "$PWD/repos"
 
 Let's say your external disk is mounted at |usb_mountpoint|.
 
@@ -2059,7 +2059,7 @@ version of ``nobel_prize_paper.txt``.
 .. prizevar:: buffing-fname
 
     commit={{ buffing }}
-    echo \${commit:0:2}/\${commit:2}
+    echo ${commit:0:2}/${commit:2}
 
 .. prizevar:: buffing-tree
 
@@ -2068,7 +2068,7 @@ version of ``nobel_prize_paper.txt``.
 .. prizevar:: buffing-tree-fname
 
     tree={{ buffing-tree }}
-    echo \${tree:0:2}/\${tree:2}
+    echo ${tree:0:2}/${tree:2}
 
 .. prizerun::
 
@@ -2076,12 +2076,12 @@ version of ``nobel_prize_paper.txt``.
 
 .. prizevar:: buffing-paper-obj
 
-    git cat-file -p {{ buffing-tree }} | grep nobel_prize | awk '{print \$3}'
+    git cat-file -p {{ buffing-tree }} | grep nobel_prize | awk '{print $3}'
 
 .. prizevar:: buffing-paper-obj-fname
 
     obj={{ buffing-paper-obj }}
-    echo \${obj:0:2}/\${obj:2}
+    echo ${obj:0:2}/${obj:2}
 
 We do have these objects in the local repository:
 
@@ -2097,9 +2097,9 @@ done a ``push``):
 .. prizerun::
 
     REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
-    ls \$REMOTE_OBJECTS/{{ buffing-fname }}
-    ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
-    ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
+    ls $REMOTE_OBJECTS/{{ buffing-fname }}
+    ls $REMOTE_OBJECTS/{{ buffing-tree-fname }}
+    ls $REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
 
 Now we do a push:
 
@@ -2118,9 +2118,9 @@ We do have the new objects in the remote repository:
 .. prizerun::
 
     REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
-    ls \$REMOTE_OBJECTS/{{ buffing-fname }}
-    ls \$REMOTE_OBJECTS/{{ buffing-tree-fname }}
-    ls \$REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
+    ls $REMOTE_OBJECTS/{{ buffing-fname }}
+    ls $REMOTE_OBJECTS/{{ buffing-tree-fname }}
+    ls $REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
 
 You might also be able to see how git would work out what to transfer.  See
 :doc:`git_push_algorithm` for how it could work in general, and for this case.
@@ -2513,9 +2513,9 @@ the name):
 
 ::
 
-    source \$HOME/.git-completion.bash
-    source \$HOME/.git-prompt.sh
-    PS1='[\u@\h \W\$(__git_ps1 " (%s)")]\\$ ' # adjust this to your prompt liking
+    source $HOME/.git-completion.bash
+    source $HOME/.git-prompt.sh
+    PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ ' # adjust this to your prompt liking
 
 See the comments in both of those files for lots of extra functionality
 they offer.

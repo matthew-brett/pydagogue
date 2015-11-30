@@ -241,7 +241,7 @@ that, by default, is on your Python module search path.  For example, outside
 any virtualenv, here is what I get for the Python module search path
 (``sys.path``) (after I have done a ``--user`` install as above)::
 
-    \$ python
+    $ python
     Python 2.7.9 (default, Mar  1 2015, 12:57:24)
     [GCC 4.9.2] on linux2
     Type "help", "copyright", "credits" or "license" for more information.
@@ -270,8 +270,8 @@ To get full use of ``--user`` installed packages, you may also want to put the
 matching executable path onto your system.  I do this with the following lines
 in my ``~/.bashrc`` file::
 
-    export PY_USER_BIN=\$(python -c 'import site; print(site.USER_BASE + "/bin")')
-    export PATH=\$PY_USER_BIN:\$PATH
+    export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
+    export PATH=$PY_USER_BIN:$PATH
 
 These lines work on Linux or OSX.
 
@@ -282,7 +282,7 @@ off the path.  To do this, I have the following in my
 ``~/.virtualenvs/postactivate`` file::
 
     # Clear user Python binary path when using virtualenvs
-    export PATH=\$(echo $PATH | sed "s|\${PY_USER_BIN}:\{0,1\}||")
+    export PATH=$(echo $PATH | sed "s|${PY_USER_BIN}:\{0,1\}||")
 
 ******************************
 Adding new packages and wheels

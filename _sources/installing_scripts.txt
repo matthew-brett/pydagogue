@@ -2,8 +2,8 @@
 Installing python scripts
 #########################
 
-This here is to explain to myself how Python distutils_, distribute_ /
-setuptools_ and pip_ install scripts on Unix and Windows.
+This here is to explain to myself how Python distutils_, setuptools_ and pip_
+install scripts on Unix and Windows.
 
 The repository at http://github.com/matthew-brett/myscripter has some worked
 running examples of script installation in different situations.
@@ -118,8 +118,8 @@ Thus far, not good for us on Windows.
 setuptools - scripts in eggs
 ****************************
 
-In "setuptools" I include installation methods using setuptools or its variants,
-meaning pip_ and distribute_ and setuptools_ itself.
+In "setuptools" I include installation methods using setuptools or its
+variants, meaning pip_ and setuptools_ itself.
 
 With the ``setup.py`` above, setuptools variants will do the same thing as
 ``distutils``, modifying the shebang line, but nothing else of interest in
@@ -162,7 +162,7 @@ Setuptools and console_script entry_points
 
 There is another way to define scripts using setuptools, and that is by
 using ``entry_points`` pointing to ``console_scripts`` (see:
-http://packages.python.org/distribute/setuptools.html#automatic-script-creation
+http://packages.python.org/setuptools/setuptools.html#automatic-script-creation
 for detail). To use this mechanism, we move the script code into a library. We
 make a new library directory ``myscripter``, add an empty file
 ``myscripter/__init__.py`` to identify this as a package directory, and move the
@@ -201,7 +201,7 @@ virtualenv (Unix again)::
 
 Our console script got installed::
 
-    (venv)\$ my_console_script
+    (venv)$ my_console_script
     Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
 
 The actual ``venv/bin/my_console_script`` file is just a wrapper for setuptools::
@@ -294,7 +294,7 @@ The way to hook into the distutils install is to subclass the distutils
 
 This gets run during ``install`` obviously::
 
-    \$ python setup.py install
+    $ python setup.py install
     running install
     running build
     running build_scripts
@@ -308,7 +308,7 @@ This gets run during ``install`` obviously::
 
 Less obviously, it gets run making a binary installer such as an egg::
 
-    \$ python setupegg.py bdist_egg
+    $ python setupegg.py bdist_egg
     running bdist_egg
     running egg_info
     ...
@@ -331,17 +331,19 @@ Different ways the installer can be run
 To get some general mechanism working, it's good to review all the possible ways
 that your script could get installed on Windows or Unix.  These are:
 
-* Direct installation from the source repository
-* Installation from a source archive (``zip`` or ``tar.gz``)
+* Direct installation from the source repository;
+* Installation from a source archive (``zip`` or ``tar.gz``);
 * Installation by double click from a binary ``exe`` installer (Windows) or
-  ``mpkg`` installer (OSX).
+  ``mpkg`` installer (OSX);
 * Installation by ``easy_install`` from binary ``exe`` installer (Windows) or
-  an ``egg`` binary file (any platform)
+  an ``egg`` binary file (any platform);
+* Installation by ``pip`` from binary ``.whl`` file (any platform).
 
 Let's consider the binary ``egg`` install.  Here you've made a binary egg using
 ``python setup.py bdist_egg``.  You upload this to pypi_ or some other good
 place.  Someone then downloads it, and installs with the equivalent of
-``easy_install my_package_version.egg``.
+``easy_install my_package_version.egg``.  Pip and wheels work in a very
+similar way.
 
 How to know the install-time python for a binary installer?
 ===========================================================

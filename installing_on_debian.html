@@ -289,7 +289,7 @@ you aren&#8217;t getting the <code class="docutils literal"><span class="pre">--
 off the path.  To do this, I have the following in my
 <code class="docutils literal"><span class="pre">~/.virtualenvs/postactivate</span></code> file:</p>
 <div class="highlight-python"><div class="highlight"><pre># Clear user Python binary path when using virtualenvs
-export PATH=$(echo :math:`PATH | sed &quot;s|\`{PY_USER_BIN}:\{0,1\}||&quot;)
+export PATH=$(echo $PATH | sed &quot;s|${PY_USER_BIN}:\{0,1\}||&quot;)
 </pre></div>
 </div>
 </div>

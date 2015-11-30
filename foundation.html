@@ -385,7 +385,7 @@ commit in <code class="docutils literal"><span class="pre">.ahole/HEAD</span></c
 <em>checkout</em>, with something like:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_checkout</span><span class="p">(</span><span class="n">commit_id</span><span class="p">):</span>
     <span class="n">commit_dir</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">commit_id</span>
-    <span class="c"># copy .ahole/:math:`commit_id/files into working tree</span>
+    <span class="c"># copy .ahole/$commit_id/files into working tree</span>
     <span class="n">delete_tree</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
     <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
     <span class="c"># make .ahole/HEAD contain commit_id</span>
@@ -522,7 +522,7 @@ good.</p>
        <span class="n">head_reference</span> <span class="o">=</span> <span class="bp">False</span>
        <span class="n">commit_id</span> <span class="o">=</span> <span class="n">commit_reference</span>
    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">commit_id</span>
-   <span class="c"># copy .ahole/`commit_id/files into working tree</span>
+   <span class="c"># copy .ahole/$commit_id/files into working tree</span>
    <span class="n">delete_tree</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
    <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
    <span class="c"># make ahole/HEAD point to commit id</span>

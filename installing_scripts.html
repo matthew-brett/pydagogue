@@ -54,8 +54,8 @@
             
   <div class="section" id="installing-python-scripts">
 <h1>Installing python scripts<a class="headerlink" href="#installing-python-scripts" title="Permalink to this headline">¶</a></h1>
-<p>This here is to explain to myself how Python <a class="reference external" href="http://docs.python.org/2/library/distutils.html">distutils</a>, <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a> /
-<a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a> and <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> install scripts on Unix and Windows.</p>
+<p>This here is to explain to myself how Python <a class="reference external" href="http://docs.python.org/2/library/distutils.html">distutils</a>, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a> and <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a>
+install scripts on Unix and Windows.</p>
 <p>The repository at <a class="reference external" href="http://github.com/matthew-brett/myscripter">http://github.com/matthew-brett/myscripter</a> has some worked
 running examples of script installation in different situations.</p>
 <div class="admonition note">
@@ -156,8 +156,8 @@ python.</p>
 </div>
 <div class="section" id="setuptools-scripts-in-eggs">
 <h2>setuptools - scripts in eggs<a class="headerlink" href="#setuptools-scripts-in-eggs" title="Permalink to this headline">¶</a></h2>
-<p>In &#8220;setuptools&#8221; I include installation methods using setuptools or its variants,
-meaning <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> and <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a> and <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a> itself.</p>
+<p>In &#8220;setuptools&#8221; I include installation methods using setuptools or its
+variants, meaning <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> and <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a> itself.</p>
 <p>With the <code class="docutils literal"><span class="pre">setup.py</span></code> above, setuptools variants will do the same thing as
 <code class="docutils literal"><span class="pre">distutils</span></code>, modifying the shebang line, but nothing else of interest in
 solving our Windows problems.  We can run the same code as above through
@@ -201,7 +201,7 @@ find the script in the egg and run that.  In this case it has the obscure conten
 <h2>Setuptools and console_script entry_points<a class="headerlink" href="#setuptools-and-console-script-entry-points" title="Permalink to this headline">¶</a></h2>
 <p>There is another way to define scripts using setuptools, and that is by
 using <code class="docutils literal"><span class="pre">entry_points</span></code> pointing to <code class="docutils literal"><span class="pre">console_scripts</span></code> (see:
-<a class="reference external" href="http://packages.python.org/distribute/setuptools.html#automatic-script-creation">http://packages.python.org/distribute/setuptools.html#automatic-script-creation</a>
+<a class="reference external" href="http://packages.python.org/setuptools/setuptools.html#automatic-script-creation">http://packages.python.org/setuptools/setuptools.html#automatic-script-creation</a>
 for detail). To use this mechanism, we move the script code into a library. We
 make a new library directory <code class="docutils literal"><span class="pre">myscripter</span></code>, add an empty file
 <code class="docutils literal"><span class="pre">myscripter/__init__.py</span></code> to identify this as a package directory, and move the
@@ -363,17 +363,19 @@ Doing something in install
 <p>To get some general mechanism working, it&#8217;s good to review all the possible ways
 that your script could get installed on Windows or Unix.  These are:</p>
 <ul class="simple">
-<li>Direct installation from the source repository</li>
-<li>Installation from a source archive (<code class="docutils literal"><span class="pre">zip</span></code> or <code class="docutils literal"><span class="pre">tar.gz</span></code>)</li>
+<li>Direct installation from the source repository;</li>
+<li>Installation from a source archive (<code class="docutils literal"><span class="pre">zip</span></code> or <code class="docutils literal"><span class="pre">tar.gz</span></code>);</li>
 <li>Installation by double click from a binary <code class="docutils literal"><span class="pre">exe</span></code> installer (Windows) or
-<code class="docutils literal"><span class="pre">mpkg</span></code> installer (OSX).</li>
+<code class="docutils literal"><span class="pre">mpkg</span></code> installer (OSX);</li>
 <li>Installation by <code class="docutils literal"><span class="pre">easy_install</span></code> from binary <code class="docutils literal"><span class="pre">exe</span></code> installer (Windows) or
-an <code class="docutils literal"><span class="pre">egg</span></code> binary file (any platform)</li>
+an <code class="docutils literal"><span class="pre">egg</span></code> binary file (any platform);</li>
+<li>Installation by <code class="docutils literal"><span class="pre">pip</span></code> from binary <code class="docutils literal"><span class="pre">.whl</span></code> file (any platform).</li>
 </ul>
 <p>Let&#8217;s consider the binary <code class="docutils literal"><span class="pre">egg</span></code> install.  Here you&#8217;ve made a binary egg using
 <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_egg</span></code>.  You upload this to <a class="reference external" href="http://pypi.python.org">pypi</a> or some other good
 place.  Someone then downloads it, and installs with the equivalent of
-<code class="docutils literal"><span class="pre">easy_install</span> <span class="pre">my_package_version.egg</span></code>.</p>
+<code class="docutils literal"><span class="pre">easy_install</span> <span class="pre">my_package_version.egg</span></code>.  Pip and wheels work in a very
+similar way.</p>
 </div>
 <div class="section" id="how-to-know-the-install-time-python-for-a-binary-installer">
 <h3>How to know the install-time python for a binary installer?<a class="headerlink" href="#how-to-know-the-install-time-python-for-a-binary-installer" title="Permalink to this headline">¶</a></h3>

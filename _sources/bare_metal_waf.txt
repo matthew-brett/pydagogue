@@ -86,9 +86,9 @@ Let's pretend our project creates a file called ``foo`` and then copies it to
 
     def build(build_ctx):
         # Touch foo
-        build_ctx(rule='\${TOUCH} \${TGT}', target='foo')
+        build_ctx(rule='${TOUCH} ${TGT}', target='foo')
         # Copy foo to bar
-        build_ctx(rule='\${CP} \${SRC} \${TGT}', source='foo', target='bar')
+        build_ctx(rule='${CP} ${SRC} ${TGT}', source='foo', target='bar')
 
 We run the checks with ``./waf configure``, and the build with ``./waf build``.
 
@@ -163,7 +163,7 @@ specialized Context object. We can show that for the the ``options`` command.
 
 gives::
 
-    \$ waf options
+    $ waf options
     <waflib.Options.OptionsContext object at 0x1011b53d0>
 
 Let's make each of the commands print their context instance::
@@ -187,13 +187,13 @@ Let's make each of the commands print their context instance::
 
 Executing 'options' again::
 
-    \$ waf options
+    $ waf options
     In: options with <waflib.Options.OptionsContext object at 0x1011b55d0>
 
 We can execute all these command in order by concatenating them at the command
 line to show they each get an instance of their own specialized Context::
 
-    \$ waf options configure distclean clean build install uninstall dist list step
+    $ waf options configure distclean clean build install uninstall dist list step
     In: options with <waflib.Options.OptionsContext object at 0x1011b6750>
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -248,7 +248,7 @@ This happens before your own ``configure`` command gets executed, and even if
 there is no ``configure`` command defined.  For example, if wscript is an empty
 file::
 
-    \$ waf configure
+    $ waf configure
     <waflib.Options.OptionsContext object at 0x1011b53d0>
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -282,7 +282,7 @@ code from within the binary to a specially named folder in the same directory as
 the binary, with a name beginning with ``.waf-``. For example, after I have run
 ``./waf configure`` in the test project folder I get::
 
-    \$ ls -A1
+    $ ls -A1
     .lock-waf_darwin_build
     .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc
     build
@@ -291,7 +291,7 @@ the binary, with a name beginning with ``.waf-``. For example, after I have run
 
 The ``waflib`` code is in this special ``.waf-*`` directory::
 
-    \$ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
+    $ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
     waflib
 
 As the waf book explains, it's also possible to run waf with ``waflib`` as a
@@ -309,9 +309,9 @@ generator creates the task instances for us::
         pass
 
     def build(build_ctx):
-        build_ctx(rule='touch \${TGT}', target='foo')
+        build_ctx(rule='touch ${TGT}', target='foo')
 
-See :ref:`variable-substitution` below for more on the ``\${TGT}`` string
+See :ref:`variable-substitution` below for more on the ``${TGT}`` string
 substitution form.
 
 The ``rule`` is a system command that we can run, and the ``target`` in this
@@ -323,7 +323,7 @@ clearing the outputs of any previous waf run.
 
 So::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
     'configure' finished successfully (0.003s)
@@ -346,7 +346,7 @@ book::
         pass
 
     def build(build_ctx):
-        tg = build_ctx(rule='touch \${TGT}', target='foo')
+        tg = build_ctx(rule='touch ${TGT}', target='foo')
         # This will show that ``tg`` is a ``task_gen`` instance
         print('Type of tg is:', type(tg))
         # ``tg.tasks`` is empty because the generator has not run yet
@@ -359,7 +359,7 @@ book::
 
 so::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject 
     Setting out to                           : /Users/mb312/dev_trees/myproject/build 
@@ -400,7 +400,7 @@ contexts will have these node objects::
 
 giving::
 
-    \$ waf mycommand
+    $ waf mycommand
     <class 'waflib.Node.Nod3'> /Users/mb312/dev_trees/myproject
     <class 'waflib.Node.Nod3'> /
     'mycommand' finished successfully (0.000s)
@@ -420,7 +420,7 @@ Node objects contain various useful methods::
 
 gives::
 
-    \$ waf mycommand
+    $ waf mycommand
     ['abspath', 'ant_glob', 'ant_iter', 'bld_base', 'bld_dir', 'bldpath',
     'cache_abspath', 'cache_isdir', 'cache_sig', 'change_ext', 'children',
     'chmod', 'ctx', 'delete', 'evict', 'find_dir', 'find_node',
@@ -443,7 +443,7 @@ node as a string::
 
 for output::
 
-    \$ waf mycommand
+    $ waf mycommand
     /Users/mb312/dev_trees/myproject
     'mycommand' finished successfully (0.000s)
 
@@ -499,7 +499,7 @@ nodes manually if they have not been read from the filesystem already::
 
 This gives::
 
-    \$ waf mycommand
+    $ waf mycommand
     root node children {'Users': /Users}
     ls of root directory ['.dbfseventsd', '.DS_Store', '.file', '.fseventsd',
     '.hotfiles.btree', '.Spotlight-V100', '.Trashes', '.vol', 'Applications',
@@ -538,7 +538,7 @@ the build context contains two extra nodes, ``bldnode`` and ``srcnode``::
 
 so::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     'distclean' finished successfully (0.001s)
     Setting top to                           : /Users/mb312/dev_trees/myproject 
     Setting out to                           : /Users/mb312/dev_trees/myproject/build 
@@ -576,7 +576,7 @@ this not to raise an error::
 
 then::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     'distclean' finished successfully (0.000s)
     Setting top to                           : /Users/mb312/dev_trees/myproject/tmp2
     Setting out to                           : /Users/mb312/dev_trees/myproject/tmp2/build2
@@ -609,7 +609,7 @@ node with ``get_bld``::
 
 Output::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject/tmp2 
     Setting out to                           : /Users/mb312/dev_trees/myproject/tmp2/build2 
@@ -672,13 +672,13 @@ low-level interface::
 
     def build(build_ctx):
         # create empty 'foo' file
-        build_ctx(rule='touch \${TGT}', target='foo')
+        build_ctx(rule='touch ${TGT}', target='foo')
         # copy 'foo' to 'bar'
-        build_ctx(rule='cp \${SRC} \${TGT}', source='foo', target='bar')
+        build_ctx(rule='cp ${SRC} ${TGT}', source='foo', target='bar')
 
 Thence::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -724,7 +724,7 @@ The low level interface defines the tasks and dependencies directly::
 
 giving output::
 
-    \$ waf distclean configure build
+    $ waf distclean configure build
     'distclean' finished successfully (0.002s)
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -748,10 +748,10 @@ instead of the ``run`` method.  waf translates the ``run_str`` attribute to a
     def build(build_ctx):
         # Declare the tasks
         class TouchFile(Task):
-            run_str = 'touch \${TGT}'
+            run_str = 'touch ${TGT}'
 
         class CopyFile(Task):
-            run_str = 'cp \${SRC} \${TGT}'
+            run_str = 'cp ${SRC} ${TGT}'
 
         # Instantiate tasks
         touch_task = TouchFile(env=build_ctx.env)
@@ -779,9 +779,9 @@ this also becomes the ``run_str`` of the task.
 As you can see from the examples above, the run_str has some extra rules of
 variable substitution.
 
-For example, ``\${SRC}`` and ``\${TGT}`` get substituted for the ``source`` and
+For example, ``${SRC}`` and ``${TGT}`` get substituted for the ``source`` and
 ``target`` filenames.  Other variable names that work in this mode
-(``\${VARIABLE_NAME}``) are any attribute of ``build_ctx.env``.
+(``${VARIABLE_NAME}``) are any attribute of ``build_ctx.env``.
 
 See *Scriptlet expressions* in the waf book for more substitutions. Here I've
 copied from the book::
@@ -799,21 +799,21 @@ For example::
         conf_ctx.env.MYVAR = 'my variable'
 
     def build(build_ctx):
-        build_ctx(rule='echo \${MYVAR}', always=True)
-        build_ctx(rule='echo \${bld.bldnode.abspath()}', always=True)
-        build_ctx(rule='echo \${bld.srcnode.abspath()}', always=True)
+        build_ctx(rule='echo ${MYVAR}', always=True)
+        build_ctx(rule='echo ${bld.bldnode.abspath()}', always=True)
+        build_ctx(rule='echo ${bld.srcnode.abspath()}', always=True)
 
 gives::
 
-    \$ waf configure build
+    $ waf configure build
     Setting top to                           : /Users/mb312/dev_trees/myproject
     Setting out to                           : /Users/mb312/dev_trees/myproject/build
     'configure' finished successfully (0.003s)
     Waf: Entering directory `/Users/mb312/dev_trees/myproject/build'
-    [2/3] echo \${MYVAR}:
-    [2/3] echo \${bld.bldnode.abspath()}:
+    [2/3] echo ${MYVAR}:
+    [2/3] echo ${bld.bldnode.abspath()}:
     my variable
-    [3/3] echo \${bld.srcnode.abspath()}:
+    [3/3] echo ${bld.srcnode.abspath()}:
     /Users/mb312/dev_trees/myproject/build
     /Users/mb312/dev_trees/myproject
     Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build'
