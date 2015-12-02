@@ -97,29 +97,22 @@ killer pip feature, that means that you only build wheels from source once,
 the first time you install a package.  Pip then caches the wheel so you use
 the cached version next time you do an install.
 
-We recommend you uninstall any Debian versions of pip, if you have them::
+First install Debian versions of pip::
 
-    sudo apt-get remove python-pip python3-pip
+    sudo apt-get install python-pip python3-pip
 
-Then install pip using the `standard instructions
-<https://pip.pypa.io/en/latest/installing/#install-pip>`_::
+Next upgrade your pip, using pip itself.  If you are using both python 2 and
+python 3 versions, upgrade the one you want to own the ``pip`` command last::
 
-    wget https://bootstrap.pypa.io/get-pip.py
-    sudo python get-pip.py
+    # Upgrade pip for Python 3 installs
+    sudo pip3 install --upgrade pip
+    # Upgrade pip for Python 2 installs (this one owns "pip" now)
+    sudo pip2 install --upgrade pip
 
 Now check the pip version is >= 6.0::
 
     pip --version
-
-You can do the same for Python3::
-
-    sudo python3 get-pip.py
-
-This will make ``pip``, by default, install into Python 3.  If you prefer the
-``pip`` command to install into Python 2 by default, you could run ``python
-get-pip.py --ignore-installed`` again to make ``pip`` be the Python 2 pip
-by default.  You can always run ``pip2`` and ``pip3`` explicitly if you need
-the Python 2 or Python 3 versions.
+    pip3 --version
 
 *********************************
 Install, update virtualenvwrapper
@@ -129,6 +122,9 @@ Install, update virtualenvwrapper
 |--| ``virtualenv``, that makes it easier and neater to have a library of
 virtual Python environments::
 
+    # Get basic version with shell integration
+    sudo apt-get install virtualenvwrapper
+    # Upgrade to latest
     sudo pip install --upgrade virtualenvwrapper
 
 The ``--upgrade`` is important because virtualenv (installed by
@@ -136,21 +132,10 @@ virtualenvwrapper) contains its own copy of pip.  We need the latest version
 of virtualenv to make sure we will get a recent version of pip in our
 virtualenvs.
 
-To insert various useful aliases into your shell environment, this one time
-you should do::
+The ``virtualenvwrapper`` apt package puts useful aliases into the default
+bash shell environment.  To get this, this one time you should do::
 
     source ~/.bashrc
-
-****************
-Install Python 3
-****************
-
-If you want to make virtualenvs using Python 3, you will need to install
-Python 3 from the Debian / Ubuntu repositories.
-
-::
-
-    sudo apt-get install python3
 
 *********************************
 Set up the system to build wheels
@@ -160,7 +145,7 @@ Install standard build dependencies for common libraries::
 
     sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
 
-This will take about 20 minutes (at least, it did on my virtualbox / Vagrant
+This may take about 10-20 minutes (at least, it did on my virtualbox / Vagrant
 Debian instance).
 
 ***********************************
