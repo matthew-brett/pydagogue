@@ -123,52 +123,42 @@ rm -rf /usr/local/lib/python2.7/dist-packages/oauthlib-0.1.3-py2.7.egg
 killer pip feature, that means that you only build wheels from source once,
 the first time you install a package.  Pip then caches the wheel so you use
 the cached version next time you do an install.</p>
-<p>We recommend you uninstall any Debian versions of pip, if you have them:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get remove python-pip python3-pip
+<p>First install Debian versions of pip:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-pip python3-pip
 </pre></div>
 </div>
-<p>Then install pip using the <a class="reference external" href="https://pip.pypa.io/en/latest/installing/#install-pip">standard instructions</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>wget https://bootstrap.pypa.io/get-pip.py
-sudo python get-pip.py
+<p>Next upgrade your pip, using pip itself.  If you are using both python 2 and
+python 3 versions, upgrade the one you want to own the <code class="docutils literal"><span class="pre">pip</span></code> command last:</p>
+<div class="highlight-python"><div class="highlight"><pre># Upgrade pip for Python 3 installs
+sudo pip3 install --upgrade pip
+# Upgrade pip for Python 2 installs (this one owns &quot;pip&quot; now)
+sudo pip2 install --upgrade pip
 </pre></div>
 </div>
 <p>Now check the pip version is &gt;= 6.0:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">pip3</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
-<p>You can do the same for Python3:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo python3 get-pip.py
-</pre></div>
-</div>
-<p>This will make <code class="docutils literal"><span class="pre">pip</span></code>, by default, install into Python 3.  If you prefer the
-<code class="docutils literal"><span class="pre">pip</span></code> command to install into Python 2 by default, you could run <code class="docutils literal"><span class="pre">python</span>
-<span class="pre">get-pip.py</span> <span class="pre">--ignore-installed</span></code> again to make <code class="docutils literal"><span class="pre">pip</span></code> be the Python 2 pip
-by default.  You can always run <code class="docutils literal"><span class="pre">pip2</span></code> and <code class="docutils literal"><span class="pre">pip3</span></code> explicitly if you need
-the Python 2 or Python 3 versions.</p>
 </div>
 <div class="section" id="install-update-virtualenvwrapper">
 <h2>Install, update virtualenvwrapper<a class="headerlink" href="#install-update-virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> is a very useful – er – wrapper around – er
 – <code class="docutils literal"><span class="pre">virtualenv</span></code>, that makes it easier and neater to have a library of
 virtual Python environments:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip install --upgrade virtualenvwrapper
+<div class="highlight-python"><div class="highlight"><pre># Get basic version with shell integration
+sudo apt-get install virtualenvwrapper
+# Upgrade to latest
+sudo pip install --upgrade virtualenvwrapper
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">--upgrade</span></code> is important because virtualenv (installed by
 virtualenvwrapper) contains its own copy of pip.  We need the latest version
 of virtualenv to make sure we will get a recent version of pip in our
 virtualenvs.</p>
-<p>To insert various useful aliases into your shell environment, this one time
-you should do:</p>
+<p>The <code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> apt package puts useful aliases into the default
+bash shell environment.  To get this, this one time you should do:</p>
 <div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
-</pre></div>
-</div>
-</div>
-<div class="section" id="install-python-3">
-<h2>Install Python 3<a class="headerlink" href="#install-python-3" title="Permalink to this headline">¶</a></h2>
-<p>If you want to make virtualenvs using Python 3, you will need to install
-Python 3 from the Debian / Ubuntu repositories.</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python3
 </pre></div>
 </div>
 </div>
@@ -178,7 +168,7 @@ Python 3 from the Debian / Ubuntu repositories.</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
 </pre></div>
 </div>
-<p>This will take about 20 minutes (at least, it did on my virtualbox / Vagrant
+<p>This may take about 10-20 minutes (at least, it did on my virtualbox / Vagrant
 Debian instance).</p>
 </div>
 <div class="section" id="build-wheels-by-installing-with-pip">
@@ -369,7 +359,6 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
 </li>
 <li><a class="reference internal" href="#install-update-pip">Install, update pip</a></li>
 <li><a class="reference internal" href="#install-update-virtualenvwrapper">Install, update virtualenvwrapper</a></li>
-<li><a class="reference internal" href="#install-python-3">Install Python 3</a></li>
 <li><a class="reference internal" href="#set-up-the-system-to-build-wheels">Set up the system to build wheels</a></li>
 <li><a class="reference internal" href="#build-wheels-by-installing-with-pip">Build wheels by installing with pip</a></li>
 <li><a class="reference internal" href="#now-you-are-in-virtualenv-nirvana">Now you are in virtualenv nirvana</a></li>
