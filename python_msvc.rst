@@ -6,32 +6,58 @@ Using Microsoft Visual C with Python
 Visual studio compiler versions
 *******************************
 
-Here is a list of Visual Studio / Visual C++ version numbers, the value of the
-defined ``_MSC_VER`` during compilation, and the alternative year-based name.
+Here is a list of Visual Studio / `Visual C++
+<http://en.wikipedia.org/wiki/Visual_C%2B%2B>`_ version numbers, the value of
+the defined ``_MSC_VER`` during compilation, the alternative year-based name,
+and the C / C++ runtime library.
 
-See: http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time
+For sources on version numbers / ``_MSC_VER``:
 
-and: http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with
+* `a stackoverflow table
+  <http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time>`_;
+* a `sourceforge wiki page on compilers
+  <http://sourceforge.net/p/predef/wiki/Compilers>`_;
+* `stackoverflow answer on VC and Python
+  <http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with>`_.
 
-and: http://en.wikipedia.org/wiki/Visual_C%2B%2B
+For VC runtime libraries:
 
-============  ======== ================
-VC++ version  _MSC_VER Alternative name
-============  ======== ================
-Version 1.0    800
-Version 2.0    900
-Version 2.x    900
-Version 4.0    1000
-Version 5.0    1100
-Version 6.0    1200
-Version 7.0    1300    Visual Studio 2002
-Version 7.1    1310    Visual Studio 2003
-Version 8.0    1400    Visual Studio 2005
-Version 9.0    1500    Visual Studio 2008
-Version 10.0   1600    Visual Studio 2010
-Version 11.0   1700    Visual Studio 2012
-Version 12.0   1800    Visual Studio 2013
-============  ======== ================
+* a `list of VS versions / CRTS
+  <https://support.microsoft.com/en-us/kb/154753>`_;
+* a `history of the MS CRTS
+  <http://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html>`_;
+* the MS `C runtime library pages
+  <https://msdn.microsoft.com/en-us/library/abx4dbyh(v=vs.100).aspx>`_;
+
+============  ======== ==================  =============   =============
+VC++ version  _MSC_VER Alternative name    C runtime       C++ runtime
+============  ======== ==================  =============   =============
+1.0           800                          MSVCRT10.DLL
+2.0           900                          MSVCRT20.DLL
+4.0           1000                         MSVCRT40.DLL
+4.2           1020                         MSVCRT.DLL
+5.0           1100     Visual Studio 97    MSVCRT.DLL      MSVCP50.DLL
+6.0           1200                         MSVCRT.DLL      MSVCP60.DLL
+7.0           1300     Visual Studio 2002  MSVCR70.DLL     MSVCP70.DLL
+7.1           1310     Visual Studio 2003  MSVCR71.DLL     MSVCP71.DLL
+8.0           1400     Visual Studio 2005  MSVCR80.DLL     MSVCP80.DLL
+9.0           1500     Visual Studio 2008  MSVCR90.DLL     MSVCP90.DLL
+10.0          1600     Visual Studio 2010  MSVCR100.DLL    MSVCP100.DLL
+11.0          1700     Visual Studio 2012  MSVCR110.DLL    MSVCP110.DLL
+12.0          1800     Visual Studio 2013  MSVCR120.DLL    MSVCP120.DLL
+14.0          1900     Visual Studio 2015  See notes       See notes
+============  ======== ==================  =============   =============
+
+For a discussion of the generic ``MSVCRT.DLL`` compared to the DLLs specific
+to the VC version, see `this blog post
+<https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005>`_.
+See also `these comments on using MSVCRT.DLL from Mingw-w64
+<http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll>`_.
+
+For 2015, MS split the C runtime into several component libraries.  See:
+
+* http://blogs.msdn.com/b/vcblog/archive/2014/06/10/the-great-crt-refactoring.aspx
+* https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx
 
 ******************************************************************
 Visual Studio versions used to compile distributed Python binaries
@@ -57,6 +83,7 @@ Python version VC++ version
 3.2.3          9.0
 3.3.5          10.0
 3.4.0          10.0
+3.5.0          14.0
 ============== ============
 
 ****************************************************
