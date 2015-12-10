@@ -56,78 +56,132 @@
 <h1>Using Microsoft Visual C with Python<a class="headerlink" href="#using-microsoft-visual-c-with-python" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="visual-studio-compiler-versions">
 <h2>Visual studio compiler versions<a class="headerlink" href="#visual-studio-compiler-versions" title="Permalink to this headline">¶</a></h2>
-<p>Here is a list of Visual Studio / Visual C++ version numbers, the value of the
-defined <code class="docutils literal"><span class="pre">_MSC_VER</span></code> during compilation, and the alternative year-based name.</p>
-<p>See: <a class="reference external" href="http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time">http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time</a></p>
-<p>and: <a class="reference external" href="http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with">http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with</a></p>
-<p>and: <a class="reference external" href="http://en.wikipedia.org/wiki/Visual_C%2B%2B">http://en.wikipedia.org/wiki/Visual_C%2B%2B</a></p>
+<p>Here is a list of Visual Studio / <a class="reference external" href="http://en.wikipedia.org/wiki/Visual_C%2B%2B">Visual C++</a> version numbers, the value of
+the defined <code class="docutils literal"><span class="pre">_MSC_VER</span></code> during compilation, the alternative year-based name,
+and the C / C++ runtime library.</p>
+<p>For sources on version numbers / <code class="docutils literal"><span class="pre">_MSC_VER</span></code>:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time">a stackoverflow table</a>;</li>
+<li>a <a class="reference external" href="http://sourceforge.net/p/predef/wiki/Compilers">sourceforge wiki page on compilers</a>;</li>
+<li><a class="reference external" href="http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with">stackoverflow answer on VC and Python</a>.</li>
+</ul>
+<p>For VC runtime libraries:</p>
+<ul class="simple">
+<li>a <a class="reference external" href="https://support.microsoft.com/en-us/kb/154753">list of VS versions / CRTS</a>;</li>
+<li>a <a class="reference external" href="http://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html">history of the MS CRTS</a>;</li>
+<li>the MS <a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh(v=vs.100).aspx">C runtime library pages</a>;</li>
+</ul>
 <table border="1" class="docutils">
 <colgroup>
-<col width="32%" />
-<col width="21%" />
-<col width="47%" />
+<col width="19%" />
+<col width="13%" />
+<col width="28%" />
+<col width="20%" />
+<col width="20%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">VC++ version</th>
 <th class="head">_MSC_VER</th>
 <th class="head">Alternative name</th>
+<th class="head">C runtime</th>
+<th class="head">C++ runtime</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>Version 1.0</td>
+<tr class="row-even"><td>1.0</td>
 <td>800</td>
 <td>&nbsp;</td>
-</tr>
-<tr class="row-odd"><td>Version 2.0</td>
-<td>900</td>
+<td>MSVCRT10.DLL</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>Version 2.x</td>
+<tr class="row-odd"><td>2.0</td>
 <td>900</td>
 <td>&nbsp;</td>
+<td>MSVCRT20.DLL</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Version 4.0</td>
+<tr class="row-even"><td>4.0</td>
 <td>1000</td>
 <td>&nbsp;</td>
-</tr>
-<tr class="row-even"><td>Version 5.0</td>
-<td>1100</td>
+<td>MSVCRT40.DLL</td>
 <td>&nbsp;</td>
 </tr>
-<tr class="row-odd"><td>Version 6.0</td>
+<tr class="row-odd"><td>4.2</td>
+<td>1020</td>
+<td>&nbsp;</td>
+<td>MSVCRT.DLL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>5.0</td>
+<td>1100</td>
+<td>Visual Studio 97</td>
+<td>MSVCRT.DLL</td>
+<td>MSVCP50.DLL</td>
+</tr>
+<tr class="row-odd"><td>6.0</td>
 <td>1200</td>
 <td>&nbsp;</td>
+<td>MSVCRT.DLL</td>
+<td>MSVCP60.DLL</td>
 </tr>
-<tr class="row-even"><td>Version 7.0</td>
+<tr class="row-even"><td>7.0</td>
 <td>1300</td>
 <td>Visual Studio 2002</td>
+<td>MSVCR70.DLL</td>
+<td>MSVCP70.DLL</td>
 </tr>
-<tr class="row-odd"><td>Version 7.1</td>
+<tr class="row-odd"><td>7.1</td>
 <td>1310</td>
 <td>Visual Studio 2003</td>
+<td>MSVCR71.DLL</td>
+<td>MSVCP71.DLL</td>
 </tr>
-<tr class="row-even"><td>Version 8.0</td>
+<tr class="row-even"><td>8.0</td>
 <td>1400</td>
 <td>Visual Studio 2005</td>
+<td>MSVCR80.DLL</td>
+<td>MSVCP80.DLL</td>
 </tr>
-<tr class="row-odd"><td>Version 9.0</td>
+<tr class="row-odd"><td>9.0</td>
 <td>1500</td>
 <td>Visual Studio 2008</td>
+<td>MSVCR90.DLL</td>
+<td>MSVCP90.DLL</td>
 </tr>
-<tr class="row-even"><td>Version 10.0</td>
+<tr class="row-even"><td>10.0</td>
 <td>1600</td>
 <td>Visual Studio 2010</td>
+<td>MSVCR100.DLL</td>
+<td>MSVCP100.DLL</td>
 </tr>
-<tr class="row-odd"><td>Version 11.0</td>
+<tr class="row-odd"><td>11.0</td>
 <td>1700</td>
 <td>Visual Studio 2012</td>
+<td>MSVCR110.DLL</td>
+<td>MSVCP110.DLL</td>
 </tr>
-<tr class="row-even"><td>Version 12.0</td>
+<tr class="row-even"><td>12.0</td>
 <td>1800</td>
 <td>Visual Studio 2013</td>
+<td>MSVCR120.DLL</td>
+<td>MSVCP120.DLL</td>
+</tr>
+<tr class="row-odd"><td>14.0</td>
+<td>1900</td>
+<td>Visual Studio 2015</td>
+<td>See notes</td>
+<td>See notes</td>
 </tr>
 </tbody>
 </table>
+<p>For a discussion of the generic <code class="docutils literal"><span class="pre">MSVCRT.DLL</span></code> compared to the DLLs specific
+to the VC version, see <a class="reference external" href="https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005">this blog post</a>.
+See also <a class="reference external" href="http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll">these comments on using MSVCRT.DLL from Mingw-w64</a>.</p>
+<p>For 2015, MS split the C runtime into several component libraries.  See:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://blogs.msdn.com/b/vcblog/archive/2014/06/10/the-great-crt-refactoring.aspx">http://blogs.msdn.com/b/vcblog/archive/2014/06/10/the-great-crt-refactoring.aspx</a></li>
+<li><a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx</a></li>
+</ul>
 </div>
 <div class="section" id="visual-studio-versions-used-to-compile-distributed-python-binaries">
 <h2>Visual Studio versions used to compile distributed Python binaries<a class="headerlink" href="#visual-studio-versions-used-to-compile-distributed-python-binaries" title="Permalink to this headline">¶</a></h2>
@@ -167,6 +221,9 @@ release.</p>
 </tr>
 <tr class="row-odd"><td>3.4.0</td>
 <td>10.0</td>
+</tr>
+<tr class="row-even"><td>3.5.0</td>
+<td>14.0</td>
 </tr>
 </tbody>
 </table>
