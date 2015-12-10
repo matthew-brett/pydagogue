@@ -177,11 +177,24 @@ and the C / C++ runtime library.</p>
 <p>For a discussion of the generic <code class="docutils literal"><span class="pre">MSVCRT.DLL</span></code> compared to the DLLs specific
 to the VC version, see <a class="reference external" href="https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005">this blog post</a>.
 See also <a class="reference external" href="http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll">these comments on using MSVCRT.DLL from Mingw-w64</a>.</p>
-<p>For 2015, MS split the C runtime into several component libraries.  See:</p>
+<p>For 2015, MS split the C runtime into two component libraries.  See:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://blogs.msdn.com/b/vcblog/archive/2014/06/10/the-great-crt-refactoring.aspx">http://blogs.msdn.com/b/vcblog/archive/2014/06/10/the-great-crt-refactoring.aspx</a></li>
-<li><a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx</a></li>
+<li>blog post on the <a class="reference external" href="http://blogs.msdn.com/b/vcblog/archive/2015/03/03/introducing-the-universal-crt.aspx">the universal CRT</a></li>
+<li>Steve Dower&#8217;s first blog post: <a class="reference external" href="http://stevedower.id.au/blog/building-for-python-3-5">Python 3.5 extensions part 1</a>;</li>
+<li>Steve&#8217;s second blog post: <a class="reference external" href="http://stevedower.id.au/blog/building-for-python-3-5-part-two">Python 3.5 extensions part 2</a>;</li>
 </ul>
+<p>The CRT components are:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">ucrtbase.dl</span></code>: &#8220;The Universal CRT (UCRT) contains the functions and
+globals exported by the standard C99 CRT library. The UCRT is now a Windows
+component, and ships as part of Windows 10.&#8221; (see <a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>).</li>
+<li><code class="docutils literal"><span class="pre">vcruntime140.dll</span></code> : &#8220;The vcruntime library contains Visual C++ CRT
+implementation-specific code, such as exception handling and debugging
+support, runtime checks and type information, implementation details and
+certain extended library functions. This library is specific to the version
+of the compiler used.&#8221; (<a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>);</li>
+</ul>
+<p>The C++ runtime for VS2015 is <code class="docutils literal"><span class="pre">MSVCP140.dll</span></code> (<a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>).</p>
 </div>
 <div class="section" id="visual-studio-versions-used-to-compile-distributed-python-binaries">
 <h2>Visual Studio versions used to compile distributed Python binaries<a class="headerlink" href="#visual-studio-versions-used-to-compile-distributed-python-binaries" title="Permalink to this headline">¶</a></h2>

@@ -54,10 +54,28 @@ to the VC version, see `this blog post
 See also `these comments on using MSVCRT.DLL from Mingw-w64
 <http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll>`_.
 
-For 2015, MS split the C runtime into several component libraries.  See:
+For 2015, MS split the C runtime into two component libraries.  See:
 
-* http://blogs.msdn.com/b/vcblog/archive/2014/06/10/the-great-crt-refactoring.aspx
-* https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx
+* blog post on the `the universal CRT
+  <http://blogs.msdn.com/b/vcblog/archive/2015/03/03/introducing-the-universal-crt.aspx>`_
+* Steve Dower's first blog post: `Python 3.5 extensions part 1
+  <http://stevedower.id.au/blog/building-for-python-3-5>`_;
+* Steve's second blog post: `Python 3.5 extensions part 2
+  <http://stevedower.id.au/blog/building-for-python-3-5-part-two>`_;
+
+The CRT components are:
+
+* ``ucrtbase.dl``: "The Universal CRT (UCRT) contains the functions and
+  globals exported by the standard C99 CRT library. The UCRT is now a Windows
+  component, and ships as part of Windows 10." (see `CRT 2015
+  <https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx>`_).
+* ``vcruntime140.dll`` : "The vcruntime library contains Visual C++ CRT
+  implementation-specific code, such as exception handling and debugging
+  support, runtime checks and type information, implementation details and
+  certain extended library functions. This library is specific to the version
+  of the compiler used." (`CRT 2015`_);
+
+The C++ runtime for VS2015 is ``MSVCP140.dll`` (`CRT 2015`_).
 
 ******************************************************************
 Visual Studio versions used to compile distributed Python binaries
