@@ -108,14 +108,27 @@ Python version VC++ version
 Installing free versions of Microsoft Visual C / C++
 ****************************************************
 
-If you are only compiling for 32 bit, you can use the Visual Studio Express
-package (2008==9.0, 2010==10.0).
+If you are compiling for Python 2.7, you should first try the installer at
+http://aka.ms/vcpython27. If it works for you, it should compile both 32 and
+64 bit extensions. See the `Cython windows wiki page
+<https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x>`_
+for more detail of configuration for 64-bit in particular.
 
-For 64 bit compilation, you'll need the matching SDK, and you don't need Visual
-Studio Express - see:
-https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows
+The `VS 2015 community edition
+<https://www.visualstudio.com/products/visual-studio-community-vs>`_ is free
+as in beer.  It's a hefty 11GB install.  This will build Python 3.5
+extensions, 32 or 64 bit.
 
-Here are some useful links:
+If you are not compiling for 3.5, and the custom installer above doesn't work,
+and you are only compiling for 32 bit, you can use the Visual Studio Express
+package (2008==9.0 for Python 2.7, 2010==10.0 for Python 3.4). See the links
+below.
+
+For 64 bit compilation in this situation, you'll need the matching SDK, and
+you don't need Visual Studio Express - see the `Cython windows page
+<https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>`_ again.
+
+Here are some links that were useful at some point:
 
 * `VS downloads <http://www.visualstudio.com/downloads/download-visual-studio-vs>`_
 * `VS 2010 SDK <http://www.microsoft.com/en-us/download/details.aspx?id=2680>`_

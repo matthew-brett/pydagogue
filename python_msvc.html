@@ -243,12 +243,20 @@ release.</p>
 </div>
 <div class="section" id="installing-free-versions-of-microsoft-visual-c-c">
 <h2>Installing free versions of Microsoft Visual C / C++<a class="headerlink" href="#installing-free-versions-of-microsoft-visual-c-c" title="Permalink to this headline">¶</a></h2>
-<p>If you are only compiling for 32 bit, you can use the Visual Studio Express
-package (2008==9.0, 2010==10.0).</p>
-<p>For 64 bit compilation, you&#8217;ll need the matching SDK, and you don&#8217;t need Visual
-Studio Express - see:
-<a class="reference external" href="https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows">https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows</a></p>
-<p>Here are some useful links:</p>
+<p>If you are compiling for Python 2.7, you should first try the installer at
+<a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>. If it works for you, it should compile both 32 and
+64 bit extensions. See the <a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x">Cython windows wiki page</a>
+for more detail of configuration for 64-bit in particular.</p>
+<p>The <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015 community edition</a> is free
+as in beer.  It&#8217;s a hefty 11GB install.  This will build Python 3.5
+extensions, 32 or 64 bit.</p>
+<p>If you are not compiling for 3.5, and the custom installer above doesn&#8217;t work,
+and you are only compiling for 32 bit, you can use the Visual Studio Express
+package (2008==9.0 for Python 2.7, 2010==10.0 for Python 3.4). See the links
+below.</p>
+<p>For 64 bit compilation in this situation, you&#8217;ll need the matching SDK, and
+you don&#8217;t need Visual Studio Express - see the <a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows">Cython windows page</a> again.</p>
+<p>Here are some links that were useful at some point:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://www.visualstudio.com/downloads/download-visual-studio-vs">VS downloads</a></li>
 <li><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=2680">VS 2010 SDK</a></li>
