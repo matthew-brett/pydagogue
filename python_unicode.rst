@@ -140,11 +140,12 @@ Relevant python modules and commands
 Modules
 =======
 
-* `codecs <http://docs.python.org/lib/module-codecs.html>`_
-* `unicodedata <http://docs.python.org/lib/module-unicodedata.html>`_
-* `locale <http://docs.python.org/lib/module-locale.html>`_ (locale.getdefaultlocale)
-* `regular expressions <http://docs.python.org/lib/module-re.html>`_ - (?u) flag, re.UNICODE
-* `standard encodings <http://docs.python.org/lib/standard-encodings.html>`_
+* `codecs <https://docs.python.org/2/library/codecs.html>`_;
+* `unicodedata <https://docs.python.org/2/library/unicodedata.html>`_;
+* `locale <http://docs.python.org/2/library/locale.html>`_ (``locale.getdefaultlocale``);
+* `regular expressions <http://docs.python.org/2/library/re.html>`_ - ``(?u)``
+  flag, ``re.UNICODE``;
+* `standard encodings <https://docs.python.org/2/library/codecs.html#standard-encodings>`_;
 * encodings - e.g. ``encodings.getaliases()``
 
 String methods
