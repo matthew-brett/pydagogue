@@ -54,7 +54,9 @@
             
   <div class="section" id="xml-from-absolutely-nothing">
 <h1>XML from absolutely nothing<a class="headerlink" href="#xml-from-absolutely-nothing" title="Permalink to this headline">¶</a></h1>
-<p>The basic unit of an XML document is an <em>element</em>.</p>
+<div class="section" id="xml-elements">
+<h2>XML elements<a class="headerlink" href="#xml-elements" title="Permalink to this headline">¶</a></h2>
+<p>The basic unit of an XML document is an <a class="reference external" href="http://www.w3schools.com/xml/xml_elements.asp">XML element</a>.</p>
 <p>A standard XML element consists of:</p>
 <ul class="simple">
 <li>a start <em>tag</em> – e.g. <code class="docutils literal"><span class="pre">&lt;my-element&gt;</span></code>;</li>
@@ -76,17 +78,20 @@ tag</em>:</p>
 <li>an empty element tag – e.g <code class="docutils literal"><span class="pre">&lt;a-name</span> <span class="pre">/&gt;</span></code>.</li>
 </ul>
 <p>A tag always starts with <code class="docutils literal"><span class="pre">&lt;</span></code> and ends with <code class="docutils literal"><span class="pre">&gt;</span></code>.</p>
+<p>A start tag and an empty element tag must start with an <em>element name</em>. This
+is a case-sensitive string starting with a letter or underscore, followed by
+any combination of letters, digits, hyphens, underscores, and periods.</p>
 <p>A start tag and an empty element tag can have <em>attributes</em>. These are name,
 value pairs:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot;&gt;Some text&lt;/a-name&gt;
 &lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot; /&gt;
 </pre></div>
 </div>
-<p>The <em>content</em> of an element can be:</p>
+<p>The <em>content</em> of an element consists of zero or more items, where an item can
+be:</p>
 <ul class="simple">
-<li>Empty</li>
 <li>Text</li>
-<li>One more other elements</li>
+<li>An element</li>
 </ul>
 <p>Elements contained in other elements are <em>child elements</em>, e.g:</p>
 <div class="highlight-python"><div class="highlight"><pre>&lt;a-parent&gt;
@@ -95,7 +100,23 @@ value pairs:</p>
 &lt;/a-parent&gt;
 </pre></div>
 </div>
-<p>There is one single element at the root of a valid XML document:</p>
+<p>You can mix text items and element items in element content, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;a-parent&gt;
+    Some text
+    &lt;a-child&gt;with text content&lt;/a-child&gt;
+    More text
+    &lt;another-child&gt;with more text&lt;/another-child&gt;
+    Text continues
+&lt;/a-parent&gt;
+</pre></div>
+</div>
+<p>but it is more common to have element content that is <em>either</em> one or more
+element items, <em>or</em> one single text item.</p>
+</div>
+<div class="section" id="xml-documents">
+<h2>XML documents<a class="headerlink" href="#xml-documents" title="Permalink to this headline">¶</a></h2>
+<p>There is a single element at the root of a valid XML document. This is the
+<em>root element</em>.</p>
 <div class="admonition">
 <em class="first">Contents of </em><code class="docutils literal"><span class="pre">some_example.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;a-root-element</span> <span class="na">my-type=</span><span class="s">&quot;example&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;at-second-level&gt;</span>
@@ -106,6 +127,35 @@ value pairs:</p>
 </pre></div>
 </div>
 </div>
+<p>To take another example, this would be a valid XML document, because it has a
+single element at the root level:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;
+    Some text
+&lt;/my-element&gt;
+</pre></div>
+</div>
+<p>But this would not, because it has two elements at the root level:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;
+    Some text
+&lt;/my-element&gt;
+&lt;another-element&gt;
+    More text
+&lt;/another-element&gt;
+</pre></div>
+</div>
+<p>The XML document may start with a special construction called the <em>XML prolog</em>
+of this form:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+</pre></div>
+</div>
+<p>Default XML encoding is UTF-8, but you can specify another encoding in the XML
+prolog:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="reading-xml">
+<h2>Reading XML<a class="headerlink" href="#reading-xml" title="Permalink to this headline">¶</a></h2>
 <p>For example, in Python:</p>
 <div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;some_example.xml&#39;</span><span class="p">)</span>
@@ -126,6 +176,7 @@ value pairs:</p>
 </pre></div>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -133,6 +184,16 @@ value pairs:</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">XML from absolutely nothing</a><ul>
+<li><a class="reference internal" href="#xml-elements">XML elements</a></li>
+<li><a class="reference internal" href="#xml-documents">XML documents</a></li>
+<li><a class="reference internal" href="#reading-xml">Reading XML</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="introducing_unicode.html"
                         title="previous chapter">Introducing Unicode</a></p>
