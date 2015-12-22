@@ -12,3 +12,5 @@ Contents:
    python_unicode
    installing_scripts
    python_msvc
+   installing_on_debian
+   un_easy_install
