@@ -21,28 +21,24 @@ Ubuntu machine.
 
 The recipe I propose is this:
 
-* if you have any `easy_install` installations, remove them;
+* if you have any `easy_install` installations, :doc:`remove them
+  <un_easy_install>`;
 * build Python wheels for all the packages you use, and install from those;
 * have a very low threshold for using virtualenvs, via virtualenvwrapper_;
 * Use ``pip install --user`` to install packages into your day to day default
   Python environment.
 
-.. _un-easy-install:
+.. _debian-python-places:
 
-***********************************
-Clean out old easy_install installs
-***********************************
-
-If you are starting from scratch or you have never used `easy_install` on your system, you can ignore this section.
-
+**********************************
 A note on Debian and Ubuntu Python
-==================================
+**********************************
 
 Debian and Ubuntu have some special rules for where Python packages go.  See
 : https://wiki.debian.org/Python
 
 The main point of interest to us, is that Python packages that you install for
-the Debian / Ubuntu packaged Python go into different directories that would
+the Debian / Ubuntu packaged Python go into different directories than would
 be the case for a non-Debian Python installation.
 
 A non-Debian Python installation, such as Python compiled from source, will
@@ -59,33 +55,6 @@ a folder ``/usr/lib/pythonX.Y/dist-packages`` [#apt-installs]_
 
 ``pip``, ``easy_install`` or ``python setup.py install`` installs go into a
 folder ``/usr/local/lib/pythonX.Y/dist-packages``.
-
-Removing easy-install installs
-==============================
-
-First you need to find the easy_install installs.  To do this, display the
-file ``/usr/local/lib/pythonX.Y/dist-packages/easy-install.pth`` (where
-``X.Y`` is the relevant Python version, such as ``2.7``).  If this file
-doesn't exist, lucky you, skip this section.
-
-If the file does exist, look for the packages listed in the file.  The file
-will look something like::
-
-    import sys; sys.__plen = len(sys.path)
-    ./requests-0.12.1-py2.7.egg
-    ./oauthlib-0.1.3-py2.7.egg
-    ./certifi-0.0.8-py2.7.egg
-    ./rsa-3.0.1-py2.7.egg
-    ./pyasn1-0.1.3-py2.7.egg
-    import sys; new=sys.path[sys.__plen:]; del sys.path[sys.__plen:]; p=getattr(sys,'__egginsert',0); sys.path[p:p]=new; sys.__egginsert = p+len(new)
-
-Delete each directory listed, e.g.::
-
-    rm -rf /usr/local/lib/python2.7/dist-packages/requests-0.12.1-py2.7.egg
-    rm -rf /usr/local/lib/python2.7/dist-packages/oauthlib-0.1.3-py2.7.egg
-
-etc.  When you have finished deleting these directories, delete the
-``easy-install.pth`` file.  Phew, all done.
 
 *******************
 Install, update pip
@@ -133,13 +102,14 @@ of virtualenv to make sure we will get a recent version of pip in our
 virtualenvs.
 
 The ``virtualenvwrapper`` apt package puts useful aliases into the default
-bash shell environment.  To get this, this one time you should do::
+bash shell environment.  To get these aliases loaded up in your current shell,
+this one time you should do::
 
     source ~/.bashrc
 
-*********************************
-Set up the system to build wheels
-*********************************
+*********************************************
+Set up the system to build some common wheels
+*********************************************
 
 Install standard build dependencies for common libraries::
 

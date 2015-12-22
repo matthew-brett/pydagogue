@@ -25,8 +25,9 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="General computing" href="computing.html" />
-    <link rel="prev" title="Windows DLLs - information" href="windows_dll_links.html" /> 
+    <link rel="up" title="Notes and tutorials on Python" href="python.html" />
+    <link rel="next" title="Clean out packages installed with easy_install" href="un_easy_install.html" />
+    <link rel="prev" title="Using Microsoft Visual C with Python" href="python_msvc.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,10 +37,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="windows_dll_links.html" title="Windows DLLs - information"
+          <a href="un_easy_install.html" title="Clean out packages installed with easy_install"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,7 +57,7 @@
 <p>In the old days, installation of Python packages was badly messed up.</p>
 <p>One of the big problems was the <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> program, that installed
 packages in a way that could make them particularly difficult to uninstall (see
-<a class="reference internal" href="#un-easy-install"><span>Clean out old easy_install installs</span></a>).</p>
+<a class="reference internal" href="un_easy_install.html#un-easy-install"><span>Clean out packages installed with easy_install</span></a>).</p>
 <p>Things started to improve as <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> took over from <code class="docutils literal"><span class="pre">easy_install</span></code> as the
 standard Python package installer.</p>
 <p>They got better still when <code class="docutils literal"><span class="pre">pip</span></code> got a binary installer format – <a class="reference external" href="https://pypi.python.org/pypi/wheel">wheels</a>.</p>
@@ -63,21 +67,18 @@ maintain a set of Python environments to develop and test code.</p>
 Ubuntu machine.</p>
 <p>The recipe I propose is this:</p>
 <ul class="simple">
-<li>if you have any <cite>easy_install</cite> installations, remove them;</li>
+<li>if you have any <cite>easy_install</cite> installations, <a class="reference internal" href="un_easy_install.html"><em>remove them</em></a>;</li>
 <li>build Python wheels for all the packages you use, and install from those;</li>
 <li>have a very low threshold for using virtualenvs, via <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a>;</li>
 <li>Use <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> to install packages into your day to day default
 Python environment.</li>
 </ul>
-<div class="section" id="clean-out-old-easy-install-installs">
-<span id="un-easy-install"></span><h2>Clean out old easy_install installs<a class="headerlink" href="#clean-out-old-easy-install-installs" title="Permalink to this headline">¶</a></h2>
-<p>If you are starting from scratch or you have never used <cite>easy_install</cite> on your system, you can ignore this section.</p>
 <div class="section" id="a-note-on-debian-and-ubuntu-python">
-<h3>A note on Debian and Ubuntu Python<a class="headerlink" href="#a-note-on-debian-and-ubuntu-python" title="Permalink to this headline">¶</a></h3>
+<span id="debian-python-places"></span><h2>A note on Debian and Ubuntu Python<a class="headerlink" href="#a-note-on-debian-and-ubuntu-python" title="Permalink to this headline">¶</a></h2>
 <p>Debian and Ubuntu have some special rules for where Python packages go.  See
 : <a class="reference external" href="https://wiki.debian.org/Python">https://wiki.debian.org/Python</a></p>
 <p>The main point of interest to us, is that Python packages that you install for
-the Debian / Ubuntu packaged Python go into different directories that would
+the Debian / Ubuntu packaged Python go into different directories than would
 be the case for a non-Debian Python installation.</p>
 <p>A non-Debian Python installation, such as Python compiled from source, will
 install Python packages into <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code> by
@@ -90,32 +91,6 @@ Python&#8217;s own packaging mechanisms, such as <code class="docutils literal">
 a folder <code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code> <a class="footnote-reference" href="#apt-installs" id="id1">[1]</a></p>
 <p><code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> installs go into a
 folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>.</p>
-</div>
-<div class="section" id="removing-easy-install-installs">
-<h3>Removing easy-install installs<a class="headerlink" href="#removing-easy-install-installs" title="Permalink to this headline">¶</a></h3>
-<p>First you need to find the easy_install installs.  To do this, display the
-file <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages/easy-install.pth</span></code> (where
-<code class="docutils literal"><span class="pre">X.Y</span></code> is the relevant Python version, such as <code class="docutils literal"><span class="pre">2.7</span></code>).  If this file
-doesn&#8217;t exist, lucky you, skip this section.</p>
-<p>If the file does exist, look for the packages listed in the file.  The file
-will look something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>import sys; sys.__plen = len(sys.path)
-./requests-0.12.1-py2.7.egg
-./oauthlib-0.1.3-py2.7.egg
-./certifi-0.0.8-py2.7.egg
-./rsa-3.0.1-py2.7.egg
-./pyasn1-0.1.3-py2.7.egg
-import sys; new=sys.path[sys.__plen:]; del sys.path[sys.__plen:]; p=getattr(sys,&#39;__egginsert&#39;,0); sys.path[p:p]=new; sys.__egginsert = p+len(new)
-</pre></div>
-</div>
-<p>Delete each directory listed, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>rm -rf /usr/local/lib/python2.7/dist-packages/requests-0.12.1-py2.7.egg
-rm -rf /usr/local/lib/python2.7/dist-packages/oauthlib-0.1.3-py2.7.egg
-</pre></div>
-</div>
-<p>etc.  When you have finished deleting these directories, delete the
-<code class="docutils literal"><span class="pre">easy-install.pth</span></code> file.  Phew, all done.</p>
-</div>
 </div>
 <div class="section" id="install-update-pip">
 <h2>Install, update pip<a class="headerlink" href="#install-update-pip" title="Permalink to this headline">¶</a></h2>
@@ -157,13 +132,14 @@ virtualenvwrapper) contains its own copy of pip.  We need the latest version
 of virtualenv to make sure we will get a recent version of pip in our
 virtualenvs.</p>
 <p>The <code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> apt package puts useful aliases into the default
-bash shell environment.  To get this, this one time you should do:</p>
+bash shell environment.  To get these aliases loaded up in your current shell,
+this one time you should do:</p>
 <div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
 </pre></div>
 </div>
 </div>
-<div class="section" id="set-up-the-system-to-build-wheels">
-<h2>Set up the system to build wheels<a class="headerlink" href="#set-up-the-system-to-build-wheels" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="set-up-the-system-to-build-some-common-wheels">
+<h2>Set up the system to build some common wheels<a class="headerlink" href="#set-up-the-system-to-build-some-common-wheels" title="Permalink to this headline">¶</a></h2>
 <p>Install standard build dependencies for common libraries:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
 </pre></div>
@@ -352,14 +328,10 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Python installations on Debian / Ubuntu</a><ul>
-<li><a class="reference internal" href="#clean-out-old-easy-install-installs">Clean out old easy_install installs</a><ul>
 <li><a class="reference internal" href="#a-note-on-debian-and-ubuntu-python">A note on Debian and Ubuntu Python</a></li>
-<li><a class="reference internal" href="#removing-easy-install-installs">Removing easy-install installs</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#install-update-pip">Install, update pip</a></li>
 <li><a class="reference internal" href="#install-update-virtualenvwrapper">Install, update virtualenvwrapper</a></li>
-<li><a class="reference internal" href="#set-up-the-system-to-build-wheels">Set up the system to build wheels</a></li>
+<li><a class="reference internal" href="#set-up-the-system-to-build-some-common-wheels">Set up the system to build some common wheels</a></li>
 <li><a class="reference internal" href="#build-wheels-by-installing-with-pip">Build wheels by installing with pip</a></li>
 <li><a class="reference internal" href="#now-you-are-in-virtualenv-nirvana">Now you are in virtualenv nirvana</a></li>
 <li><a class="reference internal" href="#use-user-installs-for-your-default-environment">Use <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment</a></li>
@@ -372,8 +344,11 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="windows_dll_links.html"
-                        title="previous chapter">Windows DLLs - information</a></p>
+  <p class="topless"><a href="python_msvc.html"
+                        title="previous chapter">Using Microsoft Visual C with Python</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="un_easy_install.html"
+                        title="next chapter">Clean out packages installed with easy_install</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -405,10 +380,13 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="windows_dll_links.html" title="Windows DLLs - information"
+          <a href="un_easy_install.html" title="Clean out packages installed with easy_install"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
