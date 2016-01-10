@@ -57,8 +57,8 @@
 <p>In the old days, it was hard and error-prone to use Python tools rather than
 your Debian / Ubuntu package manager to install Python packages.</p>
 <p>One of the big problems was the <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> program, that installed
-packages in a way that could make them particularly difficult to uninstall (see
-<a class="reference internal" href="un_easy_install.html#un-easy-install"><span>Clean out packages installed with easy_install</span></a>).</p>
+packages in a way that could make them particularly difficult to uninstall
+(see <a class="reference internal" href="un_easy_install.html#un-easy-install"><span>Clean out packages installed with easy_install</span></a>).</p>
 <p>Things started to improve as <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> took over from <code class="docutils literal"><span class="pre">easy_install</span></code> as the
 standard Python package installer.</p>
 <p>They got better still when pip got a binary installer format – <a class="reference external" href="https://pypi.python.org/pypi/wheel">wheels</a>.</p>
@@ -97,8 +97,8 @@ describing below.</p>
 </div>
 <div class="section" id="why-you-might-want-to-use-pip">
 <h2>Why you might want to use pip<a class="headerlink" href="#why-you-might-want-to-use-pip" title="Permalink to this headline">¶</a></h2>
-<p>Although pip installs are a lot more fragile than Debian / Ubuntu pacakge
-installs, they do have sevaral advantages.  With pip you can:</p>
+<p>Although pip installs are a lot more fragile than Debian / Ubuntu package
+installs, they do have several advantages.  With pip you can:</p>
 <ul class="simple">
 <li>get the latest version of the package;</li>
 <li>install specific packages into virtualenvs;</li>
@@ -110,133 +110,30 @@ installs, they do have sevaral advantages.  With pip you can:</p>
 <p>The recipe I propose is this:</p>
 <ul class="simple">
 <li>if you have any <cite>easy_install</cite> installations, <a class="reference internal" href="un_easy_install.html"><em>remove them</em></a>;</li>
+<li>Use <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> to install packages into your day-to-day default
+Python environment;</li>
+<li>Install pip and <a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> into your system, then upgrade them with
+<code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span> <span class="pre">--upgrade</span></code>;</li>
 <li>install the various Debian / Ubuntu packages containing dependencies for
 common Python packages like numpy, scipy, matplotlib;</li>
-<li>make sure you have updated pip to a version that uses wheel caching;</li>
-<li>install Python packages via pip, and let wheel caching take care of keeping
-a binary wheel ready for the next time you install this package;</li>
-<li>have a very low threshold for using virtualenvs, via <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a>;</li>
-<li>Use <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> to install packages into your day to day default
-Python environment.</li>
+<li>install Python packages via pip, and let pip wheel caching take care of
+keeping a binary wheel ready for the next time you install this package;</li>
+<li>have a very low threshold for using virtualenvs, via virtualenvwrapper.</li>
 </ul>
+<p>I suggest you never use pip to change your system-wide packages – so you
+never use pip with <code class="docutils literal"><span class="pre">sudo</span></code>.  This makes sure your pip-installed packages do
+not break your system.  To avoid <code class="docutils literal"><span class="pre">sudo</span></code> you should always install into your
+user directories (via <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code>) or within virtualenvs (see
+below).</p>
 </div>
-<div class="section" id="install-update-pip">
-<h2>Install, update pip<a class="headerlink" href="#install-update-pip" title="Permalink to this headline">¶</a></h2>
-<p>You will need pip version &gt;= 6.0 in order to get <a class="reference external" href="https://pip.pypa.io/en/latest/reference/pip_install/#caching">pip wheel caching</a>. This is a
-killer pip feature, that means that you only build wheels from source once,
-the first time you install a package.  Pip then caches the wheel so you use
-the cached version next time you do an install.</p>
-<p>First install Debian versions of pip:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-pip python3-pip
-</pre></div>
-</div>
-<p>Next upgrade your pip, using pip itself.  If you are using both python 2 and
-python 3 versions, upgrade the one you want to own the pip command last:</p>
-<div class="highlight-python"><div class="highlight"><pre># Upgrade pip for Python 3 installs
-sudo pip3 install --upgrade pip
-# Upgrade pip for Python 2 installs (this one owns &quot;pip&quot; now)
-sudo pip2 install --upgrade pip
-</pre></div>
-</div>
-<p>Now check the pip version is &gt;= 6.0:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
-<span class="n">pip3</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="install-update-virtualenvwrapper">
-<h2>Install, update virtualenvwrapper<a class="headerlink" href="#install-update-virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> is a very useful – er – wrapper around – er
-– <code class="docutils literal"><span class="pre">virtualenv</span></code>, that makes it easier and neater to have a library of
-virtual Python environments:</p>
-<div class="highlight-python"><div class="highlight"><pre># Get basic version with shell integration
-sudo apt-get install virtualenvwrapper
-# Upgrade to latest
-sudo pip install --upgrade virtualenvwrapper
-</pre></div>
-</div>
-<p>The <code class="docutils literal"><span class="pre">--upgrade</span></code> is important because virtualenv (installed by
-virtualenvwrapper) contains its own copy of pip.  We need the latest version
-of virtualenv to make sure we will get a recent version of pip in our
-virtualenvs.</p>
-<p>The <code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> apt package puts useful aliases into the default
-bash shell environment.  To get these aliases loaded up in your current shell,
-this one time you should do:</p>
-<div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
-</pre></div>
-</div>
-</div>
-<div class="section" id="set-up-the-system-to-build-some-common-wheels">
-<h2>Set up the system to build some common wheels<a class="headerlink" href="#set-up-the-system-to-build-some-common-wheels" title="Permalink to this headline">¶</a></h2>
-<p>Install standard build dependencies for common libraries:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
-</pre></div>
-</div>
-<p>This may take about 10-20 minutes (at least, it did on my virtualbox / Vagrant
-Debian instance).</p>
-</div>
-<div class="section" id="build-wheels-by-installing-with-pip">
-<h2>Build wheels by installing with pip<a class="headerlink" href="#build-wheels-by-installing-with-pip" title="Permalink to this headline">¶</a></h2>
-<p>Now you have pip &gt; 6.0, building wheels is just a matter of installing the
-package for the first time.</p>
-<p>Start up a new virtualenv for Python 2:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualev python2
-</pre></div>
-</div>
-<p>Install numpy and cython.  This will build and cache wheels for the latest
-numpy and cython:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install numpy cython
-</pre></div>
-</div>
-<p>Now you can install (therefore, build and cache) other wheels you might need:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install scipy matplotlib h5py
-</pre></div>
-</div>
-<p>Finish up by deactivating the virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">deactivate</span>
-</pre></div>
-</div>
-<p>You might want to do the same with Python 3:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --python=/usr/bin/python3 python3
-pip install numpy cython
-pip install scipy matplotlib h5py
-deactivate
-</pre></div>
-</div>
-</div>
-<div class="section" id="now-you-are-in-virtualenv-nirvana">
-<h2>Now you are in virtualenv nirvana<a class="headerlink" href="#now-you-are-in-virtualenv-nirvana" title="Permalink to this headline">¶</a></h2>
-<p>It&#8217;s often good to use virtualenvs to start a development session.  Doing so
-means that you can install exactly the requirements that you need, without
-causing changes to your other virtualenvs.</p>
-<p>You can now make virtualenvs for your testing development quickly.  Say you
-want to test something out for Python 3:</p>
-<div class="highlight-python"><div class="highlight"><pre># Make clean virtual environment
-mkvirtualenv --python=/usr/bin/python3 testing-something
-pip install numpy scipy matplotlib h5py
-# install anything else you want
-# run your tests
-deactivate
-</pre></div>
-</div>
-<p>Nice.</p>
-<p>Even if you are offline, you can always install things you have already built
-and cached, by adding the <code class="docutils literal"><span class="pre">--no-index</span></code> flag to pip:</p>
-<div class="highlight-python"><div class="highlight"><pre># Make another clean virtual environment
-mkvirtualenv --python=/usr/bin/python3 testing-offline
-pip install numpy scipy matplotlib h5py --no-index
-# install anything else you want
-# run your tests
-deactivate
-</pre></div>
-</div>
-</div>
-<div class="section" id="use-user-installs-for-your-default-environment">
-<h2>Use <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment<a class="headerlink" href="#use-user-installs-for-your-default-environment" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes you may want a default environment, that has a set of packages that
-you commonly use.</p>
-<p>This is a good role for pip <code class="docutils literal"><span class="pre">--user</span></code> installs.  If you install a package
-like this:</p>
+<div class="section" id="use-pip-user-installs-for-your-default-environment">
+<h2>Use pip <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment<a class="headerlink" href="#use-pip-user-installs-for-your-default-environment" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">--user</span></code> flag to <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> tells pip to install packages in some
+specific directories within your home directory.  This is a good way to have
+your own default Python environment that adds to the packages within your
+system directories, and therefore, does not affect the system Python
+installation.</p>
+<p>So, if you install a package like this:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install --user mypackage
 </pre></div>
 </div>
@@ -286,6 +183,146 @@ off the path.  To do this, I have the following in my
 <code class="docutils literal"><span class="pre">~/.virtualenvs/postactivate</span></code> file:</p>
 <div class="highlight-python"><div class="highlight"><pre># Clear user Python binary path when using virtualenvs
 export PATH=$(echo $PATH | sed &quot;s|${PY_USER_BIN}:\{0,1\}||&quot;)
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-update-pip-using-pip-install-user">
+<h2>Install, update pip using <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code><a class="headerlink" href="#install-update-pip-using-pip-install-user" title="Permalink to this headline">¶</a></h2>
+<p>For these steps to work, you will need the pip <code class="docutils literal"><span class="pre">--user</span></code> install binary
+directory on your path.  See above for how to do this. Check that your
+<code class="docutils literal"><span class="pre">--user</span></code> binary directory is on the path with:</p>
+<div class="highlight-python"><div class="highlight"><pre>echo $PATH
+</pre></div>
+</div>
+<p>The output should contain something like <code class="docutils literal"><span class="pre">/home/your-user/.local/bin</span></code>.</p>
+<p>You will need pip version &gt;= 6.0 in order to get <a class="reference external" href="https://pip.pypa.io/en/latest/reference/pip_install/#caching">pip wheel caching</a>. This is a
+killer pip feature, that means that you only build wheels from source once,
+the first time you install a package.  Pip then caches the wheel so you use
+the cached version next time you do an install.</p>
+<p>First install Debian versions of pip into your Debian system directories:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-pip python3-pip
+</pre></div>
+</div>
+<p>Next upgrade pip for your user, using the system pip.  If you are using both
+python 2 and python 3 versions, do the upgrade last on the pip that you want
+to own the <code class="docutils literal"><span class="pre">pip</span></code> command:</p>
+<div class="highlight-python"><div class="highlight"><pre># Upgrade pip for Python 3 installs
+pip3 install --user --upgrade pip
+# Upgrade pip for Python 2 installs (this one owns &quot;pip&quot; now)
+pip2 install --user --upgrade pip
+</pre></div>
+</div>
+<p>Now check the pip version is &gt;= 6.0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">pip2</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">pip3</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>Check you are picking up the <code class="docutils literal"><span class="pre">--user</span></code> pip by looking at the output of:</p>
+<div class="highlight-python"><div class="highlight"><pre>which pip
+which pip2
+which pip3
+</pre></div>
+</div>
+<p>This should give you outputs like <code class="docutils literal"><span class="pre">/home/your-user/.local/bin/pip</span></code>.</p>
+</div>
+<div class="section" id="install-update-virtualenvwrapper">
+<h2>Install, update virtualenvwrapper<a class="headerlink" href="#install-update-virtualenvwrapper" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> is a very useful – er – wrapper around – er –
+<code class="docutils literal"><span class="pre">virtualenv</span></code>, that makes it easier and neater to have a library of virtual
+Python environments.  First install the Debian packaged version to your system
+directories.  This sets up bash shell integration:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install virtualenvwrapper
+</pre></div>
+</div>
+<p>Now upgrade your user installation to the latest virtualenvwrapper:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install --user --upgrade virtualenvwrapper
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">--upgrade</span></code> in the installation is important because virtualenv
+(installed by virtualenvwrapper) contains its own copy of pip.  We need the
+latest version of virtualenv to make sure we will get a recent version of pip
+in our virtualenvs.</p>
+<p>Check you are getting your new <code class="docutils literal"><span class="pre">--user</span></code> installed version, with:</p>
+<div class="highlight-python"><div class="highlight"><pre>which virtualenv
+</pre></div>
+</div>
+<p>This should you something like <code class="docutils literal"><span class="pre">/home/your-user/.local/bin/virtualenv</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> apt package puts useful aliases into the default
+bash shell environment.  To get these aliases loaded up in your current shell,
+this one time you should do:</p>
+<div class="highlight-python"><div class="highlight"><pre>source ~/.bashrc
+</pre></div>
+</div>
+<p>Check you have the virtualenvwrapper aliases loaded with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mkvirtualenv</span>
+</pre></div>
+</div>
+<p>This should give you the help for the <code class="docutils literal"><span class="pre">mkvirtualenv</span></code> virtualenvwrapper
+command.</p>
+</div>
+<div class="section" id="set-up-the-system-to-build-some-common-wheels">
+<h2>Set up the system to build some common wheels<a class="headerlink" href="#set-up-the-system-to-build-some-common-wheels" title="Permalink to this headline">¶</a></h2>
+<p>Install standard build dependencies for common libraries:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
+</pre></div>
+</div>
+<p>This may take about 10-20 minutes (at least, it did on my Virtualbox / Vagrant
+Debian instance).</p>
+</div>
+<div class="section" id="build-wheels-by-installing-with-pip">
+<h2>Build wheels by installing with pip<a class="headerlink" href="#build-wheels-by-installing-with-pip" title="Permalink to this headline">¶</a></h2>
+<p>Now you have pip &gt; 6.0, building wheels is just a matter of installing the
+package for the first time.</p>
+<p>Start up a new virtualenv for Python 2:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv python2
+</pre></div>
+</div>
+<p>Install numpy and cython.  This will build and cache wheels for the latest
+numpy and cython:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install numpy cython
+</pre></div>
+</div>
+<p>Now you can install (therefore, build and cache) other wheels you might need:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install scipy matplotlib h5py
+</pre></div>
+</div>
+<p>Finish up by deactivating the virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">deactivate</span>
+</pre></div>
+</div>
+<p>You might want to do the same with Python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --python=/usr/bin/python3 python3
+pip install numpy cython
+pip install scipy matplotlib h5py
+deactivate
+</pre></div>
+</div>
+</div>
+<div class="section" id="now-you-are-in-virtualenv-nirvana">
+<h2>Now you are in virtualenv nirvana<a class="headerlink" href="#now-you-are-in-virtualenv-nirvana" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s often good to use virtualenvs to start a development session.  Doing so
+means that you can install exactly the requirements that you need, without
+causing changes to your other virtualenvs.</p>
+<p>You can now make virtualenvs for your testing development quickly.  Say you
+want to test something out for Python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre># Make clean virtual environment
+mkvirtualenv --python=/usr/bin/python3 testing-something
+pip install numpy scipy matplotlib h5py
+# install anything else you want
+# run your tests
+deactivate
+</pre></div>
+</div>
+<p>Nice.</p>
+<p>Even if you are offline, you can always install things you have already built
+and cached, by adding the <code class="docutils literal"><span class="pre">--no-index</span></code> flag to pip:</p>
+<div class="highlight-python"><div class="highlight"><pre># Make another clean virtual environment
+mkvirtualenv --python=/usr/bin/python3 testing-offline
+pip install numpy scipy matplotlib h5py --no-index
+# install anything else you want
+# run your tests
+deactivate
 </pre></div>
 </div>
 </div>
@@ -340,12 +377,12 @@ page somewhere.</p>
 <li><a class="reference internal" href="#do-you-really-want-to-do-this">Do you really want to do this?</a></li>
 <li><a class="reference internal" href="#why-you-might-want-to-use-pip">Why you might want to use pip</a></li>
 <li><a class="reference internal" href="#if-you-do-want-pip-installs-on-your-debian-ubuntu-system">If you do want pip installs on your Debian / Ubuntu system</a></li>
-<li><a class="reference internal" href="#install-update-pip">Install, update pip</a></li>
+<li><a class="reference internal" href="#use-pip-user-installs-for-your-default-environment">Use pip <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment</a></li>
+<li><a class="reference internal" href="#install-update-pip-using-pip-install-user">Install, update pip using <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code></a></li>
 <li><a class="reference internal" href="#install-update-virtualenvwrapper">Install, update virtualenvwrapper</a></li>
 <li><a class="reference internal" href="#set-up-the-system-to-build-some-common-wheels">Set up the system to build some common wheels</a></li>
 <li><a class="reference internal" href="#build-wheels-by-installing-with-pip">Build wheels by installing with pip</a></li>
 <li><a class="reference internal" href="#now-you-are-in-virtualenv-nirvana">Now you are in virtualenv nirvana</a></li>
-<li><a class="reference internal" href="#use-user-installs-for-your-default-environment">Use <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment</a></li>
 <li><a class="reference internal" href="#adding-new-packages-and-wheels">Adding new packages and wheels</a></li>
 <li><a class="reference internal" href="#sometimes-it-s-a-package-too-far">Sometimes, it&#8217;s a package too far</a></li>
 <li><a class="reference internal" href="#doesn-t-work-for-you-help-improve-this-page">Doesn&#8217;t work for you?  Help improve this page</a></li>
