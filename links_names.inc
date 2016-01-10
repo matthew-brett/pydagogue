@@ -1,3 +1,11 @@
+.. -*- rst -*-
+.. vim: ft=rst
+.. Links and substitutions that might be used on more than one page
+
+.. NOTE: reST targets are
+   __not_case_sensitive__, so only one target definition is needed for
+   nipy, NIPY, Nipy, etc...
+
 .. Version control
 .. _git: http://git-scm.com
 .. _git parable: http://tom.preston-werner.com/2009/05/19/the-git-parable.html
@@ -18,8 +26,9 @@
 .. _pip: http://pypi.python.org/pypi/pip
 .. _easy_install: https://pythonhosted.org/setuptools/easy_install.html
 .. _wheels: https://pypi.python.org/pypi/wheel
-.. _numpy: http://sourceforge.net/projects/numpy/files
-.. _scipy: http://sourceforge.net/projects/scipy/files
+.. _numpy: http://www.numpy.org
+.. _scipy: http://www.scipy.org/scipylib/index.html
+.. _matplotlib: http://matplotlib.org
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 .. _nose: http://readthedocs.org/docs/nose/en/latest
 .. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
