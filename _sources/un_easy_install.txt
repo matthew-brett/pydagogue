@@ -13,8 +13,10 @@ remove any packages you previously installed with easy_install.
 
 First you need to find the packages installed with easy_install.  To do this,
 find the ``site-packages`` or ``dist-packages`` directory to which
-easy_install will have installed. You can check the location of installation
-directories by looking at the contents of ``sys.path`` at the Python prompt::
+easy_install will have installed.  See :doc:`debian_python_paths` for an
+description of the paths to which Python packages can get installed on Debian
+/ Ubuntu.  You can check the location of installation directories by looking
+at the contents of ``sys.path`` at the Python prompt::
 
     $ python
     >>> import sys
@@ -26,7 +28,7 @@ corresponds to ``python2.7`` for Python 2.7 etc.
 
 * Debian / Ubuntu system installation:
   ``/usr/local/lib/pythonX.Y/dist-packages`` (see:
-  :ref:`debian-python-places`);
+  :doc:`debian_python_paths`);
 * Fedora system installation for pure Python packages:
   ``/usr/lib/pythonX.Y/site-packages``;
 * Fedora 64-bit system installation for packages with compiled extensions:

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Python installations on Debian / Ubuntu &mdash; pydagogue 0.2 documentation</title>
+    <title>Using pip on Debian / Ubuntu &mdash; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
     <link rel="up" title="Notes and tutorials on Python" href="python.html" />
-    <link rel="next" title="Clean out packages installed with easy_install" href="un_easy_install.html" />
+    <link rel="next" title="Debian and Ubuntu Python package paths" href="debian_python_paths.html" />
     <link rel="prev" title="Using Microsoft Visual C with Python" href="python_msvc.html" /> 
   </head>
   <body role="document">
@@ -37,7 +37,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="un_easy_install.html" title="Clean out packages installed with easy_install"
+          <a href="debian_python_paths.html" title="Debian and Ubuntu Python package paths"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
@@ -52,45 +52,73 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="python-installations-on-debian-ubuntu">
-<h1>Python installations on Debian / Ubuntu<a class="headerlink" href="#python-installations-on-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
-<p>In the old days, installation of Python packages was badly messed up.</p>
+  <div class="section" id="using-pip-on-debian-ubuntu">
+<h1>Using pip on Debian / Ubuntu<a class="headerlink" href="#using-pip-on-debian-ubuntu" title="Permalink to this headline">¶</a></h1>
+<p>In the old days, it was hard and error-prone to use Python tools rather than
+your Debian / Ubuntu package manager to install Python packages.</p>
 <p>One of the big problems was the <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> program, that installed
 packages in a way that could make them particularly difficult to uninstall (see
 <a class="reference internal" href="un_easy_install.html#un-easy-install"><span>Clean out packages installed with easy_install</span></a>).</p>
 <p>Things started to improve as <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> took over from <code class="docutils literal"><span class="pre">easy_install</span></code> as the
 standard Python package installer.</p>
-<p>They got better still when <code class="docutils literal"><span class="pre">pip</span></code> got a binary installer format – <a class="reference external" href="https://pypi.python.org/pypi/wheel">wheels</a>.</p>
-<p>The combination of <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, <code class="docutils literal"><span class="pre">pip</span></code> and wheels makes it much easier to
+<p>They got better still when pip got a binary installer format – <a class="reference external" href="https://pypi.python.org/pypi/wheel">wheels</a>.</p>
+<p>The combination of <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, pip and wheels makes it much easier to
 maintain a set of Python environments to develop and test code.</p>
 <p>This page is a recipe for setting up these virtualenvs on your Debian or
 Ubuntu machine.</p>
+<div class="section" id="do-you-really-want-to-do-this">
+<h2>Do you really want to do this?<a class="headerlink" href="#do-you-really-want-to-do-this" title="Permalink to this headline">¶</a></h2>
+<p>Debian and Ubuntu package maintainers put a lot of effort into maintaining
+binary <code class="docutils literal"><span class="pre">.deb</span></code> installers for common Python packages like <a class="reference external" href="http://www.numpy.org">numpy</a>, <a class="reference external" href="http://www.scipy.org/scipylib/index.html">scipy</a> and
+<a class="reference external" href="http://matplotlib.org">matplotlib</a>.  For example, to get the standard versions of these for your
+Debian / Ubuntu distribution, you can do this:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-numpy python-scipy python-matplotlib
+</pre></div>
+</div>
+<p>Standard <code class="docutils literal"><span class="pre">apt-get</span></code> installation may well be all you need.  The versions of
+numpy, scipy, matplotlib for your distribution can be a little behind the
+latest version available from <a class="reference external" href="http://pypi.python.org">pypi</a> (the Python package index).  If you want a
+more recent version of common Python packages, you might also consider
+installing Debian / Ubuntu packages from <a class="reference external" href="http://neuro.debian.net/">NeuroDebian</a>.  Again, you can use the
+standard Debian tools like <code class="docutils literal"><span class="pre">apt-get</span></code> to do your installs.</p>
+<p>The advantage of always using standard Debian / NeuroDebian packages, is that
+the packages are carefully tested to be compatible with each other.
+The Debian packages record dependencies with other libraries so you will
+always get the libraries you need as part of the install.</p>
+<p>If you use pip to install packages, then you don&#8217;t get these guarantees.
+If you use pip and run into problems with your Python installation, it will be
+harder for you to get support from the Debian / Ubuntu community, because you
+are using an installation method that they do not support, and that is
+considerably more fragile.</p>
+<p>So, consider whether you can get away with the package versions in your
+distribution, maybe by using the most recent packages from NeuroDebian. If
+you can use these, then you probably should not use the pip installs I&#8217;m
+describing below.</p>
+</div>
+<div class="section" id="why-you-might-want-to-use-pip">
+<h2>Why you might want to use pip<a class="headerlink" href="#why-you-might-want-to-use-pip" title="Permalink to this headline">¶</a></h2>
+<p>Although pip installs are a lot more fragile than Debian / Ubuntu pacakge
+installs, they do have sevaral advantages.  With pip you can:</p>
+<ul class="simple">
+<li>get the latest version of the package;</li>
+<li>install specific packages into virtualenvs;</li>
+<li>install packages that have not yet been built for your distribution.</li>
+</ul>
+</div>
+<div class="section" id="if-you-do-want-pip-installs-on-your-debian-ubuntu-system">
+<h2>If you do want pip installs on your Debian / Ubuntu system<a class="headerlink" href="#if-you-do-want-pip-installs-on-your-debian-ubuntu-system" title="Permalink to this headline">¶</a></h2>
 <p>The recipe I propose is this:</p>
 <ul class="simple">
 <li>if you have any <cite>easy_install</cite> installations, <a class="reference internal" href="un_easy_install.html"><em>remove them</em></a>;</li>
-<li>build Python wheels for all the packages you use, and install from those;</li>
+<li>install the various Debian / Ubuntu packages containing dependencies for
+common Python packages like numpy, scipy, matplotlib;</li>
+<li>make sure you have updated pip to a version that uses wheel caching;</li>
+<li>install Python packages via pip, and let wheel caching take care of keeping
+a binary wheel ready for the next time you install this package;</li>
 <li>have a very low threshold for using virtualenvs, via <a class="reference external" href="http://www.doughellmann.com/projects/virtualenvwrapper">virtualenvwrapper</a>;</li>
 <li>Use <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> to install packages into your day to day default
 Python environment.</li>
 </ul>
-<div class="section" id="a-note-on-debian-and-ubuntu-python">
-<span id="debian-python-places"></span><h2>A note on Debian and Ubuntu Python<a class="headerlink" href="#a-note-on-debian-and-ubuntu-python" title="Permalink to this headline">¶</a></h2>
-<p>Debian and Ubuntu have some special rules for where Python packages go.  See
-: <a class="reference external" href="https://wiki.debian.org/Python">https://wiki.debian.org/Python</a></p>
-<p>The main point of interest to us, is that Python packages that you install for
-the Debian / Ubuntu packaged Python go into different directories than would
-be the case for a non-Debian Python installation.</p>
-<p>A non-Debian Python installation, such as Python compiled from source, will
-install Python packages into <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code> by
-default, where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).</p>
-<p>For Debian Python, package files go into different directories depending on
-whether you installed the package from standard Debian packages, or using
-Python&#8217;s own packaging mechanisms, such as <code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or
-<code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.</p>
-<p>Debian Python packages installed via <code class="docutils literal"><span class="pre">apt</span></code> or <code class="docutils literal"><span class="pre">dpkg</span></code> go into
-a folder <code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code> <a class="footnote-reference" href="#apt-installs" id="id1">[1]</a></p>
-<p><code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> installs go into a
-folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>.</p>
 </div>
 <div class="section" id="install-update-pip">
 <h2>Install, update pip<a class="headerlink" href="#install-update-pip" title="Permalink to this headline">¶</a></h2>
@@ -103,7 +131,7 @@ the cached version next time you do an install.</p>
 </pre></div>
 </div>
 <p>Next upgrade your pip, using pip itself.  If you are using both python 2 and
-python 3 versions, upgrade the one you want to own the <code class="docutils literal"><span class="pre">pip</span></code> command last:</p>
+python 3 versions, upgrade the one you want to own the pip command last:</p>
 <div class="highlight-python"><div class="highlight"><pre># Upgrade pip for Python 3 installs
 sudo pip3 install --upgrade pip
 # Upgrade pip for Python 2 installs (this one owns &quot;pip&quot; now)
@@ -237,6 +265,8 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 /usr/lib/python2.7/dist-packages/wx-3.0-gtk2
 </pre></div>
 </div>
+<p>(For an explanation of the <code class="docutils literal"><span class="pre">dist-packages</span></code> entries, see
+<a class="reference internal" href="debian_python_paths.html"><em>Debian and Ubuntu Python package paths</em></a>).</p>
 <p>Notice the line <code class="docutils literal"><span class="pre">/home/vagrant/.local/lib/python2.7/site-packages</span></code>. This is
 the path containing packages that have been installed with the pip <code class="docutils literal"><span class="pre">--user</span></code>
 option.</p>
@@ -289,33 +319,12 @@ mkvirtualenv --system-site-packages an-env-including-vtk
 </pre></div>
 </div>
 </div>
-<div class="section" id="another-good-approach">
-<h2>Another good approach<a class="headerlink" href="#another-good-approach" title="Permalink to this headline">¶</a></h2>
-<p>Another good approach that can get you the at-or-near-latest packages quickly,
-is to install packages from <a class="reference external" href="http://neuro.debian.net/">NeuroDebian</a>.  Here, you rely on the NeuroDebian
-packages, which install, like other Debian packages, into
-<code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code>.  You can either use Python or
-Python3 without a virtualenv, or do:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv --system-site-packages my-venv
-</pre></div>
-</div>
-<p>to pick up all the packages installed in
-<code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code>.</p>
-</div>
 <div class="section" id="doesn-t-work-for-you-help-improve-this-page">
 <h2>Doesn&#8217;t work for you?  Help improve this page<a class="headerlink" href="#doesn-t-work-for-you-help-improve-this-page" title="Permalink to this headline">¶</a></h2>
 <p>If you try the instructions here, and you can&#8217;t get a particular package or
 set-up to work, then why not make an <a class="reference external" href="pydagogueissues">issue</a> for the
 repository hosting these pages, and I&#8217;ll see if I can work the fix into this
 page somewhere.</p>
-<p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="apt-installs" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>You can see where files would go for any Debian / Ubuntu
-package with <code class="docutils literal"><span class="pre">apt-file</span> <span class="pre">list</span> <span class="pre">&lt;package-name&gt;</span></code></td></tr>
-</tbody>
-</table>
 </div>
 </div>
 
@@ -327,8 +336,10 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Python installations on Debian / Ubuntu</a><ul>
-<li><a class="reference internal" href="#a-note-on-debian-and-ubuntu-python">A note on Debian and Ubuntu Python</a></li>
+<li><a class="reference internal" href="#">Using pip on Debian / Ubuntu</a><ul>
+<li><a class="reference internal" href="#do-you-really-want-to-do-this">Do you really want to do this?</a></li>
+<li><a class="reference internal" href="#why-you-might-want-to-use-pip">Why you might want to use pip</a></li>
+<li><a class="reference internal" href="#if-you-do-want-pip-installs-on-your-debian-ubuntu-system">If you do want pip installs on your Debian / Ubuntu system</a></li>
 <li><a class="reference internal" href="#install-update-pip">Install, update pip</a></li>
 <li><a class="reference internal" href="#install-update-virtualenvwrapper">Install, update virtualenvwrapper</a></li>
 <li><a class="reference internal" href="#set-up-the-system-to-build-some-common-wheels">Set up the system to build some common wheels</a></li>
@@ -337,7 +348,6 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
 <li><a class="reference internal" href="#use-user-installs-for-your-default-environment">Use <code class="docutils literal"><span class="pre">--user</span></code> installs for your default environment</a></li>
 <li><a class="reference internal" href="#adding-new-packages-and-wheels">Adding new packages and wheels</a></li>
 <li><a class="reference internal" href="#sometimes-it-s-a-package-too-far">Sometimes, it&#8217;s a package too far</a></li>
-<li><a class="reference internal" href="#another-good-approach">Another good approach</a></li>
 <li><a class="reference internal" href="#doesn-t-work-for-you-help-improve-this-page">Doesn&#8217;t work for you?  Help improve this page</a></li>
 </ul>
 </li>
@@ -347,8 +357,8 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
   <p class="topless"><a href="python_msvc.html"
                         title="previous chapter">Using Microsoft Visual C with Python</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="un_easy_install.html"
-                        title="next chapter">Clean out packages installed with easy_install</a></p>
+  <p class="topless"><a href="debian_python_paths.html"
+                        title="next chapter">Debian and Ubuntu Python package paths</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -380,7 +390,7 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="un_easy_install.html" title="Clean out packages installed with easy_install"
+          <a href="debian_python_paths.html" title="Debian and Ubuntu Python package paths"
              >next</a> |</li>
         <li class="right" >
           <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
@@ -391,7 +401,7 @@ package with <code class="docutils literal"><span class="pre">apt-file</span> <s
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
     </div>
   </body>
 </html>

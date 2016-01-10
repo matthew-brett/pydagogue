@@ -13,4 +13,5 @@ Contents:
    installing_scripts
    python_msvc
    installing_on_debian
+   debian_python_paths
    un_easy_install

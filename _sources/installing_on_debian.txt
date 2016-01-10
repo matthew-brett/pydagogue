@@ -1,8 +1,9 @@
-#######################################
-Python installations on Debian / Ubuntu
-#######################################
+############################
+Using pip on Debian / Ubuntu
+############################
 
-In the old days, installation of Python packages was badly messed up.
+In the old days, it was hard and error-prone to use Python tools rather than
+your Debian / Ubuntu package manager to install Python packages.
 
 One of the big problems was the `easy_install`_ program, that installed
 packages in a way that could make them particularly difficult to uninstall (see
@@ -11,50 +12,75 @@ packages in a way that could make them particularly difficult to uninstall (see
 Things started to improve as pip_ took over from ``easy_install`` as the
 standard Python package installer.
 
-They got better still when ``pip`` got a binary installer format |--| wheels_.
+They got better still when pip got a binary installer format |--| wheels_.
 
-The combination of virtualenv_, ``pip`` and wheels makes it much easier to
+The combination of virtualenv_, pip and wheels makes it much easier to
 maintain a set of Python environments to develop and test code.
 
 This page is a recipe for setting up these virtualenvs on your Debian or
 Ubuntu machine.
 
+******************************
+Do you really want to do this?
+******************************
+
+Debian and Ubuntu package maintainers put a lot of effort into maintaining
+binary ``.deb`` installers for common Python packages like numpy_, scipy_ and
+matplotlib_.  For example, to get the standard versions of these for your
+Debian / Ubuntu distribution, you can do this::
+
+    sudo apt-get install python-numpy python-scipy python-matplotlib
+
+Standard ``apt-get`` installation may well be all you need.  The versions of
+numpy, scipy, matplotlib for your distribution can be a little behind the
+latest version available from pypi_ (the Python package index).  If you want a
+more recent version of common Python packages, you might also consider
+installing Debian / Ubuntu packages from NeuroDebian_.  Again, you can use the
+standard Debian tools like ``apt-get`` to do your installs.
+
+The advantage of always using standard Debian / NeuroDebian packages, is that
+the packages are carefully tested to be compatible with each other.
+The Debian packages record dependencies with other libraries so you will
+always get the libraries you need as part of the install.
+
+If you use pip to install packages, then you don't get these guarantees.
+If you use pip and run into problems with your Python installation, it will be
+harder for you to get support from the Debian / Ubuntu community, because you
+are using an installation method that they do not support, and that is
+considerably more fragile.
+
+So, consider whether you can get away with the package versions in your
+distribution, maybe by using the most recent packages from NeuroDebian. If
+you can use these, then you probably should not use the pip installs I'm
+describing below.
+
+*****************************
+Why you might want to use pip
+*****************************
+
+Although pip installs are a lot more fragile than Debian / Ubuntu pacakge
+installs, they do have sevaral advantages.  With pip you can:
+
+* get the latest version of the package;
+* install specific packages into virtualenvs;
+* install packages that have not yet been built for your distribution.
+
+**********************************************************
+If you do want pip installs on your Debian / Ubuntu system
+**********************************************************
+
 The recipe I propose is this:
 
 * if you have any `easy_install` installations, :doc:`remove them
   <un_easy_install>`;
-* build Python wheels for all the packages you use, and install from those;
+* install the various Debian / Ubuntu packages containing dependencies for
+  common Python packages like numpy, scipy, matplotlib;
+* make sure you have updated pip to a version that uses wheel caching;
+* install Python packages via pip, and let wheel caching take care of keeping
+  a binary wheel ready for the next time you install this package;
 * have a very low threshold for using virtualenvs, via virtualenvwrapper_;
 * Use ``pip install --user`` to install packages into your day to day default
   Python environment.
-
-.. _debian-python-places:
-
-**********************************
-A note on Debian and Ubuntu Python
-**********************************
-
-Debian and Ubuntu have some special rules for where Python packages go.  See
-: https://wiki.debian.org/Python
-
-The main point of interest to us, is that Python packages that you install for
-the Debian / Ubuntu packaged Python go into different directories than would
-be the case for a non-Debian Python installation.
-
-A non-Debian Python installation, such as Python compiled from source, will
-install Python packages into ``/usr/local/lib/pythonX.Y/site-packages`` by
-default, where X.Y is your Python version (such as ``2.7``).
-
-For Debian Python, package files go into different directories depending on
-whether you installed the package from standard Debian packages, or using
-Python's own packaging mechanisms, such as ``pip``, ``easy_install`` or
-``python setup.py install``.
-
-Debian Python packages installed via ``apt`` or ``dpkg`` go into
-a folder ``/usr/lib/pythonX.Y/dist-packages`` [#apt-installs]_
-
-``pip``, ``easy_install`` or ``python setup.py install`` installs go into a
-folder ``/usr/local/lib/pythonX.Y/dist-packages``.
 
 *******************
 Install, update pip
@@ -71,7 +97,7 @@ First install Debian versions of pip::
     sudo apt-get install python-pip python3-pip
 
 Next upgrade your pip, using pip itself.  If you are using both python 2 and
-python 3 versions, upgrade the one you want to own the ``pip`` command last::
+python 3 versions, upgrade the one you want to own the pip command last::
 
     # Upgrade pip for Python 3 installs
     sudo pip3 install --upgrade pip
@@ -216,6 +242,9 @@ any virtualenv, here is what I get for the Python module search path
     /usr/lib/pymodules/python2.7
     /usr/lib/python2.7/dist-packages/wx-3.0-gtk2
 
+(For an explanation of the ``dist-packages`` entries, see
+:doc:`debian_python_paths`).
+
 Notice the line ``/home/vagrant/.local/lib/python2.7/site-packages``. This is
 the path containing packages that have been installed with the pip ``--user``
 option.
@@ -271,21 +300,6 @@ the installed packages::
     sudo apt-get install python-vtk
     mkvirtualenv --system-site-packages an-env-including-vtk
 
-*********************
-Another good approach
-*********************
-
-Another good approach that can get you the at-or-near-latest packages quickly,
-is to install packages from NeuroDebian_.  Here, you rely on the NeuroDebian
-packages, which install, like other Debian packages, into
-``/usr/lib/pythonX.Y/dist-packages``.  You can either use Python or
-Python3 without a virtualenv, or do::
-
-    mkvirtualenv --system-site-packages my-venv
-
-to pick up all the packages installed in
-``/usr/lib/pythonX.Y/dist-packages``.
-
 *********************************************
 Doesn't work for you?  Help improve this page
 *********************************************
@@ -294,10 +308,5 @@ If you try the instructions here, and you can't get a particular package or
 set-up to work, then why not make an `issue <pydagogue issues>`_ for the
 repository hosting these pages, and I'll see if I can work the fix into this
 page somewhere.
-
-.. rubric:: Footnotes
-
-.. [#apt-installs] You can see where files would go for any Debian / Ubuntu
-   package with ``apt-file list <package-name>``
 
 .. include:: links_names.inc
