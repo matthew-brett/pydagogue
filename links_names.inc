@@ -36,7 +36,7 @@
 
 .. Virtualenv and helpers
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
-.. _virtualenvwrapper: http://www.doughellmann.com/projects/virtualenvwrapper
+.. _virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/
 .. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
 
 .. Pypi and packaging

@@ -6,8 +6,8 @@ In the old days, it was hard and error-prone to use Python tools rather than
 your Debian / Ubuntu package manager to install Python packages.
 
 One of the big problems was the `easy_install`_ program, that installed
-packages in a way that could make them particularly difficult to uninstall (see
-:ref:`un-easy-install`).
+packages in a way that could make them particularly difficult to uninstall
+(see :ref:`un-easy-install`).
 
 Things started to improve as pip_ took over from ``easy_install`` as the
 standard Python package installer.
@@ -58,8 +58,8 @@ describing below.
 Why you might want to use pip
 *****************************
 
-Although pip installs are a lot more fragile than Debian / Ubuntu pacakge
-installs, they do have sevaral advantages.  With pip you can:
+Although pip installs are a lot more fragile than Debian / Ubuntu package
+installs, they do have several advantages.  With pip you can:
 
 * get the latest version of the package;
 * install specific packages into virtualenvs;
@@ -73,147 +73,33 @@ The recipe I propose is this:
 
 * if you have any `easy_install` installations, :doc:`remove them
   <un_easy_install>`;
+* Use ``pip install --user`` to install packages into your day-to-day default
+  Python environment;
+* Install pip and virtualenvwrapper_ into your system, then upgrade them with
+  ``pip install --user --upgrade``;
 * install the various Debian / Ubuntu packages containing dependencies for
   common Python packages like numpy, scipy, matplotlib;
-* make sure you have updated pip to a version that uses wheel caching;
-* install Python packages via pip, and let wheel caching take care of keeping
-  a binary wheel ready for the next time you install this package;
-* have a very low threshold for using virtualenvs, via virtualenvwrapper_;
-* Use ``pip install --user`` to install packages into your day to day default
-  Python environment.
+* install Python packages via pip, and let pip wheel caching take care of
+  keeping a binary wheel ready for the next time you install this package;
+* have a very low threshold for using virtualenvs, via virtualenvwrapper.
 
-*******************
-Install, update pip
-*******************
+I suggest you never use pip to change your system-wide packages |--| so you
+never use pip with ``sudo``.  This makes sure your pip-installed packages do
+not break your system.  To avoid ``sudo`` you should always install into your
+user directories (via ``pip install --user``) or within virtualenvs (see
+below).
 
-You will need pip version >= 6.0 in order to get `pip wheel caching
-<https://pip.pypa.io/en/latest/reference/pip_install/#caching>`_. This is a
-killer pip feature, that means that you only build wheels from source once,
-the first time you install a package.  Pip then caches the wheel so you use
-the cached version next time you do an install.
+********************************************************
+Use pip ``--user`` installs for your default environment
+********************************************************
 
-First install Debian versions of pip::
+The ``--user`` flag to ``pip install`` tells pip to install packages in some
+specific directories within your home directory.  This is a good way to have
+your own default Python environment that adds to the packages within your
+system directories, and therefore, does not affect the system Python
+installation.
 
-    sudo apt-get install python-pip python3-pip
-
-Next upgrade your pip, using pip itself.  If you are using both python 2 and
-python 3 versions, upgrade the one you want to own the pip command last::
-
-    # Upgrade pip for Python 3 installs
-    sudo pip3 install --upgrade pip
-    # Upgrade pip for Python 2 installs (this one owns "pip" now)
-    sudo pip2 install --upgrade pip
-
-Now check the pip version is >= 6.0::
-
-    pip --version
-    pip3 --version
-
-*********************************
-Install, update virtualenvwrapper
-*********************************
-
-``virtualenvwrapper`` is a very useful |--| er |--| wrapper around |--| er
-|--| ``virtualenv``, that makes it easier and neater to have a library of
-virtual Python environments::
-
-    # Get basic version with shell integration
-    sudo apt-get install virtualenvwrapper
-    # Upgrade to latest
-    sudo pip install --upgrade virtualenvwrapper
-
-The ``--upgrade`` is important because virtualenv (installed by
-virtualenvwrapper) contains its own copy of pip.  We need the latest version
-of virtualenv to make sure we will get a recent version of pip in our
-virtualenvs.
-
-The ``virtualenvwrapper`` apt package puts useful aliases into the default
-bash shell environment.  To get these aliases loaded up in your current shell,
-this one time you should do::
-
-    source ~/.bashrc
-
-*********************************************
-Set up the system to build some common wheels
-*********************************************
-
-Install standard build dependencies for common libraries::
-
-    sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
-
-This may take about 10-20 minutes (at least, it did on my virtualbox / Vagrant
-Debian instance).
-
-***********************************
-Build wheels by installing with pip
-***********************************
-
-Now you have pip > 6.0, building wheels is just a matter of installing the
-package for the first time.
-
-Start up a new virtualenv for Python 2::
-
-    mkvirtualev python2
-
-Install numpy and cython.  This will build and cache wheels for the latest
-numpy and cython::
-
-    pip install numpy cython
-
-Now you can install (therefore, build and cache) other wheels you might need::
-
-    pip install scipy matplotlib h5py
-
-Finish up by deactivating the virtualenv::
-
-    deactivate
-
-You might want to do the same with Python 3::
-
-    mkvirtualenv --python=/usr/bin/python3 python3
-    pip install numpy cython
-    pip install scipy matplotlib h5py
-    deactivate
-
-*********************************
-Now you are in virtualenv nirvana
-*********************************
-
-It's often good to use virtualenvs to start a development session.  Doing so
-means that you can install exactly the requirements that you need, without
-causing changes to your other virtualenvs.
-
-You can now make virtualenvs for your testing development quickly.  Say you
-want to test something out for Python 3::
-
-    # Make clean virtual environment
-    mkvirtualenv --python=/usr/bin/python3 testing-something
-    pip install numpy scipy matplotlib h5py
-    # install anything else you want
-    # run your tests
-    deactivate
-
-Nice.
-
-Even if you are offline, you can always install things you have already built
-and cached, by adding the ``--no-index`` flag to pip::
-
-    # Make another clean virtual environment
-    mkvirtualenv --python=/usr/bin/python3 testing-offline
-    pip install numpy scipy matplotlib h5py --no-index
-    # install anything else you want
-    # run your tests
-    deactivate
-
-****************************************************
-Use ``--user`` installs for your default environment
-****************************************************
-
-Sometimes you may want a default environment, that has a set of packages that
-you commonly use.
-
-This is a good role for pip ``--user`` installs.  If you install a package
-like this::
+So, if you install a package like this::
 
     pip install --user mypackage
 
@@ -267,6 +153,162 @@ off the path.  To do this, I have the following in my
 
     # Clear user Python binary path when using virtualenvs
     export PATH=$(echo $PATH | sed "s|${PY_USER_BIN}:\{0,1\}||")
+
+************************************************
+Install, update pip using ``pip install --user``
+************************************************
+
+For these steps to work, you will need the pip ``--user`` install binary
+directory on your path.  See above for how to do this. Check that your
+``--user`` binary directory is on the path with::
+
+    echo $PATH
+
+The output should contain something like ``/home/your-user/.local/bin``.
+
+You will need pip version >= 6.0 in order to get `pip wheel caching
+<https://pip.pypa.io/en/latest/reference/pip_install/#caching>`_. This is a
+killer pip feature, that means that you only build wheels from source once,
+the first time you install a package.  Pip then caches the wheel so you use
+the cached version next time you do an install.
+
+First install Debian versions of pip into your Debian system directories::
+
+    sudo apt-get install python-pip python3-pip
+
+Next upgrade pip for your user, using the system pip.  If you are using both
+python 2 and python 3 versions, do the upgrade last on the pip that you want
+to own the ``pip`` command::
+
+    # Upgrade pip for Python 3 installs
+    pip3 install --user --upgrade pip
+    # Upgrade pip for Python 2 installs (this one owns "pip" now)
+    pip2 install --user --upgrade pip
+
+Now check the pip version is >= 6.0::
+
+    pip --version
+    pip2 --version
+    pip3 --version
+
+Check you are picking up the ``--user`` pip by looking at the output of::
+
+    which pip
+    which pip2
+    which pip3
+
+This should give you outputs like ``/home/your-user/.local/bin/pip``.
+
+*********************************
+Install, update virtualenvwrapper
+*********************************
+
+virtualenvwrapper_ is a very useful |--| er |--| wrapper around |--| er |--|
+``virtualenv``, that makes it easier and neater to have a library of virtual
+Python environments.  First install the Debian packaged version to your system
+directories.  This sets up bash shell integration::
+
+    sudo apt-get install virtualenvwrapper
+
+Now upgrade your user installation to the latest virtualenvwrapper::
+
+    pip install --user --upgrade virtualenvwrapper
+
+The ``--upgrade`` in the installation is important because virtualenv
+(installed by virtualenvwrapper) contains its own copy of pip.  We need the
+latest version of virtualenv to make sure we will get a recent version of pip
+in our virtualenvs.
+
+Check you are getting your new ``--user`` installed version, with::
+
+    which virtualenv
+
+This should you something like ``/home/your-user/.local/bin/virtualenv``.
+
+The ``virtualenvwrapper`` apt package puts useful aliases into the default
+bash shell environment.  To get these aliases loaded up in your current shell,
+this one time you should do::
+
+    source ~/.bashrc
+
+Check you have the virtualenvwrapper aliases loaded with::
+
+    mkvirtualenv
+
+This should give you the help for the ``mkvirtualenv`` virtualenvwrapper
+command.
+
+*********************************************
+Set up the system to build some common wheels
+*********************************************
+
+Install standard build dependencies for common libraries::
+
+    sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
+
+This may take about 10-20 minutes (at least, it did on my Virtualbox / Vagrant
+Debian instance).
+
+***********************************
+Build wheels by installing with pip
+***********************************
+
+Now you have pip > 6.0, building wheels is just a matter of installing the
+package for the first time.
+
+Start up a new virtualenv for Python 2::
+
+    mkvirtualenv python2
+
+Install numpy and cython.  This will build and cache wheels for the latest
+numpy and cython::
+
+    pip install numpy cython
+
+Now you can install (therefore, build and cache) other wheels you might need::
+
+    pip install scipy matplotlib h5py
+
+Finish up by deactivating the virtualenv::
+
+    deactivate
+
+You might want to do the same with Python 3::
+
+    mkvirtualenv --python=/usr/bin/python3 python3
+    pip install numpy cython
+    pip install scipy matplotlib h5py
+    deactivate
+
+*********************************
+Now you are in virtualenv nirvana
+*********************************
+
+It's often good to use virtualenvs to start a development session.  Doing so
+means that you can install exactly the requirements that you need, without
+causing changes to your other virtualenvs.
+
+You can now make virtualenvs for your testing development quickly.  Say you
+want to test something out for Python 3::
+
+    # Make clean virtual environment
+    mkvirtualenv --python=/usr/bin/python3 testing-something
+    pip install numpy scipy matplotlib h5py
+    # install anything else you want
+    # run your tests
+    deactivate
+
+Nice.
+
+Even if you are offline, you can always install things you have already built
+and cached, by adding the ``--no-index`` flag to pip::
+
+    # Make another clean virtual environment
+    mkvirtualenv --python=/usr/bin/python3 testing-offline
+    pip install numpy scipy matplotlib h5py --no-index
+    # install anything else you want
+    # run your tests
+    deactivate
 
 ******************************
 Adding new packages and wheels
