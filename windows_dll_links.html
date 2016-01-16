@@ -50,50 +50,9 @@
             
   <div class="section" id="windows-dlls-information">
 <h1>Windows DLLs - information<a class="headerlink" href="#windows-dlls-information" title="Permalink to this headline">¶</a></h1>
-<p>Exploring where to put Windows DLLs for load-time or run-time discovery.</p>
-<ul>
-<li><p class="first">Commentary <a class="reference external" href="https://ghc.haskell.org/trac/ghc/wiki/SharedLibraries/Management#OnWindows">shared libraries in windows</a>
-on the Glasgow Haskell Compiler wiki.  See discussion of side-by-side
-assemblies.</p>
-</li>
-<li><p class="first">Microsoft documentation on <a class="reference external" href="http://msdn.microsoft.com/en-us/library/ms686203.aspx">SetDllDirectory</a>. From those docs:</p>
-<blockquote>
-<div><p>The SetDllDirectory function affects all subsequent calls to the
-LoadLibrary and LoadLibraryEx functions. It also effectively disables safe
-DLL search mode while the specified directory is in the search path.</p>
-</div></blockquote>
-<p>So this call might have unexpected conseequences for unrelated DLL loading
-afterwards.</p>
-</li>
-<li><p class="first">Microsoft documentation on the <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms684179.aspx">LoadLibraryEx</a>
-call. On <code class="docutils literal"><span class="pre">SetDllDirectory</span></code>:</p>
-<blockquote>
-<div><p>However, be aware that using SetDllDirectory effectively disables safe DLL
-search mode while the specified directory is in the search path and it is
-not thread safe.  If possible, it is best to use AddDllDirectory to modify a
-default process search path.</p>
-</div></blockquote>
-</li>
-<li><p class="first">Microsoft documentation on <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/hh310513.aspx">AddDllDirectory</a></p>
-</li>
-<li><p class="first">Microsoft documentation on the <a class="reference external" href="http://msdn.microsoft.com/en-us/library/ms682586.aspx#standard_search_order_for_desktop_applications">Standard DLL search order</a>
-for desktop applications.</p>
-</li>
-<li><p class="first">The <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682586.aspx#alternate_search_order_for_desktop_applications">alternate DLL search order</a>
-that is triggered by calling DLL loading with the flag
-<cite>LOAD_WITH_ALTERED_SEARCH_PATH</cite>.</p>
-</li>
-<li><p class="first">Python loads extensions with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">hDLL</span> <span class="o">=</span> <span class="n">LoadLibraryEx</span><span class="p">(</span><span class="n">pathname</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span>
-                     <span class="n">LOAD_WITH_ALTERED_SEARCH_PATH</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>See: <a class="reference external" href="http://hg.python.org/cpython/file/3a1db0d2747e/Python/dynload_win.c#l195">dynload_win.c line 195</a>
-in Python 2.7 - for example.</p>
-</li>
-<li><p class="first">Microsoft documentation on <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/ff951638.aspx">Private side by side assemblies</a></p>
-</li>
-</ul>
+<p>This page has retired, and is sipping a Mojito next to a pool in a slightly
+shabby hotel in <a class="reference external" href="https://en.wikipedia.org/wiki/Varadero">Varadero</a>.</p>
+<p>Please see the <a class="reference external" href="https://github.com/numpy/numpy/wiki/windows-dll-notes">newer page on Windows DLLs</a> on the numpy wiki.</p>
 </div>
 
 
