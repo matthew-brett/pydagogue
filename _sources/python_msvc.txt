@@ -132,6 +132,15 @@ Here are some links that were useful at some point:
 
 * `VS downloads <http://www.visualstudio.com/downloads/download-visual-studio-vs>`_
 * `VS 2010 SDK <http://www.microsoft.com/en-us/download/details.aspx?id=2680>`_
+* I ran into problems installing the VS 2010 SDK on a Windows 10 machine, and
+  got unstuck by folling the advice on `this MSVC 2010 SO post
+  <http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10>`_.
+  I then (when building for 64 bits) had to apply the fix at stage 5 of `this
+  SO answer
+  <http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins>`_.
+  In case it goes away, the fix was to make a new file ``C:\Program Files
+  (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat`` with contents
+  ``CALL "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64``.
 * `How to configure VS 10.0 for 64 bit
   <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx>`_
 * `VS 2008 download <http://go.microsoft.com/?linkid=7729279>`_

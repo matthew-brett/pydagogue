@@ -260,6 +260,13 @@ you don&#8217;t need Visual Studio Express - see the <a class="reference externa
 <ul class="simple">
 <li><a class="reference external" href="http://www.visualstudio.com/downloads/download-visual-studio-vs">VS downloads</a></li>
 <li><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=2680">VS 2010 SDK</a></li>
+<li>I ran into problems installing the VS 2010 SDK on a Windows 10 machine, and
+got unstuck by folling the advice on <a class="reference external" href="http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10">this MSVC 2010 SO post</a>.
+I then (when building for 64 bits) had to apply the fix at stage 5 of <a class="reference external" href="http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins">this
+SO answer</a>.
+In case it goes away, the fix was to make a new file <code class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span>
+<span class="pre">(x86)\Microsoft</span> <span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">10.0\VC\bin\amd64/vcvars64.bat</span></code> with contents
+<code class="docutils literal"><span class="pre">CALL</span> <span class="pre">&quot;C:\Program</span> <span class="pre">Files\Microsoft</span> <span class="pre">SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot;</span> <span class="pre">/x64</span></code>.</li>
 <li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx">How to configure VS 10.0 for 64 bit</a></li>
 <li><a class="reference external" href="http://go.microsoft.com/?linkid=7729279">VS 2008 download</a></li>
 <li>Some <a class="reference external" href="http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64">relevant instructions from a MATLAB user</a>
