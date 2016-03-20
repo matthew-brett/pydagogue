@@ -45,7 +45,7 @@ VC++ version  _MSC_VER Alternative name    C runtime       C++ runtime
 10.0          1600     Visual Studio 2010  MSVCR100.DLL    MSVCP100.DLL
 11.0          1700     Visual Studio 2012  MSVCR110.DLL    MSVCP110.DLL
 12.0          1800     Visual Studio 2013  MSVCR120.DLL    MSVCP120.DLL
-14.0          1900     Visual Studio 2015  See notes       See notes
+14.0          1900     Visual Studio 2015  See notes       MSVCP140.DLL
 ============  ======== ==================  =============   =============
 
 For a discussion of the generic ``MSVCRT.DLL`` compared to the DLLs specific
@@ -108,47 +108,93 @@ Python version VC++ version
 Installing free versions of Microsoft Visual C / C++
 ****************************************************
 
+Pythons 2.7 (and 3.2)
+=====================
+
 If you are compiling for Python 2.7, you should first try the installer at
-http://aka.ms/vcpython27. If it works for you, it should compile both 32 and
-64 bit extensions. See the `Cython windows wiki page
-<https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x>`_
-for more detail of configuration for 64-bit in particular.
+http://aka.ms/vcpython27.  I installed this for all users from a ``cmd``
+Window opened with "run as administrator", like this::
 
-The `VS 2015 community edition
+    msiexec /i VCForPython27.msi ALLUSERS=1
+
+This command line comes from the "Install instructions" on the download page.
+For me, the installer runs but closes without showing any signs that it has
+finished.  The compilers seem to work fine nevertheless.  If this standalone
+Python 2.7 compiler set works for you, you should be able to compile both 32
+and 64 bit extensions without further configuration.  If not, see
+:ref:`other-options`.
+
+Pythons 3.3 and 3.4
+===================
+
+For Pythons 3.3 and 3.4 I recommend you get your compilers via the Window 7.1
+SDK.  This includes the VS 10 / 2010 command line compilers you need to
+compile Python extensions.  I found that I needed to install from the `offline
+ISO files <https://www.microsoft.com/en-us/download/details.aspx?id=8442>`_.
+As you will see in the "Install Instructions", choose ``GRMSDK_EN_DVD.iso``
+for 32-bit compilation and / or ``GRMSDKX_EN_DVD.iso`` for 64-bit compiles.
+
+I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.
+For Windows 7 / server 2008 I used `Virtual clone drive
+<http://www.slysoft.com/en/virtual-clonedrive.html>`_ to mount the ISO files.
+
+Finally, for 64-bits, I needed to apply this patch to avoid a distutils
+compilation error ending in ``ValueError: ['path']``::
+
+  echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
+
+See `this MSVC 2010 SO post
+<http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10>`_
+for details on installing the Windows 7.1 SDK, and `this SO answer
+<http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins>`_
+for specifics on the 64-bit distutils error that can be fixed with the
+``echo`` command above.
+
+Python 3.5
+==========
+
+For Python 3.5 32-bit and 64-bit extensions you need MSVC 14 / 2015. `VS 2015
+community edition
 <https://www.visualstudio.com/products/visual-studio-community-vs>`_ is free
-as in beer.  It's a hefty 11GB install.  This will build Python 3.5
-extensions, 32 or 64 bit.
-
-If you are not compiling for 3.5, and the custom installer above doesn't work,
-and you are only compiling for 32 bit, you can use the Visual Studio Express
-package (2008==9.0 for Python 2.7, 2010==10.0 for Python 3.4). See the links
-below.
+as in beer.  It's a huge 11GB install which took more than an hour on my
+machine.
 
 For 64 bit compilation in this situation, you'll need the matching SDK, and
 you don't need Visual Studio Express - see the `Cython windows page
 <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>`_ again.
 
+.. _other-options:
+
+***********************************
+Other options for MSVC installation
+***********************************
+
+If the VS for Python 2.7 installer doesn't work for you, or you can't get VS
+2010 compilation working for 3.3 / 3.4, see the links below.
+
+In overview, you may be able to find the free Visual Studio express download
+that you need on the Microsoft site, but until VS 2015, these do not compile
+64-bit extensions by default.   The instructions above give the easiest way to
+get 64-bit compiles working, but you can also try the other methods given in
+the links below.
+
+***********************************
+Some older links on installing MSVC
+***********************************
+
 Here are some links that were useful at some point:
 
+* `Cython windows wiki page
+  <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x>`_.
+  This has more on configuration for 64-bit in particular.
 * `VS downloads <http://www.visualstudio.com/downloads/download-visual-studio-vs>`_
 * `VS 2010 SDK <http://www.microsoft.com/en-us/download/details.aspx?id=2680>`_
-* I ran into problems installing the VS 2010 SDK on a Windows 10 machine, and
-  got unstuck by folling the advice on `this MSVC 2010 SO post
-  <http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10>`_.
-  I then (when building for 64 bits) had to apply the fix at stage 5 of `this
-  SO answer
-  <http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins>`_.
-  In case it goes away, the fix was to make a new file ``C:\Program Files
-  (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat`` with contents
-  ``CALL "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64``.
 * `How to configure VS 10.0 for 64 bit
   <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx>`_
 * `VS 2008 download <http://go.microsoft.com/?linkid=7729279>`_
 * Some `relevant instructions from a MATLAB user
   <http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64>`_
-  for getting the VS 2008 SDK set up (the default downloads will refuse to install onto the VS express).
-* `How to configure VS 9.0 for 64 bit <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx>`_
-
-It's useful to be able to mount the downloaded ISO images directly for
-installation.  I had good success with `Virtual clone drive
-<http://www.slysoft.com/en/virtual-clonedrive.html>`_.
+  for getting the VS 2008 SDK set up (the default downloads will refuse to
+  install onto VS express).
+* `How to configure VS 9.0 for 64 bit
+  <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx>`_
