@@ -170,7 +170,7 @@ and the C / C++ runtime library.</p>
 <td>1900</td>
 <td>Visual Studio 2015</td>
 <td>See notes</td>
-<td>See notes</td>
+<td>MSVCP140.DLL</td>
 </tr>
 </tbody>
 </table>
@@ -243,38 +243,76 @@ release.</p>
 </div>
 <div class="section" id="installing-free-versions-of-microsoft-visual-c-c">
 <h2>Installing free versions of Microsoft Visual C / C++<a class="headerlink" href="#installing-free-versions-of-microsoft-visual-c-c" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pythons-2-7-and-3-2">
+<h3>Pythons 2.7 (and 3.2)<a class="headerlink" href="#pythons-2-7-and-3-2" title="Permalink to this headline">¶</a></h3>
 <p>If you are compiling for Python 2.7, you should first try the installer at
-<a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>. If it works for you, it should compile both 32 and
-64 bit extensions. See the <a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x">Cython windows wiki page</a>
-for more detail of configuration for 64-bit in particular.</p>
-<p>The <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015 community edition</a> is free
-as in beer.  It&#8217;s a hefty 11GB install.  This will build Python 3.5
-extensions, 32 or 64 bit.</p>
-<p>If you are not compiling for 3.5, and the custom installer above doesn&#8217;t work,
-and you are only compiling for 32 bit, you can use the Visual Studio Express
-package (2008==9.0 for Python 2.7, 2010==10.0 for Python 3.4). See the links
-below.</p>
+<a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>.  I installed this for all users from a <code class="docutils literal"><span class="pre">cmd</span></code>
+Window opened with &#8220;run as administrator&#8221;, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>msiexec /i VCForPython27.msi ALLUSERS=1
+</pre></div>
+</div>
+<p>This command line comes from the &#8220;Install instructions&#8221; on the download page.
+For me, the installer runs but closes without showing any signs that it has
+finished.  The compilers seem to work fine nevertheless.  If this standalone
+Python 2.7 compiler set works for you, you should be able to compile both 32
+and 64 bit extensions without further configuration.  If not, see
+<a class="reference internal" href="#other-options"><span>Other options for MSVC installation</span></a>.</p>
+</div>
+<div class="section" id="pythons-3-3-and-3-4">
+<h3>Pythons 3.3 and 3.4<a class="headerlink" href="#pythons-3-3-and-3-4" title="Permalink to this headline">¶</a></h3>
+<p>For Pythons 3.3 and 3.4 I recommend you get your compilers via the Window 7.1
+SDK.  This includes the VS 10 / 2010 command line compilers you need to
+compile Python extensions.  I found that I needed to install from the <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=8442">offline
+ISO files</a>.
+As you will see in the &#8220;Install Instructions&#8221;, choose <code class="docutils literal"><span class="pre">GRMSDK_EN_DVD.iso</span></code>
+for 32-bit compilation and / or <code class="docutils literal"><span class="pre">GRMSDKX_EN_DVD.iso</span></code> for 64-bit compiles.</p>
+<p>I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.
+For Windows 7 / server 2008 I used <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">Virtual clone drive</a> to mount the ISO files.</p>
+<p>Finally, for 64-bits, I needed to apply this patch to avoid a distutils
+compilation error ending in <code class="docutils literal"><span class="pre">ValueError:</span> <span class="pre">['path']</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>echo &quot;C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot; /x64 &gt; &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat&quot;
+</pre></div>
+</div>
+<p>See <a class="reference external" href="http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10">this MSVC 2010 SO post</a>
+for details on installing the Windows 7.1 SDK, and <a class="reference external" href="http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins">this SO answer</a>
+for specifics on the 64-bit distutils error that can be fixed with the
+<code class="docutils literal"><span class="pre">echo</span></code> command above.</p>
+</div>
+<div class="section" id="python-3-5">
+<h3>Python 3.5<a class="headerlink" href="#python-3-5" title="Permalink to this headline">¶</a></h3>
+<p>For Python 3.5 32-bit and 64-bit extensions you need MSVC 14 / 2015. <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015
+community edition</a> is free
+as in beer.  It&#8217;s a huge 11GB install which took more than an hour on my
+machine.</p>
 <p>For 64 bit compilation in this situation, you&#8217;ll need the matching SDK, and
 you don&#8217;t need Visual Studio Express - see the <a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows">Cython windows page</a> again.</p>
+</div>
+</div>
+<div class="section" id="other-options-for-msvc-installation">
+<span id="other-options"></span><h2>Other options for MSVC installation<a class="headerlink" href="#other-options-for-msvc-installation" title="Permalink to this headline">¶</a></h2>
+<p>If the VS for Python 2.7 installer doesn&#8217;t work for you, or you can&#8217;t get VS
+2010 compilation working for 3.3 / 3.4, see the links below.</p>
+<p>In overview, you may be able to find the free Visual Studio express download
+that you need on the Microsoft site, but until VS 2015, these do not compile
+64-bit extensions by default.   The instructions above give the easiest way to
+get 64-bit compiles working, but you can also try the other methods given in
+the links below.</p>
+</div>
+<div class="section" id="some-older-links-on-installing-msvc">
+<h2>Some older links on installing MSVC<a class="headerlink" href="#some-older-links-on-installing-msvc" title="Permalink to this headline">¶</a></h2>
 <p>Here are some links that were useful at some point:</p>
 <ul class="simple">
+<li><a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x">Cython windows wiki page</a>.
+This has more on configuration for 64-bit in particular.</li>
 <li><a class="reference external" href="http://www.visualstudio.com/downloads/download-visual-studio-vs">VS downloads</a></li>
 <li><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=2680">VS 2010 SDK</a></li>
-<li>I ran into problems installing the VS 2010 SDK on a Windows 10 machine, and
-got unstuck by folling the advice on <a class="reference external" href="http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10">this MSVC 2010 SO post</a>.
-I then (when building for 64 bits) had to apply the fix at stage 5 of <a class="reference external" href="http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins">this
-SO answer</a>.
-In case it goes away, the fix was to make a new file <code class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span>
-<span class="pre">(x86)\Microsoft</span> <span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">10.0\VC\bin\amd64/vcvars64.bat</span></code> with contents
-<code class="docutils literal"><span class="pre">CALL</span> <span class="pre">&quot;C:\Program</span> <span class="pre">Files\Microsoft</span> <span class="pre">SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot;</span> <span class="pre">/x64</span></code>.</li>
 <li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx">How to configure VS 10.0 for 64 bit</a></li>
 <li><a class="reference external" href="http://go.microsoft.com/?linkid=7729279">VS 2008 download</a></li>
 <li>Some <a class="reference external" href="http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64">relevant instructions from a MATLAB user</a>
-for getting the VS 2008 SDK set up (the default downloads will refuse to install onto the VS express).</li>
+for getting the VS 2008 SDK set up (the default downloads will refuse to
+install onto VS express).</li>
 <li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx">How to configure VS 9.0 for 64 bit</a></li>
 </ul>
-<p>It&#8217;s useful to be able to mount the downloaded ISO images directly for
-installation.  I had good success with <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">Virtual clone drive</a>.</p>
 </div>
 </div>
 
@@ -289,7 +327,14 @@ installation.  I had good success with <a class="reference external" href="http:
 <li><a class="reference internal" href="#">Using Microsoft Visual C with Python</a><ul>
 <li><a class="reference internal" href="#visual-studio-compiler-versions">Visual studio compiler versions</a></li>
 <li><a class="reference internal" href="#visual-studio-versions-used-to-compile-distributed-python-binaries">Visual Studio versions used to compile distributed Python binaries</a></li>
-<li><a class="reference internal" href="#installing-free-versions-of-microsoft-visual-c-c">Installing free versions of Microsoft Visual C / C++</a></li>
+<li><a class="reference internal" href="#installing-free-versions-of-microsoft-visual-c-c">Installing free versions of Microsoft Visual C / C++</a><ul>
+<li><a class="reference internal" href="#pythons-2-7-and-3-2">Pythons 2.7 (and 3.2)</a></li>
+<li><a class="reference internal" href="#pythons-3-3-and-3-4">Pythons 3.3 and 3.4</a></li>
+<li><a class="reference internal" href="#python-3-5">Python 3.5</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-options-for-msvc-installation">Other options for MSVC installation</a></li>
+<li><a class="reference internal" href="#some-older-links-on-installing-msvc">Some older links on installing MSVC</a></li>
 </ul>
 </li>
 </ul>
