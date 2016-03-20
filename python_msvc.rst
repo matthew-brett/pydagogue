@@ -159,10 +159,6 @@ community edition
 as in beer.  It's a huge 11GB install which took more than an hour on my
 machine.
 
-For 64 bit compilation in this situation, you'll need the matching SDK, and
-you don't need Visual Studio Express - see the `Cython windows page
-<https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>`_ again.
-
 .. _other-options:
 
 ***********************************
