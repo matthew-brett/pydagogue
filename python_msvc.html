@@ -260,14 +260,20 @@ and 64 bit extensions without further configuration.  If not, see
 </div>
 <div class="section" id="pythons-3-3-and-3-4">
 <h3>Pythons 3.3 and 3.4<a class="headerlink" href="#pythons-3-3-and-3-4" title="Permalink to this headline">¶</a></h3>
-<p>For Pythons 3.3 and 3.4 I recommend you get your compilers via the Window 7.1
-SDK.  This includes the VS 10 / 2010 command line compilers you need to
-compile Python extensions.  I found that I needed to install from the <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=8442">offline
-ISO files</a>.
-As you will see in the &#8220;Install Instructions&#8221;, choose <code class="docutils literal"><span class="pre">GRMSDK_EN_DVD.iso</span></code>
-for 32-bit compilation and / or <code class="docutils literal"><span class="pre">GRMSDKX_EN_DVD.iso</span></code> for 64-bit compiles.</p>
-<p>I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.
-For Windows 7 / server 2008 I used <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">Virtual clone drive</a> to mount the ISO files.</p>
+<p>For Pythons 3.3 and 3.4 you will need MSVC 2010.</p>
+<div class="section" id="compiling-for-64-bit">
+<h4>Compiling for 64-bit<a class="headerlink" href="#compiling-for-64-bit" title="Permalink to this headline">¶</a></h4>
+<p>For 64-bit compiles, I recommend you get your compilers via the Window 7.1 SDK.
+This includes the VS 10 / 2010 command line compilers you need to compile
+Python extensions.  I found that I needed to install from the <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=8442">offline ISO
+files</a>.  As
+you will see in the &#8220;Install Instructions&#8221;, choose <code class="docutils literal"><span class="pre">GRMSDKX_EN_DVD.iso</span></code> for
+64-bit compiles.</p>
+<p>I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.  For
+Windows 7 / server 2008 I used <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">Virtual clone drive</a> to mount the ISO files.</p>
+<p>To run the install, navigate to the folder <code class="docutils literal"><span class="pre">Setup</span></code> on the DVD image, and run
+<code class="docutils literal"><span class="pre">SDKSetup.exe</span></code>.  Otherwise you may get an error about .NET components that
+cannot be installed.</p>
 <p>Finally, for 64-bits, I needed to apply this patch to avoid a distutils
 compilation error ending in <code class="docutils literal"><span class="pre">ValueError:</span> <span class="pre">['path']</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>echo &quot;C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot; /x64 &gt; &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat&quot;
@@ -278,12 +284,20 @@ for details on installing the Windows 7.1 SDK, and <a class="reference external"
 for specifics on the 64-bit distutils error that can be fixed with the
 <code class="docutils literal"><span class="pre">echo</span></code> command above.</p>
 </div>
+<div class="section" id="compiling-for-32-bit">
+<h4>Compiling for 32-bit<a class="headerlink" href="#compiling-for-32-bit" title="Permalink to this headline">¶</a></h4>
+<p>Download and install the <a class="reference external" href="https://app.vssps.visualstudio.com/profile/review?download=true&amp;family=VisualStudioCExpress&amp;release=VisualStudio2010">MSVC 2010 express edition</a>.</p>
+</div>
+</div>
 <div class="section" id="python-3-5">
 <h3>Python 3.5<a class="headerlink" href="#python-3-5" title="Permalink to this headline">¶</a></h3>
 <p>For Python 3.5 32-bit and 64-bit extensions you need MSVC 14 / 2015. <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015
-community edition</a> is free
-as in beer.  It&#8217;s a huge 11GB install which took more than an hour on my
-machine.</p>
+community edition</a> is free as
+in beer.  It&#8217;s a huge 11GB install which took more than an hour on my machine.
+Do a custom install, and select the VC++ compiler component (it is not selected
+by default).</p>
+<p>There is also a technical preview of <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=49983">MSVC 2015 command line tools</a>, but Python
+3.5 does not detect these tools by default.</p>
 </div>
 </div>
 <div class="section" id="other-options-for-msvc-installation">
@@ -327,7 +341,11 @@ install onto VS express).</li>
 <li><a class="reference internal" href="#visual-studio-versions-used-to-compile-distributed-python-binaries">Visual Studio versions used to compile distributed Python binaries</a></li>
 <li><a class="reference internal" href="#installing-free-versions-of-microsoft-visual-c-c">Installing free versions of Microsoft Visual C / C++</a><ul>
 <li><a class="reference internal" href="#pythons-2-7-and-3-2">Pythons 2.7 (and 3.2)</a></li>
-<li><a class="reference internal" href="#pythons-3-3-and-3-4">Pythons 3.3 and 3.4</a></li>
+<li><a class="reference internal" href="#pythons-3-3-and-3-4">Pythons 3.3 and 3.4</a><ul>
+<li><a class="reference internal" href="#compiling-for-64-bit">Compiling for 64-bit</a></li>
+<li><a class="reference internal" href="#compiling-for-32-bit">Compiling for 32-bit</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#python-3-5">Python 3.5</a></li>
 </ul>
 </li>
@@ -385,7 +403,7 @@ install onto VS express).</li>
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2009, 2010 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
