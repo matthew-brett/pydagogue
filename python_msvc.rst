@@ -127,16 +127,25 @@ and 64 bit extensions without further configuration.  If not, see
 Pythons 3.3 and 3.4
 ===================
 
-For Pythons 3.3 and 3.4 I recommend you get your compilers via the Window 7.1
-SDK.  This includes the VS 10 / 2010 command line compilers you need to
-compile Python extensions.  I found that I needed to install from the `offline
-ISO files <https://www.microsoft.com/en-us/download/details.aspx?id=8442>`_.
-As you will see in the "Install Instructions", choose ``GRMSDK_EN_DVD.iso``
-for 32-bit compilation and / or ``GRMSDKX_EN_DVD.iso`` for 64-bit compiles.
+For Pythons 3.3 and 3.4 you will need MSVC 2010.
 
-I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.
-For Windows 7 / server 2008 I used `Virtual clone drive
+Compiling for 64-bit
+++++++++++++++++++++
+
+For 64-bit compiles, I recommend you get your compilers via the Window 7.1 SDK.
+This includes the VS 10 / 2010 command line compilers you need to compile
+Python extensions.  I found that I needed to install from the `offline ISO
+files <https://www.microsoft.com/en-us/download/details.aspx?id=8442>`_.  As
+you will see in the "Install Instructions", choose ``GRMSDKX_EN_DVD.iso`` for
+64-bit compiles.
+
+I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.  For
+Windows 7 / server 2008 I used `Virtual clone drive
 <http://www.slysoft.com/en/virtual-clonedrive.html>`_ to mount the ISO files.
+
+To run the install, navigate to the folder ``Setup`` on the DVD image, and run
+``SDKSetup.exe``.  Otherwise you may get an error about .NET components that
+cannot be installed.
 
 Finally, for 64-bits, I needed to apply this patch to avoid a distutils
 compilation error ending in ``ValueError: ['path']``::
@@ -150,14 +159,25 @@ for details on installing the Windows 7.1 SDK, and `this SO answer
 for specifics on the 64-bit distutils error that can be fixed with the
 ``echo`` command above.
 
+Compiling for 32-bit
+++++++++++++++++++++
+
+Download and install the `MSVC 2010 express edition
+<https://app.vssps.visualstudio.com/profile/review?download=true&family=VisualStudioCExpress&release=VisualStudio2010>`_.
+
 Python 3.5
 ==========
 
 For Python 3.5 32-bit and 64-bit extensions you need MSVC 14 / 2015. `VS 2015
 community edition
-<https://www.visualstudio.com/products/visual-studio-community-vs>`_ is free
-as in beer.  It's a huge 11GB install which took more than an hour on my
-machine.
+<https://www.visualstudio.com/products/visual-studio-community-vs>`_ is free as
+in beer.  It's a huge 11GB install which took more than an hour on my machine.
+Do a custom install, and select the VC++ compiler component (it is not selected
+by default).
+
+There is also a technical preview of `MSVC 2015 command line tools
+<https://www.microsoft.com/en-us/download/details.aspx?id=49983>`_, but Python
+3.5 does not detect these tools by default.
 
 .. _other-options:
 
