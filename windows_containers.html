@@ -86,9 +86,9 @@ for instructions on downloading images for use in Windows containers.</p>
 See also <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>;</li>
 <li>using Docker.</li>
 </ul>
-<p><strong>*********************************e
-Using Windows containers with Docker
-**********************************</strong></p>
+</div>
+<div class="section" id="using-windows-containers-with-docker">
+<h2>Using Windows containers with Docker<a class="headerlink" href="#using-windows-containers-with-docker" title="Permalink to this headline">¶</a></h2>
 <p>Docker gives a nice interface to starting and using Windows containers.</p>
 <p>Installing the container host features does not install docker, so, to use
 Docker, you will need to <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows">install Docker</a>.</p>
@@ -99,9 +99,10 @@ Docker, you will need to <a class="reference external" href="https://msdn.micros
 </ul>
 <p>To play with a Docker container, you might do something like this, in a
 powershell session with admin privileges:</p>
-<blockquote>
-<div>docker images  # review available images
-docker run -ti &#8211;rm windowsservercore powershell</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>docker images  # review available images
+docker run -ti --rm windowsservercore powershell
+</pre></div>
+</div>
 <p>This will open a new powershell session inside the container.  Exit the
 session to exit the container.</p>
 <p>If you are on Windows server, and you want to use the nano server images with
@@ -114,8 +115,9 @@ containers, use the <code class="docutils literal"><span class="pre">--isolation
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a> for more detail.</p>
+</div>
 <div class="section" id="example-of-installing-into-a-container">
-<h3>Example of installing into a container<a class="headerlink" href="#example-of-installing-into-a-container" title="Permalink to this headline">¶</a></h3>
+<h2>Example of installing into a container<a class="headerlink" href="#example-of-installing-into-a-container" title="Permalink to this headline">¶</a></h2>
 <p>Here I am installing three versions of Python and the MSVC command line tools
 for Python 2.7 into a container:</p>
 <div class="highlight-python"><div class="highlight"><pre>docker run -ti --rm -v c:\Users\mb312\Downloads:c:\downloads windowsservercore powershell
@@ -149,7 +151,6 @@ msiexec /qb /l*v out.log /i python-3.4.4.amd64.msi TARGETDIR=c:\Python34-x64 | o
 </div>
 </div>
 </div>
-</div>
 
 
           </div>
@@ -162,10 +163,9 @@ msiexec /qb /l*v out.log /i python-3.4.4.amd64.msi TARGETDIR=c:\Python34-x64 | o
 <li><a class="reference internal" href="#">Notes on Windows containers</a><ul>
 <li><a class="reference internal" href="#set-up-for-using-containers">Set up for using containers</a></li>
 <li><a class="reference internal" href="#container-images">Container images</a></li>
-<li><a class="reference internal" href="#using-windows-containers">Using Windows containers</a><ul>
+<li><a class="reference internal" href="#using-windows-containers">Using Windows containers</a></li>
+<li><a class="reference internal" href="#using-windows-containers-with-docker">Using Windows containers with Docker</a></li>
 <li><a class="reference internal" href="#example-of-installing-into-a-container">Example of installing into a container</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
