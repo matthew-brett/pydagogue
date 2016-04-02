@@ -64,7 +64,7 @@ There are two standard ways to use Windows containers:
   <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers>`_;
 * using Docker.
 
-***********************************e
+************************************
 Using Windows containers with Docker
 ************************************
 
@@ -81,7 +81,7 @@ Then see:
 * `managing containers`_.
 
 To play with a Docker container, you might do something like this, in a
-powershell session with admin privileges:
+powershell session with admin privileges::
 
     docker images  # review available images
     docker run -ti --rm windowsservercore powershell
@@ -101,7 +101,7 @@ containers, use the ``--isolation=hyperv`` flag to Docker, as in::
 
 See `Docker containers`_ for more detail.
 
-
+**************************************
 Example of installing into a container
 **************************************
 
