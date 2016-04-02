@@ -100,3 +100,38 @@ containers, use the ``--isolation=hyperv`` flag to Docker, as in::
     docker run -ti --rm --isolation=hyperv nanoserver cmd
 
 See `Docker containers`_ for more detail.
+
+
+Example of installing into a container
+**************************************
+
+Here I am installing three versions of Python and the MSVC command line tools
+for Python 2.7 into a container::
+
+    docker run -ti --rm -v c:\Users\mb312\Downloads:c:\downloads windowsservercore powershell
+
+Then (in the container)::
+
+    cd c:/downloads
+    .\build_container.ps1
+
+Where ``build_container.ps1`` is::
+
+    # Set environment variable for correct code page on Python 2
+    # http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
+    # https://technet.microsoft.com/en-us/library/ff730964.aspx
+    [Environment]::SetEnvironmentVariable("PYTHONIOENCODING", "UTF-8", "Machine")
+    $env:PYTHONIOENCODING="UTF-8"
+    cd c:/downloads
+    # See:
+    # https://www.python.org/download/releases/2.5/msi/
+    # https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx
+    msiexec /qb /l*v out.log /i VCForPython27.msi ALLUSERS=1 | out-host
+    msiexec /qb /l*v out.log /i python-2.7.11.msi | out-host
+    msiexec /qb /l*v out.log /i python-2.7.11.amd64.msi TARGETDIR=c:\Python27-x64 | out-host
+    msiexec /qb /l*v out.log /i python-3.4.4.msi TARGETDIR=c:\Python34 | out-host
+    msiexec /qb /l*v out.log /i python-3.4.4.amd64.msi TARGETDIR=c:\Python34-x64 | out-host
+    # See:
+    # https://docs.python.org/3.5/using/windows.html#installing-without-ui
+    .\python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35 | out-host
+    .\python-3.5.1-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35-x64 | out-host
