@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Notes on Windows containers &mdash; pydagogue 0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="notes-on-windows-containers">
+<h1>Notes on Windows containers<a class="headerlink" href="#notes-on-windows-containers" title="Permalink to this headline">¶</a></h1>
+<p>See: <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/about/about_overview">Windows containers overview</a>.</p>
+<p>There are two types of Windows containers:</p>
+<ul class="simple">
+<li>Windows Server containers - uses host kernel, similar to Linux docker
+container.  These containers can only run on a host with matching kernel.</li>
+<li><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/hyperv_container">Hyper-V containers</a>
+- has own kernel, more like an optimized virtual machine.</li>
+</ul>
+<p>Windows containers use Windows API calls, so a Windows host can only support
+Windows containers.</p>
+<p>One way of using these containers is via a Windows implementation of Docker.</p>
+<p>See this <a class="reference external" href="https://azure.microsoft.com/en-us/blog/containers-docker-windows-and-trends/">blog post</a>
+for more detailed background on Windows containers.</p>
+<div class="section" id="set-up-for-using-containers">
+<h2>Set up for using containers<a class="headerlink" href="#set-up-for-using-containers" title="Permalink to this headline">¶</a></h2>
+<p>To use either type of container on Windows, you will need container host
+support in your OS.  This <a class="reference external" href="http://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview">started with Windows 2016 technical preview 3</a>.</p>
+<ul class="simple">
+<li>A real or virtual machine with an OS that can support containers;</li>
+<li>Container support installed on the OS;</li>
+</ul>
+<p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/container_setup">installing a container host</a>
+for instructions on setting up a virtual machine with container support, and
+<a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/inplace_setup">inplace setup</a>
+for instructions on installing the container host services into Windows server
+2016 tech preview.</p>
+<p>I followed the <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/inplace_setup">inplace setup</a> instructions on a real machine running server
+2016.</p>
+</div>
+<div class="section" id="container-images">
+<h2>Container images<a class="headerlink" href="#container-images" title="Permalink to this headline">¶</a></h2>
+<p>Containers run inside OS &#8220;images&#8221;. See <a class="reference external" href="https://msdn.microsoft.com/virtualization/windowscontainers/management/manage_images">Windows container images</a>
+for instructions on downloading images for use in Windows containers.</p>
+</div>
+<div class="section" id="using-windows-containers">
+<h2>Using Windows containers<a class="headerlink" href="#using-windows-containers" title="Permalink to this headline">¶</a></h2>
+<p>There are two standard ways to use Windows containers:</p>
+<ul class="simple">
+<li>using <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows">powershell</a>.
+See also <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>;</li>
+<li>using Docker.</li>
+</ul>
+<p><strong>*********************************e
+Using Windows containers with Docker
+**********************************</strong></p>
+<p>Docker gives a nice interface to starting and using Windows containers.</p>
+<p>Installing the container host features does not install docker, so, to use
+Docker, you will need to <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows">install Docker</a>.</p>
+<p>Then see:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a>.</li>
+<li><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>.</li>
+</ul>
+<p>To play with a Docker container, you might do something like this, in a
+powershell session with admin privileges:</p>
+<blockquote>
+<div>docker images  # review available images
+docker run -ti &#8211;rm windowsservercore powershell</div></blockquote>
+<p>This will open a new powershell session inside the container.  Exit the
+session to exit the container.</p>
+<p>If you are on Windows server, and you want to use the nano server images with
+Docker, you will need to force docker to use these via Hyper-V containers.
+This is because nano server and Windows server 2016 do not have the same
+kernel, and Windows server containers need to share a kernel with the host.</p>
+<p>To force the creation of Hyper-V containers instead of Windows server
+containers, use the <code class="docutils literal"><span class="pre">--isolation=hyperv</span></code> flag to Docker, as in:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker run -ti --rm --isolation=hyperv nanoserver cmd
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a> for more detail.</p>
+<div class="section" id="example-of-installing-into-a-container">
+<h3>Example of installing into a container<a class="headerlink" href="#example-of-installing-into-a-container" title="Permalink to this headline">¶</a></h3>
+<p>Here I am installing three versions of Python and the MSVC command line tools
+for Python 2.7 into a container:</p>
+<div class="highlight-python"><div class="highlight"><pre>docker run -ti --rm -v c:\Users\mb312\Downloads:c:\downloads windowsservercore powershell
+</pre></div>
+</div>
+<p>Then (in the container):</p>
+<div class="highlight-python"><div class="highlight"><pre>cd c:/downloads
+.\build_container.ps1
+</pre></div>
+</div>
+<p>Where <code class="docutils literal"><span class="pre">build_container.ps1</span></code> is:</p>
+<div class="highlight-python"><div class="highlight"><pre># Set environment variable for correct code page on Python 2
+# http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
+# https://technet.microsoft.com/en-us/library/ff730964.aspx
+[Environment]::SetEnvironmentVariable(&quot;PYTHONIOENCODING&quot;, &quot;UTF-8&quot;, &quot;Machine&quot;)
+$env:PYTHONIOENCODING=&quot;UTF-8&quot;
+cd c:/downloads
+# See:
+# https://www.python.org/download/releases/2.5/msi/
+# https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx
+msiexec /qb /l*v out.log /i VCForPython27.msi ALLUSERS=1 | out-host
+msiexec /qb /l*v out.log /i python-2.7.11.msi | out-host
+msiexec /qb /l*v out.log /i python-2.7.11.amd64.msi TARGETDIR=c:\Python27-x64 | out-host
+msiexec /qb /l*v out.log /i python-3.4.4.msi TARGETDIR=c:\Python34 | out-host
+msiexec /qb /l*v out.log /i python-3.4.4.amd64.msi TARGETDIR=c:\Python34-x64 | out-host
+# See:
+# https://docs.python.org/3.5/using/windows.html#installing-without-ui
+.\python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35 | out-host
+.\python-3.5.1-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35-x64 | out-host
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Notes on Windows containers</a><ul>
+<li><a class="reference internal" href="#set-up-for-using-containers">Set up for using containers</a></li>
+<li><a class="reference internal" href="#container-images">Container images</a></li>
+<li><a class="reference internal" href="#using-windows-containers">Using Windows containers</a><ul>
+<li><a class="reference internal" href="#example-of-installing-into-a-container">Example of installing into a container</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/windows_containers.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2009, 2010 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
