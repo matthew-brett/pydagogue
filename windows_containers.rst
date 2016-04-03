@@ -44,6 +44,8 @@ for instructions on installing the container host services into Windows server
 I followed the `inplace setup`_ instructions on a real machine running server
 2016.
 
+.. _container-images:
+
 ****************
 Container images
 ****************
@@ -80,19 +82,58 @@ Then see:
   <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker>`_.
 * `managing containers`_.
 
-To play with a Docker container, you might do something like this, in a
-powershell session with admin privileges::
+In what follows I'm running in a powershell with admin privileges.
 
-    docker images  # review available images
+To see a list of images that you have installed::
+
+    docker images
+
+On my system, after installing the :ref:`container-images`, I had::
+
+    PS C:\WINDOWS\system32> docker images
+    REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+    windowsservercore       10.0.10586.0        6801d964fda5        5 months ago        0 B
+    nanoserver              10.0.10586.0        8572198a60f1        5 months ago        0 B
+
+``windowsservercore`` is an image containing a minimal Windows Server core
+instance.  ``nanoserver`` contains a `nanoserver
+<https://technet.microsoft.com/en-us/library/mt126167.aspx>`_ instance.
+
+For convenience, you might like to tag the ``windowsservercore`` and
+``nanoserver`` images as being the ``latest``.  ``latest`` is the default tag
+that docker uses when selecting a version of the image, so when you ask for
+``windowsservercore``, it implies (image name:tag)
+``windowsservercore:latest``.  If you don't add these tags, you will need to
+give the tag explicitly, as in ``windowservercore:10.0.10586.0``.  Add the
+``latest`` tags with::
+
+    docker tag windowsservercore:10.0.10586.0 windowsservercore:latest
+    docker tag nanoserver:10.0.10586.0 nanoserver:latest
+
+You might then get something like this::
+
+    PS C:\WINDOWS\system32> docker images
+    REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+    windowsservercore       10.0.10586.0        6801d964fda5        5 months ago        0 B
+    windowsservercore       latest              6801d964fda5        5 months ago        0 B
+    nanoserver              10.0.10586.0        8572198a60f1        5 months ago        0 B
+    nanoserver              latest              8572198a60f1        5 months ago        0 B
+
+To play with a Docker container, you might do something like this::
+
     docker run -ti --rm windowsservercore powershell
 
 This will open a new powershell session inside the container.  Exit the
 session to exit the container.
 
-If you are on Windows server, and you want to use the nano server images with
-Docker, you will need to force docker to use these via Hyper-V containers.
-This is because nano server and Windows server 2016 do not have the same
-kernel, and Windows server containers need to share a kernel with the host.
+Notice that, if we had not done the ``docker tag`` commands above, we would
+have to give the tag in the docker command, as in ``docker run -ti --rm
+windowsservercore:10.0.10586.0 powershell``.
+
+If you are on Windows server, and you want to use the nanoserver images, you
+will need to force docker to use these via Hyper-V containers.  This is
+because nanoserver and Windows server 2016 do not have the same kernel, and
+Windows server containers need to share a kernel with the host.
 
 To force the creation of Hyper-V containers instead of Windows server
 containers, use the ``--isolation=hyperv`` flag to Docker, as in::
@@ -119,19 +160,18 @@ Where ``build_container.ps1`` is::
 
     # Set environment variable for correct code page on Python 2
     # http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
-    # https://technet.microsoft.com/en-us/library/ff730964.aspx
     [Environment]::SetEnvironmentVariable("PYTHONIOENCODING", "UTF-8", "Machine")
     $env:PYTHONIOENCODING="UTF-8"
     cd c:/downloads
     # See:
     # https://www.python.org/download/releases/2.5/msi/
     # https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx
-    msiexec /qb /l*v out.log /i VCForPython27.msi ALLUSERS=1 | out-host
-    msiexec /qb /l*v out.log /i python-2.7.11.msi | out-host
-    msiexec /qb /l*v out.log /i python-2.7.11.amd64.msi TARGETDIR=c:\Python27-x64 | out-host
-    msiexec /qb /l*v out.log /i python-3.4.4.msi TARGETDIR=c:\Python34 | out-host
-    msiexec /qb /l*v out.log /i python-3.4.4.amd64.msi TARGETDIR=c:\Python34-x64 | out-host
+    cmd /c msiexec /qn /i VCForPython27.msi ALLUSERS=1
+    cmd /c msiexec /qn /i python-2.7.11.amd64.msi TARGETDIR=c:\Python27-x64
+    cmd /c msiexec /qn /i python-2.7.11.msi
+    cmd /c msiexec /qn /i python-3.4.4.amd64.msi TARGETDIR=c:\Python34-x64
+    cmd /c msiexec /qn /i python-3.4.4.msi TARGETDIR=c:\Python34
     # See:
     # https://docs.python.org/3.5/using/windows.html#installing-without-ui
-    .\python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35 | out-host
-    .\python-3.5.1-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35-x64 | out-host
+    cmd /c python-3.5.1-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35-x64
+    cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
