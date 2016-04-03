@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pydagogue'
-copyright = u'2009, 2010 - Matthew Brett'
+copyright = u'2009-2016 - Matthew Brett'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
