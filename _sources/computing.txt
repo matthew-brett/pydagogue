@@ -15,6 +15,7 @@ Contents:
    develop_linux
    bare_metal_waf
    windows_dll_links
+   windows_containers
 
 You might also be interested on my `docosx`_ pages about developing on OSX.
 
