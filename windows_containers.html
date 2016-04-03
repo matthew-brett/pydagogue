@@ -66,22 +66,25 @@ for more detailed background on Windows containers.</p>
 <div class="section" id="set-up-for-using-containers">
 <h2>Set up for using containers<a class="headerlink" href="#set-up-for-using-containers" title="Permalink to this headline">¶</a></h2>
 <p>To use either type of container on Windows, you will need container host
-support in your OS.  This <a class="reference external" href="http://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview">started with Windows 2016 technical preview 3</a>.</p>
+support in your OS.  This <a class="reference external" href="http://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview">started with Windows 2016 technical preview 3</a>.
+You will need:</p>
 <ul class="simple">
-<li>A real or virtual machine with an OS that can support containers;</li>
+<li>A real or virtual machine with an OS that can support containers, and</li>
 <li>Container support installed on the OS;</li>
 </ul>
 <p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/container_setup">installing a container host</a>
 for instructions on setting up a virtual machine with container support, and
 <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/inplace_setup">inplace setup</a>
-for instructions on installing the container host services into Windows server
-2016 tech preview.</p>
+for instructions on installing the container host services into a real or
+virtual machine running Windows server 2016 tech preview.</p>
 <p>I followed the <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/inplace_setup">inplace setup</a> instructions on a real machine running server
 2016.</p>
 </div>
 <div class="section" id="container-images">
 <span id="id1"></span><h2>Container images<a class="headerlink" href="#container-images" title="Permalink to this headline">¶</a></h2>
-<p>Containers run inside OS &#8220;images&#8221;. See <a class="reference external" href="https://msdn.microsoft.com/virtualization/windowscontainers/management/manage_images">Windows container images</a>
+<p>Containers run from OS &#8220;images&#8221;.  If the container corresponds to a running operating
+system, then the image corresponds to the hard disk of the OS.  See <a class="reference external" href="https://msdn.microsoft.com/virtualization/windowscontainers/management/manage_images">Windows
+container images</a>
 for instructions on downloading images for use in Windows containers.</p>
 </div>
 <div class="section" id="using-windows-containers">
@@ -251,7 +254,7 @@ cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009, 2010 - Matthew Brett.
+        &copy; Copyright 2009-2016 - Matthew Brett.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>

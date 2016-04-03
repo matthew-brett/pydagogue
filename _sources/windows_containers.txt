@@ -29,8 +29,9 @@ Set up for using containers
 To use either type of container on Windows, you will need container host
 support in your OS.  This `started with Windows 2016 technical preview 3
 <http://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview>`_.
+You will need:
 
-* A real or virtual machine with an OS that can support containers;
+* A real or virtual machine with an OS that can support containers, and
 * Container support installed on the OS;
 
 See `installing a container host
@@ -38,8 +39,8 @@ See `installing a container host
 for instructions on setting up a virtual machine with container support, and
 `inplace setup
 <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/inplace_setup>`_
-for instructions on installing the container host services into Windows server
-2016 tech preview.
+for instructions on installing the container host services into a real or
+virtual machine running Windows server 2016 tech preview.
 
 I followed the `inplace setup`_ instructions on a real machine running server
 2016.
@@ -50,7 +51,9 @@ I followed the `inplace setup`_ instructions on a real machine running server
 Container images
 ****************
 
-Containers run inside OS "images". See `Windows container images
+Containers run from OS "images".  If the container corresponds to a running operating
+system, then the image corresponds to the hard disk of the OS.  See `Windows
+container images
 <https://msdn.microsoft.com/virtualization/windowscontainers/management/manage_images>`_
 for instructions on downloading images for use in Windows containers.
 
