@@ -251,7 +251,8 @@ Stefan van der Walt for several useful suggestions and corrections.
 
 .. [#floor] See `Wikipedia floor / ceiling functions`_. The floor function here
    (and in C and Python and the Wikipedia page) returns the integer closest to
-   positive infinity.  For example, $floor(1.9) == 1, floor(-1.1) == -2$.
+   negative infinity.  For example, ``floor(1.9) == 1``, ``floor(-1.1) ==
+   -2``.
 
 .. [#fancy-rounding] To find the exact closest floating point representation of
    a given number, we have to take into account that large values with exponent $e$
