@@ -20,11 +20,17 @@ Contents:
 
 You might also be interested on my `docosx`_ pages about developing on OSX.
 
-Indices and tables
-==================
+.. the hidden toctree is to avoid warnings during the build.  The
+   gh-pages-intro should probably be retired, `ghp-import` is easier.
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+    :hidden:
+
+    README
+    booting_macs
+    develop_mac
+    gh-pages-intro
+    legacy_package_redux
+    mac_runtime_link
 
 .. include:: links_names.inc
