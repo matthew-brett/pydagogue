@@ -92,13 +92,13 @@ So |--| have no truck with people who try and tell you that you can just use
 git and that you don't need the `deep shit`_. You *do* need the deep shit, but
 the deep shit isn't that deep, and it will take you an hour of your time to
 get all of it.  Then I'm betting that you'll see that the alchemist has
-succeeded at last, and the shit has finally turned into gold.
+succeeded at last, and the |--| er |--| lead has finally turned into gold.
 
 .. _deep shit: http://rogerdudler.github.io/git-guide
 
-So |--| please |--| invest an hour of your life to understand this stuff.
-Concentrate, go slowly, make sure you get it. In return for an hour of your
-life, you will get many happy years for which git will appear in its true
+So |--| please |--| invest a couple of hours of your life to understand this
+stuff.  Concentrate, go slowly, make sure you get it. In return for a couple
+of hours, you will get many happy years for which git will appear in its true
 form, both beautiful and useful.
 
 The one thing about git you really need to understand
@@ -127,8 +127,11 @@ A familiar story
 To understand why git does what it does, we first need to think about what a
 content manager should do, and why we would want one.
 
-As in the `git parable`_ - we'll try and design our own, and then see what
-git has to say.
+If you've read the `git parable`_ (please do), then you'll recognize many of
+the ideas.  Why?  Because they are good ideas, worthy of re-use.
+
+As in the `git parable`_ - we will try and design our own content manager, and
+then see what git has to say.
 
 (To go through this a little more slowly, and with more jokes, you might also
 try my  :doc:`foundation` page).
