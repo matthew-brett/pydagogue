@@ -17,8 +17,15 @@ class WorkVar(CmdAddVar):
     default_cwd = '/working'
 
 
+class WorkOut(WorkRun):
+    """ For displaying output only, with no highlighting
+    """
+    opt_defaults = {'highlighter': 'none', 'hide-code': True}
+
+
 def setup(app):
     app.add_directive('workrun', WorkRun)
     app.add_directive('workvar', WorkVar)
+    app.add_directive('workout', WorkOut)
 
 # vim: set expandtab shiftwidth=4 softtabstop=4 :

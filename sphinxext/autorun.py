@@ -192,14 +192,21 @@ class RunBlock(Directive, LangMixin):
     option_spec = {
         'linenos': flag,
         'hide': flag,
+        'hide-code': flag,
+        'hide-out': flag,
+        'highlighter': unchanged,
         'cwd': unchanged,
         'env-vars-name': unchanged,
         'exe-pre': unchanged,
         'exe-post': unchanged,
         'home': unchanged,
     }
+    opt_defaults = {}
 
     def run(self):
+        # Set default options
+        self.set_opt_defaults()
+        # Run code, collect output
         self.run_prepare()
         params = self.params
         # Get the original code with prefixes
@@ -208,17 +215,25 @@ class RunBlock(Directive, LangMixin):
                 u'\n' + params.prompt_prefix).join(self.content)
         else:
             code = ''
-        # Do env substitution
+        # Do post-run env substitution on code
         code = subst_vars(code, self.get_typed_vars('render'))
         # Do output post-processing
         out = self.process_out()
         # String for rendering
         code_out = u'\n'.join((code, out))
+        if 'hide-code' in self.options:
+            contents = out
+        elif 'hide-out' in self.options:
+            contents = code
+        else:
+            contents = code_out
         # Make nodes
         if 'hide' in self.options:
             return [nodes.comment(code_out, code_out)]
-        literal = nodes.literal_block(code_out, code_out)
-        literal['language'] = params.language
+        literal = nodes.literal_block(contents, contents)
+        literal['language'] = (self.options['highlighter']
+                               if 'highlighter' in self.options
+                               else params.language)
         literal['linenos'] = 'linenos' in self.options
         return [literal]
 
@@ -226,6 +241,12 @@ class RunBlock(Directive, LangMixin):
         """ A hook to add extra processing for out
         """
         return self.params.out
+
+    def set_opt_defaults(self):
+        """ Set default options """
+        for key, value in self.opt_defaults.items():
+            if key not in self.options:
+                self.options[key] = value
 
 
 SPLITTER_RE = re.compile(r'.. \|(.*)\| replace:: (.*)')
@@ -266,6 +287,23 @@ class LinksMixin(object):
 
 
 class CmdAddVar(Directive, LangMixin, VarsMixin, LinksMixin):
+    """ Define variables to use during run / render of code blocks
+
+    Variables can be of three types:
+
+    * 'run' : variables available for use in code, substituted before code is
+      run;
+    * 'render' : variables substituted after code has run;
+    * 'common' : variables defined for both 'run' and 'render'.
+
+    Variable substitution if of jinja type with "Some {{ var }} here" becoming
+    "some var_value here" where ``var = 'var_value'``.
+
+    Of course, you'll nearly always have to define both a 'run' and a 'render'
+    version of the same-named variable, otherwise the "{{ var }}" part of the
+    expression will either break your code ('run' not defined) or look bad
+    ('render' not defined).
+    """
     has_content = True
     required_arguments = 1
     optional_arguments = 1
