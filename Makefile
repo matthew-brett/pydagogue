@@ -95,6 +95,16 @@ gitwash-update:
 	    --project-url=http://github.com/matthew-brett/gitwash \
 	    --project-ml-url=http://mail.scipy.org/mailman/listinfo/nipy-devel
 
+nobel0:
+	# Make the first draft of the Nobel prize-worthy analysis
+	rm -rf nobel_prize
+	mkdir nobel_prize
+	cp tools/clever_analysis.py nobel_prize
+	cd nobel_prize && python ../tools/make_expensive_data.py && \
+		python clever_analysis.py
+	zip -r nobel_prize.zip nobel_prize
+	rm -rf nobel_prize
+
 git-clean: clean
 	# The git repositories need hand deletion because they don't get cleaned up
 	# by git clean
