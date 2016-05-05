@@ -143,50 +143,53 @@ does these tasks for us.
 The story so far...
 ===================
 
-You are writing a breakthrough paper showing that you can entirely
-explain the brain using random numbers. You've got the draft paper, and
-the analysis script and a figure for the paper. These are all in a
-directory modestly named ``nobel_prize``.
+You are writing a breakthrough paper showing that you can explain how the
+brain works by careful processing of some interesting data.
+You've got the analysis script, the data file and a figure for the paper.
+These are all in a directory modestly named ``nobel_prize``.
 
-In this directory, you have the paper draft ``nobel_prize_paper.txt``, the
-analysis script ``very_clever_analysis.py``, and a figure for the paper
-``stunning_figure.png``.
-
-You can get this ground-breaking paper by downloading and unzipping
-:download:`nobel_prize_files.zip`.
+You can get this, the first draft, by downloading and unzipping
+:download:`nobel_prize.zip`.
 
 .. workrun::
     :hide:
 
     # clean up old files from previous doc run
     rm -rf nobel_prize repos .gitconfig
-    cp ../nobel_prize_files.zip .
+    unzip -o ../nobel_prize.zip
+    # touch the files in the order we want to see them
+    # (we're using status-change time for sorting in `tree`).
+    for fn in $(ls nobel_prize) ; do
+        touch $fn
+    done
 
-Here I'm using the command line to do the unzip:
+Here's the current contents of our ``nobel_prize`` directory, listed using the
+``tree`` command ([#tree-command]_):
 
-.. desktoprun:: bash
+.. workvar:: mytree
+    :omit_link:
 
-    unzip -o nobel_prize_files.zip
+    echo "tree -hc --charset utf-8"
 
-Here's what we get in our ``nobel_prize`` directory:
+.. workout::
 
-.. desktoprun::
-
-    # List directory contents
-    ls nobel_prize
+    # Show directory contents as tree
+    {{ mytree }} nobel_prize
 
 The dog ate my results
 ======================
 
-You've been working on this paper for a while.
+You've been working on this study for a while.
 
-About 2 weeks ago, you were very excited with the results. You ran the script,
-made the figure, and went to your advisor, Josephine. She was excited too. The
-figure looks good! You get ready to publish in Science.
+At first, you were very excited with the results. You ran the script, made the
+figure, and the figure looked good.  That's the figure we currently have in
+``nobel_prize`` directory. You took this figure to your advisor, Josephine.
+She was excited too. You get ready to publish in Science.
 
-Today you finished cleaning up for the Science paper, and reran the analysis,
-and it doesn't look that good anymore. You go to see Josephine. She says "It
-used to look better than that". That's what you think too. But:
+You've done a few changes to the script and figure since then.  Today you
+finished cleaning up for the Science paper, and reran the analysis, and it
+doesn't look that good anymore. You go to see Josephine. She says "It used to
+look better than that". That's what you think too. But:
 
 * **Did it really look better before?**
 * If it did, **why does it look different now?**
@@ -203,42 +206,69 @@ What are you going to do differently this time?
 Make regular snapshots
 ======================
 
-You decide to make your own content management system called
-*fancy_snapshots*.
-
-It's very simple.
+You decide to make your own content management system.  It's the simplest
+thing that could possibly work.
 
 Every time you finish doing some work on your paper, you make a snapshot
 of the analysis directory.
 
-The snapshot is just a copy of all the files in the directory, kept
-somewhere safe.
+The snapshot is a copy of all the files in the directory, kept somewhere safe.
 
-You make a directory to store the snapshots called ``.fancy_snapshots``:
+First you make a directory called ``working``, and move your current working
+copies of the files to that directory:
 
-.. desktoprun:: bash
+.. prizerun::
+    :hide:
 
-    # Change to nobel_prize directory
-    cd nobel_prize
+    mkdir working
+    mv * working
+
+.. workout::
+
+    {{ mytree }} nobel_prize
 
 .. prizerun::
 
     # Make the ".fancy_snapshots" directory
     mkdir .fancy_snapshots
-
-Then you make a directory for the first backup:
-
-.. prizerun::
-
     mkdir .fancy_snapshots/1
-    mkdir .fancy_snapshots/1/files
 
-And you copy the files there:
+When you've finished work for the day, you make a snapshot of the directory
+containing the files you are working on:
 
 .. prizerun::
 
-    # Copy all files in curent directory to backup directory
-    cp * .fancy_snapshots/1/files
+    # Copy the contents of the working directory to make a snapshot
+    cp -r working snapshot_1
+
+You do this every day you work on the project.
+
+On the second day, you started your draft of the paper, ``nobel_prize.md``.
+
+.. prizerun::
+    :hide:
+
+    cat << EOF > working/nobel_prize.md
+    = Amazing discovery about the brain
+
+    We measured the brain, and found something interesting.
+    EOF
+    cp -r working snapshot_2
+    sleep 1  # To allow touch to have a measurable effect
+    touch working
+
+.. workout::
+
+    {{ mytree }} nobel_prize
+
+On the third day, you did some edits to the analysis script, and refreshed the
+figure by running the script:
+
+.. prizerun::
+    :hide:
+
+    
+
 
 Reminding yourself of what you did
 ==================================
@@ -248,6 +278,7 @@ you did the snapshot, and who did it, and what was new for this snapshot. Call
 this file ``info.txt``.  So, we write something like this:
 
 .. prizewrite::
+    :language: none
 
     # file: .fancy_snapshots/1/info.txt
     Date: April 1 2012, 14.30
@@ -740,7 +771,7 @@ We copy that file to the objects directory as we have for the other files:
 
 .. prizerun::
 
-    cp .fancy_snapshots/1/directory_list .fancy_snapshots/objects/b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
+    cp .fancy_snapshots/1/directory_list .fancy_snapshots/objects/b7c9d682e7d4bf28b82e76fb2276608f49e16d5
 
 We can do the same for the second commit:
 
