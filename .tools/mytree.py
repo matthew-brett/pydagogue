@@ -15,6 +15,12 @@ from __future__ import print_function, division
 
 from os import getcwd, listdir, stat
 from os.path import isdir, basename
+import re
+
+try:
+    string_type = basestring
+except NameError:
+    string_type = str
 
 # Unicode constants for constructing the tree trunk and branches
 ALONG = u'\u2500'
@@ -37,7 +43,8 @@ GB = MB * KB
 def show_tree(root_path=None,
               indent_str=u'',
               show_size=False,
-              dir_sort_func=None):
+              dir_sort_func=None,
+              elide_dirs=None):
     """ Return string with tree structure starting from `root_path`
 
     Parameters
@@ -48,12 +55,16 @@ def show_tree(root_path=None,
     indent_str : str, optional
         prefix to print for every entry in the tree.  Usually '', and then set
         by recursion into the function when printing subdirectories.
-    show_size : {False, True}
+    show_size : {False, True}, optional
         If True, show size next to file name in human readable format.
-    dir_sort_func : None or callable
+    dir_sort_func : None or callable, optional
         If None, sort directory entries by name.  If callable, call with single
         argument ``path`` to return directory entries in desired order.  Paths
         returned are full paths.
+    elide_dirs : None or str or regexp or callable.
+        str containing regexp or regexp or callable identifying directories for
+        which to elide contents.  Elide if regexp matches or callable returns
+        True.  Callable accepts single argument ``path``.
 
     Returns
     -------
@@ -64,6 +75,15 @@ def show_tree(root_path=None,
         root_path = getcwd()
     if dir_sort_func is None:
         dir_sort_func = lambda path: sorted(listdir(path))
+    if elide_dirs is None:
+        elider = lambda path : False
+    elif isinstance(elide_dirs, string_type):
+        elide_re = re.compile(elide_dirs)
+        elider = lambda path: elide_re.search(path) != None
+    elif hasattr(elide_dirs, 'search'):
+        elider = lambda path: elide_re.search(path) != None
+    else:
+        elider = elide_dirs
     # ensure return of unicode paths from listdir
     root_path = unicode(root_path)
     # Full paths returned
@@ -76,6 +96,7 @@ def show_tree(root_path=None,
                                 indent_str,
                                 show_size,
                                 dir_sort_func,
+                                elider,
                                 path == paths[-1]))
     return '\n'.join(lines)
 
@@ -98,7 +119,7 @@ def color_path(path):
 
 
 def path_lines(path, indent_str, show_size=False, dir_sort_func=None,
-               last_entry=False):
+               elider=lambda p: False, last_entry=False):
     """ Return str for single `path`
 
     Parameters
@@ -107,20 +128,23 @@ def path_lines(path, indent_str, show_size=False, dir_sort_func=None,
         file name or directory name
     indent_str : str
         string to prefix to entry for this `path`
-    show_size : {False, True}
+    show_size : {False, True}, optional
         If True, show size next to file name in human readable format.
-    dir_sort_func : None or callable
+    dir_sort_func : None or callable, optional
         If None, sort directory entries by name.  If callable, call with single
         argument ``path`` to return directory entries in desired order.  Paths
         returned are full paths.
+    elider : callable, optional
+        Callable accepting single argument ``path``, returning True if we
+        should elide the contents of directory ``path``.
     last_entry : bool, optional
         Whether this is the last entry in a list of paths.
 
     Returns
     -------
     path_lines : str
-        String representing this path.  A directory will have one line per
-        entry in the directory.
+        String representing this path.  If `path` is a directory will have one
+        line per entry in the directory.
     """
     have_dir = isdir(path)
     sub_path = basename(path)
@@ -129,13 +153,17 @@ def path_lines(path, indent_str, show_size=False, dir_sort_func=None,
     path_str = indent_str + leader + path_colored
     if show_size and not have_dir:
         size = stat(path).st_size
-        path_str += ' [{}]'.format(human_size(size))
-    if have_dir:
-        new_indent = FINISH_INDENT if last_entry else CONTINUE_INDENT
-        subdir_lines = show_tree(path,
-                                 indent_str + new_indent,
-                                 show_size,
-                                 dir_sort_func)
-        if subdir_lines:
-            path_str = path_str + '\n' + subdir_lines
+        path_str += u' [{}]'.format(human_size(size))
+    if not have_dir:
+        return path_str
+    extra_indent = FINISH_INDENT if last_entry else CONTINUE_INDENT
+    indent_str += extra_indent
+    if elider(path):
+        return u'{}\n{}...'.format(path_str, indent_str)
+    subdir_lines = show_tree(path,
+                             indent_str,
+                             show_size,
+                             dir_sort_func)
+    if subdir_lines:
+        path_str = path_str + '\n' + subdir_lines
     return path_str

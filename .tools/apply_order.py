@@ -10,17 +10,21 @@ from os.path import (dirname, join as pjoin, abspath, isdir, isfile, basename,
                      sep as dir_sep)
 from time import strptime, mktime, localtime
 import re
+from argparse import ArgumentParser
 
 MY_PATH = abspath(dirname(__file__))
-DIR_PATH = abspath(pjoin(MY_PATH, '..'))
 
+# Name of the commit message file, used for retrieving commit date
 COMMIT_MSG_FNAME = 'message.txt'
 
+# Format of date recorded in commit message file
 DATE_FMT = 'Date: %B %d %Y, %H.%M'
 
-NOW = mktime(localtime())
-KNOWNS = {'staging': NOW,
-          'working': NOW + 1}
+# Directories will later be sorted by time, with latest first.  Set known
+# directories to be at the top by giving them now + something times.
+_now = mktime(localtime())
+_known_dirs = ('repo', 'staging', 'working')
+KNOWNS = dict(zip(_known_dirs, [_now + i for i in range(len(_known_dirs))]))
 
 SNAPSHOT_RE = re.compile(r'snapshot_(\d+)')
 
@@ -74,18 +78,50 @@ def dir_sort_func(path):
     return dirs + files
 
 
+def get_parser():
+    default_path = abspath(pjoin(MY_PATH, '..'))
+    parser = ArgumentParser()
+    parser.add_argument('root_dir',
+                        default=default_path,
+                        nargs='?',
+                        help='directory for which to show tree repr')
+    parser.add_argument('--hasta', type=str,
+                        help='regex matching line before which to '
+                        'truncate output')
+    parser.add_argument('--elide-dir', action='append',
+                       help='regex(es) for directories to elide')
+    return parser
+
+
+def make_elider(elide_strs):
+    if len(elide_strs) == 0:
+        return lambda p : False
+    elide_res = [re.compile(elide_re) for elide_re in elide_strs]
+
+    def elider(path):
+        for elide_re in elide_res:
+            if elide_re.search(path):
+                return True
+        return False
+
+    return elider
+
+
 def main():
-    root_dir = DIR_PATH if len(sys.argv) <= 1 else sys.argv[1].decode('latin1')
-    hasta = None if len(sys.argv) <= 2 else sys.argv[2].decode('latin1')
+    args = get_parser().parse_args()
     # Basename needs slash removed
+    root_dir = args.root_dir
     if root_dir.endswith(dir_sep):
         root_dir = root_dir[:-1]
+    elider = make_elider(args.elide_dir)
+    hasta = re.compile(args.hasta) if args.hasta else None
     print(color_path(basename(root_dir)))
-    res = show_tree(root_dir, show_size=True, dir_sort_func=dir_sort_func)
+    res = show_tree(root_dir, show_size=True, dir_sort_func=dir_sort_func,
+                    elide_dirs=elider)
     if res is None:
         return
     for line in res.splitlines():
-        if hasta and hasta in line:
+        if hasta and hasta.search(line):
             print('...')
             break
         print(line)
