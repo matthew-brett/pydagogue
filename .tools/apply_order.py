@@ -94,7 +94,7 @@ def get_parser():
 
 
 def make_elider(elide_strs):
-    if len(elide_strs) == 0:
+    if not elide_strs:  # Empty or None
         return lambda p : False
     elide_res = [re.compile(elide_re) for elide_re in elide_strs]
 
