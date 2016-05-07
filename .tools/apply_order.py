@@ -10,9 +10,11 @@ from os.path import (dirname, join as pjoin, abspath, isdir, isfile, basename,
                      sep as dir_sep)
 from time import strptime, mktime, localtime
 import re
+from locale import getpreferredencoding
 from argparse import ArgumentParser
 
 MY_PATH = abspath(dirname(__file__))
+ENCODING = getpreferredencoding()
 
 # Name of the commit message file, used for retrieving commit date
 COMMIT_MSG_FNAME = 'message.txt'
@@ -107,6 +109,10 @@ def make_elider(elide_strs):
     return elider
 
 
+def printout(s):
+    sys.stdout.write((s + '\n').encode(ENCODING))
+
+
 def main():
     args = get_parser().parse_args()
     # Basename needs slash removed
@@ -115,16 +121,16 @@ def main():
         root_dir = root_dir[:-1]
     elider = make_elider(args.elide_dir)
     hasta = re.compile(args.hasta) if args.hasta else None
-    print(color_path(basename(root_dir)))
+    printout(color_path(basename(root_dir)))
     res = show_tree(root_dir, show_size=True, dir_sort_func=dir_sort_func,
                     elide_dirs=elider)
     if res is None:
         return
     for line in res.splitlines():
         if hasta and hasta.search(line):
-            print('...')
+            printout('...')
             break
-        print(line)
+        printout(line)
 
 
 if __name__ == '__main__':
