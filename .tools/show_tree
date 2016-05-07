@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """ Apply ordering to directories in base repo
 
 Print out directory using some custom ordering
@@ -31,7 +32,7 @@ KNOWNS = dict(zip(_known_dirs, [_now + i for i in range(len(_known_dirs))]))
 SNAPSHOT_RE = re.compile(r'snapshot_(\d+)')
 
 sys.path.append(MY_PATH)
-from mytree import show_tree, color_path
+from mytree import TreeMaker
 
 
 def msg_to_secs(msg_file):
@@ -90,23 +91,12 @@ def get_parser():
     parser.add_argument('--hasta', type=str,
                         help='regex matching line before which to '
                         'truncate output')
+    parser.add_argument('--colors', action='store_true')
     parser.add_argument('--elide-dir', action='append',
                        help='regex(es) for directories to elide')
+    parser.add_argument('--unelide-dir', action='append',
+                       help='regex(es) for directories to not elide')
     return parser
-
-
-def make_elider(elide_strs):
-    if not elide_strs:  # Empty or None
-        return lambda p : False
-    elide_res = [re.compile(elide_re) for elide_re in elide_strs]
-
-    def elider(path):
-        for elide_re in elide_res:
-            if elide_re.search(path):
-                return True
-        return False
-
-    return elider
 
 
 def printout(s):
@@ -119,14 +109,17 @@ def main():
     root_dir = args.root_dir
     if root_dir.endswith(dir_sep):
         root_dir = root_dir[:-1]
-    elider = make_elider(args.elide_dir)
     hasta = re.compile(args.hasta) if args.hasta else None
-    printout(color_path(basename(root_dir)))
-    res = show_tree(root_dir, show_size=True, dir_sort_func=dir_sort_func,
-                    elide_dirs=elider)
-    if res is None:
+    tree_maker = TreeMaker(show_size=True,
+                           dir_sort_func=dir_sort_func,
+                           elide_dirs=args.elide_dir,
+                           unelide_dirs=args.unelide_dir,
+                           colors=args.colors)
+    printout(tree_maker.color_path(basename(root_dir)))
+    tree_str = tree_maker.as_string(root_dir)
+    if tree_str is None:
         return
-    for line in res.splitlines():
+    for line in tree_str.splitlines():
         if hasta and hasta.search(line):
             printout('...')
             break
