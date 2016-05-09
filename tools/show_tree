@@ -15,6 +15,7 @@ from locale import getpreferredencoding
 from argparse import ArgumentParser
 
 MY_PATH = abspath(dirname(__file__))
+DEFAULT_PATH = abspath(pjoin(MY_PATH, '..', 'working', 'nobel_prize'))
 ENCODING = getpreferredencoding()
 
 # Name of the commit message file, used for retrieving commit date
@@ -82,10 +83,9 @@ def dir_sort_func(path):
 
 
 def get_parser():
-    default_path = abspath(pjoin(MY_PATH, '..'))
     parser = ArgumentParser()
     parser.add_argument('root_dir',
-                        default=default_path,
+                        default=DEFAULT_PATH,
                         nargs='?',
                         help='directory for which to show tree repr')
     parser.add_argument('--hasta', type=str,

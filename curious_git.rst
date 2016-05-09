@@ -91,6 +91,7 @@ the deep shit isn't that deep, and it will take you an hour of your time to
 get all of it.  Then I'm betting that you'll see that the alchemist has
 succeeded at last, and the |--| er |--| lead has finally turned into gold.
 
+.. _deep:
 .. _deep shit: http://rogerdudler.github.io/git-guide
 
 So |--| please |--| invest a couple of hours of your life to understand this
@@ -162,7 +163,7 @@ Here's the current contents of our ``nobel_prize`` directory:
 .. prizevar:: mytree
     :omit_link:
 
-    echo "./.tools/show_tree"
+    echo "../../tools/show_tree"
 
 .. prizevar:: set-commit
     :omit_link:
@@ -218,7 +219,7 @@ directory:
 .. prizerun::
     :hide:
 
-    {{ set-cmmmit }} to-working
+    {{ set-commit }} to-working
 
 .. prizeout::
 
@@ -231,7 +232,7 @@ working directory:
 .. prizerun::
     :hide:
 
-    {{ set-cmmmit }} first-snapshot
+    {{ set-commit }} first-snapshot
 
 .. prizeout::
 
@@ -244,7 +245,7 @@ On the second day, you add your first draft of the paper, ``nobel_prize.md``:
 .. prizerun::
     :hide:
 
-    {{ set-cmmmit }} add-nobel-prize
+    {{ set-commit }} add-nobel-prize
 
 .. prizeout::
 
@@ -535,7 +536,7 @@ figure, making ``shapshot_7``:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} me-during-conference
+    {{ set-commit }} my-snapshot-7
 
 .. prizeout::
 
@@ -561,43 +562,61 @@ directory:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} me-with-js-changes
+    {{ set-commit }} copy-snapshot-7-j
 
 .. prizeout::
 
     {{ mytree }} --elide staging --hasta snapshot_6
 
-After the copy, you have Josephine's copy of the working tree. You want to
-make your working tree be the combination of your changes and her changes.  To
-do this you do a **merge** by copying your changes to the script and figure
-into the working directory, then making a new commit, by copying these into
-the staging area, and thence to ``snapshot_7``, with a suitable message:
+After the copy, you still have your own copy of the working tree, without
+Josephine's changes to the paper. You want to combine your changes with her
+changes.  To do this you do a **merge** by copying her changes to the paper
+into the working directory.
+
+.. prizerun::
+
+    # Get Josephine's changes to the paper
+    cp snapshot_7_josephine/nobel_prize.md working
+
+Now you do a commit with these merged changes, by copying them into the
+staging area, and thence to ``snapshot_7``, with a suitable message:
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} me-during-conference
+    {{ set-commit }} merge-snapshot-7-j
 
 .. prizeout::
 
-    {{ mytree }} --elide staging --hasta snapshot_7
+    {{ mytree }} --hasta "snapshot_7$"
 
-Now the very difficult problem
-------------------------------
+This new commit is the result of a merge, and therefore it is a **merge
+commit**.
 
-Let's say that the figure ``stunning_figure.png`` is large.
+.. note::
 
-Let's say it changes only once across our 8 commits, at commit 5, but
-we keep copying it again and again to new commits.
+    Merge
+        To make a new **merge commit** by combining changes from two (or
+        more) commits.
 
-What should we do to save disk space for ``.fancy_snapshots``?
+Gitwards 6: how should we name our commit directories?
+======================================================
 
-Cryptographic hashes
---------------------
+You like your new system, and so does Josephine, but you don't much like your
+solution of adding Josephine's name to the commit directory |--| as in
+``snapshot_7_josephine``.  There might be lots of people working on this
+paper.  With your naming system, you have to give out a unique name to each
+person working on ``nobel_prize``.  As you think about this problem, you begin
+to realize that what you want is a system for giving each commit directory a
+unique name, that comes from the contents of the commit.  This is where you
+starting thinking about **hashes**.
 
-This section describes "Crytographic hashes". These are the key to an
-excellent way to store our snapshots.  Later we will see that they are central
-to the way that git works.
+A diversion on cryptographic hashes
+===================================
+
+This section describes "Crytographic hashes". These will give us an excellent
+way to name our snapshots.  Later we will see that they are central to the way
+that git works.
 
 See : `Wikipedia on hash
 functions <http://en.wikipedia.org/wiki/Cryptographic_hash_function>`__.
@@ -621,6 +640,11 @@ not yet apparent. This SHA1 hash is a *cryptographic* hash because:
 * it is (almost) impossible to find some other file contents with the same
   hash.
 
+By "almost impossible" I mean that finding a file with the same hash is
+roughly the same level of difficulty as trying something like $16^40$
+different files (where 16 is the number of different hexadecimal digits, and
+40 is the length of the SHA1 string).
+
 In other words, there is no practical way for you to find another file with
 different contents that will give the same hash.
 
@@ -637,8 +661,120 @@ comes out as ``30ad6c360a692c1fe66335bb00d00e0528346be5``, then I can be very
 sure that the data you gave me was exactly the ASCII string "git is a rude
 word in UK English".
 
-Gitwards 5: saving space with hashes
-====================================
+Gitwards 7: naming commits from hashes
+======================================
+
+Now you have hashing under your belt, maybe it would be a good way of making a
+unique name for the commits.  You could take the SHA1 hash for the
+``message.txt`` for each commit, and use that SHA1 hash as the name for the
+commit directory.  Because each message has the date and time and author, it's
+very unlikely that any two ``message.txt`` files will be the same.  Here are
+the hashes for the current ``message.txt`` files:
+
+.. prizerun::
+
+    # Show the SHA1 hash values for each message.txt
+    shasum snapshot*/message.txt
+
+.. prizevar:: snapshot_1_hash
+
+    shasum snapshot_1/message.txt | awk '{print $1}'
+
+.. prizevar:: snapshot_2_hash
+
+    shasum snapshot_2/message.txt | awk '{print $1}'
+
+For example you could rename the ``snapshot_1`` to |snapshot_1_hash|, then
+rename ``snapshot_2`` to |snapshot_2_hash| and so on:
+
+.. prizeout::
+
+    .tools/mv_shas.sh
+    snapshot_1=$(.tools/name2sha.sh snapshot_1)
+    {{ mytree }} --elide "\S+" --unelide "$snapshot_1"
+
+The problem you have now is that the directory names no longer tell you the
+sequence of the commits, so you can't tell that ``snapshot_2`` (now
+|snapshot_2_hash|) follows ``snapshot_1`` (now |snapshot_1_hash|).
+
+OK |--| you scratch the renaming for now while you have a rethink.
+
+.. prizerun::
+    :hide:
+    {{ set-commit }} HEAD
+
+.. prizeout::
+
+    {{ mytree }} --elide "\S+" --unelide "snapshot_1"
+
+You still want to rename the commit directories, from the ``message.txt``
+hashes, but you need a way to store the sequence of commits, after you have
+done this.
+
+After some thought, you come up with a quite brilliant idea.  Each
+``message.txt`` will point back to the previous commit in the sequence.  You
+add a new field to ``messsage.txt`` called ``Parents``.
+``snapshot_1/message.txt`` stays the same, because it has no parents:
+
+.. prizerun::
+
+    cat snapshot_1/message.txt
+
+``snapshot_2/message.txt`` does change, because it now points back to
+``snapshot_1``.  But, you're going to rename the snapshot directories, so you
+want ``snapshot_2/message.txt`` to point back to the hash for
+``snapshot_1/message.txt``, which we know is |snapshot_1_hash|:
+
+.. prizeout::
+
+    {{ set-commit }} link-commits
+
+.. prizerun::
+
+    cat snapshot_2/message.txt
+
+Now we've changed the contents and therefore the hash for
+``snapshot_2/message.txt``.  The hash was |snapshot_2_hash|, but now it is:
+
+.. prizerun::
+
+    shasum snapshot_2/message.txt
+
+We keep doing this procedure, for all the commits, modifying ``message.txt``
+and recalculating the hash, until we come to ``snapshot_8``, the merge commit.
+This commit is the result of merging two commits: ``snapshot_7`` and
+``snapshot_7_josephine``.  You can record this information by putting *two*
+parents into the ``Parents`` field of ``snapshot_8/message.txt``, being the
+new hashes for ``snapshot_7/message.txt`` and
+``snapshot_7_josephine/message.txt``:
+
+.. prizerun::
+
+    shasum snapshot_7/message.txt
+
+.. prizerun::
+
+    shasum snapshot_7_josephine/message.txt
+
+.. prizerun::
+
+    cat snapshot_8/message.txt
+
+With the new ``Parents`` field, you have new hashes for all the
+``message.txt`` files, except ``snapshot_1`` (that has no parent):
+
+.. prizerun::
+
+    shasum snapshot_*/message.txt
+
+You can now rename your snapshot directories with the hash values, safe in the
+knowledge that the ``message.txt`` files have the information about the commit
+sequence:
+
+.. prizeout::
+
+    snapshot_1=$(.tools/name2sha.sh snapshot_1)
+    {{ mytree }} --elide "\S+" --unelide "$snapshot_1"
 
 .. Hashing files (blobs)
 
@@ -996,8 +1132,6 @@ files, directories and commits, commits linked by reference to their parents,
 the staging area, and the ``objects`` directory.
 
 Armed with this deep_ understanding, we start to explore git.
-
-.. _deep: http://rogerdudler.github.io/git-guide
 
 .. note::
 
