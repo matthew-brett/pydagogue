@@ -224,13 +224,6 @@ directory:
 
     {{ mytree }}
 
-.. prizerun::
-    :hide:
-
-    # Make the ".fancy_snapshots" directory
-    mkdir .fancy_snapshots
-    mkdir .fancy_snapshots/1
-
 When you've finished work for the day, you make a snapshot of the directory
 containing the files you are working on.  The snapshot is just a copy of your
 working directory:
@@ -280,6 +273,14 @@ figure by running the script.  You did a third snapshot.
 
     {{ mytree }}
 
+To make the directory listing more compact, I'll use ``...`` to mean that I'm
+not showing the contents of that directory.  For example, here's a listing of
+the three snapshots, but only showing the contents of the third snapshot:
+
+.. prizeout::
+
+    {{ mytree }} --elide snapshot --unelide snapshot_3
+
 Finally, on the fourth day, you make some more edits to the script, and some
 edits to the paper.
 
@@ -290,7 +291,7 @@ edits to the paper.
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ mytree }} --elide snapshot --unelide snapshot_4
 
 You are ready for your fateful meeting with Josephine.  Again she notices that
 the figure is different from the first time you showed her.  This time you can
@@ -464,28 +465,122 @@ Now we can add a new term to our vocabulary:
         changes.  We make the new **commit** from the contents of the
         **staging area**.
 
-.. Delete following when possible
+Gitwards 4: getting files from previous commits
+===============================================
+
+Remember that you found the figure had changed?
+
+You also found that the problem was in the third commit.
+
+Now you look back over the commits, you realize that your first draft of the
+analysis script was correct, and you decide to restore that.
+
+To do that, you will **checkout** the script from the first commit
+(``snapshot_1``).  You also want to checkout the generated figure.
+
+Following our new standard staging workflow, that means:
+
+* Get the files you want from the old commit into the working directory, and
+  the staging area;
+* Make a new commit from the staging area.
+
+For our simple system, that looks like this:
+
+.. prizerun::
+
+    # Copy files from old commit to working tree
+    cp snapshot_1/clever_analysis.py working
+    cp snapshot_1/fancy_figure.png working
+
+.. prizerun::
+
+    # Copy files from working tree to staging area
+    cp working/clever_analysis.py staging
+    cp working/fancy_figure.png staging
+
+Then do the commit by copying ``staging``, and adding a message, to get:
 
 .. prizerun::
     :hide:
 
-    mkdir .fancy_snapshots/staging_area
-    # Make commit directories
-    mkdir -p .fancy_snapshots/{1,2,3,4,5,6,7,8}
-    mkdir .fancy_snapshots/7/files
-    # Copy contents of staging area into commit directory
-    cp .fancy_snapshots/staging_area/* .fancy_snapshots/7/files
+    {{ set-commit }} checkout-script
 
-Gitwards 4: two people working at the same time
+.. prizeout::
+
+    {{ mytree }} --elide snapshot_ --unelide "snapshot_(1|6)"
+
+.. note::
+
+    Checkout (a file)
+        To **checkout** a file is to restore the copy of a file as stored in a
+        particular commit.
+
+Gitwards 5: two people working at the same time
 ===============================================
 
 .. How to have unique ids for the commits / snapshots
 
-Josephine goes on a conference.
+One reason that git is so powerful is that it works very well when more than
+one person is working on the files in parallel.
 
-She makes a commit herself.
+Josephine is impressed with your simple comtent management system, and wants
+to use it to make some edits to the paper.  She takes a copy of your
+``nobel_prize`` directory to put on her laptop.
 
-What should that commit directory be called?
+She goes away for a conference.
+
+While she is away, you do some work on the analysis script, and regenerate the
+figure, making ``shapshot_7``:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} me-during-conference
+
+.. prizeout::
+
+    {{ mytree }} --elide staging --hasta snapshot_6
+
+Meanwhile, Josephine decides to work on the paper.  Following your procedure,
+she makes a commit herself.
+
+What should Josphine's commit directory be called?
+
+She could call it ``snapshot_7``, but then, when she gets back to the lab, and
+gives you her ``nobel_prize`` directory, her copy of ``nobel_prize`` and yours
+will both have a ``snapshot_7`` directory, but they will be different.  It
+would be easy to copy Josephine's directory over yours or yours over
+Josephine's, and lose the work.
+
+For the moment, you decide that Josephine will attach her name to the commit
+directory, to make it clear this is her snapshot.  So, she makes her commit
+into the directory ``snapshot_7_josephine``.  When she comes back from the
+conference, you copy her ``snapshot_7_josephine`` into your ``nobel_prize``
+directory:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} me-with-js-changes
+
+.. prizeout::
+
+    {{ mytree }} --elide staging --hasta snapshot_6
+
+After the copy, you have Josephine's copy of the working tree. You want to
+make your working tree be the combination of your changes and her changes.  To
+do this you do a **merge** by copying your changes to the script and figure
+into the working directory, then making a new commit, by copying these into
+the staging area, and thence to ``snapshot_7``, with a suitable message:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} me-during-conference
+
+.. prizeout::
+
+    {{ mytree }} --elide staging --hasta snapshot_7
 
 Now the very difficult problem
 ------------------------------
@@ -575,6 +670,19 @@ will be different, and this will cause a mess if we try and merge our work.
 What if we use the file hash values as unique filenames?
 
 First we make a directory to put the unique file contents:
+
+
+.. Delete following when possible
+
+.. prizerun::
+    :hide:
+
+    mkdir -p .fancy_snapshots/staging_area
+    # Make commit directories
+    mkdir -p .fancy_snapshots/{1,2,3,4,5,6,7,8}
+    mkdir .fancy_snapshots/7/files
+    # Copy contents of staging area into commit directory
+    cp .fancy_snapshots/staging_area/* .fancy_snapshots/7/files
 
 .. prizerun::
 
