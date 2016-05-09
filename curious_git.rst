@@ -85,9 +85,6 @@ website.
     it early or later in your learning process. I leave it up to you to
     decide.
 
-.. comment yoh -- below you demand an hour while above only 45
-           minutes.  Do not raise stakes! ;-)
-
 So |--| have no truck with people who try and tell you that you can just use
 git and that you don't need the `deep shit`_. You *do* need the deep shit, but
 the deep shit isn't that deep, and it will take you an hour of your time to
@@ -130,11 +127,11 @@ content manager should do, and why we would want one.
 If you've read the `git parable`_ (please do), then you'll recognize many of
 the ideas.  Why?  Because they are good ideas, worthy of re-use.
 
-As in the `git parable`_ - we will try and design our own content manager, and
+As in the `git parable`_, we will try and design our own content manager, and
 then see what git has to say.
 
-(To go through this a little more slowly, and with more jokes, you might also
-try my  :doc:`foundation` page).
+(If you don't mind reading some Python code, and more jokes, then also try my
+:doc:`foundation` page).
 
 While we are designing our own content management system, we will do a lot of
 stuff longhand, to show how things work.  When we get to git, we will find it
@@ -144,9 +141,9 @@ The story so far...
 ===================
 
 You are writing a breakthrough paper showing that you can explain how the
-brain works by careful processing of some interesting data.
-You've got the analysis script, the data file and a figure for the paper.
-These are all in a directory modestly named ``nobel_prize``.
+brain works by careful processing of some interesting data.  You've got the
+analysis script, the data file and a figure for the paper.  These are all in a
+directory modestly named ``nobel_prize``.
 
 You can get this, the first draft, by downloading and unzipping
 :download:`nobel_prize.zip`.
@@ -156,25 +153,26 @@ You can get this, the first draft, by downloading and unzipping
 
     # clean up old files from previous doc run
     rm -rf nobel_prize repos .gitconfig
-    unzip -o ../nobel_prize.zip
-    # touch the files in the order we want to see them
-    # (we're using status-change time for sorting in `tree`).
-    for fn in $(ls nobel_prize) ; do
-        touch $fn
-    done
+    git clone ../nobel_prize
+    cd nobel_prize
+    git checkout before-snapshots
 
-Here's the current contents of our ``nobel_prize`` directory, listed using the
-``tree`` command ([#tree-command]_):
+Here's the current contents of our ``nobel_prize`` directory:
 
-.. workvar:: mytree
+.. prizevar:: mytree
     :omit_link:
 
-    echo "tree -hc --charset utf-8"
+    echo "./.tools/show_tree"
 
-.. workout::
+.. prizevar:: set-commit
+    :omit_link:
+
+    echo "git reset --hard && git clean -fxd && git checkout "
+
+.. prizeout::
 
     # Show directory contents as tree
-    {{ mytree }} nobel_prize
+    {{ mytree }}
 
 The dog ate my results
 ======================
@@ -188,11 +186,11 @@ She was excited too. You get ready to publish in Science.
 
 You've done a few changes to the script and figure since then.  Today you
 finished cleaning up for the Science paper, and reran the analysis, and it
-doesn't look that good anymore. You go to see Josephine. She says "It used to
-look better than that". That's what you think too. But:
+doesn't quite the same. You go to see Josephine. She says "It used to look
+better than that". That's what you think too. But:
 
-* **Did it really look better before?**
-* If it did, **why does it look different now?**
+* **Did it really look different before?**
+* If it did, **what caused the change in the figure?**
 
 Deja vu all over again
 ======================
@@ -203,8 +201,8 @@ start again.
 
 What are you going to do differently this time?
 
-Make regular snapshots
-======================
+Gitwards 1: make regular snapshots
+==================================
 
 You decide to make your own content management system.  It's the simplest
 thing that could possibly work.
@@ -212,302 +210,285 @@ thing that could possibly work.
 Every time you finish doing some work on your paper, you make a snapshot
 of the analysis directory.
 
-The snapshot is a copy of all the files in the directory, kept somewhere safe.
+The snapshot is a copy of all the files in the working directory.
 
-First you make a directory called ``working``, and move your current working
-copies of the files to that directory:
+First you make a directory called ``working``, and move your files to that
+directory:
 
 .. prizerun::
     :hide:
 
-    mkdir working
-    mv * working
+    {{ set-cmmmit }} to-working
 
-.. workout::
+.. prizeout::
 
-    {{ mytree }} nobel_prize
+    {{ mytree }}
 
 .. prizerun::
+    :hide:
 
     # Make the ".fancy_snapshots" directory
     mkdir .fancy_snapshots
     mkdir .fancy_snapshots/1
 
 When you've finished work for the day, you make a snapshot of the directory
-containing the files you are working on:
-
-.. prizerun::
-
-    # Copy the contents of the working directory to make a snapshot
-    cp -r working snapshot_1
-
-You do this every day you work on the project.
-
-On the second day, you started your draft of the paper, ``nobel_prize.md``.
+containing the files you are working on.  The snapshot is just a copy of your
+working directory:
 
 .. prizerun::
     :hide:
 
-    cat << EOF > working/nobel_prize.md
-    = Amazing discovery about the brain
+    {{ set-cmmmit }} first-snapshot
 
-    We measured the brain, and found something interesting.
-    EOF
-    cp -r working snapshot_2
-    sleep 1  # To allow touch to have a measurable effect
-    touch working
+.. prizeout::
 
-.. workout::
+    {{ mytree }}
 
-    {{ mytree }} nobel_prize
+You are going to do this every day you work on the project.
+
+On the second day, you add your first draft of the paper, ``nobel_prize.md``:
+
+.. prizerun::
+    :hide:
+
+    {{ set-cmmmit }} add-nobel-prize
+
+.. prizeout::
+
+    {{ mytree }}
+
+At the end of the day you make your second snapshot:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} second-snapshot
+
+.. prizeout::
+
+    {{ mytree }}
 
 On the third day, you did some edits to the analysis script, and refreshed the
-figure by running the script:
+figure by running the script.  You did a third snapshot.
 
 .. prizerun::
     :hide:
 
-    
+    {{ set-commit }} third-snapshot
 
+.. prizeout::
 
-Reminding yourself of what you did
-==================================
+    {{ mytree }}
 
-For good measure, you put a file in the snapshot directory to remind you when
-you did the snapshot, and who did it, and what was new for this snapshot. Call
-this file ``info.txt``.  So, we write something like this:
-
-.. prizewrite::
-    :language: none
-
-    # file: .fancy_snapshots/1/info.txt
-    Date: April 1 2012, 14.30
-    Author: I. M. Awesome
-    Notes: First backup of my amazing idea
-
-Now you have these files in the ``nobel_prize`` directory [#tree-command]_.
-
-.. prizerun::
-
-    # Show representation of directory tree
-    tree -a
-
-Every time you do some work on the files, you back them up in the same
-way. After a few days:
-
-.. prizerun::
-
-    # Append some text to nobel_prize_paper.txt
-    echo "The charts are very impressive" >> nobel_prize_paper.txt
-    # Make a new snapshot
-    mkdir .fancy_snapshots/2
-    mkdir .fancy_snapshots/2/files
-    cp * .fancy_snapshots/2/files  # Copy all working directory files
-
-We make a new ``info.txt`` file describing what is new in this snapshot:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/2/info.txt
-    Date: April 1 2012, 18.03
-    Author: I. M. Awesome
-    Notes: Fruit of enormous thought
-
-The next day we write a little more on our paper:
-
-.. prizerun::
-
-    # Append some more text to nobel_prize_paper.txt
-    echo "The graphs are also compelling" >> nobel_prize_paper.txt
-    # Make another shapshot
-    mkdir .fancy_snapshots/3
-    mkdir .fancy_snapshots/3/files
-    cp * .fancy_snapshots/3/files  # Copy all working directory files
-
-We add a description of these changes:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/3/info.txt
-    Date: April 2 2012, 11.20
-    Author: I. M. Awesome
-    Notes: Now seeing things clearly
-
-After three days of work we have three snapshots in our backup directory:
-
-.. prizerun::
-
-    tree -a
-
-You keep doing this for another couple of days, until again the time comes to
-talk to Josephine. By now you have 5 snapshots.
+Finally, on the fourth day, you make some more edits to the script, and some
+edits to the paper.
 
 .. prizerun::
     :hide:
 
-    # Make the next couple of commits
-    cp -r .fancy_snapshots/3 .fancy_snapshots/4
-    echo "Increasing anxiety" > .fancy_snapshots/4/files/nobel_prize_paper.txt
-    cp -r .fancy_snapshots/3 .fancy_snapshots/5
-    # Copy the other version of the stunning figure
-    cp ../../extras/stunning_figure.png.v2 .fancy_snapshots/5/files/stunning_figure.png
-    echo "random_data[0, 0] = 42" > .fancy_snapshots/5/files/very_clever_analysis.py
+    {{ set-commit }} fourth-snapshot
 
-The future has not changed. Josephine again thinks the results have
-changed. But now - you can check.
+.. prizeout::
 
-You go back and look at the original figure in
-``.fancy_snapshots/1/stunning_figure.png``. It does look different.
+    {{ mytree }}
 
-You go through all the ``.fancy_snapshots`` directories in order, `1, 2, 3, 4,
-5`. It turns out that the figure changes in ``.fancy_snapshots/5``.
+You are ready for your fateful meeting with Josephine.  Again she notices that
+the figure is different from the first time you showed her.  This time you can
+go and look in ``nobel_prize/snapshot_1`` to see if the figure really is
+different.  Then you can go through the snapshots to see where the figure
+changed.
 
-You look in ``.fancy_snapshots/5/info.txt`` and it says::
+You've already got a useful content management system, but you are going to
+make it better.
 
-    Date: April 4 2012, 01.40
-    Author: I. M. Awesome
-    Notes: I always get the best ideas after I have been drinking.
+.. note::
 
-Aha. Then you find the problem in ``very_clever_analysis.py`` very quickly
-since instead of eyeballing the entire script you need to inspect only the
-difference between ``.fancy_snapshots/4/very_clever_analysis.py`` and
-``.fancy_snapshots/5/very_clever_analysis.py`` to find the not so ingenious
-*optimization* you have introduced.
+    We are already at the stage where we can define some `terms
+    <https://www.kernel.org/pub/software/scm/git/docs/gitglossary.html>`_ that
+    apply to our system and that will later apply to git:
 
-You fix ``very_clever_analysis.py``.
+    Commit
+        A completed snapshot. For example, ``snapshot_1`` contains one commit.
 
-You make a new snapshot ``.fancy_snapshots/6``.
+    Working tree
+        The files you are working on in ``nobel_prize/working``.
+
+Gitwards 2: reminding yourself of what you did
+==============================================
+
+.. Add message.txt
+
+Your experience tracking down the change in the figure makes you think that it
+would be good to save a message with each snapshot (commit) to record the
+commit date and something about what changes you made.  Next time you need
+to track down when and why something changed, you can look at the message to
+give yourself an idea of the changes in the commit.  That might save you
+time when you want to narrow down where to look for problems.
+
+So, for each commit, you write write a file called ``message.txt``. The
+message for the first commit looks like this:
 
 .. prizerun::
     :hide:
 
-    # Cheat to make a new commit
-    cp -r .fancy_snapshots/3 .fancy_snapshots/6
-
-Back on track for a scientific breakthrough.
-
-Terminology breakout
-====================
-
-Here are some
-`terms <https://www.kernel.org/pub/software/scm/git/docs/gitglossary.html>`__.
-
-Working tree
-    The files you are working on in the current directory (``nobel_prize``).
-    The files ``very_clever_analysis.py``, ``nobel_prize_paper.txt``,
-    ``stunning_figure.png`` are the files in your working tree.
-
-Repository
-    The directory containing the snapshots. Your directory ``.fancy_snapshot``
-    is the repository.
-
-Commit
-    A completed snapshot. For example, ``.fancy_snapshots/1`` contains one
-    commit.
-
-We'll use these terms to get used to them.
-
-Breaking up work into chunks
-============================
-
-You did some edits to the paper ``nobel_prize_paper.txt`` to edit the
-introduction.
-
-You also had a good idea for the analysis, and did some edits to
-``very_clever_analysis.py``.
-
-You've got used to breaking each new *commit* (snapshot) up into little
-bits of extra work, with their own comments in the ``info.txt``.
-
-You want to make two commits from your changes:
-
-1. a commit containing the changes to ``nobel_prize_paper.txt``, with comment
-   "Changes to introduction";
-2. Another commit that adds the changes to ``very_clever_analysis.py`` with
-   comment "Crazy new analysis"
-
-How can I do that?
-
-The staging area
-================
-
-You adapt the workflow. Each time you have done a commit, you copy the contents of
-the commit to directory ``.fancy_snapshots/staging_area``. That will be the
-default contents to be considered for your next commit.
+    {{ set-commit }} add-messages
 
 .. prizerun::
+    :highlighter: none
+
+    cat snapshot_1/message.txt
+
+There is a similar ``messsage.txt`` file for each commit. For example,
+here's the message for the third commit:
+
+.. prizeout::
+
+    cat snapshot_3/message.txt
+
+This third message is useful because it gives you a hint that this was where
+you made the important change to the script and figure.
+
+.. note::
+
+    Commit message
+        Information about a commit, including the author, date, time, and some
+        information about the changes in the commit, compared to the previous
+        commits.
+
+Gitwards 3: breaking up work into chunks
+========================================
+
+.. the staging area
+
+Now you are used to having the commit messages in ``message.txt``, you aren't
+so pleased with your fourth commit.  You now prefer to break your changes up
+into self-contained chunks of work, with a matching commit message.  But,
+looking at your fourth commit, it looks like you included two separate chunks
+of work:
+
+.. prizeout::
+
+    cat snapshot_4/message.txt
+
+You decide to break this commit into two separate commits:
+
+* A commit with the changes to the analysis script and figure, but without
+  the references;
+* Another commit to add the references.
+
+To do this kind of thing, you adapt the workflow. Each time you have done a
+commit, you copy the contents of the commit to new directory called
+``staging``. This directory will become the contents for your next commit.
+You can add changes from your working tree by copying the changed file into
+``staging``.  When ``staging`` contains the changes you want, you make the
+commit by copying ``staging`` into its own commit directory.
+
+To get started, first you delete the old ``snapshot_4``.  Next you copy the
+contents of ``snapshot_3`` into ``staging``.  You already have the two sets
+of changes ready to stage in ``working``.
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} ready-to-stage
+
+.. prizeout::
+
+    {{ mytree }} --hasta snapshot_2
+
+Call the ``staging`` directory |--| the **staging area**.  Your new sequence
+for making a commit is:
+
+* Make sure the contents of the last commit are in the staging area;
+* Copy any changes for the next commit from the working tree to the staging
+  area;
+* Make the commit by taking a snapshot of the staging area.
+
+We are doing this by hand, but later git will make this much more automatic.
+
+First we copy the changes we want from the working tree to the staging area:
+
+.. prizerun::
+
+    cp working/clever_analysis.py staging
+    cp working/fancy_figure.png staging
+
+The staging directory (staging area) now contains the right files for the
+first of your two commits.
+
+Next you make a commit by copying the staging area to ``snapshot_4`` and
+adding a message:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} commit-analysis
+
+.. prizeout::
+
+    {{ mytree }} --hasta snapshot_3
+
+To finish, you make the second of the two commits.  Remember the sequence:
+
+* Make sure the contents of the last commit are in the staging area;
+* Copy any changes for the next commit from the working tree to the staging
+  area;
+* Make the commit by taking a snapshot of the staging area.
+
+The staging area already contains the contents of the last commit (now
+``snapshot_4``).  You copy the rest of the changes to the staging area:
+
+.. prizerun::
+
+    cp working/references.bib staging
+
+Finally, you do the commit by copying ``staging`` to ``snapshot_5``, and
+adding a commit message:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} commit-refs
+
+.. prizeout::
+
+    {{ mytree }} --hasta snapshot_4
+
+Now we can add a new term to our vocabulary:
+
+.. note::
+
+    Staging area
+        Temporary area that contains the contents of the next commit.  We copy
+        changes from the working tree to the staging area to **stage** those
+        changes.  We make the new **commit** from the contents of the
+        **staging area**.
+
+.. Delete following when possible
+
+.. prizerun::
+    :hide:
 
     mkdir .fancy_snapshots/staging_area
-    cp .fancy_snapshots/6/files/* .fancy_snapshots/staging_area
-    ls .fancy_snapshots/staging_area
-
-Now, you do your edits to ``nobel_prize_paper.txt``, and
-``very_clever_analysis.py`` in your *working tree* (the ``nobel_prize``
-directory). You want to make a new commit containing the changes to the paper
-but not the changes to the script.  You get ready for the next commit with:
-
-.. prizerun::
-
-    cp nobel_prize_paper.txt .fancy_snapshots/staging_area
-
-The staging area now contains all the files for the upcoming commit
-(snapshot). The upcoming commit only has the changes in the paper.
-
-You make the commit by making the usual directories, and copying the contents
-of the staging area into the commit ``files`` directory:
-
-.. prizerun::
-
     # Make commit directories
-    mkdir .fancy_snapshots/7
+    mkdir -p .fancy_snapshots/{1,2,3,4,5,6,7,8}
     mkdir .fancy_snapshots/7/files
     # Copy contents of staging area into commit directory
     cp .fancy_snapshots/staging_area/* .fancy_snapshots/7/files
 
-with message:
+Gitwards 4: two people working at the same time
+===============================================
 
-.. prizewrite::
+.. How to have unique ids for the commits / snapshots
 
-    # file: .fancy_snapshots/7/info.txt
-    Date: April 10 2012, 14.30
-    Author: I. M. Awesome
-    Notes: Changes to introduction
+Josephine goes on a conference.
 
-After we have done the commit this way, by copying the staging area to the
-commit ``files`` directory, the staging area is identical to the contents of
-the commit.  Now you are ready for the next commit, that adds the changes to
-the analysis script.
+She makes a commit herself.
 
-.. prizerun::
-
-    cp very_clever_analysis.py .fancy_snapshots/staging_area
-
-The commit is now *staged* and ready to be saved.
-
-.. prizerun::
-
-    # Our commit procedure; same as last time with "8" instead of "7"
-    mkdir .fancy_snapshots/8
-    mkdir .fancy_snapshots/8/files
-    cp .fancy_snapshots/staging_area/* .fancy_snapshots/8/files
-
-The message is:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/8/info.txt
-    Date: April 10 2012, 14.35
-    Author: I. M. Awesome
-    Notes: Crazy new analysis
-
-Here is what you have in your ``.fancy_snapshots`` directory:
-
-.. prizerun::
-
-    tree -a .fancy_snapshots
+What should that commit directory be called?
 
 Now the very difficult problem
-==============================
+------------------------------
 
 Let's say that the figure ``stunning_figure.png`` is large.
 
@@ -517,7 +498,7 @@ we keep copying it again and again to new commits.
 What should we do to save disk space for ``.fancy_snapshots``?
 
 Cryptographic hashes
-====================
+--------------------
 
 This section describes "Crytographic hashes". These are the key to an
 excellent way to store our snapshots.  Later we will see that they are central
@@ -561,8 +542,12 @@ comes out as ``30ad6c360a692c1fe66335bb00d00e0528346be5``, then I can be very
 sure that the data you gave me was exactly the ASCII string "git is a rude
 word in UK English".
 
+Gitwards 5: saving space with hashes
+====================================
+
+.. Hashing files (blobs)
+
 Hashes make excellent unique file names
-=======================================
 
 Remember that our problem was that many commits may have exactly the same
 contents for individual files.
@@ -633,6 +618,21 @@ filenames, so they will not clash with each other.  If the two figures happen
 to be the same, then they will have the same hash, and the same filename, so
 my object contents and filename will be identical to Josephine's and there is
 still no clash.
+
+Gitwards 6: making the commits unique
+=====================================
+
+.. hashing the directory listing; including hashes in the commit
+
+Gitwards 7: away with the snapshot directories
+==============================================
+
+.. hashing the commits
+
+Gitwards 8: where am I?
+=======================
+
+.. Branches
 
 Building the first commit from unique files
 ===========================================

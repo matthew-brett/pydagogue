@@ -45,6 +45,12 @@ class PrizeVar(WorkVar):
     default_cwd = '/working/nobel_prize'
 
 
+class PrizeOut(PrizeRun):
+    """ For displaying output only, with no highlighting
+    """
+    opt_defaults = {'highlighter': 'none', 'hide-code': True}
+
+
 class LaptopRun(FakeUsbRun):
     prompt_prefix = '[laptop]$ '
     default_cwd = '/working/repos'
@@ -66,6 +72,7 @@ def setup(app):
     app.add_directive('prizerun', PrizeRun)
     app.add_directive('prizecommit', PrizeCommit)
     app.add_directive('prizevar', PrizeVar)
+    app.add_directive('prizeout', PrizeOut)
     app.add_directive('prizewrite', PrizeWrite)
     app.add_directive('laptoprun', LaptopRun)
     app.add_directive('prizelaprun', PrizeLapRun)

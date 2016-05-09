@@ -1,0 +1,3 @@
+[submodule "nobel_prize"]
+	path = nobel_prize
+	url = https://github.com/matthew-brett/nobel_prize.git
