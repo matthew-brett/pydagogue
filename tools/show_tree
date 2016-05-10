@@ -11,29 +11,18 @@ from os.path import (dirname, join as pjoin, abspath, isdir, isfile, basename,
                      sep as dir_sep)
 from time import strptime, mktime, localtime
 import re
-from locale import getpreferredencoding
 from argparse import ArgumentParser
 
-MY_PATH = abspath(dirname(__file__))
-DEFAULT_PATH = abspath(pjoin(MY_PATH, '..', 'working', 'nobel_prize'))
-ENCODING = getpreferredencoding()
-
-# Name of the commit message file, used for retrieving commit date
-COMMIT_MSG_FNAME = 'message.txt'
-
-# Format of date recorded in commit message file
-DATE_FMT = 'Date: %B %d %Y, %H.%M'
+sys.path.append(abspath(dirname(__file__)))
+from nobel_prize import (DEFAULT_PATH, ENCODING, COMMIT_MSG_FNAME, DATE_FMT,
+                         SNAPSHOT_RE)
+from mytree import TreeMaker
 
 # Directories will later be sorted by time, with latest first.  Set known
 # directories to be at the top by giving them now + something times.
 _now = mktime(localtime())
 _known_dirs = ('repo', 'staging', 'working')
 KNOWNS = dict(zip(_known_dirs, [_now + i for i in range(len(_known_dirs))]))
-
-SNAPSHOT_RE = re.compile(r'snapshot_(\d+)')
-
-sys.path.append(MY_PATH)
-from mytree import TreeMaker
 
 
 def msg_to_secs(msg_file):
