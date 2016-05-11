@@ -661,15 +661,17 @@ comes out as ``30ad6c360a692c1fe66335bb00d00e0528346be5``, then I can be very
 sure that the data you gave me was exactly the ASCII string "git is a rude
 word in UK English".
 
+.. _naming-from-hashes:
+
 Gitwards 7: naming commits from hashes
 ======================================
 
 Now you have hashing under your belt, maybe it would be a good way of making a
 unique name for the commits.  You could take the SHA1 hash for the
 ``message.txt`` for each commit, and use that SHA1 hash as the name for the
-commit directory.  Because each message has the date and time and author, it's
-very unlikely that any two ``message.txt`` files will be the same.  Here are
-the hashes for the current ``message.txt`` files:
+commit directory.  Because each message has the date and time and author and
+notes, it's very unlikely that any two ``message.txt`` files will be the same.
+Here are the hashes for the current ``message.txt`` files:
 
 .. prizerun::
 
@@ -789,9 +791,7 @@ Gitwards 8: the development history is a graph
 
 The commits are linked by the "Parents" field in the ``message.txt`` file.  We
 can think of the commits in a graph, where the commits are the nodes, and the
-links between the nodes come from the hashes in the "Parents" field.  The
-graph shows the development history, from now (at the top of the graph) to the
-beginning of development (at the bottom of the graph):
+links between the nodes come from the hashes in the "Parents" field.
 
 .. workrun::
     :hide:
@@ -801,15 +801,29 @@ beginning of development (at the bottom of the graph):
     dot -Tpng -o snapshot_graph1.png snapshot_graph1.dot
     dot -Tpdf -o snapshot_graph1.pdf snapshot_graph1.dot
 
-.. image:: /generated/snapshot_graph1.*
+.. figure:: /generated/snapshot_graph1.*
+
+    Graph of development history for the simple content management system.
+    The most recent commit is at the top, the first commit is at the bottom.
+    Your commits are in blue, Josephine's are in pink.  Each commit label has
+    the hash for the the commit message, and the note in the ``message.txt``
+    file.
 
 Gitwards 9: saving space with file hashes
 =========================================
 
-While you've been working on your system, you've noticed that your snapshot
-system is not efficient on disk space.  For example, every commit / snapshot
-has an indentical copy of the data ``expensive_data.csv``.  If you had bigger
-files or a longer development history, this could be a problem.
+While you've been working on your system, you've noticed that your snapshots
+are not efficient on disk space.  For example, every commit / snapshot has an
+indentical copy of the data ``expensive_data.csv``.  If you had bigger files
+or a longer development history, this could be a problem.
+
+.. prizevar:: snapshot_2_sha
+
+    echo $(.tools/name2sha.sh snapshot_2)
+
+.. prizevar:: snapshot_3_sha
+
+    echo $(.tools/name2sha.sh snapshot_3)
 
 .. prizevar:: snapshot_6_sha
 
@@ -819,15 +833,80 @@ Likewise, ``fancy_figure.png`` and ``clever_analysis.py`` are the same for the
 first two commits, and then again when you reverted to that copy in
 ``snapshot_6`` (that is now commit |snapshot_6_sha|).
 
+You can show these files are the same by checking their hash strings.  If
+their hash strings are different, the files must be different.  All copies of
+``expensive_data.csv`` have the same hash, and are therefore identical:
+
+.. prizevar:: asterisk
+    :omit_link:
+
+    # Because * as in file system glob messes up syntax highlighting in vim
+    echo "*"
+
+.. prizerun::
+
+    shasum {{ asterisk }}/expensive_data.csv
+
+``fancy_figure.png`` is the same for the first two commits, changes for the
+third commit, and reverts back to the same contents at the 6th commit:
+
+.. prizerun::
+
+    # First commit
+    shasum {{ snapshot_1_sha }}/fancy_figure.png
+
+.. prizerun::
+
+    # Second commit
+    shasum {{ snapshot_2_sha }}/fancy_figure.png
+
+.. prizerun::
+
+    # Third commit
+    shasum {{ snapshot_3_sha }}/fancy_figure.png
+
+.. prizerun::
+
+    # Sixth commit
+    shasum {{ snapshot_6_sha }}/fancy_figure.png
+
 You wonder if there is a way to store each unique version of the file just
 once, and make the commits point to the matching version.
 
+First you make a new directory to store files generated from your commits:
+
+.. prizerun::
+
+    mkdir repo
+
+Next you make a sub-directory to store the unique copies of the files in
+commits:
+
+.. prizerun::
+
+    mkdir repo/objects
+
 You play with the idea of calling these unique versions something like
-``fancy_figure.png.v1``, ``fancy_figure.png.v2`` and so on.  You quickly
-realize this is going to get messy when you are working with other people,
-because you may store ``fancy_figure.png.v3`` while Josephine is also working
-on the figure, and is storing her own ``fancy_figure.png.v3``.  You need a
-unique file name for each version of the file.
+``repo/objects/fancy_figure.png.v1``, ``repo/objects/fancy_figure.png.v2`` and
+so on.  You would then need something like a text file called
+``directory_listing.txt`` in the first commit directory to say that the file
+``fancy_figure.png`` for this commit is available at
+``repo/objects/fancy_figure.png.v1``.  This could be something like::
+
+    # directory_listing.txt in first commit
+    fancy_figure.png -> repo/objects/fancy_figure.png.v1
+
+``directory_listing.txt`` for the second commit would point to the same file,
+but the third commit would have something like::
+
+    # directory_listing.txt in third commit
+    fancy_figure.png -> repo/objects/fancy_figure.png.v2
+
+You quickly realize this is going to get messy when you are working with other
+people, because you may store ``repo/objects/fancy_figure.png.v3`` while
+Josephine is also working on the figure, and is storing her own
+``repo/objects/fancy_figure.png.v3``.  You need a unique file name for each
+version of the file.
 
 Now you have your second quite brilliant hashing idea.  Why not use the
 **hash** of the file to make a unique file name?
@@ -838,13 +917,172 @@ For example, here are the hash values for the files in the first commit:
 
     shasum {{ snapshot_1_sha }}/*
 
+.. prizevar:: fancy_figure_v1_sha
+
+    shasum {{ snapshot_1_sha }}/fancy_figure.png | awk '{print $1}'
+
+.. prizevar:: clever_analysis_v1_sha
+
+    shasum {{ snapshot_1_sha }}/clever_analysis.py | awk '{print $1}'
+
+.. prizevar:: expensive_data_sha
+
+    shasum {{ snapshot_1_sha }}/expensive_data.csv | awk '{print $1}'
+
+To store the unique copies, you copy each file in the first commit to
+``repo/objects`` with a unique file name.  **The file name is the hash of the
+file contents**.  For example, the hash for ``fancy_figure.png`` is
+|fancy_figure_v1_sha|.  So, you do:
+
+.. prizerun::
+
+    cp {{ snapshot_1_sha }}/fancy_figure.png repo/objects/{{ fancy_figure_v1_sha }}
+
+The hash values for ``clever_analysis.py`` and ``expensive_data.csv`` are
+|clever_analysis_v1_sha| and |expensive_data_sha| respectively, so:
+
+.. prizerun::
+
+    cp {{ snapshot_1_sha }}/clever_analysis.py repo/objects/{{ clever_analysis_v1_sha }}
+    cp {{ snapshot_1_sha }}/expensive_data.csv repo/objects/{{ expensive_data_sha }}
+
+These hash values become the ``directory_listing.txt`` for the first commit:
+
+.. prizerun::
+    :hide:
+
+    cd {{ snapshot_1_sha }}
+    shasum * | grep -v 'message.txt' > directory_listing.txt
+
+.. prizerun::
+
+    cat {{ snapshot_1_sha }}/directory_listing.txt
+
+Finally, you can delete ``fancy_figure.png``, ``clever_analysis.py`` and
+``expensive_data.csv`` in the first commit directory, because you have them
+backed up in ``repo/objects``.
+
+So far you haven't gained anything much except some odd-looking filenames.
+The payoff comes when you apply the same procedure to the second commit.  Here
+are the hashes for the files in the second commit:
+
+.. prizerun::
+
+    shasum {{ snapshot_2_sha }}/*
+
+.. prizevar:: nobel_prize_v1_sha
+
+    shasum {{ snapshot_2_sha }}/nobel_prize.md | awk '{print $1}'
+
+Remember that, in the second commit, all you did was add the first draft of
+the paper as ``nobel_prize.md``.  So, all the other files in the second commit
+(apart from ``message.txt`` that you are not storing) are the same as for the
+first commit, and therefore have the same hash.  You already have these files
+backed up in ``repo/objects`` so all you need to do is point
+``directory_listing.txt`` at the original copies in ``repo/objects``.
+
+For example, the hash for ``fancy_figure.png`` in the second commit is
+|fancy_figure_v1_sha|.  When you are storing the files for the second commit
+in ``repo/objects``, you notice that you already have a file
+named |fancy_figure_v1_sha| in ``repo/objects``, so you do not copy it a
+second time.  By checking the hashes for each file in the commit, you find
+that the only file you are missing is the new file ``nobel_prize.md``.  This
+has hash |nobel_prize_v1_sha|, so you do a single copy to ``repo/objects``:
+
+.. prizerun::
+
+    # Only one copy needed to store files in second commit
+    cp {{ snapshot_2_sha }}/nobel_prize.md repo/objects/{{ nobel_prize_v1_sha }}
+
+As before, we can make ``directory_listing.txt`` for the second commit by
+recording the hashes of the files:
+
+.. prizerun::
+    :hide:
+
+    cd {{ snapshot_2_sha }}
+    shasum * | grep -v 'message.txt' > directory_listing.txt
+
+.. prizerun::
+
+    cat {{ snapshot_2_sha }}/directory_listing.txt
+
+Before you start this procedure of moving the unique copies into
+``repo/objects``, your whole ``nobel_prize`` directory is size:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} HEAD
+
+.. prizerun::
+
+    # Size of the contents of nobel_prize before moving to repo/objects
+    du -hs .
+
+When you run the procedure above on every commit, moving files to
+``repo/objects``, you have this:
+
+.. prizerun::
+    :hide:
+
+    {{ set-commit }} to-repo-objects
+
+.. prizeout::
+
+    {{ mytree }} --elide working --elide staging .
+
+The whole ``nobel_prize`` directory is now smaller because you have no
+duplicated files:
+
+.. prizerun::
+
+    # Size of the contents of nobel_prize after moving to repo/objects
+    du -hs .
+
+The advantage in size gets larger as your system grows, and you have more
+duplicated files.
+
 Gitwards 10: making the commits unique
 ======================================
 
 .. hashing the directory listing; including hashes in the commit
 
-.. Hashing files (blobs)
+Up in :ref:`naming-from-hashes` you used the hash of ``message.txt`` as a
+nearly unique directory name for the commit.  Your thinking was that it was
+very unlikey that any two commits would have the same author, date, time, and
+note.  We have since added the ``Parents`` field to ``message.txt`` to make it
+even more unlikely.  But |--| it could still happen.  You might be careless
+and make another commit very quickly after the previous, and without a note.
+You could even point back to the same parent.
 
+You would to be even more confident that the commit message is unique to the
+commit, including the contents of the files in the commit.
+
+You now have a way of doing this.   The ``directory_listing.txt`` files
+contain a list of hashes and corresponding file names for this commit
+(snapshot).  For example, here is ``directory_listing.txt`` for the first
+commit:
+
+.. prizerun::
+
+    cat {{ snapshot_1_sha }}/directory_listing.txt
+
+The contents of this file are (very nearly) unique to the contents of the
+files in the snapshot.  If any of the files changed, then the hash of the file
+would change and the corresponding line in ``directory_listing.txt`` would
+change.  If you renamed the file, the name of the file would change and the
+corresponding line in ``directory_listing.txt`` would change.
+
+Now you know what to do.  You take a hash of the ``directory_listing.txt``
+file:
+
+.. prizerun::
+
+    shasum {{ snapshot_1_sha }}/directory_listing.txt
+
+You put this has into a new field in ``message.txt`` called ``Directory
+hash:``::
 
 Gitwards 11: away with the snapshot directories
 ===============================================
@@ -910,12 +1148,11 @@ Initializing the repository
 We first set this ``nobel_prize`` directory to be version controlled with git.
 We start off the working tree with the original files for the paper:
 
-.. prizerun::
+.. desktoprun::
     :hide:
 
-    # Delete the current contents of 'nobel_prize'
-    rm -rf *
-    rm -rf .git
+    rm -rf nobel_prize
+    cp ../nobel_prize_files.zip .
 
 .. desktoprun::
 
