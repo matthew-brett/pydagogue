@@ -676,16 +676,17 @@ the hashes for the current ``message.txt`` files:
     # Show the SHA1 hash values for each message.txt
     shasum snapshot*/message.txt
 
-.. prizevar:: snapshot_1_hash
+.. prizevar:: snapshot_1_sha
 
     shasum snapshot_1/message.txt | awk '{print $1}'
 
-.. prizevar:: snapshot_2_hash
+.. prizevar:: snapshot_2_orig_sha
 
     shasum snapshot_2/message.txt | awk '{print $1}'
 
-For example you could rename the ``snapshot_1`` to |snapshot_1_hash|, then
-rename ``snapshot_2`` to |snapshot_2_hash| and so on:
+For example you could rename the ``snapshot_1`` dirrectory to
+|snapshot_1_sha|, then rename ``snapshot_2`` to |snapshot_2_orig_sha| and so
+on:
 
 .. prizeout::
 
@@ -695,12 +696,13 @@ rename ``snapshot_2`` to |snapshot_2_hash| and so on:
 
 The problem you have now is that the directory names no longer tell you the
 sequence of the commits, so you can't tell that ``snapshot_2`` (now
-|snapshot_2_hash|) follows ``snapshot_1`` (now |snapshot_1_hash|).
+|snapshot_2_orig_sha|) follows ``snapshot_1`` (now |snapshot_1_sha|).
 
 OK |--| you scratch the renaming for now while you have a rethink.
 
 .. prizerun::
     :hide:
+
     {{ set-commit }} HEAD
 
 .. prizeout::
@@ -723,9 +725,10 @@ add a new field to ``messsage.txt`` called ``Parents``.
 ``snapshot_2/message.txt`` does change, because it now points back to
 ``snapshot_1``.  But, you're going to rename the snapshot directories, so you
 want ``snapshot_2/message.txt`` to point back to the hash for
-``snapshot_1/message.txt``, which we know is |snapshot_1_hash|:
+``snapshot_1/message.txt``, which we know is |snapshot_1_sha|:
 
-.. prizeout::
+.. prizerun::
+    :hide:
 
     {{ set-commit }} link-commits
 
@@ -734,7 +737,8 @@ want ``snapshot_2/message.txt`` to point back to the hash for
     cat snapshot_2/message.txt
 
 Now we've changed the contents and therefore the hash for
-``snapshot_2/message.txt``.  The hash was |snapshot_2_hash|, but now it is:
+``snapshot_2/message.txt``.  The hash was |snapshot_2_orig_sha|, but now it
+is:
 
 .. prizerun::
 
@@ -771,356 +775,84 @@ You can now rename your snapshot directories with the hash values, safe in the
 knowledge that the ``message.txt`` files have the information about the commit
 sequence:
 
-.. prizeout::
-
-    snapshot_1=$(.tools/name2sha.sh snapshot_1)
-    {{ mytree }} --elide "\S+" --unelide "$snapshot_1"
-
-.. Hashing files (blobs)
-
-Hashes make excellent unique file names
-
-Remember that our problem was that many commits may have exactly the same
-contents for individual files.
-
-For example, maybe commits 1 through 4 have exactly the same contents for the
-file ``stunning_figure.png``.  The figure changes for commit 5 but stays the
-same through to commit 8.  Can we find a way to store only the two different
-versions of this file, and make our commits point to one of these two
-versions?
-
-We can do this by storing only the two unique versions of
-``stunning_figure.png`` with unique filenames.  Maybe store the first version
-of the file as ``stunning_figure.png.v1`` and the second as
-``stunning_figure.png.v2``.  Then make commits 1 through 4 point to
-``stunning_figure.png.v1`` for ``stunning_figure.png``, and make commits 5
-through 8 point to ``stunning_figure.png.v2``.
-
-But, ``stunning_figure.png.v1`` and ``stunning_figure.png.v2`` are not very
-good unique filenames.  What happens if Josephine and I are working at the
-same time on different copies of ``nobel_prize``, and she and I both make a
-new version of the figure.  My version will be called
-``stunning_figure.png.v3`` and her version will have the same name, but they
-will be different, and this will cause a mess if we try and merge our work.
-
-What if we use the file hash values as unique filenames?
-
-First we make a directory to put the unique file contents:
-
-
-.. Delete following when possible
-
 .. prizerun::
     :hide:
 
-    mkdir -p .fancy_snapshots/staging_area
-    # Make commit directories
-    mkdir -p .fancy_snapshots/{1,2,3,4,5,6,7,8}
-    mkdir .fancy_snapshots/7/files
-    # Copy contents of staging area into commit directory
-    cp .fancy_snapshots/staging_area/* .fancy_snapshots/7/files
+    {{ set-commit }} rename-with-shas
+
+.. prizeout::
+
+    {{ mytree }} --elide "\S+" --unelide "{{snapshot_1_sha}}"
+
+Gitwards 8: the development history is a graph
+==============================================
+
+The commits are linked by the "Parents" field in the ``message.txt`` file.  We
+can think of the commits in a graph, where the commits are the nodes, and the
+links between the nodes come from the hashes in the "Parents" field.  The
+graph shows the development history, from now (at the top of the graph) to the
+beginning of development (at the bottom of the graph):
+
+.. workrun::
+    :hide:
+
+    cd ../generated
+    ../tools/make_dot.py > snapshot_graph1.dot
+    dot -Tpng -o snapshot_graph1.png snapshot_graph1.dot
+    dot -Tpdf -o snapshot_graph1.pdf snapshot_graph1.dot
+
+.. image:: /generated/snapshot_graph1.*
+
+Gitwards 9: saving space with file hashes
+=========================================
+
+While you've been working on your system, you've noticed that your snapshot
+system is not efficient on disk space.  For example, every commit / snapshot
+has an indentical copy of the data ``expensive_data.csv``.  If you had bigger
+files or a longer development history, this could be a problem.
+
+.. prizevar:: snapshot_6_sha
+
+    echo $(.tools/name2sha.sh snapshot_6)
+
+Likewise, ``fancy_figure.png`` and ``clever_analysis.py`` are the same for the
+first two commits, and then again when you reverted to that copy in
+``snapshot_6`` (that is now commit |snapshot_6_sha|).
+
+You wonder if there is a way to store each unique version of the file just
+once, and make the commits point to the matching version.
+
+You play with the idea of calling these unique versions something like
+``fancy_figure.png.v1``, ``fancy_figure.png.v2`` and so on.  You quickly
+realize this is going to get messy when you are working with other people,
+because you may store ``fancy_figure.png.v3`` while Josephine is also working
+on the figure, and is storing her own ``fancy_figure.png.v3``.  You need a
+unique file name for each version of the file.
+
+Now you have your second quite brilliant hashing idea.  Why not use the
+**hash** of the file to make a unique file name?
+
+For example, here are the hash values for the files in the first commit:
 
 .. prizerun::
 
-    mkdir .fancy_snapshots/objects
+    shasum {{ snapshot_1_sha }}/*
 
-We calculate the hash for the first version of the figure:
-
-.. prizerun::
-
-    shasum .fancy_snapshots/1/files/stunning_figure.png
-
-We copy the first version of the figure there using its hash as a unique
-filename:
-
-.. prizerun::
-
-    cp .fancy_snapshots/1/files/stunning_figure.png .fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864
-
-We do the same thing for the second version of the figure:
-
-.. prizerun::
-
-    shasum .fancy_snapshots/5/files/stunning_figure.png
-
-.. prizerun::
-
-    cp .fancy_snapshots/5/files/stunning_figure.png .fancy_snapshots/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f
-
-We will tell commits 1 through 4 to use
-``.fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864`` for
-``stunning_figure.png``.
-
-Commits 5 though 8 will use
-``.fancy_snapshots/objects/f86b56e97a3378f313eccadf78ab0a74ce56049f`` for
-``stunning_figure.png``.
-
-Now what happens if Josephine and I make different figures and do the same
-procedure of copying to ``.fancy_snapshots/objects``?  If our two figures are
-different, then they will have different hashes, and therefore different
-filenames, so they will not clash with each other.  If the two figures happen
-to be the same, then they will have the same hash, and the same filename, so
-my object contents and filename will be identical to Josephine's and there is
-still no clash.
-
-Gitwards 6: making the commits unique
-=====================================
+Gitwards 10: making the commits unique
+======================================
 
 .. hashing the directory listing; including hashes in the commit
 
-Gitwards 7: away with the snapshot directories
-==============================================
+.. Hashing files (blobs)
+
+
+Gitwards 11: away with the snapshot directories
+===============================================
 
 .. hashing the commits
 
-Gitwards 8: where am I?
-=======================
-
-.. Branches
-
-Building the first commit from unique files
-===========================================
-
-Let's use this idea to build a whole commit.
-
-Copying the files
------------------
-
-So we don't get our commits mixed up, I'll delete everything in the
-``objects`` directory and start again:
-
-.. prizerun::
-
-    rm -rf .fancy_snapshots/objects/*
-
-Copy the figure for the first commit again:
-
-.. prizerun::
-
-    cp .fancy_snapshots/1/files/stunning_figure.png .fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864
-
-Do the same for the other two files in the first commit.
-
-.. prizerun::
-
-    shasum .fancy_snapshots/1/files/nobel_prize_paper.txt
-
-.. prizerun::
-
-    cp .fancy_snapshots/1/files/nobel_prize_paper.txt .fancy_snapshots/objects/3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-
-.. prizerun::
-
-    shasum .fancy_snapshots/1/files/very_clever_analysis.py
-
-.. prizerun::
-
-    cp .fancy_snapshots/1/files/very_clever_analysis.py .fancy_snapshots/objects/e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-We now have three new files in ``.fancy_snapshots/objects``, one corresponding
-to each unique file *contents* we have hashed:
-
-.. prizerun::
-
-    tree -a .fancy_snapshots/objects
-
-Making the directory listing
-----------------------------
-
-We now need to associate the filenames in the commit snapshot with the file
-contents we have just copied to ``.fancy_snapshots/objects``. For example, we
-have to tell the commit that the file named ``stunning_figure.png`` in first
-commit should get its contents from
-``.fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864``.
-
-We do this by making a *directory listing* for the commit:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/1/directory_list
-    Filename                Hash value
-    ========                ==========
-    nobel_prize_paper.txt   3af8809ecb9c6dec33fc7e5ad330e384663f5a0d
-    stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
-    very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-The next commit - saves space!
-==============================
-
-Now we work on the files from the second commit. These are the files in
-``.fancy_snapshots/2/files``.
-
-Remember that we only changed ``nobel_prize_paper.txt`` in this commit.
-
-Do we need to copy ``nobel_prize_papar.txt`` or ``stunning_figure.png`` to the
-objects directory again?
-
-No - because they have not changed.  Because they have not changed, their hash
-values have not changed.  Because their hash values have not changed, and
-because the hash values are unique to the contents, we already have the files
-we need in the ``objects`` directory.
-
-Specifically, because ``.fancy_snapshots/2/stunning_figure.png`` is the same as
-``.fancy_snapshots/1/stunning_figure.png`` we know that the hash is the same,
-and the hash is the one we've already calculated,
-``aff88ecead2c7166770969a54dc855c8b91be864``.  We already have a file
-``.fancy_snapshots/objects/aff88ecead2c7166770969a54dc855c8b91be864``, and we
-know, because the hash values are unique, that this file must contain the
-exact contents of ``.fancy_snapshots/1/stunning_figure.png``, which is also the
-exact contents of ``.fancy_snapshots/2/stunning_figure.png``.
-
-So in general, if we do a hash on a file, and then we find a filename the same
-as this hash in the objects directory, we already have that exact contents
-backed up, and we don't need to do a copy.
-
-Here are the hashes for the files in commit 2:
-
-.. prizerun::
-
-    shasum .fancy_snapshots/2/files/nobel_prize_paper.txt
-    shasum .fancy_snapshots/2/files/stunning_figure.png
-    shasum .fancy_snapshots/2/files/very_clever_analysis.py
-
-We already have files ``aff88ecead2c7166770969a54dc855c8b91be864`` and
-``e7f3ca9157fd7088b6a927a618e18d4bc4712fb6`` in ``.fancy_snapshots/objects``, so
-the only file we need to copy is ``nobel_prize_paper.txt``:
-
-.. prizerun::
-
-    cp .fancy_snapshots/2/files/nobel_prize_paper.txt .fancy_snapshots/objects/90aa1015732676bf63d2d950714a1f11196875fc
-
-Here then is our directory listing for commit 2:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/2/directory_list
-    Filename                Hash value
-    ========                ==========
-    nobel_prize_paper.txt   90aa1015732676bf63d2d950714a1f11196875fc
-    stunning_figure.png     aff88ecead2c7166770969a54dc855c8b91be864
-    very_clever_analysis.py e7f3ca9157fd7088b6a927a618e18d4bc4712fb6
-
-Storing the directory listing as a file
-=======================================
-
-The directory listing is just a text file.  We can store the directory listing
-as we store the other files, by writing an object file with the file hash.
-Here is the hash for the directory listing of the first commit:
-
-.. prizerun::
-
-    shasum .fancy_snapshots/1/directory_list
-
-We copy that file to the objects directory as we have for the other files:
-
-.. prizerun::
-
-    cp .fancy_snapshots/1/directory_list .fancy_snapshots/objects/b7c9d682e7d4bf28b82e76fb2276608f49e16d5
-
-We can do the same for the second commit:
-
-.. prizerun::
-
-    shasum .fancy_snapshots/2/directory_list
-
-.. prizerun::
-
-    cp .fancy_snapshots/2/directory_list .fancy_snapshots/objects/4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
-
-Would I get the same hash for the directory listing if I had had a different
-figure? (answer [#list-figure]_).
-
-Storing the commit information as a file
-========================================
-
-We've seen that we can make a directory listing file that is unique for the
-whole contents of the snapshot files (file contents and file names).
-Therefore the *hash* of the directory listing file is also unique for the
-contents of the snapshot files.  So, we can make a *commit file* that is the
-``info.txt`` file above, but now with the hash of the directory listing file
-included.  Adding the hash of the directory listing file means that this
-*commit file* is now also unique to the contents of the snapshot.  The commit
-file for the first commit might look something like this:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/1/commit
-    Tree: b7c9cd682e7d4bf28b82e76fb2276608f49e16d5
-    Date: April 1 2012, 14.30
-    Author: I. M. Awesome
-    Notes: First backup of my amazing idea
-
-The ``Tree:`` field gives the hash of the directory listing file for this
-commit.
-
-The commit file for the second commit might look like this:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/2/commit
-    Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
-    Date: April 1 2012, 18.03
-    Author: I. M. Awesome
-    Notes: Fruit of enormous thought
-
-The commit is now just a text file, and I can hash and store this too:
-
-.. prizerun::
-
-    shasum .fancy_snapshots/1/commit
-    shasum .fancy_snapshots/2/commit
-
-.. prizerun::
-
-    cp .fancy_snapshots/1/commit .fancy_snapshots/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
-    cp .fancy_snapshots/2/commit .fancy_snapshots/objects/015447b3e9ec05f476a6daf42484dd28c021e8a7
-
-Would the commit hash value change if the figure changed?  (answer
-[#commit-figure]_).
-
-Now look in ``.fancy_snapshots/objects``:
-
-.. prizerun::
-
-    tree -a .fancy_snapshots/objects
-
-That's 3 file copies for the files from the first commit, 1 file copy from the
-second commit, 2 directory listings (for first and second commit) and two
-commit listings (for the first and second commit) = 8 hash objects.
-
-Linking the commits
-===================
-
-Can we completely get rid of our snapshot directories ``.fancy_snapshots/1``,
-``.fancy_snapshots/2``?
-
-The reason for our commit names "1", "2", "3" was so we know that commit "2"
-comes after commit "1" and before commit "3". Now our commits have hash value
-filenames, we can't tell the order from the name.
-
-However, the commit hash does uniquely identify the commit.  For example, we
-know that the file beginning ``2f5e799`` completely defines the first
-commit:
-
-.. prizerun::
-
-    cat .fancy_snapshots/objects/2f5e799e614b4e80c6f5a035ac29e1d16855e409
-
-We can specify the order by adding the commit hash of the previous (parent)
-commit into the current commit. For example, we can make the second commit
-point back to the first commit like this:
-
-.. prizewrite::
-
-    # file: .fancy_snapshots/2/info.txt
-    Tree: 4f379c649a596d2f9cc2cf5b91f4a67a3101b65e
-    Parent: 2f5e799e614b4e80c6f5a035ac29e1d16855e409
-    Date: April 1 2012, 18.03
-    Author: I. M. Awesome
-    Notes: Fruit of enormous thought
-
-Now we have the order of the commits from the links between them, where the
-links are given by the hash value in the ``Parent:`` field.
+Gitwards 12: where am I?
+========================
 
 ****************************
 Git rides in to save the day
@@ -1183,7 +915,7 @@ We start off the working tree with the original files for the paper:
 
     # Delete the current contents of 'nobel_prize'
     rm -rf *
-    rm -rf .fancy_snapshots
+    rm -rf .git
 
 .. desktoprun::
 
