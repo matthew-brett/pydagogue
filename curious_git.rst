@@ -1456,8 +1456,21 @@ We can see the contents of objects with the command ``git cat-file -p``.
 Just as we expected, it is the current contents of the
 ``clever_analysis.py``.
 
-In fact we only need to give git enough hash digits for git to identify the
-object uniquely.  7 digits nearly always enough, as in:
+The |analysis_1_hash| object is hashed, stored raw file.  Because the object
+is a stored file rather than a stored directory listing text file or commit
+message text file, git calls this type of object a **blob** for Binary Large
+Object.  You can see the object from the object hash with the ``-t`` flag to
+``git cat-file``:
+
+.. prizerun::
+
+    git cat-file -t {{ analysis_1_hash }}
+
+Hash values can usually be abbreviated to seven characters
+==========================================================
+
+We only need to give git enough hash digits for git to identify the object
+uniquely.  7 digits nearly always enough, as in:
 
 .. prizevar:: analysis_1_hash_7
 
@@ -1492,8 +1505,8 @@ An untracked file is a file with a filename that has never been added to the
 repository with ``git add``.  Until you do ``git add`` an untracked file, git
 will ignore these files and assume you don't want to keep track of them.
 
-Staging the other files
-=======================
+Staging the other files with git add
+====================================
 
 We do want to keep track of the other files, so we stage them:
 
@@ -1513,7 +1526,7 @@ We have staged all three of our files.  We have three objects in
 git commit - making the snapshot
 ================================
 
-.. prizecommit:: initial 2012-04-01 14::13
+.. prizecommit:: initial 2012-04-01 14:30:13
 
     git commit -m "First backup of my amazing idea"
 
@@ -1530,9 +1543,9 @@ git commit - making the snapshot
 
 Following the logic of your SAP system, we expect that the action of making
 the commit will generate two new files in ``.git/objects``, one for the
-directory listing, and another for the commit message:
+directory listing text file, and another for the commit message:
 
-.. prizerun::
+.. prizeout::
 
     {{ mytree }} .git/objects
 
@@ -1562,12 +1575,12 @@ Git calls this **tree object**.
 
     git cat-file -p {{ commit_1_tree_sha }}
 
-The directory listing has the file permissions, the type of the entry in the
-directory (where "tree" means a sub-directory, and "blob" means a file), the
-file hashes, and the file names (see :ref:`git-object-types`).
+Each line in the directory listing give the file permissions, the type of the
+entry in the directory (where "tree" means a sub-directory, and "blob" means a
+file), the file hash, and the file name (see :ref:`git-object-types`).
 
-git log - what are the commits so far?
-======================================
+git log |--| what are the commits so far?
+=========================================
 
 .. prizerun::
 
@@ -1588,10 +1601,10 @@ case? (answer [#no-parents]_).
 git branch - which branch are we on?
 ====================================
 
-Branches are bookmarks. They associate a name (like "master") with a commit
-(such as |initial|).
+Branches are bookmarks. They associate a name (like "my_bookmark" or "master")
+with a commit (such as |commit_1_sha|).
 
-The default branch for git is called ``master``. Git creates it
+The default branch (bookmark) for git is called ``master``. Git creates it
 automatically when we do our first commit.
 
 .. prizerun::
@@ -1605,9 +1618,9 @@ particular commit (where the commit is given by a hash):
 
     git branch -v
 
-A branch is just a name that points to a commit.  In fact, git stores branches
-as tiny text files, where the filename is the name of the branch, and the
-contents is the hash of the commit that it points to:
+A branch is nothing but a name that points to a commit.  In fact, git stores
+branches as we did in SAP, as tiny text files, where the filename is the name
+of the branch, and the contents is the hash of the commit that it points to:
 
 .. prizerun::
 
@@ -1620,8 +1633,8 @@ contents is the hash of the commit that it points to:
 We will soon see that, if we are working on a branch, and we do a commit, then
 git will update the branch to point to the new commit.
 
-git diff - what has changed?
-============================
+git diff |--| what has changed?
+===============================
 
 Let's do a little bit more work... Again, in practice you'll be editing
 the files by hand, here we do it via shell commands for the sake of
