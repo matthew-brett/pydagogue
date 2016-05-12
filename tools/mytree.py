@@ -14,7 +14,7 @@ This version is my own copyright (Matthew Brett) released under 2-clause BSD
 from __future__ import print_function, division
 
 from os import getcwd, listdir, stat
-from os.path import isdir, basename
+from os.path import basename, join as pjoin, isfile, isdir
 import re
 
 try:
@@ -144,6 +144,21 @@ class TreeMaker(object):
             return BLUE + path + ENDC
         return path
 
+    def elision_str(self, path):
+        n_files = n_dirs = 0
+        out_parts = []
+        for fname in listdir(path):
+            full_path = pjoin(path, fname)
+            if isfile(full_path):
+                n_files += 1
+            elif isdir(full_path):
+                n_dirs += 1
+        if n_files:
+            out_parts.append(u'%d files' % n_files)
+        if n_dirs:
+            out_parts.append(u'%d directories' % n_dirs)
+        return u'(%s)' % u'; '.join(out_parts)
+
     def _path_lines(self, path, indent_str, last_entry=False):
         """ Return str for single `path`
 
@@ -175,7 +190,9 @@ class TreeMaker(object):
         extra_indent = FINISH_INDENT if last_entry else CONTINUE_INDENT
         indent_str += extra_indent
         if not self.unelider(path) and self.elider(path):
-            return u'{}\n{}...'.format(path_str, indent_str)
+            return u'{}\n{}{}'.format(path_str,
+                                      indent_str,
+                                      self.elision_str(path))
         subdir_lines = self._tree_string(path, indent_str)
         if subdir_lines:
             path_str = path_str + '\n' + subdir_lines
