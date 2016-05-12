@@ -3,6 +3,7 @@
 
 """
 
+import sys
 from os import listdir, makedirs, unlink
 from os.path import abspath, dirname, join as pjoin, isdir, exists
 import shutil
@@ -10,10 +11,9 @@ from glob import glob
 from argparse import ArgumentParser
 from hashlib import sha1
 
-MY_DIR = dirname(__file__)
-REPO_DIR = abspath(pjoin(MY_DIR, '..'))
-COMMIT_MSG_FNAME = 'message.txt'
-DIR_LIST_FNAME = 'directory_listing.txt'
+MY_PATH = dirname(__file__)
+sys.path.append(abspath(MY_PATH))
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME, DIR_LIST_FNAME)
 
 
 def hash_for(fname):
@@ -22,25 +22,29 @@ def hash_for(fname):
     return sha1(contents).hexdigest()
 
 
-def hash_move(fname, object_dir):
-    hash = hash_for(fname)
-    out_fname = pjoin(object_dir, hash)
-    shutil.move(fname, out_fname)
-
-
-def move_snapshot(dir, object_dir):
-    for fname in listdir(dir):
-        path = pjoin(dir, fname)
-        hash_move(path, object_dir)
-    shutil.rmtree(dir)
+def prune_snapshot(snap_dir, object_dir):
+    hashlines = []
+    for fname in sorted(listdir(snap_dir)):
+        if fname == COMMIT_MSG_FNAME:
+            continue
+        in_path = pjoin(snap_dir, fname)
+        hash = hash_for(in_path)
+        out_fname = pjoin(object_dir, hash)
+        if not exists(out_fname):
+            shutil.copy2(in_path, out_fname)
+        unlink(in_path)
+        hashlines.append('{} {}\n'.format(hash, fname))
+    dir_list_path = pjoin(snap_dir, DIR_LIST_FNAME)
+    with open(dir_list_path, 'wt') as fobj:
+        fobj.writelines(hashlines)
 
 
 def get_parser():
     parser = ArgumentParser()
     parser.add_argument('root_dir',
-                        default=REPO_DIR,
+                        default=DEFAULT_PATH,
                         nargs='?',
-                        help='directory for which to move snapshots')
+                        help='directory from which to copy objects')
     return parser
 
 
@@ -54,7 +58,7 @@ def main():
     # Identify snapshot directories by 'message.txt' files
     globber = pjoin(root_dir, '*', COMMIT_MSG_FNAME)
     for message_fname in glob(globber):
-        move_snapshot(dirname(message_fname), object_dir)
+        prune_snapshot(dirname(message_fname), object_dir)
 
 
 if __name__ == '__main__':

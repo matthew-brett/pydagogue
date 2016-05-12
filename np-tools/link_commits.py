@@ -2,11 +2,14 @@
 """ Link commits with hashes of the messages
 """
 
+import sys
 from os.path import (dirname, join as pjoin, abspath)
 
 from hashlib import sha1
 
-COMMIT_MSG_FNAME = 'message.txt'
+MY_PATH = dirname(__file__)
+sys.path.append(abspath(MY_PATH))
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME)
 
 LINKS = (('2', ('1',)),
          ('3', ('2',)),
@@ -18,11 +21,9 @@ LINKS = (('2', ('1',)),
          ('8', ('7', '7_josephine')),
         )
 
-MY_PATH = abspath(dirname(__file__))
-DIR_PATH = abspath(pjoin(MY_PATH, '..'))
 
 def msg_for(suffix):
-    return pjoin(DIR_PATH, 'snapshot_' + suffix, COMMIT_MSG_FNAME)
+    return pjoin(DEFAULT_PATH, 'snapshot_' + suffix, COMMIT_MSG_FNAME)
 
 
 def read_file(fname):

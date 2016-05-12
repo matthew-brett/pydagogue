@@ -7,16 +7,14 @@ from __future__ import print_function
 
 import sys
 from os import listdir
-from os.path import (dirname, join as pjoin, abspath, isdir, isfile, basename,
-                     sep as dir_sep)
+from os.path import (dirname, join as pjoin, abspath, isdir, isfile, basename)
 from time import strptime, mktime, localtime
-import re
-from argparse import ArgumentParser
 
-sys.path.append(abspath(dirname(__file__)))
-from nobel_prize import (DEFAULT_PATH, ENCODING, COMMIT_MSG_FNAME, DATE_FMT,
-                         SNAPSHOT_RE)
-from mytree import TreeMaker
+MY_PATH = dirname(__file__)
+sys.path.append(abspath(MY_PATH))
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME, DATE_FMT, SNAPSHOT_RE)
+sys.path.append(abspath(pjoin(MY_PATH, '..', 'tools')))
+from mytree import output_tree, get_parser as mt_get_parser
 
 # Directories will later be sorted by time, with latest first.  Set known
 # directories to be at the top by giving them now + something times.
@@ -71,48 +69,13 @@ def dir_sort_func(path):
     return dirs + files
 
 
-def get_parser():
-    parser = ArgumentParser()
-    parser.add_argument('root_dir',
-                        default=DEFAULT_PATH,
-                        nargs='?',
-                        help='directory for which to show tree repr')
-    parser.add_argument('--hasta', type=str,
-                        help='regex matching line before which to '
-                        'truncate output')
-    parser.add_argument('--colors', action='store_true')
-    parser.add_argument('--elide-dir', action='append',
-                       help='regex(es) for directories to elide')
-    parser.add_argument('--unelide-dir', action='append',
-                       help='regex(es) for directories to not elide')
-    return parser
-
-
-def printout(s):
-    sys.stdout.write((s + '\n').encode(ENCODING))
-
-
 def main():
-    args = get_parser().parse_args()
-    # Basename needs slash removed
-    root_dir = args.root_dir
-    if root_dir.endswith(dir_sep):
-        root_dir = root_dir[:-1]
-    hasta = re.compile(args.hasta) if args.hasta else None
-    tree_maker = TreeMaker(show_size=True,
-                           dir_sort_func=dir_sort_func,
-                           elide_dirs=args.elide_dir,
-                           unelide_dirs=args.unelide_dir,
-                           colors=args.colors)
-    printout(tree_maker.color_path(basename(root_dir)))
-    tree_str = tree_maker.as_string(root_dir)
-    if tree_str is None:
-        return
-    for line in tree_str.splitlines():
-        if hasta and hasta.search(line):
-            printout('...')
-            break
-        printout(line)
+    parser = mt_get_parser()
+    parser.add_argument('root_dir',
+                        nargs='?',
+                        default=DEFAULT_PATH,
+                        help='directory for which to show tree repr')
+    output_tree(parser.parse_args(), dir_sort_func=dir_sort_func)
 
 
 if __name__ == '__main__':

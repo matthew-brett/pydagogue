@@ -11,8 +11,7 @@ from collections import OrderedDict
 from hashlib import sha1
 
 sys.path.append(abspath(dirname(__file__)))
-from nobel_prize import (DEFAULT_PATH, ENCODING, COMMIT_MSG_FNAME, DATE_FMT,
-                         SNAPSHOT_RE)
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME)
 
 
 class Node(object):
@@ -73,15 +72,6 @@ class Graph(object):
             node_lines=node_lines)
 
 
-def get_parser():
-    parser = ArgumentParser()
-    parser.add_argument('root_dir',
-                        default=DEFAULT_PATH,
-                        nargs='?',
-                        help='directory for which to show tree repr')
-    return parser
-
-
 def parse_message(message):
     msg_info = OrderedDict(parents=[])
     for line in message.splitlines():
@@ -96,6 +86,15 @@ def parse_message(message):
 AUTHOR2NODE_CLASS = {
     'I. M. Awesome': Node,
     'J. S. Rightway': JNode}
+
+
+def get_parser():
+    parser = ArgumentParser()
+    parser.add_argument('root_dir',
+                        default=DEFAULT_PATH,
+                        nargs='?',
+                        help='directory from which to get graph info')
+    return parser
 
 
 def main():

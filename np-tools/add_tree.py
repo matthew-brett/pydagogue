@@ -2,16 +2,16 @@
 """ Link commits with hashes of the messages
 """
 
-from os.path import (dirname, join as pjoin, abspath, isdir, isfile, basename)
+import sys
+from os.path import (dirname, join as pjoin, abspath)
 from glob import glob
 from collections import OrderedDict
 from hashlib import sha1
 from argparse import ArgumentParser
 
-MY_DIR = dirname(__file__)
-REPO_DIR = abspath(pjoin(MY_DIR, '..'))
-COMMIT_MSG_FNAME = 'message.txt'
-DIR_LIST_FNAME = 'directory_listing.txt'
+MY_PATH = dirname(__file__)
+sys.path.append(abspath(MY_PATH))
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME, DIR_LIST_FNAME)
 
 
 def hash_for(fname):
@@ -62,15 +62,6 @@ def write_info(msg_info):
         fobj.write(info2str(msg_info))
 
 
-def get_parser():
-    parser = ArgumentParser()
-    parser.add_argument('root_dir',
-                        default=REPO_DIR,
-                        nargs='?',
-                        help='directory in which to add tree hashes')
-    return parser
-
-
 def find_roots(infos):
     return [i for i in infos if all(i['fixed_parents'])]
 
@@ -87,6 +78,15 @@ def fix_from(root, infos):
             index = info['parents'].index(old_hash)
             info['parents'][index] = new_hash
             info['fixed_parents'][index] = True
+
+
+def get_parser():
+    parser = ArgumentParser()
+    parser.add_argument('root_dir',
+                        default=DEFAULT_PATH,
+                        nargs='?',
+                        help='directory in which to add tree hashes')
+    return parser
 
 
 def main():

@@ -1,7 +1,5 @@
+#!/usr/bin/env python
 """ A little utility to display the structure of directory trees
-
-Don't worry about the detail here, you'll see below what it does.
-The code is not complicated, but it's not relevant to the main points on git.
 
 Inspired by:
 
@@ -13,9 +11,12 @@ This version is my own copyright (Matthew Brett) released under 2-clause BSD
 """
 from __future__ import print_function, division
 
+import sys
 from os import getcwd, listdir, stat
-from os.path import basename, join as pjoin, isfile, isdir
+from os.path import basename, join as pjoin, isfile, isdir, sep as dir_sep
 import re
+from argparse import ArgumentParser
+from locale import getpreferredencoding
 
 try:
     string_type = basestring
@@ -82,10 +83,13 @@ class TreeMaker(object):
         """
         self.show_size = show_size
         self.dir_sort_func = (dir_sort_func if dir_sort_func is not None
-                              else lambda path: sorted(listdir(path)))
+                              else self._default_sort_func)
         self.elider = self._make_check_func(elide_dirs)
         self.unelider = self._make_check_func(unelide_dirs)
         self.colors = bool(colors)
+
+    def _default_sort_func(self, path):
+        return [pjoin(path, f) for f in sorted(listdir(path))]
 
     def _make_check_func(self, check_strs):
         if hasattr(check_strs, '__call__'):
@@ -197,3 +201,53 @@ class TreeMaker(object):
         if subdir_lines:
             path_str = path_str + '\n' + subdir_lines
         return path_str
+
+
+def get_parser():
+    parser = ArgumentParser()
+    parser.add_argument('--hasta', type=str,
+                        help='regex matching line before which to '
+                        'truncate output')
+    parser.add_argument('--colors', action='store_true')
+    parser.add_argument('--no-show-size', action='store_true')
+    parser.add_argument('--elide-dir', action='append',
+                       help='regex(es) for directories to elide')
+    parser.add_argument('--unelide-dir', action='append',
+                       help='regex(es) for directories to not elide')
+    parser.add_argument('--encoding', default=getpreferredencoding(),
+                       help='output encoding')
+    return parser
+
+
+def output_tree(args, dir_sort_func=None):
+    # Basename needs slash removed
+    root_dir = args.root_dir
+    if root_dir.endswith(dir_sep):
+        root_dir = args.root_dir[:-1]
+    hasta = re.compile(args.hasta) if args.hasta else None
+    tree_maker = TreeMaker(show_size=not args.no_show_size,
+                           dir_sort_func=dir_sort_func,
+                           elide_dirs=args.elide_dir,
+                           unelide_dirs=args.unelide_dir,
+                           colors=args.colors)
+    printout = lambda s : sys.stdout.write(s + '\n'.encode(args.encoding))
+    printout(tree_maker.color_path(basename(root_dir)))
+    tree_str = tree_maker.as_string(root_dir)
+    if tree_str is None:
+        return
+    for line in tree_str.splitlines():
+        if hasta and hasta.search(line):
+            printout('...')
+            break
+        printout(line)
+
+
+def main():
+    parser = get_parser()
+    parser.add_argument('root_dir',
+                        help='directory for which to show tree repr')
+    output_tree(parser.parse_args())
+
+
+if __name__ == '__main__':
+    main()
