@@ -206,7 +206,8 @@ Gitwards 1: make regular snapshots
 ==================================
 
 You decide to make your own content management system.  It's the simplest
-thing that could possibly work.
+thing that could possibly work, so you call it the "Simple As Possible"
+system, or SAP for short.
 
 Every time you finish doing some work on your paper, you make a snapshot
 of the analysis directory.
@@ -274,9 +275,10 @@ figure by running the script.  You did a third snapshot.
 
     {{ mytree }}
 
-To make the directory listing more compact, I'll use ``...`` to mean that I'm
-not showing the contents of that directory.  For example, here's a listing of
-the three snapshots, but only showing the contents of the third snapshot:
+To make the directory listing more compact, I'll sometimes show only the
+number of files / directories in a subdirectory.  For example, here's a
+listing of the three snapshots, but only showing the contents of the third
+snapshot:
 
 .. prizeout::
 
@@ -485,7 +487,7 @@ Following our new standard staging workflow, that means:
   the staging area;
 * Make a new commit from the staging area.
 
-For our simple system, that looks like this:
+For our simple SAP system, that looks like this:
 
 .. prizerun::
 
@@ -524,8 +526,8 @@ Gitwards 5: two people working at the same time
 One reason that git is so powerful is that it works very well when more than
 one person is working on the files in parallel.
 
-Josephine is impressed with your simple comtent management system, and wants
-to use it to make some edits to the paper.  She takes a copy of your
+Josephine is impressed with your SAP content management system, and wants to
+use it to make some edits to the paper.  She takes a copy of your
 ``nobel_prize`` directory to put on her laptop.
 
 She goes away for a conference.
@@ -545,7 +547,7 @@ figure, making ``shapshot_7``:
 Meanwhile, Josephine decides to work on the paper.  Following your procedure,
 she makes a commit herself.
 
-What should Josphine's commit directory be called?
+What should Josephine's commit directory be called?
 
 She could call it ``snapshot_7``, but then, when she gets back to the lab, and
 gives you her ``nobel_prize`` directory, her copy of ``nobel_prize`` and yours
@@ -614,7 +616,7 @@ starting thinking about **hashes**.
 A diversion on cryptographic hashes
 ===================================
 
-This section describes "Crytographic hashes". These will give us an excellent
+This section describes "Cryptographic hashes". These will give us an excellent
 way to name our snapshots.  Later we will see that they are central to the way
 that git works.
 
@@ -686,7 +688,7 @@ Here are the hashes for the current ``message.txt`` files:
 
     shasum snapshot_2/message.txt | awk '{print $1}'
 
-For example you could rename the ``snapshot_1`` dirrectory to
+For example you could rename the ``snapshot_1`` directory to
 |snapshot_1_sha|, then rename ``snapshot_2`` to |snapshot_2_orig_sha| and so
 on:
 
@@ -732,7 +734,8 @@ want ``snapshot_2/message.txt`` to point back to the hash for
 .. prizerun::
     :hide:
 
-    {{ set-commit }} link-commits
+    {{ set-commit }} add-tree-tools
+    .tools/link_commits.py
 
 .. prizerun::
 
@@ -780,11 +783,16 @@ sequence:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} rename-with-shas
+    .tools/mv_shas.sh
 
 .. prizeout::
 
     {{ mytree }} --elide "\S+" --unelide "{{snapshot_1_sha}}"
+
+.. note::
+
+    Commit hash
+        The hash value for the file containing the **commit message**.
 
 Gitwards 8: the development history is a graph
 ==============================================
@@ -803,19 +811,18 @@ links between the nodes come from the hashes in the "Parents" field.
 
 .. figure:: /generated/snapshot_graph1.*
 
-    Graph of development history for the simple content management system.
-    The most recent commit is at the top, the first commit is at the bottom.
-    Your commits are in blue, Josephine's are in pink.  Each commit label has
-    the hash for the the commit message, and the note in the ``message.txt``
-    file.
+    Graph of development history for your SAP content management system.  The
+    most recent commit is at the top, the first commit is at the bottom.  Your
+    commits are in blue, Josephine's are in pink.  Each commit label has the
+    hash for the commit message, and the note in the ``message.txt`` file.
 
 Gitwards 9: saving space with file hashes
 =========================================
 
 While you've been working on your system, you've noticed that your snapshots
 are not efficient on disk space.  For example, every commit / snapshot has an
-indentical copy of the data ``expensive_data.csv``.  If you had bigger files
-or a longer development history, this could be a problem.
+identical copy of the data ``expensive_data.csv``.  If you had bigger files or
+a longer development history, this could be a problem.
 
 .. prizevar:: snapshot_2_sha
 
@@ -828,6 +835,10 @@ or a longer development history, this could be a problem.
 .. prizevar:: snapshot_6_sha
 
     echo $(.tools/name2sha.sh snapshot_6)
+
+.. prizevar:: snapshot_8_sha
+
+    echo $(.tools/name2sha.sh snapshot_8)
 
 Likewise, ``fancy_figure.png`` and ``clever_analysis.py`` are the same for the
 first two commits, and then again when you reverted to that copy in
@@ -1013,7 +1024,7 @@ Before you start this procedure of moving the unique copies into
 .. prizerun::
     :hide:
 
-    {{ set-commit }} HEAD
+    rm -rf repo/objects
 
 .. prizerun::
 
@@ -1026,11 +1037,11 @@ When you run the procedure above on every commit, moving files to
 .. prizerun::
     :hide:
 
-    {{ set-commit }} to-repo-objects
+    .tools/to-repo-objects.py
 
 .. prizeout::
 
-    {{ mytree }} --elide working --elide staging .
+    {{ mytree }} --elide ize/working --elide staging
 
 The whole ``nobel_prize`` directory is now smaller because you have no
 duplicated files:
@@ -1050,14 +1061,14 @@ Gitwards 10: making the commits unique
 
 Up in :ref:`naming-from-hashes` you used the hash of ``message.txt`` as a
 nearly unique directory name for the commit.  Your thinking was that it was
-very unlikey that any two commits would have the same author, date, time, and
+very unlikely that any two commits would have the same author, date, time, and
 note.  We have since added the ``Parents`` field to ``message.txt`` to make it
 even more unlikely.  But |--| it could still happen.  You might be careless
 and make another commit very quickly after the previous, and without a note.
 You could even point back to the same parent.
 
-You would to be even more confident that the commit message is unique to the
-commit, including the contents of the files in the commit.
+You would like to be even more confident that the commit message is unique to
+the commit, including the contents of the files in the commit.
 
 You now have a way of doing this.   The ``directory_listing.txt`` files
 contain a list of hashes and corresponding file names for this commit
@@ -1081,49 +1092,197 @@ file:
 
     shasum {{ snapshot_1_sha }}/directory_listing.txt
 
+.. prizerun::
+    :hide:
+
+    .tools/add_tree.py
+
 You put this has into a new field in ``message.txt`` called ``Directory
-hash:``::
+hash:``:
+
+.. prizeout::
+
+    cat {{ snapshot_1_sha }}/message.txt
+
+Now, if any file in the commit changes, ``directory_listing.txt`` will change,
+and so its hash will change, and so ``message.txt`` will change.
+
+Now you've added the ``Directory hash`` field to ``messsage.txt`` you have
+also changed the hash values of the ``message.txt`` files.  Because you've
+changed the hashes of the ``message.txt`` files, you go back through your
+commits updating the parent hashes to the new ones, and renaming the commit
+directories with the new hashes.  You end up with this:
+
+.. prizerun::
+    :hide:
+
+    .tools/mv_shas.sh
+
+.. workrun::
+    :hide:
+
+    cd ../generated
+    ../tools/make_dot.py > snapshot_graph2.dot
+    dot -Tpng -o snapshot_graph2.png snapshot_graph2.dot
+    dot -Tpdf -o snapshot_graph2.pdf snapshot_graph2.dot
+
+.. figure:: /generated/snapshot_graph2.*
+
+    Development history graph with new hashes after adding directory hash
+    field.
+
+With your new system, if any two commits have the same ``message.txt`` then
+they also have the same date, author, note, parents and file contents.  They
+are therefore exactly the same commit.
+
+.. note::
+
+    The commit message is unique to the contents of the files in the snapshot
+    (because of the directory hash) and unique to its previous history
+    (because of the parent hash(es)).
 
 Gitwards 11: away with the snapshot directories
 ===============================================
 
 .. hashing the commits
 
+You are reflecting on your idea about hashing the directory listing, and your
+eye falls idly on the current directory tree of ``nobel_prize``:
+
+.. prizevar:: snapshot_1_with_tree_sha
+
+    echo $(.tools/name2sha.sh {{ snapshot_1_sha }})
+
+.. prizeout::
+
+    {{ mytree }} --elide ize/working --elide staging --elide repo/objects
+
+It suddenly occurs to you |--| you can take the hash of each
+``directory_listing.txt`` and move it into the ``repo/objects`` directory as
+you did for the other files:
+
+.. prizevar:: snapshot_1_tree_hash
+
+    shasum {{ snapshot_1_with_tree_sha }}/directory_listing.txt | awk '{print $1}'
+
+.. prizerun::
+
+    shasum {{ snapshot_1_with_tree_sha }}/directory_listing.txt
+
+.. prizerun::
+
+    cp {{ snapshot_1_with_tree_sha }}/directory_listing.txt repo/objects/{{ snapshot_1_tree_hash }}
+
+And you can do the same for the ``message.txt`` file:
+
+.. prizerun::
+
+    cp {{ snapshot_1_with_tree_sha }}/message.txt repo/objects/{{ snapshot_1_with_tree_sha }}
+
+.. prizevar:: n_commits
+
+    wc .names2sha | awk '{print $1}' 
+
+There are |n_commits| commits, so |n_commits| x 2 new files with hash
+filenames in ``repo/objects`` (a hashed copy of ``directory_listing.txt`` and
+``message.txt`` for each commit).
+
+Now you don't need the snapshot directories at all, because all the
+information about the snapshot is stored in the hashed files in
+``repo/objects``:
+
+.. prizerun::
+    :hide:
+
+    .tools/move-snapshots.py
+
+.. prizeout::
+
+    {{ mytree }} --elide ize/working --elide staging --elide repo/objects
+
+.. note:
+
+    In git as in your SAP content management system, a **repository
+    directory** stores all the data from the snapshots.  In your case that
+    directory is ``repo``.  For git, it will be a directory called ``.git``.
+
 Gitwards 12: where am I?
 ========================
 
-****************************
-Git rides in to save the day
-****************************
+You have one last problem to face |--| where is your latest commit?
 
-Now you have built your own "fancy_snaphots" system, you know how git works
-|--| because it works in exactly the same way.  You will recognize hashes for
-files, directories and commits, commits linked by reference to their parents,
-the staging area, and the ``objects`` directory.
+When your snapshot directory names had numbers, like ``snapshot_8``, you could
+use the numbers to find the most recent commit.  Now all you have is a
+directory called ``repo/objects`` with unhelpful file names made from hashes.
+Which of these files has your latest commit?
 
-Armed with this deep_ understanding, we start to explore git.
+You could write down the latest commit hash on a piece of paper, after you
+make the commit, but this sounds like a job better done by a computer.
+
+.. prizevar:: snapshot_8_with_tree_sha
+
+    echo $(.tools/name2sha.sh {{ snapshot_8_sha }})
+
+.. prizerun::
+    :hide:
+
+    echo {{ snapshot_8_with_tree_sha }} > repo/my_bookmark
+
+So, when you make a new commit, you store the hash for that commit in a file
+called ``repo/my_bookmark``.  It is a text file with the hash string as
+contents.  Your last commit was |snapshot_8_with_tree_sha|, so
+``repo/my_bookmark`` has contents:
+
+.. prizerun::
+
+    cat repo/my_bookmark
+
+You can imagine that, when Josephine is working on the same set of files, she
+might want her own bookmark, maybe ``josephines_bookmark``.
 
 .. note::
 
-    The rest of this presentation started off as Fernando Perez' git tutorial
-    in his `reproducible software repository
-    <https://github.com/fperez/reprosw>`__. I changed it quite a bit, so
-    please blame me rather than Fernando if you don't like what you read next.
+    We keep track of the latest commit in a particular sequence by storing the
+    latest **commit hash** in a bookmark file.  In git this bookmark is called
+    a **branch**.
+
+*************************
+From gitwards to gitworld
+*************************
+
+Now you have built your own content management system, you know how git works
+|--| because it works in exactly the same way.  You will recognize hashes for
+files, directories and commits, commits linked by reference to their parents,
+the staging area, the ``objects`` directory, and bookmarks (branches).
+
+Armed with this deep_ understanding, we retrace our steps to do the same
+content management tasks in git.
 
 Basic configuration
 ===================
 
-We need to tell git about us before we start. This stuff will go into
-the commit information by default.
+We need to tell git our name and email address before we start.
+
+Git will use this information to fill in the author information in each
+**commit message**, so we don't have to type it out every time.
 
 .. prizerun::
 
     git config --global user.name "Matthew Brett"
     git config --global user.email "matthew.brett@gmail.com"
 
-git often needs to call up a text editor. Choose the editor you like here::
+The ``--global`` flag tells git to store this information in its default
+configuration file for your user account.  On Unix (e.g. OSX and Linux) this
+file is ``.gitconfig`` in your home directory.  Without the ``--global`` flag,
+git only applies the configuration to the particular **repository** you are
+working in.
+
+Every time we make a commit, we need to type a commit message.  Git will open
+our text editor for us to type the message, but first it needs to know what
+text editor we prefer.  Set your own preferred text editor here::
 
     # gedit is a reasonable choice for Linux
+    # "vi" is the default.
     git config --global core.editor gedit
 
 We also turn on the use of color, which is very helpful in making the
@@ -1142,8 +1301,15 @@ Getting help
 
 Try ``git help add`` for an example.
 
-Initializing the repository
-===========================
+.. note::
+
+    The git help pages are not good introductory reading, but they are a good
+    resource once you understand how git works.  One purpose of this tutorial
+    is to explain git in such a way that it will be easier to understand the
+    help pages.
+
+Initializing the repository directory
+=====================================
 
 We first set this ``nobel_prize`` directory to be version controlled with git.
 We start off the working tree with the original files for the paper:
@@ -1152,13 +1318,21 @@ We start off the working tree with the original files for the paper:
     :hide:
 
     rm -rf nobel_prize
-    cp ../nobel_prize_files.zip .
+    cp ../nobel_prize.zip .
+    unzip -o nobel_prize.zip
 
-.. desktoprun::
+.. note::
 
-    unzip -o nobel_prize_files.zip
+    I highly recommend you type along.  Why not download
+    :download:`nobel_prize.zip` and unzip the files to make the same
+    ``nobel_prize`` directory as I have here?
 
-Create the git repository:
+.. prizeout::
+
+    {{ mytree }}
+
+To get started with git, create the git **repository directory** with ``git
+init``:
 
 .. desktoprun::
 
@@ -1166,128 +1340,157 @@ Create the git repository:
     git init
 
 What happened when we did ``git init``? Just what we were expecting; we have a
-new *repository* directory called ``.git``
+new repository directory in ``nobel_prize`` called ``.git``
 
-.. prizerun::
+.. prizeout::
 
-    ls .git
+    {{ mytree }} .git --elide hooks
 
-The ``objects`` directory looks familiar. What's in there?
+The ``objects`` directory looks familiar.  It has exactly the same purpose as
+it did for our SAP system.  At the moment it contains a couple of empty
+directories, because we have not added any objects yet.
 
-.. prizerun::
+Updating terms for git
+======================
 
-    tree .git/objects
+Working directory
+    The directory containing the files you are working on.  In our case this
+    is ``nobel_prize``.  It contains the **repository directory**, named
+    ``.git``.
 
-Nothing but a couple of empty directories. That makes sense.
+Repository directory
+    Directory containing all previous commits (snapshots) and git private
+    files for working with commits.  The directory has name ``.git`` by
+    default, and almost always in practice.
 
 .. _git-add:
 
-git add - put stuff into the staging area
-=========================================
+git add |--| put stuff into the staging area
+============================================
+
+In the next few sections, we will do our first commit (snapshot).
+
+First we will put the files for the commit into the staging area.
+
+The command to put files into the staging area is ``git add``.
+
+First, we show ourselves that the **staging area** is empty. We haven't yet
+discussed the git implementation of the staging area, but this command shows
+us which files are in the staging area.
 
 .. prizerun::
 
-    git add nobel_prize_paper.txt
+    git ls-files --stage
+
+As expected, there are no files in the staging area yet.
+
+.. note::
+
+    ``git ls-files`` is a specialized command that you will not often need in
+    your daily git life.  I'm using it here to show you how git works.
+
+Now we do our add:
 
 .. prizerun::
 
-    tree .git/objects
+    git add clever_analysis.py
 
-Doing ``git add nobel_prize_paper.txt`` has added a file to the
-``.git/objects`` directory. That filename looks suspiciously like a
-hash.
+The git staging area
+====================
 
-We expect that ``git add`` added the file to the *staging area*.  We will need
-to use a command ``git status`` to check that, and that will come soon.
+It is time to think about what the staging area is, in git.  In your SAP
+system, the staging area was a directory.  You also started off by using
+directories to store commits (snapshots).  Later you found you could do
+without the commit directories, because you could store the directory
+structure in ``directory_listing.txt`` text files, and then copy these into
+your ``repo/objects`` directory.
 
-Looking at real git objects
-===========================
+In git, the staging area is a single file called ``.git/index``.  This file
+contains a directory listing that is the equivalent of the ``staging``
+directory in SAP.  When we add a file to the staging area, git backs up the
+file with its hash to ``.git/objects``, and then changes the directory listing
+inside ``.git/index`` to point to this backup copy.
 
-Git objects are nearly as simple as the objects we were writing in
-``.fancy_snapshots``.
+Now we have done the ``git add``, we expect that the new file will show up in
+the staging area:
 
-The main difference is that, to save space, they are compressed, in fact
-using a library called ``zlib``.
+.. prizerun::
 
-These objects are so simple that it's very easy to write small code snippets
-to read them - see :doc:`reading_git_objects`.
+    git ls-files --stage
 
-Git will also show the contents of objects with the command ``git cat-file
--p``.
+The output shows the hash of the backed up copy of ``clever_analysis.py``.
+
+We can see this hashed backup file in ``.git/objects``:
+
+.. prizeout::
+
+    {{ mytree }} .git/objects
+
+The filename of the new file comes from the hash recorded in the staging area.
+The first two digits of the hash form the directory name and the rest of the
+digits are the filename [#git-object-dir]_.
+
+Git objects
+===========
+
+Git objects are nearly as simple as the objects you were writing in your SAP.
+The hash is not the hash of the raw file, but the raw file prepended with a
+short housekeeping string.  See :doc:`reading_git_objects` for details.
+
+We can see the contents of objects with the command ``git cat-file -p``.
+
+.. prizevar:: analysis_1_hash
+
+    git rev-parse :clever_analysis.py
+
+.. prizerun::
+
+    git cat-file -p {{ analysis_1_hash }}
 
 .. note::
 
     I will use ``git cat-file -p`` to display the content of nearly raw git
-    objects, because this shows the great simplicity of git's internal model.
-    I doubt you will need this command in your daily git work |--| I had never
-    used it before I wrote this tutorial.  So, feel free to forget the
-    ``cat-file`` command as soon as you finish this tutorial.
-
-.. prizevar:: initial-paper-hash
-
-    git hash-object nobel_prize_paper.txt
-
-.. prizevar:: initial-paper-hash-fname
-
-    obj={{ initial-paper-hash }}
-    echo ${obj:0:2}/${obj:2}
-
-.. prizevar:: initial-paper-hash-dirname
-
-    obj={{ initial-paper-hash }}
-    echo ${obj:0:2}
-
-When we did ``git add nobel_prize_paper.txt``, we got a new file in
-``.git/objects``, with filename |initial-paper-hash-fname|.  The filename is
-in fact a hash, where the first two digits form the directory name
-(|initial-paper-hash-dirname|) and the rest of the digits are the filename
-[#git-object-dir]_.
-
-Here's the contents of the object:
-
-.. prizerun::
-
-    git cat-file -p {{ initial-paper-hash }}
+    objects, to show the simplicity of git's internal model, but ``cat-file``
+    is a specialized command that you won't use much in daily work.
 
 Just as we expected, it is the current contents of the
-``nobel_prize_paper.txt``.
+``clever_analysis.py``.
 
-In fact we only need to give git enough hash digits for git to uniquely
-identify the object.  7 digits is often enough, as in:
+In fact we only need to give git enough hash digits for git to identify the
+object uniquely.  7 digits nearly always enough, as in:
 
-.. prizevar:: initial-paper-hash-7
+.. prizevar:: analysis_1_hash_7
 
-    obj={{ initial-paper-hash }}
+    obj={{ analysis_1_hash }}
     echo ${obj:0:7}
 
 .. prizerun::
 
-    git cat-file -p {{ initial-paper-hash-7 }}
+    git cat-file -p {{ analysis_1_hash_7 }}
 
-git status - showing the status of files in the working tree
-============================================================
+git status |--| showing the status of files in the working tree
+===============================================================
 
-The working tree is the ``nobel_prize`` directory.  It now contains a
-repository |--| the ``.git`` directory.
+The working tree is the contents of the ``nobel_prize`` directory, excluding
+the ``.git`` repository directory.
 
 ``git status`` tells us about the relationship of the files in the working
 tree to the repository and staging area.
 
-We have done a ``git add`` on ``nobel_prize_paper.txt``, and that added the
-file to the staging area.  We can see that with ``git status``:
+We have done a ``git add`` on ``clever_analysis.py``, and that added the file
+to the staging area.  We can see that this happened with ``git status``:
 
 .. prizerun::
 
     git status
 
-Sure enough, the output tells that ``new file: nobel_prize_paper.txt`` is in
-the ``changes to be committed``.  It also tells us that the other two files
-|--| ``stunning_figure.png`` and ``very_clever_analysis.py`` |--| are
-``untracked``.
+Sure enough, the output tells that ``new file: clever_analysis.py`` is in
+the ``changes to be committed``.  It also tells us that the other two files in
+the working directory are ``untracked``.
 
 An untracked file is a file with a filename that has never been added to the
-repo with ``git add``.  Until you ``git add`` an untracked file, git will
-ignore these files and assume you don't want to keep track of them.
+repository with ``git add``.  Until you do ``git add`` an untracked file, git
+will ignore these files and assume you don't want to keep track of them.
 
 Staging the other files
 =======================
@@ -1296,57 +1499,72 @@ We do want to keep track of the other files, so we stage them:
 
 .. prizerun::
 
-    git add stunning_figure.png
-    git add very_clever_analysis.py
+    git add fancy_figure.png
+    git add expensive_data.csv
     git status
 
-We have now staged all three of our files.  We have three objects in
+We have staged all three of our files.  We have three objects in
 ``.git/objects``:
 
-.. prizerun::
+.. prizeout::
 
-    tree .git/objects
+    {{ mytree }} .git/objects
 
 git commit - making the snapshot
 ================================
 
-.. prizecommit:: initial 2012-04-01 11:13:13
+.. prizecommit:: initial 2012-04-01 14::13
 
     git commit -m "First backup of my amazing idea"
 
 .. note::
 
     In the line above, I used the ``-m`` flag to specify a message at the
-    command line. If I had not done that, git would open the editor we
-    specified in our configuration above and ask me to enter a message.  I'm
-    using the ``-m`` flag so the commit command runs without interaction in
-    this tutorial, but in ordinary use, I virtually never use ``-m``, and I
+    command line. If I had not done that, git would open the editor I
+    specified in the ``git config`` step above and ask me to enter a message.
+    I'm using the ``-m`` flag so the commit command runs without interaction
+    in this tutorial, but in ordinary use, I virtually never use ``-m``, and I
     suggest you don't either.  Using the editor for the commit message allows
     you to write a more complete commit message, and gives feedback about the
     ``git status`` of the commit to remind you what you are about to do.
 
-We are now expecting to have two new ``.git/object`` files, for the directory
-tree, and for the commit.
+Following the logic of your SAP system, we expect that the action of making
+the commit will generate two new files in ``.git/objects``, one for the
+directory listing, and another for the commit message:
 
 .. prizerun::
 
-    tree .git/objects
+    {{ mytree }} .git/objects
 
-Here's the contents of the tree object (directory listing):
+Here is the contents of the commit message text file for the new commit.  Git
+call this a **commit object**:
 
-.. prizerun::
+.. prizevar:: commit_1_sha
 
-    git cat-file -p e129806
-
-These are in fact the file permissions, the type of the entry in the directory
-(where "tree" means a sub-directory, and "blob" means a file), the file
-hashes, and the file names (see :ref:`git-object-types`).
-
-Here is the contents of the commit object:
+    # git rev-parse HEAD
 
 .. prizerun::
 
-    git cat-file -p {{ initial }}
+    git cat-file -p {{ commit_1_sha }}
+
+As for SAP, the commit message file contains the hash for the directory tree
+file (``tree``), the hash of the parent (``parent``) (but this commit has no
+parents), the author, date and time, and the note.
+
+Here's the contents of the directory listing text file for the new commit.
+Git calls this **tree object**.
+
+.. prizevar:: commit_1_tree_sha
+
+    # git rev-parse HEAD:./
+
+.. prizerun::
+
+    git cat-file -p {{ commit_1_tree_sha }}
+
+The directory listing has the file permissions, the type of the entry in the
+directory (where "tree" means a sub-directory, and "blob" means a file), the
+file hashes, and the file names (see :ref:`git-object-types`).
 
 git log - what are the commits so far?
 ======================================
@@ -1355,8 +1573,8 @@ git log - what are the commits so far?
 
     git log
 
-Notice that git log identies each commit with its hash.  As we saw above, the
-hash for our commit was |initial|.
+Notice that git log identifies each commit with its hash.  As we saw above,
+the hash for our commit was |commit_1_sha|.
 
 We can also ask to the see the parents of each commit in the log:
 
