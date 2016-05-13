@@ -147,33 +147,38 @@ analysis script, the data file and a figure for the paper.  These are all in a
 directory modestly named ``nobel_prize``.
 
 You can get this, the first draft, by downloading and unzipping
-:download:`nobel_prize.zip`.
+:download:`/np-versions/nobel_prize.zip`.
+
+.. prizevar:: np_versions
+    :omit_link:
+
+    echo "../../np-versions"
 
 .. workrun::
     :hide:
 
     # clean up old files from previous doc run
     rm -rf nobel_prize repos .gitconfig
-    git clone ../nobel_prize
+    mkdir nobel_prize
     cd nobel_prize
-    git checkout before-snapshots
+    cp {{ np_versions }}/work1/* .
 
 Here's the current contents of our ``nobel_prize`` directory:
 
-.. prizevar:: mytree
+.. prizevar:: np_tools
     :omit_link:
 
-    echo "../../tools/show_tree"
+    echo "../../np-tools"
 
-.. prizevar:: set-commit
+.. prizevar:: np_tree
     :omit_link:
 
-    echo "git reset --hard && git clean -fxd && git checkout "
+    echo "{{ np_tools }}/show_tree"
 
 .. prizeout::
 
     # Show directory contents as tree
-    {{ mytree }}
+    {{ np_tree }}
 
 The dog ate my results
 ======================
@@ -219,12 +224,14 @@ directory:
 
 .. prizerun::
     :hide:
+    :allow-fail:
 
-    {{ set-commit }} to-working
+    mkdir working
+    mv * working
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ np_tree }}
 
 When you've finished work for the day, you make a snapshot of the directory
 containing the files you are working on.  The snapshot is just a copy of your
@@ -233,35 +240,37 @@ working directory:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} first-snapshot
+    cp -r working snapshot_1
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ np_tree }}
 
 You are going to do this every day you work on the project.
 
-On the second day, you add your first draft of the paper, ``nobel_prize.md``:
+On the second day, you add your first draft of the paper, ``nobel_prize.md``.
+You can download this ground-breaking work at
+:download:`/np-versions/work2/nobel_prize.md`.
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} add-nobel-prize
+    cp {{ np_versions }}/work2/nobel_prize.md working
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ np_tree }}
 
 At the end of the day you make your second snapshot:
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} second-snapshot
+    cp -r working snapshot_2
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ np_tree }}
 
 On the third day, you did some edits to the analysis script, and refreshed the
 figure by running the script.  You did a third snapshot.
@@ -269,11 +278,12 @@ figure by running the script.  You did a third snapshot.
 .. prizerun::
     :hide:
 
-    {{ set-commit }} third-snapshot
+    cp {{ np_versions }}/work3/* working
+    cp -r working snapshot_3
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ np_tree }}
 
 To make the directory listing more compact, I'll sometimes show only the
 number of files / directories in a subdirectory.  For example, here's a
@@ -282,19 +292,20 @@ snapshot:
 
 .. prizeout::
 
-    {{ mytree }} --elide snapshot --unelide snapshot_3
+    {{ np_tree }} --elide snapshot --unelide snapshot_3
 
-Finally, on the fourth day, you make some more edits to the script, and some
-edits to the paper.
+Finally, on the fourth day, you make some more edits to the script, and you
+add some references for the paper.
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} fourth-snapshot
+    cp {{ np_versions }}/work4/* working
+    cp -r working snapshot_4
 
 .. prizeout::
 
-    {{ mytree }} --elide snapshot --unelide snapshot_4
+    {{ np_tree }} --elide snapshot --unelide snapshot_4
 
 You are ready for your fateful meeting with Josephine.  Again she notices that
 the figure is different from the first time you showed her.  This time you can
@@ -332,22 +343,27 @@ time when you want to narrow down where to look for problems.
 So, for each commit, you write write a file called ``message.txt``. The
 message for the first commit looks like this:
 
-.. prizerun::
+.. prizewrite:: snapshot_1/message.txt
+
+    Date: April 1 2012, 14.30
+    Author: I. M. Awesome
+    Notes: First backup of my amazing idea
+
+.. prizewrite:: snapshot_2/message.txt
     :hide:
 
-    {{ set-commit }} add-messages
-
-.. prizerun::
-    :highlighter: none
-
-    cat snapshot_1/message.txt
+    Date: April 2 2012, 18.03
+    Author: I. M. Awesome
+    Notes: Add first draft of paper
 
 There is a similar ``messsage.txt`` file for each commit. For example,
 here's the message for the third commit:
 
-.. prizeout::
+.. prizewrite:: snapshot_3/message.txt
 
-    cat snapshot_3/message.txt
+    Date: April 3 2012, 11.20
+    Author: I. M. Awesome
+    Notes: Add another fudge factor
 
 This third message is useful because it gives you a hint that this was where
 you made the important change to the script and figure.
@@ -370,9 +386,12 @@ into self-contained chunks of work, with a matching commit message.  But,
 looking at your fourth commit, it looks like you included two separate chunks
 of work:
 
-.. prizeout::
+.. prizewrite:: snapshot_4/message.txt
+    :hide:
 
-    cat snapshot_4/message.txt
+    Date: April 4 2012, 01.40
+    Author: I. M. Awesome
+    Notes: Change analysis and add references
 
 You decide to break this commit into two separate commits:
 
@@ -387,18 +406,21 @@ You can add changes from your working tree by copying the changed file into
 ``staging``.  When ``staging`` contains the changes you want, you make the
 commit by copying ``staging`` into its own commit directory.
 
-To get started, first you delete the old ``snapshot_4``.  Next you copy the
-contents of ``snapshot_3`` into ``staging``.  You already have the two sets
-of changes ready to stage in ``working``.
+To get started, first you delete the old ``snapshot_4``.  Next you replace the
+contents of ``staging`` with the contents of ``snapshot_3``.  You already have
+the two sets of changes ready to stage in ``working``.
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} ready-to-stage
+    rm -rf snapshot_4
+    rm -rf staging
+    cp -r snapshot_3 staging
+    rm staging/message.txt
 
 .. prizeout::
 
-    {{ mytree }} --hasta snapshot_2
+    {{ np_tree }} --hasta snapshot_2
 
 Call the ``staging`` directory |--| the **staging area**.  Your new sequence
 for making a commit is:
@@ -426,11 +448,19 @@ adding a message:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} commit-analysis
+    cp -r staging snapshot_4
+
+.. prizewrite:: snapshot_4/message.txt
+
+    Date: April 4 2012, 01.40
+    Author: I. M. Awesome
+    Notes: Change parameters of analysis
+
+This gives:
 
 .. prizeout::
 
-    {{ mytree }} --hasta snapshot_3
+    {{ np_tree }} --hasta snapshot_3
 
 To finish, you make the second of the two commits.  Remember the sequence:
 
@@ -452,11 +482,19 @@ adding a commit message:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} commit-refs
+    cp -r staging snapshot_5
+
+.. prizewrite:: snapshot_5/message.txt
+
+    Date: April 4 2012, 02.10
+    Author: I. M. Awesome
+    Notes: Add references
+
+Now you have:
 
 .. prizeout::
 
-    {{ mytree }} --hasta snapshot_4
+    {{ np_tree }} --hasta snapshot_4
 
 Now we can add a new term to our vocabulary:
 
@@ -500,17 +538,21 @@ For our simple SAP system, that looks like this:
     # Copy files from working tree to staging area
     cp working/clever_analysis.py staging
     cp working/fancy_figure.png staging
+    cp -r staging snapshot_6
 
-Then do the commit by copying ``staging``, and adding a message, to get:
+Then do the commit by copying ``staging``, and add a message:
 
-.. prizerun::
-    :hide:
+.. prizewrite:: snapshot_6/message.txt
 
-    {{ set-commit }} checkout-script
+    Date: April 5 2012, 18.40
+    Author: I. M. Awesome
+    Notes: Revert to first version of script and figure
+
+This gives:
 
 .. prizeout::
 
-    {{ mytree }} --elide snapshot_ --unelide "snapshot_(1|6)"
+    {{ np_tree }} --elide snapshot_ --unelide "snapshot_(1|6)"
 
 .. note::
 
@@ -533,16 +575,25 @@ use it to make some edits to the paper.  She takes a copy of your
 She goes away for a conference.
 
 While she is away, you do some work on the analysis script, and regenerate the
-figure, making ``shapshot_7``:
+figure, to make ``shapshot_7``:
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} my-snapshot-7
+    cp {{ np_versions }}/work7m/* working
+    cp working/* staging
+    cp -r staging snapshot_7
+
+.. prizewrite:: snapshot_7/message.txt
+    :hide:
+
+    Date: April 6 2012, 11.03
+    Author: I. M. Awesome
+    Notes: More fun with fudge
 
 .. prizeout::
 
-    {{ mytree }} --elide staging --hasta snapshot_6
+    {{ np_tree }} --elide staging --hasta snapshot_6
 
 Meanwhile, Josephine decides to work on the paper.  Following your procedure,
 she makes a commit herself.
@@ -564,11 +615,19 @@ directory:
 .. prizerun::
     :hide:
 
-    {{ set-commit }} copy-snapshot-7-j
+    cp -r snapshot_6 snapshot_7_josephine
+    cp -r {{ np_versions }}/work7j/* snapshot_7_josephine
+
+.. prizewrite:: snapshot_7_josephine/message.txt
+    :hide:
+
+    Date: April 6 2012, 14.30
+    Author: J. S. Rightway
+    Notes: Expand the introduction
 
 .. prizeout::
 
-    {{ mytree }} --elide staging --hasta snapshot_6
+    {{ np_tree }} --elide staging --hasta snapshot_6
 
 After the copy, you still have your own copy of the working tree, without
 Josephine's changes to the paper. You want to combine your changes with her
@@ -581,16 +640,24 @@ into the working directory.
     cp snapshot_7_josephine/nobel_prize.md working
 
 Now you do a commit with these merged changes, by copying them into the
-staging area, and thence to ``snapshot_7``, with a suitable message:
+staging area, and thence to ``snapshot_8``, with a suitable message:
 
 .. prizerun::
     :hide:
 
-    {{ set-commit }} merge-snapshot-7-j
+    cp working/* staging
+    cp -r staging snapshot_8
+
+.. prizewrite:: snapshot_8/message.txt
+    :hide:
+
+    Date: April 7 2012, 15.03
+    Author: I. M. Awesome
+    Notes: Merged Josephine's changes
 
 .. prizeout::
 
-    {{ mytree }} --hasta "snapshot_7$"
+    {{ np_tree }} --hasta "snapshot_7$"
 
 This new commit is the result of a merge, and therefore it is a **merge
 commit**.
@@ -694,9 +761,9 @@ on:
 
 .. prizeout::
 
-    .tools/mv_shas.sh
-    snapshot_1=$(.tools/name2sha.sh snapshot_1)
-    {{ mytree }} --elide "\S+" --unelide "$snapshot_1"
+    {{ np_tools }}/mv_shas.sh
+    snapshot_1=$({{ np_tools }}/name2sha.sh snapshot_1)
+    {{ np_tree }} --elide "\S+" --unelide "$snapshot_1"
 
 The problem you have now is that the directory names no longer tell you the
 sequence of the commits, so you can't tell that ``snapshot_2`` (now
@@ -704,14 +771,10 @@ sequence of the commits, so you can't tell that ``snapshot_2`` (now
 
 OK |--| you scratch the renaming for now while you have a rethink.
 
-.. prizerun::
-    :hide:
-
-    {{ set-commit }} HEAD
-
 .. prizeout::
 
-    {{ mytree }} --elide "\S+" --unelide "snapshot_1"
+    {{ np_tools }}/unmv_shas.sh
+    {{ np_tree }} --elide "\S+" --unelide "snapshot_1"
 
 You still want to rename the commit directories, from the ``message.txt``
 hashes, but you need a way to store the sequence of commits, after you have
@@ -734,8 +797,7 @@ want ``snapshot_2/message.txt`` to point back to the hash for
 .. prizerun::
     :hide:
 
-    {{ set-commit }} add-tree-tools
-    .tools/link_commits.py
+    {{ np_tools }}/link_commits.py
 
 .. prizerun::
 
@@ -783,11 +845,11 @@ sequence:
 .. prizerun::
     :hide:
 
-    .tools/mv_shas.sh
+    {{ np_tools }}/mv_shas.sh
 
 .. prizeout::
 
-    {{ mytree }} --elide "\S+" --unelide "{{snapshot_1_sha}}"
+    {{ np_tree }} --elide "\S+" --unelide "{{snapshot_1_sha}}"
 
 .. note::
 
@@ -826,19 +888,19 @@ a longer development history, this could be a problem.
 
 .. prizevar:: snapshot_2_sha
 
-    echo $(.tools/name2sha.sh snapshot_2)
+    echo $({{ np_tools }}/name2sha.sh snapshot_2)
 
 .. prizevar:: snapshot_3_sha
 
-    echo $(.tools/name2sha.sh snapshot_3)
+    echo $({{ np_tools }}/name2sha.sh snapshot_3)
 
 .. prizevar:: snapshot_6_sha
 
-    echo $(.tools/name2sha.sh snapshot_6)
+    echo $({{ np_tools }}/name2sha.sh snapshot_6)
 
 .. prizevar:: snapshot_8_sha
 
-    echo $(.tools/name2sha.sh snapshot_8)
+    echo $({{ np_tools }}/name2sha.sh snapshot_8)
 
 Likewise, ``fancy_figure.png`` and ``clever_analysis.py`` are the same for the
 first two commits, and then again when you reverted to that copy in
@@ -1037,11 +1099,11 @@ When you run the procedure above on every commit, moving files to
 .. prizerun::
     :hide:
 
-    .tools/to-repo-objects.py
+    {{ np_tools }}/to_repo_objects.py
 
 .. prizeout::
 
-    {{ mytree }} --elide ize/working --elide staging
+    {{ np_tree }} --elide ize/working --elide staging
 
 The whole ``nobel_prize`` directory is now smaller because you have no
 duplicated files:
@@ -1095,7 +1157,7 @@ file:
 .. prizerun::
     :hide:
 
-    .tools/add_tree.py
+    {{ np_tools }}/add_tree.py
 
 You put this has into a new field in ``message.txt`` called ``Directory
 hash:``:
@@ -1116,7 +1178,7 @@ directories with the new hashes.  You end up with this:
 .. prizerun::
     :hide:
 
-    .tools/mv_shas.sh
+    {{ np_tools }}/mv_shas.sh
 
 .. workrun::
     :hide:
@@ -1151,11 +1213,11 @@ eye falls idly on the current directory tree of ``nobel_prize``:
 
 .. prizevar:: snapshot_1_with_tree_sha
 
-    echo $(.tools/name2sha.sh {{ snapshot_1_sha }})
+    echo $({{ np_tools }}/name2sha.sh {{ snapshot_1_sha }})
 
 .. prizeout::
 
-    {{ mytree }} --elide ize/working --elide staging --elide repo/objects
+    {{ np_tree }} --elide ize/working --elide staging --elide repo/objects
 
 It suddenly occurs to you |--| you can take the hash of each
 ``directory_listing.txt`` and move it into the ``repo/objects`` directory as
@@ -1187,20 +1249,19 @@ There are |n_commits| commits, so |n_commits| x 2 new files with hash
 filenames in ``repo/objects`` (a hashed copy of ``directory_listing.txt`` and
 ``message.txt`` for each commit).
 
-Now you don't need the snapshot directories at all, because all the
-information about the snapshot is stored in the hashed files in
-``repo/objects``:
+Now you don't need the snapshot directories at all, because the hashed files
+in ``repo/objects`` have all the information about the snapshots.
 
 .. prizerun::
     :hide:
 
-    .tools/move-snapshots.py
+    ../../np-tools/move_snapshots.py
 
 .. prizeout::
 
-    {{ mytree }} --elide ize/working --elide staging --elide repo/objects
+    {{ np_tree }} --elide ize/working --elide staging --elide repo/objects
 
-.. note:
+.. note::
 
     In git as in your SAP content management system, a **repository
     directory** stores all the data from the snapshots.  In your case that
@@ -1221,7 +1282,7 @@ make the commit, but this sounds like a job better done by a computer.
 
 .. prizevar:: snapshot_8_with_tree_sha
 
-    echo $(.tools/name2sha.sh {{ snapshot_8_sha }})
+    echo $({{ np_tools }}/name2sha.sh {{ snapshot_8_sha }})
 
 .. prizerun::
     :hide:
@@ -1297,16 +1358,15 @@ Getting help
 
 .. prizerun::
 
-    git
+    git help
 
 Try ``git help add`` for an example.
 
 .. note::
 
-    The git help pages are not good introductory reading, but they are a good
-    resource once you understand how git works.  One purpose of this tutorial
-    is to explain git in such a way that it will be easier to understand the
-    help pages.
+    The git help pages are famously hard to read if you don't know how git
+    works. One purpose of this tutorial is to explain git in such a way that
+    it will be easier to understand the help pages.
 
 Initializing the repository directory
 =====================================
@@ -1319,7 +1379,8 @@ We start off the working tree with the original files for the paper:
 
     rm -rf nobel_prize
     cp ../nobel_prize.zip .
-    unzip -o nobel_prize.zip
+    mkdir nobel_prize
+    cp ../np-versions/work1/* nobel_prize
 
 .. note::
 
@@ -1329,7 +1390,7 @@ We start off the working tree with the original files for the paper:
 
 .. prizeout::
 
-    {{ mytree }}
+    {{ np_tree }}
 
 To get started with git, create the git **repository directory** with ``git
 init``:
@@ -1344,10 +1405,10 @@ new repository directory in ``nobel_prize`` called ``.git``
 
 .. prizeout::
 
-    {{ mytree }} .git --elide hooks
+    {{ np_tree }} .git --elide hooks
 
 The ``objects`` directory looks familiar.  It has exactly the same purpose as
-it did for our SAP system.  At the moment it contains a couple of empty
+it did for your SAP system.  At the moment it contains a couple of empty
 directories, because we have not added any objects yet.
 
 Updating terms for git
@@ -1424,7 +1485,7 @@ We can see this hashed backup file in ``.git/objects``:
 
 .. prizeout::
 
-    {{ mytree }} .git/objects
+    {{ np_tree }} .git/objects
 
 The filename of the new file comes from the hash recorded in the staging area.
 The first two digits of the hash form the directory name and the rest of the
@@ -1521,7 +1582,7 @@ We have staged all three of our files.  We have three objects in
 
 .. prizeout::
 
-    {{ mytree }} .git/objects
+    {{ np_tree }} .git/objects
 
 git commit - making the snapshot
 ================================
@@ -1547,7 +1608,7 @@ directory listing text file, and another for the commit message:
 
 .. prizeout::
 
-    {{ mytree }} .git/objects
+    {{ np_tree }} .git/objects
 
 Here is the contents of the commit message text file for the new commit.  Git
 call this a **commit object**:
@@ -1559,6 +1620,11 @@ call this a **commit object**:
 .. prizerun::
 
     git cat-file -p {{ commit_1_sha }}
+
+.. prizerun::
+
+    # What type of git object is this?
+    git cat-file -t {{ commit_1_sha }}
 
 As for SAP, the commit message file contains the hash for the directory tree
 file (``tree``), the hash of the parent (``parent``) (but this commit has no
@@ -1574,6 +1640,10 @@ Git calls this **tree object**.
 .. prizerun::
 
     git cat-file -p {{ commit_1_tree_sha }}
+
+.. prizerun::
+
+    git cat-file -t {{ commit_1_tree_sha }}
 
 Each line in the directory listing give the file permissions, the type of the
 entry in the directory (where "tree" means a sub-directory, and "blob" means a
@@ -1632,6 +1702,16 @@ of the branch, and the contents is the hash of the commit that it points to:
 
 We will soon see that, if we are working on a branch, and we do a commit, then
 git will update the branch to point to the new commit.
+
+A second commit
+===============
+
+In our second commit, we will add the first draft of the Nobel prize paper.
+As before, you can download this from
+:download:`/np-versions/work2/nobel_prize.md`.  If you are typing along,
+download ``nobel_prize.md`` to the ``nobel_prize`` directory.
+
+.. prizerun::
 
 git diff |--| what has changed?
 ===============================

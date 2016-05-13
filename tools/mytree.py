@@ -161,6 +161,8 @@ class TreeMaker(object):
             out_parts.append(u'%d files' % n_files)
         if n_dirs:
             out_parts.append(u'%d directories' % n_dirs)
+        if len(out_parts) == 0:
+            out_parts = ['empty']
         return u'(%s)' % u'; '.join(out_parts)
 
     def _path_lines(self, path, indent_str, last_entry=False):
@@ -230,7 +232,7 @@ def output_tree(args, dir_sort_func=None):
                            elide_dirs=args.elide_dir,
                            unelide_dirs=args.unelide_dir,
                            colors=args.colors)
-    printout = lambda s : sys.stdout.write(s + '\n'.encode(args.encoding))
+    printout = lambda s : sys.stdout.write((s + u'\n').encode(args.encoding))
     printout(tree_maker.color_path(basename(root_dir)))
     tree_str = tree_maker.as_string(root_dir)
     if tree_str is None:

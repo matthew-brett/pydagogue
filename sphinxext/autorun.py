@@ -163,7 +163,7 @@ class LangMixin(VarsMixin):
         exe_post = self.options.get('exe-post', self.default_exe_post)
         home = self.options.get('home', self.default_home)
         # Get home directory
-        if not home is None:
+        if  home not in (None, '~'):
             _, home_dir = env.relfn2path(home)
             exe_pre = '\n'.join(('export HOME=' + home_dir, exe_pre))
         if exe_pre:
@@ -200,6 +200,7 @@ class RunBlock(Directive, LangMixin):
         'exe-pre': unchanged,
         'exe-post': unchanged,
         'home': unchanged,
+        'allow-fail': flag,
     }
     opt_defaults = {}
 
@@ -208,6 +209,10 @@ class RunBlock(Directive, LangMixin):
         self.set_opt_defaults()
         # Run code, collect output
         self.run_prepare()
+        self.options['allow-fail'] = True
+        if not 'allow-fail' in self.options and self.params.returncode != 0:
+            raise RuntimeError('Command {} failed with {}'.format(
+                self.params.exe_code, self.params.out))
         params = self.params
         # Get the original code with prefixes
         if params.show_source:

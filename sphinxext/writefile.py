@@ -32,10 +32,27 @@ class WriteFile(Directive):
     option_spec = {
         'linenos': flag,
         'hide': flag,
+        'highlighter': unchanged,
         'cwd': unchanged,
         'file_prefix': unchanged,
         'language': unchanged,
     }
+
+    def get_filename(self):
+        """ Filename can be argument, or embedded in content
+        """
+        if len(self.arguments):  # filename in argument
+            return self.arguments[0], self.content
+        # Get the filename from the first line
+        file_prefix = self.options.get('file_prefix', self.default_file_prefix)
+        line0 = self.content[0]
+        if not line0.startswith(file_prefix):
+            raise WriteFileError(
+                'File name should be first argument,  or '
+                'first content line should begin with {}, but is {}'.format(
+                    file_prefix, line0))
+        fname = line0[len(file_prefix):].strip()
+        return fname, self.content[1:]
 
     def run(self):
         env = self.state.document.settings.env
@@ -43,13 +60,9 @@ class WriteFile(Directive):
         language = self.options.get('language')
         # Build the file text
         cwd = self.options.get('cwd', self.default_cwd)
-        # Get the filename
-        file_prefix = self.options.get('file_prefix', self.default_file_prefix)
-        line0 = self.content[0]
-        if not line0.startswith(file_prefix):
-            raise WriteFileError('First line should begin with ' + file_prefix)
-        fname_raw = line0[len(file_prefix):].strip()
-        file_content = u'\n'.join(self.content[1:]) + '\n'
+        # Get the filename, possibly from first line of contents
+        fname_raw, content = self.get_filename()
+        file_content = u'\n'.join(content) + '\n'
         # Write the file
         if not fname_raw.startswith('/'):
             if cwd == '/':
@@ -64,8 +77,10 @@ class WriteFile(Directive):
         if 'hide' in self.options:
             return [nodes.comment(file_content, file_content)]
         literal = nodes.literal_block(file_content, file_content)
-        if not language is None:
-            literal['language'] = language
+        literal['language'] = (self.options['highlighter']
+                               if 'highlighter' in self.options
+                               else 'none' if language is None
+                               else language)
         literal['linenos'] = 'linenos' in self.options
         para = FileContents()
         para += nodes.emphasis(text='Contents of ')
