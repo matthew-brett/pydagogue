@@ -70,6 +70,7 @@ class AutoRun(object):
         bash_prompt_prefix = '$ ',
         bash_output_encoding = 'utf8',
     )
+
     @classmethod
     def builder_init(cls,app):
         cls.config.update(app.builder.config.autorun_languages)
@@ -362,8 +363,9 @@ export GIT_COMMITTER_DATE="{date}T{time}"
         commit = stdout.decode(self.params.output_encoding).strip()
         # Insert into names dict
         self.add_typed_var(name, commit, 'common')
+        self.add_typed_var(name + '_7', commit[:7], 'common')
         # Write links
-        self.add_links({name: commit, name + '-7': commit[:7]})
+        self.add_links({name: commit, name + '_7': commit[:7]})
         return nodes
 
 
