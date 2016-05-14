@@ -5,7 +5,7 @@
 The brain thinks in straight lines once you do some poorly-motivated
 corrections on some brain recordings.
 
-Other people have done done brain recordings and claimed that they were
+Other people have done brain recordings and claimed that they were
 interesting, but they are not as interesting as our recordings.
 
 In our previous work, we have done some other brain recordings, that were also
