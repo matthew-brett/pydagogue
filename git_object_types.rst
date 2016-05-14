@@ -4,154 +4,182 @@
 Types of git objects
 ####################
 
-If you have read :doc:`curious_git`, you know all the different types of
-objects that git stores in ``.git/objects``.  The object types are:
+If you have read :doc:`curious_git`, you know that git stores different types
+of objects in ``.git/objects``.  The object types are:
 
-* *blob*;
-* *tree*;
 * *commit*;
-* *tag*.
+* *tree*;
+* *blob*;
+* *annotated tag*.
 
-Here we use examples from one particular commit in the ``nobel_prize``
-repository from :doc:`curious_git`.
+Here we make examples of each of these object types in a new repository.
 
-The commit is the commit we tagged as ``submitted-to-science``.  The hash for
-the commit is:
+First we make the working tree and initialize the repository:
 
-.. prizerun::
-
-    cat .git/refs/tags/submitted-to-science
-
-Here is the working tree for the ``nobel_prize`` repository as of that commit:
-
-.. prizerun::
+.. workrun::
     :hide:
 
-    git checkout {{ a-flag }}
+    rm -rf example_repo
 
-.. prizerun::
+.. workrun::
 
-    ls
+    mkdir example_repo
+    cd example_repo
+    git init
 
-Blob object type
-----------------
+Next we make an example commit:
 
-*Blob* is an abbreviation for "binary large object".  When we ``git add`` a
-file such as ``nobel_prize_paper.txt``, git creates a *blob* object containing
-the contents of the file.  Blobs are therefore the git object type for storing
-files.
+.. workrun::
+    :cwd: /working/example_repo
 
-The ``git rev-parse`` command will give me the hash value for individual
-objects.  ``git cat-file -t`` will show us the type of a git object given a
-hash. ``git cat-file -p`` shows us the content of the object.
+    echo "An example file" > example_file.txt
+    git add example_file.txt
+    git commit -m "An example commit"
+
+From :doc:`curious_git`, we expect there will now be three objects in the
+directory ``.git/objects``, one storing the backup of ``example_file.txt``,
+one storing the directory listing for the commit, and one storing the commit
+message:
+
+.. workout::
+
+    ../tools/mytree.py example_repo/.git/objects
+
+******************
+Commit object type
+******************
+
+The commit object contains the directory tree object hash, parent commit hash,
+author, committer, date and message.
+
+Git log will show us the hash for the commit message:
+
+.. workrun::
+    :cwd: /working/example_repo
+
+    git log
+
+.. workvar:: eg_commit_hash
+
+    cd example_repo
+    git rev-parse HEAD
 
 .. note::
 
-    ``git rev-parse`` and ``git cat-file`` are obscure git commands and it is
-    quite possible you will never need to use them in your daily git work.
-    I'm using them here to show how the git machinery works.  Feel free to
-    forget about them after you've read this page.
+    I'll use ``git cat-file`` to show the contents of the hashed files in
+    ``.git/objects``, but ``cat-file`` is a relatively obscure git command
+    that you will probably not need in your daily git work.
 
-Here is the object hash value for the ``nobel_prize_paper.txt`` file as of our
-example commit:
+``git cat-file -t`` shows us the type of the object represented by a
+particular hash:
 
-.. prizerun::
+.. workrun::
+    :cwd: /working/example_repo
 
-    git rev-parse {{ a-flag }}:nobel_prize_paper.txt
+    git cat-file -t {{ eg_commit_hash }}
 
-.. prizevar:: a-flag-paper-obj
+``git cat-file -p`` shows the contents of the file associated with this hash:
 
-    git rev-parse {{ a-flag }}:nobel_prize_paper.txt
+.. workrun::
+    :cwd: /working/example_repo
 
-The corresponding object is of type *blob*:
+    git cat-file -p {{ eg_commit_hash }}
 
-.. prizerun::
-
-    git cat-file -t {{ a-flag-paper-obj }}
-
-The contents of the blob are the contents of the paper as of this commit:
-
-.. prizerun::
-
-    git cat-file -p {{ a-flag-paper-obj }}
-
+****************
 Tree object type
-----------------
+****************
 
-There is an object type for a directory listing, called a *tree* object.
+The commit contents gave us the hash of the directory listing for the
+commit.  If we inspect this object, we find it is of type "tree" and contains
+the directory listing for the commit:
 
-Here is the tree object hash for the root directory listing as of this commit:
+.. workvar:: eg_tree_hash
 
-.. prizerun::
+    cd example_repo
+    git rev-parse HEAD:./
 
-    git rev-parse {{ a-flag }}:./
+.. workrun::
+    :cwd: /working/example_repo
 
-.. prizevar:: a-flag-tree
+    git cat-file -t {{ eg_tree_hash }}
 
-    git rev-parse {{ a-flag }}:./
+.. workrun::
+    :cwd: /working/example_repo
 
-The object is of type "tree":
-
-.. prizerun::
-
-    git cat-file -t {{ a-flag-tree }}
+    git cat-file -p {{ eg_tree_hash }}
 
 The tree object contains one line per file or subdirectory, with each line
 giving file permissions, *object type*, object hash and filename.  *Object
 type* is usually one of "blob" for a file or "tree" for a subdirectory
 [#directory-tree-types]_.
 
-.. prizerun::
+****************
+Blob object type
+****************
 
-    git cat-file -p {{ a-flag-tree }}
+The directory listing gave us the hash of the stored of ``example_file.txt``.
+This object is of type "blob" and contains the file snapshot:
 
-Notice the line linking the hash value |a-flag-paper-obj| with the filename
-``nobel_prize_paper.txt``.
+.. workvar:: eg_file_hash
 
-Commit object type
-------------------
+    cd example_repo
+    git rev-parse HEAD:example_file.txt
 
-We already know that the hash of the current commit object is |a-flag|.  This
-is an object of type "commit":
+.. workrun::
+    :cwd: /working/example_repo
 
-.. prizerun::
+    git cat-file -t {{ eg_file_hash }}
 
-    git cat-file -t {{ a-flag }}
+.. workrun::
+    :cwd: /working/example_repo
 
-The commit object contains the directory tree object hash, parent commit hash,
-author, committer, date and message:
+    git cat-file -p {{ eg_file_hash }}
 
-.. prizerun::
+*Blob* is an abbreviation for "binary large object".  When we ``git add`` a
+file such as ``example_file.txt``, git creates a *blob* object containing the
+contents of the file.  Blobs are therefore the git object type for storing
+files.
 
-    git cat-file -p {{ a-flag }}
-
-Notice the root tree hash is |a-flag-tree| as we were expecting.
-
+***************
 Tag object type
----------------
+***************
 
-There is also an annotated git *tag* object type.  We made one of these in the
-:ref:`git-tag` section of :doc:`curious_git`.
+There is also a git type for annotated tags.  We don't have one of those yet,
+so let's make one:
 
-.. prizerun::
+.. workrun::
+    :cwd: /working/example_repo
 
-    cat .git/refs/tags/annotated-to-science
+    git tag -a first-commit -m "Tag pointing to first commit"
+
+This gives us a new object in ``.git/objects``:
+
+.. workout::
+
+    ../tools/mytree.py example_repo/.git/objects
+
+.. workvar:: eg_tag_hash
+
+    cd example_repo
+    git rev-parse first-commit
 
 The object is of type "tag":
 
-.. prizerun::
+.. workrun::
+    :cwd: /working/example_repo
 
-    git cat-file -t {{ annotated-to-science }}
+    git cat-file -t {{ eg_tag_hash }}
 
 The tag object type contains the hash of the tagged object, the type of tagged
 object (usually a commit), the tag name, author, date and message:
 
-.. prizerun::
+.. workrun::
+    :cwd: /working/example_repo
 
-    git cat-file -p {{ annotated-to-science }}
+    git cat-file -p {{ eg_tag_hash }}
 
-Notice that the tagged object is the commit object |a-flag|, as we were
-expecting.
+Notice that the "object" the tag points to, via its hash, is the commit
+object, as we were expecting.
 
 .. rubric:: Footnotes
 
@@ -161,4 +189,3 @@ expecting.
 
 .. include:: links_names.inc
 .. include:: working/object_names.inc
-
