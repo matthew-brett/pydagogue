@@ -21,14 +21,9 @@ with commits as nodes and parent links as edges.  Here's some example output
 from the ``git log`` command with flags to make the graph structure more
 obvious:
 
-.. prizevar:: merge-trouble-7
-
-    obj={{ merge-trouble }}
-    echo ${obj:0:7}
-
 .. prizerun::
 
-    git log --graph --oneline --topo-order {{ merge-trouble-7 }}
+    git log --graph --oneline {{ buffing_7 }}
 
 If we start at a particular commit, and then track back following only one
 parent for each commit, this is a *path* in the *commit history*.
@@ -61,34 +56,38 @@ Something like this algorithm might do the job:
 There's a specific example of ``git push`` at :ref:`git-push`. Here is how
 that example would follow our algorithm:
 
+.. prizevar:: before_buffing
+
+    git rev-parse {{ buffing }}~1
+
 #. We look up the hash for ``master``, and we get |buffing| (abbreviated as
-   |buffing-7|);
-#. We follow all commit history paths back from |buffing-7| to check for
-   missing commits. We start with |buffing-7|. The remote does not have a
+   |buffing_7|);
+#. We follow all commit history paths back from |buffing_7| to check for
+   missing commits. We start with |buffing_7|. The remote does not have a
    matching file in ``objects``, so this is a missing commit. We only have one
-   path to follow, because |buffing-7| has only one parent |--|
-   |merge-trouble-7| |--| and the remote does have a corresponding object, so
+   path to follow, because |buffing_7| has only one parent |--|
+   |before_buffing| |--| and the remote does have a corresponding object, so
    we can stop looking for missing commits;
-#. We only have one missing commit, |buffing-7|.  We look in the contents of
-   |buffing-7| to find the tree object hash.  This is |buffing-tree|.  We
+#. We only have one missing commit, |buffing_7|.  We look in the contents of
+   |buffing_7| to find the tree object hash.  This is |buffing-tree|.  We
    check for this object in the remote objects directory, and sure enough, it
    is missing. We add this tree to the list of missing trees;
 #. We only have one missing tree |--| |buffing-tree|. We look in the contents
    of this tree object and check in the remote object directory for each
    object in this listing. The only missing object is |buffing-paper-obj|;
-#. We copy the objects for the missing commits (|merge-trouble|), missing
+#. We copy the objects for the missing commits (|before_buffing|), missing
    trees (|buffing-tree|) and missing blobs (|buffing-paper-obj|) to the
    remote objects directory;
-#. We set remote ``refs/heads/master`` to contain the hash |buffing|;
-#. Set the local ``refs/remotes/usb_backup/master`` to contain |buffing|.
+#. We set remote ``refs/heads/master`` to contain the hash |buffing_7|;
+#. Set the local ``refs/remotes/usb_backup/master`` to contain |buffing_7|.
 
 .. rubric:: Footnotes
 
 .. [#sub-trees] You have probably worked out by now that git directory
-   listings can have files (called "blobs") and subdirectories ("trees").
-   When doing the copy, we actually have to recurse into any sub-directories
-   to get needed file ("blob") and subdirectory ("tree") objects.  But, you
-   get the idea.
+   listings can have files (called "blobs") and subdirectories ("trees") (see
+   :doc:`git_object_types`).  When doing the copy, we actually have to recurse
+   into any sub-directories to get needed file ("blob") and subdirectory
+   ("tree") objects.  But, you get the idea.
 
 .. include:: links_names.inc
 .. include:: working/object_names.inc

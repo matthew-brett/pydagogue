@@ -26,6 +26,12 @@ class DesktopRun(FakeUsbRun):
     prompt_prefix = '[desktop]$ '
 
 
+class DesktopOut(DesktopRun):
+    """ For displaying output only, with no highlighting
+    """
+    opt_defaults = {'highlighter': 'none', 'hide-code': True}
+
+
 class PrizeRun(DesktopRun):
     default_cwd = '/working/nobel_prize'
 
@@ -69,6 +75,7 @@ class PrizeLapCommit(RunCommit):
 
 def setup(app):
     app.add_directive('desktoprun', DesktopRun)
+    app.add_directive('desktopout', DesktopOut)
     app.add_directive('prizerun', PrizeRun)
     app.add_directive('prizecommit', PrizeCommit)
     app.add_directive('prizevar', PrizeVar)

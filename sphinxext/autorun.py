@@ -210,10 +210,11 @@ class RunBlock(Directive, LangMixin):
         self.set_opt_defaults()
         # Run code, collect output
         self.run_prepare()
-        self.options['allow-fail'] = True
         if not 'allow-fail' in self.options and self.params.returncode != 0:
-            raise RuntimeError('Command {} failed with {}'.format(
-                self.params.exe_code, self.params.out))
+            raise RuntimeError('Command {} failed with {} in doc {}'.format(
+                self.params.exe_code,
+                self.params.out,
+                self.state.document['source']))
         params = self.params
         # Get the original code with prefixes
         if params.show_source:

@@ -537,6 +537,10 @@ For our simple SAP system, that looks like this:
     # Copy files from working tree to staging area
     cp working/clever_analysis.py staging
     cp working/fancy_figure.png staging
+
+.. prizerun::
+    :hide:
+
     cp -r staging snapshot_6
 
 Then do the commit by copying ``staging``, and add a message:
@@ -709,7 +713,7 @@ not yet apparent. This SHA1 hash is a *cryptographic* hash because:
   hash.
 
 By "almost impossible" I mean that finding a file with the same hash is
-roughly the same level of difficulty as trying something like $16^40$
+roughly the same level of difficulty as trying something like $16^{40}$
 different files (where 16 is the number of different hexadecimal digits, and
 40 is the length of the SHA1 string).
 
@@ -1518,9 +1522,9 @@ Just as we expected, it is the current contents of the
 
 The |analysis_1_hash| object is hashed, stored raw file.  Because the object
 is a stored file rather than a stored directory listing text file or commit
-message text file, git calls this type of object a **blob** for Binary Large
-Object.  You can see the object from the object hash with the ``-t`` flag to
-``git cat-file``:
+message text file, git calls this type of object a **blob** |--| for Binary
+Large Object.  You can see the object from the object hash with the ``-t``
+flag to ``git cat-file``:
 
 .. prizerun::
 
@@ -1530,7 +1534,7 @@ Hash values can usually be abbreviated to seven characters
 ==========================================================
 
 We only need to give git enough hash digits for git to identify the object
-uniquely.  7 digits nearly always enough, as in:
+uniquely.  7 digits is nearly always enough, as in:
 
 .. prizevar:: sha_7
 
@@ -1565,8 +1569,8 @@ the ``changes to be committed``.  It also tells us that the other two files in
 the working directory are ``untracked``.
 
 An untracked file is a file with a filename that has never been added to the
-repository with ``git add``.  Until you do ``git add`` an untracked file, git
-will ignore these files and assume you don't want to keep track of them.
+repository with ``git add``.  Until you run ``git add`` on an untracked file,
+git will ignore these files and assume you don't want to keep track of them.
 
 Staging the other files with git add
 ====================================
@@ -1629,7 +1633,7 @@ file (``tree``), the hash of the parent (``parent``) (but this commit has no
 parents), the author, date and time, and the note.
 
 Here's the contents of the directory listing text file for the new commit.
-Git calls this **tree object**.
+Git calls this  a **tree** object.
 
 .. prizevar:: commit_1_tree_sha
 
@@ -1686,6 +1690,9 @@ particular commit (where the commit is given by a hash):
 
     git branch -v
 
+In this case git abbreviated the 40 character hash to the first 7 digits,
+because these are enough to uniquely identify the commit.
+
 A branch is nothing but a name that points to a commit.  In fact, git stores
 branches as we did in SAP, as tiny text files, where the filename is the name
 of the branch, and the contents is the hash of the commit that it points to:
@@ -1709,7 +1716,7 @@ As before, you can download this from
 :download:`nobel_prize.md </np-versions/work2/nobel_prize.md>`.  If you are
 typing along, download ``nobel_prize.md`` to the ``nobel_prize`` directory.
 
-This git repository has not need the filename ``nobel_prize.md`` before, so
+This git repository has not seen the filename ``nobel_prize.md`` before, so
 ``git status`` identifies this file as **untracked**:
 
 .. prizerun::
@@ -1741,6 +1748,9 @@ commit``:
 
     git commit -m "Add first draft of paper"
 
+Git shows us the first 7 digits of the new commit hash in the output from
+``git commit`` |--| these are |commit_2_sha_7|.
+
 Notice that the position of the current ``master`` branch is now this last
 commit:
 
@@ -1768,8 +1778,8 @@ the first via its hash.  Git lists the parent hash after the commit hash:
 git diff |--| what has changed?
 ===============================
 
-Our next commit has edits to the ``clever_analysis.py`` script.  We will also
-refresh the figure from running the script.
+Our next commit will have edits to the ``clever_analysis.py`` script.  We will
+also refresh the figure with the result of running the script.
 
 I open the ``clever_analysis.py`` file in text editor and adjust the fudge
 factor, add a new fudge factor, and apply the new factor to the data.
@@ -1783,7 +1793,8 @@ factor, add a new fudge factor, and apply the new factor to the data.
 Now I've done these edits, I can ask ``git diff`` to show me how the files in
 my working tree differ from the files in the staging area.
 
-Remember, the staging area refers to a snapshot as of the last commit.
+Remember, the files the staging area knows about so far are the files as of
+the last commit.
 
 .. prizerun::
 
@@ -1811,8 +1822,8 @@ Remember that git only commits stuff that you have added to the staging area.
 that these changes are "not staged for commit".
 
 There is a version of ``clever_analysis.py`` in the staging area, but it is
-the version of the file as of the last commit, and so is different from the
-version we have in the working tree.
+the version of the file as of the last commit, and so that version is
+different from the version we have in the working tree.
 
 If we try to do a commit, git will tell us there is nothing to commit, because
 there is nothing new in the staging area:
@@ -1822,8 +1833,7 @@ there is nothing new in the staging area:
 
     git commit
 
-To stage this version of ``clever_analysis.py`` to go into the next commit, we
-use ``git add``:
+To stage this version of ``clever_analysis.py`` we use ``git add``:
 
 .. prizerun::
 
@@ -1835,10 +1845,10 @@ Git status now shows these changes as "Changes to be committed".
 
     git status
 
-Now we can update the figure by running ``analysis_script.py``.  The analysis
+We can update the figure by running ``analysis_script.py`` script.  The scipt
 analyzes the data and writes the figure to the current directory.  If you have
-Python installed, along with the ``numpy`` and ``matplotlib`` packages for
-Python, you can run the analysis yourself with::
+Python installed, with the ``numpy`` and ``matplotlib`` packages, you can run
+the analysis yourself with::
 
     python clever_analysis.py
 
@@ -1849,7 +1859,7 @@ downloaded the figure:
 .. prizerun::
     :hide:
 
-    cp {{ np-versions }}/work3/fancy_figure.png .
+    cp {{ np_versions }}/work3/fancy_figure.png .
 
 .. prizerun::
 
@@ -1895,6 +1905,7 @@ To follow along, first download :download:`references.bib
 Next, edit ``clever_analysis.py`` again, to make these changes:
 
 .. prizerun::
+    :hide:
 
     cp {{ np_versions }}/work4/clever_analysis.py .
 
@@ -1906,6 +1917,7 @@ Finally regenerate ``fancy_figure.png``, or download the updated copy
 :download:`from here </np-versions/work4/fancy_figure.png>`.
 
 .. prizerun::
+    :hide:
 
     cp {{ np_versions }}/work4/fancy_figure.png .
 
@@ -1916,11 +1928,11 @@ What will git status show now?
     git status
 
 Git has not previously seen a file called ``refererences.bib`` so this file is
-as yet "untracked".  Git has seen ``clever_analysis.py`` and
-``fancy_figure.png``, so these files are tracked, and git sees that they are
-modified compared to the copy that the staging area knows about.
+"untracked".  Git has seen ``clever_analysis.py`` and ``fancy_figure.png``, so
+these files are tracked, and git sees that they are modified compared to the
+copy that the staging area knows about.
 
-Before we add our changes we confirm that they are as we expect with:
+Before we add our changes, we confirm that they are as we expect with:
 
 .. prizerun::
 
@@ -1964,7 +1976,7 @@ with two commits:
 * One commit to add the changes to the script and figure;
 * Another commit on top of the first.
 
-In the SAP story, we had to delete a snapshot directory manually, and reset
+In the SAP story, you had to delete a snapshot directory manually, and reset
 the staging area directory to have the contents of the previous commit.  In
 git, all we have to do is reset the current ``master`` branch bookmark to
 point to the previous commit.  By default, git will also reset the staging
@@ -2006,17 +2018,17 @@ commit we have just reset to:
     git status
 
 This kind of reset is called a "mixed" reset.  A "mixed" reset sets the branch
-pointer, and sets the staging area to correspond to the current branch
-pointer.  Try ``git reset --help`` for more detail.
+pointer, and sets the staging area to correspond to the new branch pointer.
+Try ``git reset --help`` for more detail.
 
-Now we have the changes from our original fourth commit in our working tree,
-but we have not staged them.  We are ready to make our new separate commits.
+We have the changes from our original fourth commit in our working tree, but
+we have not staged them.  We are ready to make our new separate commits.
 
 A new fourth commit
 ===================
 
-As we planned, now we make a commit by adding only the changes from the script
-and figure:
+As we planned, we make a commit by adding only the changes from the script and
+figure:
 
 .. prizerun::
 
@@ -2038,8 +2050,8 @@ Adding with ``-a``
 ==================
 
 So far we have done our commits with at least two steps: ``git add`` and then
-``git commit``.  It also possible to add files and commit the snapshot in one
-step, using ``git commit -a``.
+``git commit``.  It is also possible to add files and commit the snapshot in
+one step, using ``git commit -a``.
 
 Adding the ``-a`` flag to ``git commit`` means that git will:
 
@@ -2161,1129 +2173,273 @@ conference.
 Let us pretend that we are Josephine, and that we have taken a copy of the
 working directory to the conference.
 
-We as Josephine don't want to change your bookmark, which is ``master``:
+We as Josephine don't want to change the previous bookmark, which is
+``master``:
 
 .. prizerun::
 
     git branch -v
 
 We would like to use our own bookmark, so we can make changes without
-affecting anyone else.
+affecting anyone else.  To do this we use ``git branch`` with arguments:
 
-::
+.. prizerun::
 
-    Git updates the current branch with the latest commit
-    =====================================================
+    git branch josephines-branch master
 
-    Remember branches (bookmarks)?  Git has now moved the "master" branch location
-    up to the new commit:
+The first argument is the name of the branch we want to create.  The second is
+the commit at which the branch should start.  Now we have a new branch, that
+currently points to the same commit as ``master``:
 
-    .. prizerun::
+.. prizerun::
 
-        git log
+    git branch -v
 
-    .. prizerun::
+The new branch is nothing but a text file pointing to the commit:
 
-        git branch -v
+.. prizerun::
 
-    .. prizerun::
+    cat .git/refs/heads/josephines-branch
 
-        cat .git/refs/heads/master
+Now we have two branches, git needs to know which branch we are working on.
+The asterisk next to ``master`` in the output of ``git branch`` means that we
+are working on ``master`` at the moment.  If we make another commit, it will
+update the ``master`` bookmark.
 
-    Our most recent commit (|a-flag|) has the previous commit (|fruit|) as a
-    parent.  |fruit| has |initial| as a parent.  |initial| is the first commit,
-    and has no parent:
+Git stores the current branch in the file ``.git/HEAD``:
 
-    .. prizerun::
+.. prizerun::
 
-        git log --parents
+    cat .git/HEAD
 
-    A nicer log command using ``git config``
-    ========================================
+We now want to make ``josephines-branch`` current, so any new commits will
+update ``josephines-branch`` instead of ``master``.
 
-    It is very often useful to see a summarized version of the log.  Here is a
-    useful set of command flags for git log:
+Changing the current branch with ``git checkout``
+=================================================
 
-    .. prizerun::
+We previously saw that ``git checkout <commit> <filename>`` will get the
+file ``<filename>`` as of commit ``<commit>``, and restore it to the working
+tree.  This was the second of the two uses of ``git checkout``.  We now come
+to the first and most common use of ``git checkout``, which is to:
 
-        git log --oneline --topo-order --graph
+* change the current branch to a given branch or commit;
+* restore the working tree and staging area to the file versions from the
+  given commit.
 
-    Git supports *aliases:* new names given to command combinations. Let's
-    make this handy shortlog an alias, so we only have to type ``git slog``
-    to get this compact log.
+We are about to do ``git checkout josephines-branch``.  When we do this, we
+are only going to see the first of these two effects, because ``master`` and
+``josephines-branch`` point to the same commit, and so have the same file
+contents:
 
-    We create our alias (this saves it in git's permanent configuration file):
+.. prizerun::
 
-    .. prizerun::
+    git checkout josephines-branch
 
-        git config --global alias.slog "log --oneline --topo-order --graph"
+The asterisk has now moved to ``josephines-branch``:
 
-    And now we can use it:
+.. prizerun::
 
-    .. prizerun::
+    git branch -v
 
-        git slog
+This is because the file ``HEAD`` now points to ``josephines-branch``:
 
-    .. _git-tag:
+.. prizerun::
 
-    git tag makes a static bookmark
-    ===============================
+    cat .git/HEAD
 
-    We have seen that a branch is a bookmark that points to a commit.
+If we do a commit, git will update ``josephines-branch``, not ``master``.
 
-    When we do a new commit on a branch, the branch points to the new commit.
+Making commits on branches
+==========================
 
-    We can also make bookmarks that do not update when we do a commit.  These are
-    git *tags*.
+Josephine did some edits to the paper.  If you are typing along, make these
+changes to ``nobel_prize.md``:
 
-    Imagine we are now happy with the state of our paper, and we submit it to
-    Science.
+.. prizerun::
+    :hide:
 
-    We want to record the exact state of the paper when we sent it to Science,
-    because we may need to go back to this version when those nasty Science
-    reviewers ask us to make changes.
+    cp {{ np_versions }}/work7j/nobel_prize.md .
 
-    We could write down the current commit hash somewhere, but then we might lose
-    it.  Luckily ``git tag`` has a better solution:
+.. prizerun::
 
-    .. prizerun::
+    git diff
 
-        git tag submitted-to-science
+As usual, we add the file to the staging area, and check the status of the
+working tree:
 
-    We now have a tag with name ``submitted-to-science`` that points to this
-    commit.  As we will see, unlike a branch, the tag does not change when you do
-    another commit.
+.. prizerun::
 
-    The current commit is:
+    git add nobel_prize.md
+    git status
 
-    .. prizerun::
+Finally we make the commit:
 
-        git branch -v
+.. prizecommit:: commit_7j_sha 2012-04-06 14:30:14
 
-    ``git tag`` without arguments will list the current tags:
+    git commit -m "Expand the introduction"
 
-    .. prizerun::
+The ``master`` branch has not changed, but ``josephines-branch`` changed to
+point to the new commit:
 
-        git tag
+.. prizerun::
 
-    As you can imagine, this tag is very similar to a branch |--| it is just a
-    tiny file where the name of the file is the tag name, and the contents is the
-    commit hash:
+    git branch -v
 
-    .. prizerun::
+Now we go back to being ourselves, working in the lab.  We change back to the
+``master`` branch:
 
-        ls .git/refs/tags
+.. prizerun::
 
-    .. prizerun::
+    git checkout master
 
-        cat .git/refs/tags/submitted-to-science
+The asterisk now points at ``master``:
 
-    This type of tag is what git calls a *lightweight* tag |--| it is just a
-    bookmark to a commit, with no other information.
+.. prizerun::
 
-    We often want to add some extra information to our tags, such as a message
-    about what the tag is for, the date, and the person doing the tag.  We can do
-    this with *annotated tags*. To make an annotated tag, use the ``-a`` flag to
-    ``git tag`` and give a tag message:
+    git branch -v
 
-    .. prizecommit:: dummy-label 2012-04-01 12:13:34
+If you look at the contents of ``nobel_prize.md`` in the working directory,
+you will see that we are back to the contents before Josephine's changes.
+This is because ``git checkout master`` reverted the files to their state as
+of the last commit on the ``master`` branch.
 
-        git tag -a -m "Submitted to Science" annotated-to-science
+Now we make our own changes to the script and figure. Here are the changes to
+the script:
 
-    .. note::
+.. prizerun::
+    :hide:
 
-        I'm using the the ``-m`` flag as I have for the commits, and for the same
-        reason.  Normally you would not use ``-m`` and let the text editor open
-        for you to type the tag message.
+    cp {{ np_versions }}/work7m/clever_analysis.py .
 
-    .. prizerun::
+.. prizerun::
 
-        git tag
+    git diff
 
-    There is still a tiny text file for the tag:
+If you are typing along, then you will also want to regenerate the figure with
+``python clever_analysis.py`` or :download:`download the new version
+</np-versions/work7m/fancy_figure.png>`.
 
-    .. prizerun::
+.. prizerun::
+    :hide:
 
-        ls .git/refs/tags
+    cp {{ np_versions }}/work7m/fancy_figure.png .
 
-    This time the tag does not point to a commit hash, but to a new tag object:
+This gives:
 
-    .. prizerun::
+.. prizerun::
 
-        cat .git/refs/tags/annotated-to-science
+    git status
 
-    .. prizevar:: annotated-to-science
+As usual, we add the files and do the commit:
 
-        cat .git/refs/tags/annotated-to-science
+.. prizerun::
 
-    The new tag object is very much like a commit object, but pointing to a commit
-    object rather than a tree object:
+    git add clever_analysis.py
+    git add fancy_figure.png
 
-    .. prizerun::
+.. prizecommit:: commit_7_sha 2012-04-06 11:03:13
 
-        git cat-file -p {{ annotated-to-science }}
+    git commit -m "More fun with fudge"
 
-    Unlike a branch, a tag does not change when we make a commit:
+Because ``HEAD`` currently current points to ``master``, git updated the
+``master`` branch with the new commit:
 
-    .. prizerun::
+.. prizerun::
 
-        git branch -v
+    git branch -v
 
-    .. prizecommit:: after-science 2012-04-01 12:13:01
+Merging lines of development with ``git merge``
+===============================================
 
-        echo "Actually, maybe this is all wrong" >> nobel_prize_paper.txt
-        git add nobel_prize_paper.txt
-        git commit -a -m "Luckily we submitted the paper before we realized"
+We next want to get Josephine's changes into the ``master`` branch.
 
-    The branch bookmark has changed:
+We do this with ``git merge``:
 
-    .. prizerun::
+.. prizerun::
 
-        git branch -v
+    git merge josephines-branch
 
-    But the tags have not changed:
+This commit has the changes we just made to the script and figure, and the
+changes the Josephine made to the paper.
 
-    .. prizerun::
+The commit has two parents, which are the two commits from which we merged:
 
-        cat .git/refs/tags/submitted-to-science
+.. prizerun::
 
-    .. prizerun::
+    git log --oneline --parents
 
-        cat .git/refs/tags/annotated-to-science
+The commit parents make the development history into a graph
+============================================================
 
-    You have now seen all the possible types of objects in ``.git/objects``.  See
-    :ref:`git-object-types` for a review.
+As you saw in your SAP system, we can think of the commits as nodes in a
+graph.  Each commit stores the identity of its parent commit(s).  The parents
+link the commits (nodes) to form edges.
 
-    git mv and rm: moving and removing files
-    ========================================
+It is common to see a git history written as a graph, and it is often useful
+to think of this graph when we are working with a git repository.
 
-    While ``git add`` is used to add files to the list of files that git tracks,
-    we must also tell it if we want their names to change or for it to stop
-    tracking them. In familiar Unix fashion, the ``mv`` and ``rm`` git commands do
-    precisely this:
+There are a lot of graphical tools to show the git history as a graph, but
+``git log`` has a useful flag called ``--graph`` which shows the commits as a
+graph using text characters:
 
-    .. prizerun::
+.. prizerun::
 
-        git mv very_clever_analysis.py slightly_dodgy_analysis.py
-        git status
+    git log --oneline --graph
 
-    Note that these changes must be committed too, if we want to keep them.
+This kind of display is so useful that many of us have a shortcut to this
+command, that we use instead of the standard git log.  You can make customized
+shortcuts to git commands by setting ``alias`` entries using ``git config``.
+For example, you may want to set up an alias like this:
 
-    .. prizecommit:: new-name 2012-04-01 13:15:01
+.. prizerun::
 
-        git commit -m "I like this new name better"
+    git config --global alias.slog "log --oneline --graph"
 
-    As you can imagine, all that changed is that the tree object for this commit
-    associates the new filename with the old hash for the file.  I will use the
-    obscure ``git ls-tree`` command as a shortcut to show me the contents of the
-    root tree object for this commit:
+Now you can use the command ``git slog`` to mean ``git log --oneline
+--graph``.  Because of the ``--global`` flag, this command sets up the
+``slog`` alias as the default for your user account, so you can use ``git
+slog`` whenever you are using git as this user on this computer.
 
-    .. prizerun::
+.. prizerun::
 
-        git ls-tree master
+    git slog
 
-    ``git rm`` works in a similar fashion.
+Other commands you need to know
+===============================
 
-    git branch again - making a new branch
-    ======================================
+This tutorial gives you the basics on working with files on your own computer,
+and on your own repository.
 
-    Remember that a branch is simply a bookmark pointing to a particular commit.
+You will also need to know about:
 
-    We can have multiple branches in a repository, where each one may point to a
-    different commit.
+* git remotes |--| making backups; working with other people.  See
+  :doc:`curious_remotes`;
+* tags |--| making static bookmarks to commits;
 
-    At the moment, we only have one branch, "master":
+You will probabaly also find use for:
 
-    .. prizerun::
+* `git reflog
+  <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`_ |--|
+  show a list of previous commits that you have made;
+* `git rebase
+  <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`_ |--|
+  rewrite the development history by altering or transplanting commits.  See
+  :doc:`rebase_without_tears`.
 
-        git branch -v
+*******************
+Git: are you ready?
+*******************
 
-    We can make a new branch with the ``git branch`` command:
-
-    .. prizerun::
-
-        git branch experiment
-        git branch -v
-
-    The new branch, by default, points to the commit we are currently on, and this
-    commit is the also the commit that the "master" branch points to.  So, at the
-    moment "master" and "experiment" point to the same commit.
-
-    Of course this new branch is also just a tiny text file with the name of the
-    branch and the commit that it currently points to:
-
-    .. prizerun::
-
-        ls .git/refs/heads
-
-    .. prizerun::
-
-        cat .git/refs/heads/experiment
-
-    git ``HEAD`` points to the current branch
-    =========================================
-
-    Remember that, when you make a new commit, git moves the branch pointer to
-    point at the new commit.  Now we have two branches, how does git know which is
-    the current branch, in order to move the right branch pointer when you make a
-    commit?
-
-    This information goes in a special git pointer, called ``HEAD``.  HEAD stores
-    the name of the current branch. HEAD is just a tiny text file storing the
-    current branch:
-
-    .. prizerun::
-
-        cat .git/HEAD
-
-    Here, HEAD is pointing to the "master" branch.  The master branch is pointing
-    to a particular commit:
-
-    .. prizerun::
-
-        git branch -v
-
-    Heads and refs
-    ==============
-
-    For git, a *reference* or a *ref* is a name that refers to another object. A
-    reference almost invariably points to a commit object [#tag-other-objects]_.
-
-    For example a branch is a reference, and so is a tag. Remember that git stores
-    branches and tags in ``.git/refs``.
-
-    A *head* is a reference to a commit that updates when we do ``git commit``.
-    All branches are heads.  A tag is not a head because it does not update when
-    we do a commit.  Remember that git stores branches in ``.git/refs/heads``.
-    The special reference HEAD points to the current head that we are working on.
-
-    Developing on different branches
-    ================================
-
-    Let's now illustrate all of this with a concrete example. We get our bearings
-    first:
-
-    .. prizerun::
-
-        git status
-
-    .. prizerun::
-
-        ls
-
-    We are now going to try two different routes of development: we will add one
-    file on on the ``experiment`` branch, and we will add another file on the
-    ``master`` branch. We will then merge the ``experiment`` branch into
-    ``master``.
-
-    How do we start working on this branch ``experiment`` rather than
-    ``master``?
-
-    git checkout - set the current branch, set the working tree from a commit
-    =========================================================================
-
-    Up until now we have been on the ``master`` branch. When we make a
-    commit, the ``master`` branch pointer (``.git/refs/heads/master``) moves
-    up to point to our most recent commit.
-
-    ``git checkout`` can switch us to using another branch:
-
-    .. prizerun::
-
-        git checkout experiment
-
-    What just happened?
-
-    The current branch has changed (notice the asterisk in front of
-    ``experiment``).
-
-    .. prizerun::
-
-        git branch -v
-
-    Git ``HEAD`` now points to the ``experiment`` branch:
-
-    .. prizerun::
-
-        cat .git/HEAD
-
-    As we'll see later, ``git checkout somebranch`` also sets the contents
-    of the working tree to match the commit contents for ``somebranch``. In
-    this case the commits for ``master`` and ``experiment`` are currently
-    the same, meaning they have the same corresponding working tree, so our
-    working tree did not change.
-
-    Now let's do some changes on the ``experiment`` branch:
-
-    .. prizecommit:: an-experiment 2012-04-01 13:13:13
-
-        echo "Some crazy idea" > an_experiment.txt
-        git add an_experiment.txt
-        git commit -m "Trying something new"
-
-    .. prizerun::
-
-        git slog
-
-    Notice we have a new file called ``an_experiment.txt`` in this branch:
-
-    .. prizerun::
-
-        ls
-
-    The ``experiment`` branch pointer has now moved up to the current commit:
-
-    .. prizerun::
-
-        cat .git/refs/heads/experiment
-
-    But the ``master`` branch points to the same place as it did before:
-
-    .. prizerun::
-
-        git branch -v
-
-    git checkout again - get a new working tree
-    ===========================================
-
-    If ``somewhere`` is a branch name, then ``git checkout somewhere``
-    selects ``somewhere`` as the current branch. It also resets the working
-    tree to match the working tree for that commit.
-
-    .. prizerun::
-
-        git checkout master
-
-    .. prizerun::
-
-        cat .git/HEAD
-
-    We're back to the working tree as of the ``master`` branch;
-    ``an_experiment.txt`` has gone now.
-
-    .. prizerun::
-
-        ls
-
-    Meanwhile we do some more work on master:
-
-    .. prizerun::
-
-        git slog
-
-    .. prizecommit:: boring 2012-04-01 13:43:13
-
-        echo "All the while, more work goes on in master..." >> boring_idea.txt
-        git add boring_idea.txt
-        git commit -m "The mainline keeps moving"
-
-    .. prizerun::
-
-        git slog
-
-    git merge - merging changes from different branches
-    ===================================================
-
-    We do a merge when we have made some changes in one branch, and we want to
-    bring (merge) these changes into another branch.
-
-    The typical situation is where we have made some useful changes in an
-    experimental branch - like our ``experiment`` branch, and we decide we want to
-    make these changes part of the main line of development - often the ``master``
-    branch.
-
-    Here is the merge:
-
-    .. prizecommit:: merge-experiment 2012-04-01 14:01:10
-
-        git merge experiment -m "Merge in the experiment"
-
-    Notice now that the master branch has the new file ``an_experiment.txt`` from
-    the ``experiment`` branch, as well as the new file ``boring_idea.txt`` from
-    the master branch:
-
-    .. prizerun::
-
-        ls
-
-    The git log output shows us two lines of development diverging and then
-    merging:
-
-    .. prizerun::
-
-        git slog
-
-    The merge commit has two "parent" commits, which are the previous commit on
-    ``master`` and the previous commit on ``experiment``:
-
-    .. prizerun::
-
-        git slog --parents
-
-    An important aside: conflict management
-    =======================================
-
-    While git is very good at merging, if two different branches modify the
-    same file in the same location, it simply can't decide which change
-    should prevail. At that point, human intervention is necessary to make
-    the decision. Git will help you by marking the location in the file that
-    has a problem, but it's up to you to resolve the conflict. Let's see how
-    that works by intentionally creating a conflict.
-
-    We start by making another new branch and making a change to our experiment
-    file:
-
-    .. prizerun::
-
-        git branch trouble
-        git checkout trouble
-
-    .. prizecommit:: trouble-starts 2012-04-01 14:23:13
-
-        echo "This is going to be a problem..." >> an_experiment.txt
-        git add an_experiment.txt
-        git commit -m "Changes in the trouble branch"
-
-    And now we go back to the master branch, where we change the *same*
-    file:
-
-    .. prizecommit:: while-trouble 2012-04-01 14:29:13
-
-        git checkout master
-        echo "More work on the master branch..." >> an_experiment.txt
-        git add an_experiment.txt
-        git commit -m "Mainline work"
-
-    So now let's see what happens if we try to merge the ``trouble`` branch
-    into ``master``:
-
-    .. prizerun::
-
-        git merge trouble -m "Unlikely this one will work"
-
-    Let's see what git has put into our file:
-
-    .. prizerun::
-
-        cat an_experiment.txt
-
-    The text between ``<<``... and ``==``... gives the changes added by our
-    current branch |--| ``HEAD``.  These are the changes introduced by the branch
-    we are merging *into*.
-
-    The text between ``==``... and ``>>``... gives the changes added by the
-    ``trouble`` branch.  These are the changes introduced by the branch we are
-    merging *from*.
-
-    At this point, we can go into the file with a text editor, decide which
-    changes to keep, and make a new commit that records our decision.
-
-    I decided that both pieces of text were useful, but I want to integrate them
-    with some changes.  I do the edits by writing the file I want directly:
-
-    .. prizewrite::
-
-        # file: an_experiment.txt
-        Some crazy idea
-        More work on the master branch...
-        This is no longer going to be a problem...
-
-    .. prizerun::
-
-        git status
-
-    Let's then make our new commit:
-
-    .. prizecommit:: merge-trouble 2012-04-01 14:33:13
-
-        git add an_experiment.txt
-        git commit -m "Completed merge of trouble, fixing conflicts along the way"
-
-    .. prizerun::
-
-        git slog
-
-    .. _git-graph:
-
-    Git commits form a graph
-    ========================
-
-    The output of ``git slog`` shows the sequence of commits as a graph.
-
-    The nodes of the graph are the commits. Each commit has one or more parents,
-    stored in the commit object.  The parents give the links between the commit
-    and the previous commit(s) in the *commit history* graph.  The commit parents
-    therefore give links that form the edges in the graph.
-
-    git remotes - working with other people, making backups
-    =======================================================
-
-    Now you are keeping the history of your data, you also want to make sure you
-    have a backup in case your laptop dies.
-
-    You might want to work with a friend on the same project.  Perhaps your friend
-    Anne is also working on the paper, and you want to merge her changes into
-    yours.
-
-    We use git "remotes" to solve both of these problems.
-
-    Keeping backups with remotes
-    ============================
-
-    Let's say you have an external backup disk and you want to record all the
-    history of your work on the backup disk.
-
-    To do this you need three steps:
-
-    * Make an empty backup repository on the external backup disk
-    * Point your current git repository at the backup repository with ``git remote
-    add``
-    * Send the changes to the backup repository with ``git push``
-
-    Make the empty backup repository
-    --------------------------------
-
-    .. workvar:: usb_mountpoint
-        :var_type: render
-
-        echo "/Volumes/my_usb_disk"
-
-    .. workvar:: usb_mountpoint
-        :var_type: run
-        :omit_link:
-
-        echo "$PWD/repos"
-
-    Let's say your external disk is mounted at |usb_mountpoint|.
-
-    We make a new empty repository:
-
-    .. desktoprun::
-
-        git init --bare {{ usb_mountpoint }}/nobel_prize.git
-
-    Notice the ``--bare`` flag.  This tells git to make a repository that does not
-    have a working tree, but only the ``.git`` repository directory:
-
-    .. desktoprun::
-
-        ls {{ usb_mountpoint }}/nobel_prize.git
-
-    This is what we want in this case, because we will not ever want to edit the
-    files in the |usb_mountpoint| backup
-    repository, we will only be editing files in our local ``nobel_prize``
-    directory, committing those changes locally (as we have done above), and then
-    "pushing" these changes to the backup repository [#bare-detail]_.
-
-    Tell the current git repository about the backup repository
-    -----------------------------------------------------------
-
-    Check we're in our local git repository:
-
-    .. prizerun::
-
-        pwd
-
-    Add a remote.  A remote is a link to another repository.
-
-    .. prizerun::
-
-        git remote add usb_backup {{ usb_mountpoint }}/nobel_prize.git
-
-    List the remotes:
-
-    .. prizerun::
-
-        git remote -v
-
-    The list shows that we can both ``fetch`` and ``push`` to this repository, of
-    which more later.
-
-    Git has written the information about the remote URL to the repository config
-    file |--| ``.git/config``:
-
-    .. prizerun::
-
-        cat .git/config
-
-    git push |--| push all data for a local branch to the remote
-    ------------------------------------------------------------
-
-    We now want to synchronize the data in our ``nobel_prize`` repository with the
-    remote ``usb_backup``.  The command to do this is ``git push``.
-
-    Before we do the push, there are no objects in the ``.git/objects`` directory
-    of the ``usb_backup`` backup repository:
-
-    .. desktoprun::
-
-        tree -a {{ usb_mountpoint }}/nobel_prize.git/objects
-
-    Then we push:
-
-    .. prizerun::
-
-        git push usb_backup master
-
-    This command tells git to take all the information necessary to reconstruct
-    the history of the ``master`` branch, and send it to the remote repository.
-    Sure enough, we now have files in ``.git/objects`` of the backup repository:
-
-    .. desktoprun::
-
-        tree -a {{ usb_mountpoint }}/nobel_prize.git/objects
-
-    You'll see that the 'master' branch in the backup repository now points to the
-    same commit as the master branch in the local repository:
-
-    .. prizerun::
-
-        cat .git/refs/heads/master
-
-    .. desktoprun::
-
-        cat {{ usb_mountpoint }}/nobel_prize.git/refs/heads/master
-
-    The local repository has a copy of the last known position of the master
-    branch in the remote repository.
-
-    .. prizerun::
-
-        cat .git/refs/remotes/usb_backup/master
-
-    You can see the last known positions of the remote branches using the ``-r``
-    flag to ``git branch``:
-
-    .. prizerun::
-
-        git branch -r  -v
-
-    To see both local and remote branches, use the ``-a`` flag:
-
-    .. prizerun::
-
-        git branch -a  -v
-
-    .. _git-push:
-
-    git push |--| synchronizing repositories
-    ----------------------------------------
-
-    ``git push`` is an excellent way to do backups, because it only transfers the
-    information that the remote repository does not have.
-
-    Let's see that in action.
-
-    First we make a new commit in the local repository:
-
-    .. prizecommit:: buffing 2012-04-01 15:13:13
-
-        echo "Express confidence in the study" >> nobel_prize_paper.txt
-        git add nobel_prize_paper.txt
-        git commit -m "Buff up the paper some more"
-
-    Git updated the local ``master`` branch, but the remote does not know about
-    this update yet:
-
-    .. prizerun::
-
-        git branch -a -v
-
-    We already know there will be three new objects in ``.git/objects`` after this
-    commit.  These are:
-
-    * a new blob (file) object for the modified ``nobel_prize_paper.txt``;
-    * a new tree (directory listing) object associating the new hash for the
-    contents of ``nobel_prize_paper.txt`` with the ``nobel_prize_paper.txt``
-    filename;
-    * the new commit object.
-
-    Usually we don't need to worry about which objects these are, but here we will
-    track these down to show how ``git push`` works.
-
-    The commit object we can see from the top of ``git log``. The ``-1`` flag to
-    ``git log`` tells git to show just the most recent commit from the log:
-
-    .. prizerun::
-
-        git log -1
-
-    So the commit is |buffing|. We can get the tree object from the commit object:
-
-    .. prizerun::
-
-        git cat-file -p {{ buffing }}
-
-    We can show the tree object contents to get the object for the new
-    version of ``nobel_prize_paper.txt``.
-
-    .. depends on history
-
-    .. prizevar:: buffing-fname
-
-        commit={{ buffing }}
-        echo ${commit:0:2}/${commit:2}
-
-    .. prizevar:: buffing-tree
-
-        git log -1 --format="%T"
-
-    .. prizevar:: buffing-tree-fname
-
-        tree={{ buffing-tree }}
-        echo ${tree:0:2}/${tree:2}
-
-    .. prizerun::
-
-        git cat-file -p {{ buffing-tree }}
-
-    .. prizevar:: buffing-paper-obj
-
-        git cat-file -p {{ buffing-tree }} | grep nobel_prize | awk '{print $3}'
-
-    .. prizevar:: buffing-paper-obj-fname
-
-        obj={{ buffing-paper-obj }}
-        echo ${obj:0:2}/${obj:2}
-
-    We do have these objects in the local repository:
-
-    .. prizerun::
-
-        ls .git/objects/{{ buffing-fname }}
-        ls .git/objects/{{ buffing-tree-fname }}
-        ls .git/objects/{{ buffing-paper-obj-fname }}
-
-    |--| but we don't have these objects in the remote repository yet (we haven't
-    done a ``push``):
-
-    .. prizerun::
-
-        REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
-        ls $REMOTE_OBJECTS/{{ buffing-fname }}
-        ls $REMOTE_OBJECTS/{{ buffing-tree-fname }}
-        ls $REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
-
-    Now we do a push:
-
-    .. prizerun::
-
-        git push usb_backup master
-
-    The branches are synchronized again:
-
-    .. prizerun::
-
-        git branch -a -v
-
-    We do have the new objects in the remote repository:
-
-    .. prizerun::
-
-        REMOTE_OBJECTS={{ usb_mountpoint }}/nobel_prize.git/objects
-        ls $REMOTE_OBJECTS/{{ buffing-fname }}
-        ls $REMOTE_OBJECTS/{{ buffing-tree-fname }}
-        ls $REMOTE_OBJECTS/{{ buffing-paper-obj-fname }}
-
-    You might also be able to see how git would work out what to transfer.  See
-    :doc:`git_push_algorithm` for how it could work in general, and for this case.
-
-    git clone |--| make a fresh new copy of the repo
-    ------------------------------------------------
-
-    Imagine we have so far been working on our trusty work desktop.
-
-    We unplug the external hard drive, put it in our trusty bag, and take the
-    trusty bus back to our trusty house.
-
-    Now we want to start work on the paper.
-
-    We plug the hard drive into the laptop, it gets mounted again at
-    |usb_mountpoint|.
-
-    Now we want a repository with a working tree.
-
-    .. workrun::
-        :hide:
-
-        mkdir repos
-
-    The command we want is ``git clone``:
-
-    .. laptoprun::
-
-        git clone {{ usb_mountpoint }}/nobel_prize.git
-
-    We have a full backup of the repository, including all the history:
-
-    .. laptoprun::
-
-        cd nobel_prize
-        git slog
-
-    git made a ``remote`` automatically for us, because it recorded where we
-    cloned from.  The default name for a git remote is ``origin``:
-
-    .. prizelaprun::
-
-        git remote -v
-
-    Of course, just after the clone, the remote and the local copy are
-    synchronized:
-
-    .. prizelaprun::
-
-        git branch -a -v
-
-    Now we could make some commits.
-
-    .. prizelapcommit:: wine-ideas 2012-04-01 20:13:31
-
-        echo "The brain is a really big network." >> nobel_prize_paper.txt
-        git add nobel_prize_paper.txt
-        git commit -m "More great ideas after some wine"
-
-    The local copy is now ahead of the remote:
-
-    .. prizelaprun::
-
-        git branch -a -v
-
-    At the end of the night's work, we push back to the remote on the USB disk:
-
-    .. prizelaprun::
-
-        git push origin master
-
-    The local and remote are synchronized again:
-
-    .. prizelaprun::
-
-        git branch -a -v
-
-    git fetch |--| get all data from a remote
-    -----------------------------------------
-
-    ``git fetch`` fetches data from a remote repository into a local one.
-
-    Now we are back at the work desktop.  We don't have the great ideas from last
-    night in the local repository.  Here is the latest commit in the work desktop
-    repository:
-
-    .. prizerun::
-
-        git log -1
-
-    Here are the branch positions in the work desktop repository:
-
-    .. prizerun::
-
-        git branch -a -v
-
-    As you can see, the last known positions of the remote branches have not
-    changed from last night.  This reminds us that the last known positions only
-    get refreshed when we do an explicit git command to communicate with the
-    remote copy.  Git stores the "last known positions" in ``refs/remotes``.  For
-    example, if the remote name is ``usb_backup`` and the branch is ``master``,
-    then the last known position (commit hash) is the contents of the file
-    ``refs/remotes/usb_backup/master``:
-
-    .. prizerun::
-
-        cat .git/refs/remotes/usb_backup/master
-
-    The commands that update the last known positions are:
-
-    * ``git clone`` (a whole new copy, copying the remote branch positions with
-    it);
-    * ``git push`` (copies data and branch positions to the remote repository, and
-    updates last known positions in the local repository);
-    * ``git fetch`` (this section) (copies data and last known positions from
-    remote repository into the local repository);
-    * ``git pull`` (this is just a ``git fetch`` followed by a ``git merge``).
-
-    Now we have plugged in the USB drive, we can fetch the data and last known
-    positions from the remote:
-
-    .. prizerun::
-
-        git fetch usb_backup
-
-    The last known positions are now the same as those on the remote repository:
-
-    .. prizerun::
-
-        git branch -a -v
-
-    We can set our local master branch to be the same as the remote master branch
-    by doing a merge:
-
-    .. prizerun::
-
-        git merge usb_backup/master
-
-    This does a merge between ``usb_backup/master`` and local ``master``.  In this
-    case, the "merge" is very straightforward, because there have been no new
-    changes in local ``master`` since the new edits we have in the remote.
-    Therefore the "merge" only involves setting local ``master`` to point to the
-    same commit as ``usb_backup/master``.  This is called a "fast-forward" merge,
-    because it just involves advancing the branch pointer, rather than fusing two
-    lines of development:
-
-    .. prizerun::
-
-        git slog
-
-    git pull |--| git fetch followed by git merge
-    ---------------------------------------------
-
-    ``git pull`` is just a shortcut for ``git fetch`` followed by ``git merge``.
-
-    For example, instead of doing ``git fetch usb_backup`` and ``git merge
-    usb_backup/master`` above, we could have done ``git pull usb_backup master``.
-    If we do that now, of course there is nothing to do:
-
-    .. prizerun::
-
-        git pull usb_backup master
-
-    When you first start using git, I strongly recommend you always use an
-    explicit ``git fetch`` followed by ``git merge`` instead of ``git pull``.  It
-    is very common to run into problems using ``git pull`` that are made more
-    confusing by the fusion of the "fetch" and "merge" step.  For example, it is
-    not uncommon that you have done more work on a local copy, before you do an
-    innocent ``git pull`` from a repository with new work on the same file.  You
-    may well get merge conflicts, which can be rather surprising and confusing,
-    even for experienced users.  If you do ``git fetch`` followed by ``git
-    merge``, the steps are clearer so the merge conflict is less confusing and it
-    is clearer what to do.
-
-    Linking local and remote branches
-    ---------------------------------
-
-    It can get a bit boring typing all of::
-
-        git push usb_backup master
-
-    It may well be that we nearly always want to ``git push`` the ``master``
-    branch to ``usb_backup master``.
-
-    We can set this up using the ``--set-upstream`` flag to ``git push``.
-
-    .. prizerun::
-
-        git push usb_backup master --set-upstream
-
-    Git then records this association in the ``.git/config`` file of the
-    repository:
-
-    .. prizerun::
-
-        cat .git/config
-
-    We do a commit:
-
-    .. prizecommit:: no-network 2012-04-02 11:13:13
-
-        echo "Is the network comment too obvious?" >> nobel_prize_paper.txt
-        git add nobel_prize_paper.txt
-        git commit -m "Rethinking the drinking again"
-
-    Now instead of ``git push usb_backup master`` we can just do ``git push``.
-
-    Before we try this, we need to set a default configuration variable to avoid a
-    confusing warning. See ``git config --help`` for more detail:
-
-    .. prizerun::
-
-        git config push.default simple
-
-    .. prizerun::
-
-        git push
-
-    Git also knows what to do if we do ``git fetch`` from this branch.
-
-    To show this at work, we go home to the laptop, fetch the desktop work from
-    the USB drive, and then do another commit from the laptop:
-
-    .. laptoprun::
-
-        cd nobel_prize
-        git fetch origin
-        git merge origin/master
-
-    .. prizelapcommit:: convinced 2012-04-02 22:13:31
-
-        echo "More convinced by networks." >> nobel_prize_paper.txt
-        git add nobel_prize_paper.txt
-        git commit -m "I think better at home"
-
-    Then push back to the USB disk, setting the link between the laptop branch and
-    the remote for good measure:
-
-    .. prizelaprun::
-
-        git push origin master --set-upstream
-
-    Back to the work desktop to demonstrate "fetch" after we have done ``git
-    push`` with ``--set-upstream`` above:
-
-    .. prizerun::
-
-        git fetch
-
-    We still need to do an explicit merge:
-
-    .. prizerun::
-
-        git merge usb_backup/master
-
-    Remotes in the interwebs
-    ------------------------
-
-    So far we've only used remotes on the filesystem of the laptop and desktop.
-
-    Remotes can also refer to storage on |--| remote |--| machines, using
-    communication protocols such as the "git" protocol, ssh, http or https.
-
-    For example, here is the remote list for the repository containing this
-    tutorial:
-
-    .. workrun::
-
-        git remote -v
-
-    Check out bitbucket_ and github_ for free hosting of your repositories.  Both
-    services offer free hosting of data that anyone can read (public
-    repositories).  Bitbucket offers free hosting of private repositories, and
-    Github will host some private repositories for education users.
-
-    Other useful commands
-    =====================
-
-    These commands complete the typical daily toolkit of an experienced git user:
-
-    *  `reflog <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`__
-    *  `rebase <http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`__
-
-    See :doc:`rebase_without_tears` for a tutorial on ``rebase``.
-
-    Git: are you ready?
-    ===================
-
-    If you followed this tutorial, you now have a good knowledge of how git works.
-    This will make it much easier to understand why git commands do what they do,
-    and what to do when things go wrong.  You know all the main terms that the git
-    manual pages use, so git's own help will be more useful to you.  You will
-    likely lead a long life of deep personal fulfillment.
+If you followed this tutorial, you now have a good knowledge of how git works.
+This will make it much easier to understand why git commands do what they do,
+and what to do when things go wrong.  You know all the main terms that the git
+manual pages use, so git's own help will be more useful to you.  You will
+likely lead a long life of deep personal fulfillment.
 
 *************
 Git resources
 *************
-
-Introductions and tutorials
-===========================
 
 As you've seen, this tutorial makes the bold assumption that you'll be able to
 understand how git works by seeing how it is *built*. These documents take a
@@ -3337,60 +2493,8 @@ You might also try:
   set of tips that contains some very valuable nuggets, once you're past the
   basics.
 
-For SVN users
-=============
-
-If you want a bit more background on why the model of version control
-used by Git and Mercurial (known as distributed version control) is such
-a good idea, I encourage you to read this very well written
-`post <http://www.joelonsoftware.com/items/2010/03/17.html>`__ by Joel
-Spolsky on the topic. After that post, Joel created a very nice
-Mercurial tutorial, whose `first page <http://hginit.com/00.html>`__
-applies equally well to git and is a very good 're-education' for anyone
-coming from an SVN (or similar) background.
-
-In practice, I think you are better off following Joel's advice and
-understanding git on its own merits instead of trying to bang SVN
-concepts into git shapes. But for the occasional translation from SVN to
-Git of a specific idiom, the `Git - SVN Crash
-Course <http://git-scm.org/course/svn.html>`__ can be handy.
-
-A few useful tips for common tasks
-==================================
-
-Better shell support
---------------------
-
-Adding git branch info to your bash prompt and tab completion for git
-commands and branches is extremely useful. I suggest you at least copy:
-
-* `git-completion.bash
-  <https://github.com/git/git/blob/master/contrib/completion/git-completion.bash>`__
-* `git-prompt.sh
-  <https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh>`__
-
-You can then source both of these files in your ``~/.bashrc`` (Linux) or
-``~/.bash_profile`` (OSX), and then set your prompt (I'll assume you
-named them as the originals but starting with a ``.`` at the front of
-the name):
-
-::
-
-    source $HOME/.git-completion.bash
-    source $HOME/.git-prompt.sh
-    PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ ' # adjust this to your prompt liking
-
-See the comments in both of those files for lots of extra functionality
-they offer.
-
 .. rubric:: Footnotes
 
-.. [#tree-command] I am using the ``tree`` command to give a nice text-graphic
-   listing of directories.  If you want to try running ``tree`` yourself, you
-   may need to find an implementation of ``tree`` for your operating system.
-   On Debian or Ubuntu you can use ``sudo apt-get install tree``. For OSX you
-   might want to use something like homebrew (``brew install tree``).  I have
-   not tried installing ``tree`` on Windows.
 .. [#list-figure] Would I get the same hash for the directory listing if I had
    had a different figure?  No |--| because the figure hash would be
    different, the directory listing would contain this different hash, and so
@@ -3418,21 +2522,6 @@ they offer.
    any git object, not just a commit.  For example a tag can refer to a tree
    (directory listing) or blob (file) object, although in practice tags almost
    always refer to commits.
-.. [#bare-detail] The reason we need a bare repository for our backup goes
-   deeper than the fact we do not need a working tree.  We are soon going to
-   do a ``push`` to this backup repository.  The ``push`` has the effect of
-   resetting the position of a branch (usually ``master``) in the backup repo.
-   Git is very reluctant to set a branch position in a remote repository with
-   a working tree, because the new branch position will not not match the
-   existing content of the working tree.  Git could either leave the remote
-   working tree out of sync with the new branch position, or update the remote
-   working tree by doing a checkout of the new branch position, but either
-   thing would be very confusing for someone trying to use the working tree in
-   that repository.  So, by default git will refuse to ``push`` a new branch
-   position to a remote repository with a working tree, giving you a long
-   explanation as to why it is refusing, and listing things you can do about
-   it.  You can force git to go ahead and do the push, but it is much safer to
-   use a bare repository.
 
 .. include:: links_names.inc
 .. include:: working/object_names.inc
