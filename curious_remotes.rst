@@ -194,7 +194,7 @@ changes:
 
     git diff
 
-.. prizecommit:: buffing 2012-04-01 15:13:13
+.. prizecommit:: buffing 2012-04-11 15:13:13
 
     git add nobel_prize.md
     git commit -m "Buff up the paper some more"
@@ -329,12 +329,18 @@ The command we want is ``git clone``:
 
     git clone {{ usb_mountpoint }}/nobel_prize.git
 
+.. note::
+
+    You'll see that the shell prompt has changed from ``[desktop]$`` to
+    ``[laptop]$``.  I used these prompts to make it more obvious which machine
+    we are working on.
+
 We have a full backup of the repository, including all the history:
 
 .. laptoprun::
 
     cd nobel_prize
-    git slog
+    git log --oneline --graph
 
 git made a ``remote`` automatically for us, because it recorded where we
 cloned from.  The default name for a git remote is ``origin``:
@@ -350,11 +356,21 @@ synchronized:
 
     git branch -a -v
 
-Now we could make some commits.
+Now we could make some edits:
 
-.. prizelapcommit:: wine-ideas 2012-04-01 20:13:31
+.. prizelaprun::
+    :hide:
 
     echo "The brain is a really big network." >> nobel_prize.md
+
+.. prizelaprun::
+
+    git diff
+
+Then we do an add and commit:
+
+.. prizelapcommit:: wine-ideas 2012-04-11 20:13:31
+
     git add nobel_prize.md
     git commit -m "More great ideas after some wine"
 
@@ -415,7 +431,8 @@ The commands that update the last known positions are:
   updates last known positions in the local repository);
 * ``git fetch`` (this section) (copies data and last known positions from
   remote repository into the local repository);
-* ``git pull`` (this is just a ``git fetch`` followed by a ``git merge``).
+* ``git pull`` (this is nothing but a ``git fetch`` followed by a ``git
+  merge``).
 
 Now we have plugged in the USB drive, we can fetch the data and last known
 positions from the remote:
@@ -442,17 +459,17 @@ case, the "merge" is very straightforward, because there have been no new
 changes in local ``master`` since the new edits we have in the remote.
 Therefore the "merge" only involves setting local ``master`` to point to the
 same commit as ``usb_backup/master``.  This is called a "fast-forward" merge,
-because it just involves advancing the branch pointer, rather than fusing two
-lines of development:
+because it only involves advancing the branch pointer, rather than fusing two
+lines of development with a merge commit:
 
 .. prizerun::
 
-    git slog
+    git log --oneline --graph
 
 git pull |--| git fetch followed by git merge
 ---------------------------------------------
 
-``git pull`` is just a shortcut for ``git fetch`` followed by ``git merge``.
+``git pull`` is a shortcut for ``git fetch`` followed by ``git merge``.
 
 For example, instead of doing ``git fetch usb_backup`` and ``git merge
 usb_backup/master`` above, we could have done ``git pull usb_backup master``.
@@ -496,11 +513,19 @@ repository:
 
     cat .git/config
 
-We do a commit:
+We add some edits:
 
-.. prizecommit:: no-network 2012-04-02 11:13:13
+.. prizerun::
+    :hide:
 
     echo "Is the network comment too obvious?" >> nobel_prize.md
+
+.. prizerun::
+
+    git diff
+
+.. prizecommit:: no-network 2012-04-12 11:13:13
+
     git add nobel_prize.md
     git commit -m "Rethinking the drinking again"
 
@@ -517,10 +542,12 @@ confusing warning. See ``git config --help`` for more detail:
 
     git push
 
+Notice that git didn't need to as where to "push" to.
+
 Git also knows what to do if we do ``git fetch`` from this branch.
 
-To show this at work, we go home to the laptop, fetch the desktop work from
-the USB drive, and then do another commit from the laptop:
+To show this in action, we go home to the laptop and fetch the desktop work
+from the USB drive.
 
 .. laptoprun::
 
@@ -528,14 +555,26 @@ the USB drive, and then do another commit from the laptop:
     git fetch origin
     git merge origin/master
 
-.. prizelapcommit:: convinced 2012-04-02 22:13:31
+Then we do some more edits:
+
+.. prizelaprun::
+    :hide:
 
     echo "More convinced by networks." >> nobel_prize.md
+
+.. prizelaprun::
+
+    git diff
+
+We add these edits as a new commit:
+
+.. prizelapcommit:: convinced 2012-04-12 22:13:31
+
     git add nobel_prize.md
     git commit -m "I think better at home"
 
-Then push back to the USB disk, setting the link between the laptop branch and
-the remote for good measure:
+Then we push this commit back to the USB disk, setting the link between the
+laptop branch and the remote for good measure:
 
 .. prizelaprun::
 
@@ -547,6 +586,8 @@ push`` with ``--set-upstream`` above:
 .. prizerun::
 
     git fetch
+
+Notice that ``git fetch`` now knows where to "fetch" from.
 
 We still need to do an explicit merge:
 
