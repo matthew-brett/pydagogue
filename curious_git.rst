@@ -185,7 +185,7 @@ The dog ate my results
 You've been working on this study for a while.
 
 At first, you were very excited with the results. You ran the script, made the
-figure, and the figure looked good.  That's the figure we currently have in
+figure, and the figure looked good.  That's the figure you currently have in
 ``nobel_prize`` directory. You took this figure to your advisor, Josephine.
 She was excited too. You get ready to publish in Science.
 
@@ -429,9 +429,9 @@ for making a commit is:
   area;
 * Make the commit by taking a snapshot of the staging area.
 
-We are doing this by hand, but later git will make this much more automatic.
+You are doing this by hand, but later git will make this much more automatic.
 
-First we copy the changes we want from the working tree to the staging area:
+First you copy the changes you want from the working tree to the staging area:
 
 .. prizerun::
 
@@ -671,8 +671,8 @@ commit**.
         To make a new **merge commit** by combining changes from two (or
         more) commits.
 
-Gitwards 6: how should we name our commit directories?
-======================================================
+Gitwards 6: how should you name your commit directories?
+========================================================
 
 You like your new system, and so does Josephine, but you don't much like your
 solution of adding Josephine's name to the commit directory |--| as in
@@ -795,7 +795,7 @@ add a new field to ``messsage.txt`` called ``Parents``.
 ``snapshot_2/message.txt`` does change, because it now points back to
 ``snapshot_1``.  But, you're going to rename the snapshot directories, so you
 want ``snapshot_2/message.txt`` to point back to the hash for
-``snapshot_1/message.txt``, which we know is |snapshot_1_sha|:
+``snapshot_1/message.txt``, which you know is |snapshot_1_sha|:
 
 .. prizerun::
     :hide:
@@ -814,9 +814,9 @@ is:
 
     shasum snapshot_2/message.txt
 
-We keep doing this procedure, for all the commits, modifying ``message.txt``
-and recalculating the hash, until we come to ``snapshot_8``, the merge commit.
-This commit is the result of merging two commits: ``snapshot_7`` and
+You keep doing this procedure, for all the commits, modifying ``message.txt``
+and recalculating the hash, until you come to ``snapshot_8``, the merge
+commit.  This commit is the result of merging two commits: ``snapshot_7`` and
 ``snapshot_7_josephine``.  You can record this information by putting *two*
 parents into the ``Parents`` field of ``snapshot_8/message.txt``, being the
 new hashes for ``snapshot_7/message.txt`` and
@@ -1070,7 +1070,7 @@ has hash |nobel_prize_v1_sha|, so you do a single copy to ``repo/objects``:
     # Only one copy needed to store files in second commit
     cp {{ snapshot_2_sha }}/nobel_prize.md repo/objects/{{ nobel_prize_v1_sha }}
 
-As before, we can make ``directory_listing.txt`` for the second commit by
+As before, you can make ``directory_listing.txt`` for the second commit by
 recording the hashes of the files:
 
 .. prizerun::
@@ -1127,8 +1127,8 @@ Gitwards 10: making the commits unique
 Up in :ref:`naming-from-hashes` you used the hash of ``message.txt`` as a
 nearly unique directory name for the commit.  Your thinking was that it was
 very unlikely that any two commits would have the same author, date, time, and
-note.  We have since added the ``Parents`` field to ``message.txt`` to make it
-even more unlikely.  But |--| it could still happen.  You might be careless
+note.  You have since added the ``Parents`` field to ``message.txt`` to make
+it even more unlikely.  But |--| it could still happen.  You might be careless
 and make another commit very quickly after the previous, and without a note.
 You could even point back to the same parent.
 
@@ -1306,9 +1306,9 @@ might want her own bookmark, maybe ``josephines_bookmark``.
 
 .. note::
 
-    We keep track of the latest commit in a particular sequence by storing the
-    latest **commit hash** in a bookmark file.  In git this bookmark is called
-    a **branch**.
+    You keep track of the latest commit in a particular sequence by storing
+    the latest **commit hash** in a bookmark file.  In git this bookmark is
+    called a **branch**.
 
 *************************
 From gitwards to gitworld
