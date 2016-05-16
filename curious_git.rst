@@ -37,18 +37,18 @@ When I first started using git, I found it uncomfortable.  I could see it was
 very powerful, but I sometimes got lost and stuck and had to Google for a set
 of magic commands to get me out of trouble.  I once accidentally made a huge
 mess of our project's main repository by running a command I didn't
-understand. Git often made me feel stupid.  It felt like a prototype racecar
-with a badly designed dashboard that was just about to blow a tire or an
-engine and take me off the road.
+understand. Git often made me feel stupid.  It felt like a prototype race car
+with a badly designed dashboard that I couldn't control, and that was about to
+take me off the road, possibly at very high speed.
 
 Then, one day, I read the `git parable`_.  The git parable is a little story
 about a developer trying to work out how to make a version control system.  It
 gradually builds up from copying whole directories of files to something very
 much like git.  I didn't understand it all right away, but as soon as I read
-that page, the light-bulb went on - I got git.  I suddenly started to feel
-comfortable.  I knew for sure I could work out why git worked the way it did.
-I could see that it must be possible to do complicated and powerful
-things, and I could work out how to do them.
+that page, the light-bulb went on |--| I got git.  At once I started to feel
+comfortable.  I knew that I could work out why git worked the way it did.  I
+could see that it must be possible to do complicated and powerful things, and
+I could work out how to do them.
 
 Reading the git parable took me about 45 minutes, but those 45 minutes changed
 me from an unhappy git user to someone who uses git often every day, but,
@@ -1221,9 +1221,12 @@ eye falls idly on the current directory tree of ``nobel_prize``:
 
     {{ np_tree }} --elide ize/working --elide staging --elide repo/objects --label
 
-It suddenly occurs to you |--| you can take the hash of each
-``directory_listing.txt`` and move it into the ``repo/objects`` directory as
-you did for the other files:
+It occurs to you that you can move the ``directory_listing.txt`` and
+``message.txt`` files into your ``repo/objects`` directory.  When you have
+done that, you can get rid of the commit directories entirely.
+
+First you take the hash of each ``directory_listing.txt`` and move it into the
+``repo/objects`` directory as you did for the other files:
 
 .. prizevar:: snapshot_1_tree_hash
 
@@ -1237,7 +1240,7 @@ you did for the other files:
 
     cp {{ snapshot_1_with_tree_sha }}/directory_listing.txt repo/objects/{{ snapshot_1_tree_hash }}
 
-And you can do the same for the ``message.txt`` file:
+Then you do the same for the ``message.txt`` file:
 
 .. prizerun::
 
@@ -1248,9 +1251,9 @@ And you can do the same for the ``message.txt`` file:
 
     wc .names2sha | awk '{print $1}'
 
-There are |n_commits| commits, so |n_commits| x 2 new files with hash
-filenames in ``repo/objects`` (a hashed copy of ``directory_listing.txt`` and
-``message.txt`` for each commit).
+There are |n_commits| commits, so there are |n_commits| x 2 new files with
+hash filenames in ``repo/objects`` (a hashed copy of ``directory_listing.txt``
+and ``message.txt`` for each commit).
 
 Now you don't need the snapshot directories at all, because the hashed files
 in ``repo/objects`` have all the information about the snapshots.
