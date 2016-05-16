@@ -7,11 +7,11 @@ import sys
 from os.path import abspath, dirname, join as pjoin
 from glob import glob
 from argparse import ArgumentParser
-from collections import OrderedDict
 from hashlib import sha1
 
-sys.path.append(abspath(dirname(__file__)))
-from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME)
+MY_PATH = dirname(__file__)
+sys.path.append(abspath(MY_PATH))
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME, read_info)
 
 
 class Node(object):
@@ -72,17 +72,6 @@ class Graph(object):
             node_lines=node_lines)
 
 
-def parse_message(message):
-    msg_info = OrderedDict(parents=[])
-    for line in message.splitlines():
-        key, value = line.strip().split(': ', 1)
-        key = key.lower()
-        if key == 'parents':
-            value = value.split()
-        msg_info[key] = value
-    return msg_info
-
-
 AUTHOR2NODE_CLASS = {
     'I. M. Awesome': Node,
     'J. S. Rightway': JNode}
@@ -104,14 +93,12 @@ def main():
     globber = pjoin(root_dir, '*', COMMIT_MSG_FNAME)
     nodes = []
     for message_fname in glob(globber):
-        with open(message_fname, 'rt') as fobj:
-            message = fobj.read()
-        msg_info = parse_message(message)
-        sha = sha1(message).hexdigest()
-        node_class = AUTHOR2NODE_CLASS[msg_info['author']]
+        info = read_info(message_fname)
+        sha = sha1(info['message']).hexdigest()
+        node_class = AUTHOR2NODE_CLASS[info['author']]
         node = node_class(name=sha,
-                          label='\n'.join((sha, msg_info['notes'])),
-                          link_to=msg_info['parents'])
+                          label='\n'.join((sha, info['notes'])),
+                          link_to=info['parents'])
         nodes.append(node)
     print(Graph('nobel_prize', nodes))
 
