@@ -74,7 +74,7 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/exa
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;An example file&quot;</span> &gt; example_file.txt
 <span class="nv">$ </span>git add example_file.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;An example commit&quot;</span>
-<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 993e270<span class="o">]</span> An example commit
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 37b998d<span class="o">]</span> An example commit
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
  create mode <span class="m">100644</span> example_file.txt
 </pre></div>
@@ -86,10 +86,10 @@ message:</p>
 <div class="highlight-none"><div class="highlight"><pre>objects
 ├── 2f
 │   └── 781156939ad540b2434d012446154321e41e03 [32B]
+├── 37
+│   └── b998d515a7e3693e4b7c2bc98fe00ae01e033e [134B]
 ├── 83
 │   └── 207f0274383b4a79ff6d6c297e95204ba961bc [60B]
-├── 99
-│   └── 3e270d93847a6aef42059e87901fac449e7d5d [135B]
 ├── info
 └── pack
 </pre></div>
@@ -100,9 +100,9 @@ message:</p>
 author, committer, date and message.</p>
 <p>Git log will show us the hash for the commit message:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git log
-commit 993e270d93847a6aef42059e87901fac449e7d5d
+commit 37b998d515a7e3693e4b7c2bc98fe00ae01e033e
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Mon May <span class="m">16</span> 14:11:37 <span class="m">2016</span> -0400
+Date:   Mon May <span class="m">16</span> 14:46:03 <span class="m">2016</span> -0400
 
     An example commit
 </pre></div>
@@ -115,15 +115,15 @@ that you will probably not need in your daily git work.</p>
 </div>
 <p><code class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span> <span class="pre">-t</span></code> shows us the type of the object represented by a
 particular hash:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -t 993e270d93847a6aef42059e87901fac449e7d5d
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -t 37b998d515a7e3693e4b7c2bc98fe00ae01e033e
 commit
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">git</span> <span class="pre">cat-file</span> <span class="pre">-p</span></code> shows the contents of the file associated with this hash:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -p 993e270d93847a6aef42059e87901fac449e7d5d
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -p 37b998d515a7e3693e4b7c2bc98fe00ae01e033e
 tree 83207f0274383b4a79ff6d6c297e95204ba961bc
-author Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1463422297</span> -0400
-committer Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1463422297</span> -0400
+author Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1463424363</span> -0400
+committer Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1463424363</span> -0400
 
 An example commit
 </pre></div>
@@ -175,28 +175,28 @@ so let&#8217;s make one:</p>
 <div class="highlight-none"><div class="highlight"><pre>objects
 ├── 2f
 │   └── 781156939ad540b2434d012446154321e41e03 [32B]
+├── 37
+│   └── b998d515a7e3693e4b7c2bc98fe00ae01e033e [134B]
 ├── 83
 │   └── 207f0274383b4a79ff6d6c297e95204ba961bc [60B]
-├── 99
-│   └── 3e270d93847a6aef42059e87901fac449e7d5d [135B]
-├── 9f
-│   └── 5f39d1abd220a2d6902251a16db5f893860a7f [147B]
+├── a3
+│   └── 7b90fe1ed9e47b7f56e8e3b11a9d84c7663f64 [146B]
 ├── info
 └── pack
 </pre></div>
 </div>
 <p>The object is of type &#8220;tag&#8221;:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -t 9f5f39d1abd220a2d6902251a16db5f893860a7f
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -t a37b90fe1ed9e47b7f56e8e3b11a9d84c7663f64
 tag
 </pre></div>
 </div>
 <p>The tag object type contains the hash of the tagged object, the type of tagged
 object (usually a commit), the tag name, author, date and message:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -p 9f5f39d1abd220a2d6902251a16db5f893860a7f
-object 993e270d93847a6aef42059e87901fac449e7d5d
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git cat-file -p a37b90fe1ed9e47b7f56e8e3b11a9d84c7663f64
+object 37b998d515a7e3693e4b7c2bc98fe00ae01e033e
 <span class="nb">type </span>commit
 tag first-commit
-tagger Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1463422297</span> -0400
+tagger Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1463424363</span> -0400
 
 Tag pointing to first commit
 </pre></div>

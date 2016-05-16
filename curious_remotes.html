@@ -176,7 +176,6 @@ Sure enough, we now have files in <code class="docutils literal"><span class="pr
 23
 2c
 34
-35
 3e
 65
 72
@@ -186,6 +185,7 @@ Sure enough, we now have files in <code class="docutils literal"><span class="pr
 90
 99
 a2
+a6
 a9
 c0
 c7
@@ -202,30 +202,30 @@ pack
 <p>You&#8217;ll see that the &#8216;master&#8217; branch in the backup repository now points to the
 same commit as the master branch in the local repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/heads/master
-354cc20f4399b438dab19934dce6a0a409831f63
+a63e19696d7b33804d832a76231b3eefb6fba9fe
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat /Volumes/my_usb_disk/nobel_prize.git/refs/heads/master
-354cc20f4399b438dab19934dce6a0a409831f63
+a63e19696d7b33804d832a76231b3eefb6fba9fe
 </pre></div>
 </div>
 <p>The local repository has a copy of the last known position of the master
 branch in the remote repository.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/remotes/usb_backup/master
-354cc20f4399b438dab19934dce6a0a409831f63
+a63e19696d7b33804d832a76231b3eefb6fba9fe
 </pre></div>
 </div>
 <p>You can see the last known positions of the remote branches using the <code class="docutils literal"><span class="pre">-r</span></code>
 flag to <code class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -r  -v
-  usb_backup/master 354cc20 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
+  usb_backup/master a63e196 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
 </pre></div>
 </div>
 <p>To see both local and remote branches, use the <code class="docutils literal"><span class="pre">-a</span></code> flag:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a  -v
   josephines-branch         72f4d3e Expand the introduction
-* master                    354cc20 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
-  remotes/usb_backup/master 354cc20 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
+* master                    a63e196 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
+  remotes/usb_backup/master a63e196 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -253,7 +253,7 @@ index 19fd4c5..67a2b3a 100644
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize.md
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Buff up the paper some more&quot;</span>
-<span class="o">[</span>master 3dea757<span class="o">]</span> Buff up the paper some more
+<span class="o">[</span>master ac800d0<span class="o">]</span> Buff up the paper some more
  <span class="m">1</span> file changed, <span class="m">4</span> insertions<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -261,8 +261,8 @@ index 19fd4c5..67a2b3a 100644
 this update yet:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
   josephines-branch         72f4d3e Expand the introduction
-* master                    3dea757 Buff up the paper some more
-  remotes/usb_backup/master 354cc20 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
+* master                    ac800d0 Buff up the paper some more
+  remotes/usb_backup/master a63e196 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
 </pre></div>
 </div>
 <p>We already know there will be three new objects in <code class="docutils literal"><span class="pre">.git/objects</span></code> after this
@@ -279,18 +279,18 @@ track these down to show how <code class="docutils literal"><span class="pre">gi
 <p>The commit object we can see from the top of <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code>.  I&#8217;ve used the
 <code class="docutils literal"><span class="pre">-1</span></code> flag to show only the first entry in the log:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log -1
-commit 3dea7573cdffad1b13b5735e0290baf3d45c0399
+commit ac800d06be9ae6a1c789771d11ffc14fbe979755
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
 Date:   Wed Apr <span class="m">11</span> 15:13:13 <span class="m">2012</span> -0400
 
     Buff up the paper some more
 </pre></div>
 </div>
-<p>So the commit is <code class="docutils literal"><span class="pre">3dea7573cdffad1b13b5735e0290baf3d45c0399</span></code>. We can get the tree object from the commit
+<p>So the commit is <code class="docutils literal"><span class="pre">ac800d06be9ae6a1c789771d11ffc14fbe979755</span></code>. We can get the tree object from the commit
 object:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p 3dea7573cdffad1b13b5735e0290baf3d45c0399
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git cat-file -p ac800d06be9ae6a1c789771d11ffc14fbe979755
 tree 5479026d5fc400a536f9a89b5f60b18604d64b13
-parent 354cc20f4399b438dab19934dce6a0a409831f63
+parent a63e19696d7b33804d832a76231b3eefb6fba9fe
 author Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1334171593</span> -0400
 committer Matthew Brett &lt;matthew.brett@gmail.com&gt; <span class="m">1334171593</span> -0400
 
@@ -308,10 +308,10 @@ version of <code class="docutils literal"><span class="pre">nobel_prize.md</span
 </pre></div>
 </div>
 <p>We do have these objects in the local repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/3d/ea7573cdffad1b13b5735e0290baf3d45c0399
+<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/ac/800d06be9ae6a1c789771d11ffc14fbe979755
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/54/79026d5fc400a536f9a89b5f60b18604d64b13
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls .git/objects/67/a2b3a80e9419cfedb299c322c0da66123c0485
-.git/objects/3d/ea7573cdffad1b13b5735e0290baf3d45c0399
+.git/objects/ac/800d06be9ae6a1c789771d11ffc14fbe979755
 .git/objects/54/79026d5fc400a536f9a89b5f60b18604d64b13
 .git/objects/67/a2b3a80e9419cfedb299c322c0da66123c0485
 </pre></div>
@@ -319,10 +319,10 @@ version of <code class="docutils literal"><span class="pre">nobel_prize.md</span
 <p>– but we don&#8217;t have these objects in the remote repository yet (we haven&#8217;t
 done a <code class="docutils literal"><span class="pre">push</span></code>):</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ REMOTE_OBJECTS</span><span class="o">=</span>/Volumes/my_usb_disk/nobel_prize.git/objects
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/3d/ea7573cdffad1b13b5735e0290baf3d45c0399
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/ac/800d06be9ae6a1c789771d11ffc14fbe979755
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/54/79026d5fc400a536f9a89b5f60b18604d64b13
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/67/a2b3a80e9419cfedb299c322c0da66123c0485
-ls: /Volumes/my_usb_disk/nobel_prize.git/objects/3d/ea7573cdffad1b13b5735e0290baf3d45c0399: No such file or directory
+ls: /Volumes/my_usb_disk/nobel_prize.git/objects/ac/800d06be9ae6a1c789771d11ffc14fbe979755: No such file or directory
 ls: /Volumes/my_usb_disk/nobel_prize.git/objects/54/79026d5fc400a536f9a89b5f60b18604d64b13: No such file or directory
 ls: /Volumes/my_usb_disk/nobel_prize.git/objects/67/a2b3a80e9419cfedb299c322c0da66123c0485: No such file or directory
 </pre></div>
@@ -330,22 +330,22 @@ ls: /Volumes/my_usb_disk/nobel_prize.git/objects/67/a2b3a80e9419cfedb299c322c0da
 <p>Now we do a push:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git push usb_backup master
 To /Volumes/my_usb_disk/nobel_prize.git
-   354cc20..3dea757  master -&gt; master
+   a63e196..ac800d0  master -&gt; master
 </pre></div>
 </div>
 <p>The branches are synchronized again:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
   josephines-branch         72f4d3e Expand the introduction
-* master                    3dea757 Buff up the paper some more
-  remotes/usb_backup/master 3dea757 Buff up the paper some more
+* master                    ac800d0 Buff up the paper some more
+  remotes/usb_backup/master ac800d0 Buff up the paper some more
 </pre></div>
 </div>
 <p>We do have the new objects in the remote repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ REMOTE_OBJECTS</span><span class="o">=</span>/Volumes/my_usb_disk/nobel_prize.git/objects
-<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/3d/ea7573cdffad1b13b5735e0290baf3d45c0399
+<span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/ac/800d06be9ae6a1c789771d11ffc14fbe979755
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/54/79026d5fc400a536f9a89b5f60b18604d64b13
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>ls <span class="nv">$REMOTE_OBJECTS</span>/67/a2b3a80e9419cfedb299c322c0da66123c0485
-/Volumes/my_usb_disk/nobel_prize.git/objects/3d/ea7573cdffad1b13b5735e0290baf3d45c0399
+/Volumes/my_usb_disk/nobel_prize.git/objects/ac/800d06be9ae6a1c789771d11ffc14fbe979755
 /Volumes/my_usb_disk/nobel_prize.git/objects/54/79026d5fc400a536f9a89b5f60b18604d64b13
 /Volumes/my_usb_disk/nobel_prize.git/objects/67/a2b3a80e9419cfedb299c322c0da66123c0485
 </pre></div>
@@ -377,8 +377,8 @@ we are working on.</p>
 <p>We have a full backup of the repository, including all the history:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git log --oneline --graph
-* 3dea757 Buff up the paper some more
-*   354cc20 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
+* ac800d0 Buff up the paper some more
+*   a63e196 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
 <span class="p">|</span><span class="se">\ </span> 
 <span class="p">|</span> * 72f4d3e Expand the introduction
 * <span class="p">|</span> 1e98a60 More fun with fudge
@@ -401,9 +401,9 @@ origin	/Volumes/my_usb_disk/nobel_prize.git <span class="o">(</span>push<span cl
 <p>Of course, just after the clone, the remote and the local copy are
 synchronized:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
-* master                3dea757 Buff up the paper some more
+* master                ac800d0 Buff up the paper some more
   remotes/origin/HEAD   -&gt; origin/master
-  remotes/origin/master 3dea757 Buff up the paper some more
+  remotes/origin/master ac800d0 Buff up the paper some more
 </pre></div>
 </div>
 <p>Now we could make some edits:</p>
@@ -422,28 +422,28 @@ index 67a2b3a..7a3316f 100644
 <p>Then we do an add and commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize.md
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;More great ideas after some wine&quot;</span>
-<span class="o">[</span>master c1af8a4<span class="o">]</span> More great ideas after some wine
+<span class="o">[</span>master 22c9621<span class="o">]</span> More great ideas after some wine
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
 <p>The local copy is now ahead of the remote:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
-* master                c1af8a4 <span class="o">[</span>ahead 1<span class="o">]</span> More great ideas after some wine
+* master                22c9621 <span class="o">[</span>ahead 1<span class="o">]</span> More great ideas after some wine
   remotes/origin/HEAD   -&gt; origin/master
-  remotes/origin/master 3dea757 Buff up the paper some more
+  remotes/origin/master ac800d0 Buff up the paper some more
 </pre></div>
 </div>
 <p>At the end of the night&#8217;s work, we push back to the remote on the USB disk:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git push origin master
 To /Volumes/my_usb_disk/nobel_prize.git
-   3dea757..c1af8a4  master -&gt; master
+   ac800d0..22c9621  master -&gt; master
 </pre></div>
 </div>
 <p>The local and remote are synchronized again:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
-* master                c1af8a4 More great ideas after some wine
+* master                22c9621 More great ideas after some wine
   remotes/origin/HEAD   -&gt; origin/master
-  remotes/origin/master c1af8a4 More great ideas after some wine
+  remotes/origin/master 22c9621 More great ideas after some wine
 </pre></div>
 </div>
 </div>
@@ -454,7 +454,7 @@ To /Volumes/my_usb_disk/nobel_prize.git
 night in the local repository.  Here is the latest commit in the work desktop
 repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log -1
-commit 3dea7573cdffad1b13b5735e0290baf3d45c0399
+commit ac800d06be9ae6a1c789771d11ffc14fbe979755
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
 Date:   Wed Apr <span class="m">11</span> 15:13:13 <span class="m">2012</span> -0400
 
@@ -464,8 +464,8 @@ Date:   Wed Apr <span class="m">11</span> 15:13:13 <span class="m">2012</span> -
 <p>Here are the branch positions in the work desktop repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
   josephines-branch         72f4d3e Expand the introduction
-* master                    3dea757 Buff up the paper some more
-  remotes/usb_backup/master 3dea757 Buff up the paper some more
+* master                    ac800d0 Buff up the paper some more
+  remotes/usb_backup/master ac800d0 Buff up the paper some more
 </pre></div>
 </div>
 <p>As you can see, the last known positions of the remote branches have not
@@ -476,7 +476,7 @@ example, if the remote name is <code class="docutils literal"><span class="pre">
 then the last known position (commit hash) is the contents of the file
 <code class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>cat .git/refs/remotes/usb_backup/master
-3dea7573cdffad1b13b5735e0290baf3d45c0399
+ac800d06be9ae6a1c789771d11ffc14fbe979755
 </pre></div>
 </div>
 <p>The commands that update the last known positions are:</p>
@@ -494,20 +494,20 @@ remote repository into the local repository);</li>
 positions from the remote:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git fetch usb_backup
 From /Volumes/my_usb_disk/nobel_prize
-   3dea757..c1af8a4  master     -&gt; usb_backup/master
+   ac800d0..22c9621  master     -&gt; usb_backup/master
 </pre></div>
 </div>
 <p>The last known positions are now the same as those on the remote repository:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git branch -a -v
   josephines-branch         72f4d3e Expand the introduction
-* master                    3dea757 Buff up the paper some more
-  remotes/usb_backup/master c1af8a4 More great ideas after some wine
+* master                    ac800d0 Buff up the paper some more
+  remotes/usb_backup/master 22c9621 More great ideas after some wine
 </pre></div>
 </div>
 <p>We can set our local master branch to be the same as the remote master branch
 by doing a merge:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git merge usb_backup/master
-Updating 3dea757..c1af8a4
+Updating ac800d0..22c9621
 Fast-forward
  nobel_prize.md <span class="p">|</span> <span class="m">1</span> +
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
@@ -521,9 +521,9 @@ same commit as <code class="docutils literal"><span class="pre">usb_backup/maste
 because it only involves advancing the branch pointer, rather than fusing two
 lines of development with a merge commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log --oneline --graph
-* c1af8a4 More great ideas after some wine
-* 3dea757 Buff up the paper some more
-*   354cc20 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
+* 22c9621 More great ideas after some wine
+* ac800d0 Buff up the paper some more
+*   a63e196 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
 <span class="p">|</span><span class="se">\ </span> 
 <span class="p">|</span> * 72f4d3e Expand the introduction
 * <span class="p">|</span> 1e98a60 More fun with fudge
@@ -607,7 +607,7 @@ index 7a3316f..db89b0f 100644
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize.md
 <span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;Rethinking the drinking again&quot;</span>
-<span class="o">[</span>master 325dc9a<span class="o">]</span> Rethinking the drinking again
+<span class="o">[</span>master fec12a8<span class="o">]</span> Rethinking the drinking again
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -619,7 +619,7 @@ confusing warning. See <code class="docutils literal"><span class="pre">git</spa
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git push
 To /Volumes/my_usb_disk/nobel_prize.git
-   c1af8a4..325dc9a  master -&gt; master
+   22c9621..fec12a8  master -&gt; master
 </pre></div>
 </div>
 <p>Notice that git didn&#8217;t need to as where to &#8220;push&#8221; to.</p>
@@ -629,12 +629,12 @@ from the USB drive.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span><span class="nb">cd </span>nobel_prize
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git fetch origin
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git merge origin/master
-Updating c1af8a4..325dc9a
+Updating 22c9621..fec12a8
 Fast-forward
  nobel_prize.md <span class="p">|</span> <span class="m">1</span> +
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
 From /Volumes/my_usb_disk/nobel_prize
-   c1af8a4..325dc9a  master     -&gt; origin/master
+   22c9621..fec12a8  master     -&gt; origin/master
 </pre></div>
 </div>
 <p>Then we do some more edits:</p>
@@ -653,7 +653,7 @@ index db89b0f..64f953d 100644
 <p>We add these edits as a new commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git add nobel_prize.md
 <span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git commit -m <span class="s2">&quot;I think better at home&quot;</span>
-<span class="o">[</span>master 968671b<span class="o">]</span> I think better at home
+<span class="o">[</span>master b72c736<span class="o">]</span> I think better at home
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
 </pre></div>
 </div>
@@ -662,20 +662,20 @@ laptop branch and the remote for good measure:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>laptop<span class="o">]</span><span class="nv">$ </span>git push origin master --set-upstream
 Branch master <span class="nb">set </span>up to track remote branch master from origin.
 To /Volumes/my_usb_disk/nobel_prize.git
-   325dc9a..968671b  master -&gt; master
+   fec12a8..b72c736  master -&gt; master
 </pre></div>
 </div>
 <p>Back to the work desktop to demonstrate &#8220;fetch&#8221; after we have done <code class="docutils literal"><span class="pre">git</span>
 <span class="pre">push</span></code> with <code class="docutils literal"><span class="pre">--set-upstream</span></code> above:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git fetch
 From /Volumes/my_usb_disk/nobel_prize
-   325dc9a..968671b  master     -&gt; usb_backup/master
+   fec12a8..b72c736  master     -&gt; usb_backup/master
 </pre></div>
 </div>
 <p>Notice that <code class="docutils literal"><span class="pre">git</span> <span class="pre">fetch</span></code> now knows where to &#8220;fetch&#8221; from.</p>
 <p>We still need to do an explicit merge:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git merge usb_backup/master
-Updating 325dc9a..968671b
+Updating fec12a8..b72c736
 Fast-forward
  nobel_prize.md <span class="p">|</span> <span class="m">1</span> +
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
