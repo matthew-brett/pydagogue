@@ -549,7 +549,7 @@ Then do the commit by copying ``staging``, and add a message:
 
     Date: April 5 2012, 18.40
     Author: I. M. Awesome
-    Notes: Revert to first version of script and figure
+    Notes: Revert to original script & figure
 
 This gives:
 
@@ -758,15 +758,14 @@ Here are the hashes for the current ``message.txt`` files:
 
     shasum snapshot_2/message.txt | awk '{print $1}'
 
-For example you could rename the ``snapshot_1`` directory to
-|snapshot_1_sha|, then rename ``snapshot_2`` to |snapshot_2_orig_sha| and so
-on:
+For example you could rename the ``snapshot_1`` directory to |snapshot_1_sha|,
+then rename ``snapshot_2`` to |snapshot_2_orig_sha| and so on.
 
 .. prizeout::
 
     {{ np_tools }}/mv_shas.sh
     snapshot_1=$({{ np_tools }}/name2sha.sh snapshot_1)
-    {{ np_tree }} --elide "\S+" --unelide "$snapshot_1"
+    {{ np_tree }} --elide "\S+"
 
 The problem you have now is that the directory names no longer tell you the
 sequence of the commits, so you can't tell that ``snapshot_2`` (now
@@ -777,7 +776,7 @@ OK |--| you scratch the renaming for now while you have a rethink.
 .. prizeout::
 
     {{ np_tools }}/unmv_shas.sh
-    {{ np_tree }} --elide "\S+" --unelide "snapshot_1"
+    {{ np_tree }} --elide "\S+"
 
 You still want to rename the commit directories, from the ``message.txt``
 hashes, but you need a way to store the sequence of commits, after you have
@@ -843,7 +842,8 @@ With the new ``Parents`` field, you have new hashes for all the
 
 You can now rename your snapshot directories with the hash values, safe in the
 knowledge that the ``message.txt`` files have the information about the commit
-sequence:
+sequence.
+
 
 .. prizerun::
     :hide:
@@ -852,7 +852,15 @@ sequence:
 
 .. prizeout::
 
-    {{ np_tree }} --elide "\S+" --unelide "{{snapshot_1_sha}}"
+    {{ np_tree }} --elide "\S+"
+
+Now the commit directories are hash names, it is harder to see which commit is
+which, so here's the directory listing where the commit directories have a
+label from the ``Notes:`` field in ``message.txt``:
+
+.. prizeout::
+
+    {{ np_tree }} --elide "\S+" --label
 
 .. note::
 
@@ -1106,7 +1114,7 @@ When you run the procedure above on every commit, moving files to
 
 .. prizeout::
 
-    {{ np_tree }} --elide ize/working --elide staging
+    {{ np_tree }} --elide ize/working --elide staging --label
 
 The whole ``nobel_prize`` directory is now smaller because you have no
 duplicated files:
@@ -1183,18 +1191,9 @@ directories with the new hashes.  You end up with this:
 
     {{ np_tools }}/mv_shas.sh
 
-.. workrun::
-    :hide:
+.. prizeout::
 
-    cd ../generated
-    ../tools/make_dot.py > snapshot_graph2.dot
-    dot -Tpng -o snapshot_graph2.png snapshot_graph2.dot
-    dot -Tpdf -o snapshot_graph2.pdf snapshot_graph2.dot
-
-.. figure:: /generated/snapshot_graph2.*
-
-    Development history graph with new hashes after adding directory hash
-    field.
+    {{ np_tree }} --elide ".*" --label
 
 With your new system, if any two commits have the same ``message.txt`` then
 they also have the same date, author, note, parents and file contents.  They
@@ -1220,7 +1219,7 @@ eye falls idly on the current directory tree of ``nobel_prize``:
 
 .. prizeout::
 
-    {{ np_tree }} --elide ize/working --elide staging --elide repo/objects
+    {{ np_tree }} --elide ize/working --elide staging --elide repo/objects --label
 
 It suddenly occurs to you |--| you can take the hash of each
 ``directory_listing.txt`` and move it into the ``repo/objects`` directory as
@@ -1245,8 +1244,9 @@ And you can do the same for the ``message.txt`` file:
     cp {{ snapshot_1_with_tree_sha }}/message.txt repo/objects/{{ snapshot_1_with_tree_sha }}
 
 .. prizevar:: n_commits
+    :not-literal:
 
-    wc .names2sha | awk '{print $1}' 
+    wc .names2sha | awk '{print $1}'
 
 There are |n_commits| commits, so |n_commits| x 2 new files with hash
 filenames in ``repo/objects`` (a hashed copy of ``directory_listing.txt`` and
@@ -1302,7 +1302,7 @@ contents.  Your last commit was |snapshot_8_with_tree_sha|, so
     cat repo/my_bookmark
 
 You can imagine that, when Josephine is working on the same set of files, she
-might want her own bookmark, maybe ``josephines_bookmark``.
+might want her own bookmark, maybe in a file called ``josephines-bookmark``.
 
 .. note::
 
@@ -2162,7 +2162,7 @@ We are ready for our sixth commit:
 
 .. prizecommit:: commit_6_sha 2012-04-05 18:40:04
 
-    git commit -m "Revert to first version of script and figure"
+    git commit -m "Revert to original script & figure"
 
 Using bookmarks |--| ``git branch``
 ===================================
@@ -2211,6 +2211,11 @@ Git stores the current branch in the file ``.git/HEAD``:
 .. prizerun::
 
     cat .git/HEAD
+
+Git commands often allow you to write ``HEAD`` meaning "the branch or commit
+you are currently working on".  For example, ``git log HEAD`` means "show the
+log starting at the branch or commit you are currently working on".  In fact,
+this is also the default behavior of ``git log``.
 
 We now want to make ``josephines-branch`` current, so any new commits will
 update ``josephines-branch`` instead of ``master``.

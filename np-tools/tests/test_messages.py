@@ -13,11 +13,12 @@ from nose.tools import assert_equal
 
 MSG1 = pjoin(MY_PATH, 'message1.txt')
 MSG2 = pjoin(MY_PATH, 'message2.txt')
+MSG2H = pjoin(MY_PATH, 'message2_dh.txt')
 MSG8 = pjoin(MY_PATH, 'message8.txt')
 
 
 def test_round_trip():
-    for msg_fname in (MSG1, MSG2, MSG8):
+    for msg_fname in (MSG1, MSG2, MSG2H, MSG8):
         with open(msg_fname, 'rt') as fobj:
             message = fobj.read()
         info = read_info(msg_fname)

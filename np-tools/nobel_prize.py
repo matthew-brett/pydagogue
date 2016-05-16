@@ -21,6 +21,9 @@ SNAPSHOT_RE = re.compile(r'snapshot_(\d+)')
 # Filename for directory listing
 DIR_LIST_FNAME = 'directory_listing.txt'
 
+# Fields known in the commit message
+KNOWN_FIELDS = ('date', 'author', 'notes', 'parents', 'directory hash')
+
 
 def hash_for(fname):
     with open(fname, 'rb') as fobj:
@@ -49,14 +52,17 @@ def read_info(message_fname):
 
 
 def info2str(info):
-    out = """\
-Date: {date}
-Author: {author}
-Notes: {notes}
-""".format(**info)
-    if info['parents']:
-        out += 'Parents: {}\n'.format(' '.join(info['parents']))
-    return out
+    lines = []
+    for field_name in KNOWN_FIELDS:
+        if not field_name in info:
+            continue
+        val = info[field_name]
+        if field_name == 'parents':
+            if len(val) == 0:
+                continue
+            val = ' '.join(val)
+        lines.append('{}: {}\n'.format(field_name.capitalize(), val))
+    return ''.join(lines)
 
 
 def write_info(info):
