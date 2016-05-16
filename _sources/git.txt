@@ -8,9 +8,10 @@ Contents:
     :maxdepth: 2
 
     curious_git
-    reading_git_objects
-    git_object_types
+    curious_remotes
     git_push_algorithm
+    git_object_types
+    reading_git_objects
     foundation
     rebase_without_tears
     pain_in_dots
