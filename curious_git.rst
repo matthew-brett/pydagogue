@@ -887,7 +887,7 @@ links between the nodes come from the hashes in the "Parents" field.
     :hide:
 
     cd ../generated
-    ../tools/make_dot.py > snapshot_graph1.dot
+    ../np-tools/make_dot.py > snapshot_graph1.dot
     dot -Tpng -o snapshot_graph1.png snapshot_graph1.dot
     dot -Tpdf -o snapshot_graph1.pdf snapshot_graph1.dot
 
