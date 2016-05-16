@@ -12,9 +12,10 @@ from time import strptime, mktime, localtime
 
 MY_PATH = dirname(__file__)
 sys.path.append(abspath(MY_PATH))
-from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME, DATE_FMT, SNAPSHOT_RE)
+from nobel_prize import (DEFAULT_PATH, COMMIT_MSG_FNAME, DATE_FMT, SNAPSHOT_RE,
+                        read_info)
 sys.path.append(abspath(pjoin(MY_PATH, '..', 'tools')))
-from mytree import output_tree, get_parser as mt_get_parser
+from mytree import output_tree, get_parser as mt_get_parser, TreeMaker
 
 # Directories will later be sorted by time, with latest first.  Set known
 # directories to be at the top by giving them now + something times.
@@ -69,13 +70,37 @@ def dir_sort_func(path):
     return dirs + files
 
 
+class NpTreeMaker(TreeMaker):
+    """ Adds nobel-prize-specific sorting function """
+
+    def _default_sort_func(self, path):
+        return dir_sort_func(path)
+
+
+class LNpTreeMaker(NpTreeMaker):
+    """ Adds nobel-prize specific directory labeling """
+
+    def _default_label_func(self, path):
+        path_str = super(NpTreeMaker, self)._default_label_func(path)
+        if not isdir(path):
+            return path_str
+        msg_fname = pjoin(path, COMMIT_MSG_FNAME)
+        if not isfile(msg_fname):
+            return path_str
+        info = read_info(msg_fname)
+        return u'{:44s}"{}"'.format(path_str, info['notes'])
+
+
 def main():
     parser = mt_get_parser()
     parser.add_argument('root_dir',
                         nargs='?',
                         default=DEFAULT_PATH,
                         help='directory for which to show tree repr')
-    output_tree(parser.parse_args(), dir_sort_func=dir_sort_func)
+    parser.add_argument('--label', action='store_true',
+                        help='Whether to label directories with Notes')
+    args = parser.parse_args()
+    output_tree(args, klass=LNpTreeMaker if args.label else NpTreeMaker)
 
 
 if __name__ == '__main__':

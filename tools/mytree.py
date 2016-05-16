@@ -41,52 +41,75 @@ MB = KB * KB
 GB = MB * KB
 
 
-def human_size(size):
-    for divisor, suffix in ((GB, 'G'),
-                            (MB, 'M'),
-                            (KB, 'K')):
+def human_size(path):
+    try:
+        size = stat(path).st_size
+    except OSError:
+        return u"<cannot read file>"
+    for divisor, suffix in ((GB, u'G'),
+                            (MB, u'M'),
+                            (KB, u'K')):
         divided = size / divisor
         if divided < 1:
             continue
         if round(divided) < 10:
-            return '{:.1f}{}'.format(divided, suffix)
-        return '{:.0f}{}'.format(round(divided), suffix)
-    return '{:d}B'.format(size)
+            return u'{:.1f}{}'.format(divided, suffix)
+        return u'{:.0f}{}'.format(round(divided), suffix)
+    return u'{:d}B'.format(size)
 
 
 class TreeMaker(object):
 
     def __init__(self,
-                 show_size=False,
                  dir_sort_func=None,
                  elide_dirs=None,
                  unelide_dirs=None,
-                 colors=False):
+                 label_func=None,
+                 colors=False,
+                 show_size=False):
         """ Initialize object for showing trees as strings
 
-        show_size : {False, True}, optional
-            If True, show size next to file name in human readable format.
         dir_sort_func : None or callable, optional
             If None, sort directory entries by name.  If callable, call with
             single argument ``path`` to return directory entries in desired
             order.  Paths returned are full paths.
-        elide_dirs : None or str or regexp or sequence or callable.
+        elide_dirs : None or str or regexp or sequence or callable, optional
             str containing regexp or regexp or sequence of (str or regexp) or
             callable identifying directories for which to elide contents.
             Elide if (any) regexp matches or callable returns True.  Callable
             accepts single argument ``path``.
-        unelide_dirs : None or str or regexp or sequence or callable.
+        unelide_dirs : None or str or regexp or sequence or callable, optional
             str containing regexp or regexp or sequence of (str or regexp) or
             callable identifying directories for which to skip elide check.
             Skip if (any) regexp matches or callable returns True.  Callable
             accepts single argument ``path``.
+        label_func : None or callable, optional
+            Function accepting path name and returning string to display.
+            Defaults to display of basename, modified as per `colors` and
+            `show_size` arguments to this constructor.
+        colors : {False, True}
+            Whether to add colors to output.  Ignored if `label_func` is not
+            None.
+        show_size : {False, True}, optional
+            If True, show size next to file name in human readable format.
+            Ignored if `label_func` is not None.
         """
         self.show_size = show_size
         self.dir_sort_func = (dir_sort_func if dir_sort_func is not None
                               else self._default_sort_func)
         self.elider = self._make_check_func(elide_dirs)
         self.unelider = self._make_check_func(unelide_dirs)
+        self.label_func = (self._default_label_func if label_func is None
+                           else label_func)
         self.colors = bool(colors)
+
+    def _default_label_func(self, path):
+        base = basename(path)
+        is_dir = isdir(path)
+        path_str = self.color_path(base) if is_dir else base
+        if self.show_size and not is_dir:
+            path_str += u' [{}]'.format(human_size(path))
+        return path_str
 
     def _default_sort_func(self, path):
         return [pjoin(path, f) for f in sorted(listdir(path))]
@@ -158,9 +181,11 @@ class TreeMaker(object):
             elif isdir(full_path):
                 n_dirs += 1
         if n_files:
-            out_parts.append(u'%d files' % n_files)
+            out_parts.append(u'{} {}'.format(
+                n_files, 'files' if n_files > 1 else 'file'))
         if n_dirs:
-            out_parts.append(u'%d directories' % n_dirs)
+            out_parts.append(u'{} {}'.format(
+                n_dirs, 'directories' if n_dirs > 1 else 'directory'))
         if len(out_parts) == 0:
             out_parts = ['empty']
         return u'(%s)' % u'; '.join(out_parts)
@@ -184,13 +209,8 @@ class TreeMaker(object):
             line per entry in the directory.
         """
         have_dir = isdir(path)
-        sub_path = basename(path)
         leader = ELBOW_RIGHT_ALONG if last_entry else DOWN_RIGHT_ALONG
-        path_colored = self.color_path(sub_path) if have_dir else sub_path
-        path_str = indent_str + leader + path_colored
-        if self.show_size and not have_dir:
-            size = stat(path).st_size
-            path_str += u' [{}]'.format(human_size(size))
+        path_str = indent_str + leader + self.label_func(path)
         if not have_dir:
             return path_str
         extra_indent = FINISH_INDENT if last_entry else CONTINUE_INDENT
@@ -221,17 +241,16 @@ def get_parser():
     return parser
 
 
-def output_tree(args, dir_sort_func=None):
+def output_tree(args, klass=TreeMaker):
     # Basename needs slash removed
     root_dir = args.root_dir
     if root_dir.endswith(dir_sep):
         root_dir = args.root_dir[:-1]
     hasta = re.compile(args.hasta) if args.hasta else None
-    tree_maker = TreeMaker(show_size=not args.no_show_size,
-                           dir_sort_func=dir_sort_func,
-                           elide_dirs=args.elide_dir,
-                           unelide_dirs=args.unelide_dir,
-                           colors=args.colors)
+    tree_maker = klass(show_size=not args.no_show_size,
+                       elide_dirs=args.elide_dir,
+                       unelide_dirs=args.unelide_dir,
+                       colors=args.colors)
     printout = lambda s : sys.stdout.write((s + u'\n').encode(args.encoding))
     printout(tree_maker.color_path(basename(root_dir)))
     tree_str = tree_maker.as_string(root_dir)
