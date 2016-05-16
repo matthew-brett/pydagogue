@@ -266,7 +266,7 @@ def prefixes_match(prefixes, line):
     return match.groups()[0] in prefixes
 
 
-def add_links(links, link_fname):
+def add_links(links, link_fname, literal=True):
     # Write into links file
     link_lines = []
     if os.path.exists(link_fname):
@@ -274,9 +274,11 @@ def add_links(links, link_fname):
             link_lines = fobj.readlines()
     link_lines = [line for line in link_lines
                   if not prefixes_match(links, line)]
+    literal_markup = '``' if literal else ''
     for name, value in links.items():
-        link_prefix = '.. |{0}|'.format(name)
-        link_line = '{0} replace:: ``{1}``\n'.format(link_prefix, value)
+        link_prefix = '.. |{name}|'.format(name=name)
+        link_line = '{prefix} replace:: {markup}{value}{markup}\n'.format(
+            prefix=link_prefix, value=value, markup=literal_markup)
         link_lines.append(link_line)
     with open(link_fname, 'wt') as fobj:
         fobj.write(''.join(link_lines))
@@ -285,12 +287,12 @@ def add_links(links, link_fname):
 class LinksMixin(object):
     default_links_file = '/dynamic_names.inc'
 
-    def add_links(self, links):
+    def add_links(self, links, literal=True):
         env = self.state.document.settings.env
         links_file = self.options.get('links_file', self.default_links_file)
         _, link_fname = env.relfn2path(links_file)
         # Write links
-        add_links(links, link_fname)
+        add_links(links, link_fname, literal)
 
 
 class CmdAddVar(Directive, LangMixin, VarsMixin, LinksMixin):
@@ -320,7 +322,8 @@ class CmdAddVar(Directive, LangMixin, VarsMixin, LinksMixin):
         'runblock_vars': unchanged,
         'links_file': unchanged,
         'omit_link': flag,
-        'var_type': unchanged
+        'var_type': unchanged,
+        'not-literal': flag,
     }
 
     def run(self):
@@ -329,8 +332,9 @@ class CmdAddVar(Directive, LangMixin, VarsMixin, LinksMixin):
         value = self.params.out.strip()
         var_type = self.options.get('var_type', 'common')
         self.add_typed_var(name, value, var_type)
+        literal = not 'not-literal' in self.options
         if 'omit_link' not in self.options:
-            self.add_links({name: value})
+            self.add_links({name: value}, literal=literal)
         code = u'\n'.join(self.content)
         return [nodes.comment(code, code)]
 
