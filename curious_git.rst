@@ -58,7 +58,16 @@ So, my experience tells me that to use git |--| yes *use* git |--| you need to
 spend the short amount of time it takes to *understand* git.  You don't
 believe me, or you think that I'm a strange kind of person not like you who
 probably likes writing their own operating systems. Not so - the insight I'm
-describing comes up over and over.  From `understanding git conceptually
+describing comes up over and over. From the `git parable`_:
+
+    Most people try to teach Git by demonstrating a few dozen commands and
+    then yelling “tadaaaaa.” I believe this method is flawed. Such a treatment
+    may leave you with the ability to use Git to perform simple tasks, but the
+    Git commands will still feel like magical incantations. Doing anything out
+    of the ordinary will be terrifying. Until you understand the concepts upon
+    which Git is built, you’ll feel like a stranger in a foreign land.
+
+From `understanding git conceptually
 <http://www.sbf5.com/~cduan/technical/git>`_:
 
     When I first started using Git, I read plenty of tutorials, as well as the
@@ -76,12 +85,12 @@ website.
     Chapter 9: Git Internals
 
     You may have skipped to this chapter from a previous chapter, or you may
-    have gotten here after reading the rest of the book — in either case, this
-    is where you’ll go over the inner workings and implementation of Git. I
-    found that learning this information was fundamentally important to
+    have gotten here after reading the rest of the book |--| in either case,
+    this is where you’ll go over the inner workings and implementation of Git.
+    I found that learning this information was fundamentally important to
     understanding how useful and powerful Git is, but others have argued to me
     that it can be confusing and unnecessarily complex for beginners. Thus,
-    I’ve made this discussion the last chapter in the book so you could read
+    I've made this discussion the last chapter in the book so you could read
     it early or later in your learning process. I leave it up to you to
     decide.
 
@@ -94,10 +103,10 @@ succeeded at last, and the |--| er |--| lead has finally turned into gold.
 .. _deep:
 .. _deep shit: http://rogerdudler.github.io/git-guide
 
-So |--| please |--| invest a couple of hours of your life to understand this
-stuff.  Concentrate, go slowly, make sure you get it. In return for a couple
-of hours, you will get many happy years for which git will appear in its true
-form, both beautiful and useful.
+So |--| please |--| invest an hour and a half of your life to understand this
+stuff.  Concentrate, go slowly, make sure you get it. In return for 90 minutes
+you will get many happy years for which git will appear in its true form, both
+beautiful and useful.
 
 The one thing about git you really need to understand
 =====================================================
