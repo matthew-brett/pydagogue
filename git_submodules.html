@@ -84,7 +84,7 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/myp
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;Important code and data&quot;</span> &gt; some_data.txt
 <span class="nv">$ </span>git add some_data.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Initial commit on myproject&quot;</span>
-<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 878b4a2<span class="o">]</span> Initial commit on myproject
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 880f471<span class="o">]</span> Initial commit on myproject
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
  create mode <span class="m">100644</span> some_data.txt
 </pre></div>
@@ -136,7 +136,7 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/sup
 </div>
 <p>Now do the first commit for &#8220;super&#8221;:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Initial commit on super&quot;</span>
-<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 38dd96f<span class="o">]</span> Initial commit on super
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 4f1f025<span class="o">]</span> Initial commit on super
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
  create mode <span class="m">100644</span> README.txt
 </pre></div>
@@ -149,8 +149,8 @@ Initialized empty Git repository in /Users/mb312/dev_trees/pydagogue/working/sup
 <p>So, we now have three files in <code class="docutils literal"><span class="pre">.git/objects</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tree -a .git/objects
 .git/objects
-├── 38
-│   └── dd96f6ba5c30c731097f02376c15ae9ac63e73
+├── 4f
+│   └── 1f025a04562fa057ab43170bf724aab0a95ec5
 ├── 9c
 │   └── 0042144fc489d7b528ef186af49e78c2867f91
 ├── f1
@@ -196,11 +196,11 @@ index 0000000..00b54ec
 +	<span class="nv">url</span> <span class="o">=</span> ../myproject
 diff --git a/subproject b/subproject
 new file mode 160000
-index 0000000..878b4a2
+index 0000000..880f471
 --- /dev/null
 +++ b/subproject
 @@ -0,0 +1 @@
-+Subproject commit 878b4a2e2d22e65f504a8dc664ee8044db946143
++Subproject commit 880f47177efb90203b3db99fc0fc6dd4908ab90c
 </pre></div>
 </div>
 <p>As you saw, the output from <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span></code> says <code class="docutils literal"><span class="pre">Cloning</span> <span class="pre">into</span>
@@ -235,8 +235,8 @@ after the first commit.  After <code class="docutils literal"><span class="pre">
 .git/objects
 ├── 00
 │   └── b54ece7789a75ca80a0edb1e1b1e532a1833d8
-├── 38
-│   └── dd96f6ba5c30c731097f02376c15ae9ac63e73
+├── 4f
+│   └── 1f025a04562fa057ab43170bf724aab0a95ec5
 ├── 9c
 │   └── 0042144fc489d7b528ef186af49e78c2867f91
 ├── f1
@@ -264,7 +264,7 @@ object).  That is a bit difficult to see at the moment, because the directory
 listing is in the git staging area and not yet written into a tree object.  To
 write the tree object, we do a commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Adding the submodule&quot;</span>
-<span class="o">[</span>master b6e9223<span class="o">]</span> Adding the submodule
+<span class="o">[</span>master 2ed4151<span class="o">]</span> Adding the submodule
  <span class="m">2</span> files changed, <span class="m">4</span> insertions<span class="o">(</span>+<span class="o">)</span>
  create mode <span class="m">100644</span> .gitmodules
  create mode <span class="m">160000</span> subproject
@@ -275,7 +275,7 @@ object (directory listing) for this commit:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git ls-tree master
 <span class="m">100644</span> blob 00b54ece7789a75ca80a0edb1e1b1e532a1833d8	.gitmodules
 <span class="m">100644</span> blob 9c0042144fc489d7b528ef186af49e78c2867f91	README.txt
-<span class="m">160000</span> commit 878b4a2e2d22e65f504a8dc664ee8044db946143	subproject
+<span class="m">160000</span> commit 880f47177efb90203b3db99fc0fc6dd4908ab90c	subproject
 </pre></div>
 </div>
 <p>As you can see, the two real files – <code class="docutils literal"><span class="pre">.gitmodules</span></code> and <code class="docutils literal"><span class="pre">README.txt</span></code>
@@ -286,9 +286,9 @@ is the usual way git refers to a file in a directory listing (see
 of the &#8220;myproject&#8221; repository, in the <code class="docutils literal"><span class="pre">subproject</span></code> copy:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>subproject
 <span class="nv">$ </span>git log
-commit 878b4a2e2d22e65f504a8dc664ee8044db946143
+commit 880f47177efb90203b3db99fc0fc6dd4908ab90c
 Author: Matthew Brett &lt;matthew.brett@gmail.com&gt;
-Date:   Tue May <span class="m">1</span> 11:13:13 <span class="m">2012</span> -0400
+Date:   Tue May <span class="m">1</span> 11:13:13 <span class="m">2012</span> -0700
 
     Initial commit on myproject
 </pre></div>
@@ -306,13 +306,13 @@ original <code class="docutils literal"><span class="pre">myproject</span></code
 <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;More data&quot;</span> &gt; some_more_data.txt
 <span class="nv">$ </span>git add some_more_data.txt
 <span class="nv">$ </span>git commit -m <span class="s2">&quot;Add some more data&quot;</span>
-<span class="o">[</span>master c19a254<span class="o">]</span> Add some more data
+<span class="o">[</span>master 15299e9<span class="o">]</span> Add some more data
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
  create mode <span class="m">100644</span> some_more_data.txt
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -v
-* master c19a254 Add some more data
+* master 15299e9 Add some more data
 </pre></div>
 </div>
 <p>Of course &#8220;super&#8221; has not changed, because we haven&#8217;t updated the submodule
@@ -341,13 +341,13 @@ origin	/Users/mb312/dev_trees/pydagogue/working/myproject <span class="o">(</spa
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span><span class="c"># This is the same as &quot;git pull&quot;</span>
 <span class="nv">$ </span>git fetch origin
 <span class="nv">$ </span>git merge origin/master
-Updating 878b4a2..c19a254
+Updating 880f471..15299e9
 Fast-forward
  some_more_data.txt <span class="p">|</span> <span class="m">1</span> +
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>
  create mode <span class="m">100644</span> some_more_data.txt
 From /Users/mb312/dev_trees/pydagogue/working/myproject
-   878b4a2..c19a254  master     -&gt; origin/master
+   880f471..15299e9  master     -&gt; origin/master
 </pre></div>
 </div>
 <p>Now what do we see in &#8220;super&#8221;?</p>
@@ -368,12 +368,12 @@ no changes added to commit <span class="o">(</span>use <span class="s2">&quot;gi
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git diff
 diff --git a/subproject b/subproject
-index 878b4a2..c19a254 160000
+index 880f471..15299e9 160000
 --- a/subproject
 +++ b/subproject
 @@ -1 +1 @@
--Subproject commit 878b4a2e2d22e65f504a8dc664ee8044db946143
-+Subproject commit c19a25445b387ad91e5f01776bb12b1531968cf8
+-Subproject commit 880f47177efb90203b3db99fc0fc6dd4908ab90c
++Subproject commit 15299e979df54673993e94b4d8fc99abe9cad159
 </pre></div>
 </div>
 <p>Git is not tracking the <em>contents</em> of the &#8220;subproject&#8221; directory, but the <em>git
@@ -384,10 +384,10 @@ has the effect of updating the commit that the &#8220;super&#8221; tree is point
 in the staging area, but adds no new files to <code class="docutils literal"><span class="pre">.git/objects</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git/objects/*/*
 .git/objects/00/b54ece7789a75ca80a0edb1e1b1e532a1833d8
-.git/objects/38/dd96f6ba5c30c731097f02376c15ae9ac63e73
+.git/objects/2e/d4151f974b79e7310b0479445f95485133e463
+.git/objects/4f/1f025a04562fa057ab43170bf724aab0a95ec5
 .git/objects/9c/0042144fc489d7b528ef186af49e78c2867f91
-.git/objects/b6/e9223afec9566d4aae81bbd0172716caa0d74c
-.git/objects/d1/b192cfbe93b2b1a5abd2a7e4ae9427db725eb3
+.git/objects/a5/998756e9314512275989752d5eb467bbaf2827
 .git/objects/f1/3a8c8331c76ac965c43b09d11ee2d72bb053c1
 </pre></div>
 </div>
@@ -398,10 +398,10 @@ in the staging area, but adds no new files to <code class="docutils literal"><sp
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls .git/objects/*/*
 .git/objects/00/b54ece7789a75ca80a0edb1e1b1e532a1833d8
-.git/objects/38/dd96f6ba5c30c731097f02376c15ae9ac63e73
+.git/objects/2e/d4151f974b79e7310b0479445f95485133e463
+.git/objects/4f/1f025a04562fa057ab43170bf724aab0a95ec5
 .git/objects/9c/0042144fc489d7b528ef186af49e78c2867f91
-.git/objects/b6/e9223afec9566d4aae81bbd0172716caa0d74c
-.git/objects/d1/b192cfbe93b2b1a5abd2a7e4ae9427db725eb3
+.git/objects/a5/998756e9314512275989752d5eb467bbaf2827
 .git/objects/f1/3a8c8331c76ac965c43b09d11ee2d72bb053c1
 </pre></div>
 </div>
@@ -410,14 +410,14 @@ in the staging area, but adds no new files to <code class="docutils literal"><sp
 <p>If we do the commit, we can see the root tree listing now points
 <code class="docutils literal"><span class="pre">subproject</span></code> to the new commit of &#8220;myproject&#8221;:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Update myproject with more data&quot;</span>
-<span class="o">[</span>master 58b7189<span class="o">]</span> Update myproject with more data
+<span class="o">[</span>master cbb20f7<span class="o">]</span> Update myproject with more data
  <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletion<span class="o">(</span>-<span class="o">)</span>
 </pre></div>
 </div>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git ls-tree master
 <span class="m">100644</span> blob 00b54ece7789a75ca80a0edb1e1b1e532a1833d8	.gitmodules
 <span class="m">100644</span> blob 9c0042144fc489d7b528ef186af49e78c2867f91	README.txt
-<span class="m">160000</span> commit c19a25445b387ad91e5f01776bb12b1531968cf8	subproject
+<span class="m">160000</span> commit 15299e979df54673993e94b4d8fc99abe9cad159	subproject
 </pre></div>
 </div>
 </div>
@@ -513,7 +513,7 @@ subproject
 <p>To do the submodule clone, use <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span></code> after <code class="docutils literal"><span class="pre">git</span> <span class="pre">submodule</span>
 <span class="pre">init</span></code>:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git submodule update
-Submodule path <span class="s1">&#39;subproject&#39;</span>: checked out <span class="s1">&#39;c19a25445b387ad91e5f01776bb12b1531968cf8&#39;</span>
+Submodule path <span class="s1">&#39;subproject&#39;</span>: checked out <span class="s1">&#39;15299e979df54673993e94b4d8fc99abe9cad159&#39;</span>
 Cloning into <span class="s1">&#39;subproject&#39;</span>...
 <span class="k">done</span>.
 </pre></div>

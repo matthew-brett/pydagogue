@@ -1,0 +1,29 @@
+digraph "nobel_prize" {
+"00d03e9d1bf4ebaea380da3c62e9226189e39ff4" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="00d03e9d1bf4ebaea380da3c62e9226189e39ff4
+Change parameters of analysis"]
+"00d03e9d1bf4ebaea380da3c62e9226189e39ff4" -> "d9accd0a27c78b4333d70ee1a9d7dca0bcc3e682"
+"905376d349af193c367217712bc231186f17fca7" [color="indianred4", style="rounded,filled", fillcolor="lightpink", shape="box", label="905376d349af193c367217712bc231186f17fca7
+Expand the introduction"]
+"905376d349af193c367217712bc231186f17fca7" -> "9920fff7b55370a2c4c7566011de8aa2a263171f"
+"9920fff7b55370a2c4c7566011de8aa2a263171f" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="9920fff7b55370a2c4c7566011de8aa2a263171f
+Revert to original script & figure"]
+"9920fff7b55370a2c4c7566011de8aa2a263171f" -> "c203516a49d48389826b041f4d7bd2d39bdf4a57"
+"99b52473039acea4427e13e42b96c78776e2baf5" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="99b52473039acea4427e13e42b96c78776e2baf5
+First backup of my amazing idea"]
+
+"9bf4cdd8847feeb49fe94cb96298acf7986a587d" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="9bf4cdd8847feeb49fe94cb96298acf7986a587d
+Add first draft of paper"]
+"9bf4cdd8847feeb49fe94cb96298acf7986a587d" -> "99b52473039acea4427e13e42b96c78776e2baf5"
+"bd9dc5fb9aacf208536fad1fad22696c9a79e277" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="bd9dc5fb9aacf208536fad1fad22696c9a79e277
+Merged Josephine's changes"]
+"bd9dc5fb9aacf208536fad1fad22696c9a79e277" -> "bee09a3b1c11456c6e1bc6784319954f40fef24b"
+"bd9dc5fb9aacf208536fad1fad22696c9a79e277" -> "905376d349af193c367217712bc231186f17fca7"
+"bee09a3b1c11456c6e1bc6784319954f40fef24b" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="bee09a3b1c11456c6e1bc6784319954f40fef24b
+More fun with fudge"]
+"bee09a3b1c11456c6e1bc6784319954f40fef24b" -> "9920fff7b55370a2c4c7566011de8aa2a263171f"
+"c203516a49d48389826b041f4d7bd2d39bdf4a57" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="c203516a49d48389826b041f4d7bd2d39bdf4a57
+Add references"]
+"c203516a49d48389826b041f4d7bd2d39bdf4a57" -> "00d03e9d1bf4ebaea380da3c62e9226189e39ff4"
+"d9accd0a27c78b4333d70ee1a9d7dca0bcc3e682" [color="skyblue4", style="rounded,filled", fillcolor="slategray1", shape="box", label="d9accd0a27c78b4333d70ee1a9d7dca0bcc3e682
+Add another fudge factor"]
+"d9accd0a27c78b4333d70ee1a9d7dca0bcc3e682" -> "9bf4cdd8847feeb49fe94cb96298acf7986a587d"}
