@@ -175,9 +175,11 @@ in beer.  It's a huge 11GB install which took more than an hour on my machine.
 Do a custom install, and select the VC++ compiler component (it is not selected
 by default).
 
-There are also the `MSVC 2015 command line tools
-<http://landinghub.visualstudio.com/visual-cpp-build-tools>`_, but Python
-3.5 does not detect these tools by default.
+A better plan might be the `MSVC 2015 command line tools
+<http://landinghub.visualstudio.com/visual-cpp-build-tools>`_. Python 3.5 does
+not detect these tools by default.  See the `Python Windows compilers wiki
+page <https://wiki.python.org/moin/WindowsCompilers>`_ for instructions to
+configure MSVC build tools to work with Python 3.5.
 
 .. _other-options:
 
