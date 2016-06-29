@@ -2020,18 +2020,20 @@ Notice that the branch pointer now points to the previous commit:
 
     git branch -v
 
-Notice also that ``git reset`` has reset the staging area to the state as of
-the given commit, but it has left the working tree alone.  That means that
-``git status`` will show us the changes in the working tree compared to the
-commit we have just reset to:
+Remember in SAP that your procedure for breaking up the snapshot was to 1)
+delete the old snapshot and 2) reset the staging area to reflect the previous
+commit.  After you did this, the working tree contains your changes, but the
+staging area does not.  You could make your new commits in the usual way, by
+adding to the staging area, and doing the commits.
+
+Notice that ``git reset`` has done the same thing.  It has reset the staging
+area to the state as of the older commit, but it has left the working tree
+alone.  That means that ``git status`` will show us the changes in the working
+tree compared to the commit we have just reset to:
 
 .. prizerun::
 
     git status
-
-This kind of reset is called a "mixed" reset.  A "mixed" reset sets the branch
-pointer, and sets the staging area to correspond to the new branch pointer.
-Try ``git reset --help`` for more detail.
 
 We have the changes from our original fourth commit in our working tree, but
 we have not staged them.  We are ready to make our new separate commits.
