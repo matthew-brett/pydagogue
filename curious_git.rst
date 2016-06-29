@@ -1939,7 +1939,7 @@ What will git status show now?
 
     git status
 
-Git has not previously seen a file called ``refererences.bib`` so this file is
+Git has not previously seen a file called ``references.bib`` so this file is
 "untracked".  Git has seen ``clever_analysis.py`` and ``fancy_figure.png``, so
 these files are tracked, and git sees that they are modified compared to the
 copy that the staging area knows about.
@@ -1986,7 +1986,7 @@ So, as in the SAP story, you decide to undo the last commit, and replace it
 with two commits:
 
 * One commit to add the changes to the script and figure;
-* Another commit on top of the first.
+* Another commit on top of the first, to add the references file.
 
 In the SAP story, you had to delete a snapshot directory manually, and reset
 the staging area directory to have the contents of the previous commit.  In
@@ -2337,11 +2337,11 @@ The commit parents make the development history into a graph
 ============================================================
 
 As you saw in your SAP system, we can think of the commits as nodes in a
-graph.  Each commit stores the identity of its parent commit(s).  The parents
-link the commits (nodes) to form edges.
+graph.  Each commit stores the identity of its parent commit(s).  The pointers
+from each commit back to its parent(s) link the commits (nodes) to form edges.
 
-It is common to see a git history written as a graph, and it is often useful
-to think of this graph when we are working with a git repository.
+It is common to see a git history shown as a graph, and it is often useful to
+think of this graph when we are working with a git repository.
 
 There are a lot of graphical tools to show the git history as a graph, but
 ``git log`` has a useful flag called ``--graph`` which shows the commits as a
