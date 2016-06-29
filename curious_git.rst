@@ -1857,10 +1857,10 @@ Git status now shows these changes as "Changes to be committed".
 
     git status
 
-We can update the figure by running ``analysis_script.py`` script.  The scipt
-analyzes the data and writes the figure to the current directory.  If you have
-Python installed, with the ``numpy`` and ``matplotlib`` packages, you can run
-the analysis yourself with::
+We can update the figure by running the ``analysis_script.py`` script.  The
+script analyzes the data and writes the figure to the current directory.  If
+you have Python installed, with the ``numpy`` and ``matplotlib`` packages, you
+can run the analysis yourself with::
 
     python clever_analysis.py
 
@@ -2381,7 +2381,7 @@ You will also need to know about:
   :doc:`curious_remotes`;
 * tags |--| making static bookmarks to commits;
 
-You will probabaly also find use for:
+You will probably also find use for:
 
 * `git reflog
   <http://www.kernel.org/pub/software/scm/git/docs/git-reflog.html>`_ |--|
