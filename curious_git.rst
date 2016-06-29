@@ -2060,61 +2060,6 @@ therefore not staged) changes in our working tree:
 
     git status
 
-Adding with ``-a``
-==================
-
-So far we have done our commits with at least two steps: ``git add`` and then
-``git commit``.  It is also possible to add files and commit the snapshot in
-one step, using ``git commit -a``.
-
-Adding the ``-a`` flag to ``git commit`` means that git will:
-
-* ``add`` any modified, tracked files to the staging area;
-* ``commit`` these modified files.
-
-For example, I could have used ``git commit -a`` to combine the ``add`` and
-``commit`` steps in the last commit.
-
-Now we know how to undo a commit, let's undo the last commit and do it again
-using ``git commit -a``.
-
-.. prizerun::
-
-    # Undo the last commit, reset staging area
-    git reset master~1
-
-As before, the working tree changes to script, figure and references now
-differ from the copies known to the staging area:
-
-.. prizerun::
-
-    git status
-
-Now I repeat the last commit, by adding the tracked files and doing the commit
-in one step:
-
-.. prizecommit:: commit_4_a_sha 2012-04-04 1:40:43
-
-    git commit -a -m "Change parameters of analysis"
-
-The ``-a`` flag to ``git commit`` ignores any untracked files |--| so
-``references.bib`` will still be untracked:
-
-.. prizerun::
-
-    git status
-
-.. note::
-
-    If you have used other version control systems, the ``-a`` flag may look
-    like a good idea, but experienced users often prefer to separate
-    the add and commit steps using ``git add`` and ``git commit`` instead of
-    ``git commit -a``.  We find the explicit ``git add`` helps us think about
-    the changes we are adding, whereas the ``-a`` flag makes it easier to add
-    changes we didn't intend.  So I recommend you always use ``git add``,
-    especially when you are learning, and that's how I'm going to do the rest
-    of the examples in this tutorial.
-
 The fifth commit
 ================
 
