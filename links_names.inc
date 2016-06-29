@@ -78,6 +78,14 @@
 .. This repo
 .. _pydagogue issue : https://github.com/matthew-brett/pydagogue/issues
 
+.. Curious git
+.. _curious git: https://matthew-brett.github.io/curious-git/curious_git.html
+.. _curious remotes: https://matthew-brett.github.io/curious-git/curious_remotes.html
+.. _curious object types: https://matthew-brett.github.io/curious-git/git_object_types.html
+.. _curious submodules: https://matthew-brett.github.io/curious-git/git_submodules.html
+.. _curious push: https://matthew-brett.github.io/curious-git/git_push_algorithm.html
+.. _curious reading: https://matthew-brett.github.io/curious-git/reading_git_objects.html
+
 .. Substitutions
 .. |emdash| unicode:: U+02014
 .. |--| unicode:: U+2013   .. en dash

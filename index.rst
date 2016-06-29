@@ -32,6 +32,5 @@ You might also be interested on my `docosx`_ pages about developing on OSX.
     gh-pages-intro
     legacy_package_redux
     mac_runtime_link
-    np-versions/README
 
 .. include:: links_names.inc
