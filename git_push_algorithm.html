@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An algorithm for git push &mdash; pydagogue 0.2 documentation</title>
+    <title>Git push algorithm &mdash; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
     <link rel="up" title="Notes and tutorials on git" href="git.html" />
-    <link rel="next" title="Types of git objects" href="git_object_types.html" />
-    <link rel="prev" title="git remotes - working with other people, making backups" href="curious_remotes.html" /> 
+    <link rel="next" title="Git object types" href="git_object_types.html" />
+    <link rel="prev" title="Working with git remotes" href="curious_remotes.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -37,10 +37,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="git_object_types.html" title="Types of git objects"
+          <a href="git_object_types.html" title="Git object types"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="curious_remotes.html" title="git remotes - working with other people, making backups"
+          <a href="curious_remotes.html" title="Working with git remotes"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
@@ -52,97 +52,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="an-algorithm-for-git-push">
-<h1>An algorithm for git push<a class="headerlink" href="#an-algorithm-for-git-push" title="Permalink to this headline">¶</a></h1>
-<p>We saw how git stores its object in <a class="reference internal" href="curious_git.html"><em>The curious coder&#8217;s guide to git</em></a>.</p>
-<p>Now we know about how git stores its objects, we can work out how git knows
-which objects to copy when it does a push.</p>
-<div class="section" id="paths-through-commits">
-<h2>Paths through commits<a class="headerlink" href="#paths-through-commits" title="Permalink to this headline">¶</a></h2>
-<p>Git commits form a graph.  The commits are the <em>nodes</em> in the graph.  Each
-commit (except the first) has one or more parents, stored as hash references
-in the commit object. The references to commit parents are the links
-between nodes that form the <em>edges</em> in the graph.</p>
-<p>The output of <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--graph</span></code> shows the sequence of commits as a graph,
-with commits as nodes and parent links as edges.  Here&#8217;s some example output
-from the <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> command with flags to make the graph structure more
-obvious:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>desktop<span class="o">]</span><span class="nv">$ </span>git log --graph --oneline 49d2d6a
-* 49d2d6a Buff up the paper some more
-*   5d2ca89 Merge branch <span class="s1">&#39;josephines-branch&#39;</span>
-<span class="p">|</span><span class="se">\ </span> 
-<span class="p">|</span> * 740d747 Expand the introduction
-* <span class="p">|</span> 191c946 More fun with fudge
-<span class="p">|</span>/  
-* 09e59b6 Revert to original script <span class="p">&amp;</span> figure
-* 3a666f1 Add references
-* cd5feb3 Change parameters of analysis
-* f253e97 Add another fudge factor
-* de82e02 Add first draft of paper
-* adbb65e First backup of my amazing idea
-</pre></div>
-</div>
-<p>If we start at a particular commit, and then track back following only one
-parent for each commit, this is a <em>path</em> in the <em>commit history</em>.</p>
-<p>See <a class="reference internal" href="git_log_dots.html#git-reachable"><span>defining paths</span></a> for a more formal definition of a
-commit path.</p>
-</div>
-<div class="section" id="an-algorithm">
-<h2>An algorithm<a class="headerlink" href="#an-algorithm" title="Permalink to this headline">¶</a></h2>
-<p>Something like this algorithm might do the job:</p>
-<ol class="arabic simple">
-<li>Get the commit hash corresponding the branch we are going to push;</li>
-<li>Follow every commit path (see above)back from this commit, until we hit a
-commit hash (filename) that the remote has.  All the previous commits on
-the path, that the remote does not have, are <em>missing commits</em>;</li>
-<li>For every <em>missing commit</em> get the corresponding tree (directory listing)
-object.  If the tree object is not in the remote objects directory, add to
-the list of <em>missing trees</em>;</li>
-<li>For every <em>missing tree</em> read the tree directory listing. Find any blob
-(file) objects in the directory listing that are not in the remote objects
-directory, add to the list of <em>missing blob</em> objects <a class="footnote-reference" href="#sub-trees" id="id1">[1]</a>;</li>
-<li>Copy all <em>missing commit</em>, <em>missing tree</em> and <em>missing blob</em> objects to the
-remote objects directory;</li>
-<li>Update the remote branch to point to the same commit as the local branch;</li>
-<li>Update the local record of the last known position of the remote branch to
-point to the same commit.</li>
-</ol>
-<p>There&#8217;s a specific example of <code class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></code> at <a class="reference internal" href="curious_remotes.html#git-push"><span>git push – synchronizing repositories</span></a>. Here is how
-that example would follow our algorithm:</p>
-<ol class="arabic simple">
-<li>We look up the hash for <code class="docutils literal"><span class="pre">master</span></code>, and we get <code class="docutils literal"><span class="pre">49d2d6a702d246c663b7787c628f498b4352edd0</span></code> (abbreviated as
-<code class="docutils literal"><span class="pre">49d2d6a</span></code>);</li>
-<li>We follow all commit history paths back from <code class="docutils literal"><span class="pre">49d2d6a</span></code> to check for
-missing commits. We start with <code class="docutils literal"><span class="pre">49d2d6a</span></code>. The remote does not have a
-matching file in <code class="docutils literal"><span class="pre">objects</span></code>, so this is a missing commit. We only have one
-path to follow, because <code class="docutils literal"><span class="pre">49d2d6a</span></code> has only one parent –
-<code class="docutils literal"><span class="pre">5d2ca899bda0e711679039887ecd7b966615f2c1</span></code> – and the remote does have a corresponding object, so
-we can stop looking for missing commits;</li>
-<li>We only have one missing commit, <code class="docutils literal"><span class="pre">49d2d6a</span></code>.  We look in the contents of
-<code class="docutils literal"><span class="pre">49d2d6a</span></code> to find the tree object hash.  This is <code class="docutils literal"><span class="pre">5479026d5fc400a536f9a89b5f60b18604d64b13</span></code>.  We
-check for this object in the remote objects directory, and sure enough, it
-is missing. We add this tree to the list of missing trees;</li>
-<li>We only have one missing tree – <code class="docutils literal"><span class="pre">5479026d5fc400a536f9a89b5f60b18604d64b13</span></code>. We look in the contents
-of this tree object and check in the remote object directory for each
-object in this listing. The only missing object is <code class="docutils literal"><span class="pre">67a2b3a80e9419cfedb299c322c0da66123c0485</span></code>;</li>
-<li>We copy the objects for the missing commits (<code class="docutils literal"><span class="pre">5d2ca899bda0e711679039887ecd7b966615f2c1</span></code>), missing
-trees (<code class="docutils literal"><span class="pre">5479026d5fc400a536f9a89b5f60b18604d64b13</span></code>) and missing blobs (<code class="docutils literal"><span class="pre">67a2b3a80e9419cfedb299c322c0da66123c0485</span></code>) to the
-remote objects directory;</li>
-<li>We set remote <code class="docutils literal"><span class="pre">refs/heads/master</span></code> to contain the hash <code class="docutils literal"><span class="pre">49d2d6a</span></code>;</li>
-<li>Set the local <code class="docutils literal"><span class="pre">refs/remotes/usb_backup/master</span></code> to contain <code class="docutils literal"><span class="pre">49d2d6a</span></code>.</li>
-</ol>
-<p class="rubric">Footnotes</p>
-<table class="docutils footnote" frame="void" id="sub-trees" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>You have probably worked out by now that git directory
-listings can have files (called &#8220;blobs&#8221;) and subdirectories (&#8220;trees&#8221;) (see
-<a class="reference internal" href="git_object_types.html"><em>Types of git objects</em></a>).  When doing the copy, we actually have to recurse
-into any sub-directories to get needed file (&#8220;blob&#8221;) and subdirectory
-(&#8220;tree&#8221;) objects.  But, you get the idea.</td></tr>
-</tbody>
-</table>
-</div>
+  <div class="section" id="git-push-algorithm">
+<h1>Git push algorithm<a class="headerlink" href="#git-push-algorithm" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial has moved to <a class="reference external" href="https://matthew-brett.github.io/curious-git/git_push_algorithm.html">curious push</a>.</p>
 </div>
 
 
@@ -151,21 +63,12 @@ into any sub-directories to get needed file (&#8220;blob&#8221;) and subdirector
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">An algorithm for git push</a><ul>
-<li><a class="reference internal" href="#paths-through-commits">Paths through commits</a></li>
-<li><a class="reference internal" href="#an-algorithm">An algorithm</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
   <p class="topless"><a href="curious_remotes.html"
-                        title="previous chapter">git remotes - working with other people, making backups</a></p>
+                        title="previous chapter">Working with git remotes</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="git_object_types.html"
-                        title="next chapter">Types of git objects</a></p>
+                        title="next chapter">Git object types</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -197,10 +100,10 @@ into any sub-directories to get needed file (&#8220;blob&#8221;) and subdirector
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="git_object_types.html" title="Types of git objects"
+          <a href="git_object_types.html" title="Git object types"
              >next</a> |</li>
         <li class="right" >
-          <a href="curious_remotes.html" title="git remotes - working with other people, making backups"
+          <a href="curious_remotes.html" title="Working with git remotes"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
