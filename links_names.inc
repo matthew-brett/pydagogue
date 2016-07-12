@@ -79,7 +79,7 @@
 .. _pydagogue issue : https://github.com/matthew-brett/pydagogue/issues
 
 .. Curious git
-.. _curious git: https://matthew-brett.github.io/curious-git/curious_git.html
+.. _curious git: https://matthew-brett.github.io/curious-git
 .. _curious remotes: https://matthew-brett.github.io/curious-git/curious_remotes.html
 .. _curious object types: https://matthew-brett.github.io/curious-git/git_object_types.html
 .. _curious submodules: https://matthew-brett.github.io/curious-git/git_submodules.html
