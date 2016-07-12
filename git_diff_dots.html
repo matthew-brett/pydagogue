@@ -62,11 +62,11 @@
 <div class="section" id="diff-without-dots">
 <h2>Diff without dots<a class="headerlink" href="#diff-without-dots" title="Permalink to this headline">¶</a></h2>
 <p>Two dots is the default in <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code>.  That is, if you do:</p>
-<div class="highlight-python"><div class="highlight"><pre>git diff master topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master topic
 </pre></div>
 </div>
 <p>what you&#8217;ll get is the same as if you asked for:</p>
-<div class="highlight-python"><div class="highlight"><pre>git diff master..topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master..topic
 </pre></div>
 </div>
 <p>So <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> without dots is the same as <a class="reference internal" href="#git-diff-two-dots"><span>Diff with two dots</span></a>.</p>
@@ -76,13 +76,13 @@
 <p>Imagine a series of commits A, B, C, D...  Imagine that there are two
 branches, <em>topic</em> and <em>master</em>.  You branched <em>topic</em> off <em>master</em> when
 <em>master</em> was at commit &#8216;E&#8217;.  The graph of the commits looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>      A---B---C topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>      A---B---C topic
      /
 D---E---F---G master
 </pre></div>
 </div>
 <p>Then:</p>
-<div class="highlight-python"><div class="highlight"><pre>git diff master..topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master..topic
 </pre></div>
 </div>
 <p>will output the difference from G to C (i.e. with effects of F and G).</p>
@@ -90,7 +90,7 @@ D---E---F---G master
 <div class="section" id="diff-with-three-dots">
 <h2>Diff with three dots<a class="headerlink" href="#diff-with-three-dots" title="Permalink to this headline">¶</a></h2>
 <p>Using the three-dot form:</p>
-<div class="highlight-python"><div class="highlight"><pre>git diff master...topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master...topic
 </pre></div>
 </div>
 <p>This shows the differences between <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">topic</span></code> <em>starting at the

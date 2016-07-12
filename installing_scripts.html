@@ -69,7 +69,7 @@ release it under the <a class="reference external" href="http://creativecommons.
 mechanism, <code class="docutils literal"><span class="pre">distutils</span></code>, uses the first line of a script to get the Python
 interpreter that will run the script.  A first line of a typical python script
 in Unix might look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/local/bin/python</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python</span>
 </pre></div>
 </div>
 <p>This is called the <a class="reference external" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>
@@ -79,7 +79,7 @@ interpreter <code class="docutils literal"><span class="pre">/usr/local/bin/pyth
 <p>When you install python scripts with a certain python interpreter,
 say <code class="docutils literal"><span class="pre">/usr/local/bin/python2.6</span></code>, distutils changes this line in the installed
 script, to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/local/bin/python2.6</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python2.6</span>
 </pre></div>
 </div>
 <p>(See: <a class="reference external" href="http://docs.python.org/2/distutils/setupscript.html#installing-scripts">http://docs.python.org/2/distutils/setupscript.html#installing-scripts</a>)</p>
@@ -91,47 +91,47 @@ distutils&#8217; trick for Unix will have no useful effect on Windows.</p>
 <h2>The problem by example<a class="headerlink" href="#the-problem-by-example" title="Permalink to this headline">¶</a></h2>
 <p>In standard distutils, you tell your <code class="docutils literal"><span class="pre">setup.py</span></code> that some files are scripts. Let&#8217;s make a
 trivial <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
 <span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;myscripter&#39;</span><span class="p">,</span>
-    <span class="n">version</span> <span class="o">=</span> <span class="s">&#39;0.1&#39;</span><span class="p">,</span>
-    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s">&#39;bin&#39;</span><span class="p">,</span> <span class="s">&#39;myscript&#39;</span><span class="p">)]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myscripter&#39;</span><span class="p">,</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.1&#39;</span><span class="p">,</span>
+    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;myscript&#39;</span><span class="p">)]</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 <p>and a script <code class="docutils literal"><span class="pre">bin/myscript</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/local/bin/python</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note the shebang line pointing to <code class="docutils literal"><span class="pre">/usr/local/bin/python</span></code>.</p>
 <p>Install into a <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre><span></span>virtualenv venv
 . venv/bin/activate # on Unix
 python setup.py install
 deactivate
 </pre></div>
 </div>
 <p>The contents of <code class="docutils literal"><span class="pre">./venv/bin/myscript</span></code> are (in my case):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note the new shebang line, imported from the python doing the installation.</p>
 <p>Here is the contents of the installed script on Windows, after running the
 equivalent steps:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Again, distutils has modified the Python path in the shebang line.  But this
 time, the shebang is useless, because:</p>
-<div class="highlight-python"><div class="highlight"><pre>(venv) C:\repos\myscripter&gt;myscript
+<div class="highlight-python"><div class="highlight"><pre><span></span>(venv) C:\repos\myscripter&gt;myscript
 &#39;myscript&#39; is not recognized as an internal or external command,
 operable program or batch file.
 (venv) C:\repos\myscripter&gt;venv\Scripts\myscript
@@ -142,7 +142,7 @@ operable program or batch file.
 <p>We could make the script executable on Windows by adding a <code class="docutils literal"><span class="pre">.py</span></code> extension.
 This will associate the file with the <em>default</em> system python, not the Python
 doing the installation; it is the python doing the installation that we want:</p>
-<div class="highlight-python"><div class="highlight"><pre>(venv) C:\repos\myscripter&gt;copy venv\Scripts\myscript venv\Scripts\myscript.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>(venv) C:\repos\myscripter&gt;copy venv\Scripts\myscript venv\Scripts\myscript.py
         1 file(s) copied.
 
 (venv) C:\repos\myscripter&gt;venv\Scripts\myscript.py
@@ -162,17 +162,17 @@ variants, meaning <a class="reference external" href="http://pypi.python.org/pyp
 <code class="docutils literal"><span class="pre">distutils</span></code>, modifying the shebang line, but nothing else of interest in
 solving our Windows problems.  We can run the same code as above through
 setuptools:</p>
-<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre><span></span>virtualenv venv
 . venv/bin/activate # on Unix
 python setupegg.py install
 deactivate
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">setupegg.py</span></code> just imports setuptools and runs our original <code class="docutils literal"><span class="pre">setup.py</span></code> script:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">setuptools</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="k">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;setup.py&#39;</span><span class="p">,</span> <span class="s">&#39;rt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">__name__</span><span class="o">=</span><span class="s">&#39;__main__&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;setup.py&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">__name__</span><span class="o">=</span><span class="s1">&#39;__main__&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>This results in the code being installed into its own <code class="docutils literal"><span class="pre">egg</span></code>.  Thus:</p>
@@ -186,11 +186,11 @@ distutils install.</p>
 </li>
 <li><p class="first">The script that goes onto the path, <code class="docutils literal"><span class="pre">venv/bin/myscript</span></code> (on Unix) now has to
 find the script in the egg and run that.  In this case it has the obscure contents:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
-<span class="c"># EASY-INSTALL-SCRIPT: &#39;myscripter==1.0&#39;,&#39;myscript&#39;</span>
-<span class="n">__requires__</span> <span class="o">=</span> <span class="s">&#39;myscripter==1.0&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
+<span class="c1"># EASY-INSTALL-SCRIPT: &#39;myscripter==1.0&#39;,&#39;myscript&#39;</span>
+<span class="n">__requires__</span> <span class="o">=</span> <span class="s1">&#39;myscripter==1.0&#39;</span>
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
-<span class="n">pkg_resources</span><span class="o">.</span><span class="n">run_script</span><span class="p">(</span><span class="s">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s">&#39;myscript&#39;</span><span class="p">)</span>
+<span class="n">pkg_resources</span><span class="o">.</span><span class="n">run_script</span><span class="p">(</span><span class="s1">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s1">&#39;myscript&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note the modified shebang line.</p>
@@ -206,23 +206,23 @@ for detail). To use this mechanism, we move the script code into a library. We
 make a new library directory <code class="docutils literal"><span class="pre">myscripter</span></code>, add an empty file
 <code class="docutils literal"><span class="pre">myscripter/__init__.py</span></code> to identify this as a package directory, and move the
 code for a script into a file <code class="docutils literal"><span class="pre">myscripter/commands.py</span></code> like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">def</span> <span class="nf">my_console_script</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Console python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Console python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Then we modify our <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">setuptools</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
 <span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&#39;myscripter&#39;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s">&#39;1.0&#39;</span><span class="p">,</span>
-    <span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;myscripter&#39;</span><span class="p">],</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;myscripter&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+    <span class="n">packages</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;myscripter&#39;</span><span class="p">],</span>
     <span class="n">entry_points</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s">&#39;my_console_script = myscripter.commands:my_console_script&#39;</span><span class="p">]</span>
+        <span class="s1">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s1">&#39;my_console_script = myscripter.commands:my_console_script&#39;</span><span class="p">]</span>
     <span class="p">}</span>
     <span class="p">)</span>
 </pre></div>
@@ -232,31 +232,31 @@ distutils, imported below that.  We now depend on setuptools at install time to
 write the console script stuff and at run time in finding the installed scripts
 via <code class="docutils literal"><span class="pre">pkg_resources</span></code> (see above and below).  We run an install into a
 virtualenv (Unix again):</p>
-<div class="highlight-python"><div class="highlight"><pre>virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre><span></span>virtualenv venv
 . venv/bin/activate
 python setup.py install
 </pre></div>
 </div>
 <p>Our console script got installed:</p>
-<div class="highlight-python"><div class="highlight"><pre>(venv)$ my_console_script
+<div class="highlight-python"><div class="highlight"><pre><span></span>(venv)$ my_console_script
 Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
 </pre></div>
 </div>
 <p>The actual <code class="docutils literal"><span class="pre">venv/bin/my_console_script</span></code> file is just a wrapper for setuptools:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
-<span class="c"># EASY-INSTALL-ENTRY-SCRIPT: &#39;myscripter==1.0&#39;,&#39;console_scripts&#39;,&#39;my_console_script&#39;</span>
-<span class="n">__requires__</span> <span class="o">=</span> <span class="s">&#39;myscripter==1.0&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
+<span class="c1"># EASY-INSTALL-ENTRY-SCRIPT: &#39;myscripter==1.0&#39;,&#39;console_scripts&#39;,&#39;my_console_script&#39;</span>
+<span class="n">__requires__</span> <span class="o">=</span> <span class="s1">&#39;myscripter==1.0&#39;</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">load_entry_point</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
-<span class="n">load_entry_point</span><span class="p">(</span><span class="s">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;my_console_script&#39;</span><span class="p">)()</span>
+<span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s1">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s1">&#39;my_console_script&#39;</span><span class="p">)()</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <p>So far it just seems confusing for no gain.  But, on Windows, we do get an
 executable script:</p>
-<div class="highlight-python"><div class="highlight"><pre>C:\repos\myscripter&gt;virtualenv venv
+<div class="highlight-python"><div class="highlight"><pre><span></span>C:\repos\myscripter&gt;virtualenv venv
 C:\repos\myscripter&gt;venv\Scripts\activate
 (venv) C:\repos\myscripter&gt;python setup.py install
 (venv) C:\repos\myscripter&gt;my_console_script
@@ -266,14 +266,14 @@ Console python starts at C:\repos\myscripter\venv
 <p>How did this happen? The installation put two files in <code class="docutils literal"><span class="pre">venv\Scripts</span></code>, which
 are <code class="docutils literal"><span class="pre">my_console_script.exe</span></code> and <code class="docutils literal"><span class="pre">my_console_script-script.py</span></code>. We recognize
 the contents of <code class="docutils literal"><span class="pre">my_console_script-script.py</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
-<span class="c"># EASY-INSTALL-ENTRY-SCRIPT: &#39;myscripter==1.0&#39;,&#39;console_scripts&#39;,&#39;my_console_script&#39;</span>
-<span class="n">__requires__</span> <span class="o">=</span> <span class="s">&#39;myscripter==1.0&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
+<span class="c1"># EASY-INSTALL-ENTRY-SCRIPT: &#39;myscripter==1.0&#39;,&#39;console_scripts&#39;,&#39;my_console_script&#39;</span>
+<span class="n">__requires__</span> <span class="o">=</span> <span class="s1">&#39;myscripter==1.0&#39;</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">load_entry_point</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
-<span class="n">load_entry_point</span><span class="p">(</span><span class="s">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s">&#39;my_console_script&#39;</span><span class="p">)()</span>
+<span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s1">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s1">&#39;my_console_script&#39;</span><span class="p">)()</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -306,26 +306,26 @@ file.</p>
 <h3>Overriding the default distutils install-scripts phase<a class="headerlink" href="#overriding-the-default-distutils-install-scripts-phase" title="Permalink to this headline">¶</a></h3>
 <p>The way to hook into the distutils install is to subclass the distutils
 <code class="docutils literal"><span class="pre">install_scripts</span></code> command like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
 <span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span> <span class="nn">distutils.command.install_scripts</span> <span class="kn">import</span> <span class="n">install_scripts</span>
 
 <span class="k">class</span> <span class="nc">my_install_scripts</span><span class="p">(</span><span class="n">install_scripts</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">install_scripts</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Doing something in install&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Doing something in install&quot;</span><span class="p">)</span>
 
 
 <span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&#39;myscripter&#39;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s">&#39;1.0&#39;</span><span class="p">,</span>
-    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s">&#39;bin&#39;</span><span class="p">,</span> <span class="s">&#39;myscript&#39;</span><span class="p">)],</span>
-    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;install_scripts&#39;</span><span class="p">:</span> <span class="n">my_install_scripts</span><span class="p">}</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;myscripter&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;myscript&#39;</span><span class="p">)],</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;install_scripts&#39;</span><span class="p">:</span> <span class="n">my_install_scripts</span><span class="p">}</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 <p>This gets run during <code class="docutils literal"><span class="pre">install</span></code> obviously:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python setup.py install
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python setup.py install
 running install
 running build
 running build_scripts
@@ -339,7 +339,7 @@ Doing something in install
 </pre></div>
 </div>
 <p>Less obviously, it gets run making a binary installer such as an egg:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python setupegg.py bdist_egg
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python setupegg.py bdist_egg
 running bdist_egg
 running egg_info
 ...
@@ -398,7 +398,7 @@ analyze the shebang line of the installed script and call python from that.</p>
 <p>Luckily that is not very hard using some simple windows batch programing.  Here
 then is a <code class="docutils literal"><span class="pre">setup.py</span></code> that works with simple script files, and writes out a
 Windows wrapper to analyze the script file shebang line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">with_statement</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">with_statement</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span><span class="p">,</span> <span class="n">splitext</span><span class="p">,</span> <span class="n">split</span> <span class="k">as</span> <span class="n">psplit</span>
 <span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
@@ -423,35 +423,35 @@ Windows wrapper to analyze the script file shebang line:</p>
 <span class="k">class</span> <span class="nc">my_install_scripts</span><span class="p">(</span><span class="n">install_scripts</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">install_scripts</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;nt&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_outputs</span><span class="p">():</span>
-            <span class="c"># If we can find an executable name in the #! top line of the script</span>
-            <span class="c"># file, make .bat wrapper for script.</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+            <span class="c1"># If we can find an executable name in the #! top line of the script</span>
+            <span class="c1"># file, make .bat wrapper for script.</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
                 <span class="n">first_line</span> <span class="o">=</span> <span class="n">fobj</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">first_line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;#!&#39;</span><span class="p">)</span> <span class="ow">and</span>
-                    <span class="s">&#39;python&#39;</span> <span class="ow">in</span> <span class="n">first_line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;No #!python executable found, skipping .bat &quot;</span>
-                            <span class="s">&quot;wrapper&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">first_line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#!&#39;</span><span class="p">)</span> <span class="ow">and</span>
+                    <span class="s1">&#39;python&#39;</span> <span class="ow">in</span> <span class="n">first_line</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No #!python executable found, skipping .bat &quot;</span>
+                            <span class="s2">&quot;wrapper&quot;</span><span class="p">)</span>
                 <span class="k">continue</span>
             <span class="n">pth</span><span class="p">,</span> <span class="n">fname</span> <span class="o">=</span> <span class="n">psplit</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
             <span class="n">froot</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-            <span class="n">bat_file</span> <span class="o">=</span> <span class="n">pjoin</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">froot</span> <span class="o">+</span> <span class="s">&#39;.bat&#39;</span><span class="p">)</span>
-            <span class="n">bat_contents</span> <span class="o">=</span> <span class="n">BAT_TEMPLATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;{FNAME}&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Making </span><span class="si">%s</span><span class="s"> wrapper for </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bat_file</span><span class="p">,</span> <span class="n">filepath</span><span class="p">))</span>
+            <span class="n">bat_file</span> <span class="o">=</span> <span class="n">pjoin</span><span class="p">(</span><span class="n">pth</span><span class="p">,</span> <span class="n">froot</span> <span class="o">+</span> <span class="s1">&#39;.bat&#39;</span><span class="p">)</span>
+            <span class="n">bat_contents</span> <span class="o">=</span> <span class="n">BAT_TEMPLATE</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;{FNAME}&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Making </span><span class="si">%s</span><span class="s2"> wrapper for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">bat_file</span><span class="p">,</span> <span class="n">filepath</span><span class="p">))</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dry_run</span><span class="p">:</span>
                 <span class="k">continue</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bat_file</span><span class="p">,</span> <span class="s">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">bat_file</span><span class="p">,</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fobj</span><span class="p">:</span>
                 <span class="n">fobj</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bat_contents</span><span class="p">)</span>
 
 
 <span class="n">setup</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s">&#39;myscripter&#39;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s">&#39;1.0&#39;</span><span class="p">,</span>
-    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;myscripter&#39;</span><span class="p">],</span>
-    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s">&#39;bin&#39;</span><span class="p">,</span> <span class="s">&#39;myscript&#39;</span><span class="p">)],</span>
-    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;install_scripts&#39;</span><span class="p">:</span> <span class="n">my_install_scripts</span><span class="p">}</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;myscripter&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;myscripter&#39;</span><span class="p">],</span>
+    <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="n">pjoin</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;myscript&#39;</span><span class="p">)],</span>
+    <span class="n">cmdclass</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;install_scripts&#39;</span><span class="p">:</span> <span class="n">my_install_scripts</span><span class="p">}</span>
     <span class="p">)</span>
 </pre></div>
 </div>

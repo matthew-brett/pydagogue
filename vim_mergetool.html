@@ -55,7 +55,7 @@
   <div class="section" id="using-vim-as-a-mergetool-in-git">
 <span id="vim-mergetool"></span><h1>Using vim as a mergetool in git<a class="headerlink" href="#using-vim-as-a-mergetool-in-git" title="Permalink to this headline">¶</a></h1>
 <p>Setup:</p>
-<div class="highlight-python"><div class="highlight"><pre>git config --global merge.tool gvimdiff
+<div class="highlight-python"><div class="highlight"><pre><span></span>git config --global merge.tool gvimdiff
 git config --global mergetool prompt false
 git config --global merge.conflictstyle diff3
 </pre></div>
@@ -64,7 +64,7 @@ git config --global merge.conflictstyle diff3
 markers, in the merged file.  The <em>base</em> the revision that was the most recent
 common basis for the two different versions implied in the merge.</p>
 <p>Rebasing:</p>
-<div class="highlight-python"><div class="highlight"><pre>git rebase main-master
+<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase main-master
 git mergetool
 </pre></div>
 </div>
@@ -106,7 +106,7 @@ see the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
 </ul>
 <p>Now, time to go through the lower pane, pulling in changes from the &#8220;upstream&#8221;
 (left) pane, or the &#8220;rebase changes&#8221; (right) pane, as in one of:</p>
-<div class="highlight-python"><div class="highlight"><pre>:diffg LO
+<div class="highlight-python"><div class="highlight"><pre><span></span>:diffg LO
 :diffg BA
 :diffg RE
 </pre></div>

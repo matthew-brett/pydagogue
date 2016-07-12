@@ -62,7 +62,7 @@
 <li><a class="reference external" href="http://wiki.python.org/moin/Unicode">http://wiki.python.org/moin/Unicode</a></li>
 </ul>
 <p>Python 2 supports unicode with unicode strings:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="s">u&#39;Hello world&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">u&#39;Hello world&#39;</span>
 </pre></div>
 </div>
 <p>Python 3 strings are always unicode. Python 3 as of Python 3.3 allows (but
@@ -70,7 +70,7 @@ ignores) the <code class="docutils literal"><span class="pre">u</span></code> pr
 unicode strings for compatibility with Python 2 and Python 3.</p>
 <p>There are various ways of inputing characters you cannot type at your prompt.
 The most basic is to give the unicode code point in hexadecimal:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">question</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\u00bf</span><span class="s">Habla espa</span><span class="se">\u00f1</span><span class="s">ol?&#39;</span>  <span class="c"># ¿Habla español?</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\u00bf</span><span class="s1">Habla espa</span><span class="se">\u00f1</span><span class="s1">ol?&#39;</span>  <span class="c1"># ¿Habla español?</span>
 </pre></div>
 </div>
 <p>where <code class="docutils literal"><span class="pre">00bf</span></code> is the hexadecimal unicode code point for the inverted question
@@ -79,29 +79,29 @@ mark; see <a class="reference external" href="http://www.unicode.org/Public/UNID
 points outside the 16 bit range (outside the BMP – see
 <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><span>Introducing Unicode</span></a>) – use capital <code class="docutils literal"><span class="pre">U</span></code> and eight hexadecimal
 digits, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">complicated</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\U0001D11A</span><span class="s"> is musical symbol 5 line staff&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">complicated</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\U0001D11A</span><span class="s1"> is musical symbol 5 line staff&#39;</span>
 </pre></div>
 </div>
 <p>See below for some complications of using these 32 bit unicode characters in
 some builds of python 2.</p>
 <p>You can also use the standard unicode name (see
 <a class="reference external" href="http://www.unicode.org/Public/UNIDATA/UnicodeData.txt">http://www.unicode.org/Public/UNIDATA/UnicodeData.txt</a> ):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">less_opaque</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\N{MUSICAL SYMBOL FIVE-LINE STAFF}</span><span class="s"> is more obviously a five line staff&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">less_opaque</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\N{MUSICAL SYMBOL FIVE-LINE STAFF}</span><span class="s1"> is more obviously a five line staff&#39;</span>
 </pre></div>
 </div>
 <p>To create an UTF-8 encoded version of a string - for example to write to a
 text file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">question</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\u00bf</span><span class="s">Habla espa</span><span class="se">\u00f1</span><span class="s">ol?&#39;</span>  <span class="c"># ¿Habla español?</span>
-<span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\u00bf</span><span class="s1">Habla espa</span><span class="se">\u00f1</span><span class="s1">ol?&#39;</span>  <span class="c1"># ¿Habla español?</span>
+<span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Similarly for UTF-16, or other encodings:
 <a class="reference external" href="http://docs.python.org/lib/standard-encodings.html">http://docs.python.org/lib/standard-encodings.html</a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-16&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To get a unicode string from text that has been encoded:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">question</span> <span class="o">=</span> <span class="n">raw_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="n">raw_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In Python 3, <code class="docutils literal"><span class="pre">raw_str</span></code> will be a <em>byte string</em> rather than a standard
@@ -120,7 +120,7 @@ it is confusing that the flag value is <code class="docutils literal"><span clas
 UTF-16.  Pythons built with build flag <code class="docutils literal"><span class="pre">--enable-unicode=ucs4</span></code> use UCS-4 (or
 equivalently, UTF-32) as their internal representation.</p>
 <p>To tell which format your Python uses:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">utf_16</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxunicode</span> <span class="o">==</span> <span class="mi">65535</span>
 </pre></div>
 </div>
@@ -134,20 +134,20 @@ equivalently, UTF-32) as their internal representation.</p>
 <h3>UTF-16 (ucs2) builds of Python and 32 bit unicode code points<a class="headerlink" href="#utf-16-ucs2-builds-of-python-and-32-bit-unicode-code-points" title="Permalink to this headline">¶</a></h3>
 <p>If you have a UTF-16 build of python, and want to use a 32 bit code point,
 then some oddness occurs:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">complicated</span> <span class="o">=</span> <span class="s">u&#39;</span><span class="se">\U0001D11A</span><span class="s"> &#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">complicated</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\U0001D11A</span><span class="s1"> &#39;</span>
 <span class="k">print</span> <span class="nb">ord</span><span class="p">(</span><span class="n">complicated</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">print</span> <span class="nb">ord</span><span class="p">(</span><span class="n">complicated</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>On a UTF-16 build the above gives you:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">55348</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="mi">55348</span>
 <span class="mi">56602</span>
 </pre></div>
 </div>
 <p>In this case, the 32 bit value has been represented by two 16 bit values - a
 UTF-16 <strong>surrogate pair</strong> - see <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><span>Introducing Unicode</span></a>.</p>
 <p>On a UCS-4 build you get:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="mi">119066</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="mi">119066</span>
 <span class="mi">32</span>
 </pre></div>
 </div>

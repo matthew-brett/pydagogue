@@ -62,11 +62,11 @@
 <div class="section" id="logging-without-dots">
 <h2>Logging without dots<a class="headerlink" href="#logging-without-dots" title="Permalink to this headline">¶</a></h2>
 <p>Two dots is the default in <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code>.  That is, if you do:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log master topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log master topic
 </pre></div>
 </div>
 <p>what you&#8217;ll get is the same as if you asked for:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log master..topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log master..topic
 </pre></div>
 </div>
 <p>So logging without dots is the same as <a class="reference internal" href="#git-log-two-dots"><span>Logging with two dots</span></a>.</p>
@@ -74,14 +74,14 @@
 <div class="section" id="logging-with-two-dots">
 <span id="git-log-two-dots"></span><h2>Logging with two dots<a class="headerlink" href="#logging-with-two-dots" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s say you asked for this:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log start-branch..end-branch
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log start-branch..end-branch
 </pre></div>
 </div>
 <p>You will see a log of a series of commits. The commits will be all the commits
 reachable from <code class="docutils literal"><span class="pre">end-branch</span></code> that are not reachable from <code class="docutils literal"><span class="pre">start-branch</span></code>.</p>
 <p>In fact, the two dot form of log is shorthand.  The <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> line above is
 shorthand for:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log ^start-branch end-branch
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log ^start-branch end-branch
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">end-branch</span></code> above means — &#8220;show me all commits that can be
@@ -106,7 +106,7 @@ of length 1 is defined as forming a path.</p>
 pointed to by <code class="docutils literal"><span class="pre">start-branch</span></code> because you can always reach <code class="docutils literal"><span class="pre">start-branch</span></code>
 from itself.</p>
 <p>Let&#8217;s say we have this history:</p>
-<div class="highlight-python"><div class="highlight"><pre>             H--I--J  topicB
+<div class="highlight-python"><div class="highlight"><pre><span></span>             H--I--J  topicB
             /
             | E---F---G  topicA
             |/
@@ -121,7 +121,7 @@ reach <code class="docutils literal"><span class="pre">G,</span> <span class="pr
 <div class="section" id="logging-with-three-dots">
 <h2>Logging with three dots<a class="headerlink" href="#logging-with-three-dots" title="Permalink to this headline">¶</a></h2>
 <p>Now you ask for this:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log start-branch...end-branch
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log start-branch...end-branch
 </pre></div>
 </div>
 <p>There are three dots between <code class="docutils literal"><span class="pre">start-branch</span></code> and <code class="docutils literal"><span class="pre">end-branch</span></code>.  This three
@@ -132,7 +132,7 @@ reachable from both <code class="docutils literal"><span class="pre">start-branc
 all commits reachable from <code class="docutils literal"><span class="pre">end-branch</span></code> BUT excluding any commits reachable
 from any common ancestor.  As the <code class="docutils literal"><span class="pre">gitrevisions</span></code> man page puts it, the three
 dots command above is equivalent to:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log start-branch end-branch --not $(git merge-base --all start-branch end-branch)
 </pre></div>
 </div>
 <p>Put another way, if <span class="math">\(S\)</span> is the set of all commits that can be reached from
@@ -144,7 +144,7 @@ are:</p>
 <p>(<span class="math">\(X \setminus Y\)</span> denotes the set of members of <span class="math">\(X\)</span> that are not
 in set <span class="math">\(Y\)</span>).</p>
 <p>By example, from the history above, let&#8217;s think about what would we get from:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log topicB...topicA
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log topicB...topicA
 </pre></div>
 </div>
 <p>From <code class="docutils literal"><span class="pre">topicA</span></code> we can reach this set of commits — <code class="docutils literal"><span class="pre">G,</span> <span class="pre">F,</span> <span class="pre">E,</span> <span class="pre">D,</span> <span class="pre">C,</span> <span class="pre">B,</span>

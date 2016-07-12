@@ -61,7 +61,7 @@
 <li><a class="reference external" href="http://docs.python.org/reference/compound_stmts.html#function">http://docs.python.org/reference/compound_stmts.html#function</a></li>
 </ul>
 <p>The anatomy of the decorator thing is this:</p>
-<div class="highlight-python"><div class="highlight"><pre>@decorator-expression
+<div class="highlight-python"><div class="highlight"><pre><span></span>@decorator-expression
 function-definition
 </pre></div>
 </div>
@@ -71,7 +71,7 @@ thing. The callable thing has to take single argument. That&#8217;s all it is.
 begin with <code class="docutils literal"><span class="pre">def</span></code>).  If <code class="docutils literal"><span class="pre">decorator-expression</span></code> is <code class="docutils literal"><span class="pre">dec_func</span></code> and
 <code class="docutils literal"><span class="pre">function-definition</span></code> is <code class="docutils literal"><span class="pre">def</span> <span class="pre">func():</span> <span class="pre">pass</span></code> then the syntax above is
 exactly the result of:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span>
 <span class="n">func</span> <span class="o">=</span> <span class="n">dec_func</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -79,22 +79,22 @@ exactly the result of:</p>
 <h2>Decorator expression<a class="headerlink" href="#decorator-expression" title="Permalink to this headline">¶</a></h2>
 <p>The decorator expression is an expression that returns a callable thing.</p>
 <p>For example, it could be a reference to a callable thing:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">afunc</span><span class="p">(</span><span class="n">f</span><span class="p">):</span> <span class="k">pass</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">afunc</span><span class="p">(</span><span class="n">f</span><span class="p">):</span> <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@afunc</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p>or an <em>expression that returns a reference</em> to a callable thing:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 <span class="gp">... </span>   <span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="k">return</span> <span class="n">value</span>
 <span class="gp">... </span>   <span class="k">return</span> <span class="n">anon_func</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@cfunc</span><span class="p">(</span><span class="s">&#39;a value&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@cfunc</span><span class="p">(</span><span class="s1">&#39;a value&#39;</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p>The callable thing can be anything that is callable - for example, a class:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@C</span><span class="p">()</span>
@@ -102,7 +102,7 @@ exactly the result of:</p>
 </pre></div>
 </div>
 <p>The callable thing has to take one argument:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dfunc</span><span class="p">():</span> <span class="k">pass</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dfunc</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="gt">Traceback (most recent call last):</span>
@@ -111,7 +111,7 @@ exactly the result of:</p>
 </pre></div>
 </div>
 <p>and, the callable thing has to be callable:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_func</span> <span class="o">=</span> <span class="s">&#39;a string&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_func</span> <span class="o">=</span> <span class="s1">&#39;a string&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@not_a_func</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="gt">Traceback (most recent call last):</span>
@@ -125,31 +125,31 @@ exactly the result of:</p>
 <p>The decorator expression result is the result of evaluating the
 decorator expression.</p>
 <p>For example, in this case:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 <span class="gp">... </span>   <span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="k">return</span> <span class="n">value</span>
 <span class="gp">... </span>   <span class="k">return</span> <span class="n">anon_func</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nd">@cfunc</span><span class="p">(</span><span class="s">&#39;a value&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@cfunc</span><span class="p">(</span><span class="s1">&#39;a value&#39;</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p>the decorator expression result is equivalent to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">return</span> <span class="s">&#39;a value&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="s1">&#39;a value&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dec_exp_res</span> <span class="o">=</span> <span class="n">anon_func</span>
 </pre></div>
 </div>
 <p>Note that, the decorator expression result will process the
 <code class="docutils literal"><span class="pre">function-definition</span></code> like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span> <span class="c"># function definition</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span> <span class="c1"># function definition</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func</span> <span class="o">=</span> <span class="n">dec_exp_res</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>That is what the syntax says.  Usually, as in
 <a class="reference internal" href="decorating_for_dummies.html#decorating-for-dummies"><span>What is a decorator?</span></a>, you will want to return a modified
 function.  But, given the syntax, you can do anything you want:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">strange_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;I am strange&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">strange_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s1">&#39;I am strange&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@strange_decorator</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="go">I am strange</span>

@@ -54,7 +54,7 @@
 <h1>Setting up a gh-pages branch<a class="headerlink" href="#setting-up-a-gh-pages-branch" title="Permalink to this headline">¶</a></h1>
 <p>These assume a default sphinx build directory of <code class="docutils literal"><span class="pre">doc/_build</span></code>.</p>
 <p>Makefile target (don&#8217;t forget the tabs before the target body lines):</p>
-<div class="highlight-python"><div class="highlight"><pre>git-clean:
+<div class="highlight-python"><div class="highlight"><pre><span></span>git-clean:
     git clean -fxd
 
 html:
@@ -70,13 +70,13 @@ gh-pages: git-clean html
 </pre></div>
 </div>
 <p>Make a new empty <code class="docutils literal"><span class="pre">gh-pages</span></code> branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git checkout --orphan gh-pages
+<div class="highlight-python"><div class="highlight"><pre><span></span>git checkout --orphan gh-pages
 git reset --hard
 git clean -fxd
 </pre></div>
 </div>
 <p>Make some files for working with github pages in this branch:</p>
-<div class="highlight-python"><div class="highlight"><pre># Ignore the doc and doc build directory
+<div class="highlight-python"><div class="highlight"><pre><span></span># Ignore the doc and doc build directory
 echo &quot;doc/&quot; &gt; .gitignore
 echo &quot;Github pages for project&quot; &gt; README.md
 touch .nojekyll
@@ -85,11 +85,11 @@ git commit -m &#39;Initial commit&#39;
 </pre></div>
 </div>
 <p>Set the upstream for this branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git push &lt;your-github-remote&gt; gh-pages --set-upstream
+<div class="highlight-python"><div class="highlight"><pre><span></span>git push &lt;your-github-remote&gt; gh-pages --set-upstream
 </pre></div>
 </div>
 <p>Now go back to the master branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git co master
+<div class="highlight-python"><div class="highlight"><pre><span></span>git co master
 make gh-pages
 </pre></div>
 </div>

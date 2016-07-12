@@ -69,7 +69,7 @@ quick things, please consider following the
 <span id="id1"></span><h2>Making patches<a class="headerlink" href="#making-patches" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="overview">
 <h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre># tell git who you are
+<div class="highlight-python"><div class="highlight"><pre><span></span># tell git who you are
 git config --global user.email you@yourdomain.example.com
 git config --global user.name &quot;Your Name Comes Here&quot;
 # get the repository if you don&#39;t have it
@@ -97,14 +97,14 @@ mailing list</a> — where we will thank you warmly.</p>
 <ol class="arabic">
 <li><p class="first">Tell git who you are so it can label the commits you&#8217;ve
 made:</p>
-<div class="highlight-python"><div class="highlight"><pre>git config --global user.email you@yourdomain.example.com
+<div class="highlight-python"><div class="highlight"><pre><span></span>git config --global user.email you@yourdomain.example.com
 git config --global user.name &quot;Your Name Comes Here&quot;
 </pre></div>
 </div>
 </li>
 <li><p class="first">If you don&#8217;t already have one, clone a copy of the
 <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> repository:</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/matthew-brett/gitwash.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone git://github.com/matthew-brett/gitwash.git
 cd gitwash
 </pre></div>
 </div>
@@ -113,13 +113,13 @@ cd gitwash
 your bug fix.  It&#8217;s nice and safe and leaves you with
 access to an unmodified copy of the code in the main
 branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git branch the-fix-im-thinking-of
+<div class="highlight-python"><div class="highlight"><pre><span></span>git branch the-fix-im-thinking-of
 git checkout the-fix-im-thinking-of
 </pre></div>
 </div>
 </li>
 <li><p class="first">Do some edits, and commit them as you go:</p>
-<div class="highlight-python"><div class="highlight"><pre># hack, hack, hack
+<div class="highlight-python"><div class="highlight"><pre><span></span># hack, hack, hack
 # Tell git about any new files you&#39;ve made
 git add somewhere/tests/test_my_bug.py
 # commit work in progress as you go
@@ -135,17 +135,17 @@ or see <a class="reference external" href="http://www.gitready.com/beginner/2009
 </li>
 <li><p class="first">When you have finished, check you have committed all your
 changes:</p>
-<div class="highlight-python"><div class="highlight"><pre>git status
+<div class="highlight-python"><div class="highlight"><pre><span></span>git status
 </pre></div>
 </div>
 </li>
 <li><p class="first">Finally, make your commits into patches.  You want all the
 commits since you branched from the <code class="docutils literal"><span class="pre">master</span></code> branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git format-patch -M -C master
+<div class="highlight-python"><div class="highlight"><pre><span></span>git format-patch -M -C master
 </pre></div>
 </div>
 <p>You will now have several files named for the commits:</p>
-<div class="highlight-python"><div class="highlight"><pre>0001-BF-added-tests-for-Funny-bug.patch
+<div class="highlight-python"><div class="highlight"><pre><span></span>0001-BF-added-tests-for-Funny-bug.patch
 0002-BF-added-fix-for-Funny-bug.patch
 </pre></div>
 </div>
@@ -154,7 +154,7 @@ commits since you branched from the <code class="docutils literal"><span class="
 </ol>
 <p>When you are done, to switch back to the main copy of the
 code, just return to the <code class="docutils literal"><span class="pre">master</span></code> branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git checkout master
+<div class="highlight-python"><div class="highlight"><pre><span></span>git checkout master
 </pre></div>
 </div>
 </div>
@@ -167,7 +167,7 @@ development mode.  You can do this with the repository you
 have.</p>
 <p>Fork the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> repository on github — <a class="reference internal" href="forking_hell.html#forking"><span>Making your own copy (fork) of gitwash</span></a>.
 Then:</p>
-<div class="highlight-python"><div class="highlight"><pre># checkout and refresh master branch from main repo
+<div class="highlight-python"><div class="highlight"><pre><span></span># checkout and refresh master branch from main repo
 git checkout master
 git pull origin master
 # rename pointer to main repository to &#39;upstream&#39;

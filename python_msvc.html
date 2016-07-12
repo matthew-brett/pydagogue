@@ -248,7 +248,7 @@ release.</p>
 <p>If you are compiling for Python 2.7, you should first try the installer at
 <a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>.  I installed this for all users from a <code class="docutils literal"><span class="pre">cmd</span></code>
 Window opened with &#8220;run as administrator&#8221;, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>msiexec /i VCForPython27.msi ALLUSERS=1
+<div class="highlight-python"><div class="highlight"><pre><span></span>msiexec /i VCForPython27.msi ALLUSERS=1
 </pre></div>
 </div>
 <p>This command line comes from the &#8220;Install instructions&#8221; on the download page.
@@ -276,7 +276,7 @@ Windows 7 / server 2008 I used <a class="reference external" href="http://www.sl
 cannot be installed.</p>
 <p>Finally, for 64-bits, I needed to apply this patch to avoid a distutils
 compilation error ending in <code class="docutils literal"><span class="pre">ValueError:</span> <span class="pre">['path']</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>echo &quot;C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot; /x64 &gt; &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>echo &quot;C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot; /x64 &gt; &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat&quot;
 </pre></div>
 </div>
 <p>See <a class="reference external" href="http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10">this MSVC 2010 SO post</a>

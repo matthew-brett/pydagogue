@@ -64,7 +64,7 @@ for an alterative explanation.</p>
 <h2>The dot difference<a class="headerlink" href="#the-dot-difference" title="Permalink to this headline">¶</a></h2>
 <p>This is a summary.  You need the pages above to get the full picture.</p>
 <p>Imagine this history:</p>
-<div class="highlight-python"><div class="highlight"><pre>      A---B---C topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>      A---B---C topic
      /
 D---E---F---G master
 </pre></div>
@@ -73,19 +73,19 @@ D---E---F---G master
 stuff unique to <code class="docutils literal"><span class="pre">master</span></code>.</p>
 <p><code class="docutils literal"><span class="pre">log</span></code> and two dots gives you the stuff unique to the second named branch.
 So:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log master..topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log master..topic
 </pre></div>
 </div>
 <p>will show you a log of commits <code class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code>.</p>
 <p><code class="docutils literal"><span class="pre">log</span></code> and three dots shows you the stuff unique to the second named branch AND
 the stuff unique to the first named branch, so:</p>
-<div class="highlight-python"><div class="highlight"><pre>git log master...topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git log master...topic
 </pre></div>
 </div>
 <p>shows you <code class="docutils literal"><span class="pre">C,</span> <span class="pre">B,</span> <span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">F,</span> <span class="pre">G</span></code>.</p>
 <p><code class="docutils literal"><span class="pre">diff</span></code> on the other hand, means something different.  So <code class="docutils literal"><span class="pre">diff</span></code> and two
 dots:</p>
-<div class="highlight-python"><div class="highlight"><pre>git diff master..topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master..topic
 </pre></div>
 </div>
 <p>shows you all stuff that differs between the state as of <code class="docutils literal"><span class="pre">master</span></code> and the
@@ -94,7 +94,7 @@ state as of <code class="docutils literal"><span class="pre">topic</span></code>
 difference between the stuff unique to <code class="docutils literal"><span class="pre">topic</span></code> and the stuff unique to
 <code class="docutils literal"><span class="pre">master</span></code>.</p>
 <p><code class="docutils literal"><span class="pre">diff</span></code> and three dots:</p>
-<div class="highlight-python"><div class="highlight"><pre>git diff master...topic
+<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master...topic
 </pre></div>
 </div>
 <p>shows you the stuff that differs between <code class="docutils literal"><span class="pre">topic</span></code> and the last common ancestor

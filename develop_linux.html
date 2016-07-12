@@ -60,7 +60,7 @@ python packages.  This is my personal setup.</p>
 <h2>My systems<a class="headerlink" href="#my-systems" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Many. Currently I&#8217;m working on an Ubuntu Lucid 64 bit system:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ uname -a
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ uname -a
 Linux angela 2.6.32-28-generic #55-Ubuntu SMP Mon Jan 10 23:42:43 UTC 2011 x86_64 GNU/Linux
 </pre></div>
 </div>
@@ -69,13 +69,13 @@ Linux angela 2.6.32-28-generic #55-Ubuntu SMP Mon Jan 10 23:42:43 UTC 2011 x86_6
 </div>
 <div class="section" id="basic-setup">
 <h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install git-core
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install git-core
 sudo apt-get install python-dev python-numpy python-scipy
 </pre></div>
 </div>
 <ul>
 <li><p class="first">Install personal setup:</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone git@github.com:matthew-brett/myconfig.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone git@github.com:matthew-brett/myconfig.git
 cd myconfig
 make dotfiles
 cd ..
@@ -83,7 +83,7 @@ cd ..
 </div>
 <p>Then edit <code class="docutils literal"><span class="pre">~/.bashrc</span></code> to add the commented lines at the top of your new
 <code class="docutils literal"><span class="pre">~/.bash_personal</span></code> file.  Then set up vim:</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone git@github.com:matthew-brett/myvim.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone git@github.com:matthew-brett/myvim.git
 cd myvim
 sudo apt-get install ruby ruby-dev # for command-t
 make command-t
@@ -97,45 +97,45 @@ make links
 <h2>Setting up virtualenvs<a class="headerlink" href="#setting-up-virtualenvs" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p class="first">Install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a>.  I did this with:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-setuptools
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python-setuptools
 sudo easy_install virtualenvwrapper
 </pre></div>
 </div>
 <p>I did this because there is was an incompatibility with Maverick Python 2.7
 and Maverick <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> - see <a class="reference external" href="https://bitbucket.org/ianb/virtualenv/issue/63/now-python27-requires-_weakrefset">this bug report</a>.
 For Natty (next after Maverick), you can probably use:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install virtualenvwrapper
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install virtualenvwrapper
 </pre></div>
 </div>
 <p>instead.</p>
 </li>
 <li><p class="first">If you are using my config (above), you probably want my default environment
 cleanup for virtualenvs:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd myconfig
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd myconfig
 make virtualenvs
 </pre></div>
 </div>
 </li>
 <li><p class="first">Make some good virtualenvs, with commands like:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv python25 --python=python2.5
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkvirtualenv python25 --python=python2.5
 </pre></div>
 </div>
 <p>If you have to do something really bare, consider the <code class="docutils literal"><span class="pre">no-site-packages</span></code>
 flag to the <code class="docutils literal"><span class="pre">mkvirtualenv</span></code> command.</p>
 <p>You&#8217;ll probably want other versions of python for your virtualenvs.  This:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python2.7 python2.7-dev
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python2.7 python2.7-dev
 </pre></div>
 </div>
 <p>works on Ubuntu Maverick (10.10). You might want to use the <a class="reference external" href="https://launchpad.net/%7Efkrull/+archive/deadsnakes">old and new
 python versions</a> repository to get e.g python 2.5 on new Ubuntus:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo add-apt-repository ppa:fkrull/deadsnakes
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo add-apt-repository ppa:fkrull/deadsnakes
 sudo apt-get update
 sudo apt-get install python2.5 python2.5-dev
 </pre></div>
 </div>
 <p>You may have to compile numpy and scipy from source for your non-system python
 versions:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get build-dep python-numpy
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get build-dep python-numpy
 mkdir code
 cd code
 git clone git://github.com/numpy/numpy.git
@@ -156,11 +156,11 @@ sudo python2.7 setup.py install
 </div>
 <p>For the remaining packages, we can use setuptools.  As per the instructions on
 <a class="reference external" href="https://launchpad.net/%7Efkrull/+archive/deadsnakes">old and new python versions</a></p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install python-setuptools-deadsnakes
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python-setuptools-deadsnakes
 </pre></div>
 </div>
 <p>then (e.g.):</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo easy_install-2.5 nose
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo easy_install-2.5 nose
 </pre></div>
 </div>
 </li>

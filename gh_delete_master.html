@@ -75,18 +75,18 @@ make that work, you have to tell <a class="reference external" href="http://gith
 <h2>How to delete master<a class="headerlink" href="#how-to-delete-master" title="Permalink to this headline">¶</a></h2>
 <p>First you delete <code class="docutils literal"><span class="pre">master</span></code> in your local clone. To do this we first make a new
 branch called <code class="docutils literal"><span class="pre">placeholder</span></code> or similar, and delete <code class="docutils literal"><span class="pre">master</span></code> from there:</p>
-<div class="highlight-python"><div class="highlight"><pre>git branch placeholder
+<div class="highlight-python"><div class="highlight"><pre><span></span>git branch placeholder
 git checkout placeholder
 git branch -D master
 </pre></div>
 </div>
 <p>All good so far.  We next want to delete the branch on github.  However, if we
 do this the naive way:</p>
-<div class="highlight-python"><div class="highlight"><pre>git push origin :master
+<div class="highlight-python"><div class="highlight"><pre><span></span>git push origin :master
 </pre></div>
 </div>
 <p>we just get an error like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>remote: error: refusing to delete the current branch: refs/heads/master
+<div class="highlight-python"><div class="highlight"><pre><span></span>remote: error: refusing to delete the current branch: refs/heads/master
 To git@github.com:matthew-brett/datarray.git
 ! [remote rejected] master (deletion of the current branch prohibited)
 error: failed to push some refs to &#39;git@github.com:matthew-brett/datarray.git&#39;
@@ -96,7 +96,7 @@ error: failed to push some refs to &#39;git@github.com:matthew-brett/datarray.gi
 content when you browse that repository.  So we first have to make github look
 at our <code class="docutils literal"><span class="pre">placeholder</span></code> branch instead, then delete <code class="docutils literal"><span class="pre">master</span></code>.</p>
 <p>First push up the <code class="docutils literal"><span class="pre">placeholder</span></code> branch:</p>
-<div class="highlight-python"><div class="highlight"><pre>git checkout placeholder # if not on placeholder already
+<div class="highlight-python"><div class="highlight"><pre><span></span>git checkout placeholder # if not on placeholder already
 git push origin placeholder
 </pre></div>
 </div>
@@ -105,7 +105,7 @@ page for your forked repository, and click on the &#8220;Admin&#8221; button.</p
 <p>There&#8217;s a &#8220;Default branch&#8221; dropdown list near the top of the screen.  From
 there, select <code class="docutils literal"><span class="pre">placeholder</span></code>.  On the interface I&#8217;m looking at, a green tick
 appears above the dropdown list.  Now you can do (from the command line):</p>
-<div class="highlight-python"><div class="highlight"><pre>git push origin :master
+<div class="highlight-python"><div class="highlight"><pre><span></span>git push origin :master
 </pre></div>
 </div>
 <p>and - no master branch...</p>

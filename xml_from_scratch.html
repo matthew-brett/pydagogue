@@ -63,12 +63,12 @@
 <li>optional content – e.g. <code class="docutils literal"><span class="pre">Some</span> <span class="pre">data</span></code>;</li>
 <li>an end <em>tag</em> – e.g. <code class="docutils literal"><span class="pre">&lt;/my-element&gt;</span></code>.</li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;Some data&lt;/my-element&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element&gt;Some data&lt;/my-element&gt;
 </pre></div>
 </div>
 <p>If an element has no content, it can be abbreviated into an <em>empty element
 tag</em>:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;my-element /&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element /&gt;
 </pre></div>
 </div>
 <p>To repeat then, there are three types of tag:</p>
@@ -83,7 +83,7 @@ is a case-sensitive string starting with a letter or underscore, followed by
 any combination of letters, digits, hyphens, underscores, and periods.</p>
 <p>A start tag and an empty element tag can have <em>attributes</em>. These are name,
 value pairs:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot;&gt;Some text&lt;/a-name&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot;&gt;Some text&lt;/a-name&gt;
 &lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot; /&gt;
 </pre></div>
 </div>
@@ -94,14 +94,14 @@ be:</p>
 <li>An element</li>
 </ul>
 <p>Elements contained in other elements are <em>child elements</em>, e.g:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;a-parent&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a-parent&gt;
     &lt;a-child&gt;with text content&lt;/a-child&gt;
     &lt;another-child&gt;with more text&lt;/another-child&gt;
 &lt;/a-parent&gt;
 </pre></div>
 </div>
 <p>You can mix text items and element items in element content, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;a-parent&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a-parent&gt;
     Some text
     &lt;a-child&gt;with text content&lt;/a-child&gt;
     More text
@@ -118,7 +118,7 @@ element items, <em>or</em> one single text item.</p>
 <p>There is a single element at the root of a valid XML document. This is the
 <em>root element</em>.</p>
 <div class="admonition">
-<em class="first">Contents of </em><code class="docutils literal"><span class="pre">some_example.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span class="nt">&lt;a-root-element</span> <span class="na">my-type=</span><span class="s">&quot;example&quot;</span><span class="nt">&gt;</span>
+<em class="first">Contents of </em><code class="docutils literal"><span class="pre">some_example.xml</span></code><div class="last highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;a-root-element</span> <span class="na">my-type=</span><span class="s">&quot;example&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;at-second-level&gt;</span>
         <span class="nt">&lt;first-thing&gt;</span>Some text<span class="nt">&lt;/first-thing&gt;</span>
         <span class="nt">&lt;second-thing&gt;</span>More text<span class="nt">&lt;/second-thing&gt;</span>
@@ -129,13 +129,13 @@ element items, <em>or</em> one single text item.</p>
 </div>
 <p>To take another example, this would be a valid XML document, because it has a
 single element at the root level:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element&gt;
     Some text
 &lt;/my-element&gt;
 </pre></div>
 </div>
 <p>But this would not, because it has two elements at the root level:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;my-element&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element&gt;
     Some text
 &lt;/my-element&gt;
 &lt;another-element&gt;
@@ -145,20 +145,20 @@ single element at the root level:</p>
 </div>
 <p>The XML document may start with a special construction called the <em>XML prolog</em>
 of this form:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
 </pre></div>
 </div>
 <p>Default XML encoding is UTF-8, but you can specify another encoding in the XML
 prolog:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;
 </pre></div>
 </div>
 </div>
 <div class="section" id="reading-xml">
 <h2>Reading XML<a class="headerlink" href="#reading-xml" title="Permalink to this headline">¶</a></h2>
 <p>For example, in Python:</p>
-<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;some_example.xml&#39;</span><span class="p">)</span>
+<div class="highlight-pycon"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;some_example.xml&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
 <span class="go">a-root-element</span>

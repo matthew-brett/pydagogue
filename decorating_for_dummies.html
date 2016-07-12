@@ -70,21 +70,21 @@ function</dd>
 always what a decorator is.  So, for now, let&#8217;s pretend.  Honestly, it
 will help.</p>
 <p>Here&#8217;s an example of a simple decorator:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mydec</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Am preparing the function&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mydec</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s1">&#39;Am preparing the function&#39;</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">_decorating_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="s">&#39;I am running the original function&#39;</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s1">&#39;I am running the original function&#39;</span>
 <span class="gp">... </span>        <span class="n">val</span> <span class="o">=</span> <span class="n">original_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="s">&#39;I am returning the value from the original function&#39;</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s1">&#39;I am returning the value from the original function&#39;</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">val</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;Done preparing, returning new function&#39;</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s1">&#39;Done preparing, returning new function&#39;</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">_decorating_function</span>
 </pre></div>
 </div>
 <p>Note that <code class="docutils literal"><span class="pre">mydec</span></code> takes a function as input, and returns a
 function as output.</p>
 <p>Now, let&#8217;s say we have some function <code class="docutils literal"><span class="pre">f1</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">10</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -93,14 +93,14 @@ function as output.</p>
 </div>
 <p>We can decorate it with our decorator.  You&#8217;ll see the decoration
 happening in the output below.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
 <span class="go">Am preparing the function</span>
 <span class="go">Done preparing, returning new function</span>
 </pre></div>
 </div>
 <p>Now, running the decorated function (<code class="docutils literal"><span class="pre">f2</span></code>) reveals the print
 statements we put in, in the new function, that the decorator returned.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">I am running the original function</span>
 <span class="go">I am returning the value from the original function</span>
 <span class="go">20</span>
@@ -109,7 +109,7 @@ statements we put in, in the new function, that the decorator returned.</p>
 <p>This is all very ordinary Python.  But, as of Python 2.4, there is a
 special syntax for applying a decorator to a function being
 defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</span></code> symbol.  We can use our decorator like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mydec</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mydec</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">20</span>
 <span class="gp">...</span>
@@ -118,14 +118,14 @@ defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</sp
 </pre></div>
 </div>
 <p>Running it shows our print statements again:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">I am running the original function</span>
 <span class="go">I am returning the value from the original function</span>
 <span class="go">40</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">&#64;</span></code> is just a syntax addition, and does exactly the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">20</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f3</span><span class="p">)</span>
@@ -134,7 +134,7 @@ defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</sp
 </pre></div>
 </div>
 <p>which gives exactly the same result as we saw above</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">I am running the original function</span>
 <span class="go">I am returning the value from the original function</span>
 <span class="go">40</span>
@@ -145,29 +145,29 @@ defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</sp
 decorator.  Obviously, above, the expression <code class="docutils literal"><span class="pre">'mydec'</span></code> returns the
 decorating function <code class="docutils literal"><span class="pre">mydec</span></code>. But, you can also enter a more
 complicated expression that returns a decorator.  A decorator is:</p>
-<div class="highlight-python"><div class="highlight"><pre>a function, that takes a function as input, and returns a
+<div class="highlight-python"><div class="highlight"><pre><span></span>a function, that takes a function as input, and returns a
 function
 </pre></div>
 </div>
 <p>for example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dec_maker</span><span class="p">(</span><span class="n">scale_by</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="c"># This function, returns a decorator</span>
-<span class="gp">... </span>    <span class="c"># A decorator is: a function, that takes a function as</span>
-<span class="gp">... </span>    <span class="c">#    input, and returns a function</span>
-<span class="gp">... </span>    <span class="k">print</span> <span class="s">&#39;About to make the decorator&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dec_maker</span><span class="p">(</span><span class="n">scale_by</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># This function, returns a decorator</span>
+<span class="gp">... </span>    <span class="c1"># A decorator is: a function, that takes a function as</span>
+<span class="gp">... </span>    <span class="c1">#    input, and returns a function</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s1">&#39;About to make the decorator&#39;</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">actual_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-<span class="gp">... </span>        <span class="k">print</span> <span class="s">&#39;Applying the actual decorator&#39;</span>
+<span class="gp">... </span>        <span class="k">print</span> <span class="s1">&#39;Applying the actual decorator&#39;</span>
 <span class="gp">... </span>        <span class="k">def</span> <span class="nf">_decorated_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-<span class="gp">... </span>            <span class="k">print</span> <span class="s">&#39;Running decorated func&#39;</span>
+<span class="gp">... </span>            <span class="k">print</span> <span class="s1">&#39;Running decorated func&#39;</span>
 <span class="gp">... </span>            <span class="n">val</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-<span class="gp">... </span>            <span class="k">print</span> <span class="s">&#39;Scaling original return value by </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">scale_by</span>
+<span class="gp">... </span>            <span class="k">print</span> <span class="s1">&#39;Scaling original return value by </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">scale_by</span>
 <span class="gp">... </span>            <span class="k">return</span> <span class="n">val</span> <span class="o">*</span> <span class="n">scale_by</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="n">_decorated_func</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">actual_decorator</span>
 </pre></div>
 </div>
 <p>Without the <code class="docutils literal"><span class="pre">&#64;</span></code> syntax, you could use <code class="docutils literal"><span class="pre">dec_maker</span></code> like this</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resulting_decorator</span> <span class="o">=</span> <span class="n">dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resulting_decorator</span> <span class="o">=</span> <span class="n">dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="go">About to make the decorator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span> <span class="o">=</span> <span class="n">resulting_decorator</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
 <span class="go">Applying the actual decorator</span>
@@ -178,7 +178,7 @@ function
 </pre></div>
 </div>
 <p>The &#64; equivalent is this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">f4</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">10</span>
 <span class="gp">...</span>
@@ -186,7 +186,7 @@ function
 <span class="go">Applying the actual decorator</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">Running decorated func</span>
 <span class="go">Scaling original return value by 100</span>
 <span class="go">2000</span>

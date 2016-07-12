@@ -63,7 +63,7 @@ from the <a class="reference external" href="http://practical-neuroimaging.githu
 am working on is a modest history and explanation of everything, with
 provisional title &#8220;The Book&#8221;.  It has a table of contents <code class="docutils literal"><span class="pre">contents.txt</span></code> and a
 single book chapter:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── chapter1.txt
 └── contents.txt
 </pre></div>
@@ -81,7 +81,7 @@ I will use the name <em>repository</em> for the contents of <code class="docutil
 save it in my new <code class="docutils literal"><span class="pre">.ahole</span></code> repository.  In fact, what I will do is, make a new
 subdirectory in <code class="docutils literal"><span class="pre">.ahole</span></code> named for today&#8217;s date, then store a copy of the book
 files in there.  On unix, that might look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-01
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir .ahole/year0-jan-01
 mkdir .ahole/year0-jan-01/files
 cp * .ahole/year0-jan-01/files
 </pre></div>
@@ -89,7 +89,7 @@ cp * .ahole/year0-jan-01/files
 <p>So I&#8217;ve still got the contents of The Book in the working tree, but now, in the
 repository, I have a copy of the files that is a snapshot of The Book as of
 today:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   └── year0-jan-01
 │       └── files
@@ -108,7 +108,7 @@ about this character &#8220;Eve&#8221; that I have seen wandering around.  I sav
 notes in a file called <code class="docutils literal"><span class="pre">something_about_eve.txt</span></code>.  When I get to the end of
 the day, I get ready to store my work.  At the moment, my directory looks like
 this:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   └── year0-jan-01
 │       └── files
@@ -128,11 +128,11 @@ a directory in <code class="docutils literal"><span class="pre">.ahole</span></c
 beginning of the day, I copy the previous backed-up version of my files from the
 repository, into <code class="docutils literal"><span class="pre">staging_area</span></code>. These files are now ready for storing in the
 next snapshot:</p>
-<div class="highlight-python"><div class="highlight"><pre>cp .ahole/year0-jan-01/* .ahole/staging_area
+<div class="highlight-python"><div class="highlight"><pre><span></span>cp .ahole/year0-jan-01/* .ahole/staging_area
 </pre></div>
 </div>
 <p>I now have:</p>
-<div class="highlight-python"><div class="highlight"><pre>├── .ahole
+<div class="highlight-python"><div class="highlight"><pre><span></span>├── .ahole
 │   ├─── staging_area
 │   │    ├── chapter1.txt
 │   │    └── contents.txt
@@ -155,13 +155,13 @@ file (copy it to the staging area).  I&#8217;m not going to stage
 <p>Now I&#8217;ve done that, all the stuff I want to store in the backup is ready.  I
 just need to put it into its own backup snapshot directory.   To do that, I just
 do something like (Unix again):</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-02
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir .ahole/year0-jan-02
 mkdir .ahole/year0-jan-02/files
 cp .ahole/staging_area/* .ahole/year0-jan-02/files
 </pre></div>
 </div>
 <p>I end up with a directory that looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   ├── year0-jan-02
 │   │   └── files
@@ -195,12 +195,12 @@ wants to help out.  Of course Eve has her own computer, and I send her my
 <code class="docutils literal"><span class="pre">.ahole</span></code> directory.  I thank myself for my wisdom in not adding
 <code class="docutils literal"><span class="pre">something_about_eve.txt</span></code> to the repository.</p>
 <p>Eve checks out our book (reconstructs my working tree) with something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>cp .ahole/year0-jan-02/files/* .
+<div class="highlight-python"><div class="highlight"><pre><span></span>cp .ahole/year0-jan-02/files/* .
 </pre></div>
 </div>
 <p>Now she&#8217;s got the book files as I committed them last night.  She also copies
 the last commit files into the staging area, as I did:</p>
-<div class="highlight-python"><div class="highlight"><pre>├── .ahole
+<div class="highlight-python"><div class="highlight"><pre><span></span>├── .ahole
 │   ├─── staging_area
 │   │    ├── chapter2.txt
 │   │    ├── chapter1.txt
@@ -211,7 +211,7 @@ the last commit files into the staging area, as I did:</p>
 enjoying the work.  As the afternoon turns to evening, she gets ready to save
 her work, so she copies <code class="docutils literal"><span class="pre">chapter1_discussion.txt</span></code> to <code class="docutils literal"><span class="pre">.ahole/staging_area</span></code>.
 Now she is ready to do a commit:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir .ahole/year0-jan-03
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir .ahole/year0-jan-03
 mkdir .ahole/year0-jan-03/files
 cp .ahole/staging_area/* .ahole/year0-jan-03/files
 </pre></div>
@@ -239,7 +239,7 @@ call the previous commit the <em>parent</em>.</p>
 <p>Eve was right to predict that I had made my own commit today.  I&#8217;ve been happily
 working on chapter 3.  So, before our conversation, my directory looked like
 this:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   ├── year0-jan-03
 │   │   └── files
@@ -269,7 +269,7 @@ this:</p>
 </pre></div>
 </div>
 <p>but now we&#8217;ve worked out the new way, it looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   ├── 5d89f8
 │   │   ├── info.txt
@@ -302,14 +302,14 @@ this:</p>
 </pre></div>
 </div>
 <p>and <code class="docutils literal"><span class="pre">.ahole/5d89f8/info.txt</span></code> looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>committer = Adam
+<div class="highlight-python"><div class="highlight"><pre><span></span>committer = Adam
 message = Third day
 date = year0-jan-03
 parent = 7ef41f
 </pre></div>
 </div>
 <p>Meanwhile, Eve&#8217;s directory looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   ├── 0a01a0
 │   │   ├── info.txt
@@ -341,7 +341,7 @@ parent = 7ef41f
 </pre></div>
 </div>
 <p>and Eve&#8217;s <code class="docutils literal"><span class="pre">.ahole/0a01a0/info.txt</span></code> looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>committer = Eve
+<div class="highlight-python"><div class="highlight"><pre><span></span>committer = Eve
 message = Eve day 3
 date = year0-jan-03
 parent = 7ef41f
@@ -357,42 +357,42 @@ make a new commit, we can get the parent of the new commit, from the current
 commit in <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>.</p>
 <p>So now, we have a new procedure for our commit.  In outline it looks like this
 (now in <a class="reference external" href="http://www.python.org">python</a> syntax) <a class="footnote-reference" href="#commit-imports" id="id2">[2]</a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="c"># Make a unique identifier for this commit somehow</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="c1"># Make a unique identifier for this commit somehow</span>
     <span class="n">new_id</span> <span class="o">=</span> <span class="n">make_unique_id</span><span class="p">()</span>
-    <span class="c"># Make a new directory in ahole with the new unique name</span>
-    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">new_id</span>
+    <span class="c1"># Make a new directory in ahole with the new unique name</span>
+    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s1">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">new_id</span>
     <span class="n">mkdir</span><span class="p">(</span><span class="n">commit_dir</span><span class="p">)</span>
-    <span class="n">mkdir</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">)</span>
-    <span class="c"># Copy the files from the staging area to the new snapshot directory</span>
-    <span class="n">copy_tree</span><span class="p">(</span><span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">,</span> <span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">)</span>
-    <span class="c"># Get previous (parent) commit id from .ahole/HEAD</span>
-    <span class="n">head_id</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="c"># Make info with parent set to HEAD</span>
-    <span class="n">info_str</span> <span class="o">=</span> <span class="s">&#39;committer = &#39;</span> <span class="o">+</span> <span class="n">committer</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;message = &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;date = &#39;</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;parent = &#39;</span> <span class="o">+</span> <span class="n">head_id</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="c"># Write info to info.txt file</span>
-    <span class="n">info_file</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/info.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">mkdir</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">)</span>
+    <span class="c1"># Copy the files from the staging area to the new snapshot directory</span>
+    <span class="n">copy_tree</span><span class="p">(</span><span class="s1">&#39;.ahole/staging_area&#39;</span><span class="p">,</span> <span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">)</span>
+    <span class="c1"># Get previous (parent) commit id from .ahole/HEAD</span>
+    <span class="n">head_id</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># Make info with parent set to HEAD</span>
+    <span class="n">info_str</span> <span class="o">=</span> <span class="s1">&#39;committer = &#39;</span> <span class="o">+</span> <span class="n">committer</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;message = &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;date = &#39;</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;parent = &#39;</span> <span class="o">+</span> <span class="n">head_id</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="c1"># Write info to info.txt file</span>
+    <span class="n">info_file</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/info.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
     <span class="n">info_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
     <span class="n">info_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="c"># Set .ahole/HEAD to contain new commit id</span>
-    <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
+    <span class="c1"># Set .ahole/HEAD to contain new commit id</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When we want to go back to an earlier state of the book, we can do a
 <em>checkout</em>, with something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_checkout</span><span class="p">(</span><span class="n">commit_id</span><span class="p">):</span>
-    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">commit_id</span>
-    <span class="c"># copy .ahole/$commit_id/files into working tree</span>
-    <span class="n">delete_tree</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
-    <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
-    <span class="c"># make .ahole/HEAD contain commit_id</span>
-    <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_id</span><span class="p">)</span>
-    <span class="c"># copy commit snapshot into staging area</span>
-    <span class="n">delete_tree</span><span class="p">(</span><span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
-    <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ahole_checkout</span><span class="p">(</span><span class="n">commit_id</span><span class="p">):</span>
+    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s1">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">commit_id</span>
+    <span class="c1"># copy .ahole/$commit_id/files into working tree</span>
+    <span class="n">delete_tree</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="c1"># make .ahole/HEAD contain commit_id</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_id</span><span class="p">)</span>
+    <span class="c1"># copy commit snapshot into staging area</span>
+    <span class="n">delete_tree</span><span class="p">(</span><span class="s1">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
+    <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">,</span> <span class="s1">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So, when we run <code class="docutils literal"><span class="pre">ahole_checkout('7ef41f`)</span></code> we will get the copy of the working
@@ -440,48 +440,48 @@ a new commit, I first check <code class="docutils literal"><span class="pre">.ah
 <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> - and I use that as the parent id for the commit.
 When I&#8217;ve saved the new commit, I set <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> to have the
 new commit id.  So, I need to modify my commit procedure slightly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="c"># *** this stuff down to the next *** line is new</span>
-    <span class="c"># Get previous (parent) commit id from .ahole/HEAD</span>
-    <span class="n">head_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="c"># Check if this is a reference, de-reference if so</span>
-    <span class="c"># Also, get file into which to write the new commit id</span>
-    <span class="k">if</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;ref: &#39;</span><span class="p">):</span>
-        <span class="n">head_ref</span> <span class="o">=</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;ref: &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">head_ref</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="c1"># *** this stuff down to the next *** line is new</span>
+    <span class="c1"># Get previous (parent) commit id from .ahole/HEAD</span>
+    <span class="n">head_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># Check if this is a reference, de-reference if so</span>
+    <span class="c1"># Also, get file into which to write the new commit id</span>
+    <span class="k">if</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ref: &#39;</span><span class="p">):</span>
+        <span class="n">head_ref</span> <span class="o">=</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ref: &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s1">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">head_ref</span>
         <span class="n">head_id</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s">&#39;.ahole/HEAD&#39;</span>
+        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s1">&#39;.ahole/HEAD&#39;</span>
         <span class="n">head_id</span> <span class="o">=</span> <span class="n">head_contents</span>
-    <span class="c"># *** the stuff below you&#39;ve seen before (until *** again)</span>
-    <span class="c"># Make a unique identifier for this commit somehow</span>
+    <span class="c1"># *** the stuff below you&#39;ve seen before (until *** again)</span>
+    <span class="c1"># Make a unique identifier for this commit somehow</span>
     <span class="n">new_id</span> <span class="o">=</span> <span class="n">make_unique_id</span><span class="p">()</span>
-    <span class="c"># Make a new directory in ahole with the new unique name</span>
-    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">new_id</span>
+    <span class="c1"># Make a new directory in ahole with the new unique name</span>
+    <span class="n">commit_dir</span> <span class="o">=</span> <span class="s1">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">new_id</span>
     <span class="n">mkdir</span><span class="p">(</span><span class="n">commit_dir</span><span class="p">)</span>
-    <span class="n">mkdir</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">)</span>
-    <span class="c"># Copy the files from the staging area to the new snapshot directory</span>
-    <span class="n">copy_tree</span><span class="p">(</span><span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">,</span> <span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">)</span>
-    <span class="c"># Make info.txt with parent set to HEAD</span>
-    <span class="n">info_str</span> <span class="o">=</span> <span class="s">&#39;committer = &#39;</span> <span class="o">+</span> <span class="n">committer</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;message = &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;date = &#39;</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;parent = &#39;</span> <span class="o">+</span> <span class="n">head_id</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="c"># Write info to info.txt file</span>
-    <span class="n">info_file</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/info.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">mkdir</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">)</span>
+    <span class="c1"># Copy the files from the staging area to the new snapshot directory</span>
+    <span class="n">copy_tree</span><span class="p">(</span><span class="s1">&#39;.ahole/staging_area&#39;</span><span class="p">,</span> <span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">)</span>
+    <span class="c1"># Make info.txt with parent set to HEAD</span>
+    <span class="n">info_str</span> <span class="o">=</span> <span class="s1">&#39;committer = &#39;</span> <span class="o">+</span> <span class="n">committer</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;message = &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;date = &#39;</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;parent = &#39;</span> <span class="o">+</span> <span class="n">head_id</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="c1"># Write info to info.txt file</span>
+    <span class="n">info_file</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/info.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
     <span class="n">info_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
     <span class="n">info_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="c"># Set the file that points to the current commit, to point to our commit</span>
-    <span class="c"># *** a little new, in that we might be writing to .ahole/HEAD, or</span>
-    <span class="c"># something like .ahole/refs/heads/master, depending on what .ahole/HEAD</span>
-    <span class="c"># contained at the top of this routine</span>
-    <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
+    <span class="c1"># Set the file that points to the current commit, to point to our commit</span>
+    <span class="c1"># *** a little new, in that we might be writing to .ahole/HEAD, or</span>
+    <span class="c1"># something like .ahole/refs/heads/master, depending on what .ahole/HEAD</span>
+    <span class="c1"># contained at the top of this routine</span>
+    <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_id</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>So, let&#8217;s say that I&#8217;m currently on commit &#8216;5d89f8&#8217;.  <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> contains
 <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code>.  <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> contains <code class="docutils literal"><span class="pre">5d89f8</span></code>.
 I run my commit procedure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_commit</span><span class="p">(</span><span class="s">&#39;Adam&#39;</span><span class="p">,</span> <span class="s">&#39;Night follows day&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_commit</span><span class="p">(</span><span class="s1">&#39;Adam&#39;</span><span class="p">,</span> <span class="s1">&#39;Night follows day&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The commit procedure has made a new commit &#8216;dfbeda&#8217;; <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> continues
@@ -492,7 +492,7 @@ constantly updating &#8216;master&#8217;.</p>
 first get the contents of <code class="docutils literal"><span class="pre">.ahole/refs/tags/release-0.1</span></code> - it&#8217;s &#8216;5d89f8&#8217;.
 Then I checkout the working tree for that version, using my nice
 <code class="docutils literal"><span class="pre">ahole_checkout</span></code> procedure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;5d89f8&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_checkout</span><span class="p">(</span><span class="s1">&#39;5d89f8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The checkout procedure will make <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> contain the text <code class="docutils literal"><span class="pre">5d89f8</span></code>.</p>
@@ -500,42 +500,42 @@ Then I checkout the working tree for that version, using my nice
 set of files pointed to by <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code>.  I can
 check the contents of <code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code> - it is <code class="docutils literal"><span class="pre">dfbeda</span></code>.  Then I
 get the current version with the normal checkout procedure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;dfbeda&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_checkout</span><span class="p">(</span><span class="s1">&#39;dfbeda&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Finally, I&#8217;ll have to set <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to be <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code>.  All
 good.</p>
 <p>Of course, I could automate this, by modifying my checkout procedure slightly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_checkout</span><span class="p">(</span><span class="n">commit_reference</span><span class="p">):</span>
-   <span class="c"># If this is a reference, dereference</span>
-   <span class="k">if</span> <span class="n">commit_reference</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.ahole/refs/heads&#39;</span><span class="p">):</span>
-       <span class="c"># it&#39;s a head reference, maybe &#39;master&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ahole_checkout</span><span class="p">(</span><span class="n">commit_reference</span><span class="p">):</span>
+   <span class="c1"># If this is a reference, dereference</span>
+   <span class="k">if</span> <span class="n">commit_reference</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.ahole/refs/heads&#39;</span><span class="p">):</span>
+       <span class="c1"># it&#39;s a head reference, maybe &#39;master&#39;</span>
        <span class="n">head_reference</span> <span class="o">=</span> <span class="bp">True</span>
-       <span class="n">fname</span> <span class="o">=</span> <span class="s">&#39;.ahole/refs/heads/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span>
+       <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;.ahole/refs/heads/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span>
        <span class="n">commit_id</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-   <span class="k">elif</span> <span class="n">commit_reference</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.ahole/refs/tags&#39;</span><span class="p">):</span>
-       <span class="c"># it&#39;s a tag reference</span>
+   <span class="k">elif</span> <span class="n">commit_reference</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;.ahole/refs/tags&#39;</span><span class="p">):</span>
+       <span class="c1"># it&#39;s a tag reference</span>
        <span class="n">head_reference</span> <span class="o">=</span> <span class="bp">False</span>
-       <span class="n">fname</span> <span class="o">=</span> <span class="s">&#39;.ahole/refs/tags/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span>
+       <span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;.ahole/refs/tags/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span>
        <span class="n">commit_id</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-   <span class="k">else</span><span class="p">:</span> <span class="c"># Just a standard commit id</span>
+   <span class="k">else</span><span class="p">:</span> <span class="c1"># Just a standard commit id</span>
        <span class="n">head_reference</span> <span class="o">=</span> <span class="bp">False</span>
        <span class="n">commit_id</span> <span class="o">=</span> <span class="n">commit_reference</span>
-   <span class="n">commit_dir</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">commit_id</span>
-   <span class="c"># copy .ahole/$commit_id/files into working tree</span>
-   <span class="n">delete_tree</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
-   <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">)</span>
-   <span class="c"># make ahole/HEAD point to commit id</span>
+   <span class="n">commit_dir</span> <span class="o">=</span> <span class="s1">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">commit_id</span>
+   <span class="c1"># copy .ahole/$commit_id/files into working tree</span>
+   <span class="n">delete_tree</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+   <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+   <span class="c1"># make ahole/HEAD point to commit id</span>
    <span class="k">if</span> <span class="n">head_reference</span><span class="p">:</span>
-       <span class="c"># Point HEAD at head reference</span>
-       <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;ref: refs/heads/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span><span class="p">)</span>
-       <span class="c"># Write commit id into head reference file</span>
-       <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/refs/heads/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_id</span><span class="p">)</span>
+       <span class="c1"># Point HEAD at head reference</span>
+       <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ref: refs/heads/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span><span class="p">)</span>
+       <span class="c1"># Write commit id into head reference file</span>
+       <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/refs/heads/&#39;</span> <span class="o">+</span> <span class="n">commit_reference</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_id</span><span class="p">)</span>
    <span class="k">else</span><span class="p">:</span>
-       <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_id</span><span class="p">)</span>
-   <span class="c"># copy commit snapshot into staging area</span>
-   <span class="n">delete_tree</span><span class="p">(</span><span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
-   <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s">&#39;/files&#39;</span><span class="p">,</span> <span class="s">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
+       <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_id</span><span class="p">)</span>
+   <span class="c1"># copy commit snapshot into staging area</span>
+   <span class="n">delete_tree</span><span class="p">(</span><span class="s1">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
+   <span class="n">copy_tree</span><span class="p">(</span><span class="n">commit_dir</span> <span class="o">+</span> <span class="s1">&#39;/files&#39;</span><span class="p">,</span> <span class="s1">&#39;.ahole/staging_area&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>What then, is the difference, between a <em>tag</em> - like our release - and the
@@ -559,12 +559,12 @@ there&#8217;s a serious conceptual error in the version of the book that I relea
 &#8216;release-0.1&#8217;.  What if I want to go back and fix it - that is - do another
 commit on top of the <em>released</em> book, instead of the version of the book that
 I&#8217;m currently working on?  I can just make a new <em>head</em>.  I&#8217;ll do it like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cp</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">working</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="mf">0.1</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">release</span><span class="o">-</span><span class="mf">0.1</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">working</span><span class="o">-</span><span class="n">on</span><span class="o">-</span><span class="mf">0.1</span>
 </pre></div>
 </div>
 <p>Then, I look at what commit <code class="docutils literal"><span class="pre">working-on-0.1</span></code> contains - of course it&#8217;s
 <code class="docutils literal"><span class="pre">7ef41f</span></code>.  I get that state of the book with my new checkout procedure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;working-on-0.1&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_checkout</span><span class="p">(</span><span class="s1">&#39;working-on-0.1&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This changes <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to be <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/working-on-0.1</span></code>.  Now,
@@ -576,11 +576,11 @@ apple pie being a bit bitter last night, we&#8217;re feeling good.</p>
 of commits, which can grow.  All I need, to make a new branch, is make a
 new head reference to a commit.  For example, if I want to make new branch
 starting at the current position of &#8216;master&#8217;, all I need is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cp</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">master</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">branch</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">master</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">new</span><span class="o">-</span><span class="n">branch</span>
 </pre></div>
 </div>
 <p>If I want to work on this branch, I need to check it out, with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;my-new-branch&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_checkout</span><span class="p">(</span><span class="s1">&#39;my-new-branch&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>That will get the commit identifier in <code class="docutils literal"><span class="pre">.ahole/refs/heads/my-new-branch</span></code>, unpack
@@ -619,7 +619,7 @@ copy them to <code class="docutils literal"><span class="pre">.ahole</span></cod
 <p>Now I want to look at her version of the book.  I have her head references and
 the commits they point to, so I can checkout her latest version. I first get the
 commit identifier from <code class="docutils literal"><span class="pre">.ahole/refs/remotes/eve/master</span></code> - &#8216;0a01a0&#8217;.  Then:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;0a01a0&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_checkout</span><span class="p">(</span><span class="s1">&#39;0a01a0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will put &#8216;0a01a0&#8217; into <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code>.  I can look at her version of the
@@ -633,7 +633,7 @@ ancestor</em>.  Then I work out the difference between the common ancestor commi
 (&#8216;7ef41f&#8217;) and this commit (&#8216;0a01a0&#8217;) - let&#8217;s call that <code class="docutils literal"><span class="pre">eves_diff</span></code>.</p>
 <p>I go back to my own &#8216;master&#8217; - which turns out to be
 (<code class="docutils literal"><span class="pre">.ahole/refs/heads/master</span></code>) - &#8216;dfbeda&#8217;:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ahole_checkout</span><span class="p">(</span><span class="s">&#39;master&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ahole_checkout</span><span class="p">(</span><span class="s1">&#39;master&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This will change <code class="docutils literal"><span class="pre">.ahole/HEAD</span></code> to be <code class="docutils literal"><span class="pre">ref:</span> <span class="pre">refs/heads/master</span></code> - and I will
@@ -655,7 +655,7 @@ and won&#8217;t need to apply it again.</p>
 right yet.</p>
 <p>As she&#8217;s thinking, she decides to make a couple of illustrations for The Book,
 so she adds some photos to her working tree:</p>
-<div class="highlight-python"><div class="highlight"><pre>.
+<div class="highlight-python"><div class="highlight"><pre><span></span>.
 ├── .ahole
 │   ...
 ├── images
@@ -680,7 +680,7 @@ files, so they can be referenced.  Maybe we could store the files for our
 snapshots in a directory, and use some sort of unique filename so that the
 commits can reference that filename?  For example, maybe we could make a
 directory in <code class="docutils literal"><span class="pre">.ahole</span></code> like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mkdir</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">objects</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">.</span><span class="n">ahole</span><span class="o">/</span><span class="n">objects</span>
 </pre></div>
 </div>
 <p>and use this directory to store the contents of the files for our snapshots.
@@ -688,7 +688,7 @@ Then we could store the commits as something like a table, where the entries
 would tell us how to get the matching files from the <code class="docutils literal"><span class="pre">.ahole/objects</span></code>
 directory.</p>
 <p>We could have some structure for the commits like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>├── .ahole
+<div class="highlight-python"><div class="highlight"><pre><span></span>├── .ahole
 │   ├── 5d89f8
 │   │   ├── info.txt
 │   │   └── file_list
@@ -698,7 +698,7 @@ directory.</p>
 <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory, along with the filename that the contents has when
 reconstructed back into the snapshot.  For example, maybe <code class="docutils literal"><span class="pre">file_list</span></code> would
 have a series of (object reference, filename) pairs like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>contents_version1            contents.txt
+<div class="highlight-python"><div class="highlight"><pre><span></span>contents_version1            contents.txt
 chapter1_version1            chapter1.txt
 chapter2_version2            chapter2.txt
 chapter3_version1            chapter3.txt
@@ -707,7 +707,7 @@ chapter1_discussion_version1 chapter1_discussion.txt
 </div>
 <p>These references in the first column could match filenames in the
 <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory:</p>
-<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre><span></span>│   ├── objects
 │   │   ├── chapter1_version1
 │   │   ├── chapter2_version1
 │   │   ├── chapter2_version2
@@ -769,7 +769,7 @@ had a hash of &#8216;1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f&#8217;.</p>
 <p>Now we have got a nice way of making the references that will go into
 <code class="docutils literal"><span class="pre">.ahole/5d89f8/file_list</span></code>.  First we store the file versions in our
 <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory, using their hash values as filenames:</p>
-<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre><span></span>│   ├── objects
 │   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
 │   │   ├── 1cf01a1dfbe135b6132362fa8e17eaefcaf00a7f (chapter2 version 1)
 │   │   ├── 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d (chapter2 version 2)
@@ -782,7 +782,7 @@ directory.  Each row contains first - the hash value (and therefore filename in
 <code class="docutils literal"><span class="pre">.ahole/objects</span></code>) which allows me to get the file contents, then the type of
 thing this is - here a file - and lastly, the filename as it was in the
 snapshot:</p>
-<div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
+<div class="highlight-python"><div class="highlight"><pre><span></span>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
 3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
 f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
@@ -796,20 +796,20 @@ per row, where each row contains the hash reference for the file contents, the
 type of thing it is (tree or file), and the filename as it was in the snapshot.
 So, for Eve&#8217;s new commit, we&#8217;d first store the contents of the two photo files
 in the <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory:</p>
-<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre><span></span>│   ├── objects
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
 │   │   ├── e8b23357995db47e70906d4c7a08114c0c0ba376 (lion_with_lamb.jpg)
 │   │   ├── 9e398c7cf8d56e960aa7769839cc0c38b8e12f11 (chapter1 version 1)
 </pre></div>
 </div>
 <p>etc.  Then we make a new <em>tree</em> file called - say - &#8216;images_listing&#8217; like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>82e6792faa893070dcd6fe3e614b6f147be1a0a9 file adam_with_apple.jpg
+<div class="highlight-python"><div class="highlight"><pre><span></span>82e6792faa893070dcd6fe3e614b6f147be1a0a9 file adam_with_apple.jpg
 e8b23357995db47e70906d4c7a08114c0c0ba376 file lion_with_lamb.jpg
 </pre></div>
 </div>
 <p>and we make a hash for that tree file too, and put that into
 <code class="docutils literal"><span class="pre">.ahole/objects</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre><span></span>│   ├── objects
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
 │   │   ├── e8b23357995db47e70906d4c7a08114c0c0ba376 (lion_with_lamb.jpg)
@@ -818,7 +818,7 @@ e8b23357995db47e70906d4c7a08114c0c0ba376 file lion_with_lamb.jpg
 </div>
 <p>etc.  Now maybe our whole commit listing can include files and directories for
 the root directory of our project, something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
+<div class="highlight-python"><div class="highlight"><pre><span></span>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
 3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
 f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
@@ -827,7 +827,7 @@ be242dba385bc0689be16454e959f4b64c87abce tree images
 </div>
 <p>Oh - but wait - that&#8217;s just a tree listing too, let&#8217;s make a hash for that, and
 put it into the <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory:</p>
-<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre><span></span>│   ├── objects
 │   │   ├── e52dc9dbe358c549df65307652ff2709322812b3 (root listing)
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
 │   │   ├── 82e6792faa893070dcd6fe3e614b6f147be1a0a9 (adam_with_apple.jpg)
@@ -837,7 +837,7 @@ put it into the <code class="docutils literal"><span class="pre">.ahole/objects<
 hash for the root tree (the one starting &#8216;e52dc&#8217; above). We can get rid of the
 old <code class="docutils literal"><span class="pre">files</span></code> subdirectory in the commit, and add the hash for the root tree
 instead - something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>committer = Eve
+<div class="highlight-python"><div class="highlight"><pre><span></span>committer = Eve
 message = Adding funny pictures
 date = year0-jan-06
 root_tree = e52dc9dbe358c549df65307652ff2709322812b3
@@ -847,7 +847,7 @@ parent = 0a01a0
 <p>Now we can solve the annoying problem of finding an unique commit id for each
 commit.   We just make a hash for the <code class="docutils literal"><span class="pre">info.txt</span></code> file, and put that into the
 <code class="docutils literal"><span class="pre">.ahole/objects</span></code> directory too, as a <em>commit</em> file:</p>
-<div class="highlight-python"><div class="highlight"><pre>│   ├── objects
+<div class="highlight-python"><div class="highlight"><pre><span></span>│   ├── objects
 │   │   ├── 7e0cda8c145b300b519ed28998a31f801b6d626f (latest commit)
 │   │   ├── e52dc9dbe358c549df65307652ff2709322812b3 (root listing)
 │   │   ├── be242dba385bc0689be16454e959f4b64c87abce (images_listing)
@@ -871,7 +871,7 @@ single file containing the root tree listing of the snapshot.  Let&#8217;s call 
 file <code class="docutils literal"><span class="pre">.ahole/index</span></code>.  Now Eve has done her new commit, that file can just be
 the root directory listing of the previous commit (the commit we have just
 done):</p>
-<div class="highlight-python"><div class="highlight"><pre>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
+<div class="highlight-python"><div class="highlight"><pre><span></span>9e398c7cf8d56e960aa7769839cc0c38b8e12f11 file chapter1.txt
 65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
 3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
 f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
@@ -884,56 +884,56 @@ contents, she stores the new <code class="docutils literal"><span class="pre">ch
 directory using the hash as a filename, and then she edits the <code class="docutils literal"><span class="pre">.ahole/index</span></code>
 file to point to her new chapter 1 contents instead of the old.  She might
 automate this with a small command like <code class="docutils literal"><span class="pre">ahole_stage</span></code> <a class="footnote-reference" href="#need-hashlib" id="id3">[3]</a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_stage</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
-    <span class="c"># Get the hash for the file contents</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ahole_stage</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+    <span class="c1"># Get the hash for the file contents</span>
     <span class="n">file_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="n">file_hash</span> <span class="o">=</span> <span class="n">sha1_hash</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
-    <span class="c"># (assuming that the new file is going in the root directory)</span>
-    <span class="n">new_root_entry</span> <span class="o">=</span> <span class="n">file_hash</span> <span class="o">+</span> <span class="s">&#39; file &#39;</span> <span class="o">+</span> <span class="n">fname</span>
-    <span class="n">root_listing</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># (assuming that the new file is going in the root directory)</span>
+    <span class="n">new_root_entry</span> <span class="o">=</span> <span class="n">file_hash</span> <span class="o">+</span> <span class="s1">&#39; file &#39;</span> <span class="o">+</span> <span class="n">fname</span>
+    <span class="n">root_listing</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">new_root_entry</span> <span class="ow">in</span> <span class="n">root_listing</span><span class="p">:</span>
-        <span class="c"># This exact file contents and filename already present</span>
+        <span class="c1"># This exact file contents and filename already present</span>
         <span class="k">return</span>
-    <span class="c"># Make an entry for these file contents in the objects database</span>
-    <span class="n">database_fname</span> <span class="o">=</span> <span class="s">&#39;.ahole/objects/&#39;</span> <span class="o">+</span> <span class="n">file_hash</span>
-    <span class="nb">file</span><span class="p">(</span><span class="n">database_fname</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
-    <span class="c"># Write index listing with new entry</span>
-    <span class="n">root_listing</span> <span class="o">=</span> <span class="n">root_listing</span> <span class="o">+</span> <span class="n">new_root_entry</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/index&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">root_listing</span><span class="p">)</span>
+    <span class="c1"># Make an entry for these file contents in the objects database</span>
+    <span class="n">database_fname</span> <span class="o">=</span> <span class="s1">&#39;.ahole/objects/&#39;</span> <span class="o">+</span> <span class="n">file_hash</span>
+    <span class="nb">file</span><span class="p">(</span><span class="n">database_fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+    <span class="c1"># Write index listing with new entry</span>
+    <span class="n">root_listing</span> <span class="o">=</span> <span class="n">root_listing</span> <span class="o">+</span> <span class="n">new_root_entry</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/index&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">root_listing</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Making a new commit involves taking the contents of <code class="docutils literal"><span class="pre">.ahole/index</span></code> and using
 it to make a new commit file in <code class="docutils literal"><span class="pre">.ahole/objects</span></code>.  Using the structure of our
 previous <code class="docutils literal"><span class="pre">ahole_commit</span></code> routine, that might look like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-    <span class="c"># *** this stuff is the same as before ***</span>
-    <span class="c"># Get previous (parent) commit id from .ahole/HEAD</span>
-    <span class="n">head_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="c"># Check if this is a reference, de-reference if so</span>
-    <span class="c"># Also, get file into which to write the new commit id</span>
-    <span class="k">if</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;ref: &#39;</span><span class="p">):</span>
-        <span class="n">head_ref</span> <span class="o">=</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;ref: &#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
-        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">head_ref</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ahole_commit</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+    <span class="c1"># *** this stuff is the same as before ***</span>
+    <span class="c1"># Get previous (parent) commit id from .ahole/HEAD</span>
+    <span class="n">head_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/HEAD&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># Check if this is a reference, de-reference if so</span>
+    <span class="c1"># Also, get file into which to write the new commit id</span>
+    <span class="k">if</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;ref: &#39;</span><span class="p">):</span>
+        <span class="n">head_ref</span> <span class="o">=</span> <span class="n">head_contents</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ref: &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s1">&#39;.ahole/&#39;</span> <span class="o">+</span> <span class="n">head_ref</span>
         <span class="n">head_id</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s">&#39;.ahole/HEAD&#39;</span>
+        <span class="n">head_ref_file</span> <span class="o">=</span> <span class="s1">&#39;.ahole/HEAD&#39;</span>
         <span class="n">head_id</span> <span class="o">=</span> <span class="n">head_contents</span>
-    <span class="c"># *** the stuff below is different ***</span>
-    <span class="c"># Make root tree entry in objects database from .ahole/index</span>
-    <span class="n">index_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="c1"># *** the stuff below is different ***</span>
+    <span class="c1"># Make root tree entry in objects database from .ahole/index</span>
+    <span class="n">index_contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="n">index_hash</span> <span class="o">=</span> <span class="n">sha1_hash</span><span class="p">(</span><span class="n">index_contents</span><span class="p">)</span>
-    <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/objects/&#39;</span> <span class="o">+</span> <span class="n">index_hash</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">index_contents</span><span class="p">)</span>
-    <span class="c"># Make commit information with parent set to HEAD</span>
-    <span class="n">info_str</span> <span class="o">=</span> <span class="s">&#39;committer = &#39;</span> <span class="o">+</span> <span class="n">committer</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;message = &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;date = &#39;</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;root_tree = &#39;</span> <span class="o">+</span> <span class="n">index_hash</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="n">info_str</span> <span class="o">+=</span> <span class="s">&#39;parent = &#39;</span> <span class="o">+</span> <span class="n">head_id</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="c"># Write commit file into objects database, with hash</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/objects/&#39;</span> <span class="o">+</span> <span class="n">index_hash</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">index_contents</span><span class="p">)</span>
+    <span class="c1"># Make commit information with parent set to HEAD</span>
+    <span class="n">info_str</span> <span class="o">=</span> <span class="s1">&#39;committer = &#39;</span> <span class="o">+</span> <span class="n">committer</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;message = &#39;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;date = &#39;</span> <span class="o">+</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;root_tree = &#39;</span> <span class="o">+</span> <span class="n">index_hash</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="n">info_str</span> <span class="o">+=</span> <span class="s1">&#39;parent = &#39;</span> <span class="o">+</span> <span class="n">head_id</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="c1"># Write commit file into objects database, with hash</span>
     <span class="n">commit_hash</span> <span class="o">=</span> <span class="n">sha1_hash</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
-    <span class="nb">file</span><span class="p">(</span><span class="s">&#39;.ahole/objects/&#39;</span> <span class="o">+</span> <span class="n">commit_hash</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
-    <span class="c"># Set the current commit file to contain new id</span>
-    <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_hash</span><span class="p">)</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;.ahole/objects/&#39;</span> <span class="o">+</span> <span class="n">commit_hash</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
+    <span class="c1"># Set the current commit file to contain new id</span>
+    <span class="nb">file</span><span class="p">(</span><span class="n">head_ref_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">commit_hash</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>How about doing a merge?  Remember that, in the bad old days, we had to compare
@@ -988,31 +988,31 @@ where I come from, &#8216;ahole&#8217; is roughly as rude as &#8216;git&#8217;.<
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><p class="first">In case you are interested, for the commit and checkout
 code to actually run, you would need some python definitions.  First some
 standard python imports:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">mkdir</span><span class="p">,</span> <span class="n">listdir</span>
 </pre></div>
 </div>
 <p>Then we need some simple custom commands for deleting our working tree, and
 for copying files into the working tree:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">remove</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">remove</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">isdir</span>
 <span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copyfile</span><span class="p">,</span> <span class="n">copytree</span><span class="p">,</span> <span class="n">rmtree</span>
 
 <span class="k">def</span> <span class="nf">delete_tree</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-    <span class="c"># Delete everything in path unless it&#39;s an &#39;.ahole&#39; directory</span>
+    <span class="c1"># Delete everything in path unless it&#39;s an &#39;.ahole&#39; directory</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="n">full_name</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">full_name</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span>
         <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
             <span class="n">remove</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">isdir</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s">&#39;.ahole&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;.ahole&#39;</span><span class="p">:</span>
                 <span class="n">rmtree</span><span class="p">(</span><span class="n">full_name</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">copy_tree</span><span class="p">(</span><span class="n">src_path</span><span class="p">,</span> <span class="n">dst_path</span><span class="p">):</span>
-    <span class="c"># Copy everything in src_path to dst_path</span>
+    <span class="c1"># Copy everything in src_path to dst_path</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">src_path</span><span class="p">):</span>
-        <span class="n">src_name</span> <span class="o">=</span> <span class="n">src_path</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span>
-        <span class="n">dst_name</span> <span class="o">=</span> <span class="n">dst_path</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">src_name</span> <span class="o">=</span> <span class="n">src_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="n">dst_name</span> <span class="o">=</span> <span class="n">dst_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">name</span>
         <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">src_name</span><span class="p">):</span>
             <span class="n">copyfile</span><span class="p">(</span><span class="n">src_name</span><span class="p">,</span> <span class="n">dst_name</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">isdir</span><span class="p">(</span><span class="n">src_name</span><span class="p">):</span>
@@ -1027,7 +1027,7 @@ for copying files into the working tree:</p>
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><p class="first">Now you need to add:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">hashlib</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hashlib</span>
 
 <span class="k">def</span> <span class="nf">sha1_hash</span><span class="p">(</span><span class="n">contents</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1_hash</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>

@@ -112,11 +112,11 @@ Docker, you will need to <a class="reference external" href="https://msdn.micros
 </ul>
 <p>In what follows I&#8217;m running in a powershell with admin privileges.</p>
 <p>To see a list of images that you have installed:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker images
+<div class="highlight-python"><div class="highlight"><pre><span></span>docker images
 </pre></div>
 </div>
 <p>On my system, after installing the <a class="reference internal" href="#container-images"><span>Container images</span></a>, I had:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS C:\WINDOWS\system32&gt; docker images
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS C:\WINDOWS\system32&gt; docker images
 REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 windowsservercore       10.0.10586.0        6801d964fda5        5 months ago        0 B
 nanoserver              10.0.10586.0        8572198a60f1        5 months ago        0 B
@@ -131,12 +131,12 @@ that docker uses when selecting a version of the image, so when you ask for
 <code class="docutils literal"><span class="pre">windowsservercore:latest</span></code>.  If you don&#8217;t add these tags, you will need to
 give the tag explicitly, as in <code class="docutils literal"><span class="pre">windowservercore:10.0.10586.0</span></code>.  Add the
 <code class="docutils literal"><span class="pre">latest</span></code> tags with:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker tag windowsservercore:10.0.10586.0 windowsservercore:latest
+<div class="highlight-python"><div class="highlight"><pre><span></span>docker tag windowsservercore:10.0.10586.0 windowsservercore:latest
 docker tag nanoserver:10.0.10586.0 nanoserver:latest
 </pre></div>
 </div>
 <p>You might then get something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS C:\WINDOWS\system32&gt; docker images
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS C:\WINDOWS\system32&gt; docker images
 REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
 windowsservercore       10.0.10586.0        6801d964fda5        5 months ago        0 B
 windowsservercore       latest              6801d964fda5        5 months ago        0 B
@@ -145,7 +145,7 @@ nanoserver              latest              8572198a60f1        5 months ago    
 </pre></div>
 </div>
 <p>To play with a Docker container, you might do something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker run -ti --rm windowsservercore powershell
+<div class="highlight-python"><div class="highlight"><pre><span></span>docker run -ti --rm windowsservercore powershell
 </pre></div>
 </div>
 <p>This will open a new powershell session inside the container.  Exit the
@@ -159,7 +159,7 @@ because nanoserver and Windows server 2016 do not have the same kernel, and
 Windows server containers need to share a kernel with the host.</p>
 <p>To force the creation of Hyper-V containers instead of Windows server
 containers, use the <code class="docutils literal"><span class="pre">--isolation=hyperv</span></code> flag to Docker, as in:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker run -ti --rm --isolation=hyperv nanoserver cmd
+<div class="highlight-python"><div class="highlight"><pre><span></span>docker run -ti --rm --isolation=hyperv nanoserver cmd
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a> for more detail.</p>
@@ -168,16 +168,16 @@ containers, use the <code class="docutils literal"><span class="pre">--isolation
 <h2>Example of installing into a container<a class="headerlink" href="#example-of-installing-into-a-container" title="Permalink to this headline">¶</a></h2>
 <p>Here I am installing three versions of Python and the MSVC command line tools
 for Python 2.7 into a container:</p>
-<div class="highlight-python"><div class="highlight"><pre>docker run -ti --rm -v c:\Users\mb312\Downloads:c:\downloads windowsservercore powershell
+<div class="highlight-python"><div class="highlight"><pre><span></span>docker run -ti --rm -v c:\Users\mb312\Downloads:c:\downloads windowsservercore powershell
 </pre></div>
 </div>
 <p>Then (in the container):</p>
-<div class="highlight-python"><div class="highlight"><pre>cd c:/downloads
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd c:/downloads
 .\build_container.ps1
 </pre></div>
 </div>
 <p>Where <code class="docutils literal"><span class="pre">build_container.ps1</span></code> is:</p>
-<div class="highlight-python"><div class="highlight"><pre># Set environment variable for correct code page on Python 2
+<div class="highlight-python"><div class="highlight"><pre><span></span># Set environment variable for correct code page on Python 2
 # http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
 [Environment]::SetEnvironmentVariable(&quot;PYTHONIOENCODING&quot;, &quot;UTF-8&quot;, &quot;Machine&quot;)
 $env:PYTHONIOENCODING=&quot;UTF-8&quot;

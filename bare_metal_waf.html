@@ -56,13 +56,13 @@
 <h1>Bare metal WAF<a class="headerlink" href="#bare-metal-waf" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://code.google.com/waf">waf</a> is a configure / build / install system.</p>
 <p>It can do the jobs of <code class="docutils literal"><span class="pre">autotools</span></code> and <code class="docutils literal"><span class="pre">make</span></code>, so instead of typing (say):</p>
-<div class="highlight-python"><div class="highlight"><pre>./configure
+<div class="highlight-python"><div class="highlight"><pre><span></span>./configure
 make
 make install
 </pre></div>
 </div>
 <p>you can type (say):</p>
-<div class="highlight-python"><div class="highlight"><pre>./waf configure
+<div class="highlight-python"><div class="highlight"><pre><span></span>./waf configure
 ./waf build
 ./waf install
 </pre></div>
@@ -82,7 +82,7 @@ control.  It can sometimes be hard to find the part of waf that you want.</p>
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>The heart of the waf process is of course the build.</p>
 <p>We&#8217;re likely going to do this to build our project:</p>
-<div class="highlight-python"><div class="highlight"><pre>./waf configure
+<div class="highlight-python"><div class="highlight"><pre><span></span>./waf configure
 ./waf build
 </pre></div>
 </div>
@@ -99,12 +99,12 @@ DAG to execute the build steps in an efficient order.</p>
 <code class="docutils literal"><span class="pre">myproject</span></code>.  It has a single C file <code class="docutils literal"><span class="pre">myprogram.c</span></code>.</p>
 <p>Download the <code class="docutils literal"><span class="pre">waf</span></code> binary to the <code class="docutils literal"><span class="pre">myproject</span></code> from the <a class="reference external" href="http://code.google.com/waf">waf</a> site.</p>
 <p>You invoke waf thus:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd myproject
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd myproject
 ./waf
 </pre></div>
 </div>
 <p>and you&#8217;ll get this:</p>
-<div class="highlight-python"><div class="highlight"><pre>Waf: Run from a directory containing a file named &#39;wscript&#39;
+<div class="highlight-python"><div class="highlight"><pre><span></span>Waf: Run from a directory containing a file named &#39;wscript&#39;
 </pre></div>
 </div>
 <ul class="simple">
@@ -113,18 +113,18 @@ DAG to execute the build steps in an efficient order.</p>
 <p>waf loads the wscript file, and executes the code inside in order to do stuff.</p>
 <p>Let&#8217;s pretend our project creates a file called <code class="docutils literal"><span class="pre">foo</span></code> and then copies it to
 <code class="docutils literal"><span class="pre">bar</span></code>.  The wscript might look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
-    <span class="c"># Check we have &#39;touch&#39;</span>
-    <span class="n">conf_ctx</span><span class="o">.</span><span class="n">find_program</span><span class="p">(</span><span class="s">&#39;touch&#39;</span><span class="p">,</span> <span class="n">VAR</span><span class="o">=</span><span class="s">&#39;TOUCH&#39;</span><span class="p">)</span>
-    <span class="c"># And &#39;cp&#39;</span>
-    <span class="n">conf_ctx</span><span class="o">.</span><span class="n">find_program</span><span class="p">(</span><span class="s">&#39;cp&#39;</span><span class="p">,</span> <span class="n">VAR</span><span class="o">=</span><span class="s">&#39;CP&#39;</span><span class="p">)</span>
+    <span class="c1"># Check we have &#39;touch&#39;</span>
+    <span class="n">conf_ctx</span><span class="o">.</span><span class="n">find_program</span><span class="p">(</span><span class="s1">&#39;touch&#39;</span><span class="p">,</span> <span class="n">VAR</span><span class="o">=</span><span class="s1">&#39;TOUCH&#39;</span><span class="p">)</span>
+    <span class="c1"># And &#39;cp&#39;</span>
+    <span class="n">conf_ctx</span><span class="o">.</span><span class="n">find_program</span><span class="p">(</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span> <span class="n">VAR</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="c"># Touch foo</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;${TOUCH} ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
-    <span class="c"># Copy foo to bar</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;${CP} ${SRC} ${TGT}&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="c1"># Touch foo</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;${TOUCH} ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="c1"># Copy foo to bar</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;${CP} ${SRC} ${TGT}&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We run the checks with <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span></code>, and the build with <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">build</span></code>.</p>
@@ -136,17 +136,17 @@ do that.</p>
 <p>You execute a waf command with <code class="docutils literal"><span class="pre">.waf</span> <span class="pre">command-name</span> <span class="pre">[options]</span></code></p>
 <p>You can define any command you like with something like this in the wscript
 file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript file</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript file</span>
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and:</p>
-<div class="highlight-python"><div class="highlight"><pre>./waf mycommand
+<div class="highlight-python"><div class="highlight"><pre><span></span>./waf mycommand
 </pre></div>
 </div>
 <p>giving:</p>
-<div class="highlight-python"><div class="highlight"><pre>hello
+<div class="highlight-python"><div class="highlight"><pre><span></span>hello
 &#39;mycommand&#39; finished successfully (0.000s)
 </pre></div>
 </div>
@@ -155,13 +155,13 @@ file:</p>
 callable thing as the first and only argument.</p>
 <p>The <code class="docutils literal"><span class="pre">ctx</span></code> instance contains information about the current waf run.
 We investigate with a print in the wscript:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript file</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript file</span>
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>giving:</p>
-<div class="highlight-python"><div class="highlight"><pre>&lt;waflib.Context.Context object at 0x1011b60d0&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;waflib.Context.Context object at 0x1011b60d0&gt;
 &#39;mycommand&#39; finished successfully (0.000s)
 </pre></div>
 </div>
@@ -184,43 +184,43 @@ We investigate with a print in the wscript:</p>
 <p>If you define functions (callables) with these names, they have default and
 specialized behavior.  For example, each of these commands receives its own
 specialized Context object. We can show that for the the <code class="docutils literal"><span class="pre">options</span></code> command.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="n">opt_ctx</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="n">opt_ctx</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>gives:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf options
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf options
 &lt;waflib.Options.OptionsContext object at 0x1011b53d0&gt;
 </pre></div>
 </div>
 <p>Let&#8217;s make each of the commands print their context instance:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">for</span> <span class="n">command_name</span> <span class="ow">in</span> <span class="p">(</span>
-    <span class="s">&#39;options&#39;</span><span class="p">,</span>
-    <span class="s">&#39;configure&#39;</span><span class="p">,</span>
-    <span class="s">&#39;distclean&#39;</span><span class="p">,</span>
-    <span class="s">&#39;clean&#39;</span><span class="p">,</span>
-    <span class="s">&#39;build&#39;</span><span class="p">,</span>
-    <span class="s">&#39;install&#39;</span><span class="p">,</span>
-    <span class="s">&#39;uninstall&#39;</span><span class="p">,</span>
-    <span class="s">&#39;dist&#39;</span><span class="p">,</span>
-    <span class="s">&#39;list&#39;</span><span class="p">,</span>
-    <span class="s">&#39;step&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;options&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;configure&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;distclean&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;clean&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;build&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;install&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;uninstall&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;dist&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;step&#39;</span><span class="p">,</span>
     <span class="p">):</span>
-    <span class="k">exec</span><span class="p">(</span><span class="s">&#39;{0} = lambda ctx : print(&quot;In: {0} with&quot;, ctx)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command_name</span><span class="p">))</span>
+    <span class="k">exec</span><span class="p">(</span><span class="s1">&#39;{0} = lambda ctx : print(&quot;In: {0} with&quot;, ctx)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command_name</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Executing &#8216;options&#8217; again:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf options
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf options
 In: options with &lt;waflib.Options.OptionsContext object at 0x1011b55d0&gt;
 </pre></div>
 </div>
 <p>We can execute all these command in order by concatenating them at the command
 line to show they each get an instance of their own specialized Context:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf options configure distclean clean build install uninstall dist list step
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf options configure distclean clean build install uninstall dist list step
 In: options with &lt;waflib.Options.OptionsContext object at 0x1011b6750&gt;
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -274,7 +274,7 @@ running. See &#8220;More build commands&#8221; in the waf book for more detail.<
 <p>This happens before your own <code class="docutils literal"><span class="pre">configure</span></code> command gets executed, and even if
 there is no <code class="docutils literal"><span class="pre">configure</span></code> command defined.  For example, if wscript is an empty
 file:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf configure
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf configure
 &lt;waflib.Options.OptionsContext object at 0x1011b53d0&gt;
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -302,7 +302,7 @@ tree, maybe checking the binary into your source control.</p>
 code from within the binary to a specially named folder in the same directory as
 the binary, with a name beginning with <code class="docutils literal"><span class="pre">.waf-</span></code>. For example, after I have run
 <code class="docutils literal"><span class="pre">./waf</span> <span class="pre">configure</span></code> in the test project folder I get:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ls -A1
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ls -A1
 .lock-waf_darwin_build
 .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc
 build
@@ -311,7 +311,7 @@ wscript
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">waflib</span></code> code is in this special <code class="docutils literal"><span class="pre">.waf-*</span></code> directory:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ls .waf-1.7.13-5a064c2686fe54de4e11018d22148cfc/
 waflib
 </pre></div>
 </div>
@@ -323,12 +323,12 @@ standard folder in the source tree or elsewhere.</p>
 <p>Usually we create tasks using a high-level API called <em>task generators</em>.  You
 already saw these in our first wscript towards the top of this page. The task
 generator creates the task instances for us:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="#variable-substitution"><span>run_str Variable substitution</span></a> below for more on the <code class="docutils literal"><span class="pre">${TGT}</span></code> string
@@ -339,7 +339,7 @@ case is a filename of a file we generate with the command.</p>
 run the waf build.  <code class="docutils literal"><span class="pre">distclean</span></code> deletes all the generated build targets,
 clearing the outputs of any previous waf run.</p>
 <p>So:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
 &#39;configure&#39; finished successfully (0.003s)
@@ -354,27 +354,27 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 creating an instance of <code class="docutils literal"><span class="pre">waflib.TaskGen.task_gen</span></code>.  In due course this will
 generate all the relevant <code class="docutils literal"><span class="pre">Task</span></code> instances.  Adpapting an example from the waf
 book:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="n">tg</span> <span class="o">=</span> <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
-    <span class="c"># This will show that ``tg`` is a ``task_gen`` instance</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Type of tg is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">tg</span><span class="p">))</span>
-    <span class="c"># ``tg.tasks`` is empty because the generator has not run yet</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Task list before tg.post()&#39;</span><span class="p">,</span> <span class="n">tg</span><span class="o">.</span><span class="n">tasks</span><span class="p">)</span>
-    <span class="c"># ``tg.post()`` runs the generator and fills the task list</span>
+    <span class="n">tg</span> <span class="o">=</span> <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="c1"># This will show that ``tg`` is a ``task_gen`` instance</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Type of tg is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">tg</span><span class="p">))</span>
+    <span class="c1"># ``tg.tasks`` is empty because the generator has not run yet</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Task list before tg.post()&#39;</span><span class="p">,</span> <span class="n">tg</span><span class="o">.</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="c1"># ``tg.post()`` runs the generator and fills the task list</span>
     <span class="n">tg</span><span class="o">.</span><span class="n">post</span><span class="p">()</span>
-    <span class="c"># The task list now contains a single task</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Task list after tg.post()&#39;</span><span class="p">,</span> <span class="n">tg</span><span class="o">.</span><span class="n">tasks</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Type of tg.tasks[0] is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">tg</span><span class="o">.</span><span class="n">tasks</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="c1"># The task list now contains a single task</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Task list after tg.post()&#39;</span><span class="p">,</span> <span class="n">tg</span><span class="o">.</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Type of tg.tasks[0] is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">tg</span><span class="o">.</span><span class="n">tasks</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 </div>
 <p>so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 &#39;distclean&#39; finished successfully (0.002s)
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -403,7 +403,7 @@ every command - &#8216;path&#8217; and &#8216;root&#8217;.  Here we use a custom
 Because it&#8217;s a custom command (not one of the defined waf commands above), the
 command  receives an instance of the base <code class="docutils literal"><span class="pre">Context</span></code> class.  All command
 contexts will have these node objects:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">base_ctx</span><span class="p">):</span>
@@ -412,7 +412,7 @@ contexts will have these node objects:</p>
 </pre></div>
 </div>
 <p>giving:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf mycommand
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf mycommand
 &lt;class &#39;waflib.Node.Nod3&#39;&gt; /Users/mb312/dev_trees/myproject
 &lt;class &#39;waflib.Node.Nod3&#39;&gt; /
 &#39;mycommand&#39; finished successfully (0.000s)
@@ -422,16 +422,16 @@ contexts will have these node objects:</p>
 wscript file. <code class="docutils literal"><span class="pre">base_ctx.root</span></code> is a node pointing to the root directory of the
 filesystem containing the wscript.</p>
 <p>Node objects contain various useful methods:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">base_ctx</span><span class="p">):</span>
-    <span class="c"># Show the attributes that are not private</span>
-    <span class="k">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">base_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">)])</span>
+    <span class="c1"># Show the attributes that are not private</span>
+    <span class="k">print</span><span class="p">([</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">base_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)])</span>
 </pre></div>
 </div>
 <p>gives:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf mycommand
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf mycommand
 [&#39;abspath&#39;, &#39;ant_glob&#39;, &#39;ant_iter&#39;, &#39;bld_base&#39;, &#39;bld_dir&#39;, &#39;bldpath&#39;,
 &#39;cache_abspath&#39;, &#39;cache_isdir&#39;, &#39;cache_sig&#39;, &#39;change_ext&#39;, &#39;children&#39;,
 &#39;chmod&#39;, &#39;ctx&#39;, &#39;delete&#39;, &#39;evict&#39;, &#39;find_dir&#39;, &#39;find_node&#39;,
@@ -445,7 +445,7 @@ filesystem containing the wscript.</p>
 <p>The waf book goes into more detail about these methods.</p>
 <p>One interesting method is <code class="docutils literal"><span class="pre">abspath()</span></code>.  It gives the absolute path to the
 node as a string:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">base_ctx</span><span class="p">):</span>
@@ -453,7 +453,7 @@ node as a string:</p>
 </pre></div>
 </div>
 <p>for output:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf mycommand
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf mycommand
 /Users/mb312/dev_trees/myproject
 &#39;mycommand&#39; finished successfully (0.000s)
 </pre></div>
@@ -494,20 +494,20 @@ a node if the file exists.</p>
 nodes corresponding to the contents of a directory. For efficiency, waf doesn&#8217;t
 always read the filesystem to fill this structure, so you may need to create
 nodes manually if they have not been read from the filesystem already:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="k">def</span> <span class="nf">mycommand</span><span class="p">(</span><span class="n">base_ctx</span><span class="p">):</span>
-    <span class="c"># The children of the root directory</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;root node children&#39;</span><span class="p">,</span> <span class="n">base_ctx</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
-    <span class="c"># There are many more directories than found in the children</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;ls of root directory&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">))</span>
+    <span class="c1"># The children of the root directory</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;root node children&#39;</span><span class="p">,</span> <span class="n">base_ctx</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+    <span class="c1"># There are many more directories than found in the children</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;ls of root directory&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>This gives:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf mycommand
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf mycommand
 root node children {&#39;Users&#39;: /Users}
 ls of root directory [&#39;.dbfseventsd&#39;, &#39;.DS_Store&#39;, &#39;.file&#39;, &#39;.fseventsd&#39;,
 &#39;.hotfiles.btree&#39;, &#39;.Spotlight-V100&#39;, &#39;.Trashes&#39;, &#39;.vol&#39;, &#39;Applications&#39;,
@@ -528,21 +528,21 @@ context object passed to a <code class="docutils literal"><span class="pre">buil
 <p>The build also needs to know about the location of the directory containing the
 source files, and the output directory to put the target files. To solve this,
 the build context contains two extra nodes, <code class="docutils literal"><span class="pre">bldnode</span></code> and <code class="docutils literal"><span class="pre">srcnode</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.root&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.srcnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.bldnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.root&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.srcnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.bldnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 &#39;distclean&#39; finished successfully (0.001s)
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -558,29 +558,29 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 </div>
 <p>The source node path may differ from the &#8216;path&#8217; if you&#8217;ve customized the <em>top</em>
 or <em>out</em> directories:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="n">top</span> <span class="o">=</span> <span class="s">&#39;tmp2&#39;</span>
-<span class="n">out</span> <span class="o">=</span> <span class="s">&#39;tmp2/build2&#39;</span>
+<span class="n">top</span> <span class="o">=</span> <span class="s1">&#39;tmp2&#39;</span>
+<span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;tmp2/build2&#39;</span>
 
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.root&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.srcnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&#39;build_ctx.bldnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.root&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">root</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.srcnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">srcnode</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;build_ctx.bldnode&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">bldnode</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>We need to create the <code class="docutils literal"><span class="pre">tmp2</span></code> directory in the project directory in order for
 this not to raise an error:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir tmp2
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir tmp2
 </pre></div>
 </div>
 <p>then:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 &#39;distclean&#39; finished successfully (0.000s)
 Setting top to                           : /Users/mb312/dev_trees/myproject/tmp2
 Setting out to                           : /Users/mb312/dev_trees/myproject/tmp2/build2
@@ -598,11 +598,11 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/tmp2/build2&#39;
 <p>Iff you have a build context <code class="docutils literal"><span class="pre">bldnode</span></code>, you can get the source node with
 <code class="docutils literal"><span class="pre">get_src</span></code>; if you have the build context <code class="docutils literal"><span class="pre">srcnode</span></code> you can get the build
 node with <code class="docutils literal"><span class="pre">get_bld</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="n">top</span> <span class="o">=</span> <span class="s">&#39;tmp2&#39;</span>
-<span class="n">out</span> <span class="o">=</span> <span class="s">&#39;tmp2/build2&#39;</span>
+<span class="n">top</span> <span class="o">=</span> <span class="s1">&#39;tmp2&#39;</span>
+<span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;tmp2/build2&#39;</span>
 
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -613,7 +613,7 @@ node with <code class="docutils literal"><span class="pre">get_bld</span></code>
 </pre></div>
 </div>
 <p>Output:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 &#39;distclean&#39; finished successfully (0.002s)
 Setting top to                           : /Users/mb312/dev_trees/myproject/tmp2
 Setting out to                           : /Users/mb312/dev_trees/myproject/tmp2/build2
@@ -668,19 +668,19 @@ and return it if the path exists.</li>
 <p>See the &#8220;Direct task declaration&#8221; in the waf book for details.</p>
 <p>Here&#8217;s an example of the high level interface.  Then we&#8217;ll do the same with the
 low-level interface:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="c"># create empty &#39;foo&#39; file</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">)</span>
-    <span class="c"># copy &#39;foo&#39; to &#39;bar&#39;</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;cp ${SRC} ${TGT}&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="c1"># create empty &#39;foo&#39; file</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;touch ${TGT}&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+    <span class="c1"># copy &#39;foo&#39; to &#39;bar&#39;</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;cp ${SRC} ${TGT}&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Thence:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 &#39;distclean&#39; finished successfully (0.002s)
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -693,40 +693,40 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 </pre></div>
 </div>
 <p>The low level interface defines the tasks and dependencies directly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">waflib.Task</span> <span class="kn">import</span> <span class="n">Task</span>
 
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="c"># Declare the tasks</span>
+    <span class="c1"># Declare the tasks</span>
     <span class="k">class</span> <span class="nc">TouchFile</span><span class="p">(</span><span class="n">Task</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">ret_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span>
-                <span class="s">&#39;touch {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abspath</span><span class="p">()))</span>
+                <span class="s1">&#39;touch {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abspath</span><span class="p">()))</span>
             <span class="k">return</span> <span class="n">ret_code</span>
 
     <span class="k">class</span> <span class="nc">CopyFile</span><span class="p">(</span><span class="n">Task</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">ret_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exec_command</span><span class="p">(</span>
-                <span class="s">&#39;cp {0} {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abspath</span><span class="p">(),</span>
+                <span class="s1">&#39;cp {0} {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abspath</span><span class="p">(),</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">abspath</span><span class="p">()))</span>
             <span class="k">return</span> <span class="n">ret_code</span>
-    <span class="c"># Instantiate tasks</span>
+    <span class="c1"># Instantiate tasks</span>
     <span class="n">touch_task</span> <span class="o">=</span> <span class="n">TouchFile</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
-    <span class="n">touch_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">))</span>
+    <span class="n">touch_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">))</span>
     <span class="n">cp_task</span> <span class="o">=</span> <span class="n">CopyFile</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
-    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_inputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_resource</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">))</span>
-    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s">&#39;bar&#39;</span><span class="p">))</span>
-    <span class="c"># Add them to a run group to schedule them</span>
+    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_inputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_resource</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">))</span>
+    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">))</span>
+    <span class="c1"># Add them to a run group to schedule them</span>
     <span class="n">build_ctx</span><span class="o">.</span><span class="n">add_to_group</span><span class="p">(</span><span class="n">touch_task</span><span class="p">)</span>
     <span class="n">build_ctx</span><span class="o">.</span><span class="n">add_to_group</span><span class="p">(</span><span class="n">cp_task</span><span class="p">)</span>
-    <span class="c"># Build machinery will submit and run these defined tasks</span>
+    <span class="c1"># Build machinery will submit and run these defined tasks</span>
 </pre></div>
 </div>
 <p>giving output:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf distclean configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf distclean configure build
 &#39;distclean&#39; finished successfully (0.002s)
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
@@ -741,30 +741,30 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 <p>We can also define tasks using the slightly higher-level <code class="docutils literal"><span class="pre">run_str</span></code> attribute
 instead of the <code class="docutils literal"><span class="pre">run</span></code> method.  waf translates the <code class="docutils literal"><span class="pre">run_str</span></code> attribute to a
 <code class="docutils literal"><span class="pre">run</span></code> method automatically on execution, to give the same result:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="kn">from</span> <span class="nn">waflib.Task</span> <span class="kn">import</span> <span class="n">Task</span>
 
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="c"># Declare the tasks</span>
+    <span class="c1"># Declare the tasks</span>
     <span class="k">class</span> <span class="nc">TouchFile</span><span class="p">(</span><span class="n">Task</span><span class="p">):</span>
-        <span class="n">run_str</span> <span class="o">=</span> <span class="s">&#39;touch ${TGT}&#39;</span>
+        <span class="n">run_str</span> <span class="o">=</span> <span class="s1">&#39;touch ${TGT}&#39;</span>
 
     <span class="k">class</span> <span class="nc">CopyFile</span><span class="p">(</span><span class="n">Task</span><span class="p">):</span>
-        <span class="n">run_str</span> <span class="o">=</span> <span class="s">&#39;cp ${SRC} ${TGT}&#39;</span>
+        <span class="n">run_str</span> <span class="o">=</span> <span class="s1">&#39;cp ${SRC} ${TGT}&#39;</span>
 
-    <span class="c"># Instantiate tasks</span>
+    <span class="c1"># Instantiate tasks</span>
     <span class="n">touch_task</span> <span class="o">=</span> <span class="n">TouchFile</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
-    <span class="n">touch_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">))</span>
+    <span class="n">touch_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">))</span>
     <span class="n">cp_task</span> <span class="o">=</span> <span class="n">CopyFile</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
-    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_inputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_resource</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">))</span>
-    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s">&#39;bar&#39;</span><span class="p">))</span>
-    <span class="c"># Add them to a run group to schedule them</span>
+    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_inputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_resource</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">))</span>
+    <span class="n">cp_task</span><span class="o">.</span><span class="n">set_outputs</span><span class="p">(</span><span class="n">build_ctx</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">find_or_declare</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">))</span>
+    <span class="c1"># Add them to a run group to schedule them</span>
     <span class="n">build_ctx</span><span class="o">.</span><span class="n">add_to_group</span><span class="p">(</span><span class="n">touch_task</span><span class="p">)</span>
     <span class="n">build_ctx</span><span class="o">.</span><span class="n">add_to_group</span><span class="p">(</span><span class="n">cp_task</span><span class="p">)</span>
-    <span class="c"># Build machinery will submit and run these defined tasks</span>
+    <span class="c1"># Build machinery will submit and run these defined tasks</span>
 </pre></div>
 </div>
 </div>
@@ -782,7 +782,7 @@ variable substitution.</p>
 (<code class="docutils literal"><span class="pre">${VARIABLE_NAME}</span></code>) are any attribute of <code class="docutils literal"><span class="pre">build_ctx.env</span></code>.</p>
 <p>See <em>Scriptlet expressions</em> in the waf book for more substitutions. Here I&#8217;ve
 copied from the book:</p>
-<div class="highlight-python"><div class="highlight"><pre>1. If the value starts by env, gen, bld or tsk, a method call will be made
+<div class="highlight-python"><div class="highlight"><pre><span></span>1. If the value starts by env, gen, bld or tsk, a method call will be made
 2. If the value starts by SRC[n] or TGT[n], a method call to the
    input/output node n will be made
 3. SRC represents the list of task inputs seen from the root of the build directory
@@ -790,18 +790,18 @@ copied from the book:</p>
 </pre></div>
 </div>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># whole wscript</span>
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
-    <span class="n">conf_ctx</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">MYVAR</span> <span class="o">=</span> <span class="s">&#39;my variable&#39;</span>
+    <span class="n">conf_ctx</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">MYVAR</span> <span class="o">=</span> <span class="s1">&#39;my variable&#39;</span>
 
 <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">build_ctx</span><span class="p">):</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;echo ${MYVAR}&#39;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;echo ${bld.bldnode.abspath()}&#39;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s">&#39;echo ${bld.srcnode.abspath()}&#39;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;echo ${MYVAR}&#39;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;echo ${bld.bldnode.abspath()}&#39;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">build_ctx</span><span class="p">(</span><span class="n">rule</span><span class="o">=</span><span class="s1">&#39;echo ${bld.srcnode.abspath()}&#39;</span><span class="p">,</span> <span class="n">always</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>gives:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ waf configure build
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ waf configure build
 Setting top to                           : /Users/mb312/dev_trees/myproject
 Setting out to                           : /Users/mb312/dev_trees/myproject/build
 &#39;configure&#39; finished successfully (0.003s)
@@ -821,7 +821,7 @@ Waf: Leaving directory `/Users/mb312/dev_trees/myproject/build&#39;
 <h2>IPython debugging in waf<a class="headerlink" href="#ipython-debugging-in-waf" title="Permalink to this headline">¶</a></h2>
 <p>As of the IPython development tree of Christmas 2013, this works to drop you
 into the IPython shell from waf:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the whole wscript</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># the whole wscript</span>
 <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf_ctx</span><span class="p">):</span>
     <span class="k">pass</span>
 
@@ -830,7 +830,7 @@ into the IPython shell from waf:</p>
     <span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">DummyMod</span>
     <span class="n">wscript_module</span> <span class="o">=</span> <span class="n">DummyMod</span><span class="p">()</span>
     <span class="n">wscript_module</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
-    <span class="n">wscript_module</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="s">&#39;wscript&#39;</span>
+    <span class="n">wscript_module</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="s1">&#39;wscript&#39;</span>
     <span class="n">embed</span><span class="p">(</span><span class="n">user_module</span><span class="o">=</span><span class="n">wscript_module</span><span class="p">)</span>
 </pre></div>
 </div>
