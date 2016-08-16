@@ -53,7 +53,9 @@
 
 .. Windows development
 .. _mingw: http://www.mingw.org/wiki/Getting_Started
+.. _mingw-w64: http://mingw-w64.org/doku.php
 .. _msys: http://www.mingw.org/wiki/MSYS
+.. _msys2: http://msys2.github.io/
 .. _powershell: http://www.microsoft.com/powershell
 .. _msysgit: http://code.google.com/p/msysgit
 .. _putty: http://www.chiark.greenend.org.uk/~sgtatham/putty
