@@ -16,6 +16,7 @@ Contents:
    bare_metal_waf
    windows_dll_links
    windows_containers
+   mingw_python
 
 You might also be interested on my `docosx`_ pages about developing on OSX.
 
