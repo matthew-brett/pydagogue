@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>XML from absolutely nothing &mdash; pydagogue 0.2 documentation</title>
+    <title>XML from absolutely nothing &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="General computing" href="computing.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Points on floats" href="floating_point.html" />
     <link rel="prev" title="Introducing Unicode" href="introducing_unicode.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="introducing_unicode.html" title="Introducing Unicode"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -63,12 +64,12 @@
 <li>optional content – e.g. <code class="docutils literal"><span class="pre">Some</span> <span class="pre">data</span></code>;</li>
 <li>an end <em>tag</em> – e.g. <code class="docutils literal"><span class="pre">&lt;/my-element&gt;</span></code>.</li>
 </ul>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element&gt;Some data&lt;/my-element&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span><span class="n">Some</span> <span class="n">data</span><span class="o">&lt;/</span><span class="n">my</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>If an element has no content, it can be abbreviated into an <em>empty element
 tag</em>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element /&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">element</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>To repeat then, there are three types of tag:</p>
@@ -83,8 +84,8 @@ is a case-sensitive string starting with a letter or underscore, followed by
 any combination of letters, digits, hyphens, underscores, and periods.</p>
 <p>A start tag and an empty element tag can have <em>attributes</em>. These are name,
 value pairs:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot;&gt;Some text&lt;/a-name&gt;
-&lt;a-name an-attribute=&quot;my value&quot; another-attribute=&quot;3&quot; /&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">a</span><span class="o">-</span><span class="n">name</span> <span class="n">an</span><span class="o">-</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;my value&quot;</span> <span class="n">another</span><span class="o">-</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="o">&gt;</span><span class="n">Some</span> <span class="n">text</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">a</span><span class="o">-</span><span class="n">name</span> <span class="n">an</span><span class="o">-</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;my value&quot;</span> <span class="n">another</span><span class="o">-</span><span class="n">attribute</span><span class="o">=</span><span class="s2">&quot;3&quot;</span> <span class="o">/&gt;</span>
 </pre></div>
 </div>
 <p>The <em>content</em> of an element consists of zero or more items, where an item can
@@ -94,20 +95,20 @@ be:</p>
 <li>An element</li>
 </ul>
 <p>Elements contained in other elements are <em>child elements</em>, e.g:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a-parent&gt;
-    &lt;a-child&gt;with text content&lt;/a-child&gt;
-    &lt;another-child&gt;with more text&lt;/another-child&gt;
-&lt;/a-parent&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">a</span><span class="o">-</span><span class="n">parent</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">a</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span><span class="k">with</span> <span class="n">text</span> <span class="n">content</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">another</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span><span class="k">with</span> <span class="n">more</span> <span class="n">text</span><span class="o">&lt;/</span><span class="n">another</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">a</span><span class="o">-</span><span class="n">parent</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>You can mix text items and element items in element content, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;a-parent&gt;
-    Some text
-    &lt;a-child&gt;with text content&lt;/a-child&gt;
-    More text
-    &lt;another-child&gt;with more text&lt;/another-child&gt;
-    Text continues
-&lt;/a-parent&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">a</span><span class="o">-</span><span class="n">parent</span><span class="o">&gt;</span>
+    <span class="n">Some</span> <span class="n">text</span>
+    <span class="o">&lt;</span><span class="n">a</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span><span class="k">with</span> <span class="n">text</span> <span class="n">content</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span>
+    <span class="n">More</span> <span class="n">text</span>
+    <span class="o">&lt;</span><span class="n">another</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span><span class="k">with</span> <span class="n">more</span> <span class="n">text</span><span class="o">&lt;/</span><span class="n">another</span><span class="o">-</span><span class="n">child</span><span class="o">&gt;</span>
+    <span class="n">Text</span> <span class="n">continues</span>
+<span class="o">&lt;/</span><span class="n">a</span><span class="o">-</span><span class="n">parent</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>but it is more common to have element content that is <em>either</em> one or more
@@ -129,28 +130,28 @@ element items, <em>or</em> one single text item.</p>
 </div>
 <p>To take another example, this would be a valid XML document, because it has a
 single element at the root level:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element&gt;
-    Some text
-&lt;/my-element&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
+    <span class="n">Some</span> <span class="n">text</span>
+<span class="o">&lt;/</span><span class="n">my</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>But this would not, because it has two elements at the root level:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;my-element&gt;
-    Some text
-&lt;/my-element&gt;
-&lt;another-element&gt;
-    More text
-&lt;/another-element&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
+    <span class="n">Some</span> <span class="n">text</span>
+<span class="o">&lt;/</span><span class="n">my</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">another</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
+    <span class="n">More</span> <span class="n">text</span>
+<span class="o">&lt;/</span><span class="n">another</span><span class="o">-</span><span class="n">element</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>The XML document may start with a special construction called the <em>XML prolog</em>
 of this form:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
 </pre></div>
 </div>
 <p>Default XML encoding is UTF-8, but you can specify another encoding in the XML
 prolog:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;
 </pre></div>
 </div>
 </div>
@@ -204,21 +205,18 @@ prolog:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/xml_from_scratch.txt"
+      <li><a href="_sources/xml_from_scratch.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -237,13 +235,13 @@ prolog:</p>
         <li class="right" >
           <a href="introducing_unicode.html" title="Introducing Unicode"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

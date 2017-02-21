@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Notes on Windows containers &mdash; pydagogue 0.2 documentation</title>
+    <title>Notes on Windows containers &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,16 +17,17 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="General computing" href="computing.html" />
-    <link rel="next" title="Notes on Python compiled with MinGW-w64" href="mingw_python.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pydagogue" href="README.html" />
     <link rel="prev" title="Windows DLLs - information" href="windows_dll_links.html" /> 
   </head>
   <body role="document">
@@ -37,13 +38,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="mingw_python.html" title="Notes on Python compiled with MinGW-w64"
+          <a href="README.html" title="Pydagogue"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="windows_dll_links.html" title="Windows DLLs - information"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -112,14 +113,14 @@ Docker, you will need to <a class="reference external" href="https://msdn.micros
 </ul>
 <p>In what follows I&#8217;m running in a powershell with admin privileges.</p>
 <p>To see a list of images that you have installed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>docker images
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">images</span>
 </pre></div>
 </div>
-<p>On my system, after installing the <a class="reference internal" href="#container-images"><span>Container images</span></a>, I had:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>PS C:\WINDOWS\system32&gt; docker images
-REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-windowsservercore       10.0.10586.0        6801d964fda5        5 months ago        0 B
-nanoserver              10.0.10586.0        8572198a60f1        5 months ago        0 B
+<p>On my system, after installing the <a class="reference internal" href="#container-images"><span class="std std-ref">Container images</span></a>, I had:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">WINDOWS</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">docker</span> <span class="n">images</span>
+<span class="n">REPOSITORY</span>              <span class="n">TAG</span>                 <span class="n">IMAGE</span> <span class="n">ID</span>            <span class="n">CREATED</span>             <span class="n">VIRTUAL</span> <span class="n">SIZE</span>
+<span class="n">windowsservercore</span>       <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">nanoserver</span>              <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">windowsservercore</span></code> is an image containing a minimal Windows Server core
@@ -131,21 +132,21 @@ that docker uses when selecting a version of the image, so when you ask for
 <code class="docutils literal"><span class="pre">windowsservercore:latest</span></code>.  If you don&#8217;t add these tags, you will need to
 give the tag explicitly, as in <code class="docutils literal"><span class="pre">windowservercore:10.0.10586.0</span></code>.  Add the
 <code class="docutils literal"><span class="pre">latest</span></code> tags with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>docker tag windowsservercore:10.0.10586.0 windowsservercore:latest
-docker tag nanoserver:10.0.10586.0 nanoserver:latest
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">tag</span> <span class="n">windowsservercore</span><span class="p">:</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span> <span class="n">windowsservercore</span><span class="p">:</span><span class="n">latest</span>
+<span class="n">docker</span> <span class="n">tag</span> <span class="n">nanoserver</span><span class="p">:</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span> <span class="n">nanoserver</span><span class="p">:</span><span class="n">latest</span>
 </pre></div>
 </div>
 <p>You might then get something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>PS C:\WINDOWS\system32&gt; docker images
-REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-windowsservercore       10.0.10586.0        6801d964fda5        5 months ago        0 B
-windowsservercore       latest              6801d964fda5        5 months ago        0 B
-nanoserver              10.0.10586.0        8572198a60f1        5 months ago        0 B
-nanoserver              latest              8572198a60f1        5 months ago        0 B
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">WINDOWS</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">docker</span> <span class="n">images</span>
+<span class="n">REPOSITORY</span>              <span class="n">TAG</span>                 <span class="n">IMAGE</span> <span class="n">ID</span>            <span class="n">CREATED</span>             <span class="n">VIRTUAL</span> <span class="n">SIZE</span>
+<span class="n">windowsservercore</span>       <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">windowsservercore</span>       <span class="n">latest</span>              <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">nanoserver</span>              <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">nanoserver</span>              <span class="n">latest</span>              <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
 </pre></div>
 </div>
 <p>To play with a Docker container, you might do something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>docker run -ti --rm windowsservercore powershell
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="n">windowsservercore</span> <span class="n">powershell</span>
 </pre></div>
 </div>
 <p>This will open a new powershell session inside the container.  Exit the
@@ -159,7 +160,7 @@ because nanoserver and Windows server 2016 do not have the same kernel, and
 Windows server containers need to share a kernel with the host.</p>
 <p>To force the creation of Hyper-V containers instead of Windows server
 containers, use the <code class="docutils literal"><span class="pre">--isolation=hyperv</span></code> flag to Docker, as in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>docker run -ti --rm --isolation=hyperv nanoserver cmd
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="o">--</span><span class="n">isolation</span><span class="o">=</span><span class="n">hyperv</span> <span class="n">nanoserver</span> <span class="n">cmd</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a> for more detail.</p>
@@ -168,16 +169,16 @@ containers, use the <code class="docutils literal"><span class="pre">--isolation
 <h2>Example of installing into a container<a class="headerlink" href="#example-of-installing-into-a-container" title="Permalink to this headline">¶</a></h2>
 <p>Here I am installing three versions of Python and the MSVC command line tools
 for Python 2.7 into a container:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>docker run -ti --rm -v c:\Users\mb312\Downloads:c:\downloads windowsservercore powershell
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">v</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="n">Downloads</span><span class="p">:</span><span class="n">c</span><span class="p">:</span>\<span class="n">downloads</span> <span class="n">windowsservercore</span> <span class="n">powershell</span>
 </pre></div>
 </div>
 <p>Then (in the container):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cd c:/downloads
-.\build_container.ps1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">downloads</span>
+<span class="o">.</span>\<span class="n">build_container</span><span class="o">.</span><span class="n">ps1</span>
 </pre></div>
 </div>
 <p>Where <code class="docutils literal"><span class="pre">build_container.ps1</span></code> is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Set environment variable for correct code page on Python 2
+<div class="highlight-default"><div class="highlight"><pre><span></span># Set environment variable for correct code page on Python 2
 # http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
 [Environment]::SetEnvironmentVariable(&quot;PYTHONIOENCODING&quot;, &quot;UTF-8&quot;, &quot;Machine&quot;)
 $env:PYTHONIOENCODING=&quot;UTF-8&quot;
@@ -221,26 +222,23 @@ cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
   <p class="topless"><a href="windows_dll_links.html"
                         title="previous chapter">Windows DLLs - information</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="mingw_python.html"
-                        title="next chapter">Notes on Python compiled with MinGW-w64</a></p>
+  <p class="topless"><a href="README.html"
+                        title="next chapter">Pydagogue</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/windows_containers.txt"
+      <li><a href="_sources/windows_containers.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -254,18 +252,18 @@ cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="mingw_python.html" title="Notes on Python compiled with MinGW-w64"
+          <a href="README.html" title="Pydagogue"
              >next</a> |</li>
         <li class="right" >
           <a href="windows_dll_links.html" title="Windows DLLs - information"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Rebase without tears &mdash; pydagogue 0.2 documentation</title>
+    <title>Rebase without tears &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="Notes and tutorials on git" href="git.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Pain in the dots" href="pain_in_dots.html" />
     <link rel="prev" title="Git foundations" href="foundation.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="foundation.html" title="Git foundations"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -73,7 +74,7 @@ examples later in this page.  See also the <a class="reference external" href="h
 <p>I like to think of rebase in its full form, because the full form helps to
 remind me of what it is doing.  Here&#8217;s the full form of most rebase commands
 <a class="footnote-reference" href="#to-root" id="id1">[1]</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto &lt;graft-point&gt; &lt;exclude-from&gt; &lt;include-from&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="o">&lt;</span><span class="n">graft</span><span class="o">-</span><span class="n">point</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">exclude</span><span class="o">-</span><span class="n">from</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">include</span><span class="o">-</span><span class="n">from</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>I&#8217;m using different names from the <code class="docutils literal"><span class="pre">git-rebase</span></code> man page - see
@@ -88,11 +89,11 @@ current branch.</li>
 <div class="section" id="which-commits-will-rebase-apply">
 <span id="which-commits"></span><h3>Which commits will rebase apply?<a class="headerlink" href="#which-commits-will-rebase-apply" title="Permalink to this headline">¶</a></h3>
 <p>Rebase will apply all the commits found by:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git log &lt;exclude-from&gt;..&lt;include-from&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">log</span> <span class="o">&lt;</span><span class="n">exclude</span><span class="o">-</span><span class="n">from</span><span class="o">&gt;..&lt;</span><span class="n">include</span><span class="o">-</span><span class="n">from</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>These are the commits that are reachable from <code class="docutils literal"><span class="pre">&lt;include-from&gt;</span></code> that are not
-reachable from <code class="docutils literal"><span class="pre">&lt;exclude-from&gt;</span></code>.  See <a class="reference internal" href="git_log_dots.html#git-log-two-dots"><span>Logging with two dots</span></a>.</p>
+reachable from <code class="docutils literal"><span class="pre">&lt;exclude-from&gt;</span></code>.  See <a class="reference internal" href="git_log_dots.html#git-log-two-dots"><span class="std std-ref">Logging with two dots</span></a>.</p>
 </div>
 <div class="section" id="which-branch-does-rebase-modify">
 <span id="which-branch"></span><h3>Which branch does rebase modify?<a class="headerlink" href="#which-branch-does-rebase-modify" title="Permalink to this headline">¶</a></h3>
@@ -104,63 +105,63 @@ current branch.</p>
 <div class="section" id="basic-example">
 <span id="id3"></span><h2>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s go through the man page examples.  Here&#8217;s a history tree:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>      A---B---C topic
-     /
-D---E---F---G master
+<div class="highlight-default"><div class="highlight"><pre><span></span>      <span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span> <span class="n">topic</span>
+     <span class="o">/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>We want to take the novel contents of the <code class="docutils literal"><span class="pre">topic</span></code> branch (<code class="docutils literal"><span class="pre">A,</span> <span class="pre">B,</span> <span class="pre">C</span></code>) and
 regraft it so that it starts at the <code class="docutils literal"><span class="pre">master</span></code> branch, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>              A&#39;--B&#39;--C&#39; topic
-             /
-D---E---F---G master
+<div class="highlight-default"><div class="highlight"><pre><span></span>              <span class="n">A</span><span class="s1">&#39;--B&#39;</span><span class="o">--</span><span class="n">C</span><span class="s1">&#39; topic</span>
+             <span class="o">/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>Let&#8217;s do something to ease the explanation, and tag the divergence point <code class="docutils literal"><span class="pre">E</span></code>
 thus:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git tag divergence-point topic~3 # E
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">tag</span> <span class="n">divergence</span><span class="o">-</span><span class="n">point</span> <span class="n">topic</span><span class="o">~</span><span class="mi">3</span> <span class="c1"># E</span>
 </pre></div>
 </div>
 <p>Obviously that gives us:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>     A---B---C topic
-    /
-    | F---G master
-    |/
-D---E  (tag) divergence-point
+<div class="highlight-default"><div class="highlight"><pre><span></span>     <span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span> <span class="n">topic</span>
+    <span class="o">/</span>
+    <span class="o">|</span> <span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
+    <span class="o">|/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span>  <span class="p">(</span><span class="n">tag</span><span class="p">)</span> <span class="n">divergence</span><span class="o">-</span><span class="n">point</span>
 </pre></div>
 </div>
-<p>Reading the <a class="reference internal" href="#actual-rebase"><span>Your actual rebase</span></a> command, we suspect the command we want is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto master divergence-point topic
+<p>Reading the <a class="reference internal" href="#actual-rebase"><span class="std std-ref">Your actual rebase</span></a> command, we suspect the command we want is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="n">divergence</span><span class="o">-</span><span class="n">point</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>And indeed, that does give us what we want.  However we had a to make a tag for
 the divergence point, and that was a bit annoying. Can we get away without that?</p>
 <p>Yes, because because the meaning of <code class="docutils literal"><span class="pre">&lt;exclude-from&gt;</span> <span class="pre">&lt;include-from&gt;</span></code> above is
-to collect the commits that you are going to apply.  See <a class="reference internal" href="#which-commits"><span>Which commits will rebase apply?</span></a>
+to collect the commits that you are going to apply.  See <a class="reference internal" href="#which-commits"><span class="std std-ref">Which commits will rebase apply?</span></a>
 for an explanation.  The commits wil be those shown by <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span>
 <span class="pre">&lt;exclude-from&gt;..&lt;include-from&gt;</span></code>.  I took the liberty of making a repository to
 match the history above.  Here is the result of <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span>
 <span class="pre">master..topic</span></code>, before the rebase:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>8de3e90 C
-9dcbae2 B
-cc3741a A
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">8</span><span class="n">de3e90</span> <span class="n">C</span>
+<span class="mi">9</span><span class="n">dcbae2</span> <span class="n">B</span>
+<span class="n">cc3741a</span> <span class="n">A</span>
 </pre></div>
 </div>
 <p>And of course that is the same as <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span> <span class="pre">--oneline</span> <span class="pre">divergence-point..topic</span></code>.
 So we could also do the rebase command with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto master master topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="n">master</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>And, in fact, if you don&#8217;t specify the <code class="docutils literal"><span class="pre">--onto</span></code> option, then rebase assumes
 you want to graft onto the <code class="docutils literal"><span class="pre">&lt;exclude-from&gt;</span></code> position, so you could also do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase master topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>and in fact, if you don&#8217;t specify the <code class="docutils literal"><span class="pre">&lt;include-from&gt;</span></code> position, rebase assumes
 that you want <code class="docutils literal"><span class="pre">&lt;include-from&gt;</span></code> to be the state of the current branch, so you
 could also do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git checkout topic # unless you are on ``topic`` already
-git rebase master
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">topic</span> <span class="c1"># unless you are on ``topic`` already</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span>
 </pre></div>
 </div>
 </div>
@@ -168,44 +169,44 @@ git rebase master
 <h2>Other examples<a class="headerlink" href="#other-examples" title="Permalink to this headline">¶</a></h2>
 <p>Here is another example from the <code class="docutils literal"><span class="pre">git-rebase</span></code> man page.  We want to go from
 this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>o---o---o---o---o  master
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span>  <span class="n">master</span>
      \
-      o---o---o---o---o  next
+      <span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span>  <span class="nb">next</span>
                        \
-                        o---o---o  topic
+                        <span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span>  <span class="n">topic</span>
 </pre></div>
 </div>
 <p>to this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>o---o---o---o---o  master
-    |            \
-    |             o&#39;--o&#39;--o&#39;  topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span>  <span class="n">master</span>
+    <span class="o">|</span>            \
+    <span class="o">|</span>             <span class="n">o</span><span class="s1">&#39;--o&#39;</span><span class="o">--</span><span class="n">o</span><span class="s1">&#39;  topic</span>
      \
-      o---o---o---o---o  next
+      <span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span><span class="o">---</span><span class="n">o</span>  <span class="nb">next</span>
 </pre></div>
 </div>
-<p>How?   Let&#8217;s check the <a class="reference internal" href="#actual-rebase"><span>Your actual rebase</span></a> command.  Maybe it is this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto master next topic
+<p>How?   Let&#8217;s check the <a class="reference internal" href="#actual-rebase"><span class="std std-ref">Your actual rebase</span></a> command.  Maybe it is this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="nb">next</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>Yup, that&#8217;s it!  You understand rebase!</p>
 <p>Now we want to go from this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>                        H---I---J topicB
-                       /
-              E---F---G  topicA
-             /
-A---B---C---D  master
+<div class="highlight-default"><div class="highlight"><pre><span></span>                        <span class="n">H</span><span class="o">---</span><span class="n">I</span><span class="o">---</span><span class="n">J</span> <span class="n">topicB</span>
+                       <span class="o">/</span>
+              <span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span>  <span class="n">topicA</span>
+             <span class="o">/</span>
+<span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span><span class="o">---</span><span class="n">D</span>  <span class="n">master</span>
 </pre></div>
 </div>
 <p>to this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>             H&#39;--I&#39;--J&#39;  topicB
-            /
-            | E---F---G  topicA
-            |/
-A---B---C---D  master
+<div class="highlight-default"><div class="highlight"><pre><span></span>             <span class="n">H</span><span class="s1">&#39;--I&#39;</span><span class="o">--</span><span class="n">J</span><span class="s1">&#39;  topicB</span>
+            <span class="o">/</span>
+            <span class="o">|</span> <span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span>  <span class="n">topicA</span>
+            <span class="o">|/</span>
+<span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span><span class="o">---</span><span class="n">D</span>  <span class="n">master</span>
 </pre></div>
 </div>
-<p>We check the <a class="reference internal" href="#actual-rebase"><span>Your actual rebase</span></a> command.  Could it be this?:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto master topicA topicB
+<p>We check the <a class="reference internal" href="#actual-rebase"><span class="std std-ref">Your actual rebase</span></a> command.  Could it be this?:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="n">topicA</span> <span class="n">topicB</span>
 </pre></div>
 </div>
 <p>Could it be anything else?  Congratulations, you are now a rebase master.</p>
@@ -213,22 +214,22 @@ A---B---C---D  master
 <div class="section" id="safety">
 <h2>Safety<a class="headerlink" href="#safety" title="Permalink to this headline">¶</a></h2>
 <p>Summary: <strong>always make a new branch before doing a rebase</strong></p>
-<p>You&#8217;ll see from <a class="reference internal" href="#which-branch"><span>Which branch does rebase modify?</span></a> that when you a rebase you will change the
-branch you are rebasing.  As you remember from the <a class="reference internal" href="#basic-example"><span>Basic example</span></a>, if you
+<p>You&#8217;ll see from <a class="reference internal" href="#which-branch"><span class="std std-ref">Which branch does rebase modify?</span></a> that when you a rebase you will change the
+branch you are rebasing.  As you remember from the <a class="reference internal" href="#basic-example"><span class="std std-ref">Basic example</span></a>, if you
 do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto master master topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="n">master</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>on this history graph:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>      A---B---C topic
-     /
-D---E---F---G master
+<div class="highlight-default"><div class="highlight"><pre><span></span>      <span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span> <span class="n">topic</span>
+     <span class="o">/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>then you&#8217;ll get this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>              A&#39;--B&#39;--C&#39; topic
-             /
-D---E---F---G master
+<div class="highlight-default"><div class="highlight"><pre><span></span>              <span class="n">A</span><span class="s1">&#39;--B&#39;</span><span class="o">--</span><span class="n">C</span><span class="s1">&#39; topic</span>
+             <span class="o">/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>If you only have branches <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">topic</span></code> then you have just orphaned
@@ -236,23 +237,23 @@ commits <code class="docutils literal"><span class="pre">A,</span> <span class="
 You might want to keep track of where you were before.  You might want to do
 that in case you made a mistake and need to retrace your steps.  The easiest way
 to do this, is to make a copy of the branch before doing the rebase, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git branch topic-rebased topic
-git rebase --onto master master topic-rebased
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="n">topic</span><span class="o">-</span><span class="n">rebased</span> <span class="n">topic</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="n">master</span> <span class="n">topic</span><span class="o">-</span><span class="n">rebased</span>
 </pre></div>
 </div>
 <p>or, if you are already on <code class="docutils literal"><span class="pre">topic</span></code> and you want to use the shorthand form of
 rebase:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git branch topic-rebased topic
-git checkout topic-rebased
-git rebase master
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="n">topic</span><span class="o">-</span><span class="n">rebased</span> <span class="n">topic</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">topic</span><span class="o">-</span><span class="n">rebased</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>Now you have left <code class="docutils literal"><span class="pre">topic</span></code> to be a branch that records where you were before:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>              A&#39;--B&#39;--C&#39; topic-rebased
-             /
-D---E---F---G master
+<div class="highlight-default"><div class="highlight"><pre><span></span>              <span class="n">A</span><span class="s1">&#39;--B&#39;</span><span class="o">--</span><span class="n">C</span><span class="s1">&#39; topic-rebased</span>
+             <span class="o">/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
      \
-      A---B---C topic
+      <span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>If you forget to make a new branch before rebase, and you do need to go back,
@@ -263,8 +264,8 @@ then you can use <code class="docutils literal"><span class="pre">git</span> <sp
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><p class="first">I&#8217;ve missed out the <code class="docutils literal"><span class="pre">--interactive</span></code> option, but that doesn&#8217;t
 change the logic.  There is one more substantial variation of the
-<a class="reference internal" href="#actual-rebase"><span>Your actual rebase</span></a> command, using <code class="docutils literal"><span class="pre">--root</span></code>.  This goes:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto &lt;graft-point&gt; --root   &lt;include-from&gt;
+<a class="reference internal" href="#actual-rebase"><span class="std std-ref">Your actual rebase</span></a> command, using <code class="docutils literal"><span class="pre">--root</span></code>.  This goes:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="o">&lt;</span><span class="n">graft</span><span class="o">-</span><span class="n">point</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">root</span>   <span class="o">&lt;</span><span class="n">include</span><span class="o">-</span><span class="n">from</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>I&#8217;ve put a couple of extra spaces between <code class="docutils literal"><span class="pre">--root</span></code> and <code class="docutils literal"><span class="pre">&lt;include-from&gt;</span></code> to
@@ -277,33 +278,33 @@ rebase commands then takes all the commits, from the root commit up until
 <code class="docutils literal"><span class="pre">&lt;include-from&gt;</span></code>, including the root commit, and grafts them onto
 <code class="docutils literal"><span class="pre">&lt;graft-point&gt;</span></code>.</p>
 <p>Let&#8217;s say you somehow have two detached histories in your repository:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>A--B--C--D master
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">--</span><span class="n">B</span><span class="o">--</span><span class="n">C</span><span class="o">--</span><span class="n">D</span> <span class="n">master</span>
 
-X--Y--Z other-branch
+<span class="n">X</span><span class="o">--</span><span class="n">Y</span><span class="o">--</span><span class="n">Z</span> <span class="n">other</span><span class="o">-</span><span class="n">branch</span>
 </pre></div>
 </div>
 <p>The root of <code class="docutils literal"><span class="pre">master</span></code> is A, and the root of <code class="docutils literal"><span class="pre">other-branch</span></code> is X.  To
 attach these histories you could do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase --onto master --root   other-branch
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">master</span> <span class="o">--</span><span class="n">root</span>   <span class="n">other</span><span class="o">-</span><span class="n">branch</span>
 </pre></div>
 </div>
 <p>resulting in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>A--B--C--D master
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">--</span><span class="n">B</span><span class="o">--</span><span class="n">C</span><span class="o">--</span><span class="n">D</span> <span class="n">master</span>
           \
-           X&#39;--Y&#39;--Z&#39; other-branch
+           <span class="n">X</span><span class="s1">&#39;--Y&#39;</span><span class="o">--</span><span class="n">Z</span><span class="s1">&#39; other-branch</span>
 </pre></div>
 </div>
 <p>It would be annoying to have to do the same operation without the <code class="docutils literal"><span class="pre">--root</span></code>
 option, because you&#8217;d first have to find the root commit, apply the root
 commit, and then rebase the rest of the X-Y-Z history on top of that, rather
 like:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span></span>git tag root-of-other-branch other-branch~2 # tags X commit
-git branch tmp-branch master # start rebase at master
-git checkout tmp-branch
-git cherry-pick root-of-other-branch # apply root commit
-git rebase --onto tmp-branch root-of-other-branch other-branch
-# You are now on the rebased other-branch
-git branch -D tmp-branch
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">tag</span> <span class="n">root</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">other</span><span class="o">-</span><span class="n">branch</span> <span class="n">other</span><span class="o">-</span><span class="n">branch</span><span class="o">~</span><span class="mi">2</span> <span class="c1"># tags X commit</span>
+<span class="n">git</span> <span class="n">branch</span> <span class="n">tmp</span><span class="o">-</span><span class="n">branch</span> <span class="n">master</span> <span class="c1"># start rebase at master</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">tmp</span><span class="o">-</span><span class="n">branch</span>
+<span class="n">git</span> <span class="n">cherry</span><span class="o">-</span><span class="n">pick</span> <span class="n">root</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">other</span><span class="o">-</span><span class="n">branch</span> <span class="c1"># apply root commit</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="n">onto</span> <span class="n">tmp</span><span class="o">-</span><span class="n">branch</span> <span class="n">root</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">other</span><span class="o">-</span><span class="n">branch</span> <span class="n">other</span><span class="o">-</span><span class="n">branch</span>
+<span class="c1"># You are now on the rebased other-branch</span>
+<span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="n">tmp</span><span class="o">-</span><span class="n">branch</span>
 </pre></div>
 </div>
 </td></tr>
@@ -357,21 +358,18 @@ to the <code class="docutils literal"><span class="pre">git-rebase</span></code>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/rebase_without_tears.txt"
+      <li><a href="_sources/rebase_without_tears.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -390,13 +388,13 @@ to the <code class="docutils literal"><span class="pre">git-rebase</span></code>
         <li class="right" >
           <a href="foundation.html" title="Git foundations"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

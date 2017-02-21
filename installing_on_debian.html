@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using pip on Debian / Ubuntu &mdash; pydagogue 0.2 documentation</title>
+    <title>Using pip on Debian / Ubuntu &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="Notes and tutorials on Python" href="python.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Debian and Ubuntu Python package paths" href="debian_python_paths.html" />
     <link rel="prev" title="Using Microsoft Visual C with Python" href="python_msvc.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -58,7 +59,7 @@
 your Debian / Ubuntu package manager to install Python packages.</p>
 <p>One of the big problems was the <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> program, that installed
 packages in a way that could make them particularly difficult to uninstall
-(see <a class="reference internal" href="un_easy_install.html#un-easy-install"><span>Clean out packages installed with easy_install</span></a>).</p>
+(see <a class="reference internal" href="un_easy_install.html#un-easy-install"><span class="std std-ref">Clean out packages installed with easy_install</span></a>).</p>
 <p>Things started to improve as <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> took over from <code class="docutils literal"><span class="pre">easy_install</span></code> as the
 standard Python package installer.</p>
 <p>They got better still when pip got a binary installer format – <a class="reference external" href="https://pypi.python.org/pypi/wheel">wheels</a>.</p>
@@ -72,7 +73,7 @@ Ubuntu machine.</p>
 binary <code class="docutils literal"><span class="pre">.deb</span></code> installers for common Python packages like <a class="reference external" href="http://www.numpy.org">numpy</a>, <a class="reference external" href="http://www.scipy.org/scipylib/index.html">scipy</a> and
 <a class="reference external" href="http://matplotlib.org">matplotlib</a>.  For example, to get the standard versions of these for your
 Debian / Ubuntu distribution, you can do this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python-numpy python-scipy python-matplotlib
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span> <span class="n">python</span><span class="o">-</span><span class="n">scipy</span> <span class="n">python</span><span class="o">-</span><span class="n">matplotlib</span>
 </pre></div>
 </div>
 <p>Standard <code class="docutils literal"><span class="pre">apt-get</span></code> installation may well be all you need.  The versions of
@@ -109,7 +110,7 @@ installs, they do have several advantages.  With pip you can:</p>
 <h2>If you do want pip installs on your Debian / Ubuntu system<a class="headerlink" href="#if-you-do-want-pip-installs-on-your-debian-ubuntu-system" title="Permalink to this headline">¶</a></h2>
 <p>The recipe I propose is this:</p>
 <ul class="simple">
-<li>if you have any <cite>easy_install</cite> installations, <a class="reference internal" href="un_easy_install.html"><em>remove them</em></a>;</li>
+<li>if you have any <cite>easy_install</cite> installations, <a class="reference internal" href="un_easy_install.html"><span class="doc">remove them</span></a>;</li>
 <li>Use <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span></code> to install packages into your day-to-day default
 Python environment;</li>
 <li>Install pip and <a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> into your system, then upgrade them with
@@ -134,14 +135,14 @@ your own default Python environment that adds to the packages within your
 system directories, and therefore, does not affect the system Python
 installation.</p>
 <p>So, if you install a package like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install --user mypackage
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="n">mypackage</span>
 </pre></div>
 </div>
 <p>then <code class="docutils literal"><span class="pre">mypackage</span></code> will be installed into a special user-specific directory,
 that, by default, is on your Python module search path.  For example, outside
 any virtualenv, here is what I get for the Python module search path
 (<code class="docutils literal"><span class="pre">sys.path</span></code>) (after I have done a <code class="docutils literal"><span class="pre">--user</span></code> install as above):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ python
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python
 Python 2.7.9 (default, Mar  1 2015, 12:57:24)
 [GCC 4.9.2] on linux2
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
@@ -163,7 +164,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </pre></div>
 </div>
 <p>(For an explanation of the <code class="docutils literal"><span class="pre">dist-packages</span></code> entries, see
-<a class="reference internal" href="debian_python_paths.html"><em>Debian and Ubuntu Python package paths</em></a>).</p>
+<a class="reference internal" href="debian_python_paths.html"><span class="doc">Debian and Ubuntu Python package paths</span></a>).</p>
 <p>Notice the line <code class="docutils literal"><span class="pre">/home/vagrant/.local/lib/python2.7/site-packages</span></code>. This is
 the path containing packages that have been installed with the pip <code class="docutils literal"><span class="pre">--user</span></code>
 option.</p>
@@ -171,7 +172,7 @@ option.</p>
 To get full use of <code class="docutils literal"><span class="pre">--user</span></code> installed packages, you may also want to put the
 matching executable path onto your system.  I do this with the following lines
 in my <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>export PY_USER_BIN=$(python -c &#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;)
+<div class="highlight-default"><div class="highlight"><pre><span></span>export PY_USER_BIN=$(python -c &#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;)
 export PATH=$PY_USER_BIN:$PATH
 </pre></div>
 </div>
@@ -181,7 +182,7 @@ packages like <a class="reference external" href="http://ipython.org">ipython</a
 you aren&#8217;t getting the <code class="docutils literal"><span class="pre">--user</span></code> installed scripts, by taking this directory
 off the path.  To do this, I have the following in my
 <code class="docutils literal"><span class="pre">~/.virtualenvs/postactivate</span></code> file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Clear user Python binary path when using virtualenvs
+<div class="highlight-default"><div class="highlight"><pre><span></span># Clear user Python binary path when using virtualenvs
 export PATH=$(echo $PATH | sed &quot;s|${PY_USER_BIN}:\{0,1\}||&quot;)
 </pre></div>
 </div>
@@ -191,7 +192,7 @@ export PATH=$(echo $PATH | sed &quot;s|${PY_USER_BIN}:\{0,1\}||&quot;)
 <p>For these steps to work, you will need the pip <code class="docutils literal"><span class="pre">--user</span></code> install binary
 directory on your path.  See above for how to do this. Check that your
 <code class="docutils literal"><span class="pre">--user</span></code> binary directory is on the path with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>echo $PATH
+<div class="highlight-default"><div class="highlight"><pre><span></span>echo $PATH
 </pre></div>
 </div>
 <p>The output should contain something like <code class="docutils literal"><span class="pre">/home/your-user/.local/bin</span></code>.</p>
@@ -200,28 +201,28 @@ killer pip feature, that means that you only build wheels from source once,
 the first time you install a package.  Pip then caches the wheel so you use
 the cached version next time you do an install.</p>
 <p>First install Debian versions of pip into your Debian system directories:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python-pip python3-pip
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
 </pre></div>
 </div>
 <p>Next upgrade pip for your user, using the system pip.  If you are using both
 python 2 and python 3 versions, do the upgrade last on the pip that you want
 to own the <code class="docutils literal"><span class="pre">pip</span></code> command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Upgrade pip for Python 3 installs
-pip3 install --user --upgrade pip
-# Upgrade pip for Python 2 installs (this one owns &quot;pip&quot; now)
-pip2 install --user --upgrade pip
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Upgrade pip for Python 3 installs</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pip</span>
+<span class="c1"># Upgrade pip for Python 2 installs (this one owns &quot;pip&quot; now)</span>
+<span class="n">pip2</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">pip</span>
 </pre></div>
 </div>
 <p>Now check the pip version is &gt;= 6.0:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
 <span class="n">pip2</span> <span class="o">--</span><span class="n">version</span>
 <span class="n">pip3</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
 <p>Check you are picking up the <code class="docutils literal"><span class="pre">--user</span></code> pip by looking at the output of:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>which pip
-which pip2
-which pip3
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">which</span> <span class="n">pip</span>
+<span class="n">which</span> <span class="n">pip2</span>
+<span class="n">which</span> <span class="n">pip3</span>
 </pre></div>
 </div>
 <p>This should give you outputs like <code class="docutils literal"><span class="pre">/home/your-user/.local/bin/pip</span></code>.</p>
@@ -232,11 +233,11 @@ which pip3
 <code class="docutils literal"><span class="pre">virtualenv</span></code>, that makes it easier and neater to have a library of virtual
 Python environments.  First install the Debian packaged version to your system
 directories.  This sets up bash shell integration:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install virtualenvwrapper
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span>
 </pre></div>
 </div>
 <p>Now upgrade your user installation to the latest virtualenvwrapper:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install --user --upgrade virtualenvwrapper
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">virtualenvwrapper</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">--upgrade</span></code> in the installation is important because virtualenv
@@ -244,18 +245,18 @@ directories.  This sets up bash shell integration:</p>
 latest version of virtualenv to make sure we will get a recent version of pip
 in our virtualenvs.</p>
 <p>Check you are getting your new <code class="docutils literal"><span class="pre">--user</span></code> installed version, with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>which virtualenv
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">which</span> <span class="n">virtualenv</span>
 </pre></div>
 </div>
 <p>This should you something like <code class="docutils literal"><span class="pre">/home/your-user/.local/bin/virtualenv</span></code>.</p>
 <p>The <code class="docutils literal"><span class="pre">virtualenvwrapper</span></code> apt package puts useful aliases into the default
 bash shell environment.  To get these aliases loaded up in your current shell,
 this one time you should do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>source ~/.bashrc
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">~/.</span><span class="n">bashrc</span>
 </pre></div>
 </div>
 <p>Check you have the virtualenvwrapper aliases loaded with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span>
 </pre></div>
 </div>
 <p>This should give you the help for the <code class="docutils literal"><span class="pre">mkvirtualenv</span></code> virtualenvwrapper
@@ -264,7 +265,7 @@ command.</p>
 <div class="section" id="set-up-the-system-to-build-some-common-wheels">
 <h2>Set up the system to build some common wheels<a class="headerlink" href="#set-up-the-system-to-build-some-common-wheels" title="Permalink to this headline">¶</a></h2>
 <p>Install standard build dependencies for common libraries:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">build</span><span class="o">-</span><span class="n">dep</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span> <span class="n">python</span><span class="o">-</span><span class="n">scipy</span> <span class="n">matplotlib</span> <span class="n">h5py</span>
 </pre></div>
 </div>
 <p>This may take about 10-20 minutes (at least, it did on my Virtualbox / Vagrant
@@ -275,27 +276,27 @@ Debian instance).</p>
 <p>Now you have pip &gt; 6.0, building wheels is just a matter of installing the
 package for the first time.</p>
 <p>Start up a new virtualenv for Python 2:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>mkvirtualenv python2
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="n">python2</span>
 </pre></div>
 </div>
 <p>Install numpy and cython.  This will build and cache wheels for the latest
 numpy and cython:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install numpy cython
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">cython</span>
 </pre></div>
 </div>
 <p>Now you can install (therefore, build and cache) other wheels you might need:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install scipy matplotlib h5py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">scipy</span> <span class="n">matplotlib</span> <span class="n">h5py</span>
 </pre></div>
 </div>
 <p>Finish up by deactivating the virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">deactivate</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">deactivate</span>
 </pre></div>
 </div>
 <p>You might want to do the same with Python 3:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>mkvirtualenv --python=/usr/bin/python3 python3
-pip install numpy cython
-pip install scipy matplotlib h5py
-deactivate
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="o">--</span><span class="n">python</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="n">python3</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">cython</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">scipy</span> <span class="n">matplotlib</span> <span class="n">h5py</span>
+<span class="n">deactivate</span>
 </pre></div>
 </div>
 </div>
@@ -306,40 +307,40 @@ means that you can install exactly the requirements that you need, without
 causing changes to your other virtualenvs.</p>
 <p>You can now make virtualenvs for your testing development quickly.  Say you
 want to test something out for Python 3:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Make clean virtual environment
-mkvirtualenv --python=/usr/bin/python3 testing-something
-pip install numpy scipy matplotlib h5py
-# install anything else you want
-# run your tests
-deactivate
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Make clean virtual environment</span>
+<span class="n">mkvirtualenv</span> <span class="o">--</span><span class="n">python</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="n">testing</span><span class="o">-</span><span class="n">something</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">scipy</span> <span class="n">matplotlib</span> <span class="n">h5py</span>
+<span class="c1"># install anything else you want</span>
+<span class="c1"># run your tests</span>
+<span class="n">deactivate</span>
 </pre></div>
 </div>
 <p>Nice.</p>
 <p>Even if you are offline, you can always install things you have already built
 and cached, by adding the <code class="docutils literal"><span class="pre">--no-index</span></code> flag to pip:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Make another clean virtual environment
-mkvirtualenv --python=/usr/bin/python3 testing-offline
-pip install numpy scipy matplotlib h5py --no-index
-# install anything else you want
-# run your tests
-deactivate
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Make another clean virtual environment</span>
+<span class="n">mkvirtualenv</span> <span class="o">--</span><span class="n">python</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span> <span class="n">testing</span><span class="o">-</span><span class="n">offline</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">scipy</span> <span class="n">matplotlib</span> <span class="n">h5py</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">index</span>
+<span class="c1"># install anything else you want</span>
+<span class="c1"># run your tests</span>
+<span class="n">deactivate</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="adding-new-packages-and-wheels">
 <h2>Adding new packages and wheels<a class="headerlink" href="#adding-new-packages-and-wheels" title="Permalink to this headline">¶</a></h2>
 <p>Adding new wheels is usually as simple as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Switch to relevant virtualenv to build, cache, install wheel
-workon python2
-pip install my-package
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Switch to relevant virtualenv to build, cache, install wheel</span>
+<span class="n">workon</span> <span class="n">python2</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">my</span><span class="o">-</span><span class="n">package</span>
 </pre></div>
 </div>
 <p>Sometimes the Python package you are installing has nasty binary dependencies.
 In this case, usually your easiest path is to install the build dependencies
 for the corresponding Debian / Ubuntu package, and then continue as before:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get build-dep pillow
-workon python2
-pip install pillow
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">build</span><span class="o">-</span><span class="n">dep</span> <span class="n">pillow</span>
+<span class="n">workon</span> <span class="n">python2</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">pillow</span>
 </pre></div>
 </div>
 </div>
@@ -351,8 +352,8 @@ pip.  Examples I know of are vtk and itk.  For those cases, your best option
 is to install the Python package using <code class="docutils literal"><span class="pre">apt-get</span></code>, and then make your
 virtualenv with the <code class="docutils literal"><span class="pre">--system-site-packages</span></code> flag, so that it will pick up
 the installed packages:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo apt-get install python-vtk
-mkvirtualenv --system-site-packages an-env-including-vtk
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">vtk</span>
+<span class="n">mkvirtualenv</span> <span class="o">--</span><span class="n">system</span><span class="o">-</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span> <span class="n">an</span><span class="o">-</span><span class="n">env</span><span class="o">-</span><span class="n">including</span><span class="o">-</span><span class="n">vtk</span>
 </pre></div>
 </div>
 </div>
@@ -399,21 +400,18 @@ page somewhere.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/installing_on_debian.txt"
+      <li><a href="_sources/installing_on_debian.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -432,13 +430,13 @@ page somewhere.</p>
         <li class="right" >
           <a href="python_msvc.html" title="Using Microsoft Visual C with Python"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

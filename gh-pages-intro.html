@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Setting up a gh-pages branch &mdash; pydagogue 0.2 documentation</title>
+    <title>Setting up a gh-pages branch &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,14 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="OSX legacy packaging redux" href="legacy_package_redux.html" />
     <link rel="prev" title="Developing on mac" href="develop_mac.html" /> 
   </head>
@@ -41,7 +43,7 @@
         <li class="right" >
           <a href="develop_mac.html" title="Developing on mac"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -54,43 +56,43 @@
 <h1>Setting up a gh-pages branch<a class="headerlink" href="#setting-up-a-gh-pages-branch" title="Permalink to this headline">¶</a></h1>
 <p>These assume a default sphinx build directory of <code class="docutils literal"><span class="pre">doc/_build</span></code>.</p>
 <p>Makefile target (don&#8217;t forget the tabs before the target body lines):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git-clean:
-    git clean -fxd
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">-</span><span class="n">clean</span><span class="p">:</span>
+    <span class="n">git</span> <span class="n">clean</span> <span class="o">-</span><span class="n">fxd</span>
 
-html:
-    cd doc &amp;&amp; make html
+<span class="n">html</span><span class="p">:</span>
+    <span class="n">cd</span> <span class="n">doc</span> <span class="o">&amp;&amp;</span> <span class="n">make</span> <span class="n">html</span>
 
-gh-pages: git-clean html
-    git co gh-pages
-    git rm -r .
-    git checkout HEAD -- .gitignore README.md .nojekyll
-    cp -r doc/_build/html/* . # your sphinx build directory
-    git stage .
-    @echo &#39;Commit and push when ready or git reset --hard &amp;&amp; git checkout master to revert&#39;
+<span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">clean</span> <span class="n">html</span>
+    <span class="n">git</span> <span class="n">co</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+    <span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="o">.</span>
+    <span class="n">git</span> <span class="n">checkout</span> <span class="n">HEAD</span> <span class="o">--</span> <span class="o">.</span><span class="n">gitignore</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span> <span class="o">.</span><span class="n">nojekyll</span>
+    <span class="n">cp</span> <span class="o">-</span><span class="n">r</span> <span class="n">doc</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span><span class="o">/*</span> <span class="o">.</span> <span class="c1"># your sphinx build directory</span>
+    <span class="n">git</span> <span class="n">stage</span> <span class="o">.</span>
+    <span class="nd">@echo</span> <span class="s1">&#39;Commit and push when ready or git reset --hard &amp;&amp; git checkout master to revert&#39;</span>
 </pre></div>
 </div>
 <p>Make a new empty <code class="docutils literal"><span class="pre">gh-pages</span></code> branch:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git checkout --orphan gh-pages
-git reset --hard
-git clean -fxd
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+<span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span>
+<span class="n">git</span> <span class="n">clean</span> <span class="o">-</span><span class="n">fxd</span>
 </pre></div>
 </div>
 <p>Make some files for working with github pages in this branch:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Ignore the doc and doc build directory
-echo &quot;doc/&quot; &gt; .gitignore
-echo &quot;Github pages for project&quot; &gt; README.md
-touch .nojekyll
-git add .gitignore .nojekyll README.md
-git commit -m &#39;Initial commit&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Ignore the doc and doc build directory</span>
+<span class="n">echo</span> <span class="s2">&quot;doc/&quot;</span> <span class="o">&gt;</span> <span class="o">.</span><span class="n">gitignore</span>
+<span class="n">echo</span> <span class="s2">&quot;Github pages for project&quot;</span> <span class="o">&gt;</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">touch</span> <span class="o">.</span><span class="n">nojekyll</span>
+<span class="n">git</span> <span class="n">add</span> <span class="o">.</span><span class="n">gitignore</span> <span class="o">.</span><span class="n">nojekyll</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;Initial commit&#39;</span>
 </pre></div>
 </div>
 <p>Set the upstream for this branch:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git push &lt;your-github-remote&gt; gh-pages --set-upstream
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">remote</span><span class="o">&gt;</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span> <span class="o">--</span><span class="nb">set</span><span class="o">-</span><span class="n">upstream</span>
 </pre></div>
 </div>
 <p>Now go back to the master branch:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git co master
-make gh-pages
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">co</span> <span class="n">master</span>
+<span class="n">make</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
 </pre></div>
 </div>
 </div>
@@ -110,21 +112,18 @@ make gh-pages
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/gh-pages-intro.txt"
+      <li><a href="_sources/gh-pages-intro.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -143,12 +142,12 @@ make gh-pages
         <li class="right" >
           <a href="develop_mac.html" title="Developing on mac"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

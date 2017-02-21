@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Two and three dots with diff &mdash; pydagogue 0.2 documentation</title>
+    <title>Two and three dots with diff &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="Notes and tutorials on git" href="git.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Git submodules" href="git_submodules.html" />
     <link rel="prev" title="Two and three dots with log" href="git_log_dots.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="git_log_dots.html" title="Two and three dots with log"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -56,33 +57,33 @@
 <span id="git-diff-dots"></span><h1>Two and three dots with diff<a class="headerlink" href="#two-and-three-dots-with-diff" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Remember it&#8217;s different for <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> - see <a class="reference internal" href="git_log_dots.html#git-log-dots"><span>Two and three dots with log</span></a> and
-<a class="reference internal" href="pain_in_dots.html#pain-in-dots"><span>Pain in the dots</span></a></p>
+<p class="last">Remember it&#8217;s different for <code class="docutils literal"><span class="pre">git</span> <span class="pre">log</span></code> - see <a class="reference internal" href="git_log_dots.html#git-log-dots"><span class="std std-ref">Two and three dots with log</span></a> and
+<a class="reference internal" href="pain_in_dots.html#pain-in-dots"><span class="std std-ref">Pain in the dots</span></a></p>
 </div>
 <div class="section" id="diff-without-dots">
 <h2>Diff without dots<a class="headerlink" href="#diff-without-dots" title="Permalink to this headline">¶</a></h2>
 <p>Two dots is the default in <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code>.  That is, if you do:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">diff</span> <span class="n">master</span> <span class="n">topic</span>
 </pre></div>
 </div>
 <p>what you&#8217;ll get is the same as if you asked for:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master..topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">diff</span> <span class="n">master</span><span class="o">..</span><span class="n">topic</span>
 </pre></div>
 </div>
-<p>So <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> without dots is the same as <a class="reference internal" href="#git-diff-two-dots"><span>Diff with two dots</span></a>.</p>
+<p>So <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></code> without dots is the same as <a class="reference internal" href="#git-diff-two-dots"><span class="std std-ref">Diff with two dots</span></a>.</p>
 </div>
 <div class="section" id="diff-with-two-dots">
 <span id="git-diff-two-dots"></span><h2>Diff with two dots<a class="headerlink" href="#diff-with-two-dots" title="Permalink to this headline">¶</a></h2>
 <p>Imagine a series of commits A, B, C, D...  Imagine that there are two
 branches, <em>topic</em> and <em>master</em>.  You branched <em>topic</em> off <em>master</em> when
 <em>master</em> was at commit &#8216;E&#8217;.  The graph of the commits looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>      A---B---C topic
-     /
-D---E---F---G master
+<div class="highlight-default"><div class="highlight"><pre><span></span>      <span class="n">A</span><span class="o">---</span><span class="n">B</span><span class="o">---</span><span class="n">C</span> <span class="n">topic</span>
+     <span class="o">/</span>
+<span class="n">D</span><span class="o">---</span><span class="n">E</span><span class="o">---</span><span class="n">F</span><span class="o">---</span><span class="n">G</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>Then:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master..topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">diff</span> <span class="n">master</span><span class="o">..</span><span class="n">topic</span>
 </pre></div>
 </div>
 <p>will output the difference from G to C (i.e. with effects of F and G).</p>
@@ -90,7 +91,7 @@ D---E---F---G master
 <div class="section" id="diff-with-three-dots">
 <h2>Diff with three dots<a class="headerlink" href="#diff-with-three-dots" title="Permalink to this headline">¶</a></h2>
 <p>Using the three-dot form:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git diff master...topic
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">diff</span> <span class="n">master</span><span class="o">...</span><span class="n">topic</span>
 </pre></div>
 </div>
 <p>This shows the differences between <code class="docutils literal"><span class="pre">master</span></code> and <code class="docutils literal"><span class="pre">topic</span></code> <em>starting at the
@@ -132,21 +133,18 @@ last common commit</em>.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/git_diff_dots.txt"
+      <li><a href="_sources/git_diff_dots.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -165,13 +163,13 @@ last common commit</em>.</p>
         <li class="right" >
           <a href="git_log_dots.html" title="Two and three dots with log"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

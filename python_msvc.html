@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Microsoft Visual C with Python &mdash; pydagogue 0.2 documentation</title>
+    <title>Using Microsoft Visual C with Python &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="Notes and tutorials on Python" href="python.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Using pip on Debian / Ubuntu" href="installing_on_debian.html" />
     <link rel="prev" title="Installing python scripts" href="installing_scripts.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="installing_scripts.html" title="Installing python scripts"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -174,7 +175,7 @@ and the C / C++ runtime library.</p>
 </tr>
 </tbody>
 </table>
-<p id="msvcrt-notes">For a discussion of the generic <code class="docutils literal"><span class="pre">MSVCRT.DLL</span></code> compared to the DLLs specific
+<p>For a discussion of the generic <code class="docutils literal"><span class="pre">MSVCRT.DLL</span></code> compared to the DLLs specific
 to the VC version, see <a class="reference external" href="https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005">this blog post</a>.
 See also <a class="reference external" href="http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll">these comments on using MSVCRT.DLL from Mingw-w64</a>.</p>
 <p>For 2015, MS split the C runtime into two component libraries.  See:</p>
@@ -248,7 +249,7 @@ release.</p>
 <p>If you are compiling for Python 2.7, you should first try the installer at
 <a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>.  I installed this for all users from a <code class="docutils literal"><span class="pre">cmd</span></code>
 Window opened with &#8220;run as administrator&#8221;, like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>msiexec /i VCForPython27.msi ALLUSERS=1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msiexec</span> <span class="o">/</span><span class="n">i</span> <span class="n">VCForPython27</span><span class="o">.</span><span class="n">msi</span> <span class="n">ALLUSERS</span><span class="o">=</span><span class="mi">1</span>
 </pre></div>
 </div>
 <p>This command line comes from the &#8220;Install instructions&#8221; on the download page.
@@ -256,7 +257,7 @@ For me, the installer runs but closes without showing any signs that it has
 finished.  The compilers seem to work fine nevertheless.  If this standalone
 Python 2.7 compiler set works for you, you should be able to compile both 32
 and 64 bit extensions without further configuration.  If not, see
-<a class="reference internal" href="#other-options"><span>Other options for MSVC installation</span></a>.</p>
+<a class="reference internal" href="#other-options"><span class="std std-ref">Other options for MSVC installation</span></a>.</p>
 </div>
 <div class="section" id="pythons-3-3-and-3-4">
 <h3>Pythons 3.3 and 3.4<a class="headerlink" href="#pythons-3-3-and-3-4" title="Permalink to this headline">¶</a></h3>
@@ -276,7 +277,7 @@ Windows 7 / server 2008 I used <a class="reference external" href="http://www.sl
 cannot be installed.</p>
 <p>Finally, for 64-bits, I needed to apply this patch to avoid a distutils
 compilation error ending in <code class="docutils literal"><span class="pre">ValueError:</span> <span class="pre">['path']</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>echo &quot;C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd&quot; /x64 &gt; &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;C:\Program Files\Microsoft SDKs\Windows</span><span class="se">\v</span><span class="s2">7.1\Bin\SetEnv.cmd&quot;</span> <span class="o">/</span><span class="n">x64</span> <span class="o">&gt;</span> <span class="s2">&quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC</span><span class="se">\b</span><span class="s2">in</span><span class="se">\a</span><span class="s2">md64/vcvars64.bat&quot;</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10">this MSVC 2010 SO post</a>
@@ -366,21 +367,18 @@ install onto VS express).</li>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/python_msvc.txt"
+      <li><a href="_sources/python_msvc.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -399,13 +397,13 @@ install onto VS express).</li>
         <li class="right" >
           <a href="installing_scripts.html" title="Installing python scripts"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

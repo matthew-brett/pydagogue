@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Set up your fork &mdash; pydagogue 0.2 documentation</title>
+    <title>Set up your fork &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="../index.html" />
-    <link rel="up" title="Git for development" href="git_development.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Configure git" href="configure_git.html" />
     <link rel="prev" title="Making your own copy (fork) of gitwash" href="forking_hell.html" /> 
   </head>
@@ -42,11 +43,11 @@
         <li class="right" >
           <a href="forking_hell.html" title="Making your own copy (fork) of gitwash"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &raquo;</li>
-          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &raquo;</li>
-          <li class="nav-item nav-item-4"><a href="git_development.html" accesskey="U">Git for development</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="git_development.html" accesskey="U">Git for development</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -57,11 +58,11 @@
             
   <div class="section" id="set-up-your-fork">
 <span id="set-up-fork"></span><h1>Set up your fork<a class="headerlink" href="#set-up-your-fork" title="Permalink to this headline">¶</a></h1>
-<p>First you follow the instructions for <a class="reference internal" href="forking_hell.html#forking"><span>Making your own copy (fork) of gitwash</span></a>.</p>
+<p>First you follow the instructions for <a class="reference internal" href="forking_hell.html#forking"><span class="std std-ref">Making your own copy (fork) of gitwash</span></a>.</p>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git clone git@github.com:your-user-name/gitwash.git
-cd gitwash
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone git@github.com:your-user-name/gitwash.git
+<span class="nb">cd</span> gitwash
 git remote add upstream git://github.com/matthew-brett/gitwash.git
 </pre></div>
 </div>
@@ -77,7 +78,7 @@ git remote add upstream git://github.com/matthew-brett/gitwash.git
 <li><p class="first">Investigate.  Change directory to your new repo: <code class="docutils literal"><span class="pre">cd</span> <span class="pre">gitwash</span></code>. Then
 <code class="docutils literal"><span class="pre">git</span> <span class="pre">branch</span> <span class="pre">-a</span></code> to show you all branches.  You&#8217;ll get something
 like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>* master
+<div class="highlight-none"><div class="highlight"><pre><span></span>* master
 remotes/origin/master
 </pre></div>
 </div>
@@ -92,7 +93,7 @@ you can merge in changes from trunk.</p>
 </div>
 <div class="section" id="linking-your-repository-to-the-upstream-repo">
 <span id="linking-to-upstream"></span><h3>Linking your repository to the upstream repo<a class="headerlink" href="#linking-your-repository-to-the-upstream-repo" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cd gitwash
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> gitwash
 git remote add upstream git://github.com/matthew-brett/gitwash.git
 </pre></div>
 </div>
@@ -104,7 +105,7 @@ main <a class="reference external" href="http://github.com/matthew-brett/gitwash
 use it to merge into our own code.</p>
 <p>Just for your own satisfaction, show yourself that you now have a new
 &#8216;remote&#8217;, with <code class="docutils literal"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span> <span class="pre">show</span></code>, giving you something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>upstream     git://github.com/matthew-brett/gitwash.git (fetch)
+<div class="highlight-none"><div class="highlight"><pre><span></span>upstream     git://github.com/matthew-brett/gitwash.git (fetch)
 upstream     git://github.com/matthew-brett/gitwash.git (push)
 origin       git@github.com:your-user-name/gitwash.git (fetch)
 origin       git@github.com:your-user-name/gitwash.git (push)
@@ -142,21 +143,18 @@ origin       git@github.com:your-user-name/gitwash.git (push)
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/gitwash/set_up_fork.txt"
+      <li><a href="../_sources/gitwash/set_up_fork.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -175,16 +173,16 @@ origin       git@github.com:your-user-name/gitwash.git (push)
         <li class="right" >
           <a href="forking_hell.html" title="Making your own copy (fork) of gitwash"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &raquo;</li>
-          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &raquo;</li>
-          <li class="nav-item nav-item-4"><a href="git_development.html" >Git for development</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="git_development.html" >Git for development</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

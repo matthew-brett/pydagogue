@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using vim as a mergetool in git &mdash; pydagogue 0.2 documentation</title>
+    <title>Using vim as a mergetool in git &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="Notes and tutorials on git" href="git.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting started with git gui on Windows" href="git_gui_windows.html" />
     <link rel="prev" title="Git submodules" href="git_submodules.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="git_submodules.html" title="Git submodules"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -55,17 +56,17 @@
   <div class="section" id="using-vim-as-a-mergetool-in-git">
 <span id="vim-mergetool"></span><h1>Using vim as a mergetool in git<a class="headerlink" href="#using-vim-as-a-mergetool-in-git" title="Permalink to this headline">¶</a></h1>
 <p>Setup:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git config --global merge.tool gvimdiff
-git config --global mergetool prompt false
-git config --global merge.conflictstyle diff3
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">merge</span><span class="o">.</span><span class="n">tool</span> <span class="n">gvimdiff</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">mergetool</span> <span class="n">prompt</span> <span class="n">false</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">merge</span><span class="o">.</span><span class="n">conflictstyle</span> <span class="n">diff3</span>
 </pre></div>
 </div>
 <p>The last is so that we can see the base revision displayed within the merge
 markers, in the merged file.  The <em>base</em> the revision that was the most recent
 common basis for the two different versions implied in the merge.</p>
 <p>Rebasing:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git rebase main-master
-git mergetool
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">rebase</span> <span class="n">main</span><span class="o">-</span><span class="n">master</span>
+<span class="n">git</span> <span class="n">mergetool</span>
 </pre></div>
 </div>
 <p>Quoting from <code class="docutils literal"><span class="pre">git</span> <span class="pre">mergetool</span> <span class="pre">--help</span></code>:</p>
@@ -106,9 +107,9 @@ see the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
 </ul>
 <p>Now, time to go through the lower pane, pulling in changes from the &#8220;upstream&#8221;
 (left) pane, or the &#8220;rebase changes&#8221; (right) pane, as in one of:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>:diffg LO
-:diffg BA
-:diffg RE
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">diffg</span> <span class="n">LO</span>
+<span class="p">:</span><span class="n">diffg</span> <span class="n">BA</span>
+<span class="p">:</span><span class="n">diffg</span> <span class="n">RE</span>
 </pre></div>
 </div>
 </div>
@@ -128,21 +129,18 @@ see the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/vim_mergetool.txt"
+      <li><a href="_sources/vim_mergetool.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -161,13 +159,13 @@ see the LOCAL, REMOTE and BASE versions within the mergemarker block.</li>
         <li class="right" >
           <a href="git_submodules.html" title="Git submodules"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

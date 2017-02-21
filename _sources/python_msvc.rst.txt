@@ -48,8 +48,6 @@ VC++ version  _MSC_VER Alternative name    C runtime       C++ runtime
 14.0          1900     Visual Studio 2015  See notes       MSVCP140.DLL
 ============  ======== ==================  =============   =============
 
-.. _msvcrt-notes:
-
 For a discussion of the generic ``MSVCRT.DLL`` compared to the DLLs specific
 to the VC version, see `this blog post
 <https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005>`_.

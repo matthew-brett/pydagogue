@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Developing on windows &mdash; pydagogue 0.2 documentation</title>
+    <title>Developing on windows &#8212; pydagogue 0.2 documentation</title>
     
     <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pydagogue 0.2 documentation" href="index.html" />
-    <link rel="up" title="General computing" href="computing.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Developing on linux" href="develop_linux.html" />
     <link rel="prev" title="Floating point error" href="floating_error.html" /> 
   </head>
@@ -42,8 +43,8 @@
         <li class="right" >
           <a href="floating_error.html" title="Floating point error"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -94,7 +95,7 @@ windows installer - including <em>plink</em> and <em>pageant</em>.  These are ut
 need for handling ssh authentication for git and other tools.</p>
 </li>
 <li><p class="first">You might consider putting the Putty directory on the path. Something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+<div class="highlight-default"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
 $my_path += &quot;;C:\Program files (x86)\Putty&quot; # (x86) on my windows 7 system
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 </pre></div>
@@ -115,13 +116,13 @@ on the path, you&#8217;ll need the full path to plink, as in: <code class="docut
 <li><p class="first">Set a couple of environment variables from powershell - see
 <a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <code class="docutils literal"><span class="pre">$GIT_SSH</span></code> to pick up
 <em>plink</em> as the ssh executable:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>[Environment]::SetEnvironmentVariable(&quot;GIT_SSH&quot;, &quot;C:\Program files\Putty\plink.exe&quot;, &quot;User&quot;)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Environment</span><span class="p">]::</span><span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;GIT_SSH&quot;</span><span class="p">,</span> <span class="s2">&quot;C:\Program files\Putty\plink.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Next we make sure that <code class="docutils literal"><span class="pre">$HOME</span></code> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
 appears to need it set correctly - see the <a class="reference external" href="http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg">example pypi</a> page for the
 assertion at least:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>[Environment]::SetEnvironmentVariable(&quot;HOME&quot;, $env:USERPROFILE, &quot;User&quot;)
+<div class="highlight-default"><div class="highlight"><pre><span></span>[Environment]::SetEnvironmentVariable(&quot;HOME&quot;, $env:USERPROFILE, &quot;User&quot;)
 </pre></div>
 </div>
 <p>Restart powershell after doing this to pick up the <code class="docutils literal"><span class="pre">GIT_SSH</span></code> environment
@@ -129,35 +130,35 @@ variable in particular.  We should now be able to do something like <code class=
 <span class="pre">clone</span> <span class="pre">git&#64;github.com:my-name/my-repo.git</span></code> without being asked our password
 (pageant handles this).  The first time you use this combination with a
 particular host you may get an error like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>The server&#39;s host key is not cached in the registry. You
-have no guarantee that the server is the computer you
-think it is.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">server</span><span class="s1">&#39;s host key is not cached in the registry. You</span>
+<span class="n">have</span> <span class="n">no</span> <span class="n">guarantee</span> <span class="n">that</span> <span class="n">the</span> <span class="n">server</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">computer</span> <span class="n">you</span>
+<span class="n">think</span> <span class="n">it</span> <span class="ow">is</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>If so, run <em>plink</em> manually to cache the key:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&amp; &#39;C:\Program Files (x86)\PuTTY\plink.exe&#39; git@github.com
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&amp;</span> <span class="s1">&#39;C:\Program Files (x86)\PuTTY\plink.exe&#39;</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span>
 </pre></div>
 </div>
 <p>and press <code class="docutils literal"><span class="pre">y</span></code> when asked.</p>
 </li>
 <li><p class="first">I run pageant at startup.  I first set up a desktop shortcut with the
 following command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&quot;C:\Program Files (x86)\PuTTY\pageant.exe&quot; c:\Users\mb312\.ssh\id_dsa.ppk
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files (x86)\PuTTY\pageant.exe&quot;</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="o">.</span><span class="n">ssh</span>\<span class="n">id_dsa</span><span class="o">.</span><span class="n">ppk</span>
 </pre></div>
 </div>
 <p>I move this shortcut into my startup folder to start at login.  On windows 7
 my startup folder is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>C:\Users\mb312\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">Microsoft</span>\<span class="n">Windows</span>\<span class="n">Start</span> <span class="n">Menu</span>\<span class="n">Programs</span>\<span class="n">Startup</span>
 </pre></div>
 </div>
 <p>where <code class="docutils literal"><span class="pre">mb312</span></code> is my username.</p>
 </li>
 <li><p class="first">For using ssh inside the msysgit bash shell, I like to add the keychain-like
 script, by including this in my <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Source personal definitions
-if [ -f &quot;$HOME/.bash_keychain_lite&quot; ]; then
-    . &quot;$HOME/.bash_keychain_lite&quot;
-fi
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Source personal definitions</span>
+<span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;$HOME/.bash_keychain_lite&quot;</span> <span class="p">];</span> <span class="n">then</span>
+    <span class="o">.</span> <span class="s2">&quot;$HOME/.bash_keychain_lite&quot;</span>
+<span class="n">fi</span>
 </pre></div>
 </div>
 <p>where the <code class="docutils literal"><span class="pre">.bash_keychain_lite</span></code> file arises from the <code class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></code>
@@ -172,7 +173,7 @@ making new tabs in the browser (command-t), copy, paste (command-c, command-v)
 and so on. I can&#8217;t replicate all of this on windows, but as a first pass, I
 use an <a class="reference external" href="http://ahkscript.org/">autohotkey</a> script.  Putting this <code class="docutils literal"><span class="pre">remap.ahk</span></code> script file into my
 Windows start menu startup folder caused it to be loaded at login:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
+<div class="highlight-default"><div class="highlight"><pre><span></span>; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
 ; See also : http://www.autohotkey.com/docs/Hotkeys.htm
 ; # usually means Windows key.
 #SingleInstance force ; but sometimes # introduces a command
@@ -212,24 +213,24 @@ vim</a></p>
 <li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
 the personal configuration below.  For the convenience of using python at the
 command line you could do something like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+<div class="highlight-default"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
 $my_path += &quot;;C:\Python27;C:\Python27\Scripts&quot;
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 </pre></div>
 </div>
 </li>
 <li><p class="first">Set up personal configuration.  For me this is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cd c:\
-mkdir code
-cd code
-mkdir dev_trees
-cd dev_trees
-git clone git@github.com:matthew-brett/myconfig.git
-git clone git@github.com:matthew-brett/myvim.git
-cd myconfig
-python make.py dotfiles
-cd ..\myvim
-python make.py vimfiles
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">c</span><span class="p">:</span>\
+<span class="n">mkdir</span> <span class="n">code</span>
+<span class="n">cd</span> <span class="n">code</span>
+<span class="n">mkdir</span> <span class="n">dev_trees</span>
+<span class="n">cd</span> <span class="n">dev_trees</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myconfig</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myvim</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">myconfig</span>
+<span class="n">python</span> <span class="n">make</span><span class="o">.</span><span class="n">py</span> <span class="n">dotfiles</span>
+<span class="n">cd</span> <span class="o">..</span>\<span class="n">myvim</span>
+<span class="n">python</span> <span class="n">make</span><span class="o">.</span><span class="n">py</span> <span class="n">vimfiles</span>
 </pre></div>
 </div>
 </li>
@@ -252,7 +253,7 @@ debugging easier for nose tests.  Easiest route is <code class="docutils literal
 <code class="docutils literal"><span class="pre">mingw-get-inst</span></code> automated installation route.  Select the options giving
 you c++, fortran, and the msys build environment.  I didn&#8217;t directly add these
 to the path, but made a script <code class="docutils literal"><span class="pre">c:\Mingw\mingwvars.ps1</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># convenience script to add mingw to path
+<div class="highlight-default"><div class="highlight"><pre><span></span># convenience script to add mingw to path
 echo &quot;Adding mingw to PATH...&quot;
 $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $env:path = &quot;$mingw\bin;$mingw\msys\1.0\bin;$env:path&quot;
@@ -262,17 +263,17 @@ $env:path = &quot;$mingw\bin;$mingw\msys\1.0\bin;$env:path&quot;
 mingw tools to the path.</p>
 </li>
 <li><p class="first">Using mingw, you might get this kind of error:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>error: Setup script exited with error: Unable to find vcvarsall.bat
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">error</span><span class="p">:</span> <span class="n">Setup</span> <span class="n">script</span> <span class="n">exited</span> <span class="k">with</span> <span class="n">error</span><span class="p">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">find</span> <span class="n">vcvarsall</span><span class="o">.</span><span class="n">bat</span>
 </pre></div>
 </div>
 <p>Of course you&#8217;ve already tried the standard solution to this, of the form:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python setup.py build --compiler=mingw32
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">--</span><span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
 </pre></div>
 </div>
 <p>If that doesn&#8217;t work, you might have hit a <a class="reference external" href="http://bugs.python.org/issue2698">mingw distutils bug</a>.  One
 suggested fix is to make a <code class="docutils literal"><span class="pre">distutils.cfg</span></code> file in your Python distutils
 directory (e.g.  <code class="docutils literal"><span class="pre">C:\Python26\Lib\distutils</span></code>) with the following content:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build</span><span class="p">]</span>
 <span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
 </pre></div>
 </div>
@@ -283,7 +284,7 @@ directory (e.g.  <code class="docutils literal"><span class="pre">C:\Python26\Li
 <h2>SWIG<a class="headerlink" href="#swig" title="Permalink to this headline">¶</a></h2>
 <p>Download the swig version for windows, <code class="docutils literal"><span class="pre">swigwin</span></code>, from <a class="reference external" href="http://www.swig.org/download.html">swig downloads</a>,
 unpack into, say, <code class="docutils literal"><span class="pre">C:\</span></code>, then:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+<div class="highlight-default"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
 $my_path += &quot;;C:\swigwin-2.0.10&quot;
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 [Environment]::SetEnvironmentVariable(&quot;PYTHON_INCLUDE&quot;, &quot;C:\Python27\include&quot;, &quot;User&quot;)
@@ -324,21 +325,18 @@ $my_path += &quot;;C:\swigwin-2.0.10&quot;
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/develop_windows.txt"
+      <li><a href="_sources/develop_windows.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -357,13 +355,13 @@ $my_path += &quot;;C:\swigwin-2.0.10&quot;
         <li class="right" >
           <a href="floating_error.html" title="Floating point error"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2009-2016 - Matthew Brett.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>
