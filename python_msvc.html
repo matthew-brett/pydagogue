@@ -239,6 +239,9 @@ release.</p>
 <tr class="row-even"><td>3.5.0</td>
 <td>14.0</td>
 </tr>
+<tr class="row-odd"><td>3.6.0</td>
+<td>14.0</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -290,17 +293,24 @@ for specifics on the 64-bit distutils error that can be fixed with the
 <p>Download and install the <a class="reference external" href="https://app.vssps.visualstudio.com/profile/review?download=true&amp;family=VisualStudioCExpress&amp;release=VisualStudio2010">MSVC 2010 express edition</a>.</p>
 </div>
 </div>
-<div class="section" id="python-3-5">
-<h3>Python 3.5<a class="headerlink" href="#python-3-5" title="Permalink to this headline">¶</a></h3>
-<p>For Python 3.5 32-bit and 64-bit extensions you need MSVC 14 / 2015. <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015
-community edition</a> is free as
-in beer.  It&#8217;s a huge 11GB install which took more than an hour on my machine.
-Do a custom install, and select the VC++ compiler component (it is not selected
-by default).</p>
-<p>A better plan might be the <a class="reference external" href="http://landinghub.visualstudio.com/visual-cpp-build-tools">MSVC 2015 command line tools</a>. Python 3.5 does
-not detect these tools by default.  See the <a class="reference external" href="https://wiki.python.org/moin/WindowsCompilers">Python Windows compilers wiki
-page</a> for instructions to
-configure MSVC build tools to work with Python 3.5.</p>
+<div class="section" id="python-3-5-3-6">
+<h3>Python 3.5, 3.6<a class="headerlink" href="#python-3-5-3-6" title="Permalink to this headline">¶</a></h3>
+<p>For Python 3.5 and 3.6 32-bit and 64-bit extensions you need MSVC 14 / 2015.
+Your fastest route to success will likely be the <a class="reference external" href="http://landinghub.visualstudio.com/visual-cpp-build-tools">MSVC 2015 command line tools</a>.  Install these
+first.  To get Python to recognize the MSVC command line tools, you will need
+a version of the <a class="reference external" href="https://pypi.python.org/pypi/setuptools">setuptools package</a> &gt;= 24.0.  Check by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import setuptools; print(setuptools.__version__)&#39;</span>
+</pre></div>
+</div>
+<p>If your version is &lt; 24.0, then:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span>
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://wiki.python.org/moin/WindowsCompilers">Python Windows compilers wiki page</a> for more details.</p>
+<p>Another option is to install the whole <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015 community edition</a>.   It&#8217;s a
+huge 11GB install which took more than an hour on my machine.  Do a custom
+install, and select the VC++ compiler component (it is not selected by
+default).</p>
 </div>
 </div>
 <div class="section" id="other-options-for-msvc-installation">
@@ -349,7 +359,7 @@ install onto VS express).</li>
 <li><a class="reference internal" href="#compiling-for-32-bit">Compiling for 32-bit</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#python-3-5">Python 3.5</a></li>
+<li><a class="reference internal" href="#python-3-5-3-6">Python 3.5, 3.6</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#other-options-for-msvc-installation">Other options for MSVC installation</a></li>

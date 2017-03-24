@@ -104,6 +104,7 @@ Python version VC++ version
 3.3.5          10.0
 3.4.0          10.0
 3.5.0          14.0
+3.6.0          14.0
 ============== ============
 
 ****************************************************
@@ -167,21 +168,30 @@ Compiling for 32-bit
 Download and install the `MSVC 2010 express edition
 <https://app.vssps.visualstudio.com/profile/review?download=true&family=VisualStudioCExpress&release=VisualStudio2010>`_.
 
-Python 3.5
-==========
+Python 3.5, 3.6
+===============
 
-For Python 3.5 32-bit and 64-bit extensions you need MSVC 14 / 2015. `VS 2015
-community edition
-<https://www.visualstudio.com/products/visual-studio-community-vs>`_ is free as
-in beer.  It's a huge 11GB install which took more than an hour on my machine.
-Do a custom install, and select the VC++ compiler component (it is not selected
-by default).
+For Python 3.5 and 3.6 32-bit and 64-bit extensions you need MSVC 14 / 2015.
+Your fastest route to success will likely be the `MSVC 2015 command line tools
+<http://landinghub.visualstudio.com/visual-cpp-build-tools>`_.  Install these
+first.  To get Python to recognize the MSVC command line tools, you will need
+a version of the `setuptools package
+<https://pypi.python.org/pypi/setuptools>`_ >= 24.0.  Check by::
 
-A better plan might be the `MSVC 2015 command line tools
-<http://landinghub.visualstudio.com/visual-cpp-build-tools>`_. Python 3.5 does
-not detect these tools by default.  See the `Python Windows compilers wiki
-page <https://wiki.python.org/moin/WindowsCompilers>`_ for instructions to
-configure MSVC build tools to work with Python 3.5.
+    python -c 'import setuptools; print(setuptools.__version__)'
+
+If your version is < 24.0, then::
+
+    pip install --upgrade setuptools
+
+See the `Python Windows compilers wiki page
+<https://wiki.python.org/moin/WindowsCompilers>`_ for more details.
+
+Another option is to install the whole `VS 2015 community edition
+<https://www.visualstudio.com/products/visual-studio-community-vs>`_.   It's a
+huge 11GB install which took more than an hour on my machine.  Do a custom
+install, and select the VC++ compiler component (it is not selected by
+default).
 
 .. _other-options:
 
