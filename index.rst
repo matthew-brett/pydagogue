@@ -9,6 +9,13 @@ Welcome to Pydagogue
 Pydagogue is a collection of tutorials that came to me while working on python
 things like nipy_.
 
+Some pages that started here, have moved to their own sites:
+
+* `the curious coder's guide to git <curious git_>`_ - understanding git from
+  ideas to practice;
+* `pages about developing on macOS <docosx_>`_;
+
+
 Contents:
 
 .. toctree::
@@ -17,8 +24,6 @@ Contents:
     python
     git
     computing
-
-You might also be interested on my `docosx`_ pages about developing on OSX.
 
 .. the hidden toctree is to avoid warnings during the build.  The
    gh-pages-intro should probably be retired, `ghp-import` is easier.
