@@ -1,5 +1,5 @@
 ############################
-Using pip on Debian / Ubuntu
+Using Pip on Debian / Ubuntu
 ############################
 
 In the old days, it was hard and error-prone to use Python tools rather than
@@ -9,15 +9,15 @@ One of the big problems was the `easy_install`_ program, that installed
 packages in a way that could make them particularly difficult to uninstall
 (see :ref:`un-easy-install`).
 
-Things started to improve as pip_ took over from ``easy_install`` as the
+Things started to improve as Pip_ took over from ``easy_install`` as the
 standard Python package installer.
 
-They got better still when pip got a binary installer format |--| wheels_.
+They got better still when Pip got a binary installer format |--| wheels_.
 
-The combination of virtualenv_, pip and wheels makes it much easier to
+The combination of virtualenv_, Pip and wheels makes it much easier to
 maintain a set of Python environments to develop and test code.
 
-This page is a recipe for setting up these virtualenvs on your Debian or
+This page is a recipe for setting up these environments on your Debian or
 Ubuntu machine.
 
 ******************************
@@ -43,57 +43,55 @@ the packages are carefully tested to be compatible with each other.
 The Debian packages record dependencies with other libraries so you will
 always get the libraries you need as part of the install.
 
-If you use pip to install packages, then you don't get these guarantees.
-If you use pip and run into problems with your Python installation, it will be
+If you use Pip to install packages, then you don't get these guarantees.  If
+you use Pip and run into problems with your Python installation, it will be
 harder for you to get support from the Debian / Ubuntu community, because you
-are using an installation method that they do not support, and that is
-considerably more fragile.
+are using an installation method that they do not support, and that is more
+fragile.
 
 So, consider whether you can get away with the package versions in your
 distribution, maybe by using the most recent packages from NeuroDebian. If
-you can use these, then you probably should not use the pip installs I'm
+you can use these, then you probably should not use the Pip installs I'm
 describing below.
 
 *****************************
-Why you might want to use pip
+Why you might want to use Pip
 *****************************
 
-Although pip installs are a lot more fragile than Debian / Ubuntu package
-installs, they do have several advantages.  With pip you can:
+Although Pip installs are more fragile than Debian / Ubuntu package installs,
+they do have several advantages.  With Pip you can:
 
 * get the latest version of the package;
 * install specific packages into virtualenvs;
 * install packages that have not yet been built for your distribution.
 
 **********************************************************
-If you do want pip installs on your Debian / Ubuntu system
+If you do want Pip installs on your Debian / Ubuntu system
 **********************************************************
 
 The recipe I propose is this:
 
 * if you have any `easy_install` installations, :doc:`remove them
   <un_easy_install>`;
-* Use ``pip install --user`` to install packages into your day-to-day default
+* install Pip and virtualenvwrapper_ into your user directories (rather than
+  the system directories);
+* use ``pip install --user`` to install packages into your day-to-day default
   Python environment;
-* Install pip and virtualenvwrapper_ into your system, then upgrade them with
-  ``pip install --user --upgrade``;
-* install the various Debian / Ubuntu packages containing dependencies for
-  common Python packages like numpy, scipy, matplotlib;
-* install Python packages via pip, and let pip wheel caching take care of
+* install Python packages via Pip, and let Pip wheel caching take care of
   keeping a binary wheel ready for the next time you install this package;
 * have a very low threshold for using virtualenvs, via virtualenvwrapper.
 
-I suggest you never use pip to change your system-wide packages |--| so you
-never use pip with ``sudo``.  This makes sure your pip-installed packages do
+I suggest you never use Pip to change your system-wide packages |--| so you
+never use Pip with ``sudo``.  This makes sure your Pip-installed packages do
 not break your system.  To avoid ``sudo`` you should always install into your
 user directories (via ``pip install --user``) or within virtualenvs (see
 below).
 
 ********************************************************
-Use pip ``--user`` installs for your default environment
+Use Pip ``--user`` installs for your default environment
 ********************************************************
 
-The ``--user`` flag to ``pip install`` tells pip to install packages in some
+The ``--user`` flag to ``pip install`` tells Pip to install packages in some
 specific directories within your home directory.  This is a good way to have
 your own default Python environment that adds to the packages within your
 system directories, and therefore, does not affect the system Python
@@ -132,7 +130,7 @@ any virtualenv, here is what I get for the Python module search path
 :doc:`debian_python_paths`).
 
 Notice the line ``/home/vagrant/.local/lib/python2.7/site-packages``. This is
-the path containing packages that have been installed with the pip ``--user``
+the path containing packages that have been installed with the Pip ``--user``
 option.
 
 Python packages often install scripts (executables) as well as Python modules.
@@ -148,17 +146,18 @@ These lines work on Linux or OSX.
 If you do this, then you can use the command line scripts installed by
 packages like `ipython`_.  When using virtualenvs, you may want to make sure
 you aren't getting the ``--user`` installed scripts, by taking this directory
-off the path.  To do this, I have the following in my
-``~/.virtualenvs/postactivate`` file::
+off the path.  If you are using :ref:`virtualenvwrapper
+<install-virtualenvwrapper>` (see below) you can do this automatically, with
+something like this in a ``~/.virtualenvs/postactivate`` file::
 
     # Clear user Python binary path when using virtualenvs
     export PATH=$(echo $PATH | sed "s|${PY_USER_BIN}:\{0,1\}||")
 
 ************************************************
-Install, update pip using ``pip install --user``
+Install, update Pip using ``pip install --user``
 ************************************************
 
-For these steps to work, you will need the pip ``--user`` install binary
+For these steps to work, you will need the Pip ``--user`` install binary
 directory on your path.  See above for how to do this. Check that your
 ``--user`` binary directory is on the path with::
 
@@ -166,38 +165,45 @@ directory on your path.  See above for how to do this. Check that your
 
 The output should contain something like ``/home/your-user/.local/bin``.
 
-You will need pip version >= 6.0 in order to get `pip wheel caching
+You will need Pip version >= 6.0 in order to get `Pip wheel caching
 <https://pip.pypa.io/en/latest/reference/pip_install/#caching>`_. This is a
-killer pip feature, that means that you only build wheels from source once,
+killer Pip feature, that means that you only build wheels from source once,
 the first time you install a package.  Pip then caches the wheel so you use
 the cached version next time you do an install.
 
-First install Debian versions of pip into your Debian system directories::
+First install the latest version of Pip into your user account by following
+the instructions at `install Pip with get-pip.py`_::
 
-    sudo apt-get install python-pip python3-pip
+    curl -LO https://bootstrap.pypa.io/get-pip.py
+    python get-pip.py --user
 
-Next upgrade pip for your user, using the system pip.  If you are using both
-python 2 and python 3 versions, do the upgrade last on the pip that you want
-to own the ``pip`` command::
+If you are using both python 2 and python 3 versions, do the installation for
+both versions, installing last for the Python version that you want to own the
+``Pip`` command, e.g::
 
-    # Upgrade pip for Python 3 installs
-    pip3 install --user --upgrade pip
-    # Upgrade pip for Python 2 installs (this one owns "pip" now)
-    pip2 install --user --upgrade pip
+    # Intall pip for Python 2 installs
+    python get-pip.py --user
+    # Upgrade Pip for Python 3 installs (this one owns "pip" now)
+    python3 get-pip.py --user
 
-Now check the pip version is >= 6.0::
+Now check the Pip version is >= 6.0::
 
     pip --version
+
+If you installed for both Python 2 and Python 3::
+
     pip2 --version
     pip3 --version
 
-Check you are picking up the ``--user`` pip by looking at the output of::
+Check you are picking up the ``--user`` Pip by looking at the output of::
 
     which pip
     which pip2
     which pip3
 
 This should give you outputs like ``/home/your-user/.local/bin/pip``.
+
+.. _install-virtualenvwrapper:
 
 *********************************
 Install, update virtualenvwrapper
@@ -215,8 +221,8 @@ Now upgrade your user installation to the latest virtualenvwrapper::
     pip install --user --upgrade virtualenvwrapper
 
 The ``--upgrade`` in the installation is important because virtualenv
-(installed by virtualenvwrapper) contains its own copy of pip.  We need the
-latest version of virtualenv to make sure we will get a recent version of pip
+(installed by virtualenvwrapper) contains its own copy of Pip.  We need the
+latest version of virtualenv to make sure we will get a recent version of Pip
 in our virtualenvs.
 
 Check you are getting your new ``--user`` installed version, with::
@@ -238,34 +244,47 @@ Check you have the virtualenvwrapper aliases loaded with::
 This should give you the help for the ``mkvirtualenv`` virtualenvwrapper
 command.
 
-*********************************************
-Set up the system to build some common wheels
-*********************************************
+**************************************************
+Set up your system to build binary Python packages
+**************************************************
 
-Install standard build dependencies for common libraries::
+This will install the tools that Python needs to build any binary package::
 
-    sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
+    # For Python 2
+    sudo apt-get install -y python-dev
 
-This may take about 10-20 minutes (at least, it did on my Virtualbox / Vagrant
-Debian instance).
+    # For Python 3
+    sudo apt-get install -y python3-dev
 
-***********************************
-Build wheels by installing with pip
-***********************************
+Pip will need these tools when installing Python packages that do not already
+have binary packages for your platform (see below).
 
-Now you have pip > 6.0, building wheels is just a matter of installing the
-package for the first time.
+**********************************************
+Build or install wheels by installing with Pip
+**********************************************
 
-Start up a new virtualenv for Python 2::
+Many standard Python packages have binary `manylinux`_ `wheels`_. These binary
+installers will work for almost any Intel-based Linux, including Debian /
+Ubuntu.  If your platform is compatible, Pip will download and install the
+binary package when you do a simple::
 
-    mkvirtualenv python2
+    pip install --user numpy
 
-Install numpy and cython.  This will build and cache wheels for the latest
-numpy and cython::
+where `numpy` is the package to install.
+
+Start up a new virtualenv for Python::
+
+    mkvirtualenv venv
+
+Install numpy and cython.  If you are on an Intel platform, this will download
+binary wheels for the latest numpy and cython.  If you are not on Intel, Pip
+will download the source packages, then build and cache the wheels
+[#building-wheels]_::
 
     pip install numpy cython
 
-Now you can install (therefore, build and cache) other wheels you might need::
+Now you can install (and, if not on Intel, build and cache) other wheels you
+might need::
 
     pip install scipy matplotlib h5py
 
@@ -273,9 +292,9 @@ Finish up by deactivating the virtualenv::
 
     deactivate
 
-You might want to do the same with Python 3::
+This is the same sequence using Python 3::
 
-    mkvirtualenv --python=/usr/bin/python3 python3
+    mkvirtualenv --python=/usr/bin/python3 venv-py3
     pip install numpy cython
     pip install scipy matplotlib h5py
     deactivate
@@ -301,7 +320,7 @@ want to test something out for Python 3::
 Nice.
 
 Even if you are offline, you can always install things you have already built
-and cached, by adding the ``--no-index`` flag to pip::
+and cached, by adding the ``--no-index`` flag to Pip::
 
     # Make another clean virtual environment
     mkvirtualenv --python=/usr/bin/python3 testing-offline
@@ -310,6 +329,8 @@ and cached, by adding the ``--no-index`` flag to pip::
     # run your tests
     deactivate
 
+.. _new-wheels:
+
 ******************************
 Adding new packages and wheels
 ******************************
@@ -317,7 +338,7 @@ Adding new packages and wheels
 Adding new wheels is usually as simple as::
 
     # Switch to relevant virtualenv to build, cache, install wheel
-    workon python2
+    workon venv
     pip install my-package
 
 Sometimes the Python package you are installing has nasty binary dependencies.
@@ -325,7 +346,7 @@ In this case, usually your easiest path is to install the build dependencies
 for the corresponding Debian / Ubuntu package, and then continue as before::
 
     sudo apt-get build-dep pillow
-    workon python2
+    workon venv
     pip install pillow
 
 *********************************
@@ -334,7 +355,7 @@ Sometimes, it's a package too far
 
 There are some Python packages that have heavy binary dependencies, or use
 complicated build systems, so that it is not practical to build a wheel with
-pip.  Examples I know of are vtk and itk.  For those cases, your best option
+Pip.  Examples I know of are VTK and ITK.  For those cases, your best option
 is to install the Python package using ``apt-get``, and then make your
 virtualenv with the ``--system-site-packages`` flag, so that it will pick up
 the installed packages::
@@ -350,5 +371,16 @@ If you try the instructions here, and you can't get a particular package or
 set-up to work, then why not make an `issue <pydagogue issues>`_ for the
 repository hosting these pages, and I'll see if I can work the fix into this
 page somewhere.
+
+.. rubric:: Footnotes
+
+.. [#building-wheels] If you need to build common packages such as Numpy (for
+   example, on platforms like ARM), you should first install the Debian /
+   Ubuntu packages with the build dependencies for these packages. For example
+   you might want to run something like this::
+
+     sudo apt-get build-dep python-numpy python-scipy matplotlib h5py
+
+   This will take a fairly long time.  See :ref:`new-wheels`.
 
 .. include:: links_names.inc

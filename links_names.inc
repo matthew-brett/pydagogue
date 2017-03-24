@@ -42,6 +42,9 @@
 .. Pypi and packaging
 .. _pypi: http://pypi.python.org
 .. _example pypi: http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
+.. _get-pip.py:
+.. _install pip with get-pip.py: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py
+.. _manylinux: https://github.com/pypa/manylinux
 
 .. Mac development
 .. _macports: http://www.macports.org
