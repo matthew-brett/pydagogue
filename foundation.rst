@@ -802,7 +802,7 @@ the root directory of our project, something like::
     65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
     3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
     f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
-    be242dba385bc0689be16454e959f4b64c87abce tree images      
+    be242dba385bc0689be16454e959f4b64c87abce tree images_listing      
 
 Oh - but wait - that's just a tree listing too, let's make a hash for that, and
 put it into the ``.ahole/objects`` directory::
@@ -857,7 +857,7 @@ done)::
     65735b3705284cdf4a66c2e4812ca13cbaa7cd5d file chapter2.txt
     3c2e09cc43568f13444c075c84b047957f7995a5 file chapter1_discussion.txt
     f31bfa1225f9e0eb6741a0ab1122f8cd2cbedc04 file contents.txt
-    be242dba385bc0689be16454e959f4b64c87abce tree images      
+    be242dba385bc0689be16454e959f4b64c87abce tree images_listing      
 
 When Eve makes an edit to ``chapter1.txt``, instead of copying the file to the
 ``staging_area`` directory, she makes a hash for the new ``chapter1.txt``
