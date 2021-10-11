@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Developing on linux &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Bare metal WAF" href="bare_metal_waf.html" />
     <link rel="prev" title="Developing on windows" href="develop_windows.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="develop_windows.html" title="Developing on windows"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Developing on linux</a></li> 
       </ul>
     </div>  
 
@@ -60,8 +47,8 @@ python packages.  This is my personal setup.</p>
 <div class="section" id="my-systems">
 <h2>My systems<a class="headerlink" href="#my-systems" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Many. Currently I&#8217;m working on an Ubuntu Lucid 64 bit system:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ uname -a
+<li><p>Many. Currently I’m working on an Ubuntu Lucid 64 bit system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ uname -a
 Linux angela 2.6.32-28-generic #55-Ubuntu SMP Mon Jan 10 23:42:43 UTC 2011 x86_64 GNU/Linux
 </pre></div>
 </div>
@@ -70,21 +57,21 @@ Linux angela 2.6.32-28-generic #55-Ubuntu SMP Mon Jan 10 23:42:43 UTC 2011 x86_6
 </div>
 <div class="section" id="basic-setup">
 <h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span> <span class="n">python</span><span class="o">-</span><span class="n">scipy</span>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">Install personal setup:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myconfig</span><span class="o">.</span><span class="n">git</span>
+<li><p>Install personal setup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myconfig</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">myconfig</span>
 <span class="n">make</span> <span class="n">dotfiles</span>
 <span class="n">cd</span> <span class="o">..</span>
 </pre></div>
 </div>
-<p>Then edit <code class="docutils literal"><span class="pre">~/.bashrc</span></code> to add the commented lines at the top of your new
-<code class="docutils literal"><span class="pre">~/.bash_personal</span></code> file.  Then set up vim:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myvim</span><span class="o">.</span><span class="n">git</span>
+<p>Then edit <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> to add the commented lines at the top of your new
+<code class="docutils literal notranslate"><span class="pre">~/.bash_personal</span></code> file.  Then set up vim:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">matthew</span><span class="o">-</span><span class="n">brett</span><span class="o">/</span><span class="n">myvim</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">myvim</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">ruby</span> <span class="n">ruby</span><span class="o">-</span><span class="n">dev</span> <span class="c1"># for command-t</span>
 <span class="n">make</span> <span class="n">command</span><span class="o">-</span><span class="n">t</span>
@@ -97,71 +84,71 @@ Linux angela 2.6.32-28-generic #55-Ubuntu SMP Mon Jan 10 23:42:43 UTC 2011 x86_6
 <div class="section" id="setting-up-virtualenvs">
 <h2>Setting up virtualenvs<a class="headerlink" href="#setting-up-virtualenvs" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a>.  I did this with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
+<li><p>Install <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>, and <a class="reference external" href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a>.  I did this with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
 <span class="n">sudo</span> <span class="n">easy_install</span> <span class="n">virtualenvwrapper</span>
 </pre></div>
 </div>
 <p>I did this because there is was an incompatibility with Maverick Python 2.7
 and Maverick <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a> - see <a class="reference external" href="https://bitbucket.org/ianb/virtualenv/issue/63/now-python27-requires-_weakrefset">this bug report</a>.
 For Natty (next after Maverick), you can probably use:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span>
 </pre></div>
 </div>
 <p>instead.</p>
 </li>
-<li><p class="first">If you are using my config (above), you probably want my default environment
+<li><p>If you are using my config (above), you probably want my default environment
 cleanup for virtualenvs:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">myconfig</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">myconfig</span>
 <span class="n">make</span> <span class="n">virtualenvs</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Make some good virtualenvs, with commands like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="n">python25</span> <span class="o">--</span><span class="n">python</span><span class="o">=</span><span class="n">python2</span><span class="o">.</span><span class="mi">5</span>
+<li><p>Make some good virtualenvs, with commands like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="n">python25</span> <span class="o">--</span><span class="n">python</span><span class="o">=</span><span class="n">python2</span><span class="mf">.5</span>
 </pre></div>
 </div>
-<p>If you have to do something really bare, consider the <code class="docutils literal"><span class="pre">no-site-packages</span></code>
-flag to the <code class="docutils literal"><span class="pre">mkvirtualenv</span></code> command.</p>
-<p>You&#8217;ll probably want other versions of python for your virtualenvs.  This:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python2</span><span class="o">.</span><span class="mi">7</span> <span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="n">dev</span>
+<p>If you have to do something really bare, consider the <code class="docutils literal notranslate"><span class="pre">no-site-packages</span></code>
+flag to the <code class="docutils literal notranslate"><span class="pre">mkvirtualenv</span></code> command.</p>
+<p>You’ll probably want other versions of python for your virtualenvs.  This:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python2</span><span class="mf">.7</span> <span class="n">python2</span><span class="mf">.7</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>works on Ubuntu Maverick (10.10). You might want to use the <a class="reference external" href="https://launchpad.net/%7Efkrull/+archive/deadsnakes">old and new
 python versions</a> repository to get e.g python 2.5 on new Ubuntus:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="p">:</span><span class="n">fkrull</span><span class="o">/</span><span class="n">deadsnakes</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="p">:</span><span class="n">fkrull</span><span class="o">/</span><span class="n">deadsnakes</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python2</span><span class="o">.</span><span class="mi">5</span> <span class="n">python2</span><span class="o">.</span><span class="mi">5</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python2</span><span class="mf">.5</span> <span class="n">python2</span><span class="mf">.5</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>You may have to compile numpy and scipy from source for your non-system python
 versions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">build</span><span class="o">-</span><span class="n">dep</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">build</span><span class="o">-</span><span class="n">dep</span> <span class="n">python</span><span class="o">-</span><span class="n">numpy</span>
 <span class="n">mkdir</span> <span class="n">code</span>
 <span class="n">cd</span> <span class="n">code</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">numpy</span>
-<span class="n">git</span> <span class="n">co</span> <span class="n">v1</span><span class="o">.</span><span class="mf">5.1</span> <span class="c1"># a tag</span>
-<span class="n">sudo</span> <span class="n">python2</span><span class="o">.</span><span class="mi">5</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="n">git</span> <span class="n">co</span> <span class="n">v1</span><span class="mf">.5.1</span> <span class="c1"># a tag</span>
+<span class="n">sudo</span> <span class="n">python2</span><span class="mf">.5</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 <span class="n">sudo</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">build</span>
-<span class="n">sudo</span> <span class="n">python2</span><span class="o">.</span><span class="mi">7</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="n">sudo</span> <span class="n">python2</span><span class="mf">.7</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 <span class="n">cd</span> <span class="o">..</span>
 <span class="c1"># This will soon become a real git repo rather than an svn mirror</span>
 <span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">origin</span> <span class="n">svn</span> <span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">scipy</span><span class="o">/</span><span class="n">scipy</span><span class="o">-</span><span class="n">svn</span><span class="o">.</span><span class="n">git</span> <span class="n">scipy</span>
 <span class="n">cd</span> <span class="n">scipy</span>
-<span class="n">git</span> <span class="n">co</span> <span class="n">svn</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">v0</span><span class="o">.</span><span class="mf">9.0</span><span class="n">rc4</span> <span class="c1"># a tag</span>
-<span class="n">sudo</span> <span class="n">python2</span><span class="o">.</span><span class="mi">5</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="n">git</span> <span class="n">co</span> <span class="n">svn</span><span class="o">/</span><span class="n">tags</span><span class="o">/</span><span class="n">v0</span><span class="mf">.9.0</span><span class="n">rc4</span> <span class="c1"># a tag</span>
+<span class="n">sudo</span> <span class="n">python2</span><span class="mf">.5</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 <span class="n">sudo</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">build</span>
-<span class="n">sudo</span> <span class="n">python2</span><span class="o">.</span><span class="mi">7</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+<span class="n">sudo</span> <span class="n">python2</span><span class="mf">.7</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>For the remaining packages, we can use setuptools.  As per the instructions on
 <a class="reference external" href="https://launchpad.net/%7Efkrull/+archive/deadsnakes">old and new python versions</a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span><span class="o">-</span><span class="n">deadsnakes</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">setuptools</span><span class="o">-</span><span class="n">deadsnakes</span>
 </pre></div>
 </div>
 <p>then (e.g.):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">easy_install</span><span class="o">-</span><span class="mf">2.5</span> <span class="n">nose</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">easy_install</span><span class="o">-</span><span class="mf">2.5</span> <span class="n">nose</span>
 </pre></div>
 </div>
 </li>
@@ -170,12 +157,13 @@ versions:</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Developing on linux</a><ul>
 <li><a class="reference internal" href="#my-systems">My systems</a></li>
@@ -199,15 +187,15 @@ versions:</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -225,12 +213,13 @@ versions:</p>
           <a href="develop_windows.html" title="Developing on windows"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Developing on linux</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

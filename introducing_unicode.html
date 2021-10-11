@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introducing Unicode &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="XML from absolutely nothing" href="xml_from_scratch.html" />
     <link rel="prev" title="General computing" href="computing.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="computing.html" title="General computing"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introducing Unicode</a></li> 
       </ul>
     </div>  
 
@@ -57,15 +44,15 @@
 <span id="id1"></span><h1>Introducing Unicode<a class="headerlink" href="#introducing-unicode" title="Permalink to this headline">¶</a></h1>
 <p>A collection of links and some very basic introduction.</p>
 <p>For some information on Unicode in Python, see <a class="reference internal" href="python_unicode.html#python-unicode"><span class="std std-ref">Python and unicode</span></a>.</p>
-<p>For a good programmer&#8217;s introduction see:
+<p>For a good programmer’s introduction see:
 <a class="reference external" href="http://www.joelonsoftware.com/articles/Unicode.html">http://www.joelonsoftware.com/articles/Unicode.html</a></p>
 <div class="section" id="unicode">
 <h2>Unicode<a class="headerlink" href="#unicode" title="Permalink to this headline">¶</a></h2>
 <p>Unicode is a convention that defines a unique number for a very very
 large number of possible characters in almost all known alphabets:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.unicode.org/standard/WhatIsUnicode.html">http://www.unicode.org/standard/WhatIsUnicode.html</a>.</li>
-<li><a class="reference external" href="http://en.wikipedia.org/wiki/Unicode">http://en.wikipedia.org/wiki/Unicode</a></li>
+<li><p><a class="reference external" href="http://www.unicode.org/standard/WhatIsUnicode.html">http://www.unicode.org/standard/WhatIsUnicode.html</a>.</p></li>
+<li><p><a class="reference external" href="http://en.wikipedia.org/wiki/Unicode">http://en.wikipedia.org/wiki/Unicode</a></p></li>
 </ul>
 <p>The number assigned to each character is referred to as the <strong>code
 point</strong>.  The <a class="reference external" href="http://www.unicode.org/">Unicode consortium</a> has the
@@ -76,7 +63,7 @@ Character Database - the latest version of which should be at
 conventional to use hexadecimal - for example code point U+00E9 is the latin
 small letter e with an acute accent.</p>
 <p>The code points up to 128 (hexadecimal 7F) are identical to the ascii
-character codes; so for example <code class="docutils literal"><span class="pre">U+0065</span></code> is the latin letter e.</p>
+character codes; so for example <code class="docutils literal notranslate"><span class="pre">U+0065</span></code> is the latin letter e.</p>
 <p>Code points from 0 to 65535 (hexadecimal FFFF) represent characters in the
 Basic Multilingual Plane (BMP).  The BMP contains characters for almost
 all modern languages, including Chinese, as well as a large number of
@@ -124,12 +111,12 @@ text.</p>
 <p>UTF-16 uses one 16 bit value for characters in the BMP, but two 16 bit
 values for characters outside the BMP:
 <a class="reference external" href="http://en.wikipedia.org/wiki/UTF-16/UCS-2">http://en.wikipedia.org/wiki/UTF-16/UCS-2</a>.  The two 16 bit values are
-referred to as a &#8216;surrogate pair&#8217; - see the <strong>surrogate pair</strong> entry in
+referred to as a ‘surrogate pair’ - see the <strong>surrogate pair</strong> entry in
 the Unicode glossary: <a class="reference external" href="http://www.unicode.org/glossary/#S">http://www.unicode.org/glossary/#S</a>.  UTF-16 is the
 standard encoding for modern versions of windows.</p>
 <p>UCS-2 (see above) is a struct subset of UTF-16 in that UTF-16 also uses only
-one 16-bit word value to encode all characters supported by UCS-2 (see &#8220;Q:
-What is the difference between UCS-2 and UTF-16?&#8221; in
+one 16-bit word value to encode all characters supported by UCS-2 (see “Q:
+What is the difference between UCS-2 and UTF-16?” in
 <a class="reference external" href="http://www.unicode.org/faq/utf_bom.html">http://www.unicode.org/faq/utf_bom.html</a>).  This is possible because the first
 16-bit character in UTF-16 surrogate pairs use the hex range D80016 to DBFF,
 and there are not defined unicode code points (characters) in this range.</p>
@@ -138,12 +125,13 @@ and there are not defined unicode code points (characters) in this range.</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Introducing Unicode</a><ul>
 <li><a class="reference internal" href="#unicode">Unicode</a></li>
@@ -170,15 +158,15 @@ and there are not defined unicode code points (characters) in this range.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -196,12 +184,13 @@ and there are not defined unicode code points (characters) in this range.</p>
           <a href="computing.html" title="General computing"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Introducing Unicode</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

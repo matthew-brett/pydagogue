@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Configure git &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Development workflow" href="development_workflow.html" />
     <link rel="prev" title="Set up your fork" href="set_up_fork.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -47,7 +33,8 @@
           <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
-          <li class="nav-item nav-item-4"><a href="git_development.html" accesskey="U">Git for development</a> &#187;</li> 
+          <li class="nav-item nav-item-4"><a href="git_development.html" accesskey="U">Git for development</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Configure git</a></li> 
       </ul>
     </div>  
 
@@ -60,10 +47,10 @@
 <span id="id1"></span><h1>Configure git<a class="headerlink" href="#configure-git" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <span id="git-config-basic"></span><h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>Your personal git configurations are saved in the <code class="docutils literal"><span class="pre">.gitconfig</span></code> file in
+<p>Your personal git configurations are saved in the <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> file in
 your home directory.</p>
-<p>Here is an example <code class="docutils literal"><span class="pre">.gitconfig</span></code> file:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>[user]
+<p>Here is an example <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[user]
         name = Your Name
         email = you@yourdomain.example.com
 
@@ -82,9 +69,9 @@ your home directory.</p>
         summary = true
 </pre></div>
 </div>
-<p>You can edit this file directly or you can use the <code class="docutils literal"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span></code>
+<p>You can edit this file directly or you can use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span></code>
 command:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
 git config --global user.email you@yourdomain.example.com
 git config --global alias.ci <span class="s2">&quot;commit -a&quot;</span>
 git config --global alias.co checkout
@@ -96,7 +83,7 @@ git config --global core.editor vim
 git config --global merge.summary <span class="nb">true</span>
 </pre></div>
 </div>
-<p>To set up on another computer, you can copy your <code class="docutils literal"><span class="pre">~/.gitconfig</span></code> file,
+<p>To set up on another computer, you can copy your <code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code> file,
 or run the commands above.</p>
 </div>
 <div class="section" id="in-detail">
@@ -106,28 +93,28 @@ or run the commands above.</p>
 <p>It is good practice to tell <a class="reference external" href="https://git-scm.com/">git</a> who you are, for labeling any changes
 you make to the code.  The simplest way to do this is from the command
 line:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git config --global user.name <span class="s2">&quot;Your Name&quot;</span>
 git config --global user.email you@yourdomain.example.com
 </pre></div>
 </div>
 <p>This will write the settings into your git configuration file,  which
 should now contain a user section with your name and email:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>[user]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[user]
       name = Your Name
       email = you@yourdomain.example.com
 </pre></div>
 </div>
-<p>Of course you&#8217;ll need to replace <code class="docutils literal"><span class="pre">Your</span> <span class="pre">Name</span></code> and <code class="docutils literal"><span class="pre">you&#64;yourdomain.example.com</span></code>
+<p>Of course you’ll need to replace <code class="docutils literal notranslate"><span class="pre">Your</span> <span class="pre">Name</span></code> and <code class="docutils literal notranslate"><span class="pre">you&#64;yourdomain.example.com</span></code>
 with your actual name and email address.</p>
 </div>
 <div class="section" id="aliases">
 <h3>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h3>
 <p>You might well benefit from some aliases to common commands.</p>
-<p>For example, you might well want to be able to shorten <code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span></code>
-to <code class="docutils literal"><span class="pre">git</span> <span class="pre">co</span></code>.  Or you may want to alias <code class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">--color-words</span></code>
-(which gives a nicely formatted output of the diff) to <code class="docutils literal"><span class="pre">git</span> <span class="pre">wdiff</span></code></p>
-<p>The following <code class="docutils literal"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span></code> commands:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git config --global alias.ci <span class="s2">&quot;commit -a&quot;</span>
+<p>For example, you might well want to be able to shorten <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code>
+to <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">co</span></code>.  Or you may want to alias <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">diff</span> <span class="pre">--color-words</span></code>
+(which gives a nicely formatted output of the diff) to <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">wdiff</span></code></p>
+<p>The following <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">config</span> <span class="pre">--global</span></code> commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git config --global alias.ci <span class="s2">&quot;commit -a&quot;</span>
 git config --global alias.co checkout
 git config --global alias.st <span class="s2">&quot;status -a&quot;</span>
 git config --global alias.stat <span class="s2">&quot;status -a&quot;</span>
@@ -135,9 +122,9 @@ git config --global alias.br branch
 git config --global alias.wdiff <span class="s2">&quot;diff --color-words&quot;</span>
 </pre></div>
 </div>
-<p>will create an <code class="docutils literal"><span class="pre">alias</span></code> section in your <code class="docutils literal"><span class="pre">.gitconfig</span></code> file with contents
+<p>will create an <code class="docutils literal notranslate"><span class="pre">alias</span></code> section in your <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> file with contents
 like this:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>[alias]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[alias]
         ci = commit -a
         co = checkout
         st = status -a
@@ -150,35 +137,35 @@ like this:</p>
 <div class="section" id="editor">
 <h3>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h3>
 <p>You may also want to make sure that your editor of choice is used</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git config --global core.editor vim
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git config --global core.editor vim
 </pre></div>
 </div>
 </div>
 <div class="section" id="merging">
 <h3>Merging<a class="headerlink" href="#merging" title="Permalink to this headline">¶</a></h3>
-<p>To enforce summaries when doing merges (<code class="docutils literal"><span class="pre">~/.gitconfig</span></code> file again):</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>[merge]
+<p>To enforce summaries when doing merges (<code class="docutils literal notranslate"><span class="pre">~/.gitconfig</span></code> file again):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[merge]
    log = true
 </pre></div>
 </div>
 <p>Or from the command line:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git config --global merge.log <span class="nb">true</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git config --global merge.log <span class="nb">true</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="fancy-log-output">
 <span id="fancy-log"></span><h3>Fancy log output<a class="headerlink" href="#fancy-log-output" title="Permalink to this headline">¶</a></h3>
 <p>This is a very nice alias to get a fancy log output; it should go in the
-<code class="docutils literal"><span class="pre">alias</span></code> section of your <code class="docutils literal"><span class="pre">.gitconfig</span></code> file:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>lg = log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset&#39; --abbrev-commit --date=relative
+<code class="docutils literal notranslate"><span class="pre">alias</span></code> section of your <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>lg = log --graph --pretty=format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)[%an]%Creset&#39; --abbrev-commit --date=relative
 </pre></div>
 </div>
 <p>You use the alias with:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git lg
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git lg
 </pre></div>
 </div>
 <p>and it gives graph / text output something like this (but with color!):</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>* 6d8e1ee - (HEAD, origin/my-fancy-feature, my-fancy-feature) NF - a fancy file (45 minutes ago) [Matthew Brett]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* 6d8e1ee - (HEAD, origin/my-fancy-feature, my-fancy-feature) NF - a fancy file (45 minutes ago) [Matthew Brett]
 *   d304a73 - (origin/placeholder, placeholder) Merge pull request #48 from hhuuggoo/master (2 weeks ago) [Jonathan Terhorst]
 |\
 | * 4aff2a8 - fixed bug 35, and added a test in test_bugfixes (2 weeks ago) [Hugo]
@@ -202,12 +189,13 @@ like this:</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Configure git</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
@@ -237,15 +225,15 @@ like this:</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -266,12 +254,13 @@ like this:</p>
           <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
-          <li class="nav-item nav-item-4"><a href="git_development.html" >Git for development</a> &#187;</li> 
+          <li class="nav-item nav-item-4"><a href="git_development.html" >Git for development</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Configure git</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

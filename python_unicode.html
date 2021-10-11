@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Python and unicode &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installing python scripts" href="installing_scripts.html" />
     <link rel="prev" title="What is a decorator, really?" href="decorating_for_smart_people.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="decorating_for_smart_people.html" title="What is a decorator, really?"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python and unicode</a></li> 
       </ul>
     </div>  
 
@@ -58,54 +45,54 @@
 <p>See <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><span class="std std-ref">Introducing Unicode</span></a> for an introduction to Unicode.</p>
 <p>See also:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://docs.python.org/howto/unicode.html">http://docs.python.org/howto/unicode.html</a></li>
-<li><a class="reference external" href="http://effbot.org/zone/unicode-objects.htm">http://effbot.org/zone/unicode-objects.htm</a></li>
-<li><a class="reference external" href="http://wiki.python.org/moin/Unicode">http://wiki.python.org/moin/Unicode</a></li>
+<li><p><a class="reference external" href="http://docs.python.org/howto/unicode.html">http://docs.python.org/howto/unicode.html</a></p></li>
+<li><p><a class="reference external" href="http://effbot.org/zone/unicode-objects.htm">http://effbot.org/zone/unicode-objects.htm</a></p></li>
+<li><p><a class="reference external" href="http://wiki.python.org/moin/Unicode">http://wiki.python.org/moin/Unicode</a></p></li>
 </ul>
 <p>Python 2 supports unicode with unicode strings:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">u&#39;Hello world&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;Hello world&#39;</span>
 </pre></div>
 </div>
 <p>Python 3 strings are always unicode. Python 3 as of Python 3.3 allows (but
-ignores) the <code class="docutils literal"><span class="pre">u</span></code> prefix for strings, so I will use that convention for
+ignores) the <code class="docutils literal notranslate"><span class="pre">u</span></code> prefix for strings, so I will use that convention for
 unicode strings for compatibility with Python 2 and Python 3.</p>
 <p>There are various ways of inputing characters you cannot type at your prompt.
 The most basic is to give the unicode code point in hexadecimal:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\u00bf</span><span class="s1">Habla espa</span><span class="se">\u00f1</span><span class="s1">ol?&#39;</span>  <span class="c1"># ¿Habla español?</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\u00bf</span><span class="s1">Habla espa</span><span class="se">\u00f1</span><span class="s1">ol?&#39;</span>  <span class="c1"># ¿Habla español?</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal"><span class="pre">00bf</span></code> is the hexadecimal unicode code point for the inverted question
+<p>where <code class="docutils literal notranslate"><span class="pre">00bf</span></code> is the hexadecimal unicode code point for the inverted question
 mark; see <a class="reference external" href="http://www.unicode.org/Public/UNIDATA/UnicodeData.txt">http://www.unicode.org/Public/UNIDATA/UnicodeData.txt</a>.  Use the
-<code class="docutils literal"><span class="pre">\u0000</span></code> format, i.e. <code class="docutils literal"><span class="pre">\u</span></code> followed by 4 hexadecimal digits.  For code
+<code class="docutils literal notranslate"><span class="pre">\u0000</span></code> format, i.e. <code class="docutils literal notranslate"><span class="pre">\u</span></code> followed by 4 hexadecimal digits.  For code
 points outside the 16 bit range (outside the BMP – see
-<a class="reference internal" href="introducing_unicode.html#introducing-unicode"><span class="std std-ref">Introducing Unicode</span></a>) – use capital <code class="docutils literal"><span class="pre">U</span></code> and eight hexadecimal
+<a class="reference internal" href="introducing_unicode.html#introducing-unicode"><span class="std std-ref">Introducing Unicode</span></a>) – use capital <code class="docutils literal notranslate"><span class="pre">U</span></code> and eight hexadecimal
 digits, like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">complicated</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\U0001D11A</span><span class="s1"> is musical symbol 5 line staff&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">complicated</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\U0001D11A</span><span class="s1"> is musical symbol 5 line staff&#39;</span>
 </pre></div>
 </div>
 <p>See below for some complications of using these 32 bit unicode characters in
 some builds of python 2.</p>
 <p>You can also use the standard unicode name (see
 <a class="reference external" href="http://www.unicode.org/Public/UNIDATA/UnicodeData.txt">http://www.unicode.org/Public/UNIDATA/UnicodeData.txt</a> ):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">less_opaque</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\N{MUSICAL SYMBOL FIVE-LINE STAFF}</span><span class="s1"> is more obviously a five line staff&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">less_opaque</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\N{MUSICAL SYMBOL FIVE-LINE STAFF}</span><span class="s1"> is more obviously a five line staff&#39;</span>
 </pre></div>
 </div>
 <p>To create an UTF-8 encoded version of a string - for example to write to a
 text file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\u00bf</span><span class="s1">Habla espa</span><span class="se">\u00f1</span><span class="s1">ol?&#39;</span>  <span class="c1"># ¿Habla español?</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\u00bf</span><span class="s1">Habla espa</span><span class="se">\u00f1</span><span class="s1">ol?&#39;</span>  <span class="c1"># ¿Habla español?</span>
 <span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Similarly for UTF-16, or other encodings:
 <a class="reference external" href="http://docs.python.org/lib/standard-encodings.html">http://docs.python.org/lib/standard-encodings.html</a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw_str</span> <span class="o">=</span> <span class="n">question</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-16&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To get a unicode string from text that has been encoded:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="n">raw_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="n">raw_str</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In Python 3, <code class="docutils literal"><span class="pre">raw_str</span></code> will be a <em>byte string</em> rather than a standard
+<p>In Python 3, <code class="docutils literal notranslate"><span class="pre">raw_str</span></code> will be a <em>byte string</em> rather than a standard
 (unicode) string.</p>
 <div class="section" id="python-internal-encoding-of-unicode-strings">
 <h2>Python internal encoding of unicode strings<a class="headerlink" href="#python-internal-encoding-of-unicode-strings" title="Permalink to this headline">¶</a></h2>
@@ -115,46 +102,46 @@ text file:</p>
 <h2>Python versions 2.2 through 3.2<a class="headerlink" href="#python-versions-2-2-through-3-2" title="Permalink to this headline">¶</a></h2>
 <p>The internal representation of unicode stirngs Pythons 2.2 through 3.2 depends
 on flags with which the Python program binary was built.  Pythons built with
-the build flag <code class="docutils literal"><span class="pre">--enable-unicode=ucs2</span></code> <a class="reference external" href="https://mail.python.org/pipermail/python-dev/2008-July/080892.html">use UTF-16 as the internal
+the build flag <code class="docutils literal notranslate"><span class="pre">--enable-unicode=ucs2</span></code> <a class="reference external" href="https://mail.python.org/pipermail/python-dev/2008-July/080892.html">use UTF-16 as the internal
 representation</a>.  Yes,
-it is confusing that the flag value is <code class="docutils literal"><span class="pre">ucs2</span></code> and the actual result is
-UTF-16.  Pythons built with build flag <code class="docutils literal"><span class="pre">--enable-unicode=ucs4</span></code> use UCS-4 (or
+it is confusing that the flag value is <code class="docutils literal notranslate"><span class="pre">ucs2</span></code> and the actual result is
+UTF-16.  Pythons built with build flag <code class="docutils literal notranslate"><span class="pre">--enable-unicode=ucs4</span></code> use UCS-4 (or
 equivalently, UTF-32) as their internal representation.</p>
 <p>To tell which format your Python uses:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="n">utf_16</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxunicode</span> <span class="o">==</span> <span class="mi">65535</span>
 </pre></div>
 </div>
-<p>If <code class="docutils literal"><span class="pre">utf_16</span></code> is True, you have a UTF-16 build, otherwise you have UCS4.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">utf_16</span></code> is True, you have a UTF-16 build, otherwise you have UCS4.</p>
 <p>See also:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.python.org/dev/peps/pep-0100/">http://www.python.org/dev/peps/pep-0100/</a></li>
-<li><a class="reference external" href="http://www.python.org/dev/peps/pep-0261/">http://www.python.org/dev/peps/pep-0261/</a></li>
+<li><p><a class="reference external" href="http://www.python.org/dev/peps/pep-0100/">http://www.python.org/dev/peps/pep-0100/</a></p></li>
+<li><p><a class="reference external" href="http://www.python.org/dev/peps/pep-0261/">http://www.python.org/dev/peps/pep-0261/</a></p></li>
 </ul>
 <div class="section" id="utf-16-ucs2-builds-of-python-and-32-bit-unicode-code-points">
 <h3>UTF-16 (ucs2) builds of Python and 32 bit unicode code points<a class="headerlink" href="#utf-16-ucs2-builds-of-python-and-32-bit-unicode-code-points" title="Permalink to this headline">¶</a></h3>
 <p>If you have a UTF-16 build of python, and want to use a 32 bit code point,
 then some oddness occurs:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">complicated</span> <span class="o">=</span> <span class="s1">u&#39;</span><span class="se">\U0001D11A</span><span class="s1"> &#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">complicated</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;</span><span class="se">\U0001D11A</span><span class="s1"> &#39;</span>
 <span class="nb">print</span> <span class="nb">ord</span><span class="p">(</span><span class="n">complicated</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span> <span class="nb">ord</span><span class="p">(</span><span class="n">complicated</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>On a UTF-16 build the above gives you:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">55348</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">55348</span>
 <span class="mi">56602</span>
 </pre></div>
 </div>
 <p>In this case, the 32 bit value has been represented by two 16 bit values - a
 UTF-16 <strong>surrogate pair</strong> - see <a class="reference internal" href="introducing_unicode.html#introducing-unicode"><span class="std std-ref">Introducing Unicode</span></a>.</p>
 <p>On a UCS-4 build you get:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">119066</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">119066</span>
 <span class="mi">32</span>
 </pre></div>
 </div>
 <p>which might have been more what you were expecting - 119066 is the
 decimal representation of hexadecimal 1D11A.  The difference between the two
-builds can mean some oddness in slicing strings... (as noted in
+builds can mean some oddness in slicing strings… (as noted in
 <a class="reference external" href="http://www.python.org/dev/peps/pep-0261/">http://www.python.org/dev/peps/pep-0261/</a>).</p>
 <p>Some discussion about UTF-16 / UCS-2, UCS-4 and Python 3 here:
 <a class="reference external" href="http://mail.python.org/pipermail/python-dev/2008-July/080886.html">http://mail.python.org/pipermail/python-dev/2008-July/080886.html</a></p>
@@ -171,45 +158,46 @@ string that depends on the string contents – see
 <div class="section" id="modules">
 <h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.python.org/2/library/codecs.html">codecs</a>;</li>
-<li><a class="reference external" href="https://docs.python.org/2/library/unicodedata.html">unicodedata</a>;</li>
-<li><a class="reference external" href="http://docs.python.org/2/library/locale.html">locale</a> (<code class="docutils literal"><span class="pre">locale.getdefaultlocale</span></code>);</li>
-<li><a class="reference external" href="http://docs.python.org/2/library/re.html">regular expressions</a> - <code class="docutils literal"><span class="pre">(?u)</span></code>
-flag, <code class="docutils literal"><span class="pre">re.UNICODE</span></code>;</li>
-<li><a class="reference external" href="https://docs.python.org/2/library/codecs.html#standard-encodings">standard encodings</a>;</li>
-<li>encodings - e.g. <code class="docutils literal"><span class="pre">encodings.getaliases()</span></code></li>
+<li><p><a class="reference external" href="https://docs.python.org/2/library/codecs.html">codecs</a>;</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/2/library/unicodedata.html">unicodedata</a>;</p></li>
+<li><p><a class="reference external" href="http://docs.python.org/2/library/locale.html">locale</a> (<code class="docutils literal notranslate"><span class="pre">locale.getdefaultlocale</span></code>);</p></li>
+<li><p><a class="reference external" href="http://docs.python.org/2/library/re.html">regular expressions</a> - <code class="docutils literal notranslate"><span class="pre">(?u)</span></code>
+flag, <code class="docutils literal notranslate"><span class="pre">re.UNICODE</span></code>;</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/2/library/codecs.html#standard-encodings">standard encodings</a>;</p></li>
+<li><p>encodings - e.g. <code class="docutils literal notranslate"><span class="pre">encodings.getaliases()</span></code></p></li>
 </ul>
 </div>
 <div class="section" id="string-methods">
 <h3>String methods<a class="headerlink" href="#string-methods" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>encode</li>
-<li>decode</li>
+<li><p>encode</p></li>
+<li><p>decode</p></li>
 </ul>
 </div>
 <div class="section" id="builtins">
 <h3>Builtins<a class="headerlink" href="#builtins" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>unichr - unicode equivalent of <code class="docutils literal"><span class="pre">chr</span></code> in Python 2.</li>
-<li>unicode - constructor for unicode strings in Python 2.</li>
+<li><p>unichr - unicode equivalent of <code class="docutils literal notranslate"><span class="pre">chr</span></code> in Python 2.</p></li>
+<li><p>unicode - constructor for unicode strings in Python 2.</p></li>
 </ul>
 </div>
 <div class="section" id="exceptions">
 <h3>Exceptions:<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>UnicodeEncodeError</li>
+<li><p>UnicodeEncodeError</p></li>
 </ul>
 </div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Python and unicode</a><ul>
 <li><a class="reference internal" href="#python-internal-encoding-of-unicode-strings">Python internal encoding of unicode strings</a></li>
@@ -243,15 +231,15 @@ flag, <code class="docutils literal"><span class="pre">re.UNICODE</span></code>;
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -269,12 +257,13 @@ flag, <code class="docutils literal"><span class="pre">re.UNICODE</span></code>;
           <a href="decorating_for_smart_people.html" title="What is a decorator, really?"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Python and unicode</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

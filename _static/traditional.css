@@ -4,7 +4,7 @@
  *
  * Sphinx stylesheet -- traditional docs.python.org theme.
  *
- * :copyright: Copyright 2007-2016 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2021 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -27,6 +27,8 @@ div.bodywrapper {
 }
 
 div.body {
+    min-width: 0;
+    max-width: none;
     background-color: white;
     padding: 0 20px 30px 20px;
 }
@@ -630,7 +632,6 @@ th {
 pre {
     font-family: monospace;
     padding: 5px;
-    color: #00008b;
     border-left: none;
     border-right: none;
 }

@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notes on Windows containers &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Notes on Python compiled with MinGW-w64" href="mingw_python.html" />
     <link rel="prev" title="Windows DLLs - information" href="windows_dll_links.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="windows_dll_links.html" title="Windows DLLs - information"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Notes on Windows containers</a></li> 
       </ul>
     </div>  
 
@@ -58,10 +45,10 @@
 <p>See: <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/about/about_overview">Windows containers overview</a>.</p>
 <p>There are two types of Windows containers:</p>
 <ul class="simple">
-<li>Windows Server containers - uses host kernel, similar to Linux docker
-container.  These containers can only run on a host with matching kernel.</li>
-<li><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/hyperv_container">Hyper-V containers</a>
-- has own kernel, more like an optimized virtual machine.</li>
+<li><p>Windows Server containers - uses host kernel, similar to Linux docker
+container.  These containers can only run on a host with matching kernel.</p></li>
+<li><p><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/hyperv_container">Hyper-V containers</a>
+- has own kernel, more like an optimized virtual machine.</p></li>
 </ul>
 <p>Windows containers use Windows API calls, so a Windows host can only support
 Windows containers.</p>
@@ -74,8 +61,8 @@ for more detailed background on Windows containers.</p>
 support in your OS.  This <a class="reference external" href="http://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview">started with Windows 2016 technical preview 3</a>.
 You will need:</p>
 <ul class="simple">
-<li>A real or virtual machine with an OS that can support containers, and</li>
-<li>Container support installed on the OS;</li>
+<li><p>A real or virtual machine with an OS that can support containers, and</p></li>
+<li><p>Container support installed on the OS;</p></li>
 </ul>
 <p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/container_setup">installing a container host</a>
 for instructions on setting up a virtual machine with container support, and
@@ -87,7 +74,7 @@ virtual machine running Windows server 2016 tech preview.</p>
 </div>
 <div class="section" id="container-images">
 <span id="id1"></span><h2>Container images<a class="headerlink" href="#container-images" title="Permalink to this headline">¶</a></h2>
-<p>Containers run from OS &#8220;images&#8221;.  If the container corresponds to a running operating
+<p>Containers run from OS “images”.  If the container corresponds to a running operating
 system, then the image corresponds to the hard disk of the OS.  See <a class="reference external" href="https://msdn.microsoft.com/virtualization/windowscontainers/management/manage_images">Windows
 container images</a>
 for instructions on downloading images for use in Windows containers.</p>
@@ -96,9 +83,9 @@ for instructions on downloading images for use in Windows containers.</p>
 <h2>Using Windows containers<a class="headerlink" href="#using-windows-containers" title="Permalink to this headline">¶</a></h2>
 <p>There are two standard ways to use Windows containers:</p>
 <ul class="simple">
-<li>using <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows">powershell</a>.
-See also <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>;</li>
-<li>using Docker.</li>
+<li><p>using <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows">powershell</a>.
+See also <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>;</p></li>
+<li><p>using Docker.</p></li>
 </ul>
 </div>
 <div class="section" id="using-windows-containers-with-docker">
@@ -108,59 +95,59 @@ See also <a class="reference external" href="https://msdn.microsoft.com/en-us/vi
 Docker, you will need to <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows">install Docker</a>.</p>
 <p>Then see:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a>.</li>
-<li><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>.</li>
+<li><p><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a>.</p></li>
+<li><p><a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers">managing containers</a>.</p></li>
 </ul>
-<p>In what follows I&#8217;m running in a powershell with admin privileges.</p>
+<p>In what follows I’m running in a powershell with admin privileges.</p>
 <p>To see a list of images that you have installed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">images</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">images</span>
 </pre></div>
 </div>
 <p>On my system, after installing the <a class="reference internal" href="#container-images"><span class="std std-ref">Container images</span></a>, I had:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">WINDOWS</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">docker</span> <span class="n">images</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">WINDOWS</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">docker</span> <span class="n">images</span>
 <span class="n">REPOSITORY</span>              <span class="n">TAG</span>                 <span class="n">IMAGE</span> <span class="n">ID</span>            <span class="n">CREATED</span>             <span class="n">VIRTUAL</span> <span class="n">SIZE</span>
-<span class="n">windowsservercore</span>       <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
-<span class="n">nanoserver</span>              <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">windowsservercore</span>       <span class="mf">10.0.10586.0</span>        <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">nanoserver</span>              <span class="mf">10.0.10586.0</span>        <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">windowsservercore</span></code> is an image containing a minimal Windows Server core
-instance.  <code class="docutils literal"><span class="pre">nanoserver</span></code> contains a <a class="reference external" href="https://technet.microsoft.com/en-us/library/mt126167.aspx">nanoserver</a> instance.</p>
-<p>For convenience, you might like to tag the <code class="docutils literal"><span class="pre">windowsservercore</span></code> and
-<code class="docutils literal"><span class="pre">nanoserver</span></code> images as being the <code class="docutils literal"><span class="pre">latest</span></code>.  <code class="docutils literal"><span class="pre">latest</span></code> is the default tag
+<p><code class="docutils literal notranslate"><span class="pre">windowsservercore</span></code> is an image containing a minimal Windows Server core
+instance.  <code class="docutils literal notranslate"><span class="pre">nanoserver</span></code> contains a <a class="reference external" href="https://technet.microsoft.com/en-us/library/mt126167.aspx">nanoserver</a> instance.</p>
+<p>For convenience, you might like to tag the <code class="docutils literal notranslate"><span class="pre">windowsservercore</span></code> and
+<code class="docutils literal notranslate"><span class="pre">nanoserver</span></code> images as being the <code class="docutils literal notranslate"><span class="pre">latest</span></code>.  <code class="docutils literal notranslate"><span class="pre">latest</span></code> is the default tag
 that docker uses when selecting a version of the image, so when you ask for
-<code class="docutils literal"><span class="pre">windowsservercore</span></code>, it implies (image name:tag)
-<code class="docutils literal"><span class="pre">windowsservercore:latest</span></code>.  If you don&#8217;t add these tags, you will need to
-give the tag explicitly, as in <code class="docutils literal"><span class="pre">windowservercore:10.0.10586.0</span></code>.  Add the
-<code class="docutils literal"><span class="pre">latest</span></code> tags with:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">tag</span> <span class="n">windowsservercore</span><span class="p">:</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span> <span class="n">windowsservercore</span><span class="p">:</span><span class="n">latest</span>
-<span class="n">docker</span> <span class="n">tag</span> <span class="n">nanoserver</span><span class="p">:</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span> <span class="n">nanoserver</span><span class="p">:</span><span class="n">latest</span>
+<code class="docutils literal notranslate"><span class="pre">windowsservercore</span></code>, it implies (image name:tag)
+<code class="docutils literal notranslate"><span class="pre">windowsservercore:latest</span></code>.  If you don’t add these tags, you will need to
+give the tag explicitly, as in <code class="docutils literal notranslate"><span class="pre">windowservercore:10.0.10586.0</span></code>.  Add the
+<code class="docutils literal notranslate"><span class="pre">latest</span></code> tags with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">tag</span> <span class="n">windowsservercore</span><span class="p">:</span><span class="mf">10.0.10586.0</span> <span class="n">windowsservercore</span><span class="p">:</span><span class="n">latest</span>
+<span class="n">docker</span> <span class="n">tag</span> <span class="n">nanoserver</span><span class="p">:</span><span class="mf">10.0.10586.0</span> <span class="n">nanoserver</span><span class="p">:</span><span class="n">latest</span>
 </pre></div>
 </div>
 <p>You might then get something like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">WINDOWS</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">docker</span> <span class="n">images</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PS</span> <span class="n">C</span><span class="p">:</span>\<span class="n">WINDOWS</span>\<span class="n">system32</span><span class="o">&gt;</span> <span class="n">docker</span> <span class="n">images</span>
 <span class="n">REPOSITORY</span>              <span class="n">TAG</span>                 <span class="n">IMAGE</span> <span class="n">ID</span>            <span class="n">CREATED</span>             <span class="n">VIRTUAL</span> <span class="n">SIZE</span>
-<span class="n">windowsservercore</span>       <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">windowsservercore</span>       <span class="mf">10.0.10586.0</span>        <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
 <span class="n">windowsservercore</span>       <span class="n">latest</span>              <span class="mi">6801</span><span class="n">d964fda5</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
-<span class="n">nanoserver</span>              <span class="mf">10.0</span><span class="o">.</span><span class="mf">10586.0</span>        <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
+<span class="n">nanoserver</span>              <span class="mf">10.0.10586.0</span>        <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
 <span class="n">nanoserver</span>              <span class="n">latest</span>              <span class="mi">8572198</span><span class="n">a60f1</span>        <span class="mi">5</span> <span class="n">months</span> <span class="n">ago</span>        <span class="mi">0</span> <span class="n">B</span>
 </pre></div>
 </div>
 <p>To play with a Docker container, you might do something like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="n">windowsservercore</span> <span class="n">powershell</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="n">windowsservercore</span> <span class="n">powershell</span>
 </pre></div>
 </div>
 <p>This will open a new powershell session inside the container.  Exit the
 session to exit the container.</p>
-<p>Notice that, if we had not done the <code class="docutils literal"><span class="pre">docker</span> <span class="pre">tag</span></code> commands above, we would
-have to give the tag in the docker command, as in <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-ti</span> <span class="pre">--rm</span>
+<p>Notice that, if we had not done the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">tag</span></code> commands above, we would
+have to give the tag in the docker command, as in <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-ti</span> <span class="pre">--rm</span>
 <span class="pre">windowsservercore:10.0.10586.0</span> <span class="pre">powershell</span></code>.</p>
 <p>If you are on Windows server, and you want to use the nanoserver images, you
 will need to force docker to use these via Hyper-V containers.  This is
 because nanoserver and Windows server 2016 do not have the same kernel, and
 Windows server containers need to share a kernel with the host.</p>
 <p>To force the creation of Hyper-V containers instead of Windows server
-containers, use the <code class="docutils literal"><span class="pre">--isolation=hyperv</span></code> flag to Docker, as in:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="o">--</span><span class="n">isolation</span><span class="o">=</span><span class="n">hyperv</span> <span class="n">nanoserver</span> <span class="n">cmd</span>
+containers, use the <code class="docutils literal notranslate"><span class="pre">--isolation=hyperv</span></code> flag to Docker, as in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="o">--</span><span class="n">isolation</span><span class="o">=</span><span class="n">hyperv</span> <span class="n">nanoserver</span> <span class="n">cmd</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker">Docker containers</a> for more detail.</p>
@@ -169,16 +156,16 @@ containers, use the <code class="docutils literal"><span class="pre">--isolation
 <h2>Example of installing into a container<a class="headerlink" href="#example-of-installing-into-a-container" title="Permalink to this headline">¶</a></h2>
 <p>Here I am installing three versions of Python and the MSVC command line tools
 for Python 2.7 into a container:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">v</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="n">Downloads</span><span class="p">:</span><span class="n">c</span><span class="p">:</span>\<span class="n">downloads</span> <span class="n">windowsservercore</span> <span class="n">powershell</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">ti</span> <span class="o">--</span><span class="n">rm</span> <span class="o">-</span><span class="n">v</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="n">Downloads</span><span class="p">:</span><span class="n">c</span><span class="p">:</span>\<span class="n">downloads</span> <span class="n">windowsservercore</span> <span class="n">powershell</span>
 </pre></div>
 </div>
 <p>Then (in the container):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">downloads</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">c</span><span class="p">:</span><span class="o">/</span><span class="n">downloads</span>
 <span class="o">.</span>\<span class="n">build_container</span><span class="o">.</span><span class="n">ps1</span>
 </pre></div>
 </div>
-<p>Where <code class="docutils literal"><span class="pre">build_container.ps1</span></code> is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span># Set environment variable for correct code page on Python 2
+<p>Where <code class="docutils literal notranslate"><span class="pre">build_container.ps1</span></code> is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Set environment variable for correct code page on Python 2
 # http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
 [Environment]::SetEnvironmentVariable(&quot;PYTHONIOENCODING&quot;, &quot;UTF-8&quot;, &quot;Machine&quot;)
 $env:PYTHONIOENCODING=&quot;UTF-8&quot;
@@ -201,12 +188,13 @@ cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Notes on Windows containers</a><ul>
 <li><a class="reference internal" href="#set-up-for-using-containers">Set up for using containers</a></li>
@@ -232,15 +220,15 @@ cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -258,12 +246,13 @@ cmd /c python-3.5.1.exe /quiet InstallAllUsers=1 TargetDir=c:\Python35
           <a href="windows_dll_links.html" title="Windows DLLs - information"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Notes on Windows containers</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

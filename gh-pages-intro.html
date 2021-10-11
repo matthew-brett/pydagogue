@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Setting up a gh-pages branch &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="OSX legacy packaging redux" href="legacy_package_redux.html" />
     <link rel="prev" title="Developing on mac" href="develop_mac.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +29,8 @@
         <li class="right" >
           <a href="develop_mac.html" title="Developing on mac"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Setting up a gh-pages branch</a></li> 
       </ul>
     </div>  
 
@@ -54,9 +41,9 @@
             
   <div class="section" id="setting-up-a-gh-pages-branch">
 <h1>Setting up a gh-pages branch<a class="headerlink" href="#setting-up-a-gh-pages-branch" title="Permalink to this headline">¶</a></h1>
-<p>These assume a default sphinx build directory of <code class="docutils literal"><span class="pre">doc/_build</span></code>.</p>
-<p>Makefile target (don&#8217;t forget the tabs before the target body lines):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">-</span><span class="n">clean</span><span class="p">:</span>
+<p>These assume a default sphinx build directory of <code class="docutils literal notranslate"><span class="pre">doc/_build</span></code>.</p>
+<p>Makefile target (don’t forget the tabs before the target body lines):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">-</span><span class="n">clean</span><span class="p">:</span>
     <span class="n">git</span> <span class="n">clean</span> <span class="o">-</span><span class="n">fxd</span>
 
 <span class="n">html</span><span class="p">:</span>
@@ -71,14 +58,14 @@
     <span class="nd">@echo</span> <span class="s1">&#39;Commit and push when ready or git reset --hard &amp;&amp; git checkout master to revert&#39;</span>
 </pre></div>
 </div>
-<p>Make a new empty <code class="docutils literal"><span class="pre">gh-pages</span></code> branch:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
+<p>Make a new empty <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
 <span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span>
 <span class="n">git</span> <span class="n">clean</span> <span class="o">-</span><span class="n">fxd</span>
 </pre></div>
 </div>
 <p>Make some files for working with github pages in this branch:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Ignore the doc and doc build directory</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ignore the doc and doc build directory</span>
 <span class="n">echo</span> <span class="s2">&quot;doc/&quot;</span> <span class="o">&gt;</span> <span class="o">.</span><span class="n">gitignore</span>
 <span class="n">echo</span> <span class="s2">&quot;Github pages for project&quot;</span> <span class="o">&gt;</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>
 <span class="n">touch</span> <span class="o">.</span><span class="n">nojekyll</span>
@@ -87,17 +74,18 @@
 </pre></div>
 </div>
 <p>Set the upstream for this branch:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">remote</span><span class="o">&gt;</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span> <span class="o">--</span><span class="nb">set</span><span class="o">-</span><span class="n">upstream</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">remote</span><span class="o">&gt;</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span> <span class="o">--</span><span class="nb">set</span><span class="o">-</span><span class="n">upstream</span>
 </pre></div>
 </div>
 <p>Now go back to the master branch:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">co</span> <span class="n">master</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">co</span> <span class="n">master</span>
 <span class="n">make</span> <span class="n">gh</span><span class="o">-</span><span class="n">pages</span>
 </pre></div>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -117,15 +105,15 @@
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -142,12 +130,13 @@
         <li class="right" >
           <a href="develop_mac.html" title="Developing on mac"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Setting up a gh-pages branch</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

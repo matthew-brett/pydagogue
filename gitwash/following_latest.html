@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Following the latest source &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Making a patch" href="patching.html" />
     <link rel="prev" title="Install git" href="git_install.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -46,7 +32,8 @@
         <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="index.html" accesskey="U">Working with <em>gitwash</em> source code</a> &#187;</li> 
+          <li class="nav-item nav-item-3"><a href="index.html" accesskey="U">Working with <em>gitwash</em> source code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Following the latest source</a></li> 
       </ul>
     </div>  
 
@@ -58,40 +45,41 @@
   <div class="section" id="following-the-latest-source">
 <span id="following-latest"></span><h1>Following the latest source<a class="headerlink" href="#following-the-latest-source" title="Permalink to this headline">¶</a></h1>
 <p>These are the instructions if you just want to follow the latest
-<em>gitwash</em> source, but you don&#8217;t need to do any development for now.</p>
+<em>gitwash</em> source, but you don’t need to do any development for now.</p>
 <p>The steps are:</p>
 <ul class="simple">
-<li><a class="reference internal" href="git_install.html#install-git"><span class="std std-ref">Install git</span></a></li>
-<li>get local copy of the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash github</a> git repository</li>
-<li>update local copy from time to time</li>
+<li><p><a class="reference internal" href="git_install.html#install-git"><span class="std std-ref">Install git</span></a></p></li>
+<li><p>get local copy of the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash github</a> git repository</p></li>
+<li><p>update local copy from time to time</p></li>
 </ul>
 <div class="section" id="get-the-local-copy-of-the-code">
 <h2>Get the local copy of the code<a class="headerlink" href="#get-the-local-copy-of-the-code" title="Permalink to this headline">¶</a></h2>
 <p>From the command line:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone git://github.com/matthew-brett/gitwash.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git://github.com/matthew-brett/gitwash.git
 </pre></div>
 </div>
-<p>You now have a copy of the code tree in the new <code class="docutils literal"><span class="pre">gitwash</span></code> directory.</p>
+<p>You now have a copy of the code tree in the new <code class="docutils literal notranslate"><span class="pre">gitwash</span></code> directory.</p>
 </div>
 <div class="section" id="updating-the-code">
 <h2>Updating the code<a class="headerlink" href="#updating-the-code" title="Permalink to this headline">¶</a></h2>
 <p>From time to time you may want to pull down the latest code.  Do this with:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> gitwash
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> gitwash
 git pull
 </pre></div>
 </div>
-<p>The tree in <code class="docutils literal"><span class="pre">gitwash</span></code> will now have the latest changes from the initial
+<p>The tree in <code class="docutils literal notranslate"><span class="pre">gitwash</span></code> will now have the latest changes from the initial
 repository.</p>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Following the latest source</a><ul>
 <li><a class="reference internal" href="#get-the-local-copy-of-the-code">Get the local copy of the code</a></li>
@@ -114,15 +102,15 @@ repository.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -142,12 +130,13 @@ repository.</p>
         <li class="nav-item nav-item-0"><a href="../index.html">pydagogue 0.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
-          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li> 
+          <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Following the latest source</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

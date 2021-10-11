@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deleting your master branch &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Gitwash build" href="gitwash_build.html" />
     <link rel="prev" title="Getting started with git gui on Windows" href="git_gui_windows.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="git_gui_windows.html" title="Getting started with git gui on Windows"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="git.html" accesskey="U">Notes and tutorials on git</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Deleting your master branch</a></li> 
       </ul>
     </div>  
 
@@ -55,71 +42,72 @@
             
   <div class="section" id="deleting-your-master-branch">
 <h1>Deleting your master branch<a class="headerlink" href="#deleting-your-master-branch" title="Permalink to this headline">¶</a></h1>
-<p>You&#8217;ve forked some project on github.</p>
+<p>You’ve forked some project on github.</p>
 <p>You clone your fork.</p>
-<p>Now you&#8217;ve got a <code class="docutils literal"><span class="pre">master</span></code> branch.  It&#8217;s the <code class="docutils literal"><span class="pre">master</span></code> branch of your fork.</p>
+<p>Now you’ve got a <code class="docutils literal notranslate"><span class="pre">master</span></code> branch.  It’s the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of your fork.</p>
 <p>It can be tempting to do work in the master branch and ask for a pull request.</p>
 <p>That is best avoided because:</p>
 <ul class="simple">
-<li>It&#8217;s natural to carry on working in your <code class="docutils literal"><span class="pre">master</span></code> and that will pollute your
-pull request with other commits</li>
-<li><code class="docutils literal"><span class="pre">master</span></code> is not a descriptive name for a set of changes.  It&#8217;s easier for
-the person reviewing your code to have something like <code class="docutils literal"><span class="pre">fix-for-issue-12</span></code>.</li>
-<li>You may well also have a tracking branch pointing to the main upstream repo.
-You might call that something like <code class="docutils literal"><span class="pre">upstream-master</span></code>.  It&#8217;s easy to lose
-concentration and forget you are on <code class="docutils literal"><span class="pre">upstream-master</span></code> instead of your
-<code class="docutils literal"><span class="pre">master</span></code>, and nasty errors can result.</li>
+<li><p>It’s natural to carry on working in your <code class="docutils literal notranslate"><span class="pre">master</span></code> and that will pollute your
+pull request with other commits</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">master</span></code> is not a descriptive name for a set of changes.  It’s easier for
+the person reviewing your code to have something like <code class="docutils literal notranslate"><span class="pre">fix-for-issue-12</span></code>.</p></li>
+<li><p>You may well also have a tracking branch pointing to the main upstream repo.
+You might call that something like <code class="docutils literal notranslate"><span class="pre">upstream-master</span></code>.  It’s easy to lose
+concentration and forget you are on <code class="docutils literal notranslate"><span class="pre">upstream-master</span></code> instead of your
+<code class="docutils literal notranslate"><span class="pre">master</span></code>, and nasty errors can result.</p></li>
 </ul>
-<p>To avoid this, I delete the <code class="docutils literal"><span class="pre">master</span></code> branch from my forked copy.  However, to
-make that work, you have to tell <a class="reference external" href="http://github.com">github</a> not to monitor your <code class="docutils literal"><span class="pre">master</span></code> branch.</p>
+<p>To avoid this, I delete the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch from my forked copy.  However, to
+make that work, you have to tell <a class="reference external" href="http://github.com">github</a> not to monitor your <code class="docutils literal notranslate"><span class="pre">master</span></code> branch.</p>
 <div class="section" id="how-to-delete-master">
 <h2>How to delete master<a class="headerlink" href="#how-to-delete-master" title="Permalink to this headline">¶</a></h2>
-<p>First you delete <code class="docutils literal"><span class="pre">master</span></code> in your local clone. To do this we first make a new
-branch called <code class="docutils literal"><span class="pre">placeholder</span></code> or similar, and delete <code class="docutils literal"><span class="pre">master</span></code> from there:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="n">placeholder</span>
+<p>First you delete <code class="docutils literal notranslate"><span class="pre">master</span></code> in your local clone. To do this we first make a new
+branch called <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> or similar, and delete <code class="docutils literal notranslate"><span class="pre">master</span></code> from there:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="n">placeholder</span>
 <span class="n">git</span> <span class="n">checkout</span> <span class="n">placeholder</span>
 <span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">D</span> <span class="n">master</span>
 </pre></div>
 </div>
 <p>All good so far.  We next want to delete the branch on github.  However, if we
 do this the naive way:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="p">:</span><span class="n">master</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="p">:</span><span class="n">master</span>
 </pre></div>
 </div>
 <p>we just get an error like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>remote: error: refusing to delete the current branch: refs/heads/master
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>remote: error: refusing to delete the current branch: refs/heads/master
 To git@github.com:matthew-brett/datarray.git
 ! [remote rejected] master (deletion of the current branch prohibited)
 error: failed to push some refs to &#39;git@github.com:matthew-brett/datarray.git&#39;
 </pre></div>
 </div>
-<p>That is because github is looking at the <code class="docutils literal"><span class="pre">master</span></code> branch to provide the web
+<p>That is because github is looking at the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch to provide the web
 content when you browse that repository.  So we first have to make github look
-at our <code class="docutils literal"><span class="pre">placeholder</span></code> branch instead, then delete <code class="docutils literal"><span class="pre">master</span></code>.</p>
-<p>First push up the <code class="docutils literal"><span class="pre">placeholder</span></code> branch:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">placeholder</span> <span class="c1"># if not on placeholder already</span>
+at our <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> branch instead, then delete <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
+<p>First push up the <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">placeholder</span> <span class="c1"># if not on placeholder already</span>
 <span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">placeholder</span>
 </pre></div>
 </div>
-<p>Then set <code class="docutils literal"><span class="pre">placeholder</span></code> to be the github default branch.  Go to the main github
-page for your forked repository, and click on the &#8220;Admin&#8221; button.</p>
-<p>There&#8217;s a &#8220;Default branch&#8221; dropdown list near the top of the screen.  From
-there, select <code class="docutils literal"><span class="pre">placeholder</span></code>.  On the interface I&#8217;m looking at, a green tick
+<p>Then set <code class="docutils literal notranslate"><span class="pre">placeholder</span></code> to be the github default branch.  Go to the main github
+page for your forked repository, and click on the “Admin” button.</p>
+<p>There’s a “Default branch” dropdown list near the top of the screen.  From
+there, select <code class="docutils literal notranslate"><span class="pre">placeholder</span></code>.  On the interface I’m looking at, a green tick
 appears above the dropdown list.  Now you can do (from the command line):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="p">:</span><span class="n">master</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="p">:</span><span class="n">master</span>
 </pre></div>
 </div>
-<p>and - no master branch...</p>
+<p>and - no master branch…</p>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Deleting your master branch</a><ul>
 <li><a class="reference internal" href="#how-to-delete-master">How to delete master</a></li>
@@ -141,15 +129,15 @@ appears above the dropdown list.  Now you can do (from the command line):</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -167,12 +155,13 @@ appears above the dropdown list.  Now you can do (from the command line):</p>
           <a href="git_gui_windows.html" title="Getting started with git gui on Windows"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="git.html" >Notes and tutorials on git</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Deleting your master branch</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

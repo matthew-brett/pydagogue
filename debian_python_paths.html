@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Debian and Ubuntu Python package paths &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Clean out packages installed with easy_install" href="un_easy_install.html" />
     <link rel="prev" title="Using Pip on Debian / Ubuntu" href="installing_on_debian.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="installing_on_debian.html" title="Using Pip on Debian / Ubuntu"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Debian and Ubuntu Python package paths</a></li> 
       </ul>
     </div>  
 
@@ -61,20 +48,21 @@
 the Debian / Ubuntu packaged Python go into different directories than would
 be the case for a non-Debian Python installation.</p>
 <p>A non-Debian Python installation, such as Python compiled from source, will
-install Python packages into <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code> by
-default, where X.Y is your Python version (such as <code class="docutils literal"><span class="pre">2.7</span></code>).</p>
+install Python packages into <code class="docutils literal notranslate"><span class="pre">/usr/local/lib/pythonX.Y/site-packages</span></code> by
+default, where X.Y is your Python version (such as <code class="docutils literal notranslate"><span class="pre">2.7</span></code>).</p>
 <p>For Debian Python, package files go into different directories depending on
 whether you installed the package from standard Debian packages, or using
-Python&#8217;s own packaging mechanisms, such as <code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or
-<code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.</p>
-<p>Debian Python packages installed via <code class="docutils literal"><span class="pre">apt</span></code> or <code class="docutils literal"><span class="pre">dpkg</span></code> go into a folder
-<code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code>.  You can see where files would go for
-any Debian / Ubuntu package with <code class="docutils literal"><span class="pre">apt-file</span> <span class="pre">list</span> <span class="pre">&lt;package-name&gt;</span></code></p>
-<p><code class="docutils literal"><span class="pre">pip</span></code>, <code class="docutils literal"><span class="pre">easy_install</span></code> or <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> installs go into a
-folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>.</p>
+Python’s own packaging mechanisms, such as <code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> or
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.</p>
+<p>Debian Python packages installed via <code class="docutils literal notranslate"><span class="pre">apt</span></code> or <code class="docutils literal notranslate"><span class="pre">dpkg</span></code> go into a folder
+<code class="docutils literal notranslate"><span class="pre">/usr/lib/pythonX.Y/dist-packages</span></code>.  You can see where files would go for
+any Debian / Ubuntu package with <code class="docutils literal notranslate"><span class="pre">apt-file</span> <span class="pre">list</span> <span class="pre">&lt;package-name&gt;</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code>, <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> installs go into a
+folder <code class="docutils literal notranslate"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code>.</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -94,15 +82,15 @@ folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -120,12 +108,13 @@ folder <code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y
           <a href="installing_on_debian.html" title="Using Pip on Debian / Ubuntu"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Debian and Ubuntu Python package paths</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

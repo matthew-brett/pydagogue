@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Using Microsoft Visual C with Python &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Using Pip on Debian / Ubuntu" href="installing_on_debian.html" />
     <link rel="prev" title="Installing python scripts" href="installing_scripts.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="installing_scripts.html" title="Installing python scripts"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Using Microsoft Visual C with Python</a></li> 
       </ul>
     </div>  
 
@@ -58,189 +45,217 @@
 <div class="section" id="visual-studio-compiler-versions">
 <h2>Visual studio compiler versions<a class="headerlink" href="#visual-studio-compiler-versions" title="Permalink to this headline">¶</a></h2>
 <p>Here is a list of Visual Studio / <a class="reference external" href="http://en.wikipedia.org/wiki/Visual_C%2B%2B">Visual C++</a> version numbers, the value of
-the defined <code class="docutils literal"><span class="pre">_MSC_VER</span></code> during compilation, the alternative year-based name,
+the defined <code class="docutils literal notranslate"><span class="pre">_MSC_VER</span></code> during compilation, the alternative year-based name,
 and the C / C++ runtime library.</p>
-<p>For sources on version numbers / <code class="docutils literal"><span class="pre">_MSC_VER</span></code>:</p>
+<p>For sources on version numbers / <code class="docutils literal notranslate"><span class="pre">_MSC_VER</span></code>:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time">a stackoverflow table</a>;</li>
-<li>a <a class="reference external" href="http://sourceforge.net/p/predef/wiki/Compilers">sourceforge wiki page on compilers</a>;</li>
-<li><a class="reference external" href="http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with">stackoverflow answer on VC and Python</a>.</li>
+<li><p><a class="reference external" href="http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time">a stackoverflow table</a>;</p></li>
+<li><p>a <a class="reference external" href="http://sourceforge.net/p/predef/wiki/Compilers">sourceforge wiki page on compilers</a>;</p></li>
+<li><p><a class="reference external" href="http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with">stackoverflow answer on VC and Python</a>.</p></li>
 </ul>
 <p>For VC runtime libraries:</p>
 <ul class="simple">
-<li>a <a class="reference external" href="https://support.microsoft.com/en-us/kb/154753">list of VS versions / CRTS</a>;</li>
-<li>a <a class="reference external" href="http://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html">history of the MS CRTS</a>;</li>
-<li>the MS <a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh(v=vs.100).aspx">C runtime library pages</a>;</li>
+<li><p>a <a class="reference external" href="https://support.microsoft.com/en-us/kb/154753">list of VS versions / CRTS</a>;</p></li>
+<li><p>a <a class="reference external" href="http://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html">history of the MS CRTS</a>;</p></li>
+<li><p>the MS <a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh(v=vs.100).aspx">C runtime library pages</a>;</p></li>
+<li><p><a class="reference external" href="https://dev.to/yumetodo/list-of-mscver-and-mscfullver-8nd">List of versions / _MSC_VER values</a>.</p></li>
 </ul>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="19%" />
-<col width="13%" />
-<col width="28%" />
-<col width="20%" />
-<col width="20%" />
+<col style="width: 18%" />
+<col style="width: 14%" />
+<col style="width: 28%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">VC++ version</th>
-<th class="head">_MSC_VER</th>
-<th class="head">Alternative name</th>
-<th class="head">C runtime</th>
-<th class="head">C++ runtime</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>VC++ version</p></th>
+<th class="head"><p>_MSC_VER</p></th>
+<th class="head"><p>Alternative name</p></th>
+<th class="head"><p>C runtime</p></th>
+<th class="head"><p>C++ runtime</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>1.0</td>
-<td>800</td>
-<td>&nbsp;</td>
-<td>MSVCRT10.DLL</td>
-<td>&nbsp;</td>
+<tbody>
+<tr class="row-even"><td><p>1.0</p></td>
+<td><p>800</p></td>
+<td></td>
+<td><p>MSVCRT10.DLL</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>2.0</td>
-<td>900</td>
-<td>&nbsp;</td>
-<td>MSVCRT20.DLL</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><p>2.0</p></td>
+<td><p>900</p></td>
+<td></td>
+<td><p>MSVCRT20.DLL</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>4.0</td>
-<td>1000</td>
-<td>&nbsp;</td>
-<td>MSVCRT40.DLL</td>
-<td>&nbsp;</td>
+<tr class="row-even"><td><p>4.0</p></td>
+<td><p>1000</p></td>
+<td></td>
+<td><p>MSVCRT40.DLL</p></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td>4.2</td>
-<td>1020</td>
-<td>&nbsp;</td>
-<td>MSVCRT.DLL</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><p>4.2</p></td>
+<td><p>1020</p></td>
+<td></td>
+<td><p>MSVCRT.DLL</p></td>
+<td></td>
 </tr>
-<tr class="row-even"><td>5.0</td>
-<td>1100</td>
-<td>Visual Studio 97</td>
-<td>MSVCRT.DLL</td>
-<td>MSVCP50.DLL</td>
+<tr class="row-even"><td><p>5.0</p></td>
+<td><p>1100</p></td>
+<td><p>Visual Studio 97</p></td>
+<td><p>MSVCRT.DLL</p></td>
+<td><p>MSVCP50.DLL</p></td>
 </tr>
-<tr class="row-odd"><td>6.0</td>
-<td>1200</td>
-<td>&nbsp;</td>
-<td>MSVCRT.DLL</td>
-<td>MSVCP60.DLL</td>
+<tr class="row-odd"><td><p>6.0</p></td>
+<td><p>1200</p></td>
+<td></td>
+<td><p>MSVCRT.DLL</p></td>
+<td><p>MSVCP60.DLL</p></td>
 </tr>
-<tr class="row-even"><td>7.0</td>
-<td>1300</td>
-<td>Visual Studio 2002</td>
-<td>MSVCR70.DLL</td>
-<td>MSVCP70.DLL</td>
+<tr class="row-even"><td><p>7.0</p></td>
+<td><p>1300</p></td>
+<td><p>Visual Studio 2002</p></td>
+<td><p>MSVCR70.DLL</p></td>
+<td><p>MSVCP70.DLL</p></td>
 </tr>
-<tr class="row-odd"><td>7.1</td>
-<td>1310</td>
-<td>Visual Studio 2003</td>
-<td>MSVCR71.DLL</td>
-<td>MSVCP71.DLL</td>
+<tr class="row-odd"><td><p>7.1</p></td>
+<td><p>1310</p></td>
+<td><p>Visual Studio 2003</p></td>
+<td><p>MSVCR71.DLL</p></td>
+<td><p>MSVCP71.DLL</p></td>
 </tr>
-<tr class="row-even"><td>8.0</td>
-<td>1400</td>
-<td>Visual Studio 2005</td>
-<td>MSVCR80.DLL</td>
-<td>MSVCP80.DLL</td>
+<tr class="row-even"><td><p>8.0</p></td>
+<td><p>1400</p></td>
+<td><p>Visual Studio 2005</p></td>
+<td><p>MSVCR80.DLL</p></td>
+<td><p>MSVCP80.DLL</p></td>
 </tr>
-<tr class="row-odd"><td>9.0</td>
-<td>1500</td>
-<td>Visual Studio 2008</td>
-<td>MSVCR90.DLL</td>
-<td>MSVCP90.DLL</td>
+<tr class="row-odd"><td><p>9.0</p></td>
+<td><p>1500</p></td>
+<td><p>Visual Studio 2008</p></td>
+<td><p>MSVCR90.DLL</p></td>
+<td><p>MSVCP90.DLL</p></td>
 </tr>
-<tr class="row-even"><td>10.0</td>
-<td>1600</td>
-<td>Visual Studio 2010</td>
-<td>MSVCR100.DLL</td>
-<td>MSVCP100.DLL</td>
+<tr class="row-even"><td><p>10.0</p></td>
+<td><p>1600</p></td>
+<td><p>Visual Studio 2010</p></td>
+<td><p>MSVCR100.DLL</p></td>
+<td><p>MSVCP100.DLL</p></td>
 </tr>
-<tr class="row-odd"><td>11.0</td>
-<td>1700</td>
-<td>Visual Studio 2012</td>
-<td>MSVCR110.DLL</td>
-<td>MSVCP110.DLL</td>
+<tr class="row-odd"><td><p>11.0</p></td>
+<td><p>1700</p></td>
+<td><p>Visual Studio 2012</p></td>
+<td><p>MSVCR110.DLL</p></td>
+<td><p>MSVCP110.DLL</p></td>
 </tr>
-<tr class="row-even"><td>12.0</td>
-<td>1800</td>
-<td>Visual Studio 2013</td>
-<td>MSVCR120.DLL</td>
-<td>MSVCP120.DLL</td>
+<tr class="row-even"><td><p>12.0</p></td>
+<td><p>1800</p></td>
+<td><p>Visual Studio 2013</p></td>
+<td><p>MSVCR120.DLL</p></td>
+<td><p>MSVCP120.DLL</p></td>
 </tr>
-<tr class="row-odd"><td>14.0</td>
-<td>1900</td>
-<td>Visual Studio 2015</td>
-<td>See notes</td>
-<td>MSVCP140.DLL</td>
+<tr class="row-odd"><td><p>14.0</p></td>
+<td><p>1900</p></td>
+<td><p>Visual Studio 2015</p></td>
+<td><p>See notes</p></td>
+<td><p>MSVCP140.DLL</p></td>
+</tr>
+<tr class="row-even"><td><p>15.0-15.9.11</p></td>
+<td><p>1910-1916</p></td>
+<td><p>Visual Studio 2017</p></td>
+<td><p>See notes</p></td>
+<td><p>See notes</p></td>
+</tr>
+<tr class="row-odd"><td><p>16.0-16.11.2</p></td>
+<td><p>1920-1929</p></td>
+<td><p>Visual Studio 2019</p></td>
+<td><p>See notes</p></td>
+<td><p>See notes</p></td>
 </tr>
 </tbody>
 </table>
-<p id="msvcrt-notes">For a discussion of the generic <code class="docutils literal"><span class="pre">MSVCRT.DLL</span></code> compared to the DLLs specific
+<p id="msvcrt-notes">For a discussion of the generic <code class="docutils literal notranslate"><span class="pre">MSVCRT.DLL</span></code> compared to the DLLs specific
 to the VC version, see <a class="reference external" href="https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005">this blog post</a>.
 See also <a class="reference external" href="http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll">these comments on using MSVCRT.DLL from Mingw-w64</a>.</p>
 <p>For 2015, MS split the C runtime into two component libraries.  See:</p>
 <ul class="simple">
-<li>blog post on the <a class="reference external" href="http://blogs.msdn.com/b/vcblog/archive/2015/03/03/introducing-the-universal-crt.aspx">the universal CRT</a></li>
-<li>Steve Dower&#8217;s first blog post: <a class="reference external" href="http://stevedower.id.au/blog/building-for-python-3-5">Python 3.5 extensions part 1</a>;</li>
-<li>Steve&#8217;s second blog post: <a class="reference external" href="http://stevedower.id.au/blog/building-for-python-3-5-part-two">Python 3.5 extensions part 2</a>;</li>
+<li><p>blog post on the <a class="reference external" href="http://blogs.msdn.com/b/vcblog/archive/2015/03/03/introducing-the-universal-crt.aspx">the universal CRT</a></p></li>
+<li><p>Steve Dower’s first blog post: <a class="reference external" href="http://stevedower.id.au/blog/building-for-python-3-5">Python 3.5 extensions part 1</a>;</p></li>
+<li><p>Steve’s second blog post: <a class="reference external" href="http://stevedower.id.au/blog/building-for-python-3-5-part-two">Python 3.5 extensions part 2</a>;</p></li>
 </ul>
 <p>The CRT components are:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">ucrtbase.dl</span></code>: &#8220;The Universal CRT (UCRT) contains the functions and
+<li><p><code class="docutils literal notranslate"><span class="pre">ucrtbase.dl</span></code>: “The Universal CRT (UCRT) contains the functions and
 globals exported by the standard C99 CRT library. The UCRT is now a Windows
-component, and ships as part of Windows 10.&#8221; (see <a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>).</li>
-<li><code class="docutils literal"><span class="pre">vcruntime140.dll</span></code> : &#8220;The vcruntime library contains Visual C++ CRT
+component, and ships as part of Windows 10.” (see <a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcruntime140.dll</span></code> : “The vcruntime library contains Visual C++ CRT
 implementation-specific code, such as exception handling and debugging
 support, runtime checks and type information, implementation details and
 certain extended library functions. This library is specific to the version
-of the compiler used.&#8221; (<a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>);</li>
+of the compiler used.” (<a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>);</p></li>
 </ul>
-<p>The C++ runtime for VS2015 is <code class="docutils literal"><span class="pre">MSVCP140.dll</span></code> (<a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>).</p>
+<p>The C++ runtime for VS2015 is <code class="docutils literal notranslate"><span class="pre">MSVCP140.dll</span></code> (<a class="reference external" href="https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx">CRT 2015</a>).</p>
+<p>The C++ runtime for VS2017 is also <code class="docutils literal notranslate"><span class="pre">MSVCP140.dll</span></code>, but, for version 15.6,
+there is an additional <code class="docutils literal notranslate"><span class="pre">MSVCP140_1.dll</span></code>, ABI compatible with <code class="docutils literal notranslate"><span class="pre">MSVCP140.dll</span></code>, but with additional standard library functionality; see <a class="reference external" href="https://docs.microsoft.com/en-us/cpp/c-runtime-library/crt-library-features?view=msvc-160">this MSVC page</a>.</p>
 </div>
 <div class="section" id="visual-studio-versions-used-to-compile-distributed-python-binaries">
 <h2>Visual Studio versions used to compile distributed Python binaries<a class="headerlink" href="#visual-studio-versions-used-to-compile-distributed-python-binaries" title="Permalink to this headline">¶</a></h2>
 <p>See:
 <a class="reference external" href="http://stackoverflow.com/questions/12028762/what-version-of-visual-studio-and-or-mingw-do-i-need-to-build-extension-modules">http://stackoverflow.com/questions/12028762/what-version-of-visual-studio-and-or-mingw-do-i-need-to-build-extension-modules</a></p>
 <p>and: <a class="reference external" href="http://stackoverflow.com/questions/9047072/windows-python-version-and-vc-redistributable-version">http://stackoverflow.com/questions/9047072/windows-python-version-and-vc-redistributable-version</a></p>
-<p>The version of Visual Studio is described in <code class="docutils literal"><span class="pre">readme.txt</span></code> in the <code class="docutils literal"><span class="pre">PCBuild</span></code>
+<p>The version of Visual Studio is described in <code class="docutils literal notranslate"><span class="pre">readme.txt</span></code> in the <code class="docutils literal notranslate"><span class="pre">PCBuild</span></code>
 folder of the source distribution.  The full Visual C++ version number is in
-either <code class="docutils literal"><span class="pre">release.vsprops</span></code> or <code class="docutils literal"><span class="pre">release.props</span></code>.  I read these files from the
-<a class="reference external" href="http://hg.python.org/cpython/tags">CPython Hg web interface</a> for each tagged
-release.</p>
-<table border="1" class="docutils">
+either <code class="docutils literal notranslate"><span class="pre">release.vsprops</span></code> or <code class="docutils literal notranslate"><span class="pre">release.props</span></code>.  I read these files from the
+<a class="reference external" href="http://hg.python.org/cpython/tags">CPython Hg web interface</a> for each
+tagged release, up to Python 3.6, and thence, from the <a class="reference external" href="https://github.com/python/cpython">CPython Github
+repository</a>.</p>
+<table class="docutils align-default">
 <colgroup>
-<col width="54%" />
-<col width="46%" />
+<col style="width: 54%" />
+<col style="width: 46%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Python version</th>
-<th class="head">VC++ version</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Python version</p></th>
+<th class="head"><p>VC++ version</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>2.5.6</td>
-<td>7.1</td>
+<tbody>
+<tr class="row-even"><td><p>2.5.6</p></td>
+<td><p>7.1</p></td>
 </tr>
-<tr class="row-odd"><td>2.6.9</td>
-<td>9.0</td>
+<tr class="row-odd"><td><p>2.6.9</p></td>
+<td><p>9.0</p></td>
 </tr>
-<tr class="row-even"><td>2.7.6</td>
-<td>9.0</td>
+<tr class="row-even"><td><p>2.7.6</p></td>
+<td><p>9.0</p></td>
 </tr>
-<tr class="row-odd"><td>3.2.3</td>
-<td>9.0</td>
+<tr class="row-odd"><td><p>3.2.3</p></td>
+<td><p>9.0</p></td>
 </tr>
-<tr class="row-even"><td>3.3.5</td>
-<td>10.0</td>
+<tr class="row-even"><td><p>3.3.5</p></td>
+<td><p>10.0</p></td>
 </tr>
-<tr class="row-odd"><td>3.4.0</td>
-<td>10.0</td>
+<tr class="row-odd"><td><p>3.4.0</p></td>
+<td><p>10.0</p></td>
 </tr>
-<tr class="row-even"><td>3.5.0</td>
-<td>14.0</td>
+<tr class="row-even"><td><p>3.5.0</p></td>
+<td><p>14.0</p></td>
 </tr>
-<tr class="row-odd"><td>3.6.0</td>
-<td>14.0</td>
+<tr class="row-odd"><td><p>3.6.0</p></td>
+<td><p>14.0</p></td>
+</tr>
+<tr class="row-even"><td><p>3.7.0</p></td>
+<td><p>15.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.8.0</p></td>
+<td><p>15.0</p></td>
+</tr>
+<tr class="row-even"><td><p>3.9.0</p></td>
+<td><p>15.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>3.10.0</p></td>
+<td><p>15.0</p></td>
 </tr>
 </tbody>
 </table>
@@ -250,12 +265,12 @@ release.</p>
 <div class="section" id="pythons-2-7-and-3-2">
 <h3>Pythons 2.7 (and 3.2)<a class="headerlink" href="#pythons-2-7-and-3-2" title="Permalink to this headline">¶</a></h3>
 <p>If you are compiling for Python 2.7, you should first try the installer at
-<a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>.  I installed this for all users from a <code class="docutils literal"><span class="pre">cmd</span></code>
-Window opened with &#8220;run as administrator&#8221;, like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">msiexec</span> <span class="o">/</span><span class="n">i</span> <span class="n">VCForPython27</span><span class="o">.</span><span class="n">msi</span> <span class="n">ALLUSERS</span><span class="o">=</span><span class="mi">1</span>
+<a class="reference external" href="http://aka.ms/vcpython27">http://aka.ms/vcpython27</a>.  I installed this for all users from a <code class="docutils literal notranslate"><span class="pre">cmd</span></code>
+Window opened with “run as administrator”, like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">msiexec</span> <span class="o">/</span><span class="n">i</span> <span class="n">VCForPython27</span><span class="o">.</span><span class="n">msi</span> <span class="n">ALLUSERS</span><span class="o">=</span><span class="mi">1</span>
 </pre></div>
 </div>
-<p>This command line comes from the &#8220;Install instructions&#8221; on the download page.
+<p>This command line comes from the “Install instructions” on the download page.
 For me, the installer runs but closes without showing any signs that it has
 finished.  The compilers seem to work fine nevertheless.  If this standalone
 Python 2.7 compiler set works for you, you should be able to compile both 32
@@ -271,22 +286,22 @@ and 64 bit extensions without further configuration.  If not, see
 This includes the VS 10 / 2010 command line compilers you need to compile
 Python extensions.  I found that I needed to install from the <a class="reference external" href="https://www.microsoft.com/en-us/download/details.aspx?id=8442">offline ISO
 files</a>.  As
-you will see in the &#8220;Install Instructions&#8221;, choose <code class="docutils literal"><span class="pre">GRMSDKX_EN_DVD.iso</span></code> for
+you will see in the “Install Instructions”, choose <code class="docutils literal notranslate"><span class="pre">GRMSDKX_EN_DVD.iso</span></code> for
 64-bit compiles.</p>
 <p>I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.  For
 Windows 7 / server 2008 I used <a class="reference external" href="http://www.slysoft.com/en/virtual-clonedrive.html">Virtual clone drive</a> to mount the ISO files.</p>
-<p>To run the install, navigate to the folder <code class="docutils literal"><span class="pre">Setup</span></code> on the DVD image, and run
-<code class="docutils literal"><span class="pre">SDKSetup.exe</span></code>.  Otherwise you may get an error about .NET components that
+<p>To run the install, navigate to the folder <code class="docutils literal notranslate"><span class="pre">Setup</span></code> on the DVD image, and run
+<code class="docutils literal notranslate"><span class="pre">SDKSetup.exe</span></code>.  Otherwise you may get an error about .NET components that
 cannot be installed.</p>
 <p>Finally, for 64-bits, I needed to apply this patch to avoid a distutils
-compilation error ending in <code class="docutils literal"><span class="pre">ValueError:</span> <span class="pre">['path']</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;C:\Program Files\Microsoft SDKs\Windows</span><span class="se">\v</span><span class="s2">7.1\Bin\SetEnv.cmd&quot;</span> <span class="o">/</span><span class="n">x64</span> <span class="o">&gt;</span> <span class="s2">&quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC</span><span class="se">\b</span><span class="s2">in</span><span class="se">\a</span><span class="s2">md64/vcvars64.bat&quot;</span>
+compilation error ending in <code class="docutils literal notranslate"><span class="pre">ValueError:</span> <span class="pre">['path']</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;C:\Program Files\Microsoft SDKs\Windows</span><span class="se">\v</span><span class="s2">7.1\Bin\SetEnv.cmd&quot;</span> <span class="o">/</span><span class="n">x64</span> <span class="o">&gt;</span> <span class="s2">&quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC</span><span class="se">\b</span><span class="s2">in</span><span class="se">\a</span><span class="s2">md64/vcvars64.bat&quot;</span>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10">this MSVC 2010 SO post</a>
 for details on installing the Windows 7.1 SDK, and <a class="reference external" href="http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins">this SO answer</a>
 for specifics on the 64-bit distutils error that can be fixed with the
-<code class="docutils literal"><span class="pre">echo</span></code> command above.</p>
+<code class="docutils literal notranslate"><span class="pre">echo</span></code> command above.</p>
 </div>
 <div class="section" id="compiling-for-32-bit">
 <h4>Compiling for 32-bit<a class="headerlink" href="#compiling-for-32-bit" title="Permalink to this headline">¶</a></h4>
@@ -299,15 +314,15 @@ for specifics on the 64-bit distutils error that can be fixed with the
 Your fastest route to success will likely be the <a class="reference external" href="http://landinghub.visualstudio.com/visual-cpp-build-tools">MSVC 2015 command line tools</a>.  Install these
 first.  To get Python to recognize the MSVC command line tools, you will need
 a version of the <a class="reference external" href="https://pypi.python.org/pypi/setuptools">setuptools package</a> &gt;= 24.0.  Check by:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import setuptools; print(setuptools.__version__)&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import setuptools; print(setuptools.__version__)&#39;</span>
 </pre></div>
 </div>
 <p>If your version is &lt; 24.0, then:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span>
 </pre></div>
 </div>
 <p>See the <a class="reference external" href="https://wiki.python.org/moin/WindowsCompilers">Python Windows compilers wiki page</a> for more details.</p>
-<p>Another option is to install the whole <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015 community edition</a>.   It&#8217;s a
+<p>Another option is to install the whole <a class="reference external" href="https://www.visualstudio.com/products/visual-studio-community-vs">VS 2015 community edition</a>.   It’s a
 huge 11GB install which took more than an hour on my machine.  Do a custom
 install, and select the VC++ compiler component (it is not selected by
 default).</p>
@@ -315,7 +330,7 @@ default).</p>
 </div>
 <div class="section" id="other-options-for-msvc-installation">
 <span id="other-options"></span><h2>Other options for MSVC installation<a class="headerlink" href="#other-options-for-msvc-installation" title="Permalink to this headline">¶</a></h2>
-<p>If the VS for Python 2.7 installer doesn&#8217;t work for you, or you can&#8217;t get VS
+<p>If the VS for Python 2.7 installer doesn’t work for you, or you can’t get VS
 2010 compilation working for 3.3 / 3.4, see the links below.</p>
 <p>In overview, you may be able to find the free Visual Studio express download
 that you need on the Microsoft site, but until VS 2015, these do not compile
@@ -327,27 +342,28 @@ the links below.</p>
 <h2>Some older links on installing MSVC<a class="headerlink" href="#some-older-links-on-installing-msvc" title="Permalink to this headline">¶</a></h2>
 <p>Here are some links that were useful at some point:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x">Cython windows wiki page</a>.
-This has more on configuration for 64-bit in particular.</li>
-<li><a class="reference external" href="http://www.visualstudio.com/downloads/download-visual-studio-vs">VS downloads</a></li>
-<li><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=2680">VS 2010 SDK</a></li>
-<li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx">How to configure VS 10.0 for 64 bit</a></li>
-<li><a class="reference external" href="http://go.microsoft.com/?linkid=7729279">VS 2008 download</a></li>
-<li>Some <a class="reference external" href="http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64">relevant instructions from a MATLAB user</a>
+<li><p><a class="reference external" href="https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x">Cython windows wiki page</a>.
+This has more on configuration for 64-bit in particular.</p></li>
+<li><p><a class="reference external" href="http://www.visualstudio.com/downloads/download-visual-studio-vs">VS downloads</a></p></li>
+<li><p><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=2680">VS 2010 SDK</a></p></li>
+<li><p><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx">How to configure VS 10.0 for 64 bit</a></p></li>
+<li><p><a class="reference external" href="http://go.microsoft.com/?linkid=7729279">VS 2008 download</a></p></li>
+<li><p>Some <a class="reference external" href="http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64">relevant instructions from a MATLAB user</a>
 for getting the VS 2008 SDK set up (the default downloads will refuse to
-install onto VS express).</li>
-<li><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx">How to configure VS 9.0 for 64 bit</a></li>
+install onto VS express).</p></li>
+<li><p><a class="reference external" href="http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx">How to configure VS 9.0 for 64 bit</a></p></li>
 </ul>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Using Microsoft Visual C with Python</a><ul>
 <li><a class="reference internal" href="#visual-studio-compiler-versions">Visual studio compiler versions</a></li>
@@ -382,15 +398,15 @@ install onto VS express).</li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -408,12 +424,13 @@ install onto VS express).</li>
           <a href="installing_scripts.html" title="Installing python scripts"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Using Microsoft Visual C with Python</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

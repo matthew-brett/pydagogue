@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clean out packages installed with easy_install &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Notes and tutorials on git" href="git.html" />
     <link rel="prev" title="Debian and Ubuntu Python package paths" href="debian_python_paths.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="debian_python_paths.html" title="Debian and Ubuntu Python package paths"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Clean out packages installed with easy_install</a></li> 
       </ul>
     </div>  
 
@@ -55,67 +42,68 @@
             
   <div class="section" id="clean-out-packages-installed-with-easy-install">
 <span id="un-easy-install"></span><h1>Clean out packages installed with easy_install<a class="headerlink" href="#clean-out-packages-installed-with-easy-install" title="Permalink to this headline">¶</a></h1>
-<p>If you have never used <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> on your system you don&#8217;t need to read
+<p>If you have never used <a class="reference external" href="https://pythonhosted.org/setuptools/easy_install.html">easy_install</a> on your system you don’t need to read
 any further - congratulations!</p>
 <p>If you have used easy_install in the past, you might run into some
 difficult-to-diagnose installation problems.  To avoid these, we suggest you
 remove any packages you previously installed with easy_install.</p>
 <p>First you need to find the packages installed with easy_install.  To do this,
-find the <code class="docutils literal"><span class="pre">site-packages</span></code> or <code class="docutils literal"><span class="pre">dist-packages</span></code> directory to which
+find the <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> or <code class="docutils literal notranslate"><span class="pre">dist-packages</span></code> directory to which
 easy_install will have installed.  See <a class="reference internal" href="debian_python_paths.html"><span class="doc">Debian and Ubuntu Python package paths</span></a> for an
 description of the paths to which Python packages can get installed on Debian
 / Ubuntu.  You can check the location of installation directories by looking
-at the contents of <code class="docutils literal"><span class="pre">sys.path</span></code> at the Python prompt:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python
+at the contents of <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> at the Python prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python
 &gt;&gt;&gt; import sys
 &gt;&gt;&gt; print(&quot;\n&quot;.join(sys.path))
 </pre></div>
 </div>
-<p>Some common <code class="docutils literal"><span class="pre">site-packages</span></code> / <code class="docutils literal"><span class="pre">dist-packages</span></code> directory locations follow.
-The <code class="docutils literal"><span class="pre">X.Y</span></code> in <code class="docutils literal"><span class="pre">pythonX.Y</span></code> refers to your Python version, so <code class="docutils literal"><span class="pre">pythonX.Y</span></code>
-corresponds to <code class="docutils literal"><span class="pre">python2.7</span></code> for Python 2.7 etc.</p>
+<p>Some common <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> / <code class="docutils literal notranslate"><span class="pre">dist-packages</span></code> directory locations follow.
+The <code class="docutils literal notranslate"><span class="pre">X.Y</span></code> in <code class="docutils literal notranslate"><span class="pre">pythonX.Y</span></code> refers to your Python version, so <code class="docutils literal notranslate"><span class="pre">pythonX.Y</span></code>
+corresponds to <code class="docutils literal notranslate"><span class="pre">python2.7</span></code> for Python 2.7 etc.</p>
 <ul class="simple">
-<li>Debian / Ubuntu system installation:
-<code class="docutils literal"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code> (see:
-<a class="reference internal" href="debian_python_paths.html"><span class="doc">Debian and Ubuntu Python package paths</span></a>);</li>
-<li>Fedora system installation for pure Python packages:
-<code class="docutils literal"><span class="pre">/usr/lib/pythonX.Y/site-packages</span></code>;</li>
-<li>Fedora 64-bit system installation for packages with compiled extensions:
-<code class="docutils literal"><span class="pre">/usr/lib64/pythonX.Y/site-packages</span></code>;</li>
-<li>Linux home installation:
-<code class="docutils literal"><span class="pre">$HOME/.local/lib/pythonX.Y/site-packages</span></code></li>
-<li>OSX Python.org installation:
-<code class="docutils literal"><span class="pre">/Library/Frameworks/Python.framework/Versions/X.Y/lib/pythonX.Y/site-packages</span></code>;</li>
-<li>OSX Python user installation:
-<code class="docutils literal"><span class="pre">$HOME/Library/Python/X.Y/lib/python/site-packages</span></code>;</li>
+<li><p>Debian / Ubuntu system installation:
+<code class="docutils literal notranslate"><span class="pre">/usr/local/lib/pythonX.Y/dist-packages</span></code> (see:
+<a class="reference internal" href="debian_python_paths.html"><span class="doc">Debian and Ubuntu Python package paths</span></a>);</p></li>
+<li><p>Fedora system installation for pure Python packages:
+<code class="docutils literal notranslate"><span class="pre">/usr/lib/pythonX.Y/site-packages</span></code>;</p></li>
+<li><p>Fedora 64-bit system installation for packages with compiled extensions:
+<code class="docutils literal notranslate"><span class="pre">/usr/lib64/pythonX.Y/site-packages</span></code>;</p></li>
+<li><p>Linux home installation:
+<code class="docutils literal notranslate"><span class="pre">$HOME/.local/lib/pythonX.Y/site-packages</span></code></p></li>
+<li><p>OSX Python.org installation:
+<code class="docutils literal notranslate"><span class="pre">/Library/Frameworks/Python.framework/Versions/X.Y/lib/pythonX.Y/site-packages</span></code>;</p></li>
+<li><p>OSX Python user installation:
+<code class="docutils literal notranslate"><span class="pre">$HOME/Library/Python/X.Y/lib/python/site-packages</span></code>;</p></li>
 </ul>
 <p>Look in your site-packages / dist-packages directory for a file called
-<code class="docutils literal"><span class="pre">easy-install.pth</span></code>.  If no such file exists, you have no easy_install
+<code class="docutils literal notranslate"><span class="pre">easy-install.pth</span></code>.  If no such file exists, you have no easy_install
 installs in that directory.</p>
 <p>If the file does exist, look for the packages listed in the file.  The file
 will look something like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">__plen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-<span class="o">./</span><span class="n">requests</span><span class="o">-</span><span class="mf">0.12</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
-<span class="o">./</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
-<span class="o">./</span><span class="n">certifi</span><span class="o">-</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
-<span class="o">./</span><span class="n">rsa</span><span class="o">-</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
-<span class="o">./</span><span class="n">pyasn1</span><span class="o">-</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">__plen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="o">./</span><span class="n">requests</span><span class="o">-</span><span class="mf">0.12.1</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
+<span class="o">./</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">0.1.3</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
+<span class="o">./</span><span class="n">certifi</span><span class="o">-</span><span class="mf">0.0.8</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
+<span class="o">./</span><span class="n">rsa</span><span class="o">-</span><span class="mf">3.0.1</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
+<span class="o">./</span><span class="n">pyasn1</span><span class="o">-</span><span class="mf">0.1.3</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
 <span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="n">new</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">__plen</span><span class="p">:];</span> <span class="k">del</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">__plen</span><span class="p">:];</span> <span class="n">p</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span><span class="s1">&#39;__egginsert&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="n">p</span><span class="p">:</span><span class="n">p</span><span class="p">]</span><span class="o">=</span><span class="n">new</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">__egginsert</span> <span class="o">=</span> <span class="n">p</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Delete each directory listed. For example, if your package directory
-containing the <code class="docutils literal"><span class="pre">easy-install.pth</span></code> file was
-<code class="docutils literal"><span class="pre">/usr/local/lib/python2.7/dist-packages</span></code> then:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">requests</span><span class="o">-</span><span class="mf">0.12</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">py2</span><span class="o">.</span><span class="mf">7.</span><span class="n">egg</span>
+containing the <code class="docutils literal notranslate"><span class="pre">easy-install.pth</span></code> file was
+<code class="docutils literal notranslate"><span class="pre">/usr/local/lib/python2.7/dist-packages</span></code> then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="mf">.7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">requests</span><span class="o">-</span><span class="mf">0.12.1</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="mf">.7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">oauthlib</span><span class="o">-</span><span class="mf">0.1.3</span><span class="o">-</span><span class="n">py2</span><span class="mf">.7</span><span class="o">.</span><span class="n">egg</span>
 </pre></div>
 </div>
 <p>etc.  When you have finished deleting these directories, delete the
-<code class="docutils literal"><span class="pre">easy-install.pth</span></code> file.  Repeat for each potential package directory.</p>
+<code class="docutils literal notranslate"><span class="pre">easy-install.pth</span></code> file.  Repeat for each potential package directory.</p>
 <p>If you need these packages, then you can re-install them using <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a>.</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -135,15 +123,15 @@ containing the <code class="docutils literal"><span class="pre">easy-install.pth
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -161,12 +149,13 @@ containing the <code class="docutils literal"><span class="pre">easy-install.pth
           <a href="debian_python_paths.html" title="Debian and Ubuntu Python package paths"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Clean out packages installed with easy_install</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

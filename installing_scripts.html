@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Installing python scripts &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Using Microsoft Visual C with Python" href="python_msvc.html" />
     <link rel="prev" title="Python and unicode" href="python_unicode.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="python_unicode.html" title="Python and unicode"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installing python scripts</a></li> 
       </ul>
     </div>  
 
@@ -60,40 +47,40 @@ install scripts on Unix and Windows.</p>
 <p>The repository at <a class="reference external" href="http://github.com/matthew-brett/myscripter">http://github.com/matthew-brett/myscripter</a> has some worked
 running examples of script installation in different situations.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The code on this page is copyright me, Matthew Brett 2013. I hereby
+<p class="admonition-title">Note</p>
+<p>The code on this page is copyright me, Matthew Brett 2013. I hereby
 release it under the <a class="reference external" href="http://creativecommons.org/publicdomain/zero/1.0/legalcode">CC0 license</a></p>
 </div>
 <div class="section" id="the-main-problem">
 <h2>The main problem<a class="headerlink" href="#the-main-problem" title="Permalink to this headline">¶</a></h2>
 <p>As we will see, the main problem is that the standard python installation
-mechanism, <code class="docutils literal"><span class="pre">distutils</span></code>, uses the first line of a script to get the Python
+mechanism, <code class="docutils literal notranslate"><span class="pre">distutils</span></code>, uses the first line of a script to get the Python
 interpreter that will run the script.  A first line of a typical python script
 in Unix might look like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python</span>
 </pre></div>
 </div>
 <p>This is called the <a class="reference external" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>
-line, from &#8220;hash-bang&#8221; - referring to the hash (#) and exclamation (!)
-characters. The shebang line tells Unix : &#8220;Run the rest of this script via the
-interpreter <code class="docutils literal"><span class="pre">/usr/local/bin/python</span></code>&#8221;.</p>
+line, from “hash-bang” - referring to the hash (#) and exclamation (!)
+characters. The shebang line tells Unix : “Run the rest of this script via the
+interpreter <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/python</span></code>”.</p>
 <p>When you install python scripts with a certain python interpreter,
-say <code class="docutils literal"><span class="pre">/usr/local/bin/python2.6</span></code>, distutils changes this line in the installed
+say <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/python2.6</span></code>, distutils changes this line in the installed
 script, to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python2.6</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python2.6</span>
 </pre></div>
 </div>
 <p>(See: <a class="reference external" href="http://docs.python.org/2/distutils/setupscript.html#installing-scripts">http://docs.python.org/2/distutils/setupscript.html#installing-scripts</a>)</p>
 <p>That way we can associate the script with the installing version of Python.</p>
 <p>Now the problem; <em>there is no shebang mechanism in Windows</em>.  That means that
-distutils&#8217; trick for Unix will have no useful effect on Windows.</p>
+distutils’ trick for Unix will have no useful effect on Windows.</p>
 </div>
 <div class="section" id="the-problem-by-example">
 <h2>The problem by example<a class="headerlink" href="#the-problem-by-example" title="Permalink to this headline">¶</a></h2>
-<p>In standard distutils, you tell your <code class="docutils literal"><span class="pre">setup.py</span></code> that some files are scripts. Let&#8217;s make a
-trivial <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
-<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<p>In standard distutils, you tell your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> that some files are scripts. Let’s make a
+trivial <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myscripter&#39;</span><span class="p">,</span>
@@ -102,22 +89,22 @@ trivial <code class="docutils literal"><span class="pre">setup.py</span></code>:
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>and a script <code class="docutils literal"><span class="pre">bin/myscript</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python</span>
+<p>and a script <code class="docutils literal notranslate"><span class="pre">bin/myscript</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/local/bin/python</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note the shebang line pointing to <code class="docutils literal"><span class="pre">/usr/local/bin/python</span></code>.</p>
+<p>Note the shebang line pointing to <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/python</span></code>.</p>
 <p>Install into a <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="n">venv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="n">venv</span>
 <span class="o">.</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span> <span class="c1"># on Unix</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 <span class="n">deactivate</span>
 </pre></div>
 </div>
-<p>The contents of <code class="docutils literal"><span class="pre">./venv/bin/myscript</span></code> are (in my case):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
+<p>The contents of <code class="docutils literal notranslate"><span class="pre">./venv/bin/myscript</span></code> are (in my case):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
@@ -125,14 +112,14 @@ trivial <code class="docutils literal"><span class="pre">setup.py</span></code>:
 <p>Note the new shebang line, imported from the python doing the installation.</p>
 <p>Here is the contents of the installed script on Windows, after running the
 equivalent steps:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Again, distutils has modified the Python path in the shebang line.  But this
 time, the shebang is useless, because:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">myscript</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">myscript</span>
 <span class="s1">&#39;myscript&#39;</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">recognized</span> <span class="k">as</span> <span class="n">an</span> <span class="n">internal</span> <span class="ow">or</span> <span class="n">external</span> <span class="n">command</span><span class="p">,</span>
 <span class="n">operable</span> <span class="n">program</span> <span class="ow">or</span> <span class="n">batch</span> <span class="n">file</span><span class="o">.</span>
 <span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">myscript</span>
@@ -140,10 +127,10 @@ time, the shebang is useless, because:</p>
 <span class="n">operable</span> <span class="n">program</span> <span class="ow">or</span> <span class="n">batch</span> <span class="n">file</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>We could make the script executable on Windows by adding a <code class="docutils literal"><span class="pre">.py</span></code> extension.
+<p>We could make the script executable on Windows by adding a <code class="docutils literal notranslate"><span class="pre">.py</span></code> extension.
 This will associate the file with the <em>default</em> system python, not the Python
 doing the installation; it is the python doing the installation that we want:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">copy</span> <span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">myscript</span> <span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">copy</span> <span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">myscript</span> <span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
         <span class="mi">1</span> <span class="n">file</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">copied</span><span class="o">.</span>
 
 <span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">myscript</span><span class="o">.</span><span class="n">py</span>
@@ -157,37 +144,35 @@ python.</p>
 </div>
 <div class="section" id="setuptools-scripts-in-eggs">
 <h2>setuptools - scripts in eggs<a class="headerlink" href="#setuptools-scripts-in-eggs" title="Permalink to this headline">¶</a></h2>
-<p>In &#8220;setuptools&#8221; I include installation methods using setuptools or its
+<p>In “setuptools” I include installation methods using setuptools or its
 variants, meaning <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> and <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a> itself.</p>
-<p>With the <code class="docutils literal"><span class="pre">setup.py</span></code> above, setuptools variants will do the same thing as
-<code class="docutils literal"><span class="pre">distutils</span></code>, modifying the shebang line, but nothing else of interest in
+<p>With the <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> above, setuptools variants will do the same thing as
+<code class="docutils literal notranslate"><span class="pre">distutils</span></code>, modifying the shebang line, but nothing else of interest in
 solving our Windows problems.  We can run the same code as above through
 setuptools:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="n">venv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="n">venv</span>
 <span class="o">.</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span> <span class="c1"># on Unix</span>
 <span class="n">python</span> <span class="n">setupegg</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 <span class="n">deactivate</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">setupegg.py</span></code> just imports setuptools and runs our original <code class="docutils literal"><span class="pre">setup.py</span></code> script:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
+<p><code class="docutils literal notranslate"><span class="pre">setupegg.py</span></code> just imports setuptools and runs our original <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;setup.py&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">__name__</span><span class="o">=</span><span class="s1">&#39;__main__&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">exec</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;setup.py&#39;</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(</span><span class="vm">__name__</span><span class="o">=</span><span class="s1">&#39;__main__&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>This results in the code being installed into its own <code class="docutils literal"><span class="pre">egg</span></code>.  Thus:</p>
+<p>This results in the code being installed into its own <code class="docutils literal notranslate"><span class="pre">egg</span></code>.  Thus:</p>
 <ul>
-<li><p class="first">All code and the scripts go into a zip file
-<code class="docutils literal"><span class="pre">venv/lib/python2.7/site-packages/myscripter-1.0-py2.7.egg</span></code>.</p>
-</li>
-<li><p class="first">Our actual script as above is now installed into this zip file as item
-<code class="docutils literal"><span class="pre">EGG-INFO/scripts/myscript</span></code>, with shebang line modified as for the standard
-distutils install.</p>
-</li>
-<li><p class="first">The script that goes onto the path, <code class="docutils literal"><span class="pre">venv/bin/myscript</span></code> (on Unix) now has to
+<li><p>All code and the scripts go into a zip file
+<code class="docutils literal notranslate"><span class="pre">venv/lib/python2.7/site-packages/myscripter-1.0-py2.7.egg</span></code>.</p></li>
+<li><p>Our actual script as above is now installed into this zip file as item
+<code class="docutils literal notranslate"><span class="pre">EGG-INFO/scripts/myscript</span></code>, with shebang line modified as for the standard
+distutils install.</p></li>
+<li><p>The script that goes onto the path, <code class="docutils literal notranslate"><span class="pre">venv/bin/myscript</span></code> (on Unix) now has to
 find the script in the egg and run that.  In this case it has the obscure contents:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
 <span class="c1"># EASY-INSTALL-SCRIPT: &#39;myscripter==1.0&#39;,&#39;myscript&#39;</span>
 <span class="n">__requires__</span> <span class="o">=</span> <span class="s1">&#39;myscripter==1.0&#39;</span>
 <span class="kn">import</span> <span class="nn">pkg_resources</span>
@@ -201,21 +186,21 @@ find the script in the egg and run that.  In this case it has the obscure conten
 <div class="section" id="setuptools-and-console-script-entry-points">
 <h2>Setuptools and console_script entry_points<a class="headerlink" href="#setuptools-and-console-script-entry-points" title="Permalink to this headline">¶</a></h2>
 <p>There is another way to define scripts using setuptools, and that is by
-using <code class="docutils literal"><span class="pre">entry_points</span></code> pointing to <code class="docutils literal"><span class="pre">console_scripts</span></code> (see:
+using <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> pointing to <code class="docutils literal notranslate"><span class="pre">console_scripts</span></code> (see:
 <a class="reference external" href="http://packages.python.org/setuptools/setuptools.html#automatic-script-creation">http://packages.python.org/setuptools/setuptools.html#automatic-script-creation</a>
 for detail). To use this mechanism, we move the script code into a library. We
-make a new library directory <code class="docutils literal"><span class="pre">myscripter</span></code>, add an empty file
-<code class="docutils literal"><span class="pre">myscripter/__init__.py</span></code> to identify this as a package directory, and move the
-code for a script into a file <code class="docutils literal"><span class="pre">myscripter/commands.py</span></code> like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+make a new library directory <code class="docutils literal notranslate"><span class="pre">myscripter</span></code>, add an empty file
+<code class="docutils literal notranslate"><span class="pre">myscripter/__init__.py</span></code> to identify this as a package directory, and move the
+code for a script into a file <code class="docutils literal notranslate"><span class="pre">myscripter/commands.py</span></code> like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">def</span> <span class="nf">my_console_script</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Console python starts at &quot;</span> <span class="o">+</span> <span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Then we modify our <code class="docutils literal"><span class="pre">setup.py</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
-<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
+<p>Then we modify our <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
 
 <span class="n">setup</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;myscripter&#39;</span><span class="p">,</span>
@@ -231,24 +216,24 @@ code for a script into a file <code class="docutils literal"><span class="pre">m
 <p>Notice we import setuptools at the top.  This modifies (monkey-patches)
 distutils, imported below that.  We now depend on setuptools at install time to
 write the console script stuff and at run time in finding the installed scripts
-via <code class="docutils literal"><span class="pre">pkg_resources</span></code> (see above and below).  We run an install into a
+via <code class="docutils literal notranslate"><span class="pre">pkg_resources</span></code> (see above and below).  We run an install into a
 virtualenv (Unix again):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="n">venv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virtualenv</span> <span class="n">venv</span>
 <span class="o">.</span> <span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>Our console script got installed:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>(venv)$ my_console_script
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(venv)$ my_console_script
 Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
 </pre></div>
 </div>
-<p>The actual <code class="docutils literal"><span class="pre">venv/bin/my_console_script</span></code> file is just a wrapper for setuptools:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
+<p>The actual <code class="docutils literal notranslate"><span class="pre">venv/bin/my_console_script</span></code> file is just a wrapper for setuptools:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/Users/mb312/dev_trees/myscripter/venv/bin/python</span>
 <span class="c1"># EASY-INSTALL-ENTRY-SCRIPT: &#39;myscripter==1.0&#39;,&#39;console_scripts&#39;,&#39;my_console_script&#39;</span>
 <span class="n">__requires__</span> <span class="o">=</span> <span class="s1">&#39;myscripter==1.0&#39;</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">load_entry_point</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">load_entry_point</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
 <span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s1">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s1">&#39;my_console_script&#39;</span><span class="p">)()</span>
@@ -257,21 +242,21 @@ Console python starts at /Users/mb312/dev_trees/myscripter/venv/bin/..
 </div>
 <p>So far it just seems confusing for no gain.  But, on Windows, we do get an
 executable script:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">virtualenv</span> <span class="n">venv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">virtualenv</span> <span class="n">venv</span>
 <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">venv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
 <span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 <span class="p">(</span><span class="n">venv</span><span class="p">)</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span><span class="o">&gt;</span><span class="n">my_console_script</span>
 <span class="n">Console</span> <span class="n">python</span> <span class="n">starts</span> <span class="n">at</span> <span class="n">C</span><span class="p">:</span>\<span class="n">repos</span>\<span class="n">myscripter</span>\<span class="n">venv</span>
 </pre></div>
 </div>
-<p>How did this happen? The installation put two files in <code class="docutils literal"><span class="pre">venv\Scripts</span></code>, which
-are <code class="docutils literal"><span class="pre">my_console_script.exe</span></code> and <code class="docutils literal"><span class="pre">my_console_script-script.py</span></code>. We recognize
-the contents of <code class="docutils literal"><span class="pre">my_console_script-script.py</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
+<p>How did this happen? The installation put two files in <code class="docutils literal notranslate"><span class="pre">venv\Scripts</span></code>, which
+are <code class="docutils literal notranslate"><span class="pre">my_console_script.exe</span></code> and <code class="docutils literal notranslate"><span class="pre">my_console_script-script.py</span></code>. We recognize
+the contents of <code class="docutils literal notranslate"><span class="pre">my_console_script-script.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!C:\repos\myscripter\venv\Scripts\python.exe</span>
 <span class="c1"># EASY-INSTALL-ENTRY-SCRIPT: &#39;myscripter==1.0&#39;,&#39;console_scripts&#39;,&#39;my_console_script&#39;</span>
 <span class="n">__requires__</span> <span class="o">=</span> <span class="s1">&#39;myscripter==1.0&#39;</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="k">import</span> <span class="n">load_entry_point</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">load_entry_point</span>
 
 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
 <span class="n">load_entry_point</span><span class="p">(</span><span class="s1">&#39;myscripter==1.0&#39;</span><span class="p">,</span> <span class="s1">&#39;console_scripts&#39;</span><span class="p">,</span> <span class="s1">&#39;my_console_script&#39;</span><span class="p">)()</span>
@@ -279,22 +264,22 @@ the contents of <code class="docutils literal"><span class="pre">my_console_scri
 </pre></div>
 </div>
 <p>This is the same (bar the shebang line) as the Unix script.  The new thing is
-the <code class="docutils literal"><span class="pre">my_console_script.exe</span></code> file.  This is a verbatim copy of a compiled
-windows binary file called <code class="docutils literal"><span class="pre">cli.exe</span></code> from the setuptools distribution - see
+the <code class="docutils literal notranslate"><span class="pre">my_console_script.exe</span></code> file.  This is a verbatim copy of a compiled
+windows binary file called <code class="docutils literal notranslate"><span class="pre">cli.exe</span></code> from the setuptools distribution - see
 <a class="reference external" href="http://svn.python.org/projects/sandbox/branches/setuptools-0.6/setuptools/tests/win_script_wrapper.txt">Python wrappers for Windows</a>.
-This <code class="docutils literal"><span class="pre">exe</span></code> binary detects its own name (in this case
-<code class="docutils literal"><span class="pre">my_console_script.exe</span></code>) and looks for a file <code class="docutils literal"><span class="pre">&lt;my-name&gt;-script.py</span></code>
+This <code class="docutils literal notranslate"><span class="pre">exe</span></code> binary detects its own name (in this case
+<code class="docutils literal notranslate"><span class="pre">my_console_script.exe</span></code>) and looks for a file <code class="docutils literal notranslate"><span class="pre">&lt;my-name&gt;-script.py</span></code>
 in the same directory.  So in this case it looks for
-<code class="docutils literal"><span class="pre">my_console_script-script.py</span></code>.  The <code class="docutils literal"><span class="pre">exe</span></code> file then finds the Python to use
-via the shebang line at the beginning of the <code class="docutils literal"><span class="pre">..-script.py</span></code> file, and runs the
-<code class="docutils literal"><span class="pre">..-script.py</span></code> file using that python.  In effect the <code class="docutils literal"><span class="pre">cli.exe</span></code> copy
-<code class="docutils literal"><span class="pre">my_console_script.exe</span></code> implements the Unix shebang logic over
-<code class="docutils literal"><span class="pre">my_console_script-script.py</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">my_console_script-script.py</span></code>.  The <code class="docutils literal notranslate"><span class="pre">exe</span></code> file then finds the Python to use
+via the shebang line at the beginning of the <code class="docutils literal notranslate"><span class="pre">..-script.py</span></code> file, and runs the
+<code class="docutils literal notranslate"><span class="pre">..-script.py</span></code> file using that python.  In effect the <code class="docutils literal notranslate"><span class="pre">cli.exe</span></code> copy
+<code class="docutils literal notranslate"><span class="pre">my_console_script.exe</span></code> implements the Unix shebang logic over
+<code class="docutils literal notranslate"><span class="pre">my_console_script-script.py</span></code>.</p>
 <p>This gets us executable scripts on windows, but it means we have an install
 time and a run time dependency on setuptools.  The run-time dependency is
-because of the <code class="docutils literal"><span class="pre">from</span> <span class="pre">pkg_resources</span> <span class="pre">...</span></code> line in the script file
-(<code class="docutils literal"><span class="pre">pkg_resources</span></code> is from setuptools).  Personally, I find the
-<code class="docutils literal"><span class="pre">console_script</span></code> mechanism more obscure than having script files.</p>
+because of the <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">pkg_resources</span> <span class="pre">...</span></code> line in the script file
+(<code class="docutils literal notranslate"><span class="pre">pkg_resources</span></code> is from setuptools).  Personally, I find the
+<code class="docutils literal notranslate"><span class="pre">console_script</span></code> mechanism more obscure than having script files.</p>
 </div>
 <div class="section" id="making-windows-script-wrappers-via-the-distutils-install-scripts-phase">
 <h2>Making Windows script wrappers via the distutils install-scripts phase<a class="headerlink" href="#making-windows-script-wrappers-via-the-distutils-install-scripts-phase" title="Permalink to this headline">¶</a></h2>
@@ -306,10 +291,10 @@ file.</p>
 <div class="section" id="overriding-the-default-distutils-install-scripts-phase">
 <h3>Overriding the default distutils install-scripts phase<a class="headerlink" href="#overriding-the-default-distutils-install-scripts-phase" title="Permalink to this headline">¶</a></h3>
 <p>The way to hook into the distutils install is to subclass the distutils
-<code class="docutils literal"><span class="pre">install_scripts</span></code> command like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
-<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
-<span class="kn">from</span> <span class="nn">distutils.command.install_scripts</span> <span class="k">import</span> <span class="n">install_scripts</span>
+<code class="docutils literal notranslate"><span class="pre">install_scripts</span></code> command like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.command.install_scripts</span> <span class="kn">import</span> <span class="n">install_scripts</span>
 
 <span class="k">class</span> <span class="nc">my_install_scripts</span><span class="p">(</span><span class="n">install_scripts</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -325,8 +310,8 @@ file.</p>
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>This gets run during <code class="docutils literal"><span class="pre">install</span></code> obviously:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python setup.py install
+<p>This gets run during <code class="docutils literal notranslate"><span class="pre">install</span></code> obviously:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
 running install
 running build
 running build_scripts
@@ -340,7 +325,7 @@ Doing something in install
 </pre></div>
 </div>
 <p>Less obviously, it gets run making a binary installer such as an egg:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ python setupegg.py bdist_egg
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setupegg.py bdist_egg
 running bdist_egg
 running egg_info
 ...
@@ -361,53 +346,53 @@ Doing something in install
 </div>
 <div class="section" id="different-ways-the-installer-can-be-run">
 <h3>Different ways the installer can be run<a class="headerlink" href="#different-ways-the-installer-can-be-run" title="Permalink to this headline">¶</a></h3>
-<p>To get some general mechanism working, it&#8217;s good to review all the possible ways
+<p>To get some general mechanism working, it’s good to review all the possible ways
 that your script could get installed on Windows or Unix.  These are:</p>
 <ul class="simple">
-<li>Direct installation from the source repository;</li>
-<li>Installation from a source archive (<code class="docutils literal"><span class="pre">zip</span></code> or <code class="docutils literal"><span class="pre">tar.gz</span></code>);</li>
-<li>Installation by double click from a binary <code class="docutils literal"><span class="pre">exe</span></code> installer (Windows) or
-<code class="docutils literal"><span class="pre">mpkg</span></code> installer (OSX);</li>
-<li>Installation by <code class="docutils literal"><span class="pre">easy_install</span></code> from binary <code class="docutils literal"><span class="pre">exe</span></code> installer (Windows) or
-an <code class="docutils literal"><span class="pre">egg</span></code> binary file (any platform);</li>
-<li>Installation by <code class="docutils literal"><span class="pre">pip</span></code> from binary <code class="docutils literal"><span class="pre">.whl</span></code> file (any platform).</li>
+<li><p>Direct installation from the source repository;</p></li>
+<li><p>Installation from a source archive (<code class="docutils literal notranslate"><span class="pre">zip</span></code> or <code class="docutils literal notranslate"><span class="pre">tar.gz</span></code>);</p></li>
+<li><p>Installation by double click from a binary <code class="docutils literal notranslate"><span class="pre">exe</span></code> installer (Windows) or
+<code class="docutils literal notranslate"><span class="pre">mpkg</span></code> installer (OSX);</p></li>
+<li><p>Installation by <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> from binary <code class="docutils literal notranslate"><span class="pre">exe</span></code> installer (Windows) or
+an <code class="docutils literal notranslate"><span class="pre">egg</span></code> binary file (any platform);</p></li>
+<li><p>Installation by <code class="docutils literal notranslate"><span class="pre">pip</span></code> from binary <code class="docutils literal notranslate"><span class="pre">.whl</span></code> file (any platform).</p></li>
 </ul>
-<p>Let&#8217;s consider the binary <code class="docutils literal"><span class="pre">egg</span></code> install.  Here you&#8217;ve made a binary egg using
-<code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_egg</span></code>.  You upload this to <a class="reference external" href="http://pypi.python.org">pypi</a> or some other good
+<p>Let’s consider the binary <code class="docutils literal notranslate"><span class="pre">egg</span></code> install.  Here you’ve made a binary egg using
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">bdist_egg</span></code>.  You upload this to <a class="reference external" href="http://pypi.python.org">pypi</a> or some other good
 place.  Someone then downloads it, and installs with the equivalent of
-<code class="docutils literal"><span class="pre">easy_install</span> <span class="pre">my_package_version.egg</span></code>.  Pip and wheels work in a very
+<code class="docutils literal notranslate"><span class="pre">easy_install</span> <span class="pre">my_package_version.egg</span></code>.  Pip and wheels work in a very
 similar way.</p>
 </div>
 <div class="section" id="how-to-know-the-install-time-python-for-a-binary-installer">
 <h3>How to know the install-time python for a binary installer?<a class="headerlink" href="#how-to-know-the-install-time-python-for-a-binary-installer" title="Permalink to this headline">¶</a></h3>
-<p>If we hook into the distutils install-scripts phase (not the <code class="docutils literal"><span class="pre">easy_install</span></code>
+<p>If we hook into the distutils install-scripts phase (not the <code class="docutils literal notranslate"><span class="pre">easy_install</span></code>
 phase), we saw above that this is run <em>when we build the binary egg</em>.  That
 means, that the only python we know about, during the distutils install-scripts
 phase, is the python with which we build the egg.  However, the python called
-within <code class="docutils literal"><span class="pre">easy_install</span></code> on the user&#8217;s computer, may well be at a different path,
-or in a virtualenv.  So we can&#8217;t know, at the distutils install phase, what
+within <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> on the user’s computer, may well be at a different path,
+or in a virtualenv.  So we can’t know, at the distutils install phase, what
 the eventual python path will be.  There is <a class="reference external" href="http://stackoverflow.com/questions/250038/how-can-i-add-post-install-scripts-to-easy-install-setuptools-distutils">no way</a>
-of making a post-install hook for the <code class="docutils literal"><span class="pre">easy_install</span></code> phase on the egg file in
+of making a post-install hook for the <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> phase on the egg file in
 particular.  However, we can rely on the shebang line of the script being set
-correctly by the <code class="docutils literal"><span class="pre">easy_install</span></code> phase.</p>
+correctly by the <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> phase.</p>
 <p>That means that, in order for our distutils install trick to work, we need to
-make a windows wrapper like the <code class="docutils literal"><span class="pre">cli.exe</span></code> wrapper from setuptools, that can
+make a windows wrapper like the <code class="docutils literal notranslate"><span class="pre">cli.exe</span></code> wrapper from setuptools, that can
 analyze the shebang line of the installed script and call python from that.</p>
 </div>
 <div class="section" id="a-fairly-simple-windows-bat-file-solution">
 <h3>A fairly simple Windows bat file solution<a class="headerlink" href="#a-fairly-simple-windows-bat-file-solution" title="Permalink to this headline">¶</a></h3>
 <p>Luckily that is not very hard using some simple windows batch programing.  Here
-then is a <code class="docutils literal"><span class="pre">setup.py</span></code> that works with simple script files, and writes out a
+then is a <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> that works with simple script files, and writes out a
 Windows wrapper to analyze the script file shebang line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">with_statement</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">with_statement</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span><span class="p">,</span> <span class="n">splitext</span><span class="p">,</span> <span class="n">split</span> <span class="k">as</span> <span class="n">psplit</span>
-<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="k">import</span> <span class="n">setup</span>
-<span class="kn">from</span> <span class="nn">distutils.command.install_scripts</span> <span class="k">import</span> <span class="n">install_scripts</span>
-<span class="kn">from</span> <span class="nn">distutils</span> <span class="k">import</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span><span class="p">,</span> <span class="n">splitext</span><span class="p">,</span> <span class="n">split</span> <span class="k">as</span> <span class="n">psplit</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span> <span class="nn">distutils.command.install_scripts</span> <span class="kn">import</span> <span class="n">install_scripts</span>
+<span class="kn">from</span> <span class="nn">distutils</span> <span class="kn">import</span> <span class="n">log</span>
 
 <span class="n">BAT_TEMPLATE</span> <span class="o">=</span> \
-<span class="sd">r&quot;&quot;&quot;@echo off</span>
+<span class="sa">r</span><span class="sd">&quot;&quot;&quot;@echo off</span>
 <span class="sd">REM wrapper to use shebang first line of {FNAME}</span>
 <span class="sd">set mypath=%~dp0</span>
 <span class="sd">set pyscript=&quot;%mypath%{FNAME}&quot;</span>
@@ -456,7 +441,7 @@ Windows wrapper to analyze the script file shebang line:</p>
     <span class="p">)</span>
 </pre></div>
 </div>
-<p>See the <code class="docutils literal"><span class="pre">master</span></code> branch of <a class="reference external" href="https://github.com/matthew-brett/myscripter">https://github.com/matthew-brett/myscripter</a> for the
+<p>See the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of <a class="reference external" href="https://github.com/matthew-brett/myscripter">https://github.com/matthew-brett/myscripter</a> for the
 full example.  This seems to work for all of the installation methods above,
 without requiring setuptools.</p>
 </div>
@@ -464,12 +449,13 @@ without requiring setuptools.</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Installing python scripts</a><ul>
 <li><a class="reference internal" href="#the-main-problem">The main problem</a></li>
@@ -501,15 +487,15 @@ without requiring setuptools.</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -527,12 +513,13 @@ without requiring setuptools.</p>
           <a href="python_unicode.html" title="Python and unicode"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installing python scripts</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

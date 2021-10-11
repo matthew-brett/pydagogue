@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Making your own copy (fork) of gitwash &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="../_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Set up your fork" href="set_up_fork.html" />
     <link rel="prev" title="Git for development" href="git_development.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -47,7 +33,8 @@
           <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
-          <li class="nav-item nav-item-4"><a href="git_development.html" accesskey="U">Git for development</a> &#187;</li> 
+          <li class="nav-item nav-item-4"><a href="git_development.html" accesskey="U">Git for development</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Making your own copy (fork) of gitwash</a></li> 
       </ul>
     </div>  
 
@@ -60,22 +47,20 @@
 <span id="forking"></span><h1>Making your own copy (fork) of gitwash<a class="headerlink" href="#making-your-own-copy-fork-of-gitwash" title="Permalink to this headline">¶</a></h1>
 <p>You need to do this only once.  The instructions here are very similar
 to the instructions at <a class="reference external" href="https://help.github.com/forking/">https://help.github.com/forking/</a> — please see
-that page for more detail.  We&#8217;re repeating some of it here just to give the
+that page for more detail.  We’re repeating some of it here just to give the
 specifics for the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> project, and to suggest some default names.</p>
 <div class="section" id="set-up-and-configure-a-github-account">
 <h2>Set up and configure a github account<a class="headerlink" href="#set-up-and-configure-a-github-account" title="Permalink to this headline">¶</a></h2>
-<p>If you don&#8217;t have a github account, go to the github page, and make one.</p>
+<p>If you don’t have a github account, go to the github page, and make one.</p>
 <p>You then need to configure your account to allow write access — see
-the <code class="docutils literal"><span class="pre">Generating</span> <span class="pre">SSH</span> <span class="pre">keys</span></code> help on <a class="reference external" href="https://help.github.com">github help</a>.</p>
+the <code class="docutils literal notranslate"><span class="pre">Generating</span> <span class="pre">SSH</span> <span class="pre">keys</span></code> help on <a class="reference external" href="https://help.github.com">github help</a>.</p>
 </div>
 <div class="section" id="create-your-own-forked-copy-of-gitwash">
 <h2>Create your own forked copy of <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a><a class="headerlink" href="#create-your-own-forked-copy-of-gitwash" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Log into your github account.</p>
-</li>
-<li><p class="first">Go to the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> github home at <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash github</a>.</p>
-</li>
-<li><p class="first">Click on the <em>fork</em> button:</p>
+<li><p>Log into your github account.</p></li>
+<li><p>Go to the <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a> github home at <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash github</a>.</p></li>
+<li><p>Click on the <em>fork</em> button:</p>
 <img alt="../_images/forking_button.png" src="../_images/forking_button.png" />
 <p>Now, after a short pause, you should find yourself at the home page for
 your own forked copy of <a class="reference external" href="http://github.com/matthew-brett/gitwash">gitwash</a>.</p>
@@ -85,12 +70,13 @@ your own forked copy of <a class="reference external" href="http://github.com/ma
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Making your own copy (fork) of gitwash</a><ul>
 <li><a class="reference internal" href="#set-up-and-configure-a-github-account">Set up and configure a github account</a></li>
@@ -113,15 +99,15 @@ your own forked copy of <a class="reference external" href="http://github.com/ma
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -142,12 +128,13 @@ your own forked copy of <a class="reference external" href="http://github.com/ma
           <li class="nav-item nav-item-1"><a href="../git.html" >Notes and tutorials on git</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="../gitwash_build.html" >Gitwash build</a> &#187;</li>
           <li class="nav-item nav-item-3"><a href="index.html" >Working with <em>gitwash</em> source code</a> &#187;</li>
-          <li class="nav-item nav-item-4"><a href="git_development.html" >Git for development</a> &#187;</li> 
+          <li class="nav-item nav-item-4"><a href="git_development.html" >Git for development</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Making your own copy (fork) of gitwash</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

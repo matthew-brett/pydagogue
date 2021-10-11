@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>What is a decorator? &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="What is a decorator, really?" href="decorating_for_smart_people.html" />
     <link rel="prev" title="Notes and tutorials on Python" href="python.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="python.html" title="Notes and tutorials on Python"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What is a decorator?</a></li> 
       </ul>
     </div>  
 
@@ -55,23 +42,23 @@
             
   <div class="section" id="what-is-a-decorator">
 <span id="decorating-for-dummies"></span><h1>What is a decorator?<a class="headerlink" href="#what-is-a-decorator" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt>A decorator is</dt>
-<dd>a function, that takes a function as input, and returns a
-function</dd>
+<dl class="simple">
+<dt>A decorator is</dt><dd><p>a function, that takes a function as input, and returns a
+function</p>
+</dd>
 </dl>
 <p>What is a decorator again?</p>
-<dl class="docutils">
-<dt>A decorator is</dt>
-<dd>a function, that takes a function as input, and returns a
-function</dd>
+<dl class="simple">
+<dt>A decorator is</dt><dd><p>a function, that takes a function as input, and returns a
+function</p>
+</dd>
 </dl>
 <p>Is that really what a decorator is?</p>
-<p>No, it isn&#8217;t (see <a class="reference internal" href="decorating_for_smart_people.html#decorating-for-smart-people"><span class="std std-ref">What is a decorator, really?</span></a>) but it is almost
-always what a decorator is.  So, for now, let&#8217;s pretend.  Honestly, it
+<p>No, it isn’t (see <a class="reference internal" href="decorating_for_smart_people.html#decorating-for-smart-people"><span class="std std-ref">What is a decorator, really?</span></a>) but it is almost
+always what a decorator is.  So, for now, let’s pretend.  Honestly, it
 will help.</p>
-<p>Here&#8217;s an example of a simple decorator:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mydec</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>
+<p>Here’s an example of a simple decorator:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">mydec</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;Am preparing the function&#39;</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="nf">_decorating_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="nb">print</span> <span class="s1">&#39;I am running the original function&#39;</span>
@@ -82,26 +69,26 @@ will help.</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">_decorating_function</span>
 </pre></div>
 </div>
-<p>Note that <code class="docutils literal"><span class="pre">mydec</span></code> takes a function as input, and returns a
+<p>Note that <code class="docutils literal notranslate"><span class="pre">mydec</span></code> takes a function as input, and returns a
 function as output.</p>
-<p>Now, let&#8217;s say we have some function <code class="docutils literal"><span class="pre">f1</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<p>Now, let’s say we have some function <code class="docutils literal notranslate"><span class="pre">f1</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">10</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">20</span>
 </pre></div>
 </div>
-<p>We can decorate it with our decorator.  You&#8217;ll see the decoration
+<p>We can decorate it with our decorator.  You’ll see the decoration
 happening in the output below.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
 <span class="go">Am preparing the function</span>
 <span class="go">Done preparing, returning new function</span>
 </pre></div>
 </div>
-<p>Now, running the decorated function (<code class="docutils literal"><span class="pre">f2</span></code>) reveals the print
+<p>Now, running the decorated function (<code class="docutils literal notranslate"><span class="pre">f2</span></code>) reveals the print
 statements we put in, in the new function, that the decorator returned.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">I am running the original function</span>
 <span class="go">I am returning the value from the original function</span>
 <span class="go">20</span>
@@ -109,8 +96,8 @@ statements we put in, in the new function, that the decorator returned.</p>
 </div>
 <p>This is all very ordinary Python.  But, as of Python 2.4, there is a
 special syntax for applying a decorator to a function being
-defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</span></code> symbol.  We can use our decorator like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mydec</span>
+defined.  It uses the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol.  We can use our decorator like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mydec</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">20</span>
 <span class="gp">...</span>
@@ -119,14 +106,14 @@ defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</sp
 </pre></div>
 </div>
 <p>Running it shows our print statements again:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">I am running the original function</span>
 <span class="go">I am returning the value from the original function</span>
 <span class="go">40</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">&#64;</span></code> is just a syntax addition, and does exactly the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> is just a syntax addition, and does exactly the following:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">20</span>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span> <span class="o">=</span> <span class="n">mydec</span><span class="p">(</span><span class="n">f3</span><span class="p">)</span>
@@ -135,23 +122,23 @@ defined.  It uses the <code class="docutils literal"><span class="pre">&#64;</sp
 </pre></div>
 </div>
 <p>which gives exactly the same result as we saw above</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">I am running the original function</span>
 <span class="go">I am returning the value from the original function</span>
 <span class="go">40</span>
 </pre></div>
 </div>
-<p>Using decorators with the <code class="docutils literal"><span class="pre">&#64;</span></code> syntax can be more complicated.</p>
-<p>The &#8216;&#64;&#8217; syntax allows you to put in an <em>expression</em>  that returns a
-decorator.  Obviously, above, the expression <code class="docutils literal"><span class="pre">'mydec'</span></code> returns the
-decorating function <code class="docutils literal"><span class="pre">mydec</span></code>. But, you can also enter a more
+<p>Using decorators with the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> syntax can be more complicated.</p>
+<p>The ‘&#64;’ syntax allows you to put in an <em>expression</em>  that returns a
+decorator.  Obviously, above, the expression <code class="docutils literal notranslate"><span class="pre">'mydec'</span></code> returns the
+decorating function <code class="docutils literal notranslate"><span class="pre">mydec</span></code>. But, you can also enter a more
 complicated expression that returns a decorator.  A decorator is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="n">function</span><span class="p">,</span> <span class="n">that</span> <span class="n">takes</span> <span class="n">a</span> <span class="n">function</span> <span class="k">as</span> <span class="nb">input</span><span class="p">,</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">a</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="n">function</span><span class="p">,</span> <span class="n">that</span> <span class="n">takes</span> <span class="n">a</span> <span class="n">function</span> <span class="k">as</span> <span class="nb">input</span><span class="p">,</span> <span class="ow">and</span> <span class="n">returns</span> <span class="n">a</span>
 <span class="n">function</span>
 </pre></div>
 </div>
 <p>for example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dec_maker</span><span class="p">(</span><span class="n">scale_by</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dec_maker</span><span class="p">(</span><span class="n">scale_by</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="c1"># This function, returns a decorator</span>
 <span class="gp">... </span>    <span class="c1"># A decorator is: a function, that takes a function as</span>
 <span class="gp">... </span>    <span class="c1">#    input, and returns a function</span>
@@ -167,8 +154,8 @@ complicated expression that returns a decorator.  A decorator is:</p>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">actual_decorator</span>
 </pre></div>
 </div>
-<p>Without the <code class="docutils literal"><span class="pre">&#64;</span></code> syntax, you could use <code class="docutils literal"><span class="pre">dec_maker</span></code> like this</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resulting_decorator</span> <span class="o">=</span> <span class="n">dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<p>Without the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> syntax, you could use <code class="docutils literal notranslate"><span class="pre">dec_maker</span></code> like this</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">resulting_decorator</span> <span class="o">=</span> <span class="n">dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="go">About to make the decorator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span> <span class="o">=</span> <span class="n">resulting_decorator</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
 <span class="go">Applying the actual decorator</span>
@@ -179,7 +166,7 @@ complicated expression that returns a decorator.  A decorator is:</p>
 </pre></div>
 </div>
 <p>The &#64; equivalent is this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@dec_maker</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">f4</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="n">arg</span> <span class="o">*</span> <span class="mi">10</span>
 <span class="gp">...</span>
@@ -187,7 +174,7 @@ complicated expression that returns a decorator.  A decorator is:</p>
 <span class="go">Applying the actual decorator</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f4</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">Running decorated func</span>
 <span class="go">Scaling original return value by 100</span>
 <span class="go">2000</span>
@@ -196,6 +183,7 @@ complicated expression that returns a decorator.  A decorator is:</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -215,15 +203,15 @@ complicated expression that returns a decorator.  A decorator is:</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -241,12 +229,13 @@ complicated expression that returns a decorator.  A decorator is:</p>
           <a href="python.html" title="Notes and tutorials on Python"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What is a decorator?</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

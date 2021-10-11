@@ -28,25 +28,29 @@ For VC runtime libraries:
   <http://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html>`_;
 * the MS `C runtime library pages
   <https://msdn.microsoft.com/en-us/library/abx4dbyh(v=vs.100).aspx>`_;
+* `List of versions / _MSC_VER values
+  <https://dev.to/yumetodo/list-of-mscver-and-mscfullver-8nd>`_.
 
-============  ======== ==================  =============   =============
-VC++ version  _MSC_VER Alternative name    C runtime       C++ runtime
-============  ======== ==================  =============   =============
-1.0           800                          MSVCRT10.DLL
-2.0           900                          MSVCRT20.DLL
-4.0           1000                         MSVCRT40.DLL
-4.2           1020                         MSVCRT.DLL
-5.0           1100     Visual Studio 97    MSVCRT.DLL      MSVCP50.DLL
-6.0           1200                         MSVCRT.DLL      MSVCP60.DLL
-7.0           1300     Visual Studio 2002  MSVCR70.DLL     MSVCP70.DLL
-7.1           1310     Visual Studio 2003  MSVCR71.DLL     MSVCP71.DLL
-8.0           1400     Visual Studio 2005  MSVCR80.DLL     MSVCP80.DLL
-9.0           1500     Visual Studio 2008  MSVCR90.DLL     MSVCP90.DLL
-10.0          1600     Visual Studio 2010  MSVCR100.DLL    MSVCP100.DLL
-11.0          1700     Visual Studio 2012  MSVCR110.DLL    MSVCP110.DLL
-12.0          1800     Visual Studio 2013  MSVCR120.DLL    MSVCP120.DLL
-14.0          1900     Visual Studio 2015  See notes       MSVCP140.DLL
-============  ======== ==================  =============   =============
+============  =========  ==================  =============   =============
+VC++ version  _MSC_VER   Alternative name    C runtime       C++ runtime
+============  =========  ==================  =============   =============
+1.0           800                            MSVCRT10.DLL
+2.0           900                            MSVCRT20.DLL
+4.0           1000                           MSVCRT40.DLL
+4.2           1020                           MSVCRT.DLL
+5.0           1100       Visual Studio 97    MSVCRT.DLL      MSVCP50.DLL
+6.0           1200                           MSVCRT.DLL      MSVCP60.DLL
+7.0           1300       Visual Studio 2002  MSVCR70.DLL     MSVCP70.DLL
+7.1           1310       Visual Studio 2003  MSVCR71.DLL     MSVCP71.DLL
+8.0           1400       Visual Studio 2005  MSVCR80.DLL     MSVCP80.DLL
+9.0           1500       Visual Studio 2008  MSVCR90.DLL     MSVCP90.DLL
+10.0          1600       Visual Studio 2010  MSVCR100.DLL    MSVCP100.DLL
+11.0          1700       Visual Studio 2012  MSVCR110.DLL    MSVCP110.DLL
+12.0          1800       Visual Studio 2013  MSVCR120.DLL    MSVCP120.DLL
+14.0          1900       Visual Studio 2015  See notes       MSVCP140.DLL
+15.0-15.9.11  1910-1916  Visual Studio 2017  See notes       See notes
+16.0-16.11.2  1920-1929  Visual Studio 2019  See notes       See notes
+============  =========  ==================  =============   =============
 
 .. _msvcrt-notes:
 
@@ -79,6 +83,9 @@ The CRT components are:
 
 The C++ runtime for VS2015 is ``MSVCP140.dll`` (`CRT 2015`_).
 
+The C++ runtime for VS2017 is also ``MSVCP140.dll``, but, for version 15.6,
+there is an additional ``MSVCP140_1.dll``, ABI compatible with ``MSVCP140.dll``, but with additional standard library functionality; see `this MSVC page <https://docs.microsoft.com/en-us/cpp/c-runtime-library/crt-library-features?view=msvc-160>`_.
+
 ******************************************************************
 Visual Studio versions used to compile distributed Python binaries
 ******************************************************************
@@ -91,8 +98,9 @@ and: http://stackoverflow.com/questions/9047072/windows-python-version-and-vc-re
 The version of Visual Studio is described in ``readme.txt`` in the ``PCBuild``
 folder of the source distribution.  The full Visual C++ version number is in
 either ``release.vsprops`` or ``release.props``.  I read these files from the
-`CPython Hg web interface <http://hg.python.org/cpython/tags>`_ for each tagged
-release.
+`CPython Hg web interface <http://hg.python.org/cpython/tags>`_ for each
+tagged release, up to Python 3.6, and thence, from the `CPython Github
+repository <https://github.com/python/cpython>`_.
 
 ============== ============
 Python version VC++ version
@@ -105,6 +113,10 @@ Python version VC++ version
 3.4.0          10.0
 3.5.0          14.0
 3.6.0          14.0
+3.7.0          15.0
+3.8.0          15.0
+3.9.0          15.0
+3.10.0         15.0
 ============== ============
 
 ****************************************************

@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Developing on windows &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Developing on linux" href="develop_linux.html" />
     <link rel="prev" title="Floating point error" href="floating_error.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="floating_error.html" title="Floating point error"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" accesskey="U">General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Developing on windows</a></li> 
       </ul>
     </div>  
 
@@ -59,29 +46,29 @@
 semi-standard development environment for <a class="reference external" href="http://www.python.org">python</a> packaging on windows.</p>
 <div class="section" id="my-system-s">
 <h2>My system(s)<a class="headerlink" href="#my-system-s" title="Permalink to this headline">¶</a></h2>
-<p>I&#8217;ve got several Windows 7 instances running mainly as buildbot machines, a
+<p>I’ve got several Windows 7 instances running mainly as buildbot machines, a
 Windows 8 machine kindly donated by Chris Holdgraf of the UC Berkeley Knight
 lab, and some virtual machines, also running Windows 7.  I used to have some XP
-machines, but UC Berkeley doesn&#8217;t allow them on the network any more.</p>
+machines, but UC Berkeley doesn’t allow them on the network any more.</p>
 </div>
 <div class="section" id="basic-setup">
 <h2>Basic setup<a class="headerlink" href="#basic-setup" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Shell: in the old days, we had to use the awful Windows <code class="docutils literal"><span class="pre">cmd</span></code> shell. It&#8217;s still
+<li><p>Shell: in the old days, we had to use the awful Windows <code class="docutils literal notranslate"><span class="pre">cmd</span></code> shell. It’s still
 useful sometimes, but the newer <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> is vastly better.  It comes
 installed with Windows 7 and later.  If you are using Vista or XP (really?),
 you will have to install it (see links from <a class="reference external" href="http://www.microsoft.com/powershell">powershell</a> page).  Compared to
-<code class="docutils literal"><span class="pre">cmd</span></code>, Powershell has better command and filename completion, <code class="docutils literal"><span class="pre">ls</span></code> for
-directory listing, a less idiosyncratic <code class="docutils literal"><span class="pre">cd</span></code>, and a less painful scripting
-language. I believe I&#8217;ve used version 1 and version 2.  <code class="docutils literal"><span class="pre">$Host.version</span></code> at
-the powershell prompt gave me <code class="docutils literal"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code> on my old XP installation.  Don&#8217;t
+<code class="docutils literal notranslate"><span class="pre">cmd</span></code>, Powershell has better command and filename completion, <code class="docutils literal notranslate"><span class="pre">ls</span></code> for
+directory listing, a less idiosyncratic <code class="docutils literal notranslate"><span class="pre">cd</span></code>, and a less painful scripting
+language. I believe I’ve used version 1 and version 2.  <code class="docutils literal notranslate"><span class="pre">$Host.version</span></code> at
+the powershell prompt gave me <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0</span></code> on my old XP installation.  Don’t
 forget to enable <a class="reference external" href="http://support.microsoft.com/kb/282301">quickedit mode</a>
-for much nicer right-click copy and paste.</li>
-<li>Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <code class="docutils literal"><span class="pre">git</span></code> to be on the command path,
+for much nicer right-click copy and paste.</p></li>
+<li><p>Install <a class="reference external" href="http://code.google.com/p/msysgit">msysgit</a>. In the installation, set <code class="docutils literal notranslate"><span class="pre">git</span></code> to be on the command path,
 but not the git bash utilities.  I set the repo to have LF endings, but the
-checked out files to have system endings. You&#8217;ll see this setting offered in
-the installation GUI - it sets <code class="docutils literal"><span class="pre">core.autocrlf=input</span></code> in your global git
-config.</li>
+checked out files to have system endings. You’ll see this setting offered in
+the installation GUI - it sets <code class="docutils literal notranslate"><span class="pre">core.autocrlf=input</span></code> in your global git
+config.</p></li>
 </ul>
 </div>
 <div class="section" id="ssh-setup">
@@ -90,90 +77,86 @@ config.</li>
 with git.  In order to do this I need to get git SSH authentication working via
 the windows tools:</p>
 <ul>
-<li><p class="first">Install <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty">putty</a>.  Well, in fact, install all the putty utilities via the
+<li><p>Install <a class="reference external" href="http://www.chiark.greenend.org.uk/~sgtatham/putty">putty</a>.  Well, in fact, install all the putty utilities via the
 windows installer - including <em>plink</em> and <em>pageant</em>.  These are utilities we
-need for handling ssh authentication for git and other tools.</p>
-</li>
-<li><p class="first">You might consider putting the Putty directory on the path. Something like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+need for handling ssh authentication for git and other tools.</p></li>
+<li><p>You might consider putting the Putty directory on the path. Something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
 $my_path += &quot;;C:\Program files (x86)\Putty&quot; # (x86) on my windows 7 system
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 </pre></div>
 </div>
 </li>
-<li><p class="first">I have ssh keys I use on unix and mac.  I got the necessary ssh keys via sftp
-(installed by Putty installer). These went into <code class="docutils literal"><span class="pre">$HOME/.ssh</span></code>. I then ran
+<li><p>I have ssh keys I use on unix and mac.  I got the necessary ssh keys via sftp
+(installed by Putty installer). These went into <code class="docutils literal notranslate"><span class="pre">$HOME/.ssh</span></code>. I then ran
 <em>PUTTYgen</em> (installed by the Putty installer) to import the Unix ssh key into
-putty <code class="docutils literal"><span class="pre">.ppk</span></code> format.  Save <code class="docutils literal"><span class="pre">.ppk</span></code> in <code class="docutils literal"><span class="pre">$HOME/.ssh</span></code>.</p>
-</li>
-<li><p class="first">Start <em>pageant</em> (installed by putty installer).  Add <code class="docutils literal"><span class="pre">.ppk</span></code> key file.</p>
-</li>
-<li><p class="first">If you&#8217;ve got the putty utilities on the path, check you can get authenticated
-e.g. into github with <code class="docutils literal"><span class="pre">plink</span> <span class="pre">git&#64;github.com</span></code>.  If you don&#8217;t have putty etc
-on the path, you&#8217;ll need the full path to plink, as in: <code class="docutils literal"><span class="pre">&quot;c:\Program</span> <span class="pre">files</span>
-<span class="pre">(x86)\Putty\plink</span> <span class="pre">git&#64;github.com&quot;</span></code>.</p>
-</li>
-<li><p class="first">Set a couple of environment variables from powershell - see
-<a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <code class="docutils literal"><span class="pre">$GIT_SSH</span></code> to pick up
+putty <code class="docutils literal notranslate"><span class="pre">.ppk</span></code> format.  Save <code class="docutils literal notranslate"><span class="pre">.ppk</span></code> in <code class="docutils literal notranslate"><span class="pre">$HOME/.ssh</span></code>.</p></li>
+<li><p>Start <em>pageant</em> (installed by putty installer).  Add <code class="docutils literal notranslate"><span class="pre">.ppk</span></code> key file.</p></li>
+<li><p>If you’ve got the putty utilities on the path, check you can get authenticated
+e.g. into github with <code class="docutils literal notranslate"><span class="pre">plink</span> <span class="pre">git&#64;github.com</span></code>.  If you don’t have putty etc
+on the path, you’ll need the full path to plink, as in: <code class="docutils literal notranslate"><span class="pre">&quot;c:\Program</span> <span class="pre">files</span>
+<span class="pre">(x86)\Putty\plink</span> <span class="pre">git&#64;github.com&quot;</span></code>.</p></li>
+<li><p>Set a couple of environment variables from powershell - see
+<a class="reference external" href="http://technet.microsoft.com/en-us/library/ff730964.aspx">powershell environment variables</a>.  First set <code class="docutils literal notranslate"><span class="pre">$GIT_SSH</span></code> to pick up
 <em>plink</em> as the ssh executable:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Environment</span><span class="p">]::</span><span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;GIT_SSH&quot;</span><span class="p">,</span> <span class="s2">&quot;C:\Program files\Putty\plink.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Environment</span><span class="p">]::</span><span class="n">SetEnvironmentVariable</span><span class="p">(</span><span class="s2">&quot;GIT_SSH&quot;</span><span class="p">,</span> <span class="s2">&quot;C:\Program files\Putty\plink.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;User&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Next we make sure that <code class="docutils literal"><span class="pre">$HOME</span></code> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
+<p>Next we make sure that <code class="docutils literal notranslate"><span class="pre">$HOME</span></code> is set for safety.  For example, <a class="reference external" href="http://pypi.python.org/pypi/setuptools">setuptools</a>
 appears to need it set correctly - see the <a class="reference external" href="http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg">example pypi</a> page for the
 assertion at least:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>[Environment]::SetEnvironmentVariable(&quot;HOME&quot;, $env:USERPROFILE, &quot;User&quot;)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Environment]::SetEnvironmentVariable(&quot;HOME&quot;, $env:USERPROFILE, &quot;User&quot;)
 </pre></div>
 </div>
-<p>Restart powershell after doing this to pick up the <code class="docutils literal"><span class="pre">GIT_SSH</span></code> environment
-variable in particular.  We should now be able to do something like <code class="docutils literal"><span class="pre">git</span>
+<p>Restart powershell after doing this to pick up the <code class="docutils literal notranslate"><span class="pre">GIT_SSH</span></code> environment
+variable in particular.  We should now be able to do something like <code class="docutils literal notranslate"><span class="pre">git</span>
 <span class="pre">clone</span> <span class="pre">git&#64;github.com:my-name/my-repo.git</span></code> without being asked our password
 (pageant handles this).  The first time you use this combination with a
 particular host you may get an error like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">server</span><span class="s1">&#39;s host key is not cached in the registry. You</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">server</span><span class="s1">&#39;s host key is not cached in the registry. You</span>
 <span class="n">have</span> <span class="n">no</span> <span class="n">guarantee</span> <span class="n">that</span> <span class="n">the</span> <span class="n">server</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">computer</span> <span class="n">you</span>
 <span class="n">think</span> <span class="n">it</span> <span class="ow">is</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>If so, run <em>plink</em> manually to cache the key:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&amp;</span> <span class="s1">&#39;C:\Program Files (x86)\PuTTY\plink.exe&#39;</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span> <span class="s1">&#39;C:\Program Files (x86)\PuTTY\plink.exe&#39;</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span>
 </pre></div>
 </div>
-<p>and press <code class="docutils literal"><span class="pre">y</span></code> when asked.</p>
+<p>and press <code class="docutils literal notranslate"><span class="pre">y</span></code> when asked.</p>
 </li>
-<li><p class="first">I run pageant at startup.  I first set up a desktop shortcut with the
+<li><p>I run pageant at startup.  I first set up a desktop shortcut with the
 following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files (x86)\PuTTY\pageant.exe&quot;</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="o">.</span><span class="n">ssh</span>\<span class="n">id_dsa</span><span class="o">.</span><span class="n">ppk</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;C:\Program Files (x86)\PuTTY\pageant.exe&quot;</span> <span class="n">c</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="o">.</span><span class="n">ssh</span>\<span class="n">id_dsa</span><span class="o">.</span><span class="n">ppk</span>
 </pre></div>
 </div>
 <p>I move this shortcut into my startup folder to start at login.  On windows 7
 my startup folder is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">Microsoft</span>\<span class="n">Windows</span>\<span class="n">Start</span> <span class="n">Menu</span>\<span class="n">Programs</span>\<span class="n">Startup</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">mb312</span>\<span class="n">AppData</span>\<span class="n">Roaming</span>\<span class="n">Microsoft</span>\<span class="n">Windows</span>\<span class="n">Start</span> <span class="n">Menu</span>\<span class="n">Programs</span>\<span class="n">Startup</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal"><span class="pre">mb312</span></code> is my username.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">mb312</span></code> is my username.</p>
 </li>
-<li><p class="first">For using ssh inside the msysgit bash shell, I like to add the keychain-like
-script, by including this in my <code class="docutils literal"><span class="pre">~/.bashrc</span></code> file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Source personal definitions</span>
+<li><p>For using ssh inside the msysgit bash shell, I like to add the keychain-like
+script, by including this in my <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source personal definitions</span>
 <span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="s2">&quot;$HOME/.bash_keychain_lite&quot;</span> <span class="p">];</span> <span class="n">then</span>
     <span class="o">.</span> <span class="s2">&quot;$HOME/.bash_keychain_lite&quot;</span>
 <span class="n">fi</span>
 </pre></div>
 </div>
-<p>where the <code class="docutils literal"><span class="pre">.bash_keychain_lite</span></code> file arises from the <code class="docutils literal"><span class="pre">make.py</span> <span class="pre">dotfiles</span></code>
+<p>where the <code class="docutils literal notranslate"><span class="pre">.bash_keychain_lite</span></code> file arises from the <code class="docutils literal notranslate"><span class="pre">make.py</span> <span class="pre">dotfiles</span></code>
 command above.</p>
 </li>
 </ul>
 <div class="section" id="miscellaneous">
 <h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">I got used to the mac keyboard way of using the command key for things like
+<li><p>I got used to the mac keyboard way of using the command key for things like
 making new tabs in the browser (command-t), copy, paste (command-c, command-v)
-and so on. I can&#8217;t replicate all of this on windows, but as a first pass, I
-use an <a class="reference external" href="http://ahkscript.org/">autohotkey</a> script.  Putting this <code class="docutils literal"><span class="pre">remap.ahk</span></code> script file into my
+and so on. I can’t replicate all of this on windows, but as a first pass, I
+use an <a class="reference external" href="http://ahkscript.org/">autohotkey</a> script.  Putting this <code class="docutils literal notranslate"><span class="pre">remap.ahk</span></code> script file into my
 Windows start menu startup folder caused it to be loaded at login:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
 ; See also : http://www.autohotkey.com/docs/Hotkeys.htm
 ; # usually means Windows key.
 #SingleInstance force ; but sometimes # introduces a command
@@ -198,29 +181,27 @@ LWin &amp; Tab::AltTab ; the motherlode, alt-tab!
 </pre></div>
 </div>
 </li>
-<li><p class="first">I depend heavily on knowing which branch I am on when using git.  This is the
-what the <code class="docutils literal"><span class="pre">git-completion</span></code> bash routines do; <a class="reference external" href="https://github.com/dahlbyk/posh-git">posh-git</a> does the equivalent
-for powershell.</p>
-</li>
+<li><p>I depend heavily on knowing which branch I am on when using git.  This is the
+what the <code class="docutils literal notranslate"><span class="pre">git-completion</span></code> bash routines do; <a class="reference external" href="https://github.com/dahlbyk/posh-git">posh-git</a> does the equivalent
+for powershell.</p></li>
 </ul>
 </div>
 <div class="section" id="other-programs">
 <h3>Other programs<a class="headerlink" href="#other-programs" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.  With a 64 bit python (below), I needed a <a class="reference external" href="http://code.google.com/p/vim-win3264/wiki/Win64Binaries">64 bit
-vim</a></p>
-</li>
-<li><p class="first">Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
+<li><p>Install editor.  I use <a class="reference external" href="http://www.vim.org">vim</a>.  With a 64 bit python (below), I needed a <a class="reference external" href="http://code.google.com/p/vim-win3264/wiki/Win64Binaries">64 bit
+vim</a></p></li>
+<li><p>Install <a class="reference external" href="http://www.python.org">python</a> - the current version.  I need this for the scripts installing
 the personal configuration below.  For the convenience of using python at the
 command line you could do something like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
 $my_path += &quot;;C:\Python27;C:\Python27\Scripts&quot;
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 </pre></div>
 </div>
 </li>
-<li><p class="first">Set up personal configuration.  For me this is:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">c</span><span class="p">:</span>\
+<li><p>Set up personal configuration.  For me this is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">c</span><span class="p">:</span>\
 <span class="n">mkdir</span> <span class="n">code</span>
 <span class="n">cd</span> <span class="n">code</span>
 <span class="n">mkdir</span> <span class="n">dev_trees</span>
@@ -234,46 +215,44 @@ $my_path += &quot;;C:\Python27;C:\Python27\Scripts&quot;
 </pre></div>
 </div>
 </li>
-<li><p class="first">I am trying out <a class="reference external" href="https://bitbucket.org/guillermooo/virtualenvwrapper-powershell">virtualenvwrapper-powershell</a> . Install with the standard
-<code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.  You then need <code class="docutils literal"><span class="pre">import-module</span>
+<li><p>I am trying out <a class="reference external" href="https://bitbucket.org/guillermooo/virtualenvwrapper-powershell">virtualenvwrapper-powershell</a> . Install with the standard
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code>.  You then need <code class="docutils literal notranslate"><span class="pre">import-module</span>
 <span class="pre">virtualenvwrapper</span></code> from the powershell prompt.  Maybe it goes better in a
-<a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx">powershell profile</a>.</p>
-</li>
-<li><p class="first">As for any other environment, the <a class="reference external" href="https://github.com/flavioamieiro/nose-ipdb">nose-ipdb</a> ipython debugger for <a class="reference external" href="http://readthedocs.org/docs/nose/en/latest">nose</a> makes
-debugging easier for nose tests.  Easiest route is <code class="docutils literal"><span class="pre">easy_install</span>
-<span class="pre">ipdbplugin</span></code>.</p>
-</li>
+<a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx">powershell profile</a>.</p></li>
+<li><p>As for any other environment, the <a class="reference external" href="https://github.com/flavioamieiro/nose-ipdb">nose-ipdb</a> ipython debugger for <a class="reference external" href="http://readthedocs.org/docs/nose/en/latest">nose</a> makes
+debugging easier for nose tests.  Easiest route is <code class="docutils literal notranslate"><span class="pre">easy_install</span>
+<span class="pre">ipdbplugin</span></code>.</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="windows-compiler-and-build-tools">
 <span id="win-compile-tools"></span><h2>Windows compiler and build tools<a class="headerlink" href="#windows-compiler-and-build-tools" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">Download and install the <a class="reference external" href="http://www.mingw.org/wiki/Getting_Started">mingw</a> windows compiler.  I used the
-<code class="docutils literal"><span class="pre">mingw-get-inst</span></code> automated installation route.  Select the options giving
-you c++, fortran, and the msys build environment.  I didn&#8217;t directly add these
-to the path, but made a script <code class="docutils literal"><span class="pre">c:\Mingw\mingwvars.ps1</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span># convenience script to add mingw to path
+<li><p>Download and install the <a class="reference external" href="http://www.mingw.org/wiki/Getting_Started">mingw</a> windows compiler.  I used the
+<code class="docutils literal notranslate"><span class="pre">mingw-get-inst</span></code> automated installation route.  Select the options giving
+you c++, fortran, and the msys build environment.  I didn’t directly add these
+to the path, but made a script <code class="docutils literal notranslate"><span class="pre">c:\Mingw\mingwvars.ps1</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># convenience script to add mingw to path
 echo &quot;Adding mingw to PATH...&quot;
 $mingw = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $env:path = &quot;$mingw\bin;$mingw\msys\1.0\bin;$env:path&quot;
 </pre></div>
 </div>
-<p>Then in powershell - <code class="docutils literal"><span class="pre">.</span> <span class="pre">c:\Mingw\mingwvars.ps1</span></code> to add the msys and
+<p>Then in powershell - <code class="docutils literal notranslate"><span class="pre">.</span> <span class="pre">c:\Mingw\mingwvars.ps1</span></code> to add the msys and
 mingw tools to the path.</p>
 </li>
-<li><p class="first">Using mingw, you might get this kind of error:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">error</span><span class="p">:</span> <span class="n">Setup</span> <span class="n">script</span> <span class="n">exited</span> <span class="k">with</span> <span class="n">error</span><span class="p">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">find</span> <span class="n">vcvarsall</span><span class="o">.</span><span class="n">bat</span>
+<li><p>Using mingw, you might get this kind of error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">error</span><span class="p">:</span> <span class="n">Setup</span> <span class="n">script</span> <span class="n">exited</span> <span class="k">with</span> <span class="n">error</span><span class="p">:</span> <span class="n">Unable</span> <span class="n">to</span> <span class="n">find</span> <span class="n">vcvarsall</span><span class="o">.</span><span class="n">bat</span>
 </pre></div>
 </div>
-<p>Of course you&#8217;ve already tried the standard solution to this, of the form:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">--</span><span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
+<p>Of course you’ve already tried the standard solution to this, of the form:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span> <span class="o">--</span><span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
 </pre></div>
 </div>
-<p>If that doesn&#8217;t work, you might have hit a <a class="reference external" href="http://bugs.python.org/issue2698">mingw distutils bug</a>.  One
-suggested fix is to make a <code class="docutils literal"><span class="pre">distutils.cfg</span></code> file in your Python distutils
-directory (e.g.  <code class="docutils literal"><span class="pre">C:\Python26\Lib\distutils</span></code>) with the following content:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build</span><span class="p">]</span>
+<p>If that doesn’t work, you might have hit a <a class="reference external" href="http://bugs.python.org/issue2698">mingw distutils bug</a>.  One
+suggested fix is to make a <code class="docutils literal notranslate"><span class="pre">distutils.cfg</span></code> file in your Python distutils
+directory (e.g.  <code class="docutils literal notranslate"><span class="pre">C:\Python26\Lib\distutils</span></code>) with the following content:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build</span><span class="p">]</span>
 <span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
 </pre></div>
 </div>
@@ -282,9 +261,9 @@ directory (e.g.  <code class="docutils literal"><span class="pre">C:\Python26\Li
 </div>
 <div class="section" id="swig">
 <h2>SWIG<a class="headerlink" href="#swig" title="Permalink to this headline">¶</a></h2>
-<p>Download the swig version for windows, <code class="docutils literal"><span class="pre">swigwin</span></code>, from <a class="reference external" href="http://www.swig.org/download.html">swig downloads</a>,
-unpack into, say, <code class="docutils literal"><span class="pre">C:\</span></code>, then:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
+<p>Download the swig version for windows, <code class="docutils literal notranslate"><span class="pre">swigwin</span></code>, from <a class="reference external" href="http://www.swig.org/download.html">swig downloads</a>,
+unpack into, say, <code class="docutils literal notranslate"><span class="pre">C:\</span></code>, then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$my_path = [Environment]::GetEnvironmentVariable(&quot;PATH&quot;,&quot;User&quot;)
 $my_path += &quot;;C:\swigwin-2.0.10&quot;
 [Environment]::SetEnvironmentVariable(&quot;PATH&quot;, $my_path, &quot;User&quot;)
 [Environment]::SetEnvironmentVariable(&quot;PYTHON_INCLUDE&quot;, &quot;C:\Python27\include&quot;, &quot;User&quot;)
@@ -295,12 +274,13 @@ $my_path += &quot;;C:\swigwin-2.0.10&quot;
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Developing on windows</a><ul>
 <li><a class="reference internal" href="#my-system-s">My system(s)</a></li>
@@ -330,15 +310,15 @@ $my_path += &quot;;C:\swigwin-2.0.10&quot;
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -356,12 +336,13 @@ $my_path += &quot;;C:\swigwin-2.0.10&quot;
           <a href="floating_error.html" title="Floating point error"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="computing.html" >General computing</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Developing on windows</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>

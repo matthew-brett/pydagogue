@@ -1,36 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>What is a decorator, really? &#8212; pydagogue 0.2 documentation</title>
-    
-    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.2',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="_static/traditional.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Python and unicode" href="python_unicode.html" />
     <link rel="prev" title="What is a decorator?" href="decorating_for_dummies.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +30,8 @@
           <a href="decorating_for_dummies.html" title="What is a decorator?"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" accesskey="U">Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What is a decorator, really?</a></li> 
       </ul>
     </div>  
 
@@ -58,21 +45,21 @@
 <p>(with thanks to Fernando Perez for setting me straight on this stuff - see <a class="reference external" href="http://mail.scipy.org/pipermail/ipython-dev/2009-September/005500.html">http://mail.scipy.org/pipermail/ipython-dev/2009-September/005500.html</a>)</p>
 <p>You may want to have a look at the Python docs:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://docs.python.org/glossary.html#term-decorator">http://docs.python.org/glossary.html#term-decorator</a></li>
-<li><a class="reference external" href="http://docs.python.org/reference/compound_stmts.html#function">http://docs.python.org/reference/compound_stmts.html#function</a></li>
+<li><p><a class="reference external" href="http://docs.python.org/glossary.html#term-decorator">http://docs.python.org/glossary.html#term-decorator</a></p></li>
+<li><p><a class="reference external" href="http://docs.python.org/reference/compound_stmts.html#function">http://docs.python.org/reference/compound_stmts.html#function</a></p></li>
 </ul>
 <p>The anatomy of the decorator thing is this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@decorator</span><span class="o">-</span><span class="n">expression</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@decorator</span><span class="o">-</span><span class="n">expression</span>
 <span class="n">function</span><span class="o">-</span><span class="n">definition</span>
 </pre></div>
 </div>
-<p><code class="docutils literal"><span class="pre">decorator-expression</span></code> is an <em>expression</em> that returns a callable
-thing. The callable thing has to take single argument. That&#8217;s all it is.
-<code class="docutils literal"><span class="pre">function-definition</span></code> is a function definition (it therefore must
-begin with <code class="docutils literal"><span class="pre">def</span></code>).  If <code class="docutils literal"><span class="pre">decorator-expression</span></code> is <code class="docutils literal"><span class="pre">dec_func</span></code> and
-<code class="docutils literal"><span class="pre">function-definition</span></code> is <code class="docutils literal"><span class="pre">def</span> <span class="pre">func():</span> <span class="pre">pass</span></code> then the syntax above is
+<p><code class="docutils literal notranslate"><span class="pre">decorator-expression</span></code> is an <em>expression</em> that returns a callable
+thing. The callable thing has to take single argument. That’s all it is.
+<code class="docutils literal notranslate"><span class="pre">function-definition</span></code> is a function definition (it therefore must
+begin with <code class="docutils literal notranslate"><span class="pre">def</span></code>).  If <code class="docutils literal notranslate"><span class="pre">decorator-expression</span></code> is <code class="docutils literal notranslate"><span class="pre">dec_func</span></code> and
+<code class="docutils literal notranslate"><span class="pre">function-definition</span></code> is <code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">func():</span> <span class="pre">pass</span></code> then the syntax above is
 exactly the result of:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span>
 <span class="n">func</span> <span class="o">=</span> <span class="n">dec_func</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -80,13 +67,13 @@ exactly the result of:</p>
 <h2>Decorator expression<a class="headerlink" href="#decorator-expression" title="Permalink to this headline">¶</a></h2>
 <p>The decorator expression is an expression that returns a callable thing.</p>
 <p>For example, it could be a reference to a callable thing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">afunc</span><span class="p">(</span><span class="n">f</span><span class="p">):</span> <span class="k">pass</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">afunc</span><span class="p">(</span><span class="n">f</span><span class="p">):</span> <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@afunc</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p>or an <em>expression that returns a reference</em> to a callable thing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 <span class="gp">... </span>   <span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="k">return</span> <span class="n">value</span>
 <span class="gp">... </span>   <span class="k">return</span> <span class="n">anon_func</span>
@@ -95,15 +82,15 @@ exactly the result of:</p>
 </pre></div>
 </div>
 <p>The callable thing can be anything that is callable - for example, a class:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@C</span><span class="p">()</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 </pre></div>
 </div>
 <p>The callable thing has to take one argument:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dfunc</span><span class="p">():</span> <span class="k">pass</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">dfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dfunc</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="gt">Traceback (most recent call last):</span>
@@ -112,7 +99,7 @@ exactly the result of:</p>
 </pre></div>
 </div>
 <p>and, the callable thing has to be callable:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_func</span> <span class="o">=</span> <span class="s1">&#39;a string&#39;</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">not_a_func</span> <span class="o">=</span> <span class="s1">&#39;a string&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@not_a_func</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
 <span class="gt">Traceback (most recent call last):</span>
@@ -126,7 +113,7 @@ exactly the result of:</p>
 <p>The decorator expression result is the result of evaluating the
 decorator expression.</p>
 <p>For example, in this case:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cfunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 <span class="gp">... </span>   <span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>       <span class="k">return</span> <span class="n">value</span>
 <span class="gp">... </span>   <span class="k">return</span> <span class="n">anon_func</span>
@@ -135,21 +122,21 @@ decorator expression.</p>
 </pre></div>
 </div>
 <p>the decorator expression result is equivalent to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">anon_func</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">return</span> <span class="s1">&#39;a value&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dec_exp_res</span> <span class="o">=</span> <span class="n">anon_func</span>
 </pre></div>
 </div>
 <p>Note that, the decorator expression result will process the
-<code class="docutils literal"><span class="pre">function-definition</span></code> like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span> <span class="c1"># function definition</span>
+<code class="docutils literal notranslate"><span class="pre">function-definition</span></code> like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">():</span> <span class="k">pass</span> <span class="c1"># function definition</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">func</span> <span class="o">=</span> <span class="n">dec_exp_res</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>That is what the syntax says.  Usually, as in
 <a class="reference internal" href="decorating_for_dummies.html#decorating-for-dummies"><span class="std std-ref">What is a decorator?</span></a>, you will want to return a modified
 function.  But, given the syntax, you can do anything you want:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">strange_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">strange_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="nb">print</span> <span class="s1">&#39;I am strange&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@strange_decorator</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">bfunc</span><span class="p">():</span> <span class="k">pass</span>
@@ -158,17 +145,18 @@ function.  But, given the syntax, you can do anything you want:</p>
 </div>
 <p>This fits the syntax (the decorator expression resolves to a callable
 thing that takes one argument) but, this time, the decorator just prints
-something.  This may seem a little bizarre, but - there are uses...</p>
+something.  This may seem a little bizarre, but - there are uses…</p>
 </div>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
+  <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">What is a decorator, really?</a><ul>
 <li><a class="reference internal" href="#decorator-expression">Decorator expression</a></li>
@@ -191,15 +179,15 @@ something.  This may seem a little bizarre, but - there are uses...</p>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
     </form>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -217,12 +205,13 @@ something.  This may seem a little bizarre, but - there are uses...</p>
           <a href="decorating_for_dummies.html" title="What is a decorator?"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">pydagogue 0.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="python.html" >Notes and tutorials on Python</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">What is a decorator, really?</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2009-2016 - Matthew Brett.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
     </div>
   </body>
 </html>
