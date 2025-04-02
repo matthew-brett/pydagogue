@@ -15,7 +15,7 @@ Logging without dots
 
 Two dots is the default in ``git log``.  That is, if you do::
 
-    git log master topic
+    git log ^master topic
 
 what you'll get is the same as if you asked for::
 
