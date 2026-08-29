@@ -56,28 +56,43 @@ repository.
 
 ## Git-Annex remotes
 
-Git-Annex has *remotes*. I'll call these Git Annex Remotes (GARs) because they
-function in a somewhat different way to standard Git remotes.  GARs are
-pointers to particular data stores, that can store the GAOs.  These remotes can
-Git-Annex *special* remotes, not related to standard Git remotes, that have
-various types of storage backing and interfaces, such as `rclone` pointing to
-Google Drive and so on.
+Git-Annex has *remotes*.  Remotes are stores for GAOs.
 
-Each remote used with Git-Annex has a Universally Unique Identifier (UUID), so that Git-Annex can record which remote has each of the potential GAOs.
+This can be confusing, because:
 
-As this implies, a GAR need not store all possible GAOs - it might have a subset.  Git-Annex has to keep track of this information, so it can `git annex get` any files that the user asks for, that they do not already have in their `.git/annex` GAO object store.
+* Git-Annex can re-use ordinary Git repositories for this purpose.  In this
+  case the remote in the Git-Annex sense can also be a remote in the Git sense.
+* But Git-Annex also has the concept of a *special remote*, that is not a Git
+  repository, and therefore cannot be a remote in the Git sense. Special
+  remotes have various types of storage backing and interfaces, such as
+  `rclone` pointing to Google Drive and so on.
 
-Now - your ordinary Git remote — for example `origin` — also functions as
-a GAR - and has its own UUID.  That is because, on your machine,
-after you `git annex add` (or, as you see later `git annex get`) a large file,
-your own local `.git` directory will have a copy of the GAO — in
-`.git/annex/objects`.  So Git-Annex has to know, and may advertise to your
-collaborators, that you also have a copy of the file, in your
-`.git/annex/objects` directory.
+I'll call both Git re-used repositories, and special remotes — Git Annex
+Remotes (GARs) — because they have the specific purpose of storing the GAOs.
+GARs are pointers to particular data stores that can store GAOs.
 
-To be clear - a GAR is a different thing from a standard Git remote.  It is specifically a place that Git-Annex can store or retrieve GAOs.
+Each GAR has a Universally Unique Identifier (UUID), so that Git-Annex can
+record which of its remotes has each of the potential GAOs.
 
-But, confusingly, your local `.git` repository store is one such place, that you can store GAOs (in `.git/annex`), so it, also functions as a GAR, from which you, or other people connected to your network, can get GAOs.
+As this implies, any one individual GAR need not store all possible GAOs - it
+might have a subset.  Git-Annex has to keep track of this information, so it
+can `git annex get` any files that the user asks for, that they do not already
+have in their `.git/annex` GAO object store.
+
+Now - your ordinary Git remote — for example `origin` — also functions as a GAR
+— and has its own UUID.  That is because, on your machine, after you `git annex
+add` (or, as you see later `git annex get`) a large file, your own local `.git`
+directory will have a copy of the GAO — in `.git/annex/objects`.  So Git-Annex
+has to know that you also have a copy of the file, in your `.git/annex/objects`
+directory, so you or your collaborators can ask for a copy of the file from
+you, if they need to (using `git annex get` etc).
+
+To say it again - a GAR is a different thing from a standard Git remote.  It is
+specifically a place that Git-Annex can store or retrieve GAOs.
+
+But, confusingly, your local `.git` repository store is one such place, that
+you can store GAOs (in `.git/annex`), so it also functions as a GAR, from which
+you, or other people connected to your network, can get GAOs.
 
 ## Git-Annex metadata
 
