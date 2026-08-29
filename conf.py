@@ -225,6 +225,7 @@ linkcheck_ignore = [
     r'https://mail\.scipy\.org/.*',
     r'https://web\.archive\.org/.*',
     r'https://www\.chiark\.greenend\.org\.uk/.*',
+    r'https://www\.autohotkey\.com/.*',
 ]
 linkcheck_timeout = 15
 linkcheck_retries = 2
