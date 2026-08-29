@@ -40,6 +40,9 @@ add mybigfile`):
   a symbolic link) to the now-moved file.  See below.
 * The moved file is not compressed
 * The contents go into `.git/annex/objects` instead of `.git/objects`.
+* Git-Annex removes write permission on the moved file, to prevent you
+  overwriting the file accidentally (see
+  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/)
 * There are different rules for making the hash filename, that we don't need to
   worry about for now.
 
@@ -211,20 +214,30 @@ git annex add my_large_file
 Notice now that:
 
 * The file has moved to `.git/annex/objects`
+* The moved file is now read-only (to prevent you accidentally overwriting it).
 * There's a symlink to that file in the working directory.
-* Git-Annex added *the symlink* (and not the file itself) to the ordinary git staging area.
+* Git-Annex added *the symlink* (and not the file itself) to the ordinary git
+  staging area.
 
 In order:
 
 ```{code-cell}
+# It's the same file exactly as the one previously in the working directory.
 shasum .git/annex/objects/*/*/*/*
 ```
 
 ```{code-cell}
+# The moved file is read-only to prevent accidental overwrites.
+ls -al .git/annex/objects/*/*/*/*
+```
+
+```{code-cell}
+# The file in the working tree has become a symlink.
 ls -al my_large_file
 ```
 
 ```{code-cell}
+# The symlink has been added to the Git staging area.
 git status
 ```
 
@@ -247,9 +260,16 @@ git commit -m "Add link to my_large_file"
 git show main
 ```
 
-To recap - Git itself never got a copy of `my_large_file`.  The contents of `my_large_file` belongs to Git-Annex, and is stored in the `.git/annex` directory, that does not get transferred when you clone the repository.  Git itself only has the symbolic link to the file.  But as we'll see soon, it does know where copies of `my_large_file` live, through the information in the `git-annex` branch.
+To recap - the Git `.git/objects` directory never got a copy of
+`my_large_file`.  The content of `my_large_file` belongs to Git-Annex, and is
+stored in the `.git/annex/objects` directory, that does not get transferred
+when you `git push`, or you `git clone` the repository.  Git itself only has
+the symbolic link to the file.  But as we'll see soon, it does know where
+copies of `my_large_file` live, through the information in the `git-annex`
+branch.
 
-To illustrate, if we do a direct clone of this `my-repo` repository, we do not have the contents of `my_large_file`; we only have the symlink:
+To illustrate, if we do a typical clone of this `my-repo` repository, we do not
+have the contents of `my_large_file`; we only have the symlink:
 
 ```{code-cell}
 cd ..
@@ -260,13 +280,17 @@ git clone my-repo-upstream.git my-repo-clone
 cd my-repo-clone
 ```
 
+We have put ourselves into the usual situation, where we've done a `git push`
+to a remote service, and then done a `git clone` from the remote service, to
+another computer.  After doing that:
+
 ```{code-cell}
 # No .git/annex directory in the clone.
 ls .git
 ```
 
 ```{code-cell}
-# But we do have access to the git-annex branch, which maps
+# But we do have access to the remote git-annex branch, which maps
 # repositories to GAOs
 git branch -a
 ```
@@ -276,15 +300,18 @@ git branch -a
 file my_large_file
 ```
 
-If we try and fetch the file to which the symlink points, with `git annex get`, Git-Annex doesn't know where to find it, because it has no record of the `origin` (upstream) repository having it:
+If we try and fetch the file to which the symlink points, with `git annex get`,
+Git-Annex can't do it, because it has no record (in the `git-annex` remote
+branch) that the `origin` (upstream) repository has that file its `.git/annex`
+filesystem.
 
 ```{code-cell}
 git annex list
 ```
 
-However, the `git-annex` remote branch does tell it where we might find it (see
-[Git-Annex internals](https://git-annex.branchable.com/internals).  Notice the
-suggestion generated during the failure.
+However, the `git-annex` remote branch has told it where we might find the file
+(see [Git-Annex internals](https://git-annex.branchable.com/internals).  Notice
+the suggestion generated during the failure:
 
 ```{code-cell}
 :tags: [raises-exception]
@@ -292,7 +319,8 @@ suggestion generated during the failure.
 git annex get my_large_file
 ```
 
-This is telling us that we need to point directly to the original repository as a source for the GAO files:
+This message is telling us that we need to point directly to the original
+repository as a source for the GAO files (in its `.git/annex` folder).
 
 ```{code-cell}
 # Add the original repository as an ordinary Git remote.
@@ -317,18 +345,19 @@ git annex list
 ```
 
 ```{code-cell}
-# The symlink is now fixed.
+# After git annex get, the symlink is fixed, because the file exists.
 file my_large_file
 ```
 
 ## The special remotes
 
-As you have seen, Git-Annex can use Git repositories on filesystems as storage for GAOs — in the repository `.git/annex` directory.
+As you have seen, Git-Annex can use Git repositories on filesystems as storage
+for GAOs — in the repository `.git/annex` directory.
 
 But Git-Annex can also have *special remotes*, that have no necessary relationship to Git repositories.  For example, they can work with directories on file-sharing systems such as Dropbox and Google drive.
 
-You create this special remotes with the `git annex initremote` command.
-I don't cover those here, but see the [Git-Annex page on special
+You create special remotes with the `git annex initremote` command. I don't
+cover those here, but see the [Git-Annex page on special
 remotes](https://git-annex.branchable.com/walkthrough/#index12h2), and the [doc
 page on special remotes](https://git-annex.branchable.com/special_remotes).
 
@@ -339,13 +368,13 @@ tell Git-Annex which files it should handle (as GAOs) and which Git should
 handle.  See the [annex.largefiles
 page](https://git-annex.branchable.com/tips/largefiles) for details.  Note that
 `annex.largefiles` just identifies files that Git-Annex should handle.  You can
-use that setting to make Git-Annex always operate on files larger than
-a particular size, but you can also use that setting to configure Git
-/ Git-Annex to select files by path name.
+use values for `annex.largefile` to make Git-Annex always operate on files
+larger than a particular size, but you can also use that setting to configure
+Git / Git-Annex to select files by path name.
 
-Consider using commands (with `git annex wanted`) to tell Git-Annex which
-remotes should house which files.   These rules get stored in the `git-annex`
-branch.  See the [Git-Annex wanted
+Consider using `git annex wanted` commands to tell Git-Annex which remotes
+should house which files.   These rules get stored in the `git-annex` branch.
+See the [Git-Annex wanted
 page](https://git-annex.branchable.com/git-annex-wanted) for more.
 
 ## Whence Git-Annex
