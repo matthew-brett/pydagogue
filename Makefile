@@ -100,8 +100,8 @@ bash-kernel:
 gitwash-update: update-submodules
 	python gitwash-repo/gitwash_dumper.py . gitwash \
 	    --github-user=matthew-brett \
-	    --project-url=http://github.com/matthew-brett/gitwash \
-	    --project-ml-url=http://mail.scipy.org/mailman/listinfo/nipy-devel
+	    --project-url=https://github.com/matthew-brett/gitwash \
+	    --project-ml-url=https://mail.python.org/mailman3/lists/neuroimaging.python.org/
 
 nobel0:
 	# Make the first draft of the Nobel prize-worthy analysis

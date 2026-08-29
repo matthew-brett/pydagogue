@@ -1,5 +1,5 @@
 .. gitwash
-.. _`gitwash`: http://github.com/matthew-brett/gitwash
+.. _`gitwash`: https://github.com/matthew-brett/gitwash
 .. _`gitwash github`: https://github.com/matthew-brett/gitwash
 
-.. _`gitwash mailing list`: http://mail.scipy.org/mailman/listinfo/nipy-devel
+.. _`gitwash mailing list`: https://mail.python.org/mailman3/lists/neuroimaging.python.org/
