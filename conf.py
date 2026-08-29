@@ -26,7 +26,8 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.doctest',
               'sphinx.ext.mathjax',
               'sphinx_autorun',
-              'writefile']
+              'writefile',
+              'myst_parser']
 
 # Defaults hide source for runblock:: pycon
 autorun_languages = {'pycon_show_source': True}
@@ -35,7 +36,7 @@ autorun_languages = {'pycon_show_source': True}
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix =  {'.rst': 'restructuredtext', '.md': 'markdown' }
 
 # The encoding of source files.
 #source_encoding = 'utf-8'

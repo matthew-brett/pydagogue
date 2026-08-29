@@ -1,5 +1,6 @@
 sphinx
 sphinx-autorun
+myst_parser
 ghp-import
 matplotlib
 numpy
