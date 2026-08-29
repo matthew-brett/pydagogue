@@ -304,12 +304,21 @@ git annex list
 file my_large_file
 ```
 
+## The special remotes
+
+As you have seen, Git annex can use Git repositories on filesystems as storage for GAOs — in the repository `.git/annex` directory.
+
+But Git annex can also have *special remotes*, that have no necessary relationship to Git repositories.  For example, they can work with directories on file-sharing systems such as Dropbox and Google drive.
+
+You create this special remotes with the `git annex initremote` command.
+I don't cover those here, but see the [Git annex page on special
+remotes](https://git-annex.branchable.com/walkthrough/#index12h2), and the [doc
+page on special remotes](https://git-annex.branchable.com/special_remotes).
+
 ## Whence Git annex
 
-That was a tour of the basics.  You might now want to have a look at:
+That was a tour of the basics.  You might now want to have a look at the primary Git annex pages.  For the moment I have not enabled these links as they are down at time of writing.
 
-* [The main git-annex
-  walkthrough](https://git-annex.branchable.com/walkthrough/)
-* [git-annex
-  internals](https://web.archive.org/web/20260725205005/https://git-annex.branchable.com/internals/)
-  (Archive.org link, the source page was down at time of writing).
+* The [main git-annex
+  walkthrough](https://git-annex.branchable.com/walkthrough)
+* [Git-annex internals](https://git-annex.branchable.com/internals)
