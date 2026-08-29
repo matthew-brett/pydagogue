@@ -99,8 +99,9 @@ you, or other people connected to your network, can get GAOs.
 
 ## Git-Annex metadata
 
-Git-Annex makes and uses its own branch to store metadata about the location of
-GAOs within the known remotes.
+Git-Annex makes and uses its own branch named `git-annex` to store metadata
+about the location of GAOs within the known remotes.  We'll come across that
+branch in the walkthrough below.
 
 ## Walkthrough
 
