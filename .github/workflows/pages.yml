@@ -27,7 +27,14 @@ jobs:
           cache: pip
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          python -m bash_kernel.install
+
+      - name: Install tree and shasum utility
+        run: |
+          sudo apt update
+          sudo apt install tree perl
 
       - name: Build HTML
         run: make html

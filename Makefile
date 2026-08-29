@@ -6,6 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
+PYTHON        = python3
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
@@ -32,7 +33,7 @@ clean:
 	-rm -rf $(BUILDDIR)/*
 	-rm -rf working/* working/.gitconfig
 
-html:
+html: bash-kernel
 	$(SPHINXBUILD) --fail-on-warning -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
@@ -92,6 +93,9 @@ doctest:
 
 update-submodules:
 	git submodule update --init --recursive
+
+bash-kernel:
+	$(PYTHON) -m bash_kernel.install
 
 gitwash-update: update-submodules
 	python gitwash-repo/gitwash_dumper.py . gitwash \

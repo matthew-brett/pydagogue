@@ -1,6 +1,8 @@
 sphinx
 sphinx-autorun @ git+https://github.com/matthew-brett/sphinx-autorun.git@fix-empty-runblock-output
-myst_parser
+myst-nb
+bash_kernel
+jupytext
 ghp-import
 matplotlib
 numpy

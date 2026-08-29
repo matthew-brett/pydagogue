@@ -37,6 +37,5 @@ Contents:
     gh-pages-intro
     legacy_package_redux
     mac_runtime_link
-    git_annex_from_scratch
 
 .. include:: links_names.inc

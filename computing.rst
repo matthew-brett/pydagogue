@@ -17,6 +17,7 @@ Contents:
    windows_dll_links
    windows_containers
    mingw_python
+   git_annex_from_scratch
 
 You might also be interested on my `docosx`_ pages about developing on OSX.
 

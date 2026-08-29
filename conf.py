@@ -27,16 +27,25 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
               'sphinx_autorun',
               'writefile',
-              'myst_parser']
+              'myst_nb']
 
 # Defaults hide source for runblock:: pycon
 autorun_languages = {'pycon_show_source': True}
+
+# Execute MyST Markdown notebooks (e.g. bash kernel pages)
+nb_execution_mode = 'force'
+nb_execution_in_temp = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
 # The suffix of source filenames.
-source_suffix =  {'.rst': 'restructuredtext', '.md': 'markdown' }
+# .md / .ipynb are registered by myst_nb as parser "myst-nb".
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'myst-nb',
+    '.ipynb': 'myst-nb',
+}
 
 # The encoding of source files.
 #source_encoding = 'utf-8'
