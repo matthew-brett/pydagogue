@@ -42,7 +42,7 @@ add mybigfile`):
 * The contents go into `.git/annex/objects` instead of `.git/objects`.
 * Git-Annex removes write permission on the moved file, to prevent you
   overwriting the file accidentally (see
-  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/)
+  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/))
 * There are different rules for making the hash filename, that we don't need to
   worry about for now.
 
@@ -214,7 +214,9 @@ git annex add my_large_file
 Notice now that:
 
 * The file has moved to `.git/annex/objects`
-* The moved file is now read-only (to prevent you accidentally overwriting it).
+* The moved file is now read-only (to prevent you accidentally overwriting it
+  — see
+  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/))
 * There's a symlink to that file in the working directory.
 * Git-Annex added *the symlink* (and not the file itself) to the ordinary git
   staging area.
