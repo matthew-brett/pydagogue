@@ -5,7 +5,7 @@ Installing python scripts
 This here is to explain to myself how Python distutils_, setuptools_ and pip_
 install scripts on Unix and Windows.
 
-The repository at http://github.com/matthew-brett/myscripter has some worked
+The repository at https://github.com/matthew-brett/myscripter has some worked
 running examples of script installation in different situations.
 
 .. note::
@@ -24,7 +24,7 @@ in Unix might look like this::
 
     #!/usr/local/bin/python
 
-This is called the `shebang <http://en.wikipedia.org/wiki/Shebang_(Unix)>`_
+This is called the `shebang <https://en.wikipedia.org/wiki/Shebang_(Unix)>`_
 line, from "hash-bang" - referring to the hash (#) and exclamation (!)
 characters. The shebang line tells Unix : "Run the rest of this script via the
 interpreter ``/usr/local/bin/python``".
@@ -35,7 +35,7 @@ script, to::
 
     #!/usr/local/bin/python2.6
 
-(See: http://docs.python.org/2/distutils/setupscript.html#installing-scripts)
+(See: https://docs.python.org/2/distutils/setupscript.html#installing-scripts)
 
 That way we can associate the script with the installing version of Python.
 
@@ -162,7 +162,7 @@ Setuptools and console_script entry_points
 
 There is another way to define scripts using setuptools, and that is by
 using ``entry_points`` pointing to ``console_scripts`` (see:
-http://packages.python.org/setuptools/setuptools.html#automatic-script-creation
+https://setuptools.pypa.io/en/latest/userguide/entry_point.html
 for detail). To use this mechanism, we move the script code into a library. We
 make a new library directory ``myscripter``, add an empty file
 ``myscripter/__init__.py`` to identify this as a package directory, and move the
@@ -243,7 +243,7 @@ This is the same (bar the shebang line) as the Unix script.  The new thing is
 the ``my_console_script.exe`` file.  This is a verbatim copy of a compiled
 windows binary file called ``cli.exe`` from the setuptools distribution - see
 `Python wrappers for Windows
-<http://svn.python.org/projects/sandbox/branches/setuptools-0.6/setuptools/tests/win_script_wrapper.txt>`_.
+<https://svn.python.org/projects/sandbox/branches/setuptools-0.6/setuptools/tests/win_script_wrapper.txt>`_.
 This ``exe`` binary detects its own name (in this case
 ``my_console_script.exe``) and looks for a file ``<my-name>-script.py``
 in the same directory.  So in this case it looks for
@@ -355,7 +355,7 @@ phase, is the python with which we build the egg.  However, the python called
 within ``easy_install`` on the user's computer, may well be at a different path,
 or in a virtualenv.  So we can't know, at the distutils install phase, what
 the eventual python path will be.  There is `no way
-<http://stackoverflow.com/questions/250038/how-can-i-add-post-install-scripts-to-easy-install-setuptools-distutils>`_
+<https://stackoverflow.com/questions/250038/how-can-i-add-post-install-scripts-to-easy-install-setuptools-distutils>`_
 of making a post-install hook for the ``easy_install`` phase on the egg file in
 particular.  However, we can rely on the shebang line of the script being set
 correctly by the ``easy_install`` phase.

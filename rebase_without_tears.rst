@@ -7,7 +7,7 @@ Why I wrote this page
 *********************
 
 I'm looking at the `git-rebase man page
-<http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html>`_ now.  I may
+<https://git-scm.com/docs/git-rebase>`_ now.  I may
 not be alone in finding it hard to understand, and easy to forget.  I have
 twice or three times worked out how it worked, and then forgotten, and wished I
 had written something down to explain it to myself.  Here is that explanation.
@@ -20,7 +20,7 @@ Actually it's a little difficult to explain.  Rebasing is the process of taking
 a fragment of git change history, and rewriting that history as if it had begun
 at a different commit.  It's easiest to explain by example, and there are some
 examples later in this page.  See also the `Pro-Git chapter on rebasing
-<http://progit.org/book/ch3-6.html>`_
+<https://git-scm.com/book/en/v2/Git-Branching-Rebasing>`_
 
 .. _actual-rebase:
 

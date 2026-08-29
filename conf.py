@@ -204,3 +204,18 @@ latex_documents = [
 # Set path to mathjax
 # mathjax_path="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 mathjax_path="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+
+
+# Hosts that block or flake under automated link checkers
+linkcheck_ignore = [
+    r'https://stackoverflow\.com/.*',
+    r'https://www\.mathworks\.com/.*',
+    r'https://sourceforge\.net/.*',
+    r'https://aka\.ms/.*',
+    r'https://www\.microsoft\.com/en-us/download/.*',
+    r'https://mail\.scipy\.org/.*',
+    r'https://web\.archive\.org/.*',
+    r'https://www\.chiark\.greenend\.org\.uk/.*',
+]
+linkcheck_timeout = 15
+linkcheck_retries = 2

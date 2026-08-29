@@ -7,27 +7,25 @@ Visual studio compiler versions
 *******************************
 
 Here is a list of Visual Studio / `Visual C++
-<http://en.wikipedia.org/wiki/Visual_C%2B%2B>`_ version numbers, the value of
+<https://en.wikipedia.org/wiki/Visual_C%2B%2B>`_ version numbers, the value of
 the defined ``_MSC_VER`` during compilation, the alternative year-based name,
 and the C / C++ runtime library.
 
 For sources on version numbers / ``_MSC_VER``:
 
 * `a stackoverflow table
-  <http://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time>`_;
+  <https://stackoverflow.com/questions/3592805/detecting-compiler-versions-during-compile-time>`_;
 * a `sourceforge wiki page on compilers
-  <http://sourceforge.net/p/predef/wiki/Compilers>`_;
+  <https://sourceforge.net/p/predef/wiki/Compilers>`_;
 * `stackoverflow answer on VC and Python
-  <http://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with>`_.
+  <https://stackoverflow.com/questions/2676763/what-version-of-visual-studio-is-python-on-my-computer-compiled-with>`_.
 
 For VC runtime libraries:
 
-* a `list of VS versions / CRTS
-  <https://support.microsoft.com/en-us/kb/154753>`_;
 * a `history of the MS CRTS
-  <http://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html>`_;
+  <https://yuhongbao.blogspot.com/2014/10/the-history-of-ms-c-runtime-dll.html>`_;
 * the MS `C runtime library pages
-  <https://msdn.microsoft.com/en-us/library/abx4dbyh(v=vs.100).aspx>`_;
+  <https://learn.microsoft.com/en-us/cpp/c-runtime-library/crt-library-features>`_;
 
 ============  ======== ==================  =============   =============
 VC++ version  _MSC_VER Alternative name    C runtime       C++ runtime
@@ -54,23 +52,23 @@ For a discussion of the generic ``MSVCRT.DLL`` compared to the DLLs specific
 to the VC version, see `this blog post
 <https://kobyk.wordpress.com/2007/07/20/dynamically-linking-with-msvcrtdll-using-visual-c-2005>`_.
 See also `these comments on using MSVCRT.DLL from Mingw-w64
-<http://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll>`_.
+<https://sourceforge.net/p/mingw-w64/wiki2/The%20case%20against%20msvcrt.dll>`_.
 
 For 2015, MS split the C runtime into two component libraries.  See:
 
 * blog post on the `the universal CRT
-  <http://blogs.msdn.com/b/vcblog/archive/2015/03/03/introducing-the-universal-crt.aspx>`_
+  <https://devblogs.microsoft.com/cppblog/introducing-the-universal-crt/>`_
 * Steve Dower's first blog post: `Python 3.5 extensions part 1
-  <http://stevedower.id.au/blog/building-for-python-3-5>`_;
+  <https://stevedower.id.au/blog/building-for-python-3-5>`_;
 * Steve's second blog post: `Python 3.5 extensions part 2
-  <http://stevedower.id.au/blog/building-for-python-3-5-part-two>`_;
+  <https://stevedower.id.au/blog/building-for-python-3-5-part-two>`_;
 
 The CRT components are:
 
 * ``ucrtbase.dl``: "The Universal CRT (UCRT) contains the functions and
   globals exported by the standard C99 CRT library. The UCRT is now a Windows
   component, and ships as part of Windows 10." (see `CRT 2015
-  <https://msdn.microsoft.com/en-us/library/abx4dbyh.aspx>`_).
+  <https://learn.microsoft.com/en-us/cpp/c-runtime-library/crt-library-features>`_).
 * ``vcruntime140.dll`` : "The vcruntime library contains Visual C++ CRT
   implementation-specific code, such as exception handling and debugging
   support, runtime checks and type information, implementation details and
@@ -84,14 +82,14 @@ Visual Studio versions used to compile distributed Python binaries
 ******************************************************************
 
 See:
-http://stackoverflow.com/questions/12028762/what-version-of-visual-studio-and-or-mingw-do-i-need-to-build-extension-modules
+https://stackoverflow.com/questions/12028762/what-version-of-visual-studio-and-or-mingw-do-i-need-to-build-extension-modules
 
-and: http://stackoverflow.com/questions/9047072/windows-python-version-and-vc-redistributable-version
+and: https://stackoverflow.com/questions/9047072/windows-python-version-and-vc-redistributable-version
 
 The version of Visual Studio is described in ``readme.txt`` in the ``PCBuild``
 folder of the source distribution.  The full Visual C++ version number is in
 either ``release.vsprops`` or ``release.props``.  I read these files from the
-`CPython Hg web interface <http://hg.python.org/cpython/tags>`_ for each tagged
+`CPython Hg web interface <https://github.com/python/cpython/tags>`_ for each tagged
 release.
 
 ============== ============
@@ -115,7 +113,7 @@ Pythons 2.7 (and 3.2)
 =====================
 
 If you are compiling for Python 2.7, you should first try the installer at
-http://aka.ms/vcpython27.  I installed this for all users from a ``cmd``
+https://aka.ms/vcpython27.  I installed this for all users from a ``cmd``
 Window opened with "run as administrator", like this::
 
     msiexec /i VCForPython27.msi ALLUSERS=1
@@ -144,7 +142,7 @@ you will see in the "Install Instructions", choose ``GRMSDKX_EN_DVD.iso`` for
 
 I believe Windows 8, 10 and server 2012 can mount ISO files from explorer.  For
 Windows 7 / server 2008 I used `Virtual clone drive
-<http://www.slysoft.com/en/virtual-clonedrive.html>`_ to mount the ISO files.
+<https://www.elby.ch/en/products/vcd.html>`_ to mount the ISO files.
 
 To run the install, navigate to the folder ``Setup`` on the DVD image, and run
 ``SDKSetup.exe``.  Otherwise you may get an error about .NET components that
@@ -156,9 +154,9 @@ compilation error ending in ``ValueError: ['path']``::
   echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
 
 See `this MSVC 2010 SO post
-<http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10>`_
+<https://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10>`_
 for details on installing the Windows 7.1 SDK, and `this SO answer
-<http://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins>`_
+<https://stackoverflow.com/questions/26473854/python-pip-has-issues-with-path-for-ms-visual-studio-2010-express-for-64-bit-ins>`_
 for specifics on the 64-bit distutils error that can be fixed with the
 ``echo`` command above.
 
@@ -173,10 +171,10 @@ Python 3.5, 3.6
 
 For Python 3.5 and 3.6 32-bit and 64-bit extensions you need MSVC 14 / 2015.
 Your fastest route to success will likely be the `MSVC 2015 command line tools
-<http://landinghub.visualstudio.com/visual-cpp-build-tools>`_.  Install these
+<https://visualstudio.microsoft.com/visual-cpp-build-tools/>`_.  Install these
 first.  To get Python to recognize the MSVC command line tools, you will need
 a version of the `setuptools package
-<https://pypi.python.org/pypi/setuptools>`_ >= 24.0.  Check by::
+<https://pypi.org/project/setuptools>`_ >= 24.0.  Check by::
 
     python -c 'import setuptools; print(setuptools.__version__)'
 
@@ -188,7 +186,7 @@ See the `Python Windows compilers wiki page
 <https://wiki.python.org/moin/WindowsCompilers>`_ for more details.
 
 Another option is to install the whole `VS 2015 community edition
-<https://www.visualstudio.com/products/visual-studio-community-vs>`_.   It's a
+<https://visualstudio.microsoft.com/vs/community/>`_.   It's a
 huge 11GB install which took more than an hour on my machine.  Do a custom
 install, and select the VC++ compiler component (it is not selected by
 default).
@@ -215,16 +213,16 @@ Some older links on installing MSVC
 Here are some links that were useful at some point:
 
 * `Cython windows wiki page
-  <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows#using-microsoft-visual-c-compiler-for-python-only-for-python-27x>`_.
+  <https://github.com/cython/cython/wiki/CythonExtensionsOnWindows>`_.
   This has more on configuration for 64-bit in particular.
-* `VS downloads <http://www.visualstudio.com/downloads/download-visual-studio-vs>`_
-* `VS 2010 SDK <http://www.microsoft.com/en-us/download/details.aspx?id=2680>`_
+* `VS downloads <https://visualstudio.microsoft.com/downloads/>`_
+* `VS 2010 SDK <https://www.microsoft.com/en-us/download/details.aspx?id=2680>`_
 * `How to configure VS 10.0 for 64 bit
-  <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.100%29.aspx>`_
-* `VS 2008 download <http://go.microsoft.com/?linkid=7729279>`_
+  <https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/9yb4317s(v=vs.100)>`_
+* `VS 2008 download <https://visualstudio.microsoft.com/vs/older-downloads/>`_
 * Some `relevant instructions from a MATLAB user
-  <http://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64>`_
+  <https://www.mathworks.com/matlabcentral/answers/98351-how-can-i-set-up-microsoft-visual-studio-2008-express-edition-for-use-with-matlab-7-7-r2008b-on-64>`_
   for getting the VS 2008 SDK set up (the default downloads will refuse to
   install onto VS express).
 * `How to configure VS 9.0 for 64 bit
-  <http://msdn.microsoft.com/en-us/library/9yb4317s%28v=vs.90%29.aspx>`_
+  <https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2008/9yb4317s(v=vs.90)>`_

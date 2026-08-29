@@ -838,4 +838,4 @@ into the IPython shell from waf::
         wscript_module.__name__ = 'wscript'
         embed(user_module=wscript_module)
 
-.. _waf: http://code.google.com/waf
+.. _waf: https://waf.io/

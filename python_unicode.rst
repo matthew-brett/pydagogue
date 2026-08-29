@@ -8,9 +8,9 @@ See :ref:`introducing-unicode` for an introduction to Unicode.
 
 See also:
 
-* http://docs.python.org/howto/unicode.html
-* http://effbot.org/zone/unicode-objects.htm
-* http://wiki.python.org/moin/Unicode
+* https://docs.python.org/3/howto/unicode.html
+* https://nedbatchelder.com/text/unipain
+* https://wiki.python.org/moin/Unicode
 
 Python 2 supports unicode with unicode strings::
 
@@ -26,7 +26,7 @@ The most basic is to give the unicode code point in hexadecimal::
    question = u'\u00bfHabla espa\u00f1ol?'  # ¿Habla español?
 
 where ``00bf`` is the hexadecimal unicode code point for the inverted question
-mark; see http://www.unicode.org/Public/UNIDATA/UnicodeData.txt.  Use the
+mark; see https://www.unicode.org/Public/UNIDATA/UnicodeData.txt.  Use the
 ``\u0000`` format, i.e. ``\u`` followed by 4 hexadecimal digits.  For code
 points outside the 16 bit range (outside the BMP |--| see
 :ref:`introducing-unicode`) |--| use capital ``U`` and eight hexadecimal
@@ -38,7 +38,7 @@ See below for some complications of using these 32 bit unicode characters in
 some builds of python 2.
 
 You can also use the standard unicode name (see
-http://www.unicode.org/Public/UNIDATA/UnicodeData.txt )::
+https://www.unicode.org/Public/UNIDATA/UnicodeData.txt )::
 
    less_opaque = u'\N{MUSICAL SYMBOL FIVE-LINE STAFF} is more obviously a five line staff'
 
@@ -49,7 +49,7 @@ text file::
    raw_str = question.encode('utf-8')
 
 Similarly for UTF-16, or other encodings:
-http://docs.python.org/lib/standard-encodings.html
+https://docs.python.org/3/library/codecs.html#standard-encodings
 
 ::
 
@@ -91,8 +91,8 @@ If ``utf_16`` is True, you have a UTF-16 build, otherwise you have UCS4.
 
 See also:
 
-* http://www.python.org/dev/peps/pep-0100/
-* http://www.python.org/dev/peps/pep-0261/
+* https://peps.python.org/pep-0100/
+* https://peps.python.org/pep-0261/
 
 UTF-16 (ucs2) builds of Python and 32 bit unicode code points
 =============================================================
@@ -120,10 +120,10 @@ On a UCS-4 build you get::
 which might have been more what you were expecting - 119066 is the
 decimal representation of hexadecimal 1D11A.  The difference between the two
 builds can mean some oddness in slicing strings... (as noted in
-http://www.python.org/dev/peps/pep-0261/).
+https://peps.python.org/pep-0261/).
 
 Some discussion about UTF-16 / UCS-2, UCS-4 and Python 3 here:
-http://mail.python.org/pipermail/python-dev/2008-July/080886.html
+https://mail.python.org/pipermail/python-dev/2008-July/080886.html
 
 ************************
 Python versions from 3.3
@@ -131,7 +131,7 @@ Python versions from 3.3
 
 Python versions 3.3 and above use a flexible internal representation of the
 string that depends on the string contents |--| see
-http://www.python.org/dev/peps/pep-0393.
+https://peps.python.org/pep-0393.
 
 ************************************
 Relevant python modules and commands
@@ -142,8 +142,8 @@ Modules
 
 * `codecs <https://docs.python.org/2/library/codecs.html>`_;
 * `unicodedata <https://docs.python.org/2/library/unicodedata.html>`_;
-* `locale <http://docs.python.org/2/library/locale.html>`_ (``locale.getdefaultlocale``);
-* `regular expressions <http://docs.python.org/2/library/re.html>`_ - ``(?u)``
+* `locale <https://docs.python.org/2/library/locale.html>`_ (``locale.getdefaultlocale``);
+* `regular expressions <https://docs.python.org/2/library/re.html>`_ - ``(?u)``
   flag, ``re.UNICODE``;
 * `standard encodings <https://docs.python.org/2/library/codecs.html#standard-encodings>`_;
 * encodings - e.g. ``encodings.getaliases()``

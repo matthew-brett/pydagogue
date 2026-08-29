@@ -28,7 +28,8 @@ Basic setup
   directory listing, a less idiosyncratic ``cd``, and a less painful scripting
   language. I believe I've used version 1 and version 2.  ``$Host.version`` at
   the powershell prompt gave me ``1 0 0 0`` on my old XP installation.  Don't
-  forget to enable `quickedit mode <http://support.microsoft.com/kb/282301>`_
+  forget to enable `quickedit mode
+  <https://www.winhelponline.com/blog/enable-quick-edit-command-prompt-by-default>`_
   for much nicer right-click copy and paste.
 * Install msysgit_. In the installation, set ``git`` to be on the command path,
   but not the git bash utilities.  I set the repo to have LF endings, but the
@@ -120,8 +121,8 @@ Miscellaneous
   use an autohotkey_ script.  Putting this ``remap.ahk`` script file into my
   Windows start menu startup folder caused it to be loaded at login::
 
-    ; From: http://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
-    ; See also : http://www.autohotkey.com/docs/Hotkeys.htm
+    ; From: https://superuser.com/questions/241889/macbook-pro-windows-7-remap-cmd-key-to-ctrl-except-cmdtab-to-alttab
+    ; See also : https://www.autohotkey.com/docs/v1/Hotkeys.htm
     ; # usually means Windows key.
     #SingleInstance force ; but sometimes # introduces a command
     #r::Send ^r ;reload
@@ -230,16 +231,16 @@ unpack into, say, ``C:\``, then::
     [Environment]::SetEnvironmentVariable("PYTHON_LIB", "C:\Python27\libs\python27.lib", "User")
 
 
-.. _powershell environment variables: http://technet.microsoft.com/en-us/library/ff730964.aspx
-.. _mingw distutils bug: http://bugs.python.org/issue2698
-.. _64 bit vim: http://code.google.com/p/vim-win3264/wiki/Win64Binaries
-.. _mdesktop: http://code.google.com/p/mdesktop/
-.. _sharpkeys: http://www.randyrants.com/sharpkeys/
+.. _powershell environment variables: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables
+.. _mingw distutils bug: https://bugs.python.org/issue2698
+.. _64 bit vim: https://github.com/vim/vim-win32-installer/releases
+.. _mdesktop: https://web.archive.org/web/20150315000000/http://code.google.com/p/mdesktop/
+.. _sharpkeys: https://github.com/randyrants/sharpkeys
 .. _posh-git: https://github.com/dahlbyk/posh-git
-.. _virtualenvwrapper-powershell: https://bitbucket.org/guillermooo/virtualenvwrapper-powershell
-.. _powershell profile: http://msdn.microsoft.com/en-us/library/windows/desktop/bb613488%28v=vs.85%29.aspx
-.. _lifehacker post: http://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows
-.. _autohotkey: http://ahkscript.org/
-.. _swig downloads: http://www.swig.org/download.html
+.. _virtualenvwrapper-powershell: https://pypi.org/project/virtualenvwrapper-win/
+.. _powershell profile: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_profiles
+.. _lifehacker post: https://lifehacker.com/5807358/how-to-get-mac-os-xs-best-features-on-windows
+.. _autohotkey: https://www.autohotkey.com/
+.. _swig downloads: https://www.swig.org/download.html
 
 .. include:: links_names.inc

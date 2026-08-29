@@ -3,14 +3,14 @@ Notes on Windows containers
 ###########################
 
 See: `Windows containers overview
-<https://msdn.microsoft.com/en-us/virtualization/windowscontainers/about/about_overview>`_.
+<https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/>`_.
 
 There are two types of Windows containers:
 
 * Windows Server containers - uses host kernel, similar to Linux docker
   container.  These containers can only run on a host with matching kernel.
 * `Hyper-V containers
-  <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/hyperv_container>`_
+  <https://learn.microsoft.com/en-us/virtualization/windowscontainers/management/hyperv_container>`_
   - has own kernel, more like an optimized virtual machine.
 
 Windows containers use Windows API calls, so a Windows host can only support
@@ -28,17 +28,17 @@ Set up for using containers
 
 To use either type of container on Windows, you will need container host
 support in your OS.  This `started with Windows 2016 technical preview 3
-<http://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview>`_.
+<https://weblogs.asp.net/scottgu/announcing-windows-server-2016-containers-preview/>`_.
 You will need:
 
 * A real or virtual machine with an OS that can support containers, and
 * Container support installed on the OS;
 
 See `installing a container host
-<https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/container_setup>`_
+<https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment>`_
 for instructions on setting up a virtual machine with container support, and
 `inplace setup
-<https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/inplace_setup>`_
+<https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment>`_
 for instructions on installing the container host services into a real or
 virtual machine running Windows server 2016 tech preview.
 
@@ -54,7 +54,7 @@ Container images
 Containers run from OS "images".  If the container corresponds to a running operating
 system, then the image corresponds to the hard disk of the OS.  See `Windows
 container images
-<https://msdn.microsoft.com/virtualization/windowscontainers/management/manage_images>`_
+<https://learn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers>`_
 for instructions on downloading images for use in Windows containers.
 
 ************************
@@ -64,9 +64,9 @@ Using Windows containers
 There are two standard ways to use Windows containers:
 
 * using `powershell
-  <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows>`_.
+  <https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment>`_.
   See also `managing containers
-  <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers>`_;
+  <https://learn.microsoft.com/en-us/virtualization/windowscontainers/management/manage_containers>`_;
 * using Docker.
 
 ************************************
@@ -77,12 +77,12 @@ Docker gives a nice interface to starting and using Windows containers.
 
 Installing the container host features does not install docker, so, to use
 Docker, you will need to `install Docker
-<https://msdn.microsoft.com/en-us/virtualization/windowscontainers/deployment/docker_windows>`_.
+<https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment>`_.
 
 Then see:
 
 * `Docker containers
-  <https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/manage_docker>`_.
+  <https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/run-your-first-container>`_.
 * `managing containers`_.
 
 In what follows I'm running in a powershell with admin privileges.
@@ -100,7 +100,7 @@ On my system, after installing the :ref:`container-images`, I had::
 
 ``windowsservercore`` is an image containing a minimal Windows Server core
 instance.  ``nanoserver`` contains a `nanoserver
-<https://technet.microsoft.com/en-us/library/mt126167.aspx>`_ instance.
+<https://learn.microsoft.com/en-us/windows-server/get-started/getting-started-with-nano-server>`_ instance.
 
 For convenience, you might like to tag the ``windowsservercore`` and
 ``nanoserver`` images as being the ``latest``.  ``latest`` is the default tag
@@ -162,13 +162,13 @@ Then (in the container)::
 Where ``build_container.ps1`` is::
 
     # Set environment variable for correct code page on Python 2
-    # http://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
+    # https://stackoverflow.com/questions/35176270/python-2-7-lookuperror-unknown-encoding-cp65001#35177906
     [Environment]::SetEnvironmentVariable("PYTHONIOENCODING", "UTF-8", "Machine")
     $env:PYTHONIOENCODING="UTF-8"
     cd c:/downloads
     # See:
     # https://www.python.org/download/releases/2.5/msi/
-    # https://msdn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx
+    # https://learn.microsoft.com/en-us/library/windows/desktop/aa367988(v=vs.85).aspx
     cmd /c msiexec /qn /i VCForPython27.msi ALLUSERS=1
     cmd /c msiexec /qn /i python-2.7.11.amd64.msi TARGETDIR=c:\Python27-x64
     cmd /c msiexec /qn /i python-2.7.11.msi

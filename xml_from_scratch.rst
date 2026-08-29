@@ -7,7 +7,7 @@ XML elements
 ************
 
 The basic unit of an XML document is an `XML element
-<http://www.w3schools.com/xml/xml_elements.asp>`_.
+<https://www.w3schools.com/xml/xml_elements.asp>`_.
 
 A standard XML element consists of:
 

@@ -8,7 +8,7 @@ A collection of links and some very basic introduction.
 For some information on Unicode in Python, see :ref:`python-unicode`.
 
 For a good programmer's introduction see:
-http://www.joelonsoftware.com/articles/Unicode.html
+https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
 
 Unicode
 -------
@@ -16,15 +16,15 @@ Unicode
 Unicode is a convention that defines a unique number for a very very
 large number of possible characters in almost all known alphabets:
 
-* http://www.unicode.org/standard/WhatIsUnicode.html.
-* http://en.wikipedia.org/wiki/Unicode
+* https://www.unicode.org/standard/WhatIsUnicode.html.
+* https://en.wikipedia.org/wiki/Unicode
 
 The number assigned to each character is referred to as the **code
-point**.  The `Unicode consortium <http://www.unicode.org/>`_ has the
+point**.  The `Unicode consortium <https://www.unicode.org/>`_ has the
 job of defining which code point corresponds to which character.  The
 correspondence of code points to characters is published in the Unicode
 Character Database - the latest version of which should be at
-http://www.unicode.org/Public/UNIDATA/.  To refer to a code point it is
+https://www.unicode.org/Public/UNIDATA/.  To refer to a code point it is
 conventional to use hexadecimal - for example code point U+00E9 is the latin
 small letter e with an acute accent.
 
@@ -37,7 +37,7 @@ all modern languages, including Chinese, as well as a large number of
 symbols.  Codes outside the BMP (hexadecimal 10000 and above) include some
 modern Chinese characters, various historical scripts and characters, and
 musical and mathematical symbols - see
-http://en.wikipedia.org/wiki/Mapping_of_Unicode_characters.
+https://en.wikipedia.org/wiki/Mapping_of_Unicode_characters.
 
 Encoding
 --------
@@ -59,13 +59,13 @@ possible encoding for a string is therefore just to contain one 32 bit
 value for each character, where each 32 bit value is the code point for
 the character.  This encoding is referred to as Universal Character Set
 4 (UCS-4) or Unicode Transformation Format 32 (UTF-32):
-http://en.wikipedia.org/wiki/UTF-32/UCS-4
+https://en.wikipedia.org/wiki/UTF-32/UCS-4
 
 Unicode characters above hexadecimal FFFF (and outside the BMP) are rare in
 most languages, and so another simple way of representing common unicode
 strings is to have just one 16 bit value per character; this is UCS-2.
 Because it cannot encode all unicode strings, UCS-2 has become increasingly
-uncommon: http://en.wikipedia.org/wiki/UTF-16/UCS-2. UCS-2 is a strict subset
+uncommon: https://en.wikipedia.org/wiki/UTF-16/UCS-2. UCS-2 is a strict subset
 of UTF-16 (see below).
 
 Variable width encoding
@@ -78,21 +78,21 @@ code point it contained and the encoding you are using.
 
 A common encoding for unicode is UTF-8; this is standard with most Linux
 distributions and many multilingual web pages:
-http://en.wikipedia.org/wiki/UTF-8.  A single unicode code point can be
+https://en.wikipedia.org/wiki/UTF-8.  A single unicode code point can be
 represented by up to four bytes.  Code points in the ascii range (0 to 7F)
 only need one byte, so this format is very space efficient for most western
 text.
 
 UTF-16 uses one 16 bit value for characters in the BMP, but two 16 bit
 values for characters outside the BMP:
-http://en.wikipedia.org/wiki/UTF-16/UCS-2.  The two 16 bit values are
+https://en.wikipedia.org/wiki/UTF-16/UCS-2.  The two 16 bit values are
 referred to as a 'surrogate pair' - see the **surrogate pair** entry in
-the Unicode glossary: http://www.unicode.org/glossary/#S.  UTF-16 is the
+the Unicode glossary: https://www.unicode.org/glossary/#S.  UTF-16 is the
 standard encoding for modern versions of windows.
 
 UCS-2 (see above) is a struct subset of UTF-16 in that UTF-16 also uses only
 one 16-bit word value to encode all characters supported by UCS-2 (see "Q:
 What is the difference between UCS-2 and UTF-16?" in
-http://www.unicode.org/faq/utf_bom.html).  This is possible because the first
+https://www.unicode.org/faq/utf_bom.html).  This is possible because the first
 16-bit character in UTF-16 surrogate pairs use the hex range D80016 to DBFF,
 and there are not defined unicode code points (characters) in this range.

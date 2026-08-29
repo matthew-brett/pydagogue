@@ -4,12 +4,12 @@
  What is a decorator, really?
 ==============================
 
-(with thanks to Fernando Perez for setting me straight on this stuff - see http://mail.scipy.org/pipermail/ipython-dev/2009-September/005500.html)
+(with thanks to Fernando Perez for setting me straight on this stuff - see https://mail.scipy.org/pipermail/ipython-dev/2009-September/005500.html)
 
 You may want to have a look at the Python docs:
 
-* http://docs.python.org/glossary.html#term-decorator 
-* http://docs.python.org/reference/compound_stmts.html#function
+* https://docs.python.org/3/glossary.html#term-decorator
+* https://docs.python.org/3/reference/compound_stmts.html#function
 
 The anatomy of the decorator thing is this::
 

@@ -166,7 +166,7 @@ directory on your path.  See above for how to do this. Check that your
 The output should contain something like ``/home/your-user/.local/bin``.
 
 You will need Pip version >= 6.0 in order to get `Pip wheel caching
-<https://pip.pypa.io/en/latest/reference/pip_install/#caching>`_. This is a
+<https://pip.pypa.io/en/stable/topics/caching/>`_. This is a
 killer Pip feature, that means that you only build wheels from source once,
 the first time you install a package.  Pip then caches the wheel so you use
 the cached version next time you do an install.
@@ -368,7 +368,8 @@ Doesn't work for you?  Help improve this page
 *********************************************
 
 If you try the instructions here, and you can't get a particular package or
-set-up to work, then why not make an `issue <pydagogue issues>`_ for the
+set-up to work, then why not make an `issue
+<https://github.com/matthew-brett/pydagogue/issues>`_ for the
 repository hosting these pages, and I'll see if I can work the fix into this
 page somewhere.
 

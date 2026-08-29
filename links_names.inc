@@ -7,81 +7,80 @@
    nipy, NIPY, Nipy, etc...
 
 .. Version control
-.. _git: http://git-scm.com
-.. _git parable: http://practical-neuroimaging.github.io/git_parable.html
-.. _github: http://github.com
+.. _git: https://git-scm.com/
+.. _git parable: https://practical-neuroimaging.github.io/git_parable.html
+.. _github: https://github.com/
 .. _bitbucket: https://bitbucket.org/
 
 .. Editors
-.. _vim: http://www.vim.org
+.. _vim: https://www.vim.org/
 .. _command-t: https://wincent.com/products/command-t
-.. _command-t README: http://git.wincent.com/command-t.git/blob_plain/master:/README.txt
+.. _command-t README: https://github.com/wincent/command-t/blob/main/README.md
 
 .. Python and common libraries
-.. _python: http://www.python.org
-.. _python.org releases: http://www.python.org/download/releases
-.. _distutils: http://docs.python.org/2/library/distutils.html
-.. _setuptools: http://pypi.python.org/pypi/setuptools
-.. _distribute: http://pypi.python.org/pypi/distribute
-.. _pip: http://pypi.python.org/pypi/pip
-.. _easy_install: https://pythonhosted.org/setuptools/easy_install.html
-.. _wheels: https://pypi.python.org/pypi/wheel
-.. _numpy: http://www.numpy.org
-.. _scipy: http://www.scipy.org/scipylib/index.html
-.. _matplotlib: http://matplotlib.org
-.. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
-.. _nose: http://readthedocs.org/docs/nose/en/latest
+.. _python: https://www.python.org/
+.. _python.org releases: https://www.python.org/downloads/
+.. _distutils: https://docs.python.org/2/library/distutils.html
+.. _setuptools: https://pypi.org/project/setuptools/
+.. _distribute: https://pypi.org/project/distribute/
+.. _pip: https://pypi.org/project/pip/
+.. _easy_install: https://setuptools.pypa.io/en/latest/deprecated/easy_install.html
+.. _wheels: https://pypi.org/project/wheel/
+.. _numpy: https://numpy.org/
+.. _scipy: https://scipy.org/
+.. _matplotlib: https://matplotlib.org/
+.. _old and new python versions: https://launchpad.net/~deadsnakes/+archive/ubuntu/ppa
+.. _nose: https://nose.readthedocs.io/en/latest/
 .. _nose-ipdb: https://github.com/flavioamieiro/nose-ipdb
-.. _ipython: http://ipython.org
+.. _ipython: https://ipython.org/
 
 .. Virtualenv and helpers
-.. _virtualenv: http://pypi.python.org/pypi/virtualenv
-.. _virtualenvwrapper: http://virtualenvwrapper.readthedocs.org/en/latest/
-.. _old and new python versions: https://launchpad.net/%7Efkrull/+archive/deadsnakes
+.. _virtualenv: https://pypi.org/project/virtualenv/
+.. _virtualenvwrapper: https://virtualenvwrapper.readthedocs.io/en/latest/
 
 .. Pypi and packaging
-.. _pypi: http://pypi.python.org
-.. _example pypi: http://packages.python.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
+.. _pypi: https://pypi.org/
+.. _example pypi: https://pythonhosted.org/an_example_pypi_project/setuptools.html#intermezzo-pypirc-file-and-gpg
 .. _get-pip.py:
-.. _install pip with get-pip.py: https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py
+.. _install pip with get-pip.py: https://pip.pypa.io/en/stable/installation/
 .. _manylinux: https://github.com/pypa/manylinux
 
 .. Mac development
-.. _macports: http://www.macports.org
-.. _github osx installation: http://help.github.com/mac-git-installation
-.. _xcode: http://developer.apple.com/TOOLS/xcode
-.. _macvim: https://github.com/b4winckler/macvim
-.. _bdist_mpkg: http://pypi.python.org/pypi/bdist_mpkg
-.. _parallels: http://www.parallels.com
+.. _macports: https://www.macports.org/
+.. _github osx installation: https://github.com/git-guides/install-git#install-git-on-mac
+.. _xcode: https://developer.apple.com/xcode/
+.. _macvim: https://github.com/macvim-dev/macvim
+.. _bdist_mpkg: https://pypi.org/project/bdist_mpkg/
+.. _parallels: https://www.parallels.com/
 
 .. Windows development
-.. _mingw: http://www.mingw.org/wiki/Getting_Started
-.. _mingw-w64: http://mingw-w64.org/doku.php
+.. _mingw: http://www.mingw.org/
+.. _mingw-w64: https://www.mingw-w64.org/
 .. _msys: http://www.mingw.org/wiki/MSYS
-.. _msys2: http://msys2.github.io/
-.. _powershell: http://www.microsoft.com/powershell
-.. _msysgit: http://code.google.com/p/msysgit
-.. _putty: http://www.chiark.greenend.org.uk/~sgtatham/putty
+.. _msys2: https://www.msys2.org/
+.. _powershell: https://learn.microsoft.com/en-us/powershell/
+.. _msysgit: https://gitforwindows.org/
+.. _putty: https://www.chiark.greenend.org.uk/~sgtatham/putty/
 
 .. Nipy and friends
-.. _nipy: http://nipy.org
-.. _gitwash: http://github.com/matthew-brett/gitwash
-.. _neurodebian: http://neuro.debian.net/
+.. _nipy: https://nipy.org/
+.. _gitwash: https://github.com/matthew-brett/gitwash
+.. _neurodebian: https://neuro.debian.net/
 
 .. Licenses
-.. _CC0 license: http://creativecommons.org/publicdomain/zero/1.0/legalcode
+.. _CC0 license: https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 .. Friend pages
-.. _docosx: http://matthew-brett.github.com/docosx
-.. _developing on mac: http://matthew-brett.github.com/docosx/develop_mac.html
-.. _booting macs: http://matthew-brett.github.com/docosx/booting_macs.html
+.. _docosx: https://matthew-brett.github.io/docosx/
+.. _developing on mac: https://matthew-brett.github.io/docosx/develop_mac.html
+.. _booting macs: https://matthew-brett.github.io/docosx/booting_macs.html
 .. _runtime linking on Mac:
-    http://matthew-brett.github.com/docosx/mac_runtime_link.html
+    https://matthew-brett.github.io/docosx/mac_runtime_link.html
 .. _osx legacy packaging redux:
-    http://matthew-brett.github.com/docosx/osx_legacy_package_redux.html
+    https://matthew-brett.github.io/docosx/legacy_package_redux.html
 
 .. This repo
-.. _pydagogue issue : https://github.com/matthew-brett/pydagogue/issues
+.. _pydagogue issues: https://github.com/matthew-brett/pydagogue/issues
 
 .. Curious git
 .. _curious git: https://matthew-brett.github.io/curious-git

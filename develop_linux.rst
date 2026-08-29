@@ -45,17 +45,7 @@ Setting up virtualenvs
 
 * Install virtualenv_, and virtualenvwrapper_.  I did this with::
 
-    sudo apt-get install python-setuptools
-    sudo easy_install virtualenvwrapper
-
-  I did this because there is was an incompatibility with Maverick Python 2.7
-  and Maverick virtualenv_ - see `this bug report
-  <https://bitbucket.org/ianb/virtualenv/issue/63/now-python27-requires-_weakrefset>`_.
-  For Natty (next after Maverick), you can probably use::
-
     sudo apt-get install virtualenvwrapper
-
-  instead.
 
 * If you are using my config (above), you probably want my default environment
   cleanup for virtualenvs::

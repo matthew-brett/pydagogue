@@ -90,8 +90,11 @@ doctest:
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
 
-gitwash-update:
-	python tools/gitwash_dumper.py . gitwash \
+update-submodules:
+	git submodule update --init --recursive
+
+gitwash-update: update-submodules
+	python gitwash-repo/gitwash_dumper.py . gitwash \
 	    --github-user=matthew-brett \
 	    --project-url=http://github.com/matthew-brett/gitwash \
 	    --project-ml-url=http://mail.scipy.org/mailman/listinfo/nipy-devel
