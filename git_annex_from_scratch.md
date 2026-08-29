@@ -384,3 +384,5 @@ That was a tour of the basics.  You might now want to have a look at the primary
 * The [main git-annex
   walkthrough](https://git-annex.branchable.com/walkthrough)
 * [Git-annex internals](https://git-annex.branchable.com/internals)
+* [Scientific computing Git-Annex
+  tutorial](https://scicomp.aalto.fi/scicomp/git-annex/)
