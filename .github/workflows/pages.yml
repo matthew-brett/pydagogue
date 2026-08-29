@@ -41,6 +41,12 @@ jobs:
           sudo apt update
           sudo apt install tree git-annex
 
+      - name: Configure Git
+        run: |
+          git config --global init.defaultBranch main
+          git config --global user.name "ci"
+          git config --global user.email "ci@example.com"
+
       - name: Build HTML
         run: make html
 

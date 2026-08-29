@@ -56,13 +56,16 @@ repository.
 
 ## Git annex remotes
 
-Git-annex has *remotes*. I'll call these Git-Annex Remotes (GARs) because they function in a somehat different way to standard Git remotes.  GARs are pointers to particular data stores,
-that can store the GAOs.  These remotes can Git-annex *special* remotes, not related to standard Git remotes, that have various types of storage
-backing and interfaces, such as `rclone` pointing to Google Drive and so on.
+Git-annex has *remotes*. I'll call these Git-Annex Remotes (GARs) because they
+function in a somewhat different way to standard Git remotes.  GARs are
+pointers to particular data stores, that can store the GAOs.  These remotes can
+Git-annex *special* remotes, not related to standard Git remotes, that have
+various types of storage backing and interfaces, such as `rclone` pointing to
+Google Drive and so on.
 
 Each remote used with Git-annex has a Universally Unique Identifier (UUID), so that Git-annex can record which remote has each of the potential GAOs.
 
-As this implies, a GAR need not store all possible GAOs - it might have a subset.  Git-annex has to keep track of this information, so it can `git annex get` any files that the user asks for, that they do not already have in their `.git/annex` GAO object sotre.
+As this implies, a GAR need not store all possible GAOs - it might have a subset.  Git-annex has to keep track of this information, so it can `git annex get` any files that the user asks for, that they do not already have in their `.git/annex` GAO object store.
 
 Now - your ordinary Git remote — for example `origin` — also functions as
 a GAR - and has its own UUID.  That is because, on your machine,
@@ -127,7 +130,8 @@ tree .git/objects
 
 Make an ordinary Git commit.  This generates a new directory-listing object, and a new commit object.
 
-This is basic Git machinery, but notice that the listed (short) commit hash correponds to one of the two new objects.  The other is the directory listing.
+This is basic Git machinery, but notice that the listed (short) commit hash
+corresponds to one of the two new objects.  The other is the directory listing.
 
 ```{code-cell}
 git commit -m "Added first file"
@@ -299,3 +303,13 @@ git annex list
 # The symlink is now fixed.
 file my_large_file
 ```
+
+## Whence Git annex
+
+That was a tour of the basics.  You might now want to have a look at:
+
+* [The main git-annex
+  walkthrough](https://git-annex.branchable.com/walkthrough/)
+* [git-annex
+  internals](https://web.archive.org/web/20260725205005/https://git-annex.branchable.com/internals/)
+  (Archive.org link, the source page was down at time of writing).
