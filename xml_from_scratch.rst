@@ -131,17 +131,17 @@ Reading XML
 
 For example, in Python:
 
-.. workrun:: pycon
+.. runblock:: pycon
 
     >>> import xml.etree.ElementTree as ET
-    >>> tree = ET.parse('some_example.xml')
+    >>> tree = ET.parse('working/some_example.xml')
     >>> root = tree.getroot()
     >>> print(root.tag)
     >>> print(root.attrib)
-    >>> children = root.getchildren()
+    >>> children = list(root)
     >>> print(len(children))
     >>> only_child = children[0]
-    >>> for child in only_child.getchildren():
+    >>> for child in list(only_child):
     ...     print(child.tag, child.text)
 
 .. include:: links_names.inc

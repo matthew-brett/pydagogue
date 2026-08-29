@@ -1,0 +1,6 @@
+sphinx
+sphinx-autorun
+ghp-import
+matplotlib
+numpy
+scipy

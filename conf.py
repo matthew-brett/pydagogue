@@ -25,12 +25,11 @@ sys.path.append(os.path.abspath('sphinxext'))
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.doctest',
               'sphinx.ext.mathjax',
-              'autorun',
-              'writefile',
-              'workrun',
-              'prizefiles',
-              'subfiles',
-              'texext.math_dollar']
+              'sphinx_autorun',
+              'writefile']
+
+# Defaults hide source for runblock:: pycon
+autorun_languages = {'pycon_show_source': True}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

@@ -3,4 +3,4 @@ Pydagogue
 
 Being some tutorial notes about Python things
 
-I try to keep a build here: http://matthew-brett.github.com/pydagogue/
+Github CI pushes the page build to: http://matthew-brett.github.io/pydagogue/
