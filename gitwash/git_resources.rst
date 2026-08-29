@@ -14,13 +14,12 @@ Tutorials and summaries
 * A `git cheat sheet`_ is a page giving summaries of common commands.
 * The `git user manual`_
 * The `git tutorial`_
-* The `git community book`_
 * `git ready`_ |emdash| a nice series of tutorials
 * `git magic`_ |emdash| extended introduction with intermediate detail
 * The `git parable`_ is an easy read explaining the concepts behind git.
 * `git foundation`_ expands on the `git parable`_.
-* Fernando Perez' git page |emdash| `Fernando's git page`_ |emdash| many
-  links and tips
+* Fernando Perez' git page |emdash| `Fernando's git intro`_.  Follow
+  git-related links in the page sidebar for other links and tips.
 * A good but technical page on `git concepts`_
 * `git svn crash course`_: git for those of us used to subversion_
 

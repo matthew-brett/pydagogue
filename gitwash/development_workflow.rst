@@ -67,7 +67,7 @@ When you are ready to make some changes to the code, you should start a new
 branch.  Branches that are for a collection of related edits are often called
 'feature branches'.
 
-Making an new branch for each set of related changes will make it easier for
+Making a new branch for each set of related changes will make it easier for
 someone reviewing your branch to see what you are doing.
 
 Choose an informative name for the branch to remind yourself and the rest of us
@@ -138,7 +138,7 @@ In more detail
 #. Check what the actual changes are with ``git diff`` (`git diff`_).
 #. Add any new files to version control ``git add new_file_name`` (see
    `git add`_).
-#. To commit all modified files into the local copy of your repo,, do
+#. To commit all modified files into the local copy of your repo, do
    ``git commit -am 'A commit message'``.  Note the ``-am`` options to
    ``commit``. The ``m`` flag just signals that you're going to type a
    message on the command line.  The ``a`` flag |emdash| you can just take on
@@ -187,7 +187,7 @@ Delete a branch on github
    git push origin :my-unwanted-branch
 
 Note the colon ``:`` before ``my-unwanted-branch``.  See also:
-https://help.github.com/articles/pushing-to-a-remote/#deleting-a-remote-branch-or-tag
+https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository
 
 Several people sharing a single repository
 ------------------------------------------
@@ -208,10 +208,7 @@ collaborator:
 
 Now all those people can do::
 
-    git clone git@githhub.com:your-user-name/gitwash.git
-
-Remember that links starting with ``git@`` use the ssh protocol and are
-read-write; links starting with ``git://`` are read-only.
+    git clone git@github.com:your-user-name/gitwash.git
 
 Your collaborators can then commit directly into that repo with the
 usual::
@@ -342,7 +339,7 @@ Rewriting commit history
 
    Do this only for your own feature branches.
 
-There's an embarrassing typo in a commit you made? Or perhaps the you
+There's an embarrassing typo in a commit you made? Or perhaps you
 made several false starts you would like the posterity not to see.
 
 This can be done via *interactive rebasing*.
