@@ -6,4 +6,4 @@ object_names.inc
 some_example.xml
 *.ipynb
 .ipynb_checkpoints/
-my-repo/
+annex-repos/

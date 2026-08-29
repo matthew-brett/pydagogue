@@ -90,11 +90,16 @@ git-annex-enhanced.
 :tags: [hide-input]
 
 # Clean up any prior runs before we start.
-if [ -d my-repo ]; then
-    # To work round git annex permission guards.
-    chmod -R u+rwX my-repo
-    rm -rf my-repo
+if [ -d annex-repos ]; then
+    # Work round git annex permission guards.
+    chmod -R u+rwX annex-repos
+    rm -rf annex-repos
 fi
+
+# Start in the annex-repos directory (we'll make several
+# directories there).
+mkdir annex-repos
+cd annex-repos
 ```
 
 ```{code-cell}
@@ -204,10 +209,89 @@ ls -al my_large_file
 git status
 ```
 
+`git annex list` tells us which GAR has each GAO.  `here` is the name for the local GAR, in `.git/annex`:
+
 ```{code-cell}
 git annex list
 ```
 
-```{code-cell}
+We can now do a commit - but notice - the thing that gets added to the standard git history, and stays in `.git/objects`, is nothing but the symlink:
 
+```{code-cell}
+git commit -m "Add link to my_large_file"
+```
+
+`git show` below identifies the symlink with the file mode 120000:
+
+```{code-cell}
+# Show contents of last commit.
+git show main
+```
+
+To recap - Git itself never got a copy of `my_large_file`.  The contents of `my_large_file` belongs to Git annex, and is stored in the `.git/annex` directory, that does not get transferred when you clone the repository.  Git itself only has the symbolic link to the file.  But as we'll see soon, it does know where copies of `my_large_file` live, through the information in the `git-annex` branch.
+
+To illustrate, if we do a direct clone of this `my-repo` repository, we do not have the contents of `my_large_file`; we only have the symlink:
+
+```{code-cell}
+cd ..
+# Simulate pushing to some upstream service such as Github.
+git clone --bare my-repo my-repo-upstream.git
+# Simulate cloning from there.
+git clone my-repo-upstream.git my-repo-clone
+cd my-repo-clone
+```
+
+```{code-cell}
+# No .git/annex directory in the clone.
+ls .git
+```
+
+```{code-cell}
+# But we do have access to the git-annex branch, which maps
+# repositories to GAOs
+git branch -a
+```
+
+```{code-cell}
+# my_large_file is a broken symlink
+file my_large_file
+```
+
+If we try and fetch the file to which the symlink points, with `git annex get`, Git annex doesn't know where to find it, because it has no record of the `origin` (upstream) repository having it:
+
+```{code-cell}
+git annex list
+```
+
+However, the `git-annex` branch does tell it where we might find it - notice the suggestion generated during the failure.
+
+```{code-cell}
+git annex get my_large_file
+```
+
+This is telling us that we need to point directly to the original repository as a source for the GAO files:
+
+```{code-cell}
+# Add the original repository as an ordinary Git remote.
+git remote add original-repo ../my-repo --fetch
+```
+
+```{code-cell}
+# Git annex now knows it can get the file.
+git annex list
+```
+
+```{code-cell}
+git annex get my_large_file
+```
+
+```{code-cell}
+# There are two repositories that Git annex knows has
+# the file (in `.git/annex`) - this repo, and the original.
+git annex list
+```
+
+```{code-cell}
+# The symlink is now fixed.
+file my_large_file
 ```
