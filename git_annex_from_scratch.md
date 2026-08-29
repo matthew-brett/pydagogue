@@ -266,6 +266,8 @@ git annex list
 However, the `git-annex` branch does tell it where we might find it - notice the suggestion generated during the failure.
 
 ```{code-cell}
+:tags: [raises-exception]
+
 git annex get my_large_file
 ```
 
@@ -280,6 +282,8 @@ git remote add original-repo ../my-repo --fetch
 # Git annex now knows it can get the file.
 git annex list
 ```
+
+We ask Git annex to fetch the file.
 
 ```{code-cell}
 git annex get my_large_file
