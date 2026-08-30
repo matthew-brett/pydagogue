@@ -126,7 +126,8 @@ mkdir my-repo
 cd my-repo
 ```
 
-When we do `git init` we have the usual `.git` directories — this is, so far, a normal Git repository.
+When we do `git init` we have the usual `.git` subdirectories — this is, so
+far, a normal Git repository.
 
 ```{code-cell}
 git init
@@ -391,8 +392,7 @@ page](https://git-annex.branchable.com/git-annex-wanted) for more.
 ## Whither Git-Annex
 
 That was a tour of the basics.  You might now want to have a look at the
-primary Git-Annex pages.  For the moment I have not enabled these links as they
-are down at the time of writing.
+primary Git-Annex pages.
 
 * The [main Git-Annex
   walkthrough](https://git-annex.branchable.com/walkthrough)
