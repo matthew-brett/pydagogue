@@ -33,7 +33,10 @@ clean:
 	-rm -rf $(BUILDDIR)/*
 	-rm -rf working/* working/.gitconfig
 
-html: bash-kernel
+check-ipynb:
+	if compgen -G "*.ipynb" 2> /dev/null; then (echo "ipynb files" && exit 1); fi
+
+html: bash-kernel check-ipynb
 	$(SPHINXBUILD) --fail-on-warning -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."

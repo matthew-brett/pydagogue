@@ -11,9 +11,9 @@ things like nipy_.
 
 Some pages that started here, have moved to their own sites:
 
-* `the curious coder's guide to git <curious git_>`_ - understanding git from
+* `The curious coder's guide to git <curious git_>`_ - understanding git from
   ideas to practice;
-* `pages about developing on macOS <docosx_>`_;
+* `Pages about developing on macOS <docosx_>`_;
 
 
 Contents:
