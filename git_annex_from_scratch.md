@@ -102,8 +102,8 @@ branch in the walkthrough below.
 
 ## Walkthrough
 
-Make a new directory for the git repository, that will soon also be
-Git-annex-enhanced.
+Make a new directory for the Git repository, that will soon also be
+Git-Annex-enhanced.
 
 ```{code-cell}
 :tags: [remove-cell]
@@ -147,7 +147,7 @@ tree .git/objects
 Make an ordinary Git commit.  This generates a new directory-listing object, and a new commit object — the usual Git behavior.[^git-objects]
 
 [^git-objects]: This is nothing to do with Git-Annex, but if you review the
-  hash filenames of two new git objects,  you'll see that one of them starts
+  hash filenames of two new Git objects,  you'll see that one of them starts
   with the same short (7 character) hash given for the commit — that is the
   commit object. The other is the directory listing.
 
@@ -205,7 +205,7 @@ this one.
 
 +++
 
-Now we'll add some potentially large file, using `git annex add`.  That is going to make a Git Annex Object (GAO), and leave a pointer (symlink) behind in the working directory.
+Now we'll add some potentially large file, using `git annex add`.  That is going to make a Git-Annex Object (GAO), and leave a pointer (symlink) behind in the working directory.
 
 First we make a file that we will pretend is large.  We'll also calculate its SHA1 sum - you'll see why later.
 
@@ -227,7 +227,7 @@ Notice now that:
   — see
   [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/)).
 * There's a symlink to that file in the working directory.
-* Git-Annex added *the symlink* (and not the file itself) to the ordinary git
+* Git-Annex added *the symlink* (and not the file itself) to the ordinary Git
   staging area.
 
 In order:
@@ -258,7 +258,7 @@ git status
 git annex list
 ```
 
-We can now do a commit - but notice - the thing that gets added to the standard git history, and stays in `.git/objects`, is nothing but the symlink:
+We can now do a commit - but notice - the thing that gets added to the standard Git history, and stays in `.git/objects`, is nothing but the symlink:
 
 ```{code-cell}
 git commit -m "Add link to my_large_file"
