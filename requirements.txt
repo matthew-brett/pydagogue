@@ -1,5 +1,6 @@
 sphinx
 sphinx-autorun @ git+https://github.com/matthew-brett/sphinx-autorun.git@fix-empty-runblock-output
+sphinx-book-theme
 myst-nb
 bash_kernel
 jupytext

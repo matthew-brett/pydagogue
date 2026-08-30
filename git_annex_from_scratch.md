@@ -147,10 +147,12 @@ git add my_small_file
 tree .git/objects
 ```
 
-Make an ordinary Git commit.  This generates a new directory-listing object, and a new commit object.
+Make an ordinary Git commit.  This generates a new directory-listing object, and a new commit object — the usual Git behavior.[^git-objects]
 
-This is basic Git machinery, but notice that the listed (short) commit hash
-corresponds to one of the two new objects.  The other is the directory listing.
+[^git-objects]: This is nothing to do with Git-Annex, but if you review the
+  hash filenames of two new git objects,  you'll see that one of them starts
+  with the same short (7 character) hash given for the commit — that is the
+  commit object. The other is the directory listing.
 
 ```{code-cell}
 git commit -m "Added first file"
@@ -193,7 +195,16 @@ Next we look at `git annex info` to show the Git-Annex-Remotes:
 git annex info
 ```
 
-For the moment, notice the "semitrusted repositories".  These are GARs - places that Git-Annex knows can be sources of the Git-Annex-Object files.  The first two (`web` and `bittorrent`) are generic sources corresponding to URLs, and bittorrent files, but we'll ignore these for now.  The third points to the local `.git` directory.  This is a "remote" in a rather confusing sense - that is - it's a place that can serve as a source for the files that Git-Annex will store (the GAOs).   It's a remote in the sense that other Git-Annex overlaid repositories may be able to use to get those files.  You can think of it as a remote to *other repositories*, and a local store to this one.
+For the moment, notice the "semitrusted repositories".  These are GARs - places
+that Git-Annex knows can be sources or destinations for the Git-Annex-Object
+files.  The first two (`web` and `bittorrent`) are generic sources
+corresponding to URLs, and bittorrent files, but we'll ignore these for now.
+The third points to the local `.git` directory.  This is a "remote" in a rather
+confusing sense - that is - it's a place that can serve as a source for the
+files that Git-Annex will store (the GAOs).   It's a remote in the sense that
+other Git-Annex overlaid repositories may be able to use to get those files.
+You can think of it as a remote to *other repositories*, and a local store to
+this one.
 
 +++
 
@@ -214,10 +225,10 @@ git annex add my_large_file
 
 Notice now that:
 
-* The file has moved to `.git/annex/objects`
+* The file has moved to `.git/annex/objects`.
 * The moved file is now read-only (to prevent you accidentally overwriting it
   — see
-  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/))
+  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/)).
 * There's a symlink to that file in the working directory.
 * Git-Annex added *the symlink* (and not the file itself) to the ordinary git
   staging area.
@@ -294,27 +305,27 @@ ls .git
 
 ```{code-cell}
 # But we do have access to the remote git-annex branch, which maps
-# repositories to GAOs
+# repositories to GAOs.
 git branch -a
 ```
 
 ```{code-cell}
-# my_large_file is a broken symlink
+# my_large_file is a broken symlink.
 file my_large_file
 ```
 
 If we try and fetch the file to which the symlink points, with `git annex get`,
 Git-Annex can't do it, because it has no record (in the `git-annex` remote
-branch) that the `origin` (upstream) repository has that file in its `.git/annex`
-filesystem.
+branch) that the `origin` (upstream) repository has that file in its
+`.git/annex` filesystem.
 
 ```{code-cell}
 git annex list
 ```
 
 However, the `git-annex` remote branch has told it where we might find the file
-(see [Git-Annex internals](https://git-annex.branchable.com/internals)).  Notice
-the suggestion generated during the failure:
+(see [Git-Annex internals](https://git-annex.branchable.com/internals)).
+Notice the suggestion generated during the failure:
 
 ```{code-cell}
 :tags: [raises-exception]
@@ -380,9 +391,11 @@ should house which files.   These rules get stored in the `git-annex` branch.
 See the [Git-Annex wanted
 page](https://git-annex.branchable.com/git-annex-wanted) for more.
 
-## Whence Git-Annex
+## Whither Git-Annex
 
-That was a tour of the basics.  You might now want to have a look at the primary Git-Annex pages.  For the moment I have not enabled these links as they are down at the time of writing.
+That was a tour of the basics.  You might now want to have a look at the
+primary Git-Annex pages.  For the moment I have not enabled these links as they
+are down at the time of writing.
 
 * The [main Git-Annex
   walkthrough](https://git-annex.branchable.com/walkthrough)
