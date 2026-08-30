@@ -1,0 +1,20 @@
+name: Linkcheck
+
+on:
+  pull_request:
+  schedule:
+    # Mondays 06:00 UTC — catch link rot on main
+    - cron: '0 6 * * 1'
+
+jobs:
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - uses: ./.github/actions/setup-docs
+
+      - name: Linkcheck
+        run: make linkcheck

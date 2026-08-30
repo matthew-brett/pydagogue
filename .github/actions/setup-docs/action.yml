@@ -1,0 +1,34 @@
+name: Setup docs
+description: Install Python/docs deps and tools needed to build or linkcheck
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ hashFiles('requirements.txt') }}
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.14'
+        cache: pip
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        pip install -r requirements.txt
+        python -m bash_kernel.install
+
+    - name: Install tree and git-annex
+      shell: bash
+      run: |
+        sudo apt update
+        sudo apt install tree git-annex
+
+    - name: Configure Git
+      shell: bash
+      run: |
+        git config --global init.defaultBranch main
+        git config --global user.name "ci"
+        git config --global user.email "ci@example.com"

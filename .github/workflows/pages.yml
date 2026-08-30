@@ -21,37 +21,10 @@ jobs:
         with:
           submodules: true
 
-      - uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ hashFiles('requirements.txt') }}
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.14'
-          cache: pip
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          python -m bash_kernel.install
-
-      - name: Install tree and shasum utility
-        run: |
-          sudo apt update
-          sudo apt install tree git-annex
-
-      - name: Configure Git
-        run: |
-          git config --global init.defaultBranch main
-          git config --global user.name "ci"
-          git config --global user.email "ci@example.com"
+      - uses: ./.github/actions/setup-docs
 
       - name: Build HTML
         run: make html
-
-      - name: Linkcheck
-        run: make linkcheck
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
