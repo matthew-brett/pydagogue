@@ -20,7 +20,7 @@ I'm partly starting from [Joey Hess' talk](https://www.youtube.com/watch?v=zQTAe
 
 Here is a set of fundamental objects for Git-Annex, from that talk:
 
-## Git Annex objects (GAOs)
+## Git-Annex objects (GAOs)
 
 GAOs are objects in the same sense that Git stores *objects* in its object
 store.
@@ -35,7 +35,7 @@ However, Git-Annex is designed to work with very large files that should not be
 compressed or copied.  So when you create a Git-Annex object (with `git annex
 add mybigfile`):
 
-* The file is *moved* not copied
+* The file is *moved*, not copied
 * Within the working tree, Git-Annex leaves behind a pointer (usually
   a symbolic link) to the now-moved file.  See below.
 * The moved file is not compressed
@@ -43,7 +43,7 @@ add mybigfile`):
 * Git-Annex removes write permission on the moved file, to prevent you
   overwriting the file accidentally (see
   [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/))
-* There are different rules for making the hash filename, that we don't need to
+* There are different rules for making the hash filename that we don't need to
   worry about for now.
 
 ## Git-Annex pointers
@@ -70,7 +70,7 @@ This can be confusing, because:
   remotes have various types of storage backing and interfaces, such as
   `rclone` pointing to Google Drive and so on.
 
-I'll call both Git re-used repositories, and special remotes — Git Annex
+I'll call both Git re-used repositories, and special remotes — Git-Annex
 Remotes (GARs) — because they have the specific purpose of storing the GAOs.
 GARs are pointers to particular data stores that can store GAOs.
 
@@ -193,20 +193,20 @@ Next we look at `git annex info` to show the Git-Annex-Remotes:
 git annex info
 ```
 
-For the moment, notice the "semitrusted repositories".  These are GARs - places that Git-Annex knows can be sources of the Git-Annex-Object files.  The first two (`web` and `bitorrent`) are generic sources corresponding to URLs, and bitorrent files, but we'll ignore these for now.  The third points to the local `.git` directory.  This is a "remote" in a rather confusing sense - that is - it's a place that can serve as a source for the files that Git-annex will store (the GAOs).   It's a remote in the sense that other Git-annex overlaid repositories may be able to use to get those files.  You can think of it as a remote to *other repositories*, and a local store to this one.
+For the moment, notice the "semitrusted repositories".  These are GARs - places that Git-Annex knows can be sources of the Git-Annex-Object files.  The first two (`web` and `bittorrent`) are generic sources corresponding to URLs, and bittorrent files, but we'll ignore these for now.  The third points to the local `.git` directory.  This is a "remote" in a rather confusing sense - that is - it's a place that can serve as a source for the files that Git-Annex will store (the GAOs).   It's a remote in the sense that other Git-Annex overlaid repositories may be able to use to get those files.  You can think of it as a remote to *other repositories*, and a local store to this one.
 
 +++
 
 Now we'll add some potentially large file, using `git annex add`.  That is going to make a Git Annex Object (GAO), and leave a pointer (symlink) behind in the working directory.
 
-First we make a file, that we will pretend is large.  We'll also calculate its SHA1 sum - you'll see why later.
+First we make a file that we will pretend is large.  We'll also calculate its SHA1 sum - you'll see why later.
 
 ```{code-cell}
 echo "Something really large" > my_large_file
 shasum my_large_file
 ```
 
-Now we make that large file into a Git Annex Object with `git annex add`:
+Now we make that large file into a Git-Annex Object with `git annex add`:
 
 ```{code-cell}
 git annex add my_large_file
@@ -305,7 +305,7 @@ file my_large_file
 
 If we try and fetch the file to which the symlink points, with `git annex get`,
 Git-Annex can't do it, because it has no record (in the `git-annex` remote
-branch) that the `origin` (upstream) repository has that file its `.git/annex`
+branch) that the `origin` (upstream) repository has that file in its `.git/annex`
 filesystem.
 
 ```{code-cell}
@@ -313,7 +313,7 @@ git annex list
 ```
 
 However, the `git-annex` remote branch has told it where we might find the file
-(see [Git-Annex internals](https://git-annex.branchable.com/internals).  Notice
+(see [Git-Annex internals](https://git-annex.branchable.com/internals)).  Notice
 the suggestion generated during the failure:
 
 ```{code-cell}
@@ -342,7 +342,7 @@ git annex get my_large_file
 ```
 
 ```{code-cell}
-# There are two repositories that Git-Annex knows has
+# There are two repositories that Git-Annex knows have
 # the file (in `.git/annex`) - this repo, and the original.
 git annex list
 ```
@@ -357,7 +357,7 @@ file my_large_file
 As you have seen, Git-Annex can use Git repositories on filesystems as storage
 for GAOs — in the repository `.git/annex` directory.
 
-But Git-Annex can also have *special remotes*, that have no necessary relationship to Git repositories.  For example, they can work with directories on file-sharing systems such as Dropbox and Google drive.
+But Git-Annex can also have *special remotes*, that have no necessary relationship to Git repositories.  For example, they can work with directories on file-sharing systems such as Dropbox and Google Drive.
 
 You create special remotes with the `git annex initremote` command. I don't
 cover those here, but see the [Git-Annex page on special
@@ -371,7 +371,7 @@ tell Git-Annex which files it should handle (as GAOs) and which Git should
 handle.  See the [annex.largefiles
 page](https://git-annex.branchable.com/tips/largefiles) for details.  Note that
 `annex.largefiles` just identifies files that Git-Annex should handle.  You can
-use values for `annex.largefile` to make Git-Annex always operate on files
+use values for `annex.largefiles` to make Git-Annex always operate on files
 larger than a particular size, but you can also use that setting to configure
 Git / Git-Annex to select files by path name.
 
@@ -382,10 +382,10 @@ page](https://git-annex.branchable.com/git-annex-wanted) for more.
 
 ## Whence Git-Annex
 
-That was a tour of the basics.  You might now want to have a look at the primary Git-Annex pages.  For the moment I have not enabled these links as they are down at time of writing.
+That was a tour of the basics.  You might now want to have a look at the primary Git-Annex pages.  For the moment I have not enabled these links as they are down at the time of writing.
 
-* The [main git-annex
+* The [main Git-Annex
   walkthrough](https://git-annex.branchable.com/walkthrough)
-* [Git-annex internals](https://git-annex.branchable.com/internals)
+* [Git-Annex internals](https://git-annex.branchable.com/internals)
 * [Scientific computing Git-Annex
   tutorial](https://scicomp.aalto.fi/scicomp/git-annex/)
