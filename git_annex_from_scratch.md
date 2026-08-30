@@ -25,24 +25,23 @@ Here is a set of fundamental objects for Git-Annex, from that talk:
 GAOs are objects in the same sense that Git stores *objects* in its object
 store.
 
-For Git, when we do `git add myfile`, Git takes the contents of `myfile` (well,
-in fact, a compressed version of `myfile`) and copies it into the
-`.git/objects` directory, with a filename generated from the SHA1 hash of the
-object.  In summary `git add myfile` causes a compressed *copy* of the file to
-be written into `.git/objects` with a filename from its hash.
+For *Git* (not Git-Annex), when we do `git add myfile`, Git takes the contents
+of `myfile` (well, in fact, a compressed version of `myfile`) and copies it
+into the `.git/objects` directory, with a filename generated from the SHA1 hash
+of the object.
 
 However, Git-Annex is designed to work with very large files that should not be
 compressed or copied.  So when you create a Git-Annex object (with `git annex
 add mybigfile`):
 
-* The file is *moved*, not copied
+* The file is *moved*, not copied.
 * Within the working tree, Git-Annex leaves behind a pointer (usually
   a symbolic link) to the now-moved file.  See below.
-* The moved file is not compressed
+* The moved file is not compressed.
 * The contents go into `.git/annex/objects` instead of `.git/objects`.
 * Git-Annex removes write permission on the moved file, to prevent you
   overwriting the file accidentally (see
-  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/))
+  [lock](https://git-annex.branchable.com/git-annex-lock/)/[unlock](https://git-annex.branchable.com/git-annex-unlock/)).
 * There are different rules for making the hash filename that we don't need to
   worry about for now.
 
@@ -82,20 +81,18 @@ might have a subset.  Git-Annex has to keep track of this information, so it
 can `git annex get` any files that the user asks for, that they do not already
 have in their `.git/annex` GAO object store.
 
-Now - your ordinary Git remote — for example `origin` — also functions as a GAR
-— and has its own UUID.  That is because, on your machine, after you `git annex
-add` (or, as you see later `git annex get`) a large file, your own local `.git`
+Here is the confusion — your local Git repository also functions as a GAR — and
+has its own UUID.  That is because, on your machine, after you `git annex add`
+(or, as you see later `git annex get`) a large file, your own local `.git`
 directory will have a copy of the GAO — in `.git/annex/objects`.  So Git-Annex
 has to know that you also have a copy of the file, in your `.git/annex/objects`
 directory, so you or your collaborators can ask for a copy of the file from
 you, if they need to (using `git annex get` etc).
 
 To say it again - a GAR is a different thing from a standard Git remote.  It is
-specifically a place that Git-Annex can store or retrieve GAOs.
-
-But, confusingly, your local `.git` repository store is one such place, that
-you can store GAOs (in `.git/annex`), so it also functions as a GAR, from which
-you, or other people connected to your network, can get GAOs.
+specifically a place that Git-Annex can store or retrieve GAOs. Your local
+`.git` repository store is one such place, so it also functions as a GAR, from
+which you, or other people connected to your network, can get GAOs.
 
 ## Git-Annex metadata
 
@@ -109,7 +106,7 @@ Make a new directory for the git repository, that will soon also be
 Git-annex-enhanced.
 
 ```{code-cell}
-:tags: [hide-input]
+:tags: [remove-cell]
 
 # Clean up any prior runs before we start.
 if [ -d annex-repos ]; then
