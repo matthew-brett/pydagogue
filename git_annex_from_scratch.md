@@ -375,9 +375,9 @@ page on special remotes](https://git-annex.branchable.com/special_remotes).
 
 ## Which files go where
 
-Consider setting `annex.largefiles` entries in your `.gitattributes` file to
-tell Git-Annex which files it should handle (as GAOs) and which Git should
-handle.  See the [annex.largefiles
+Consider setting `annex.largefiles` entries with `git annex config`, or in your
+`.gitattributes` file, to tell Git-Annex which files it should handle (as GAOs)
+and which Git should handle.  See the [annex.largefiles
 page](https://git-annex.branchable.com/tips/largefiles) for details.  Note that
 `annex.largefiles` just identifies files that Git-Annex should handle.  You can
 use values for `annex.largefiles` to make Git-Annex always operate on files
