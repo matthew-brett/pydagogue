@@ -47,6 +47,11 @@ source_suffix = {
     '.ipynb': 'myst-nb',
 }
 
+# ::: {directives}
+myst_enable_extensions = [
+    "colon_fence",
+]
+
 # The encoding of source files.
 #source_encoding = 'utf-8'
 

@@ -171,6 +171,12 @@ Here's the current (default) `.git/config` file.  Remember, this file is local t
 cat .git/config
 ```
 
+By default, Git doesn't have a `pre-commit` file in `hooks`.  We'll see later that Git-Annex adds one.
+
+```{code-cell}
+ls .git/hooks
+```
+
 ### Add Git-Annex features with `git annex init`
 
 Now we overlay the Git-Annex stuff on the normal Git repository:
@@ -219,6 +225,12 @@ identifies this repository store (set of files on disk) with its new UUID.
 
 ```{code-cell}
 cat .git/config
+```
+
+Git-Annex has added a `pre-commit` and other `hooks` to allow it to intercept and modify Git commands.
+
+```{code-cell}
+ls .git/hooks
 ```
 
 ### Adding files with `git annex add`
@@ -619,12 +631,33 @@ But Git-Annex can also have *special remotes*, that have no necessary relationsh
 
 You create special remotes with the `git annex initremote` command.
 
-I say special remotes have no necessary relationship to Git repositories, but you can also label a Git repository as a special remote, using the `--type git` flag to `git annex initremote`.   This stores information in the `git-annex` branch that tells other repositories, that fetch yours, that the labeled Git repository is a known source for annex files, and records its location (where the repository can be found on the web, etc) and its UUID.
+I say special remotes have no necessary relationship to Git repositories, but you can also label a Git repository as a special remote, using the `--type git` flag to `git annex initremote`.  Read the note below for more detail.
 
-I don't
-cover special remotes further here, but see the [Git-Annex page on special
-remotes](https://git-annex.branchable.com/walkthrough/#index12h2), and the [doc
-page on special remotes](https://git-annex.branchable.com/special_remotes).
+::: {note}
+
+By the way, I hate to be confusing, but you will have seen above (with
+`../my-repo`), that Git-Annex can identify repositories as capable of storing
+annex files — a sort of special-remote-in-practice — and it can do this when it
+has some way to read the `.git/config` of the repository, as it can, for
+example when the repository is on the local file-system.  It uses `.git/config`
+to work out what the UUID is of the remote repository.  Adding the repository
+explicitly as a special remote, with `git annex initrepo --type git`, stores
+the UUID in the `git-annex` branch, along with some useful location (such as
+SSH path, filesystem path, etc).  When other repositories clone or otherwise
+update their `git-annex` branch with this information, they can see the stored
+UUID, and therefore use that remote as a Git-Annex special remote.
+
+:::
+
+You can enable known and already-configured special remotes with `git annex
+enableremote <remotename>`.  This tells the local repository that you want to
+be able to use that remote to fetch and store annex files, with `sync` and
+other commands.
+
+I don't cover special remotes further here, but see the [Git-Annex page on
+special remotes](https://git-annex.branchable.com/walkthrough/#index12h2), and
+the [doc page on special
+remotes](https://git-annex.branchable.com/special_remotes).
 
 ## Which files go where
 
@@ -637,9 +670,9 @@ use values for `annex.largefiles` to make Git-Annex always operate on files
 larger than a particular size, but you can also use that setting to configure
 Git / Git-Annex to select files by path name.
 
-Consider using `git annex wanted` commands to tell Git-Annex which remotes
-should house which files.   These rules get stored in the `git-annex` branch.
-See the [Git-Annex wanted
+Consider using `git annex wanted` commands (see above) to tell Git-Annex which
+remotes should house which files.   These rules get stored in the `git-annex`
+branch. See the [Git-Annex wanted
 page](https://git-annex.branchable.com/git-annex-wanted) for more.
 
 ## Whither Git-Annex
