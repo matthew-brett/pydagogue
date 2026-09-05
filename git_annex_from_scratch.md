@@ -102,6 +102,8 @@ branch in the walkthrough below.
 
 ## Walkthrough
 
+### Start with standard Git
+
 Make a new directory for the Git repository, that will soon also be
 Git-Annex-enhanced.
 
@@ -163,6 +165,14 @@ We only have one branch - the default `main` branch:
 git branch -a
 ```
 
+Here's the current (default) `.git/config` file.  Remember, this file is local to the repository, and does not get pushed with a `git push`.  Notice here there is no `[annex]` section.
+
+```{code-cell}
+cat .git/config
+```
+
+### Add Git-Annex features with `git annex init`
+
 Now we overlay the Git-Annex stuff on the normal Git repository:
 
 ```{code-cell}
@@ -204,7 +214,14 @@ other Git-Annex overlaid repositories may be able to use to get those files.
 You can think of it as a remote to *other repositories*, and a local store to
 this one.
 
-+++
+After `git annex init`, the `.git/config` file has an `[annex]` section that
+identifies this repository store (set of files on disk) with its new UUID.
+
+```{code-cell}
+cat .git/config
+```
+
+### Adding files with `git annex add`
 
 Now we'll add some potentially large file, using `git annex add`.  That is going to make a Git-Annex Object (GAO), and leave a pointer (symlink) behind in the working directory.
 
@@ -280,6 +297,8 @@ the symbolic link to the file.  But as we'll see soon, it does know where
 copies of `my_large_file` live, through the information in the `git-annex`
 branch.
 
+### Clones and Git-Annex
+
 To illustrate, if we do a typical clone of this `my-repo` repository, we do not
 have the contents of `my_large_file`; we only have the symlink:
 
@@ -321,6 +340,8 @@ branch) that the `origin` (upstream) repository has that file in its
 git annex list
 ```
 
+### Fetching files with `git annex get`
+
 However, the `git-annex` remote branch has told it where we might find the file
 (see [Git-Annex internals](https://git-annex.branchable.com/internals)).
 Notice the suggestion generated during the failure:
@@ -361,15 +382,247 @@ git annex list
 file my_large_file
 ```
 
-## The special remotes
+## Copying annex files with `git annex copy`
+
+```{code-cell}
+# Make another pretend large file.
+echo "More large" > another_large_file
+# Calculate, store, show hash of file.
+alf_hash=$(shasum another_large_file)
+echo $alf_hash
+```
+
+```{code-cell}
+# Add it to the Annex
+git annex add another_large_file
+# It's a symlink now.
+ls -al another_large_file
+```
+
+```{code-cell}
+git commit -m "Add another large file"
+```
+
+We have this file in `my-repo-clone`, but the original `my-repo` does not:
+
+```{code-cell}
+git annex list
+```
+
+```{code-cell}
+# Notice we have the bytes of another_large_file
+# (identified by the shasum, run above), as well as
+# the original my_large_file
+echo "SHA of another_large_file: $alf_hash"
+echo "SHA of files in git annex objects directories:"
+shasum .git/annex/objects/*/*/*/*
+```
+
+We can send our file to the original `my-repo`:
+
+```{code-cell}
+# Not there at the moment:
+shasum ../my-repo/.git/annex/objects/*/*/*/*
+```
+
+```{code-cell}
+git annex copy another_large_file --to original-repo
+```
+
+```{code-cell}
+# It arrived.
+shasum ../my-repo/.git/annex/objects/*/*/*/*
+```
+
+## The awe-inspiring power of `git annex sync`
+
++++
+
+Let's add another file.
+
+```{code-cell}
+echo "More larger still" > yet_another_large_file
+git annex add yet_another_large_file
+git commit -m "Add yet another large file"
+```
+
+```{code-cell}
+# This repo is the only one with this file.
+git annex list
+```
+
+```{code-cell}
+# The current known git branches
+git fetch original-repo  # In fact this has not changed.
+git branch -av
+```
+
+I'm now going to run [git annex sync](https://git-annex.branchable.com/sync/) without qualification.  This does a rather extreme Git and Git-Annex synchronization of this repository with the other repositories known to Git-Annex.
+
+Read the linked documentation page.  Usually, with Git, you do not push directly to remotes, other than a single source-of-truth remote, and that remote is typically a `--bare` remote - it does not have a working tree.  If it does have a working tree, Git will, by default, warn you about this and decline, because it is so easy for the branch to get out of sync with the working tree.
+
+However, Git-Annex `sync`, by default, takes a different approach - as it is so common to want to keep both Git history and the Git-Annex files in sync between repositories.
+
+As you'll see in the linked documentation, by default, Git-Annex applies a synchronization scheme devised by Joachim Breitner, involving a special set of branches with names starting `synced/`.  As we're currently on the `main` branch, the corresponding `synced/` branch is `synced/main`.
+
+In particular `git annex sync`, by default, does the following:
+
+1. Automatically commits any changes in the working tree (configure with the
+   `annex.autocommit` setting, see below).
+1. Merges the `synced/main` branch (in our case) (if we have one) into `main`.
+   This pulls in any Git history and files that a previous `git annex sync`
+   pushed into our repository.  In our case, we do not have such a branch,
+   because no-one has done a `git annex sync` to us.
+2. Fetches from each remote, and merges in any changes from other remotes.
+3. Pushes (in our case) `main` directly to any remotes.  Where Git prevents
+   pushing to a branch with a working tree, it instead pushes to `synced/main`
+   (in our case).
+4. Copies any annexed files that the remote repository "wants".  "Wanting" is
+   something you need to configure per repository.  We haven't done that yet, so no content gets copied
+
+```{code-cell}
+git annex sync
+```
+
+We note, and then ignore, that the repos to which we have synced now have `synced/git-annex` branches.   This is not important for our purposes.
+
+Notice too that the original repo (but not the upstream `origin` repo) has
+a new branch `synced/main`, because here, as is the default, Git did not allow
+a push directly to the current branch of a non-bare repository (a repository
+with a working tree).
+
+```{code-cell}
+git branch -av
+```
+
+In our case, sync does not copy the annex content to the original repository, because we haven't told Git-Annex that that remote "wants" these files yet.
+
+```{code-cell}
+git annex list
+```
+
+Let's configure the wanted setting for the original repository:
+
+```{code-cell}
+git annex wanted original-repo "include=*_large_file"
+```
+
+Re-run `git annex sync`, now Git-Annex knows the file is wanted:
+
+```{code-cell}
+git annex sync
+git annex list
+```
+
+## You might want to constrain `git annex sync`
+
++++
+
+First, you might have noted the first step in the sync above; `git annex sync`, by default, automatically does a commit of any changes to the working tree before it starts.
+
+We make some staged and unstaged changes to the working tree:
+
+```{code-cell}
+# Show the last commit
+git log -1
+```
+
+```{code-cell}
+# Make a new file
+echo "A file" > a_file
+# Stage it.
+git add a_file
+# Make some more unstaged changes to file.
+echo "Another line" >> a_file
+git status
+```
+
+Now:
+
+```{code-cell}
+git annex sync
+```
+
+```{code-cell}
+# Sync committed the staged and unstaged changes.
+git status
+```
+
+```{code-cell}
+# We have a new automated commit.
+git log -1
+```
+
+You will see that sync made a new commit for you.   You might want that, but I do not, and I turn it off thus:
+
+```{code-cell}
+# Don't do automatic worktree commits.
+git annex config --set annex.autocommit false
+```
+
+Now back to the merges.  As you can imagine, whenever you push directly into
+another branch, with a history that is not fast-forward, you can get merge
+conflicts. That means that, if you are not careful, `git annex sync` will
+generate merge conflicts, either pulling into our repo, or pushing into
+another.  As usual, merge conflicts can be obscure and difficult to resolve.
+These forced merges also make it harder to think about what Git is doing, and
+for many of us, that makes the process more obscure.  Combining the possibility
+of merge conflicts with Git-Annex as an extra layer on top of Git, makes things
+even more difficult.
+
+Therefore, I suggest that you, like me, tell Git-Annex not to apply this synced
+merge strategy, and instead, do Git pushes manually.
+
+We make another commit just for the illustration:
+
+```{code-cell}
+echo "Yet another another" > yet_yet_another_large_file
+git annex add yet_yet_another_large_file
+git commit -m "Another another large file"
+```
+
+You can turn off Git-Annex' synced merge behavior for your repository with:
+
+```{code-cell}
+# Sync content only, not Git branches.
+git annex config --set annex.synconlyannex true
+```
+
+Now:
+
+```{code-cell}
+git annex sync
+```
+
+Notice that the commit didn't get sent to the remotes, but the large file did:
+
+```{code-cell}
+git branch -av
+```
+
+```{code-cell}
+git annex list
+```
+
+We send the commit manually:
+
+```{code-cell}
+git push origin main
+```
+
+# The special remotes
 
 As you have seen, Git-Annex can use Git repositories on filesystems as storage
 for GAOs — in the repository `.git/annex` directory.
 
 But Git-Annex can also have *special remotes*, that have no necessary relationship to Git repositories.  For example, they can work with directories on file-sharing systems such as Dropbox and Google Drive.
 
-You create special remotes with the `git annex initremote` command. I don't
-cover those here, but see the [Git-Annex page on special
+You create special remotes with the `git annex initremote` command.
+
+I say special remotes have no necessary relationship to Git repositories, but you can also label a Git repository as a special remote, using the `--type git` flag to `git annex initremote`.   This stores information in the `git-annex` branch that tells other repositories, that fetch yours, that the labeled Git repository is a known source for annex files, and records its location (where the repository can be found on the web, etc) and its UUID.
+
+I don't
+cover special remotes further here, but see the [Git-Annex page on special
 remotes](https://git-annex.branchable.com/walkthrough/#index12h2), and the [doc
 page on special remotes](https://git-annex.branchable.com/special_remotes).
 
