@@ -20,11 +20,18 @@ runs:
         pip install -r requirements.txt
         python -m bash_kernel.install
 
+    - name: Install uv
+      uses: astral-sh/setup-uv@v10.3.3
+
     - name: Install tree and git-annex
       shell: bash
       run: |
         sudo apt update
-        sudo apt install tree git-annex
+        sudo apt install tree libmagic-mgc
+        uv tool install 'git-annex==10.20261026'
+        bin_dir="$(uv tool dir --bin)"
+        echo "$bin_dir" >> "$GITHUB_PATH"
+        export PATH="$bin_dir:$PATH"
         git annex version
 
     - name: Configure Git

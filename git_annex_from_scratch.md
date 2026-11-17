@@ -519,7 +519,9 @@ Let's configure the wanted setting for the original repository:
 git annex wanted original-repo "include=*_large_file"
 ```
 
-Re-run `git annex sync`, now Git-Annex knows the file is wanted:
+Re-run `git annex sync`. As long as you have a recent version of Git-Annex (>=
+10.20260520) it automatically detects the file is wanted and puts it into the
+GAR.
 
 ```{code-cell}
 git annex sync
