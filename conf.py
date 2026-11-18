@@ -26,11 +26,16 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.doctest',
               'sphinx.ext.mathjax',
               'sphinx_autorun',
+              'autorun_progress',
               'writefile',
               'myst_nb']
 
 # Defaults hide source for runblock:: pycon
 autorun_languages = {'pycon_show_source': True}
+
+# Drop partial percent-progress meters from runblock output, keeping each
+# run's final 100% line.  A block can opt out with :no-suppress-progress:.
+autorun_suppress_progress = True
 
 # Execute MyST Markdown notebooks (e.g. bash kernel pages)
 nb_execution_mode = 'force'
