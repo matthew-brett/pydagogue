@@ -2,6 +2,7 @@ name: Linkcheck
 
 on:
   pull_request:
+  workflow_dispatch:
   schedule:
     # Mondays 06:00 UTC — catch link rot on main
     - cron: '0 6 * * 1'
